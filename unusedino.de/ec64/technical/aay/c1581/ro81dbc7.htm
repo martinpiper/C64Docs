@@ -1,0 +1,78 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Patches
+
+FSM: Schieberegister initialisieren
+
+[Bsp.: Wenn erst der Computer und dann die 1581 eingeschaltet wird, kann es
+ vorkommen, dass im Computer irrtuemlich ein paar Bits 'empfangen' werden.
+ Bei einer Datenuebertragung wuerde der Computer anschliessend alle Bits
+ verschoben empfangen.
+ Beim Umschalten der Datenrichtung des SDR wird deshalb der Schiebezaehler
+ initialisiert und dadurch die Datenuebertragung synchronisiert.
+ Sollen aber z.B. Daten empfangen werden und steht das SDR bereits auf
+ Eingang, findet keine Synchronisation statt, weil sich die Datenrichtung
+ ja nicht aendert. Deshalb wird grundsaetzlich vor einer Datenuebertragung
+ mehrmals die Datenrichtung geaendert und dadurch die Synchronitaet
+ gewaehrleistet.]
+
+- FSM auf Eingabe schalten
+
+Einsprung von <a href="ro81acb6.htm">$ACC2</a>:
+
+DBC7: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        SDR auf Eingang schalten
+DBCA: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Bustreiber auf Ausgang schalten
+DBCD: 09 20     ORA #$20         [um einen Kurzschluss zwischen Treiber und
+DBCF: 8D 01 40  STA <a href="cia811.htm">$4001</a>         SDR zu verhindern]
+DBD2: AD 0E 40  LDA <a href="cia81e.htm">$400E</a>        SDR auf Ausgang schalten
+DBD5: 09 40     ORA #$40
+DBD7: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        SDR auf Eingang schalten
+DBDA: 29 BF     AND #$BF
+DBDC: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>
+DBDF: 60        RTS
+
+- FSM auf Ausgabe schalten
+
+Einsprung von <a href="ro81accf.htm">$ACE3</a>:
+
+DBE0: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        SDR auf Eingang schalten
+DBE3: 29 BF     AND #$BF
+DBE5: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        SDR auf Ausgang schalten
+DBE8: 09 40     ORA #$40
+DBEA: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>
+DBED: 60        RTS
+
+Scratch-Erweiterung
+
+Einsprung von <a href="ro818688.htm">$86D8</a>:
+
+DBEE: 20 15 B5  JSR <a href="ro81b515.htm">$B515</a>        BAM speichern
+DBF1: 4C 01 87  JMP <a href="ro818688.htm">$8701</a>
+
+'Query Disk Format'-Erweiterung: erste Tracknummer feststellen
+
+Einsprung von <a href="ro81be06.htm">$BE0F</a>:
+
+DBF4: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job ($c0: 'Restore') ausfuehren
+DBF7: C9 02     CMP #$02         Fehler ?
+DBF9: B0 05     BCS $DC00        ( a&gt;=2, ==&gt; )
+DBFB: A9 B0     LDA #$B0         SEEKHD_DV: Diskette anmelden
+DBFD: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job ausfuehren
+
+Einsprung von $DBF9:
+
+DC00: 60        RTS
+DC01: 28 43 29 31 39 38 37 20  (c)1987
+DC09: 43 4F 4D 4D 4F 44 4F 52  commodor
+DC11: 45 20 45 4C 45 43 54 52  e electr
+DC19: 4F 4E 49 43 53 20 4C 54  onics lt
+DC21: 44 2E 2C 20 41 4C 4C 20  d., all
+DC29: 52 49 47 48 54 53 20 52  rights r
+DC31: 45 53 45 52 56 45 44     eserved
+DC38: FF ....
+FEFF: .... FF
+
+    <a href="ro81dafd.htm">Previous Page</a> / <a href="ro81ff00.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,67 @@
+<html>
+
+<head>
+<title>1541/1571 40/42 Pin Gate Array</title>
+</head>
+
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+
+                 1541/1571 40/42 Pin Gate Arrays
+
+Parallel/Serial Data Conversion
+R/W Control Logic
+Stepper Motor Control
+Spindle Motor On/Off Driver (325572)
+CPU Control (251828)
+
+         64H105                                  64H156
+        325572-01                         251828-01(251828-02)
+    1541/1541A/SX-64                    1541B/1541C/1541-II/1571
+      _____________                           _____________
+     |     |_|     |                         |     |_|     |
+ Vcc | 1        40 | B                  TEST | 1    40(42) |-BYTE
+  -B | 2        39 |-BYTE                YB0 | 2    39(41) | SOE
+  -Q | 3        38 | SOE                 YB1 | 3    38(40) | B
+   Q | 4        37 |-SYNC                YB2 | 4    37(39) | CK
+-MTR | 5        36 | OE                  YB3 | 5    36(38) |-XQ
+  -A | 6        35 | YB7                 YB4 | 6    35(37) | Q
+     | 7        34 | YB6                 YB5 | 7    34(36) | R/W
+ MTR | 8        33 |                     YB6 | 8    33(35) | LOCK
+     | 9        32 | YB5                 YB7 | 9    32(34) | PLL
+STP0 | 10       31 | YB4                 VSS | 10   31(33) | CLR
+     | 11       30 | YB3                STP1 | 11   30(32) | VCC
+STP1 | 12       29 | YB2                STP0 | 12   29(31) |-XRW
+     | 13       28 |                     MTR | 13   28(30) | Y3
+     | 14       27 | YB1                  -A | 14   27(29) | Y2
+  Y3 | 15       26 | YB0                 DS0 | 15   26(28) | Y1
+  Y2 | 16       25 | Q-OUT               DS1 | 16   25(27) | Y0
+  Y1 | 17       24 | D-IN              -SYNC | 17   24(26) | ATN
+  Y0 | 18       23 | CLK-IN              TED | 18   23(25) | ATNI
+ CLK | 19       22 | LOAD                 OE | 19   22(24) | ATNA
+ Vss | 20       21 | CLR               -ACCL | 20   21(23) | OSC
+     |_____________|                     Vcc | (21)   (22) | Vss
+                                             |_____________|
+
+
+               1541B/1541C/1571 20 Pin Gate Array
+
+                                                 64H157
+                                                251829-01
+                                                _________
+Similar to PLS159                              |   |_|   |
+Address Selector                           OSC | 1    20 |-RAME
+Saddle Canceller                          SYNC | 2    19 |-IO1
+Motor Speed Compensator (PLL)             DATA | 3    18 |-IO2
+                                          TEST | 4    17 |-CS1
+                                           Vss | 5    16 |-CS2
+                                           A15 | 6    15 | Vcc
+                                           A14 | 7    14 |-ROME
+                                           A13 | 8    13 | LOCK
+                                           A12 | 9    12 | PLL
+                                           A10 | 10   11 | CLR
+                                               |_________|
+</pre></td></tr></table></center>
+</body>
+
+</html>

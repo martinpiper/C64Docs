@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Drive initialisieren, LED einschalten ($c3ca)
+
+Einsprung von <a href="ro8182b9.htm">$82B9</a>, <a href="ro818688.htm">$868E</a>, <a href="ro819678.htm">$9702</a>, <a href="ro8198f7.htm">$993F</a>:
+
+82A2: A9 00     LDA #$00
+82A4: 85 40     STA <a href="ra8140.htm">$40</a>          (keine sichtbare Verwendung)
+82A6: 8D A4 02  STA <a href="ra8102a4.htm">$02A4</a>        (Drivenummer ?)
+
+82A9: 8D A3 02  STA <a href="ra8102a3.htm">$02A3</a>        Anzahl Laufwerke = 0 (= 1 Laufwerk)
+82AC: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        ggf. Partition initialisieren
+82AF: F0 05     BEQ $82B6        OK. ==&gt;
+82B1: A9 74     LDA #$74         74, DRIVE NOT READY
+82B3: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>        Ende
+
+Einsprung von $82AF:
+
+82B6: 4C F6 81  JMP <a href="ro8181e5.htm">$81F6</a>        Drive-LED-Flag setzen
+
+    <a href="ro818295.htm">Previous Page</a> / <a href="ro8182b9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

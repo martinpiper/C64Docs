@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C6A6/50854:   Search for end of name in command
+
+Jump from <a href="ro41c4d8.htm">$C502</a>, <a href="ro41c66e.htm">$C66F</a>:
+
+C6A6: A9 00     LDA #$00
+C6A8: 8D 4B 02  STA <a href="ra41024b.htm">$024B</a>
+C6AB: 8A        TXA
+C6AC: 48        PHA
+
+Jump from $C6C6:
+
+C6AD: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; get characters out of buffer
+C6B0: C9 2C     CMP #$2C        ; ','
+C6B2: F0 14     BEQ $C6C8
+C6B4: C9 3D     CMP #$3D        ; '='
+C6B6: F0 10     BEQ $C6C8
+C6B8: EE 4B 02  INC <a href="ra41024b.htm">$024B</a>       ; increment length of name
+C6BB: E8        INX
+C6BC: A9 0F     LDA #$0F        ; 15
+C6BE: CD 4B 02  CMP <a href="ra41024b.htm">$024B</a>
+C6C1: 90 05     BCC $C6C8       ; greater?
+C6C3: EC 74 02  CPX <a href="ra410274.htm">$0274</a>       ; end of input line?
+C6C6: 90 E5     BCC $C6AD
+
+Jump from $C6B2, $C6B6, $C6C1:
+
+C6C8: 8E 76 02  STX <a href="ra410276.htm">$0276</a>
+C6CB: 68        PLA
+C6CC: AA        TAX             ; pointer to end of name
+C6CD: 60        RTS
+
+    <a href="ro41c688.htm">Previous Page</a> / <a href="ro41c6ce.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

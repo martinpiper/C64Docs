@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Daten vom Puffer in den Cache kopieren
+E: x  : x mal 256 Bytes
+   $4a: Bereich im Cache
+   $48: Pufferanfang
+
+Controller-Programm 3
+
+D00D: 41 4D 20 49 20 49 20 5A  am i laz
+D014: 59 3F 3F 3F 2E 2E 2E 4E  y???...n
+D01D: 4F 20 4A 55 53 54 20 57  o just w
+D024: 41 4E 54 45 44 20 54 4F  anted to
+D02D: 20 53 41 56 45 20 41 20   save a
+D034: 46 45 57 20 4D 53 2E 2E  few ms..
+D03D: 2E                       .
+
+Einsprung von $D545, <a href="ro81cea4.htm">$CED6</a>, <a href="ro81cf51.htm">$CF8F</a>:
+
+D03E: B1 48     LDA (<a href="ra8148.htm">$48</a>),Y
+D040: 91 4A     STA (<a href="ra814a.htm">$4A</a>),Y
+D042: C8        INY
+D043: B1 48     LDA (<a href="ra8148.htm">$48</a>),Y
+D045: 91 4A     STA (<a href="ra814a.htm">$4A</a>),Y
+D047: C8        INY
+.....                            [insgesamt 256 mal]
+D539: B1 48     LDA (<a href="ra8148.htm">$48</a>),Y
+D53B: 91 4A     STA (<a href="ra814a.htm">$4A</a>),Y
+D53D: C8        INY
+D53E: CA        DEX              schon alle Bloecke kopiert ?
+D53F: F0 07     BEQ $D548        ja, ==&gt;
+D541: E6 49     INC <a href="ra8148.htm">$49</a>          Hi-Bytes erhoehen
+D543: E6 4B     INC <a href="ra814a.htm">$4B</a>
+D545: 4C 3E D0  JMP $D03E
+
+Einsprung von $D53F:
+
+D548: 60        RTS
+
+    <a href="ro81cfe3.htm">Previous Page</a> / <a href="ro81d549.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

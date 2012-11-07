@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E30E/58126:   Evaluate &lt;atn&gt;
+
+E30E: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+E310: 48        <a href="bpha.htm">PHA</a>
+E311: 10 03     <a href="bbpl.htm">BPL</a> $E316
+E313: 20 B4 BF  <a href="bjsr.htm">JSR</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+
+Jump from $E311:
+
+E316: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+E318: 48        <a href="bpha.htm">PHA</a>
+E319: C9 81     <a href="bcmp.htm">CMP</a> #$81
+E31B: 90 07     <a href="bbcc.htm">BCC</a> $E324
+E31D: A9 BC     <a href="blda.htm">LDA</a> #$BC
+E31F: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+E321: 20 0F BB  <a href="bjsr.htm">JSR</a> <a href="rombb0f.htm">$BB0F</a>     ; Divide FAC#2 by FAC#1
+
+Jump from $E31B:
+
+E324: A9 3E     <a href="blda.htm">LDA</a> #$3E
+E326: A0 E3     <a href="bldy.htm">LDY</a> #$E3
+E328: 20 43 E0  <a href="bjsr.htm">JSR</a> <a href="rome043.htm">$E043</a>     ; Series Evaluation
+E32B: 68        <a href="bpla.htm">PLA</a>
+E32C: C9 81     <a href="bcmp.htm">CMP</a> #$81
+E32E: 90 07     <a href="bbcc.htm">BCC</a> $E337
+E330: A9 E0     <a href="blda.htm">LDA</a> #$E0
+E332: A0 E2     <a href="bldy.htm">LDY</a> #$E2
+E334: 20 50 B8  <a href="bjsr.htm">JSR</a> <a href="romb850.htm">$B850</a>     ; Perform Subtraction
+
+Jump from $E32E:
+
+E337: 68        <a href="bpla.htm">PLA</a>
+E338: 10 03     <a href="bbpl.htm">BPL</a> $E33D
+E33A: 4C B4 BF  <a href="bjmp.htm">JMP</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+
+Jump from $E338:
+
+E33D: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome309.htm">Previous Page</a> / <a href="rome33e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

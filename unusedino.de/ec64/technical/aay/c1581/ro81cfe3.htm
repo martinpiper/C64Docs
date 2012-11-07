@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Precompensation ein/ausschalten
+
+Einsprung von <a href="ro81c3d6.htm">$C3DB</a>, <a href="ro81c600.htm">$C60F</a>:
+
+CFE3: 38        SEC              a: zu bearbeitende Spur
+CFE4: E5 94     SBC <a href="ra8194.htm">$94</a>          - ersten Sektor auf Spur [????]
+CFE6: C9 2B     CMP #$2B         &lt;43 ?
+CFE8: 90 12     BCC $CFFC        ja, ==&gt;
+
+CFEA: AD E0 01  LDA <a href="ra8101e0.htm">$01E0</a>        ausschalten
+CFED: 09 02     ORA #$02
+CFEF: 8D E0 01  STA <a href="ra8101e0.htm">$01E0</a>        'Write Sector'
+CFF2: AD E3 01  LDA <a href="ra8101e3.htm">$01E3</a>
+CFF5: 09 02     ORA #$02
+CFF7: 8D E3 01  STA <a href="ra8101e3.htm">$01E3</a>        'Write Track'
+CFFA: B0 10     BCS $D00C        ==&gt;
+
+Einsprung von $CFE8:
+
+CFFC: AD E0 01  LDA <a href="ra8101e0.htm">$01E0</a>        Precompensation einschalten
+CFFF: 29 FD     AND #$FD
+D001: 8D E0 01  STA <a href="ra8101e0.htm">$01E0</a>        'Write Sector'
+D004: AD E3 01  LDA <a href="ra8101e3.htm">$01E3</a>
+D007: 29 FD     AND #$FD
+D009: 8D E3 01  STA <a href="ra8101e3.htm">$01E3</a>        'Write Track'
+
+Einsprung von $CFFA:
+
+D00C: 60        RTS
+
+    <a href="ro81cfd1.htm">Previous Page</a> / <a href="ro81d00d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E6AB/59051:   Convert BCD to 2-Ascii (error message buffer)
+
+Jump from <a href="ro41e6c7.htm">$E6D1</a>:
+
+E6AB: AA        TAX
+E6AC: 4A        LSR
+E6AD: 4A        LSR             ; shift hi-nibble down
+E6AE: 4A        LSR
+E6AF: 4A        LSR
+E6B0: 20 B4 E6  JSR $E6B4       ; convert to ASCII
+E6B3: 8A        TXA
+
+Jump from $E6B0:
+
+E6B4: 29 0F     AND #$0F        ; erase top 4 bits
+E6B6: 09 30     ORA #$30        ; add '0'
+E6B8: 91 A5     STA (<a href="ra41a5.htm">$A5</a>),Y     ; write in buffer
+E6BA: C8        INY             ; increment buffer pointer
+E6BB: 60        RTS
+
+    <a href="ro41e69b.htm">Previous Page</a> / <a href="ro41e6bc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,97 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A69C/42652:   Perform [list]
+
+A69C: 90 06     <a href="bbcc.htm">BCC</a> $A6A4
+A69E: F0 04     <a href="bbeq.htm">BEQ</a> $A6A4
+A6A0: C9 AB     <a href="bcmp.htm">CMP</a> #$AB
+A6A2: D0 E9     <a href="bbne.htm">BNE</a> <a href="roma65e.htm">$A68D</a>     ; Perform [clr]
+
+Jump from $A69C, $A69E:
+
+A6A4: 20 6B A9  <a href="bjsr.htm">JSR</a> <a href="roma96b.htm">$A96B</a>     ; Fetch linnum From BASIC
+A6A7: 20 13 A6  <a href="bjsr.htm">JSR</a> <a href="roma613.htm">$A613</a>     ; Search for Line Number
+A6AA: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+A6AD: F0 0C     <a href="bbeq.htm">BEQ</a> $A6BB
+A6AF: C9 AB     <a href="bcmp.htm">CMP</a> #$AB
+A6B1: D0 8E     <a href="bbne.htm">BNE</a> <a href="roma613.htm">$A641</a>     ; Search for Line Number
+A6B3: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A6B6: 20 6B A9  <a href="bjsr.htm">JSR</a> <a href="roma96b.htm">$A96B</a>     ; Fetch linnum From BASIC
+A6B9: D0 86     <a href="bbne.htm">BNE</a> <a href="roma613.htm">$A641</a>     ; Search for Line Number
+
+Jump from $A6AD:
+
+A6BB: 68        <a href="bpla.htm">PLA</a>
+A6BC: 68        <a href="bpla.htm">PLA</a>
+A6BD: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A6BF: 05 15     <a href="bora.htm">ORA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A6C1: D0 06     <a href="bbne.htm">BNE</a> $A6C9
+A6C3: A9 FF     <a href="blda.htm">LDA</a> #$FF
+A6C5: 85 14     <a href="bsta.htm">STA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A6C7: 85 15     <a href="bsta.htm">STA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+
+Jump from $A6C1, $A712:
+
+A6C9: A0 01     <a href="bldy.htm">LDY</a> #$01
+A6CB: 84 0F     <a href="bsty.htm">STY</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+A6CD: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A6CF: F0 43     <a href="bbeq.htm">BEQ</a> $A714
+A6D1: 20 2C A8  <a href="bjsr.htm">JSR</a> <a href="roma82c.htm">$A82C</a>     ; Perform [stop]
+A6D4: 20 D7 AA  <a href="bjsr.htm">JSR</a> <a href="romaad7.htm">$AAD7</a>     ; Output CR/LF
+A6D7: C8        <a href="biny.htm">INY</a>
+A6D8: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A6DA: AA        <a href="btax.htm">TAX</a>
+A6DB: C8        <a href="biny.htm">INY</a>
+A6DC: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A6DE: C5 15     <a href="bcmp.htm">CMP</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A6E0: D0 04     <a href="bbne.htm">BNE</a> $A6E6
+A6E2: E4 14     <a href="bcpx.htm">CPX</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A6E4: F0 02     <a href="bbeq.htm">BEQ</a> $A6E8
+
+Jump from $A6E0:
+
+A6E6: B0 2C     <a href="bbcs.htm">BCS</a> $A714
+
+Jump from $A6E4:
+
+A6E8: 84 49     <a href="bsty.htm">STY</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A6EA: 20 CD BD  <a href="bjsr.htm">JSR</a> <a href="rombdcd.htm">$BDCD</a>     ; Output Positive Integer in A/X
+A6ED: A9 20     <a href="blda.htm">LDA</a> #$20
+
+Jump from <a href="roma717.htm">$A73B</a>:
+
+A6EF: A4 49     <a href="bldy.htm">LDY</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A6F1: 29 7F     <a href="band.htm">AND</a> #$7F
+
+Jump from <a href="roma717.htm">$A71A</a>, <a href="roma717.htm">$A71E</a>, <a href="roma717.htm">$A722</a>:
+
+A6F3: 20 47 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB47</a>     ; Output Format Character
+A6F6: C9 22     <a href="bcmp.htm">CMP</a> #$22
+A6F8: D0 06     <a href="bbne.htm">BNE</a> $A700
+A6FA: A5 0F     <a href="blda.htm">LDA</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+A6FC: 49 FF     <a href="beor.htm">EOR</a> #$FF
+A6FE: 85 0F     <a href="bsta.htm">STA</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+
+Jump from $A6F8:
+
+A700: C8        <a href="biny.htm">INY</a>
+A701: F0 11     <a href="bbeq.htm">BEQ</a> $A714
+A703: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A705: D0 10     <a href="bbne.htm">BNE</a> <a href="roma717.htm">$A717</a>     ; Handle LIST Character
+A707: A8        <a href="btay.htm">TAY</a>
+A708: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A70A: AA        <a href="btax.htm">TAX</a>
+A70B: C8        <a href="biny.htm">INY</a>
+A70C: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A70E: 86 5F     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A710: 85 60     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A712: D0 B5     <a href="bbne.htm">BNE</a> $A6C9
+
+Jump from $A6CF, $A6E6, $A701:
+
+A714: 4C 86 E3  <a href="bjmp.htm">JMP</a> <a href="rome37b.htm">$E386</a>     ; BASIC Warm Start [RUNSTOP-RESTORE]
+
+    <a href="roma68e.htm">Previous Page</a> / <a href="roma717.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

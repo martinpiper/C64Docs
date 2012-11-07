@@ -1,0 +1,148 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C6DE/50910:   ?
+
+Jump from <a href="ro41c6ce.htm">$C6D4</a>:
+
+C6DE: A9 11     LDA #$11        ; 17
+C6E0: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+C6E2: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open channel to read
+C6E5: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+C6E8: AD 53 02  LDA <a href="ra410253.htm">$0253</a>
+C6EB: 10 0A     BPL $C6F7       ; not yet last entry?
+C6ED: AD 8D 02  LDA <a href="ra41028d.htm">$028D</a>
+C6F0: D0 0A     BNE $C6FC
+C6F2: 20 06 C8  JSR <a href="ro41c806.htm">$C806</a>       ; write 'blocks free.'
+C6F5: 18        CLC
+C6F6: 60        RTS
+
+Jump from $C6EB:
+
+C6F7: AD 8D 02  LDA <a href="ra41028d.htm">$028D</a>
+C6FA: F0 1F     BEQ $C71B
+
+Jump from $C6F0:
+
+C6FC: CE 8D 02  DEC <a href="ra41028d.htm">$028D</a>
+C6FF: D0 0D     BNE $C70E
+C701: CE 8D 02  DEC <a href="ra41028d.htm">$028D</a>
+C704: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>       ; change drive
+C707: 20 06 C8  JSR <a href="ro41c806.htm">$C806</a>       ; write 'blocks free.'
+C70A: 38        SEC
+C70B: 4C 8F C3  JMP <a href="ro41c38f.htm">$C38F</a>       ; change drive
+
+Jump from $C6FF:
+
+C70E: A9 00     LDA #$00
+C710: 8D 73 02  STA <a href="ra410272.htm">$0273</a>       ; drive no. for header, hi-byte
+C713: 8D 8D 02  STA <a href="ra41028d.htm">$028D</a>
+C716: 20 B7 C7  JSR <a href="ro41c7b7.htm">$C7B7</a>       ; write header
+C719: 38        SEC
+C71A: 60        RTS
+
+Jump from $C6FA:
+
+C71B: A2 18     LDX #$18
+C71D: A0 1D     LDY #$1D
+C71F: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; number of blocks hi
+C721: 8D 73 02  STA <a href="ra410272.htm">$0273</a>       ; in buffer
+C724: F0 02     BEQ $C728       ; zero?
+C726: A2 16     LDX #$16
+
+Jump from $C724:
+
+C728: 88        DEY
+C729: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; number of blocks lo
+C72B: 8D 72 02  STA <a href="ra410272.htm">$0272</a>       ; in buffer
+C72E: E0 16     CPX #$16
+C730: F0 0A     BEQ $C73C
+C732: C9 0A     CMP #$0A        ; 10
+C734: 90 06     BCC $C73C
+C736: CA        DEX
+C737: C9 64     CMP #$64        ; 100
+C739: 90 01     BCC $C73C
+C73B: CA        DEX
+
+Jump from $C730, $C734, $C739:
+
+C73C: 20 AC C7  JSR <a href="ro41c7ac.htm">$C7AC</a>       ; erase buffer
+C73F: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; file type
+C741: 48        PHA
+C742: 0A        ASL             ; bit 7 in carry
+C743: 10 05     BPL $C74A       ; bit 6 not set?
+C745: A9 3C     LDA #$3C        ; '&lt;' for protected file
+C747: 9D B2 02  STA <a href="ra4102b1.htm">$02B2</a>,X     ; write behind file type
+
+Jump from $C743:
+
+C74A: 68        PLA
+C74B: 29 0F     AND #$0F        ; isolate bits 0-3
+C74D: A8        TAY             ; as file type marker
+C74E: B9 C5 FE  LDA <a href="ro41fec5.htm">$FEC5</a>,Y     ; 3rd letter of the file type
+C751: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; in buffer
+C754: CA        DEX
+C755: B9 C0 FE  LDA <a href="ro41fec0.htm">$FEC0</a>,Y     ; 2nd letter of the file type
+C758: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; in buffer
+C75B: CA        DEX
+C75C: B9 BB FE  LDA <a href="ro41febb.htm">$FEBB</a>,Y     ; 1st letter of the file type
+C75F: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; in buffer
+C762: CA        DEX
+C763: CA        DEX
+C764: B0 05     BCS $C76B       ; file not closed?
+C766: A9 2A     LDA #$2A        ; '*'
+C768: 9D B2 02  STA <a href="ra4102b1.htm">$02B2</a>,X     ; before file type in buffer
+
+Jump from $C764:
+
+C76B: A9 A0     LDA #$A0        ; pad with 'shift blank'
+C76D: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; in buffer
+C770: CA        DEX
+C771: A0 12     LDY #$12
+
+Jump from $C77C:
+
+C773: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; filenames
+C775: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; write in buffer
+C778: CA        DEX
+C779: 88        DEY
+C77A: C0 03     CPY #$03
+C77C: B0 F5     BCS $C773
+C77E: A9 22     LDA #$22        ; '='
+C780: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; write before file type
+
+Jump from $C791:
+
+C783: E8        INX
+C784: E0 20     CPX #$20
+C786: B0 0B     BCS $C793
+C788: BD B1 02  LDA <a href="ra4102b1.htm">$02B1</a>,X     ; character from buffer
+C78B: C9 22     CMP #$22        ; '='?
+C78D: F0 04     BEQ $C793
+C78F: C9 A0     CMP #$A0        ; 'shift blank' at end of name
+C791: D0 F0     BNE $C783
+
+Jump from $C786, $C78D:
+
+C793: A9 22     LDA #$22        ; fill through '='
+C795: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X
+
+Jump from $C7A5:
+
+C798: E8        INX
+C799: E0 20     CPX #$20
+C79B: B0 0A     BCS $C7A7
+C79D: A9 7F     LDA #$7F        ; bit 7
+C79F: 3D B1 02  AND <a href="ra4102b1.htm">$02B1</a>,X
+C7A2: 9D B1 02  STA <a href="ra4102b1.htm">$02B1</a>,X     ; erase in the remaining chars
+C7A5: 10 F1     BPL $C798
+
+Jump from $C79B:
+
+C7A7: 20 B5 C4  JSR <a href="ro41c48b.htm">$C4B5</a>       ; search for the directory entry
+C7AA: 38        SEC
+C7AB: 60        RTS
+
+    <a href="ro41c6ce.htm">Previous Page</a> / <a href="ro41c7ac.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

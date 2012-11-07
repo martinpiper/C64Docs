@@ -1,0 +1,346 @@
+<html>
+
+<head>
+	<title>linuxassembly.org - Using the raw keyboard mode under Linux</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+	<h1 align="center">Using the raw keyboard mode under Linux</h1>
+	<p align="center"><font size="-1">by <a href="mailto:linuxassembly@unusedino.de">Karsten Scheibler</a></font></p>
+
+	<dl><dt><b>Remark&nbsp;(a):</b></dt>
+	<dd>Save this page as <tt>rawkb.html</tt> and use the following command to extract the source code with a sample Makefile:<br>
+	<tt>sh&nbsp;-c&nbsp;&quot;( mkdir&nbsp;rawkb&nbsp;&amp;&amp; cd&nbsp;rawkb&nbsp;&amp;&amp; awk&nbsp;'/^&lt;!--eof/{d=0}{if(d)print&gt;f}/^&lt;!--sof/{f=\$2;d=1}' )&nbsp;&lt;&nbsp;rawkb.html&quot;</tt>
+	</dd><dt><b>Remark&nbsp;(b):</b></dt>
+	<dd>Some browsers try to be super smart and reformat the html code
+	so you may have trouble to extract the files. This is the right time to learn more
+	about wget, a tool to download files via http or ftp ;-)
+	</dd><dt><b>Remark&nbsp;(c):</b></dt>
+	<dd>Some versions of nasm are known to generate broken code.
+	I have used nasm-0.98 for this example which worked for me.
+	</dd>
+	</dl>
+
+	<p align="justify">If you read something from <b>STDIN</b>, the read bytes are normally in ASCII format.
+	In some cases it is useful to get the keyboard input as <i>raw</i> as possible.
+	Imagine: Your program should react on the Alt or Ctrl Key with menu
+	highlightning. In raw
+	keyboard mode such things are possible. In this mode you get directly the
+	untranslated keycodes coming from your keyboard. It doesn't generate ASCII
+	like codes it is far away from that. If you press a key on your keyboard two
+	codes are send to the controller in your PC a so called <i>make code</i> if you
+	press a key and a <i>break code</i> if you release a key. The most generated codes
+	are 1 byte codes. It is easy to recognize which sort of code you have
+	received: bit 7 clear = make, bit 7 set = break.</p>
+
+	<p align="justify">Examples:<ul>
+		<li><tt>ESC: make:001h, break:081h</tt></li>
+		<li><tt>RETURN: make:01ch, break:09ch</tt></li>
+		<li><tt>LEFT SHIFT: make:02ah, break:0aah</tt></li>
+		<li><tt>...</tt></li>
+	</ul></p>
+
+	<p align="justify">But there are also codes longer than 1 byte, such codes are escaped with a
+	leading 0e0h. Example: RIGHT CTRL: 0e0h 01dh (make), 0e0h 09eh (break). Three
+	byte codes are escaped with 0e1h (there should be only one such key on your
+	keyboard: PAUSE. This key is a little bit special because it generates make and
+	break codes without any delay if you press it).</p>
+
+	<p align="justify">The example code below will simply dump the hex code of every key to the
+	terminal. Use ESC to exit the program. It will only work on local console.</p>
+
+	<p align="justify">The translation to ASCII Codes in the kernel is done via tables (the same
+	tables are changed if you run the command loadkeys, which loads the
+	correct keytable for your country). You can reach this tables with the
+	ioctl's <b>KDGKBENT</b> and <b>KDSKBENT</b>. They expect a pointer to a structure of the
+	type kbentry (see <b>/usr/src/linux/include/linux/kd.h</b>). If you want to get an
+	entry you have to set the values kb_table and kb_index, if you want to set
+	an entry kb_value must also be set. kb_index is the raw keycode, kb_table
+	contains bits for the keys Shift, Alt, AltGr and Ctrl (it is some kind
+	of table selector, for making things like Shift+A easier). kb_value contains
+	the ASCII Code. For simple keyhandling this should be enough, the real key
+	translation in the kernel seems to be a little bit more complex (think of
+	escape sequences if you press a cursor key), in such cases kb_value contains
+	some <i>magic</i> values.</p>
+
+	<p align="justify">Like all low level accesses you should try as hard as you can to restore
+	the original state, because if you fail the keyboard stays in raw mode and
+	this means the local console is unusable (Ctrl+Alt+Del doesn't work, no
+	terminal switching etc.). Therefore you should catch all signals, which can
+	terminate your program (including <b>SIGSEGV</b>) with an exit handler.</p>
+
+	<dl><dt><b>Note:</b></dt>
+	<dd>The ioctl <b>KDGKBMODE</b> expects like the most ioctl's an address as third
+	argument, but <b>KDSKBMODE</b> expects directly the mode (<b>K_RAW</b> for the raw
+	keyboard mode <b>K_XLATE</b> for the <i>normal</i> mode). There is also a
+	<b>K_MEDIUMRAW</b> available but i let it up to you to figure out the
+	differences between <b>K_RAW</b> and <b>K_MEDIUMRAW</b> ;-).
+	To find out more about available ioctls you may consult the <b>console_ioctls</b> manpage.
+	Because i have already mentioned a manpage i will also mention another one:
+	console_codes. There you will find escape codes for changing terminal colors etc.</dd></dl>
+
+	<p>short procedure for switching to raw keyboard mode:<ol type="1">
+		<li>use the <a href="rawkb.htm#tioclinux"><b>TIOCLINUX</b></a> or <b>VT_GETMODE</b> ioctl's to determine if you
+		your program was called from local console.</li>
+		<li><a href="rawkb.htm#save">save the current terminal state</a>
+		(ioctl's <b>TCGETS</b> and <b>KDGKBMODE</b> and friends)</li>
+		<li>set signal handlers</li>
+		<li><a href="rawkb.htm#set">set the terminal values</a>:<ol type="a">
+			<li>switch off input flags: <b>ISTRIP</b>, <b>INLCR</b>,
+			<b>ICRNL</b>, <b>IGNCR</b>, <b>IXON</b>, <b>IXOFF</b>.</li>
+			<li>switch off local flags: <b>ECHO</b>, <b>ICANON</b>,
+			<b>ISIG</b>.</li>
+			<li>Disable kernel keyboard translation.</li>
+		</ol></li>
+	</ol></p>
+
+	<p align="justify">In this example we use <b>STDIN</b> as file
+	descriptor for <b>sys_ioctl</b>. This is ok as long as nobody
+	redirects it to a file or pipe. If you want that the
+	program even works in this cases: open <b>/dev/tty</b>
+	and use that file descriptor instead.</p>
+
+	<p align="justify">If you find mistakes or have suggestions, mail
+	<a href="mailto:linuxassembly@unusedino.de">me</a>.</p>
+
+<center><table><tr><td><pre>
+<!--sof rawkb.n -->
+;****************************************************************************
+;****************************************************************************
+;*
+;* USING THE RAW KEYBOARD MODE UNDER LINUX
+;*
+;* written by Karsten Scheibler, 2003-DEC-08
+;*
+;****************************************************************************
+;****************************************************************************
+
+
+
+
+
+global rawkb_start
+
+
+
+;****************************************************************************
+;* some assign's
+;****************************************************************************
+%assign SYS_READ			3
+%assign SYS_WRITE			4
+%assign SYS_OPEN			5
+%assign SYS_CLOSE			6
+%assign SYS_IOCTL			54
+
+%assign TCGETS				0x00005401
+%assign TCSETSW				0x00005403
+%assign KDGKBMODE			0x00004b44
+%assign KDSKBMODE			0x00004b45
+%assign K_RAW				0
+
+%assign ISTRIP				000400q
+%assign INLCR				000100q
+%assign IGNCR				000200q
+%assign ICRNL				000400q
+%assign IXON				002000q
+%assign IXOFF				010000q
+
+%assign ISIG				1
+%assign ICANON				2
+%assign ECHO				8
+
+%assign STDIN				0
+%assign STDOUT				1
+
+%assign O_RDWR				2
+
+%assign STATE_TERMIOS_SAVED		0x01
+%assign STATE_KBMODE_SAVED		0x02
+
+					struc	ttermios
+					alignb	4
+termios_input_flags:			resd	1
+termios_output_flags:			resd	1
+termios_control_flags:			resd	1
+termios_local_flags:			resd	1
+termios_line_discipline:		resb	1
+termios_control_characters:		resb	64
+					endstruc
+
+
+
+;****************************************************************************
+;* data
+;****************************************************************************
+section .data
+					align	4
+tty_state:				dd	0
+
+section .bss
+	align	4
+tty_termios_saved:			resb	ttermios_size
+tty_kbmode_saved:			resd	1
+tty_termios:				resb	ttermios_size
+hex_number:				resd	1
+character:				resb	1
+
+
+
+;****************************************************************************
+;* rawkb_start
+;****************************************************************************
+section .text
+rawkb_start:
+
+	;<a name="save"></a>save terminal state
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDGKBMODE
+	mov	dword edx, tty_kbmode_saved
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  rawkb_error
+	or	dword [tty_state], STATE_KBMODE_SAVED
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, TCGETS
+	mov	dword edx, tty_termios_saved
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  rawkb_error
+	or	dword [tty_state], STATE_TERMIOS_SAVED
+
+	;<a name="set"></a>set terminal values
+
+	cld
+	mov	dword ecx, ttermios_size
+	mov	dword esi, tty_termios_saved
+	mov	dword edi, tty_termios
+	rep movsb
+
+	and	dword [tty_termios + termios_input_flags], (~(ISTRIP | INLCR | ICRNL | IGNCR | IXON | IXOFF))
+	and	dword [tty_termios + termios_local_flags], (~(ECHO | ICANON | ISIG))
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, TCSETSW
+	mov	dword edx, tty_termios
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  rawkb_error
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDSKBMODE
+	mov	dword edx, K_RAW
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  rawkb_error
+
+	;display the hex codes of all pressed keys, ESC exits
+
+.display:
+	mov	dword eax, SYS_READ
+	mov	dword ebx, STDIN
+	mov	dword ecx, character
+	mov	dword edx, 1
+	int	byte  0x80
+	xor	dword ebx, ebx
+	xor	dword ecx, ecx
+	mov	byte  bl, [character]
+	mov	byte  cl, bl
+	cmp	byte  bl, 0x01
+	je	near  rawkb_end
+	shr	dword ecx, 4
+	and	byte  bl, 0x0f
+	mov	dword eax, 0x0a680000
+	mov	byte  ah, [.hex_table + ebx]
+	mov	byte  al, [.hex_table + ecx]
+	mov	dword [hex_number], eax
+	mov	dword eax, SYS_WRITE
+	mov	dword ebx, STDOUT
+	mov	dword ecx, hex_number
+	mov	dword edx, 4
+	int	byte  0x80
+	jmp	short .display
+
+.hex_table:				db	"0123456789abcdef"
+
+
+
+;****************************************************************************
+;* rawkb_restore ************************************************************
+;****************************************************************************
+section .text
+rawkb_restore:
+	test	dword [tty_state], STATE_KBMODE_SAVED
+	jz	short .no_kbmode
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDSKBMODE
+	mov	dword edx, [tty_kbmode_saved]
+	int	byte  0x80
+.no_kbmode:
+	test	dword [tty_state], STATE_TERMIOS_SAVED
+	jz	short .no_termios
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, TCSETSW
+	mov	dword edx, tty_termios_saved
+	int	byte  0x80
+.no_termios:
+	ret
+
+
+
+;****************************************************************************
+;* rawkb_error **************************************************************
+;****************************************************************************
+section .text
+rawkb_error:
+	call	near  rawkb_restore
+	xor	dword eax, eax
+	inc	dword eax
+	mov	dword ebx, eax
+	int	byte  0x80
+
+
+
+;****************************************************************************
+;* rawkb_end
+;****************************************************************************
+section .text
+rawkb_end:
+	call	near  rawkb_restore
+	xor	dword eax, eax
+	mov	dword ebx, eax
+	inc	dword eax
+	int	byte  0x80
+;*********************************************** linuxassembly@unusedino.de *
+<!--eof-->
+</pre></td></tr></table></center>
+
+<!--sof Makefile
+NASM=nasm -w+orphan-labels -w+macro-params -w+number-overflow -f elf
+STRIP=strip -R .note -R .comment
+LD=ld -s
+RM=rm -f
+
+.PHONY: all clean
+
+all: rawkb
+
+rawkb: rawkb.n
+	${NASM} -o rawkb.o rawkb.n
+	${LD} -e rawkb_start -o rawkb rawkb.o
+	${STRIP} rawkb
+
+clean:
+	${RM} *.bak *~ rawkb rawkb.o core
+<!--eof-->
+
+</body>
+
+</html>

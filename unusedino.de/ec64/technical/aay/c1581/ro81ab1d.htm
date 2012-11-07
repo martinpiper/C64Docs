@@ -1,0 +1,135 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ROM-Signatur pruefen (CRC-Test) (bei der 1571: $924e)
+
+Einsprung von <a href="ro81aa39.htm">$AA39</a>, <a href="ro81ff00.htm">$FF5D</a>:
+
+AB1D: 08        PHP              vlg. Blockheader-CRC-Test ($da63)
+AB1E: 78        SEI
+AB1F: A5 02     LDA <a href="ra8102.htm">$02</a>          Register retten
+AB21: 48        PHA
+AB22: A5 03     LDA <a href="ra8102.htm">$03</a>
+AB24: 48        PHA
+AB25: A5 04     LDA <a href="ra8102.htm">$04</a>
+AB27: 48        PHA
+AB28: A5 05     LDA <a href="ra8102.htm">$05</a>
+AB2A: 48        PHA
+AB2B: A5 06     LDA <a href="ra8102.htm">$06</a>
+AB2D: 48        PHA
+AB2E: A5 07     LDA <a href="ra8102.htm">$07</a>
+AB30: 48        PHA
+AB31: A5 08     LDA <a href="ra8102.htm">$08</a>
+AB33: 48        PHA
+AB34: A5 09     LDA <a href="ra8102.htm">$09</a>
+AB36: 48        PHA
+AB37: A5 0A     LDA <a href="ra8102.htm">$0A</a>
+AB39: 48        PHA
+
+AB3A: A9 FF     LDA #$FF         #$ffff: Startwert fuer Pruefsumme
+AB3C: 85 07     STA <a href="ra8102.htm">$07</a>
+AB3E: 85 08     STA <a href="ra8102.htm">$08</a>
+AB40: A9 00     LDA #$00         Startadresse auf $8000
+AB42: 85 09     STA <a href="ra8102.htm">$09</a>
+AB44: A9 80     LDA #$80
+AB46: 85 0A     STA <a href="ra8102.htm">$0A</a>
+AB48: A0 02     LDY #$02         bei $8002 anfangen
+
+Einsprung von $AB97, $AB9B:
+
+AB4A: B1 09     LDA (<a href="ra8102.htm">$09</a>),Y      Der Test arbeitet mit 16-Bit-Werten
+AB4C: 85 03     STA <a href="ra8102.htm">$03</a>          Wert aus ROM nach $03/$02
+AB4E: AA        TAX
+AB4F: C8        INY
+AB50: B1 09     LDA (<a href="ra8102.htm">$09</a>),Y
+AB52: 85 02     STA <a href="ra8102.htm">$02</a>
+AB54: 8A        TXA
+AB55: A2 10     LDX #$10         16 Verschiebungen
+
+[----  -- --     LDA   03       (Nur zum besseren Verstaendnis !!!)]
+
+Einsprung von $AB94:
+
+AB57: 85 04     STA <a href="ra8102.htm">$04</a>          (aktuelles b15 merken)
+AB59: 18        CLC              Nun werden alle 16 Bits aus $02/$03 der
+AB5A: 26 02     ROL <a href="ra8102.htm">$02</a>          Reihe nach (von Hi nach Lo) getestet.
+AB5C: 26 03     ROL <a href="ra8102.htm">$03</a>
+
+AB5E: A9 00     LDA #$00         Ist das Bit nicht gesetzt, wird der
+AB60: 85 05     STA <a href="ra8102.htm">$05</a>          Wert $0000, nach $05/$06 geschrieben.
+AB62: 85 06     STA <a href="ra8102.htm">$06</a>
+AB64: 24 04     BIT <a href="ra8102.htm">$04</a>
+AB66: 10 08     BPL $AB70
+AB68: A9 21     LDA #$21         Ist es gesetzt, dann wird der Wert $1021
+AB6A: 85 05     STA <a href="ra8102.htm">$05</a>          nach $05/$06 geschrieben
+AB6C: A9 10     LDA #$10
+AB6E: 85 06     STA <a href="ra8102.htm">$06</a>
+
+Einsprung von $AB66:
+
+AB70: 24 08     BIT <a href="ra8102.htm">$08</a>          Ist das MSB von $07/$08 gesetzt, dann
+AB72: 10 0C     BPL $AB80        wird die Abfrage genau umgedreht
+AB74: A5 05     LDA <a href="ra8102.htm">$05</a>          ($1021, wenn Bit=0)
+AB76: 49 21     EOR #$21
+AB78: 85 05     STA <a href="ra8102.htm">$05</a>
+AB7A: A5 06     LDA <a href="ra8102.htm">$06</a>
+AB7C: 49 10     EOR #$10
+AB7E: 85 06     STA <a href="ra8102.htm">$06</a>
+
+Einsprung von $AB72:
+
+AB80: 18        CLC              $07/$08 * 2
+AB81: 26 07     ROL <a href="ra8102.htm">$07</a>          (Das MSB wird geloescht)
+AB83: 26 08     ROL <a href="ra8102.htm">$08</a>
+AB85: A5 07     LDA <a href="ra8102.htm">$07</a>          $07/$08 = $07/$08 eor $05/06
+AB87: 45 05     EOR <a href="ra8102.htm">$05</a>
+AB89: 85 07     STA <a href="ra8102.htm">$07</a>
+AB8B: A5 08     LDA <a href="ra8102.htm">$08</a>
+AB8D: 45 06     EOR <a href="ra8102.htm">$06</a>
+AB8F: 85 08     STA <a href="ra8102.htm">$08</a>
+AB91: A5 03     LDA <a href="ra8102.htm">$03</a>          naechstes Bit testen
+AB93: CA        DEX
+AB94: D0 C1     BNE $AB57
+AB96: C8        INY
+AB97: D0 B1     BNE $AB4A        Naechsten 16-Bit Wert holen, ==&gt;
+AB99: E6 0A     INC <a href="ra8102.htm">$0A</a>          naechste Seite bearbeiten
+AB9B: D0 AD     BNE $AB4A        bis ROM-Ende weitermachen, ==&gt;
+
+AB9D: A4 07     LDY <a href="ra8102.htm">$07</a>          Pruefsumme in y/x merken
+AB9F: A6 08     LDX <a href="ra8102.htm">$08</a>
+
+ABA1: 68        PLA              Register zurueckholen
+ABA2: 85 0A     STA <a href="ra8102.htm">$0A</a>
+ABA4: 68        PLA
+ABA5: 85 09     STA <a href="ra8102.htm">$09</a>
+ABA7: 68        PLA
+ABA8: 85 08     STA <a href="ra8102.htm">$08</a>
+ABAA: 68        PLA
+ABAB: 85 07     STA <a href="ra8102.htm">$07</a>
+ABAD: 68        PLA
+ABAE: 85 06     STA <a href="ra8102.htm">$06</a>
+ABB0: 68        PLA
+ABB1: 85 05     STA <a href="ra8102.htm">$05</a>
+ABB3: 68        PLA
+ABB4: 85 04     STA <a href="ra8102.htm">$04</a>
+ABB6: 68        PLA
+ABB7: 85 03     STA <a href="ra8102.htm">$03</a>
+ABB9: 68        PLA
+ABBA: 85 02     STA <a href="ra8102.htm">$02</a>          (alles klar ?)
+
+ABBC: CC 00 80  CPY <a href="ro818000.htm">$8000</a>        Ist die Pruefsumme Ok. ?
+ABBF: D0 07     BNE $ABC8        nein, ==&gt;
+ABC1: EC 01 80  CPX <a href="ro818000.htm">$8001</a>
+ABC4: D0 02     BNE $ABC8        nein, ==&gt;
+ABC6: 28        PLP
+ABC7: 60        RTS              ROM Ok.
+
+Einsprung von $ABBF, $ABC4:
+
+ABC8: A2 03     LDX #$03         4x LED Blinken
+ABCA: 86 40     STX <a href="ra8140.htm">$40</a>
+ABCC: 4C F5 AE  JMP <a href="ro81aef2.htm">$AEF5</a>        Laufwerk verriegeln ==&gt;
+
+    <a href="ro81ab09.htm">Previous Page</a> / <a href="ro81abcf.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

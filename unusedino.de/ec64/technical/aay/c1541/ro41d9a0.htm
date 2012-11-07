@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D9A0/55712:   Open file for reading
+
+Jump from <a href="ro41c9fa.htm">$CA26</a>, <a href="ro41d940.htm">$D990</a>:
+
+D9A0: A0 13     LDY #$13
+D9A2: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track
+D9A4: 8D 59 02  STA <a href="ra410259.htm">$0259</a>
+D9A7: C8        INY
+D9A8: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+D9AA: 8D 5A 02  STA <a href="ra41025a.htm">$025A</a>
+D9AD: C8        INY
+D9AE: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; record length
+D9B0: AE 58 02  LDX <a href="ra410258.htm">$0258</a>       ; last record len
+D9B3: 8D 58 02  STA <a href="ra410258.htm">$0258</a>
+D9B6: 8A        TXA
+D9B7: F0 0A     BEQ $D9C3
+D9B9: CD 58 02  CMP <a href="ra410258.htm">$0258</a>
+D9BC: F0 05     BEQ $D9C3
+D9BE: A9 50     LDA #$50
+D9C0: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 50, 'record not present'
+
+Jump from $D9B7, $D9BC:
+
+D9C3: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+D9C6: BD 80 02  LDA <a href="ra410280.htm">$0280</a>,X     ; track
+D9C9: 85 80     STA <a href="ra4180.htm">$80</a>
+D9CB: BD 85 02  LDA <a href="ra410285.htm">$0285</a>,X     ; sector
+D9CE: 85 81     STA <a href="ra4181.htm">$81</a>
+D9D0: 20 46 DC  JSR <a href="ro41dc46.htm">$DC46</a>
+D9D3: A4 82     LDY <a href="ra4182.htm">$82</a>
+D9D5: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+D9D8: B5 D8     LDA <a href="ra41d8.htm">$D8</a>,X
+D9DA: 99 60 02  STA <a href="ra410260.htm">$0260</a>,Y
+D9DD: B5 DD     LDA <a href="ra41dd.htm">$DD</a>,X
+D9DF: 99 66 02  STA <a href="ra410266.htm">$0266</a>,Y
+D9E2: 60        RTS
+
+    <a href="ro41d940.htm">Previous Page</a> / <a href="ro41d9e3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

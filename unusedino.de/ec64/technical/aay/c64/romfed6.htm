@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FED6/65238:   NMI RS232 In
+
+Jump from <a href="romfe66.htm">$FE94</a>, <a href="romfe66.htm">$FEA8</a>:
+
+FED6: AD 01 DD  <a href="blda.htm">LDA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+FED9: 29 01     <a href="band.htm">AND</a> #$01
+FEDB: 85 A7     <a href="bsta.htm">STA</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+FEDD: AD 06 DD  <a href="blda.htm">LDA</a> <a href="cia26.htm">$DD06</a>     ; CIA2: Timer B Low-Byte  (RS232)
+FEE0: E9 1C     <a href="bsbc.htm">SBC</a> #$1C
+FEE2: 6D 99 02  <a href="badc.htm">ADC</a> <a href="zp0299.htm">$0299</a>     ; RS232 Baud Rate; Full Bit time microseconds
+FEE5: 8D 06 DD  <a href="bsta.htm">STA</a> <a href="cia26.htm">$DD06</a>     ; CIA2: Timer B Low-Byte  (RS232)
+FEE8: AD 07 DD  <a href="blda.htm">LDA</a> <a href="cia27.htm">$DD07</a>     ; CIA2: Timer B High-Byte (RS232)
+FEEB: 6D 9A 02  <a href="badc.htm">ADC</a> <a href="zp0299.htm">$029A</a>     ; RS232 Baud Rate; Full Bit time microseconds
+FEEE: 8D 07 DD  <a href="bsta.htm">STA</a> <a href="cia27.htm">$DD07</a>     ; CIA2: Timer B High-Byte (RS232)
+FEF1: A9 11     <a href="blda.htm">LDA</a> #$11
+FEF3: 8D 0F DD  <a href="bsta.htm">STA</a> <a href="cia215.htm">$DD0F</a>     ; CIA2: Control Register B
+FEF6: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FEF9: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+FEFC: A9 FF     <a href="blda.htm">LDA</a> #$FF
+FEFE: 8D 06 DD  <a href="bsta.htm">STA</a> <a href="cia26.htm">$DD06</a>     ; CIA2: Timer B Low-Byte  (RS232)
+FF01: 8D 07 DD  <a href="bsta.htm">STA</a> <a href="cia27.htm">$DD07</a>     ; CIA2: Timer B High-Byte (RS232)
+FF04: 4C 59 EF  <a href="bjmp.htm">JMP</a> <a href="romef59.htm">$EF59</a>     ; RS232 Receive
+
+    <a href="romfec2.htm">Previous Page</a> / <a href="romff07.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F10F/61711:   Get buffer number for BAM
+
+Jump from <a href="ro41d00e.htm">$D00E</a>, <a href="ro41ef3a.htm">$EF3A</a>, <a href="ro41f011.htm">$F022</a>, <a href="ro41f119.htm">$F119</a>:
+
+F10F: A9 06     LDA #$06
+F111: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+F113: D0 03     BNE $F118
+F115: 18        CLC
+F116: 69 07     ADC #$07        ; gives 13 for drive 0
+
+Jump from $F113:
+
+F118: 60        RTS
+
+    <a href="ro41f0df.htm">Previous Page</a> / <a href="ro41f119.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

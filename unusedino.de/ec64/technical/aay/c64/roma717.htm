@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A717/42775:   Handle LIST Character
+
+Jump from <a href="roma69c.htm">$A705</a>:
+
+A717: 6C 06 03  <a href="bjmp.htm">JMP</a> (<a href="zp0306.htm">$0306</a>)   ; Vector: BASIC LIST Routine
+A71A: 10 D7     <a href="bbpl.htm">BPL</a> <a href="roma69c.htm">$A6F3</a>     ; Perform [list]
+A71C: C9 FF     <a href="bcmp.htm">CMP</a> #$FF
+A71E: F0 D3     <a href="bbeq.htm">BEQ</a> <a href="roma69c.htm">$A6F3</a>     ; Perform [list]
+A720: 24 0F     <a href="bbit.htm">BIT</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+A722: 30 CF     <a href="bbmi.htm">BMI</a> <a href="roma69c.htm">$A6F3</a>     ; Perform [list]
+A724: 38        <a href="bsec.htm">SEC</a>
+A725: E9 7F     <a href="bsbc.htm">SBC</a> #$7F
+A727: AA        <a href="btax.htm">TAX</a>
+A728: 84 49     <a href="bsty.htm">STY</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A72A: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+
+Jump from $A735:
+
+A72C: CA        <a href="bdex.htm">DEX</a>
+A72D: F0 08     <a href="bbeq.htm">BEQ</a> $A737
+
+Jump from $A733:
+
+A72F: C8        <a href="biny.htm">INY</a>
+A730: B9 9E A0  <a href="blda.htm">LDA</a> <a href="roma09e.htm">$A09E</a>,Y   ; BASIC Command Keyword Table
+A733: 10 FA     <a href="bbpl.htm">BPL</a> $A72F
+A735: 30 F5     <a href="bbmi.htm">BMI</a> $A72C
+
+Jump from $A72D, $A740:
+
+A737: C8        <a href="biny.htm">INY</a>
+A738: B9 9E A0  <a href="blda.htm">LDA</a> <a href="roma09e.htm">$A09E</a>,Y   ; BASIC Command Keyword Table
+A73B: 30 B2     <a href="bbmi.htm">BMI</a> <a href="roma69c.htm">$A6EF</a>     ; Perform [list]
+A73D: 20 47 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB47</a>     ; Output Format Character
+A740: D0 F5     <a href="bbne.htm">BNE</a> $A737
+
+    <a href="roma69c.htm">Previous Page</a> / <a href="roma742.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

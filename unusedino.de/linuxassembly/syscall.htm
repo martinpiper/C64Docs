@@ -1,0 +1,849 @@
+<html><head><title>Linux/i386 system calls</title></head><body>
+<h2 align=center>List of Linux/i386 system calls</h2>
+<p align=center><font size=-2>Copyright (C) 1999-2000 by Konstantin Boldyshev</font></p>
+
+<hr>
+
+<p>
+This list is NOT READY and is under heavy construction,
+a lot of entries are missing, and some may be incorrect.
+This is more a template than a real document.
+Meanwhile, I suggest you to examine
+<a href=http://www.snafu.de/~phpr/lhpsysc0.html>this list</a>
+by H-Peter Recktenwald.
+Also, you may take a look at the old 
+<a href=ftp://step.polymtl.ca/pub/proj/linuxss/doc/syscalls.tgz>
+Linux syscalls specification</a> by Louis-Dominique Dubeau, 
+which is outdated and covers Linux 1.0. Please note that this document 
+by all means has not derived from that work, it was done from scratch, 
+and has different goals and overall structure.
+</p>
+
+
+<hr>
+
+<h2><u>Table of Contents (template)</u></h2>
+<a href="syscall.htm#p1"><h2>1. Introduction</h2></a>
+<a href="syscall.htm#p2"><h2>2. System call in depth</h2></a>
+<ul>
+2.1 What is system call?<br>
+2.2 View from the Kernel side<br>
+2.3 View from the userland<br>
+2.4 Using system calls<br>
+</ul>
+<a href="syscall.htm#p3"><h2>3. Linux/i386 system calls</h2></a>
+<ul>
+<a href="syscall.htm#p31">3.1 Complete list of system calls with description</a><br>
+<a href="syscall.htm#p32">3.2 List by system call number</a><br>
+<a href="syscall.htm#p33">3.3 List by system call name</a><br>
+<a href="syscall.htm#p34">3.4 List by kernel source</a>
+</ul>
+<a href="syscall.htm#p4"><h2>4. References</h2></a>
+
+<hr>
+
+<a name=#p1></a><h2>1. Introduction</h2>
+<p>
+First of all note that these are not libc &quot;system calls&quot;,
+but real system calls provided by Linux Kernel.
+<p>
+List is intended to cover Linux 2.4 / 2.2 / 2.0.
+</p>
+
+<hr>
+
+<a name=#p2></a><h2>2. System call in depth</h2>
+
+<p>
+.. not ready yet ..
+</p>
+
+
+<hr>
+
+<a name=#p3></a><h2>3. Linux/i386 system calls</h2>
+<p>
+All system calls introduced/removed in specific Linux version are marked with (VER+/-) label
+(f.e. 2.2+ means that this call was introduced in Linux 2.2, and is missing in Linux 2.0).
+Square brackets hold real kernel name of system call from <tt>arch/i386/kernel/entry.S</tt> (as appeared in <i>Syntax</i>),
+if it differs from &quot;official&quot; in <tt>include/asm-i386/unistd.h</tt>.
+</p>
+
+<a name=#p31></a><h2 align=center><u>Complete list of system calls with description</u></h2>
+
+<a name=0></a><h3><i>0. sys_setup</i></h3>
+<p>Syntax: <tt>int sys_setup(void)</tt>
+<p>Source: fs/filesystems.c
+<p>Action: return -ENOSYS on Linux 2.2
+<p>Details: old sys_setup call
+<p><br>
+<a name=1></a><h3><i>1. sys_exit</i></h3>
+<p>Syntax: <tt>int sys_exit(int status)</tt>
+<p>Source: kernel/exit.c
+<p>Action: terminate the current process
+<p>Details: <tt>status</tt> is return code
+<p><br>
+<a name=2></a><h3>2. sys_fork</h3>
+<p>Syntax: <tt>int sys_fork()</tt>
+<p>Source: arch/i386/kernel/process.c
+<p>Action: create a child process
+<p>Details:
+<p><br>
+<a name=3></a><h3>3. sys_read</h3>
+<p>Syntax: <tt>ssize_t sys_read(unsigned int fd, char * buf, size_t count)</tt>
+<p>Source: fs/read_write.c
+<p>Action: read from a file descriptor
+<p>Details:
+<p><br>
+<a name=4></a><h3>4. sys_write</h3>
+<p>Syntax: <tt>ssize_t sys_write(unsigned int fd, const char * buf, size_t count)</tt>
+<p>Source: fs/read_write.c
+<p>Action: write to a file descriptor
+<p>Details:
+<p><br>
+<a name=5></a><h3>5. sys_open</h3>
+<p>Syntax: <tt>int sys_open(const char * filename, int flags, int mode)</tt>
+<p>Source: fs/open.c
+<p>Action: open and possibly create a file or device
+<p>Details:
+<p><br>
+<a name=6></a><h3>6. sys_close</h3>
+<p>Syntax: <tt>sys_close(unsigned int fd)</tt>
+<p>Source: fs/open.c
+<p>Action: close a file descriptor
+<p>Details:
+<p><br>
+<a name=7></a><h3>7. sys_waitpid</h3>
+<p>Syntax: <tt>int sys_waitpid(pid_t pid,unsigned int * stat_addr, int options)</tt>
+<p>Source: kernel/exit.c
+<p>Action: wait for process termination
+<p>Details:
+<p><br>
+<a name=8></a><h3>8. sys_creat</h3>
+<p>Syntax: <tt>int sys_creat(const char * pathname, int mode)</tt>
+<p>Source: fs/open.c
+<p>Action: create a file or device
+<p>Details:
+<p><br>
+<a name=9></a><h3>9. sys_link</h3>
+<p>Syntax: <tt>int sys_link(const char * oldname, const char * newname)</tt>
+<p>Source: fs/namei.c
+<p>Action: make a new name for a file
+<p>Details:
+<p><br>
+<a name=10></a><h3>10. sys_unlink</h3>
+<p>Syntax: <tt>int sys_unlink(const char * pathname)</tt>
+<p>Source: fs/namei.c
+<p>Action: delete a name and possibly the file it refers to
+<p>Details:
+<p><br>
+<a name=11></a><h3>11. sys_execve</h3>
+<p>Syntax: <tt>int sys_execve(struct pt_regs regs)</tt>
+<p>Source: arch/i386/kernel/process.c
+<p>Action: execute program
+<p>Details:
+<p><br>
+<a name=12></a><h3>12. sys_chdir</h3>
+<p>Syntax: <tt>int sys_chdir(const char * filename)</tt>
+<p>Source: fs/open.c
+<p>Action: change working directory
+<p>Details:
+<p><br>
+<a name=13></a><h3>13. sys_time</h3>
+<p>Syntax: <tt>int sys_time(int * tloc)</tt>
+<p>Source: kernel/time.c
+<p>Action: get time in seconds
+<p>Details:
+<p><br> 
+<a name=14></a><h3>14. sys_mknod</h3>
+<p>Syntax: <tt>int sys_mknod(const char * filename, int mode, dev_t dev)</tt>
+<p>Source: fs/namei.c
+<p>Action: create a directory or special or ordinary file
+<p>Details:
+<p><br>
+<a name=15></a><h3>15. sys_chmod</h3>
+<p>Syntax: <tt>int sys_chmod(const char * filename, mode_t mode)</tt>
+<p>Source: fs/open.c
+<p>Action: change permissions of a file
+<p>Details:
+<p><br> 
+<a name=16></a><h3>16. sys_lchown</h3>
+<p>Syntax: <tt>int sys_lchown(const char * filename, uid_t user, gid_t group)</tt>
+<p>Source: fs/open.c
+<p>Action: change ownership of a file
+<p>Details:
+<p><br>
+<a name=17></a><h3>17. sys_break</h3>
+<p>Syntax: <tt>int sys_break()</tt>
+<p>Source: kernel/sys.c
+<p>Action: return -ENOSYS
+<p>Details: call exists only for compatibility
+<p><br>
+<a name=18></a><h3>18. sys_oldstat</h3>
+<p>Syntax: <tt>int sys_stat(char * filename, struct __old_kernel_stat * statbuf)</tt>
+<p>Source: fs/stat.c
+<p>Action:
+<p>Details: obsolote
+<p><br>
+<a name=19></a><h3>19. sys_lseek</h3>
+<p>Syntax: <tt>off_t sys_lseek(unsigned int fd, off_t offset, unsigned int origin)</tt>
+<p>Source: fs/read_write.c
+<p>Action: reposition read/write file offset
+<p>Details:
+<p><br>
+<a name=20></a><h3>20. sys_getpid</h3>
+<p>Syntax: <tt>int sys_getpid(void)</tt>
+<p>Source: kernel/sched.c
+<p>Action: get process identification
+<p>Details:
+<p><br>
+<a name=21></a><h3>21. sys_mount</h3>
+<p>Syntax: <tt>int sys_mount(char * dev_name, char * dir_name, char * type, unsigned long new_flags, void * data)</tt>
+<p>Source: fs/super.c
+<p>Action: mount filesystems
+<p>Details:
+<p><br>
+<a name=22></a><h3>22. sys_umount</h3>
+<p>Syntax: <tt>int sys_oldumount(char * name)</tt>
+<p>Source: fs/super.c
+<p>Action: unmount filesystem
+<p>Details:
+<p><br>
+<a name=23></a><h3>23. sys_setuid</h3>
+<p>Syntax: <tt>int sys_setuid(uid_t uid)</tt>
+<p>Source: kernel/sys.c
+<p>Action: set user identity
+<p>Details:
+<p><br>
+<a name=24></a><h3>24. sys_getuid</h3>
+<p>Syntax: <tt>int sys_getuid(void)</tt>
+<p>Source: kernel/sys.c
+<p>Action: get user identity
+<p>Details:
+<p><br>
+<a name=25></a><h3>25. sys_stime</h3>
+<p>Syntax: <tt>int sys_stime(int * tptr)</tt>
+<p>Source: kernel/time.c
+<p>Action: set time
+<p>Details:
+<p><br>
+<a name=26></a><h3>26. sys_ptrace</h3>
+<p>Syntax: <tt>int sys_ptrace(long request, long pid, long addr, long data)</tt>
+<p>Source: arch/i386/kernel/ptrace.c
+<p>Action: process trace
+<p>Details:
+<p><br>
+<a name=27></a><h3>27. sys_alarm</h3>
+<p>Syntax: <tt>unsigned int sys_alarm(unsigned int seconds)</tt>
+<p>Source: kernel/sched.c
+<p>Action: set an alarm clock for delivery of a signal
+<p>Details:
+<p><br>
+<a name=28></a><h3>28. sys_oldfstat</h3>
+<p>Syntax: <tt>int sys_fstat(unsigned int fd, struct __old_kernel_stat * statbuf)</tt>
+<p>Source: fs/stat.c
+<p>Action:
+<p>Details: obsolete
+<p><br>
+<a name=29></a><h3>29. sys_pause</h3>
+<p>Syntax: <tt>int sys_pause(void)</tt>
+<p>Source: arch/i386/kernel/sys_i386.c
+<p>Action: wait for signal
+<p>Details:
+<p><br>
+<a name=30></a><h3>30. sys_utime</h3>
+<p>Syntax: <tt>int sys_utime(char * filename, struct utimbuf * times)</tt>
+<p>Source: fs/open.c
+<p>Action: change access and/or modification times of an inode
+<p>Details:
+<p><br>
+<p>
+...
+</p>
+
+<a name=#p32></a><h2 align=center><u>List by system call number</u></h2>
+
+<table align=center border=0 width=100%><tr><td>
+<a href="syscall.htm#0">00</a> sys_setup [sys_ni_syscall]<br>
+<a href="syscall.htm#1">01</a> sys_exit<br>
+<a href="syscall.htm#2">02</a> sys_fork<br>
+<a href="syscall.htm#3">03</a> sys_read<br>
+<a href="syscall.htm#4">04</a> sys_write<br>
+<a href="syscall.htm#5">05</a> sys_open<br>
+<a href="syscall.htm#6">06</a> sys_close<br>
+<a href="syscall.htm#7">07</a> sys_waitpid<br>
+<a href="syscall.htm#8">08</a> sys_creat<br>
+<a href="syscall.htm#9">09</a> sys_link<br>
+<a href="syscall.htm#10">10</a> sys_unlink<br>
+<a href="syscall.htm#11">11</a> sys_execve<br>
+<a href="syscall.htm#12">12</a> sys_chdir<br>
+<a href="syscall.htm#13">13</a> sys_time<br>
+<a href="syscall.htm#14">14</a> sys_mknod<br>
+<a href="syscall.htm#15">15</a> sys_chmod<br>
+<a href="syscall.htm#16">16</a> sys_lchown<br>
+<a href="syscall.htm#17">17</a> sys_break [sys_ni_syscall]<br>
+<a href="syscall.htm#18">18</a> sys_oldstat [sys_stat]<br>
+<a href="syscall.htm#19">19</a> sys_lseek<br>
+<a href="syscall.htm#20">20</a> sys_getpid<br>
+<a href="syscall.htm#21">21</a> sys_mount<br>
+<a href="syscall.htm#22">22</a> sys_umount [sys_oldumount]<br>
+<a href="syscall.htm#23">23</a> sys_setuid<br>
+<a href="syscall.htm#24">24</a> sys_getuid<br>
+<a href="syscall.htm#25">25</a> sys_stime<br>
+<a href="syscall.htm#26">26</a> sys_ptrace<br>
+<a href="syscall.htm#27">27</a> sys_alarm<br>
+<a href="syscall.htm#28">28</a> sys_oldfstat [sys_fstat]<br>
+<a href="syscall.htm#29">29</a> sys_pause<br>
+<a href="syscall.htm#30">30</a> sys_utime<br>
+<a href="syscall.htm#1">31</a> sys_stty [sys_ni_syscall]<br>
+<a href="syscall.htm#1">32</a> sys_gtty [sys_ni_syscall]<br>
+<a href="syscall.htm#1">33</a> sys_access<br>
+<a href="syscall.htm#1">34</a> sys_nice<br>
+<a href="syscall.htm#1">35</a> sys_ftime [sys_ni_syscall]<br>
+<a href="syscall.htm#1">36</a> sys_sync<br>
+<a href="syscall.htm#1">37</a> sys_kill<br>
+<a href="syscall.htm#1">38</a> sys_rename<br>
+<a href="syscall.htm#1">39</a> sys_mkdir<br>
+<a href="syscall.htm#1">40</a> sys_rmdir<br>
+<a href="syscall.htm#1">41</a> sys_dup<br>
+<a href="syscall.htm#1">42</a> sys_pipe<br>
+<a href="syscall.htm#1">43</a> sys_times<br>
+<a href="syscall.htm#1">44</a> sys_prof [sys_ni_syscall]<br>
+<a href="syscall.htm#1">45</a> sys_brk<br>
+<a href="syscall.htm#1">46</a> sys_setgid<br>
+<a href="syscall.htm#1">47</a> sys_getgid<br>
+<a href="syscall.htm#1">48</a> sys_signal<br>
+<a href="syscall.htm#1">49</a> sys_geteuid<br>
+<a href="syscall.htm#1">50</a> sys_getegid<br>
+<a href="syscall.htm#1">51</a> sys_acct<br>
+<a href="syscall.htm#1">52</a> sys_umount2 [sys_umount] (2.2+)<br>
+<a href="syscall.htm#1">53</a> sys_lock [sys_ni_syscall]<br>
+<a href="syscall.htm#1">54</a> sys_ioctl<br>
+<a href="syscall.htm#1">55</a> sys_fcntl<br>
+<a href="syscall.htm#1">56</a> sys_mpx [sys_ni_syscall]<br>
+<a href="syscall.htm#1">57</a> sys_setpgid<br>
+<a href="syscall.htm#1">58</a> sys_ulimit [sys_ni_syscall]<br>
+<a href="syscall.htm#1">59</a> sys_oldolduname<br>
+<a href="syscall.htm#1">60</a> sys_umask<br>
+<a href="syscall.htm#1">61</a> sys_chroot<br>
+<a href="syscall.htm#1">62</a> sys_ustat<br>
+<a href="syscall.htm#1">63</a> sys_dup2<br>
+<a href="syscall.htm#1">64</a> sys_getppid<br>
+<a href="syscall.htm#1">65</a> sys_getpgrp<br>
+<a href="syscall.htm#1">66</a> sys_setsid<br>
+<a href="syscall.htm#1">67</a> sys_sigaction<br>
+<a href="syscall.htm#1">68</a> sys_sgetmask<br>
+<a href="syscall.htm#1">69</a> sys_ssetmask<br>
+</td><td valign=top>
+<a href="syscall.htm#1">70</a> sys_setreuid<br>
+<a href="syscall.htm#1">71</a> sys_setregid<br>
+<a href="syscall.htm#1">72</a> sys_sigsuspend<br>
+<a href="syscall.htm#1">73</a> sys_sigpending<br>
+<a href="syscall.htm#1">74</a> sys_sethostname<br>
+<a href="syscall.htm#1">75</a> sys_setrlimit<br>
+<a href="syscall.htm#1">76</a> sys_getrlimit<br>
+<a href="syscall.htm#1">77</a> sys_getrusage<br>
+<a href="syscall.htm#1">78</a> sys_gettimeofday<br>
+<a href="syscall.htm#1">79</a> sys_settimeofday<br>
+<a href="syscall.htm#1">80</a> sys_getgroups<br>
+<a href="syscall.htm#1">81</a> sys_setgroups<br>
+<a href="syscall.htm#1">82</a> sys_select [old_select]<br>
+<a href="syscall.htm#1">83</a> sys_symlink<br>
+<a href="syscall.htm#1">84</a> sys_oldlstat [sys_lstat]<br>
+<a href="syscall.htm#1">85</a> sys_readlink<br>
+<a href="syscall.htm#1">86</a> sys_uselib<br>
+<a href="syscall.htm#1">87</a> sys_swapon<br>
+<a href="syscall.htm#1">88</a> sys_reboot<br>
+<a href="syscall.htm#1">89</a> sys_readdir [old_readdir]<br>
+<a href="syscall.htm#1">90</a> sys_mmap [old_mmap]<br>
+<a href="syscall.htm#1">91</a> sys_munmap<br>
+<a href="syscall.htm#1">92</a> sys_truncate<br>
+<a href="syscall.htm#1">93</a> sys_ftruncate<br>
+<a href="syscall.htm#1">94</a> sys_fchmod<br>
+<a href="syscall.htm#1">95</a> sys_fchown<br>
+<a href="syscall.htm#1">96</a> sys_getpriority<br>
+<a href="syscall.htm#1">97</a> sys_setpriority<br>
+<a href="syscall.htm#1">98</a> sys_profil [sys_ni_syscall]<br>
+<a href="syscall.htm#1">99</a> sys_statfs<br>
+<a href="syscall.htm#1">100</a> sys_fstatfs<br>
+<a href="syscall.htm#1">101</a> sys_ioperm<br>
+<a href="syscall.htm#1">102</a> sys_socketcall<br>
+<a href="syscall.htm#1">103</a> sys_syslog<br>
+<a href="syscall.htm#1">104</a> sys_setitimer<br>
+<a href="syscall.htm#1">105</a> sys_getitimer<br>
+<a href="syscall.htm#1">106</a> sys_stat [sys_newstat]<br>
+<a href="syscall.htm#1">107</a> sys_lstat [sys_newlstat]<br>
+<a href="syscall.htm#1">108</a> sys_fstat [sys_newfstat]<br>
+<a href="syscall.htm#1">109</a> sys_olduname [sys_uname]<br>
+<a href="syscall.htm#1">110</a> sys_iopl<br>
+<a href="syscall.htm#1">111</a> sys_vhangup<br>
+<a href="syscall.htm#1">112</a> sys_idle<br>
+<a href="syscall.htm#1">113</a> sys_vm86old<br>
+<a href="syscall.htm#1">114</a> sys_wait4<br>
+<a href="syscall.htm#1">115</a> sys_swapoff<br>
+<a href="syscall.htm#1">116</a> sys_sysinfo<br>
+<a href="syscall.htm#1">117</a> sys_ipc<br>
+<a href="syscall.htm#1">118</a> sys_fsync<br>
+<a href="syscall.htm#1">119</a> sys_sigreturn<br>
+<a href="syscall.htm#1">120</a> sys_clone<br>
+<a href="syscall.htm#1">121</a> sys_setdomainname<br>
+<a href="syscall.htm#1">122</a> sys_uname [sys_newuname]<br>
+<a href="syscall.htm#1">123</a> sys_modify_ldt<br>
+<a href="syscall.htm#1">124</a> sys_adjtimex<br>
+<a href="syscall.htm#1">125</a> sys_mprotect<br>
+<a href="syscall.htm#1">126</a> sys_sigprocmask<br>
+<a href="syscall.htm#1">127</a> sys_create_module<br>
+<a href="syscall.htm#1">128</a> sys_init_module<br>
+<a href="syscall.htm#1">129</a> sys_delete_module<br>
+<a href="syscall.htm#1">130</a> sys_get_kernel_syms<br>
+<a href="syscall.htm#1">131</a> sys_quotactl<br>
+<a href="syscall.htm#1">132</a> sys_getpgid<br>
+<a href="syscall.htm#1">133</a> sys_fchdir<br>
+<a href="syscall.htm#1">134</a> sys_bdflush<br>
+<a href="syscall.htm#1">135</a> sys_sysfs<br>
+<a href="syscall.htm#1">136</a> sys_personality<br>
+<a href="syscall.htm#1">137</a> sys_afs_syscall [sys_ni_syscall]<br>
+<a href="syscall.htm#1">138</a> sys_setfsuid<br>
+<a href="syscall.htm#1">139</a> sys_setfsgid<br>
+</td><td valign=top>
+<a href="syscall.htm#1">140</a> sys__llseek [sys_lseek]<br>
+<a href="syscall.htm#1">141</a> sys_getdents<br>
+<a href="syscall.htm#1">142</a> sys__newselect [sys_select]<br>
+<a href="syscall.htm#1">143</a> sys_flock<br>
+<a href="syscall.htm#1">144</a> sys_msync<br>
+<a href="syscall.htm#1">145</a> sys_readv<br>
+<a href="syscall.htm#1">146</a> sys_writev<br>
+<a href="syscall.htm#1">147</a> sys_getsid<br>
+<a href="syscall.htm#1">148</a> sys_fdatasync<br>
+<a href="syscall.htm#1">149</a> sys__sysctl [sys_sysctl]<br>
+<a href="syscall.htm#1">150</a> sys_mlock<br>
+<a href="syscall.htm#1">151</a> sys_munlock<br>
+<a href="syscall.htm#1">152</a> sys_mlockall<br>
+<a href="syscall.htm#1">153</a> sys_munlockall<br>
+<a href="syscall.htm#1">154</a> sys_sched_setparam<br>
+<a href="syscall.htm#1">155</a> sys_sched_getparam<br>
+<a href="syscall.htm#1">156</a> sys_sched_setscheduler<br>
+<a href="syscall.htm#1">157</a> sys_sched_getscheduler<br>
+<a href="syscall.htm#1">158</a> sys_sched_yield<br>
+<a href="syscall.htm#1">159</a> sys_sched_get_priority_max<br>
+<a href="syscall.htm#1">160</a> sys_sched_get_priority_min<br>
+<a href="syscall.htm#1">161</a> sys_sched_rr_get_interval<br>
+<a href="syscall.htm#1">162</a> sys_nanosleep<br>
+<a href="syscall.htm#1">163</a> sys_mremap<br>
+<a href="syscall.htm#1">164</a> sys_setresuid (2.2+)<br>
+<a href="syscall.htm#1">165</a> sys_getresuid (2.2+)<br>
+<a href="syscall.htm#1">166</a> sys_vm86<br>
+<a href="syscall.htm#1">167</a> sys_query_module (2.2+)<br>
+<a href="syscall.htm#1">168</a> sys_poll (2.2+)<br>
+<a href="syscall.htm#1">169</a> sys_nfsservctl (2.2+)<br>
+<a href="syscall.htm#1">170</a> sys_setresgid (2.2+)<br>
+<a href="syscall.htm#1">171</a> sys_getresgid (2.2+)<br>
+<a href="syscall.htm#1">172</a> sys_prctl (2.2+)<br>
+<a href="syscall.htm#1">173</a> sys_rt_sigreturn (2.2+)<br>
+<a href="syscall.htm#1">174</a> sys_rt_sigaction (2.2+)<br>
+<a href="syscall.htm#1">175</a> sys_rt_sigprocmask (2.2+)<br>
+<a href="syscall.htm#1">176</a> sys_rt_sigpending (2.2+)<br>
+<a href="syscall.htm#1">177</a> sys_rt_sigtimedwait (2.2+)<br>
+<a href="syscall.htm#1">178</a> sys_rt_sigqueueinfo (2.2+)<br>
+<a href="syscall.htm#1">179</a> sys_rt_sigsuspend (2.2+)<br>
+<a href="syscall.htm#1">180</a> sys_pread (2.2+)<br>
+<a href="syscall.htm#1">181</a> sys_pwrite (2.2+)<br>
+<a href="syscall.htm#1">182</a> sys_chown (2.2+)<br>
+<a href="syscall.htm#1">183</a> sys_getcwd (2.2+)<br>
+<a href="syscall.htm#1">184</a> sys_capget (2.2+)<br>
+<a href="syscall.htm#1">185</a> sys_capset (2.2+)<br>
+<a href="syscall.htm#1">186</a> sys_sigaltstack (2.2+)<br>
+<a href="syscall.htm#1">187</a> sys_sendfile (2.2+)<br>
+<a href="syscall.htm#1">188</a> sys_getpmsg [sys_ni_syscall]<br>
+<a href="syscall.htm#1">189</a> sys_putpmsg [sys_ni_syscall]<br>
+<a href="syscall.htm#1">190</a> sys_vfork (2.2+)<br>
+</td></tr></table>
+
+<a name=#p33></a><h2 align=center><u>List by system call name</u></h2>
+
+<p>
+.. not ready yet ..
+</p>
+
+<a name=#p34></a><h2 align=center><u>List by kernel source</u></h2>
+
+<p align=center>
+<a href="syscall.htm#s-arch">arch/i386/</a> (23) 
+<a href="syscall.htm#s-fs">fs/</a> (62) 
+<a href="syscall.htm#s-ipc">ipc/</a> (11) 
+<a href="syscall.htm#s-kernel">kernel/</a> (81) 
+<a href="syscall.htm#s-mm">mm/</a> (12) 
+<a href="syscall.htm#s-net">net/</a> (1)
+</p>
+
+<a name=s-arch></a><h3 align=center><u>arch/i386/</u></h3>
+
+<h4>arch/i386/kernel/sys_i386.c</h4><pre>
+int sys_pipe(unsigned long * fildes)
+int sys_ipc (uint call, int first, int second, int third, void *ptr, long fifth)
+int sys_uname(struct old_utsname * name)
+int sys_olduname(struct oldold_utsname * name)
+int sys_pause(void)
+int old_mmap(struct mmap_arg_struct *arg)
+</pre>
+
+<h4>arch/i386/kernel/ioport.c</h4><pre>
+int sys_ioperm(unsigned long from, unsigned long num, int turn_on)
+int sys_iopl(unsigned long unused)
+</pre>
+
+<h4>arch/i386/kernel/process.c</h4><pre>
+int sys_idle(void)
+int sys_fork(struct pt_regs regs)
+int sys_clone(struct pt_regs regs)
+int sys_vfork(struct pt_regs regs)
+int sys_execve(struct pt_regs regs)
+</pre>
+
+<h4>arch/i386/kernel/vm86.c</h4><pre>
+int sys_vm86old(struct vm86_struct * v86)
+int sys_vm86(unsigned long subfunction, struct vm86plus_struct * v86)
+</pre>
+
+<h4>arch/i386/kernel/ptrace.c</h4><pre>
+int sys_ptrace(long request, long pid, long addr, long data)
+</pre>
+
+<h4>arch/i386/kernel/signal.c</h4><pre>
+int sys_sigsuspend(int history0, int history1, old_sigset_t mask)
+int sys_rt_sigsuspend(sigset_t *unewset, size_t sigsetsize)
+int sys_sigaction(int sig, const struct old_sigaction *act, struct old_sigaction *oact)
+int sys_sigaltstack(const stack_t *uss, stack_t *uoss)
+int sys_sigreturn(unsigned long __unused)
+int sys_rt_sigreturn(unsigned long __unused)
+</pre>
+
+<h4>arch/i386/kernel/ldt.c</h4><pre>
+int sys_modify_ldt(int func, void *ptr, unsigned long bytecount)
+</pre>
+
+<a name=s-fs></a><h3 align=center><u>fs/</u></h3>
+
+<h4>fs/stat.c</h4><pre>
+int sys_stat(char * filename, struct __old_kernel_stat * statbuf)
+int sys_newstat(char * filename, struct stat * statbuf)
+int sys_lstat(char * filename, struct __old_kernel_stat * statbuf)
+int sys_newlstat(char * filename, struct stat * statbuf)
+int sys_fstat(unsigned int fd, struct __old_kernel_stat * statbuf)
+int sys_newfstat(unsigned int fd, struct stat * statbuf)
+int sys_readlink(const char * path, char * buf, int bufsiz)
+</pre>
+
+<h4>fs/read_write.c</h4><pre>
+off_t sys_lseek(unsigned int fd, off_t offset, unsigned int origin)
+int sys_llseek(unsigned int fd, unsigned long offset_high, unsigned long offset_low, loff_t * result, unsigned int origin)
+ssize_t sys_read(unsigned int fd, char * buf, size_t count)
+ssize_t sys_write(unsigned int fd, const char * buf, size_t count)
+ssize_t sys_readv(unsigned long fd, const struct iovec * vector, unsigned long count)
+ssize_t sys_writev(unsigned long fd, const struct iovec * vector, unsigned long count)
+ssize_t sys_pread(unsigned int fd, char * buf, size_t count, loff_t pos)
+ssize_t sys_pwrite(unsigned int fd, const char * buf, size_t count, loff_t pos)
+</pre>
+
+<h4>fs/buffer.c</h4><pre>
+int sys_sync(void)
+int sys_fsync(unsigned int fd)
+int sys_fdatasync(unsigned int fd)
+int sys_bdflush(int func, long data)
+</pre>
+
+<h4>fs/open.c</h4><pre>
+int sys_statfs(const char * path, struct statfs * buf)
+int sys_fstatfs(unsigned int fd, struct statfs * buf)
+int sys_truncate(const char * path, unsigned long length)
+int sys_ftruncate(unsigned int fd, unsigned long length)
+int sys_utime(char * filename, struct utimbuf * times)
+int sys_utimes(char * filename, struct timeval * utimes)
+int sys_access(const char * filename, int mode)
+int sys_chdir(const char * filename)
+int sys_fchdir(unsigned int fd)
+int sys_chroot(const char * filename)
+int sys_fchmod(unsigned int fd, mode_t mode)
+int sys_chmod(const char * filename, mode_t mode)
+int sys_chown(const char * filename, uid_t user, gid_t group)
+int sys_lchown(const char * filename, uid_t user, gid_t group)
+int sys_fchown(unsigned int fd, uid_t user, gid_t group)
+int sys_open(const char * filename, int flags, int mode)
+int sys_creat(const char * pathname, int mode)
+int sys_close(unsigned int fd)
+int sys_vhangup(void)
+</pre>
+
+<h4>fs/exec.c</h4><pre>
+int sys_uselib(const char * library)
+</pre>
+
+<h4>fs/super.c</h4><pre>
+int sys_sysfs(int option, unsigned long arg1, unsigned long arg2)
+int sys_ustat(dev_t dev, struct ustat * ubuf)
+int sys_umount(char * name, int flags)
+int sys_oldumount(char * name)
+int sys_mount(char * dev_name, char * dir_name, char * type, unsigned long new_flags, void * data)
+</pre>
+
+<h4>fs/fcntl.c</h4><pre>
+int sys_dup2(unsigned int oldfd, unsigned int newfd)
+int sys_dup(unsigned int fildes)
+long sys_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg)
+</pre>
+
+<h4>fs/namei.c</h4><pre>
+int sys_mknod(const char * filename, int mode, dev_t dev)
+int sys_mkdir(const char * pathname, int mode)
+int sys_rmdir(const char * pathname)
+int sys_unlink(const char * pathname)
+int sys_symlink(const char * oldname, const char * newname)
+int sys_link(const char * oldname, const char * newname)
+int sys_rename(const char * oldname, const char * newname)
+</pre>
+
+<h4>fs/ioctl.c</h4><pre>
+int sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg)
+</pre>
+
+<h4>fs/select.c</h4><pre>
+int sys_select(int n, fd_set *inp, fd_set *outp, fd_set *exp, struct timeval *tvp)
+int sys_poll(struct pollfd * ufds, unsigned int nfds, long timeout)
+</pre>
+
+<h4>fs/locks.c</h4><pre>
+int sys_flock(unsigned int fd, unsigned int cmd)
+</pre>
+
+<h4>fs/filesystems.c</h4><pre>
+int sys_nfsservctl(int cmd, void *argp, void *resp) [fs/nfsd/nfsctl.c]
+</pre>
+
+<h4>fs/dquot.c</h4><pre>
+int sys_quotactl(int cmd, const char *special, int id, caddr_t addr)
+</pre>
+
+<h4>fs/dcache.c</h4><pre>
+int sys_getcwd(char *buf, unsigned long size)
+</pre>
+
+<h4>fs/readdir.c</h4><pre>
+int sys_getdents(unsigned int fd, void * dirent, unsigned int count)
+</pre>
+
+<a name=s-ipc></a><h3 align=center><u>ipc/</u></h3>
+
+<h4>ipc/msg.c</h4><pre>
+int sys_msgsnd (int msqid, struct msgbuf *msgp, size_t msgsz, int msgflg)
+int sys_msgrcv (int msqid, struct msgbuf *msgp, size_t msgsz, long msgtyp, int msgflg)
+int sys_msgget (key_t key, int msgflg)
+int sys_msgctl (int msqid, int cmd, struct msqid_ds *buf)
+</pre>
+
+<h4>ipc/sem.c</h4><pre>
+int sys_semget (key_t key, int nsems, int semflg)
+int sys_semctl (int semid, int semnum, int cmd, union semun arg)
+int sys_semop (int semid, struct sembuf *tsops, unsigned nsops)
+</pre>
+
+<h4>ipc/shm.c</h4><pre>
+int sys_shmget (key_t key, int size, int shmflg)
+int sys_shmctl (int shmid, int cmd, struct shmid_ds *buf)
+int sys_shmat (int shmid, char *shmaddr, int shmflg, ulong *raddr)
+int sys_shmdt (char *shmaddr)
+</pre>
+
+<a name=s-kernel></a><h3 align=center><u>kernel/</u></h3>
+
+<h4>kernel/sched.c</h4><pre>
+unsigned int sys_alarm(unsigned int seconds)
+int sys_getpid(void)
+int sys_getppid(void)
+int sys_getuid(void)
+int sys_geteuid(void)
+int sys_getgid(void)
+int sys_getegid(void)
+int sys_nice(int increment)
+int sys_sched_setscheduler(pid_t pid, int policy, struct sched_param *param)
+int sys_sched_setparam(pid_t pid, struct sched_param *param)
+int sys_sched_getscheduler(pid_t pid)
+int sys_sched_getparam(pid_t pid, struct sched_param *param)
+int sys_sched_yield(void)
+int sys_sched_get_priority_max(int policy)
+int sys_sched_get_priority_min(int policy)
+int sys_sched_rr_get_interval(pid_t pid, struct timespec *interval)
+int sys_nanosleep(struct timespec *rqtp, struct timespec *rmtp)
+</pre>
+
+<h4>kernel/exit.c</h4><pre>
+int sys_exit(int error_code)
+int sys_wait4(pid_t pid,unsigned int * stat_addr, int options, struct rusage * ru)
+int sys_waitpid(pid_t pid,unsigned int * stat_addr, int options)
+</pre>
+
+<h4>kernel/signal.c</h4><pre>
+int sys_rt_sigprocmask(int how, sigset_t *set, sigset_t *oset, size_t sigsetsize)
+int sys_rt_sigpending(sigset_t *set, size_t sigsetsize)
+int sys_rt_sigtimedwait(const sigset_t *uthese, siginfo_t *uinfo, const struct timespec *uts, size_t sigsetsize)
+int sys_kill(int pid, int sig)
+int sys_rt_sigqueueinfo(int pid, int sig, siginfo_t *uinfo)
+int sys_sigprocmask(int how, old_sigset_t *set, old_sigset_t *oset)
+int sys_sigpending(old_sigset_t *set)
+int sys_rt_sigaction(int sig, const struct sigaction *act, struct sigaction *oact, size_t sigsetsize)
+int sys_sgetmask(void)
+int sys_ssetmask(int newmask)
+unsigned long sys_signal(int sig, __sighandler_t handler)
+</pre>
+
+<h4>kernel/printk.c</h4><pre>
+int sys_syslog(int type, char * buf, int len)
+</pre>
+
+<h4>kernel/sys.c</h4><pre>
+int sys_ni_syscall(void)
+int sys_setpriority(int which, int who, int niceval)
+int sys_getpriority(int which, int who)
+int sys_reboot(int magic1, int magic2, int cmd, void * arg)
+int sys_setregid(gid_t rgid, gid_t egid)
+int sys_setgid(gid_t gid)
+int sys_setreuid(uid_t ruid, uid_t euid)
+int sys_setuid(uid_t uid)
+int sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
+int sys_getresuid(uid_t *ruid, uid_t *euid, uid_t *suid)
+int sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid)
+int sys_getresgid(gid_t *rgid, gid_t *egid, gid_t *sgid)
+int sys_setfsuid(uid_t uid)
+long sys_times(struct tms * tbuf)
+int sys_setpgid(pid_t pid, pid_t pgid)
+int sys_getpgid(pid_t pid)
+int sys_getpgrp(void)
+int sys_getsid(pid_t pid)
+int sys_setsid(void)
+int sys_getgroups(int gidsetsize, gid_t *grouplist)
+int sys_setgroups(int gidsetsize, gid_t *grouplist)
+int sys_newuname(struct new_utsname * name)
+int sys_sethostname(char *name, int len)
+int sys_gethostname(char *name, int len)
+int sys_setdomainname(char *name, int len)
+int sys_getrlimit(unsigned int resource, struct rlimit *rlim)
+int sys_setrlimit(unsigned int resource, struct rlimit *rlim)
+int sys_getrusage(int who, struct rusage *ru)
+int sys_umask(int mask)
+int sys_prctl(int option, unsigned long arg2, unsigned long arg3, unsigned long arg4, unsigned long arg5)
+</pre>
+
+<h4>kernel/module.c</h4><pre>
+unsigned long sys_create_module(const char *name_user, size_t size)
+int sys_init_module(const char *name_user, struct module *mod_user)
+int sys_delete_module(const char *name_user)
+int sys_query_module(const char *name_user, int which, char *buf, size_t bufsize, size_t *ret)
+int sys_get_kernel_syms(struct kernel_sym *table)
+unsigned long sys_create_module(const char *name_user, size_t size)
+</pre>
+
+<h4>kernel/itimer.c</h4><pre>
+int sys_getitimer(int which, struct itimerval *value)
+int sys_setitimer(int which, struct itimerval *value, struct itimerval *ovalue)
+</pre>
+
+<h4>kernel/info.c</h4><pre>
+int sys_sysinfo(struct sysinfo *info)
+</pre>
+
+<h4>kernel/time.c</h4><pre>
+int sys_time(int * tloc)
+int sys_stime(int * tptr)
+int sys_gettimeofday(struct timeval *tv, struct timezone *tz)
+int sys_settimeofday(struct timeval *tv, struct timezone *tz)
+int sys_adjtimex(struct timex *txc_p)
+</pre>
+
+<h4>kernel/exec_domain.c</h4><pre>
+int sys_adjtimex(struct timex *txc_p)
+</pre>
+
+<h4>kernel/sysctl.c</h4><pre>
+int sys_sysctl(struct __sysctl_args *args)
+</pre>
+
+<h4>kernel/acct.c</h4><pre>
+int sys_acct(const char *name)
+</pre>
+
+<h4>kernel/capability.c</h4><pre>
+int sys_capget(cap_user_header_t header, cap_user_data_t dataptr)
+int sys_capset(cap_user_header_t header, const cap_user_data_t data)
+</pre>
+
+<a name=s-mm></a><h3 align=center><u>mm/</u></h3>
+
+<h4>mm/mmap.c</h4><pre>
+unsigned long sys_brk(unsigned long brk)
+int sys_munmap(unsigned long addr, size_t len)
+</pre>
+
+<h4>mm/mprotect.c</h4><pre>
+int sys_mprotect(unsigned long start, size_t len, unsigned long prot)
+</pre>
+
+<h4>mm/filemap.c</h4><pre>
+ssize_t sys_sendfile(int out_fd, int in_fd, off_t *offset, size_t count)
+int sys_msync(unsigned long start, size_t len, int flags)
+</pre>
+
+<h4>mm/mlock.c</h4><pre>
+int sys_mlock(unsigned long start, size_t len)
+int sys_munlock(unsigned long start, size_t len)
+int sys_mlockall(int flags)
+int sys_munlockall(void)
+</pre>
+
+<h4>mm/swapfile.c</h4><pre>
+int sys_swapoff(const char * specialfile)
+int sys_swapon(const char * specialfile, int swap_flags)
+</pre>
+
+<h4>mm/mremap.c</h4><pre>
+unsigned long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags)
+</pre>
+
+<a name=s-net></a><h3 align=center><u>net/</u></h3>
+
+<h4>net/socket.c</h4><pre>
+int sys_socketcall(int call, unsigned long *args)
+
+ int sys_socket(int family, int type, int protocol)
+ int sys_socketpair(int family, int type, int protocol, int usockvec[2])
+ int sys_bind(int fd, struct sockaddr *umyaddr, int addrlen)
+ int sys_listen(int fd, int backlog)
+ int sys_accept(int fd, struct sockaddr *upeer_sockaddr, int *upeer_addrlen)
+ int sys_connect(int fd, struct sockaddr *uservaddr, int addrlen)
+ int sys_getsockname(int fd, struct sockaddr *usockaddr, int *usockaddr_len)
+ int sys_getpeername(int fd, struct sockaddr *usockaddr, int *usockaddr_len)
+ int sys_sendto(int fd, void * buff, size_t len, unsigned flags, struct sockaddr *addr, int addr_len)
+ int sys_send(int fd, void * buff, size_t len, unsigned flags)
+ int sys_recvfrom(int fd, void * ubuf, size_t size, unsigned flags, struct sockaddr *addr, int *addr_len)
+ int sys_recv(int fd, void * ubuf, size_t size, unsigned flags)
+ int sys_setsockopt(int fd, int level, int optname, char *optval, int optlen)
+ int sys_getsockopt(int fd, int level, int optname, char *optval, int *optlen)
+ int sys_shutdown(int fd, int how)
+ int sys_sendmsg(int fd, struct msghdr *msg, unsigned flags)
+ int sys_recvmsg(int fd, struct msghdr *msg, unsigned int flags)
+</pre>
+
+<hr>
+
+<a name=#p4></a><h2>References</h2>
+<p>
+Sources of information (except other directly pointed):
+<ul>
+include/asm-i386/unistd.h<br>
+arch/i386/kernel/entry.S<br>
+include/linux/sys.h
+</ul>
+
+<center><hr><font size=-1 face="Tahoma, Helvetica">
+$Id: syscall.html,v 1.7 2000/05/18 12:18:52 konst Exp $
+</font></center>
+
+</body></html>

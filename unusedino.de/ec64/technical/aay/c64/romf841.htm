@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F841/63553:   Initiate Tape Read
+
+Jump from <a href="romf199.htm">$F19E</a>, <a href="romf72c.htm">$F72F</a>:
+
+F841: A9 00     <a href="blda.htm">LDA</a> #$00
+F843: 85 90     <a href="bsta.htm">STA</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+F845: 85 93     <a href="bsta.htm">STA</a> <a href="zp93.htm">$93</a>       ; Flag: 0 = Load, 1 = Verify
+F847: 20 D7 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d7.htm">$F7D7</a>     ; Set Buffer Stat / End Pointers
+
+Jump from <a href="romf533.htm">$F5A5</a>:
+
+F84A: 20 17 F8  <a href="bjsr.htm">JSR</a> <a href="romf817.htm">$F817</a>     ; Print &quot;PRESS PLAY ON TAPE&quot;
+F84D: B0 1F     <a href="bbcs.htm">BCS</a> <a href="romf864.htm">$F86E</a>     ; Initiate Tape Write
+F84F: 78        <a href="bsei.htm">SEI</a>
+F850: A9 00     <a href="blda.htm">LDA</a> #$00
+F852: 85 AA     <a href="bsta.htm">STA</a> <a href="zpaa.htm">$AA</a>       ; RS232 Input Byte Buffer/Tape temporary
+F854: 85 B4     <a href="bsta.htm">STA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+F856: 85 B0     <a href="bsta.htm">STA</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F858: 85 9E     <a href="bsta.htm">STA</a> <a href="zp9e.htm">$9E</a>       ; Tape Error log pass 1
+F85A: 85 9F     <a href="bsta.htm">STA</a> <a href="zp9f.htm">$9F</a>       ; Tape Error log pass 2
+F85C: 85 9C     <a href="bsta.htm">STA</a> <a href="zp9c.htm">$9C</a>       ; Flag: Byte received from Tape
+F85E: A9 90     <a href="blda.htm">LDA</a> #$90
+F860: A2 0E     <a href="bldx.htm">LDX</a> #$0E
+F862: D0 11     <a href="bbne.htm">BNE</a> <a href="romf875.htm">$F875</a>     ; Common Tape Code
+
+    <a href="romf838.htm">Previous Page</a> / <a href="romf864.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

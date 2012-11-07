@@ -1,0 +1,128 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D6E4/55012:   Enter file in dir
+
+Jump from <a href="ro41c9a7.htm">$C9B3</a>, <a href="ro41d9e3.htm">$D9EC</a>:
+
+D6E4: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D6E6: 48        PHA
+D6E7: A5 82     LDA <a href="ra4182.htm">$82</a>         ; channel number
+D6E9: 48        PHA
+D6EA: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+D6EC: 48        PHA
+D6ED: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number
+D6EF: 48        PHA             ; save
+D6F0: A9 11     LDA #$11
+D6F2: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address 17
+D6F4: 20 3B DE  JSR <a href="ro41de3b.htm">$DE3B</a>       ; get track and sector number
+D6F7: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>       ; file type
+D6FA: 48        PHA             ; save
+D6FB: A5 E2     LDA <a href="ra41e2.htm">$E2</a>         ; drive number
+D6FD: 29 01     AND #$01
+D6FF: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; set
+D701: A6 F9     LDX <a href="ra41f9.htm">$F9</a>         ; buffer number
+D703: 5D 5B 02  EOR <a href="ra41025b.htm">$025B</a>,X
+D706: 4A        LSR
+D707: 90 0C     BCC $D715       ; equal drive number?
+D709: A2 01     LDX #$01
+D70B: 8E 92 02  STX <a href="ra410292.htm">$0292</a>       ; pointer in directory
+D70E: 20 AC C5  JSR <a href="ro41c5ac.htm">$C5AC</a>       ; load dir and find first entry
+D711: F0 1D     BEQ $D730       ; not found?
+D713: D0 28     BNE $D73D       ; found?
+
+Jump from $D707:
+
+D715: AD 91 02  LDA <a href="ra410291.htm">$0291</a>       ; sector number in directory
+D718: F0 0C     BEQ $D726       ; equal zero
+D71A: C5 81     CMP <a href="ra4181.htm">$81</a>         ; equal sector number?
+D71C: F0 1F     BEQ $D73D       ; yes
+D71E: 85 81     STA <a href="ra4181.htm">$81</a>         ; save sector number
+D720: 20 60 D4  JSR <a href="ro41d460.htm">$D460</a>       ; read block
+D723: 4C 3D D7  JMP $D73D
+
+Jump from $D718:
+
+D726: A9 01     LDA #$01
+D728: 8D 92 02  STA <a href="ra410292.htm">$0292</a>       ; pointer to one
+D72B: 20 17 C6  JSR <a href="ro41c5ac.htm">$C617</a>       ; find next entry in directory
+D72E: D0 0D     BNE $D73D       ; found?
+
+Jump from $D711:
+
+D730: 20 8D D4  JSR <a href="ro41d48d.htm">$D48D</a>       ; write directory block
+D733: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+D735: 8D 91 02  STA <a href="ra410291.htm">$0291</a>
+D738: A9 02     LDA #$02
+D73A: 8D 92 02  STA <a href="ra410292.htm">$0292</a>       ; pointer to 2
+
+Jump from $D713, $D71C, $D723, $D72E:
+
+D73D: AD 92 02  LDA <a href="ra410292.htm">$0292</a>
+D740: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+D743: 68        PLA
+D744: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; file type
+D747: C9 04     CMP #$04        ; rel-file?
+D749: D0 02     BNE $D74D       ; no
+D74B: 09 80     ORA #$80        ; set bit 7
+
+Jump from $D749:
+
+D74D: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; and write in buffer
+D750: 68        PLA
+D751: 8D 80 02  STA <a href="ra410280.htm">$0280</a>       ; following track
+D754: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+D757: 68        PLA
+D758: 8D 85 02  STA <a href="ra410285.htm">$0285</a>       ; following sector
+D75B: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+D75E: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+D761: A8        TAY
+D762: AD 7A 02  LDA <a href="ra41027a.htm">$027A</a>       ; pointer to drive number
+D765: AA        TAX
+D766: A9 10     LDA #$10        ; 16, length of filename
+D768: 20 6E C6  JSR <a href="ro41c66e.htm">$C66E</a>       ; write filename in buffer
+D76B: A0 10     LDY #$10
+D76D: A9 00     LDA #$00
+
+Jump from $D774:
+
+D76F: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; fill with zeroes at position 16
+D771: C8        INY
+D772: C0 1B     CPY #$1B        ; position 27 already?
+D774: 90 F9     BCC $D76F       ; no
+D776: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>       ; file type
+D779: C9 04     CMP #$04        ; rel-file?
+D77B: D0 13     BNE $D790       ; no
+D77D: A0 10     LDY #$10
+D77F: AD 59 02  LDA <a href="ra410259.htm">$0259</a>       ; track
+D782: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+D784: C8        INY
+D785: AD 5A 02  LDA <a href="ra41025a.htm">$025A</a>       ; and sector
+D788: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; the side-sectors in directory entry
+D78A: C8        INY
+D78B: AD 58 02  LDA <a href="ra410258.htm">$0258</a>       ; record length
+D78E: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in directory
+
+Jump from $D77B:
+
+D790: 20 64 D4  JSR <a href="ro41d464.htm">$D464</a>       ; write block
+D793: 68        PLA
+D794: 85 82     STA <a href="ra4182.htm">$82</a>         ; channel number
+D796: AA        TAX
+D797: 68        PLA
+D798: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+D79A: AD 91 02  LDA <a href="ra410291.htm">$0291</a>
+D79D: 85 D8     STA <a href="ra41d8.htm">$D8</a>
+D79F: 9D 60 02  STA <a href="ra410260.htm">$0260</a>,X
+D7A2: AD 92 02  LDA <a href="ra410292.htm">$0292</a>
+D7A5: 85 DD     STA <a href="ra41dd.htm">$DD</a>
+D7A7: 9D 66 02  STA <a href="ra410266.htm">$0266</a>,X
+D7AA: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>       ; file type
+D7AD: 85 E7     STA <a href="ra41e7.htm">$E7</a>
+D7AF: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+D7B1: 85 E2     STA <a href="ra41e2.htm">$E2</a>
+D7B3: 60        RTS
+
+    <a href="ro41d6d0.htm">Previous Page</a> / <a href="ro41d7b4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

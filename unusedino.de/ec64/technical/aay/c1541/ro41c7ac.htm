@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C7AC/51116:   Clear Directory Output Buffer
+
+Jump from <a href="ro41c6de.htm">$C73C</a>, <a href="ro41c7b7.htm">$C7BD</a>, <a href="ro41c806.htm">$C806</a>:
+
+C7AC: A0 1B     LDY #$1B
+C7AE: A9 20     LDA #$20        ; ' ' blank
+
+Jump from $C7B4:
+
+C7B0: 99 B0 02  STA <a href="ra4102a1.htm">$02B0</a>,Y     ; write in buffer
+C7B3: 88        DEY
+C7B4: D0 FA     BNE $C7B0
+C7B6: 60        RTS
+
+    <a href="ro41c6de.htm">Previous Page</a> / <a href="ro41c7b7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

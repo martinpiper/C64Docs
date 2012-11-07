@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B37D/45949:   Evaluate &lt;fre&gt;
+
+B37D: A5 0D     <a href="blda.htm">LDA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B37F: F0 03     <a href="bbeq.htm">BEQ</a> $B384
+B381: 20 A6 B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6A6</a>     ; Perform String Housekeeping
+
+Jump from $B37F:
+
+B384: 20 26 B5  <a href="bjsr.htm">JSR</a> <a href="romb526.htm">$B526</a>     ; Garbage Collection
+B387: 38        <a href="bsec.htm">SEC</a>
+B388: A5 33     <a href="blda.htm">LDA</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B38A: E5 31     <a href="bsbc.htm">SBC</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B38C: A8        <a href="btay.htm">TAY</a>
+B38D: A5 34     <a href="blda.htm">LDA</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B38F: E5 32     <a href="bsbc.htm">SBC</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+
+    <a href="romb34c.htm">Previous Page</a> / <a href="romb391.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kanal oeffnen ($cdd2)
+
+Einsprung von <a href="ro818bfa.htm">$8BFA</a>, <a href="ro818c2f.htm">$8C2F</a>, <a href="ro818c44.htm">$8C44</a>:
+
+8C0F: A6 67     LDX <a href="ra8167.htm">$67</a>          Parameternummer holen (1 Parameter=1 Byte)
+8C11: E6 67     INC <a href="ra8167.htm">$67</a>          auf naechsten Parameter schalten
+8C13: BD 9C 02  LDA <a href="ra81029c.htm">$029C</a>,X      Wert aus Kommandozeile
+8C16: A8        TAY              (SA des Direktzugriffkanals)
+8C17: 88        DEY
+8C18: 88        DEY              &gt;=2 und &lt;=14 ?
+8C19: C0 0D     CPY #$0D
+8C1B: 90 05     BCC $8C22        ja, ==&gt;
+
+Einsprung von $8C27:
+
+8C1D: A9 70     LDA #$70
+8C1F: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        70, No Channel
+
+Einsprung von $8C1B:
+
+8C22: 85 52     STA <a href="ra8152.htm">$52</a>          als aktuelle SA merken
+8C24: 20 27 90  JSR <a href="ro819027.htm">$9027</a>        Kanalnummer holen
+8C27: B0 F4     BCS $8C1D        Kanal in Ordnung ? nein, ==&gt;
+8C29: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktiven Puffer holen
+8C2C: 85 6C     STA <a href="ra816c.htm">$6C</a>          und merken
+8C2E: 60        RTS
+    <a href="ro818bfa.htm">Previous Page</a> / <a href="ro818c2f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

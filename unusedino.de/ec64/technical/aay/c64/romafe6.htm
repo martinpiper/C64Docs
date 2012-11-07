@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AFE6/45030:   Perform [or], [and]
+
+AFE6: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+AFE8: 2C        .BYTE $2C
+AFE9: A0 00     <a href="bldy.htm">LDY</a> #$00
+AFEB: 84 0B     <a href="bsty.htm">STY</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+AFED: 20 BF B1  <a href="bjsr.htm">JSR</a> <a href="romb1bf.htm">$B1BF</a>     ; FAC#1 to Positive Integer
+AFF0: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AFF2: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+AFF4: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+AFF6: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AFF8: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+AFFA: 85 08     <a href="bsta.htm">STA</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+AFFC: 20 FC BB  <a href="bjsr.htm">JSR</a> <a href="rombbfc.htm">$BBFC</a>     ; Copy FAC#2 into FAC#1
+AFFF: 20 BF B1  <a href="bjsr.htm">JSR</a> <a href="romb1bf.htm">$B1BF</a>     ; FAC#1 to Positive Integer
+B002: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B004: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B006: 25 08     <a href="band.htm">AND</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+B008: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B00A: A8        <a href="btay.htm">TAY</a>
+B00B: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B00D: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B00F: 25 07     <a href="band.htm">AND</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+B011: 45 0B     <a href="beor.htm">EOR</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B013: 4C 91 B3  <a href="bjmp.htm">JMP</a> <a href="romb391.htm">$B391</a>     ; Convert Integer in (AC/YR) to Flpt
+
+    <a href="romafd1.htm">Previous Page</a> / <a href="romb016.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

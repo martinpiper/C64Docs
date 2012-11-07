@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C2DC/49884:   Clear flags for command input
+
+Jump from <a href="ro41c2b3.htm">$C2D2</a>, <a href="ro41da55.htm">$DA8B</a>:
+
+C2DC: A0 00     LDY #$00
+C2DE: 98        TYA
+C2DF: 85 A3     STA <a href="ra41a3.htm">$A3</a>         ; pointer to input buffer lo
+C2E1: 8D 58 02  STA <a href="ra410258.htm">$0258</a>       ; record length
+C2E4: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; file type
+C2E7: 8D 96 02  STA <a href="ra410296.htm">$0296</a>
+C2EA: 85 D3     STA <a href="ra41d3.htm">$D3</a>
+C2EC: 8D 79 02  STA <a href="ra410279.htm">$0279</a>       ; comma counter
+C2EF: 8D 77 02  STA <a href="ra410277.htm">$0277</a>       ;      &quot;
+C2F2: 8D 78 02  STA <a href="ra410278.htm">$0278</a>       ;      &quot;
+C2F5: 8D 8A 02  STA <a href="ra41028a.htm">$028A</a>       ; wildcard flag
+C2F8: 8D 6C 02  STA <a href="ra41026c.htm">$026C</a>       ; error flag
+C2FB: A2 05     LDX #$05
+
+Jump from $C30F:
+
+C2FD: 9D 79 02  STA <a href="ra410279.htm">$0279</a>,X     ; flags for line analysis
+C300: 95 D7     STA <a href="ra41d7.htm">$D7</a>,X       ; directory sectors
+C302: 95 DC     STA <a href="ra41d8.htm">$DC</a>,X       ; buffer pointer
+C304: 95 E1     STA <a href="ra41dd.htm">$E1</a>,X       ; drive number
+C306: 95 E6     STA <a href="ra41e2.htm">$E6</a>,X       ; wildcard flag
+C308: 9D 7F 02  STA <a href="ra41027a.htm">$027F</a>,X     ; track number
+C30B: 9D 84 02  STA <a href="ra410280.htm">$0284</a>,X     ; sector number
+C30E: CA        DEX
+C30F: D0 EC     BNE $C2FD
+C311: 60        RTS
+
+    <a href="ro41c2b3.htm">Previous Page</a> / <a href="ro41c312.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

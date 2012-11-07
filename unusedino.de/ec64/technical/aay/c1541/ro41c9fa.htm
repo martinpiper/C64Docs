@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C9FA/51706:   ?
+
+Jump from <a href="ro41c8f0.htm">$C976</a>, <a href="ro41c9a7.htm">$C9BC</a>:
+
+C9FA: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+C9FD: B5 E2     LDA <a href="ra41e2.htm">$E2</a>,X       ; drive number
+C9FF: 29 01     AND #$01
+CA01: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; save
+CA03: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+CA06: 85 80     STA <a href="ra4180.htm">$80</a>         ; save
+CA08: B5 D8     LDA <a href="ra41d8.htm">$D8</a>,X       ; directory sector
+CA0A: 85 81     STA <a href="ra4181.htm">$81</a>
+CA0C: 20 75 D4  JSR <a href="ro41d475.htm">$D475</a>       ; read block
+CA0F: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+CA12: B5 DD     LDA <a href="ra41dd.htm">$DD</a>,X       ; pointer in block
+CA14: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+CA17: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+CA1A: B5 E7     LDA <a href="ra41e7.htm">$E7</a>,X       ; file type
+CA1C: 29 07     AND #$07        ; isolate
+CA1E: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; and save
+CA21: A9 00     LDA #$00
+CA23: 8D 58 02  STA <a href="ra410258.htm">$0258</a>
+CA26: 20 A0 D9  JSR <a href="ro41d9a0.htm">$D9A0</a>       ; get parameters for rel-file
+CA29: A0 01     LDY #$01
+CA2B: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; get file type
+CA2E: F0 01     BEQ $CA31       ; rel-file?
+CA30: C8        INY
+
+Jump from $CA2E:
+
+CA31: 98        TYA
+CA32: 4C C8 D4  JMP <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+
+    <a href="ro41c9d5.htm">Previous Page</a> / <a href="ro41ca35.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

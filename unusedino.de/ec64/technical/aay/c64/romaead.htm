@@ -1,0 +1,58 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AEAD/44717:   Continue Expression
+
+Jump from <a href="romae83.htm">$AE9C</a>:
+
+AEAD: C9 2E     <a href="bcmp.htm">CMP</a> #$2E
+AEAF: F0 DE     <a href="bbeq.htm">BEQ</a> <a href="romae83.htm">$AE8F</a>     ; Evaluate Single Term
+AEB1: C9 AB     <a href="bcmp.htm">CMP</a> #$AB
+AEB3: F0 58     <a href="bbeq.htm">BEQ</a> <a href="romaf0d.htm">$AF0D</a>     ; Set up NOT Function
+AEB5: C9 AA     <a href="bcmp.htm">CMP</a> #$AA
+AEB7: F0 D1     <a href="bbeq.htm">BEQ</a> <a href="romae83.htm">$AE8A</a>     ; Evaluate Single Term
+AEB9: C9 22     <a href="bcmp.htm">CMP</a> #$22
+AEBB: D0 0F     <a href="bbne.htm">BNE</a> $AECC
+
+Jump from <a href="romabbf.htm">$ABC3</a>:
+
+AEBD: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AEBF: A4 7B     <a href="bldy.htm">LDY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+AEC1: 69 00     <a href="badc.htm">ADC</a> #$00
+AEC3: 90 01     <a href="bbcc.htm">BCC</a> $AEC6
+AEC5: C8        <a href="biny.htm">INY</a>
+
+Jump from $AEC3:
+
+AEC6: 20 87 B4  <a href="bjsr.htm">JSR</a> <a href="romb487.htm">$B487</a>     ; Set Up String
+AEC9: 4C E2 B7  <a href="bjmp.htm">JMP</a> <a href="romb7b5.htm">$B7E2</a>     ; Convert ASCII String to Flpt
+
+Jump from $AEBB:
+
+AECC: C9 A8     <a href="bcmp.htm">CMP</a> #$A8
+AECE: D0 13     <a href="bbne.htm">BNE</a> $AEE3
+AED0: A0 18     <a href="bldy.htm">LDY</a> #$18
+AED2: D0 3B     <a href="bbne.htm">BNE</a> <a href="romaf0d.htm">$AF0F</a>     ; Set up NOT Function
+AED4: 20 BF B1  <a href="bjsr.htm">JSR</a> <a href="romb1bf.htm">$B1BF</a>     ; FAC#1 to Positive Integer
+AED7: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AED9: 49 FF     <a href="beor.htm">EOR</a> #$FF
+AEDB: A8        <a href="btay.htm">TAY</a>
+AEDC: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AEDE: 49 FF     <a href="beor.htm">EOR</a> #$FF
+AEE0: 4C 91 B3  <a href="bjmp.htm">JMP</a> <a href="romb391.htm">$B391</a>     ; Convert Integer in (AC/YR) to Flpt
+
+Jump from $AECE:
+
+AEE3: C9 A5     <a href="bcmp.htm">CMP</a> #$A5
+AEE5: D0 03     <a href="bbne.htm">BNE</a> $AEEA
+AEE7: 4C F4 B3  <a href="bjmp.htm">JMP</a> <a href="romb3f4.htm">$B3F4</a>     ; Perform [fn]
+
+Jump from $AEE5:
+
+AEEA: C9 B4     <a href="bcmp.htm">CMP</a> #$B4
+AEEC: 90 03     <a href="bbcc.htm">BCC</a> <a href="romaef1.htm">$AEF1</a>     ; Expression in Brackets
+AEEE: 4C A7 AF  <a href="bjmp.htm">JMP</a> <a href="romafa7.htm">$AFA7</a>     ; Identify Function Type
+
+    <a href="romaea8.htm">Previous Page</a> / <a href="romaef1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

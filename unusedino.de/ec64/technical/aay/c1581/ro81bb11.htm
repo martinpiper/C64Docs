@@ -1,0 +1,72 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehle $00,$10: Read (bei der 1571: $8371)
+
+BB11: A5 25     LDA <a href="ra8125.htm">$25</a>          wurde die Diskette gewechselt ?
+BB13: D0 E2     BNE <a href="ro81baf7.htm">$BAF7</a>        ja, ==&gt;
+
+Einsprung von $BB6E:
+
+BB15: 20 D4 AC  JSR <a href="ro81accf.htm">$ACD4</a>        FSM auf Ausgabe schalten
+BB18: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BB1A: 30 97     BMI <a href="ro81baae.htm">$BAB3</a>        L-Flag (b7)=1: logische T&amp;S angegeben, ==&gt;
+
+(bei der 1571: $8d67)
+
+BB1C: A2 00     LDX #$00         Job 0 benutzen
+BB1E: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Tracknummer holen
+BB21: 95 0B     STA <a href="ra810b.htm">$0B</a>,X        und in Jobpuffer eintragen
+BB23: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        Sektornummer holen
+BB26: 95 0C     STA <a href="ra810b.htm">$0C</a>,X        und in Jobpuffer eintragen
+BB28: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BB2A: 29 10     AND #$10         b4: Seitennummer isolieren
+BB2C: 9D CE 01  STA <a href="ra8101ce.htm">$01CE</a>,X      und in Job-Puffer (SIDS) eintragen
+BB2F: A9 B2     LDA #$B2         TPREAD_DV: physikalische Spur einlesen
+BB31: 20 B0 BF  JSR <a href="ro81bfb0.htm">$BFB0</a>        Job aufrufen
+BB34: 20 66 BF  JSR <a href="ro81bf66.htm">$BF66</a>        Burst-Status setzen
+BB37: 24 7C     BIT <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen;
+BB39: 70 04     BVS $BB3F        E-Flag (b6)=1: Fehler ignorieren ? ja, ==&gt;
+BB3B: C9 02     CMP #$02         Jobrueckmeldung &lt; 2 (Ok.) ?
+BB3D: B0 BD     BCS <a href="ro81bafc.htm">$BAFC</a>        nein, (Status ausgeben, Ende) ==&gt;
+
+Einsprung von $BB39:
+
+BB3F: 20 AB BF  JSR <a href="ro81bfab.htm">$BFAB</a>        Burst-Status an Computer uebertragen
+BB42: A0 00     LDY #$00
+BB44: 84 7E     STY <a href="ra817e.htm">$7E</a>          Pufferzeiger Lo =0 setzen
+BB46: B9 9F 00  LDA <a href="ra819f.htm">$009F</a>,Y      Zeiger auf den Block im Cache holen
+BB49: 29 7F     AND #$7F         Umwandlungs-Flag ausblenden
+BB4B: 18        CLC
+BB4C: 65 8C     ADC <a href="ra818b.htm">$8C</a>          + Cache-Start
+BB4E: 85 7F     STA <a href="ra817e.htm">$7F</a>          als Pufferzeiger Hi merken
+BB50: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorgroesse holen
+BB52: E0 03     CPX #$03         Anzahl auszugebender Speicherseiten merken
+BB54: D0 01     BNE $BB57        1 oder 2 Seiten, ==&gt;
+BB56: E8        INX              4 Seiten ausgeben
+
+Einsprung von $BB54, $BB5D, $BB64:
+
+BB57: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Byte aus Cachepuffer holen
+BB59: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        und an Computer senden
+BB5C: C8        INY
+BB5D: D0 F8     BNE $BB57        ganze Speicherseite ausgeben, ==&gt;
+BB5F: CA        DEX              naechste Seite holen
+BB60: F0 04     BEQ $BB66        keine Seite mehr auszugeben, ==&gt;
+BB62: E6 7F     INC <a href="ra817e.htm">$7F</a>          Pufferzeiger Hi erhoehen
+BB64: D0 F1     BNE $BB57        ==&gt;
+
+Einsprung von $BB60:
+
+BB66: CE 05 02  DEC <a href="ra810200.htm">$0205</a>        Anzahl auszugebender Sektoren -1
+BB69: F0 06     BEQ $BB71        fertig, ==&gt;
+BB6B: 20 40 C0  JSR <a href="ro81c040.htm">$C040</a>        naechste Blocknummer holen
+BB6E: 4C 15 BB  JMP $BB15        Block lesen und ausgeben
+
+Einsprung von $BB69:
+
+BB71: 4C 47 BF  JMP <a href="ro81bf44.htm">$BF47</a>        ggf. Kopf auf die angegebene Spur setzen
+
+    <a href="ro81bafc.htm">Previous Page</a> / <a href="ro81bb74.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

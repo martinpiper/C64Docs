@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Testet auf Diskettenwechsel und initialisiert ggf. ($c63d)
+
+Einsprung von <a href="ro8182a2.htm">$82AC</a>, <a href="ro81854d.htm">$8627</a>, <a href="ro8189e4.htm">$89E7</a>, <a href="ro818b23.htm">$8B23</a>, <a href="ro818b2f.htm">$8B2F</a>, <a href="ro81a956.htm">$A956</a>, <a href="ro81b781.htm">$B781</a>, <a href="ro81b8d2.htm">$B8E3</a>:
+
+84AE: A5 2D     LDA <a href="ra812d.htm">$2D</a>          Auto-Initialisierung ein ?
+84B0: D0 31     BNE $84E3        nein, ==&gt;
+84B2: A9 01     LDA #$01         Wurde Diskette gewechselt ?
+84B4: 24 25     BIT <a href="ra8125.htm">$25</a>          (bzw. Lesefehler)
+84B6: F0 2B     BEQ $84E3        nein, ==&gt;
+84B8: 20 CF B0  JSR <a href="ro81b0cf.htm">$B0CF</a>        physikalisches 1581-Format festlegen
+84BB: 20 B3 B0  JSR <a href="ro81b0b3.htm">$B0B3</a>        ganze Diskette als Partition setzen
+84BE: A9 80     LDA #$80         Job-Fehlerbehandlung ausschalten
+84C0: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>        (wird automatisch zurueckgesetzt)
+84C3: 20 DC 8E  JSR <a href="ro818edc.htm">$8EDC</a>        Verzeichnis-Blockheader suchen
+84C6: A0 FF     LDY #$FF         Code fuer Drive-Error
+84C8: C9 02     CMP #$02         ist Error $02,$03 oder $0f aufgetreten ?
+84CA: F0 0A     BEQ $84D6        ja, ==&gt;
+84CC: C9 03     CMP #$03
+84CE: F0 06     BEQ $84D6        ja, ==&gt;
+84D0: C9 0F     CMP #$0F
+84D2: F0 02     BEQ $84D6        ja, ==&gt;
+84D4: A0 00     LDY #$00         nein, Code fuer Drive Ok.
+
+Einsprung von $84CA, $84CE, $84D2:
+
+84D6: 98        TYA
+84D7: 85 6E     STA <a href="ra816e.htm">$6E</a>          Drive-Status setzen
+84D9: D0 08     BNE $84E3        Fehler ? ja, (Ende) ==&gt;
+84DB: A9 80     LDA #$80         Job-Fehlerbehandlung ausschalten
+84DD: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>
+84E0: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Partition initialisieren
+
+Einsprung von $84B0, $84B6, $84D9:
+
+84E3: 24 8A     BIT <a href="ra818a.htm">$8A</a>          Burst-OR-Maske
+84E5: 10 04     BPL $84EB        b7=1: Fremdformat ? ja, ==&gt;
+84E7: A9 FF     LDA #$FF         Drive-Status setzen
+84E9: 85 6E     STA <a href="ra816e.htm">$6E</a>
+
+Einsprung von $84E5:
+
+84EB: A5 6E     LDA <a href="ra816e.htm">$6E</a>
+84ED: 60        RTS
+
+    <a href="ro818424.htm">Previous Page</a> / <a href="ro8184ee.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

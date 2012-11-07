@@ -1,0 +1,104 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FBCD/64461:   IRQ Entry Point
+
+FBCD: A5 A8     <a href="blda.htm">LDA</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FBCF: D0 12     <a href="bbne.htm">BNE</a> $FBE3
+FBD1: A9 10     <a href="blda.htm">LDA</a> #$10
+FBD3: A2 01     <a href="bldx.htm">LDX</a> #$01
+FBD5: 20 B1 FB  <a href="bjsr.htm">JSR</a> <a href="romfba6.htm">$FBB1</a>     ; Send Tone to Tape
+FBD8: D0 2F     <a href="bbne.htm">BNE</a> $FC09
+FBDA: E6 A8     <a href="binc.htm">INC</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FBDC: A5 B6     <a href="blda.htm">LDA</a> <a href="zpb6.htm">$B6</a>       ; RS232 Output Byte Buffer/Tape Read Error Flag
+FBDE: 10 29     <a href="bbpl.htm">BPL</a> $FC09
+FBE0: 4C 57 FC  <a href="bjmp.htm">JMP</a> <a href="romfc57.htm">$FC57</a>     ; Write Tape Leader
+
+Jump from $FBCF:
+
+FBE3: A5 A9     <a href="blda.htm">LDA</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+FBE5: D0 09     <a href="bbne.htm">BNE</a> $FBF0
+FBE7: 20 AD FB  <a href="bjsr.htm">JSR</a> <a href="romfba6.htm">$FBAD</a>     ; Send Tone to Tape
+FBEA: D0 1D     <a href="bbne.htm">BNE</a> $FC09
+FBEC: E6 A9     <a href="binc.htm">INC</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+FBEE: D0 19     <a href="bbne.htm">BNE</a> $FC09
+
+Jump from $FBE5:
+
+FBF0: 20 A6 FB  <a href="bjsr.htm">JSR</a> <a href="romfba6.htm">$FBA6</a>     ; Send Tone to Tape
+FBF3: D0 14     <a href="bbne.htm">BNE</a> $FC09
+FBF5: A5 A4     <a href="blda.htm">LDA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+FBF7: 49 01     <a href="beor.htm">EOR</a> #$01
+FBF9: 85 A4     <a href="bsta.htm">STA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+FBFB: F0 0F     <a href="bbeq.htm">BEQ</a> $FC0C
+FBFD: A5 BD     <a href="blda.htm">LDA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FBFF: 49 01     <a href="beor.htm">EOR</a> #$01
+FC01: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FC03: 29 01     <a href="band.htm">AND</a> #$01
+FC05: 45 9B     <a href="beor.htm">EOR</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+FC07: 85 9B     <a href="bsta.htm">STA</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+
+Jump from $FBD8, $FBDE, $FBEA, $FBEE, $FBF3, $FC14, $FC2E, $FC3D, $FC4C, <a href="romfbc8.htm">$FBCB</a>:
+
+FC09: 4C BC FE  <a href="bjmp.htm">JMP</a> <a href="romfebc.htm">$FEBC</a>     ; Exit Interrupt
+
+Jump from $FBFB:
+
+FC0C: 46 BD     <a href="blsr.htm">LSR</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FC0E: C6 A3     <a href="bdec.htm">DEC</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+FC10: A5 A3     <a href="blda.htm">LDA</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+FC12: F0 3A     <a href="bbeq.htm">BEQ</a> $FC4E
+FC14: 10 F3     <a href="bbpl.htm">BPL</a> $FC09
+
+Jump from <a href="romfc57.htm">$FC91</a>:
+
+FC16: 20 97 FB  <a href="bjsr.htm">JSR</a> <a href="romfb97.htm">$FB97</a>     ; New Character Setup
+FC19: 58        <a href="bcli.htm">CLI</a>
+FC1A: A5 A5     <a href="blda.htm">LDA</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+FC1C: F0 12     <a href="bbeq.htm">BEQ</a> $FC30
+FC1E: A2 00     <a href="bldx.htm">LDX</a> #$00
+FC20: 86 D7     <a href="bstx.htm">STX</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+FC22: C6 A5     <a href="bdec.htm">DEC</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+FC24: A6 BE     <a href="bldx.htm">LDX</a> <a href="zpbe.htm">$BE</a>       ; Tape Input/Output Block count
+FC26: E0 02     <a href="bcpx.htm">CPX</a> #$02
+FC28: D0 02     <a href="bbne.htm">BNE</a> $FC2C
+FC2A: 09 80     <a href="bora.htm">ORA</a> #$80
+
+Jump from $FC28:
+
+FC2C: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FC2E: D0 D9     <a href="bbne.htm">BNE</a> $FC09
+
+Jump from $FC1C:
+
+FC30: 20 D1 FC  <a href="bjsr.htm">JSR</a> <a href="romfcd1.htm">$FCD1</a>     ; Check Read / Write Pointer
+FC33: 90 0A     <a href="bbcc.htm">BCC</a> $FC3F
+FC35: D0 91     <a href="bbne.htm">BNE</a> <a href="romfbc8.htm">$FBC8</a>     ; Write Data to Tape
+FC37: E6 AD     <a href="binc.htm">INC</a> <a href="zpac.htm">$AD</a>       ; Pointer: Tape Buffer/Screen scrolling
+FC39: A5 D7     <a href="blda.htm">LDA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+FC3B: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FC3D: B0 CA     <a href="bbcs.htm">BCS</a> $FC09
+
+Jump from $FC33:
+
+FC3F: A0 00     <a href="bldy.htm">LDY</a> #$00
+FC41: B1 AC     <a href="blda.htm">LDA</a> (<a href="zpac.htm">$AC</a>),Y   ; Pointer: Tape Buffer/Screen scrolling
+FC43: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FC45: 45 D7     <a href="beor.htm">EOR</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+FC47: 85 D7     <a href="bsta.htm">STA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+FC49: 20 DB FC  <a href="bjsr.htm">JSR</a> <a href="romfcdb.htm">$FCDB</a>     ; Bump Read / Write Pointer
+FC4C: D0 BB     <a href="bbne.htm">BNE</a> $FC09
+
+Jump from $FC12:
+
+FC4E: A5 9B     <a href="blda.htm">LDA</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+FC50: 49 01     <a href="beor.htm">EOR</a> #$01
+FC52: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+
+Jump from <a href="romfc57.htm">$FC68</a>, <a href="romfc57.htm">$FC6F</a>, <a href="romfc57.htm">$FC73</a>, <a href="romfc57.htm">$FC7A</a>, <a href="romfcb8.htm">$FCBB</a>:
+
+FC54: 4C BC FE  <a href="bjmp.htm">JMP</a> <a href="romfebc.htm">$FEBC</a>     ; Exit Interrupt
+
+    <a href="romfbc8.htm">Previous Page</a> / <a href="romfc57.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E5B4/58804:   Get Character From Keyboard Buffer
+
+Jump from <a href="rome5ca.htm">$E5E7</a>, <a href="romf13e.htm">$F147</a>:
+
+E5B4: AC 77 02  <a href="bldy.htm">LDY</a> <a href="zp0277.htm">$0277</a>     ; Keyboard Buffer Queue (FIFO)
+E5B7: A2 00     <a href="bldx.htm">LDX</a> #$00
+
+Jump from $E5C2:
+
+E5B9: BD 78 02  <a href="blda.htm">LDA</a> <a href="zp0277.htm">$0278</a>,X   ; Keyboard Buffer Queue (FIFO)
+E5BC: 9D 77 02  <a href="bsta.htm">STA</a> <a href="zp0277.htm">$0277</a>,X   ; Keyboard Buffer Queue (FIFO)
+E5BF: E8        <a href="binx.htm">INX</a>
+E5C0: E4 C6     <a href="bcpx.htm">CPX</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+E5C2: D0 F5     <a href="bbne.htm">BNE</a> $E5B9
+E5C4: C6 C6     <a href="bdec.htm">DEC</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+E5C6: 98        <a href="btya.htm">TYA</a>
+E5C7: 58        <a href="bcli.htm">CLI</a>
+E5C8: 18        <a href="bclc.htm">CLC</a>
+E5C9: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome5a0.htm">Previous Page</a> / <a href="rome5ca.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,65 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E3BF/58303:   Initialize BASIC RAM
+
+Jump from <a href="rome394.htm">$E397</a>:
+
+E3BF: A9 4C     <a href="blda.htm">LDA</a> #$4C
+E3C1: 85 54     <a href="bsta.htm">STA</a> <a href="zp54.htm">$54</a>       ; Jump Vector used in Function Evaluation
+E3C3: 8D 10 03  <a href="bsta.htm">STA</a> <a href="zp0310.htm">$0310</a>     ; USR Function JMP Instruction
+E3C6: A9 48     <a href="blda.htm">LDA</a> #$48
+E3C8: A0 B2     <a href="bldy.htm">LDY</a> #$B2
+E3CA: 8D 11 03  <a href="bsta.htm">STA</a> <a href="zp0311.htm">$0311</a>     ; USR Address
+E3CD: 8C 12 03  <a href="bsty.htm">STY</a> <a href="zp0311.htm">$0312</a>     ; USR Address
+E3D0: A9 91     <a href="blda.htm">LDA</a> #$91
+E3D2: A0 B3     <a href="bldy.htm">LDY</a> #$B3
+E3D4: 85 05     <a href="bsta.htm">STA</a> <a href="zp05.htm">$05</a>       ; Jump Vector: Convert Integer to Floating point
+E3D6: 84 06     <a href="bsty.htm">STY</a> <a href="zp05.htm">$06</a>       ; Jump Vector: Convert Integer to Floating point
+E3D8: A9 AA     <a href="blda.htm">LDA</a> #$AA
+E3DA: A0 B1     <a href="bldy.htm">LDY</a> #$B1
+E3DC: 85 03     <a href="bsta.htm">STA</a> <a href="zp03.htm">$03</a>       ; Jump Vector: Convert FAC to Integer
+E3DE: 84 04     <a href="bsty.htm">STY</a> <a href="zp03.htm">$04</a>       ; Jump Vector: Convert FAC to Integer
+E3E0: A2 1C     <a href="bldx.htm">LDX</a> #$1C
+
+Jump from $E3E8:
+
+E3E2: BD A2 E3  <a href="blda.htm">LDA</a> <a href="rome3a2.htm">$E3A2</a>,X   ; CHRGET For Zero-page
+E3E5: 95 73     <a href="bsta.htm">STA</a> <a href="zp73.htm">$73</a>,X     ; CHRGET: Get next Byte of BASIC Text
+E3E7: CA        <a href="bdex.htm">DEX</a>
+E3E8: 10 F8     <a href="bbpl.htm">BPL</a> $E3E2
+E3EA: A9 03     <a href="blda.htm">LDA</a> #$03
+E3EC: 85 53     <a href="bsta.htm">STA</a> <a href="zp53.htm">$53</a>       ; Length of String during Garbage collection
+E3EE: A9 00     <a href="blda.htm">LDA</a> #$00
+E3F0: 85 68     <a href="bsta.htm">STA</a> <a href="zp68.htm">$68</a>       ; Bit Overflow Area during normalisation Routine
+E3F2: 85 13     <a href="bsta.htm">STA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+E3F4: 85 18     <a href="bsta.htm">STA</a> <a href="zp17.htm">$18</a>       ; Last temporary String Address
+E3F6: A2 01     <a href="bldx.htm">LDX</a> #$01
+E3F8: 8E FD 01  <a href="bstx.htm">STX</a> <a href="zp013f.htm">$01FD</a>     ; BASIC Stack Area
+E3FB: 8E FC 01  <a href="bstx.htm">STX</a> <a href="zp013f.htm">$01FC</a>     ; BASIC Stack Area
+E3FE: A2 19     <a href="bldx.htm">LDX</a> #$19
+E400: 86 16     <a href="bstx.htm">STX</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+E402: 38        <a href="bsec.htm">SEC</a>
+E403: 20 9C FF  <a href="bjsr.htm">JSR</a> <a href="romff9c.htm">$FF9C</a>     ; Set/Read System RAM Bottom
+E406: 86 2B     <a href="bstx.htm">STX</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+E408: 84 2C     <a href="bsty.htm">STY</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+E40A: 38        <a href="bsec.htm">SEC</a>
+E40B: 20 99 FF  <a href="bjsr.htm">JSR</a> <a href="romff99.htm">$FF99</a>     ; Set/Read System RAM Top
+E40E: 86 37     <a href="bstx.htm">STX</a> <a href="zp37.htm">$37</a>       ; Pointer: Highest Address available to BASIC
+E410: 84 38     <a href="bsty.htm">STY</a> <a href="zp37.htm">$38</a>       ; Pointer: Highest Address available to BASIC
+E412: 86 33     <a href="bstx.htm">STX</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+E414: 84 34     <a href="bsty.htm">STY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+E416: A0 00     <a href="bldy.htm">LDY</a> #$00
+E418: 98        <a href="btya.htm">TYA</a>
+E419: 91 2B     <a href="bsta.htm">STA</a> (<a href="zp2b.htm">$2B</a>),Y   ; Pointer: Start of BASIC Text Area
+E41B: E6 2B     <a href="binc.htm">INC</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+E41D: D0 02     <a href="bbne.htm">BNE</a> $E421
+E41F: E6 2C     <a href="binc.htm">INC</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+
+Jump from $E41D:
+
+E421: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome3ba.htm">Previous Page</a> / <a href="rome422.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

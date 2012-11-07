@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Schreiben eines Bytes in eine Datei im 2-Puffer Modus. ($d19d)
+Ist der Puffer voll, wird der naechste freie Sektor gesucht, der volle Block
+abgespeichert und auf den anderen Puffer geschaltet. In frueheren Laufwerken
+konnte so der Puffer 'im Hintergrund' abgespeichert werden.
+
+Einsprung von <a href="ro818e78.htm">$8E87</a>:
+
+9112: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Byte in Puffer schreiben
+9115: F0 01     BEQ $9118        Puffer voll ?
+9117: 60        RTS              nein ==&gt;
+
+Einsprung von $9115, <a href="ro8198cc.htm">$98DF</a>:
+
+9118: 20 68 B6  JSR <a href="ro81b668.htm">$B668</a>        Folgeblock suchen und in der BAM belegen
+911B: A9 00     LDA #$00
+911D: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger auf 0 setzen
+9120: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Sektorverkettung setzen:
+9122: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Tracknummer in Puffer schreiben
+9125: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer schreiben
+9127: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+912A: 20 02 90  JSR <a href="ro818ffe.htm">$9002</a>        Block schreiben
+912D: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+9130: 20 85 95  JSR <a href="ro819585.htm">$9585</a>        T&amp;S in Jobspeicher schreiben
+9133: A9 02     LDA #$02         Pufferzeiger hinter die Verkettungs-Bytes
+9135: 4C 22 94  JMP <a href="ro819422.htm">$9422</a>        setzen
+
+    <a href="ro81909b.htm">Previous Page</a> / <a href="ro819138.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

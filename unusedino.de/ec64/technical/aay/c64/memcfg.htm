@@ -1,0 +1,55 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ Memory Configuration
+
+
+  The signals /CharEn, /HiRam and /LoRam are used to select the memory
+  configuration. They can be set using the processor port <a href="zp01.htm">$01</a>. The following
+  logic applies (if expression on the right side is true, area mentioned on
+  the left side will be activated. Otherwise, there is RAM):
+
+    Kernal ROM = (/HiRam)
+
+    Basic ROM  = (/LoRam AND /HiRam)
+
+      That means, you cannot switch in Basic when the Kernal is off. Please
+      note also, that an EPROM starting at $8000 will be disabled when you
+      switch off the Basic ROM.
+
+    Char. ROM  = ((NOT (/CharEn)) AND (/LoRam OR /HiRam))
+
+    I/O-Area   = (/CharEn AND (/LoRam OR /HiRam))
+
+      These two areas can just be activated, if at least one other signal is
+      high. Then /CharEn selects either Char. ROM or I/O-Area.
+
+  As a result, we get the following possibilities for the corresponding
+  bits of <a href="zp01.htm">$01</a>:
+
+
+       Bit+-------------+-----------+------------+
+       210| $8000-$BFFF |$D000-$DFFF|$E000-$FFFF |
+  +---+---+-------------+-----------+------------+
+  | 7 |111| Cart.+Basic |    I/O    | Kernal ROM |
+  +---+---+-------------+-----------+------------+
+  | 6 |110|     RAM     |    I/O    | Kernal ROM |
+  +---+---+-------------+-----------+------------+
+  | 5 |101|     RAM     |    I/O    |    RAM     |
+  +---+---+-------------+-----------+------------+
+  | 4 |100|     RAM     |    RAM    |    RAM     |
+  +---+---+-------------+-----------+------------+
+  | 3 |011| Cart.+Basic | Char. ROM | Kernal ROM |
+  +---+---+-------------+-----------+------------+
+  | 2 |010|     RAM     | Char. ROM | Kernal ROM |
+  +---+---+-------------+-----------+------------+
+  | 1 |001|     RAM     | Char. ROM |    RAM     |
+  +---+---+-------------+-----------+------------+
+  | 0 |000|     RAM     |    RAM    |    RAM     |
+  +---+---+-------------+-----------+------------+
+       |||
+ /CharEn|/LoRam
+        |
+      /HiRam
+
+</pre></td></tr></table></center></body></html>

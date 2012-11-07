@@ -1,0 +1,68 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DB02/56066:   Close file
+
+Jump from <a href="ro41c9d5.htm">$C9F7</a>, <a href="ro41dac0.htm">$DAD8</a>, <a href="ro41dac0.htm">$DAF0</a>:
+
+DB02: A6 83     LDX <a href="ra4183.htm">$83</a>         ; secondary address
+DB04: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X     ; get channel number
+DB07: C9 FF     CMP #$FF        ; no channel associated?
+DB09: D0 01     BNE $DB0C
+DB0B: 60        RTS             ; no, then none
+
+Jump from $DB09:
+
+DB0C: 29 0F     AND #$0F        ; isolate channel number
+DB0E: 85 82     STA <a href="ra4182.htm">$82</a>
+DB10: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check data type
+DB13: C9 07     CMP #$07        ; direct access?
+DB15: F0 0F     BEQ $DB26       ; yes
+DB17: C9 04     CMP #$04        ; rel-file?
+DB19: F0 11     BEQ $DB2C       ; yes
+DB1B: 20 07 D1  JSR <a href="ro41d107.htm">$D107</a>       ; channel for writing open
+DB1E: B0 09     BCS $DB29       ; no file for writing?
+DB20: 20 62 DB  JSR <a href="ro41db62.htm">$DB62</a>       ; write last block
+DB23: 20 A5 DB  JSR <a href="ro41dba5.htm">$DBA5</a>       ; write entry in directory and block
+
+Jump from $DB15:
+
+DB26: 20 F4 EE  JSR <a href="ro41eef4.htm">$EEF4</a>       ; write BAM
+
+Jump from $DB1E:
+
+DB29: 4C 27 D2  JMP <a href="ro41d227.htm">$D227</a>       ; close channel
+
+Jump from $DB19:
+
+DB2C: 20 F1 DD  JSR <a href="ro41ddf1.htm">$DDF1</a>       ; get buffer number, write block
+DB2F: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+DB32: 20 CB E1  JSR <a href="ro41e1cb.htm">$E1CB</a>       ; get last side-sector
+DB35: A6 D5     LDX <a href="ra41d5.htm">$D5</a>         ; side-sector number
+DB37: 86 73     STX <a href="ra4173.htm">$73</a>
+DB39: E6 73     INC <a href="ra4173.htm">$73</a>
+DB3B: A9 00     LDA #$00
+DB3D: 85 70     STA <a href="ra416f.htm">$70</a>
+DB3F: 85 71     STA <a href="ra4171.htm">$71</a>
+DB41: A5 D6     LDA <a href="ra41d6.htm">$D6</a>
+DB43: 38        SEC
+DB44: E9 0E     SBC #$0E        ; minus 14 for pointer
+DB46: 85 72     STA <a href="ra4172.htm">$72</a>
+DB48: 20 51 DF  JSR <a href="ro41df4c.htm">$DF51</a>       ; calculate block number of file
+DB4B: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DB4D: A5 70     LDA <a href="ra416f.htm">$70</a>
+DB4F: 95 B5     STA <a href="ra41b5.htm">$B5</a>,X       ; record number lo
+DB51: A5 71     LDA <a href="ra4171.htm">$71</a>
+DB53: 95 BB     STA <a href="ra41bb.htm">$BB</a>,X       ; record number hi
+DB55: A9 40     LDA #$40
+DB57: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; bit 6 set?
+DB5A: F0 03     BEQ $DB5F       ; no
+DB5C: 20 A5 DB  JSR <a href="ro41dba5.htm">$DBA5</a>       ; enter in directory
+
+Jump from $DB5A:
+
+DB5F: 4C 27 D2  JMP <a href="ro41d227.htm">$D227</a>       ; close channel
+
+    <a href="ro41dac0.htm">Previous Page</a> / <a href="ro41db62.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

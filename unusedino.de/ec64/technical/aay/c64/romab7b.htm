@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AB7B/43899:   Perform [get]
+
+AB7B: 20 A6 B3  <a href="bjsr.htm">JSR</a> <a href="romb3a6.htm">$B3A6</a>     ; Confirm Program Mode
+AB7E: C9 23     <a href="bcmp.htm">CMP</a> #$23
+AB80: D0 10     <a href="bbne.htm">BNE</a> $AB92
+AB82: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+AB85: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+AB88: A9 2C     <a href="blda.htm">LDA</a> #$2C
+AB8A: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+AB8D: 86 13     <a href="bstx.htm">STX</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AB8F: 20 1E E1  <a href="bjsr.htm">JSR</a> <a href="rome11e.htm">$E11E</a>     ; Set Up For Input
+
+Jump from $AB80:
+
+AB92: A2 01     <a href="bldx.htm">LDX</a> #$01
+AB94: A0 02     <a href="bldy.htm">LDY</a> #$02
+AB96: A9 00     <a href="blda.htm">LDA</a> #$00
+AB98: 8D 01 02  <a href="bsta.htm">STA</a> <a href="zp0200.htm">$0201</a>     ; BASIC Input Buffer (Input Line from Screen)
+AB9B: A9 40     <a href="blda.htm">LDA</a> #$40
+AB9D: 20 0F AC  <a href="bjsr.htm">JSR</a> <a href="romac06.htm">$AC0F</a>     ; Perform [read]
+ABA0: A6 13     <a href="bldx.htm">LDX</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ABA2: D0 13     <a href="bbne.htm">BNE</a> <a href="romaba5.htm">$ABB7</a>     ; Perform [input#]
+ABA4: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romab4d.htm">Previous Page</a> / <a href="romaba5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

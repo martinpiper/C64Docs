@@ -1,0 +1,138 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D39B/54171:   Get byte for output
+
+Jump from <a href="ro41ca35.htm">$CA39</a>:
+
+D39B: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open channel for reading
+D39E: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+D3A1: 20 AA D3  JSR $D3AA       ; get byte in output register
+D3A4: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D3A6: BD 3E 02  LDA <a href="ra41022e.htm">$023E</a>,X     ; get byte
+D3A9: 60        RTS
+
+Jump from $D3A1, <a href="ro41e909.htm">$E992</a>:
+
+D3AA: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D3AC: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+D3AF: D0 03     BNE $D3B4       ; no rel-file?
+D3B1: 4C 20 E1  JMP <a href="ro41e120.htm">$E120</a>       ; get byte from rel-file
+
+Jump from $D3AF:
+
+D3B4: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D3B6: C9 0F     CMP #$0F        ; 15
+D3B8: F0 5A     BEQ $D414       ; yes, read error channel
+D3BA: B5 F2     LDA <a href="ra41f2.htm">$F2</a>,X
+D3BC: 29 08     AND #$08        ; end flag set?
+D3BE: D0 13     BNE $D3D3       ; no
+D3C0: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+D3C3: C9 07     CMP #$07        ; direct access file?
+D3C5: D0 07     BNE $D3CE       ; no
+D3C7: A9 89     LDA #$89        ; set READ and WRITE flag
+D3C9: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X
+D3CB: 4C DE D3  JMP $D3DE
+
+Jump from $D3C5:
+
+D3CE: A9 00     LDA #$00
+D3D0: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; erase READ and WRITE flag
+D3D2: 60        RTS
+
+Jump from $D3BE:
+
+D3D3: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D3D5: F0 32     BEQ $D409       ; zero, LOAD?
+D3D7: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+D3DA: C9 04     CMP #$04        ; rel-file or direct access?
+D3DC: 90 22     BCC $D400       ; no
+
+Jump from $D3CB:
+
+D3DE: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get buffer and channel number
+D3E1: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+D3E3: D9 44 02  CMP <a href="ra410244.htm">$0244</a>,Y     ; equal end pointer?
+D3E6: D0 04     BNE $D3EC       ; no
+D3E8: A9 00     LDA #$00
+D3EA: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer to zero
+
+Jump from $D3E6, <a href="ro41cd56.htm">$CD59</a>:
+
+D3EC: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+
+Jump from <a href="ro41cd73.htm">$CD91</a>, <a href="ro41cdbd.htm">$CDCC</a>, <a href="ro41cf9b.htm">$CFD5</a>:
+
+D3EE: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; get byte from buffer
+D3F0: 99 3E 02  STA <a href="ra41022e.htm">$023E</a>,Y     ; into output register
+D3F3: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+D3F5: D9 44 02  CMP <a href="ra410244.htm">$0244</a>,Y     ; equal end pointer?
+D3F8: D0 05     BNE $D3FF       ; no
+D3FA: A9 81     LDA #$81
+D3FC: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y       ; set flags
+
+Jump from $D3F8:
+
+D3FF: 60        RTS
+
+Jump from $D3DC, $D40C:
+
+D400: 20 56 D1  JSR <a href="ro41d156.htm">$D156</a>       ; get byte from buffer
+
+Jump from $D411:
+
+D403: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D405: 9D 3E 02  STA <a href="ra41022e.htm">$023E</a>,X     ; byte in output register
+D408: 60        RTS
+
+Jump from $D3D5:
+
+D409: AD 54 02  LDA <a href="ra410254.htm">$0254</a>       ; flag for directory?
+D40C: F0 F2     BEQ $D400       ; no
+D40E: 20 67 ED  JSR <a href="ro41ed67.htm">$ED67</a>       ; create directory line
+D411: 4C 03 D4  JMP $D403
+
+Jump from $D3B8:
+
+D414: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+D417: C9 D4     CMP #$D4
+D419: D0 18     BNE $D433
+D41B: A5 95     LDA <a href="ra4194.htm">$95</a>
+D41D: C9 02     CMP #$02
+D41F: D0 12     BNE $D433
+D421: A9 0D     LDA #$0D        ; CR
+D423: 85 85     STA <a href="ra4185.htm">$85</a>         ; in output register
+D425: 20 23 C1  JSR <a href="ro41c123.htm">$C123</a>       ; erase error flags
+D428: A9 00     LDA #$00
+D42A: 20 C1 E6  JSR <a href="ro41e6c1.htm">$E6C1</a>       ; create 'ok' message
+D42D: C6 A5     DEC <a href="ra41a5.htm">$A5</a>         ; set buffer pointer back
+D42F: A9 80     LDA #$80        ; set READ flag
+D431: D0 12     BNE $D445
+
+Jump from $D419, $D41F:
+
+D433: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get byte from buffer
+D436: 85 85     STA <a href="ra4185.htm">$85</a>         ; into output register
+D438: D0 09     BNE $D443
+
+Jump from <a href="ro41cb20.htm">$CB48</a>:
+
+D43A: A9 D4     LDA #$D4
+D43C: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer in front of error pointer
+D43F: A9 02     LDA #$02
+D441: 95 9A     STA <a href="ra4199.htm">$9A</a>,X       ; hi-address
+
+Jump from $D438, <a href="ro41cb20.htm">$CB42</a>:
+
+D443: A9 88     LDA #$88        ; set READ flag
+
+Jump from $D431:
+
+D445: 85 F7     STA <a href="ra41f2.htm">$F7</a>
+D447: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+D449: 8D 43 02  STA <a href="ra41022e.htm">$0243</a>       ; into output register
+D44C: 60        RTS
+
+    <a href="ro41d37f.htm">Previous Page</a> / <a href="ro41d44d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

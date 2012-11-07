@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D7C7/55239:   -Check '*' Last file
+
+D7C7: E0 2A     CPX #$2A        ; '*'
+D7C9: D0 28     BNE <a href="ro41d7f3.htm">$D7F3</a>
+D7CB: A5 7E     LDA <a href="ra417e.htm">$7E</a>         ; last track number
+D7CD: F0 4D     BEQ <a href="ro41d815.htm">$D81C</a>
+D7CF: 85 80     STA <a href="ra4180.htm">$80</a>         ; track number
+D7D1: AD 6E 02  LDA <a href="ra41026e.htm">$026E</a>       ; last drive number
+D7D4: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+D7D6: 85 E2     STA <a href="ra41e2.htm">$E2</a>
+D7D8: A9 02     LDA #$02
+D7DA: 85 E7     STA <a href="ra41e7.htm">$E7</a>         ; set data type to program
+D7DC: AD 6F 02  LDA <a href="ra41026f.htm">$026F</a>       ; last sector number
+D7DF: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector
+D7E1: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+D7E4: 20 46 DC  JSR <a href="ro41dc46.htm">$DC46</a>       ; allocate buffer, read block
+D7E7: A9 04     LDA #$04        ; file type
+D7E9: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+
+Jump from <a href="ro41d7f3.htm">$D812</a>:
+
+D7EB: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D7ED: 99 EC 00  STA <a href="ra41ec.htm">$EC</a>,Y       ; set flag
+D7F0: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done
+
+    <a href="ro41d7b4.htm">Previous Page</a> / <a href="ro41d7f3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

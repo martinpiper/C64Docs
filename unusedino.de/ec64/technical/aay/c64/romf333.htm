@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F333/62259:   Restore Default I/O
+
+F333: A2 03     <a href="bldx.htm">LDX</a> #$03
+F335: E4 9A     <a href="bcpx.htm">CPX</a> <a href="zp9a.htm">$9A</a>       ; Default Output Device (3)
+F337: B0 03     <a href="bbcs.htm">BCS</a> $F33C
+F339: 20 FE ED  <a href="bjsr.htm">JSR</a> <a href="romedfe.htm">$EDFE</a>     ; Send UNLISTEN
+
+Jump from $F337:
+
+F33C: E4 99     <a href="bcpx.htm">CPX</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+F33E: B0 03     <a href="bbcs.htm">BCS</a> $F343
+F340: 20 EF ED  <a href="bjsr.htm">JSR</a> <a href="romedef.htm">$EDEF</a>     ; Send UNTALK
+
+Jump from $F33E:
+
+F343: 86 9A     <a href="bstx.htm">STX</a> <a href="zp9a.htm">$9A</a>       ; Default Output Device (3)
+F345: A9 00     <a href="blda.htm">LDA</a> #$00
+F347: 85 99     <a href="bsta.htm">STA</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+F349: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf32f.htm">Previous Page</a> / <a href="romf34a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

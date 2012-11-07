@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F7D7/63447:   Set Buffer Stat / End Pointers
+
+Jump from <a href="romf76a.htm">$F7B7</a>, <a href="romf841.htm">$F847</a>, <a href="romf864.htm">$F864</a>:
+
+F7D7: 20 D0 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d0.htm">$F7D0</a>     ; Get Buffer Address
+F7DA: 8A        <a href="btxa.htm">TXA</a>
+F7DB: 85 C1     <a href="bsta.htm">STA</a> <a href="zpc1.htm">$C1</a>       ; Start Address for LOAD and Cassette Write
+F7DD: 18        <a href="bclc.htm">CLC</a>
+F7DE: 69 C0     <a href="badc.htm">ADC</a> #$C0
+F7E0: 85 AE     <a href="bsta.htm">STA</a> <a href="zpae.htm">$AE</a>       ; Tape End Address/End of Program
+F7E2: 98        <a href="btya.htm">TYA</a>
+F7E3: 85 C2     <a href="bsta.htm">STA</a> <a href="zpc1.htm">$C2</a>       ; Start Address for LOAD and Cassette Write
+F7E5: 69 00     <a href="badc.htm">ADC</a> #$00
+F7E7: 85 AF     <a href="bsta.htm">STA</a> <a href="zpae.htm">$AF</a>       ; Tape End Address/End of Program
+F7E9: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf7d0.htm">Previous Page</a> / <a href="romf7ea.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

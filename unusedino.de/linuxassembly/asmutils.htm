@@ -1,0 +1,281 @@
+<html><head><title>a s m u t i l s</title></head>
+<body text="#000000" bgcolor="#FFFFFF">
+
+<table border=0 width=100%><tr>
+<td align=left>asmutils 0.18 released on 18-Feb-2006</td>
+<td align=center><a href="asmutils/ChangeLog.htm">ChangeLog</a></td>
+<td align=right>Download:
+[<a href="http://unusedino.de/linuxassembly/asmutils/asmutils-0.18.tar.gz">source</a>],
+[<a href="http://unusedino.de/linuxassembly/asmutils/a-linux-0.17.tar.gz">a-Linux</a>]
+</td></tr></table>
+<hr>
+
+<h3>Release notes</h3>
+
+<blockquote>
+<p align=justify>
+Asmutils no longer come with precompiled binaries. Instead,
+a Linux distribution based on asmutils called <b>a-Linux</b> is available.
+It is a single-floppy mini-distribution, you can download it
+<a href="http://unusedino.de/linuxassembly/asmutils/a-linux-0.17.tar.gz">here</a>.
+It is in the early stage of development, and eventually will become
+a completely individual project.
+<b>At the point, current version of a-Linux is still based
+on previous version of asmutils (0.17)</b>.
+
+
+<p align=justify>
+Full list of utils in this release (total of 138, new are marked bold):
+
+<blockquote><p align=justify><i>
+arch
+basename
+cal
+cat
+ccd
+<b>cda2raw</b>
+chmod
+chown
+chroot
+chvt
+cmp
+cp
+cpuinfo
+cpuspeed
+cut
+date
+dc
+dd
+deallocvt
+<b>deflate</b>
+df
+dirname
+dmesg
+domainname
+du
+echo
+eject
+env
+extname
+factor
+false
+fdisk
+finger
+fingerd
+free
+fromdos
+ftpd
+getty
+<b>gi</b>
+grep
+halt
+head
+hexdump
+host
+hostname
+httpd
+<font size=-1>
+(532 bytes, the worlds' smallest http server)
+</font>
+id
+<b>idea</b>
+ifconfig
+<b>inflate</b>
+init
+kill
+killall
+killall5
+<b>ksyms</b>
+less
+ln
+ls
+lsmod
+<b>lsusb</b>
+lzss
+m_inetd
+<b>md5</b>
+md5sum
+mesg
+mkdir
+mkfifo
+mkfs.minix
+mknod
+mkswap
+more
+mount
+mv
+nc
+netstat
+nice
+nm
+nohup
+od
+paste
+pidof
+ping
+pop3d
+poweroff
+proxy
+ps
+pwd
+rc6crypt
+readelf
+readkey
+readlink
+reboot
+renice
+rm
+rmdir
+rmdsum
+rmmod
+rot13
+route
+scan
+scons
+sh
+sha1sum
+size
+sleep
+sln
+softdog
+strings
+swapoff
+swapon
+sync
+sysctl
+tail
+tar
+tee
+telnet
+<b>telnetd</b>
+test
+todos
+touch
+tr
+true
+truss
+tty
+umount
+uname
+update
+uptime
+<b>users</b>
+usleep
+uuencode
+watch
+wc
+wget
+which
+whoami
+write
+yes
+
+
+</p></i></blockquote>
+
+<p align=justify>
+Special bonus (src/bonus directory):
+
+<blockquote><p align=justify><i>
+fire256
+game
+<b>hdragon</b>
+leaves
+mandelbrot
+snake
+window
+</p></i></blockquote>
+
+</blockquote>
+
+<h3>What is this all about?</h3>
+<blockquote>
+
+<p align=justify>
+ asmutils is a set of miscellaneous utilities written in assembly language,
+ targeted on embedded systems and small distributions (e.g. installation
+ or rescue disks); also it contains a small libc and a crypto library.
+ It features the smallest possible size and memory requirements,
+ the fastest speed, and offers fairly good functionality.
+ Now project supports Linux and BSD family (FreeBSD, OpenBSD, NetBSD);
+ Unixware, Solaris, and AtheOS support is in beta stage (also there's
+ no more supported BeOS port), and it is /theoretically/ possible to
+ port it to any i386 OS. 
+<p align=justify>
+ Another goal of this package is to provide a *portable* framework,
+ and to encourage assembly programmers to write for Linux/UNIX.
+ Usually UNIX is associated with C, and no one wants to deal with assembly..
+ Browse the source, look -- it is simple. Read the docs, start to write,
+ and you will like it; assembly programming is a lot of fun, especially
+ when you deal with a UNIX-like operating systems.
+<p align=justify>
+ In addition, this package has some "special bonus" like small intros,
+ games, and other various assembly snippets.
+<p align=justify>
+ These utilities also may be useful for system administrators;
+ there were several reports that they have rescued when libc
+ crashed and it was not possible to use usual system utilities.
+<p align=justify>
+ Hey, we are a light in the darkness of bloatware. Do you see?
+
+</blockquote>
+
+<h3>Legal stuff</h3>
+<blockquote>
+
+<p align=justify>
+ All programs in this package are *copyrighted* by their authors,
+ as stated in the source code and in the <a href="asmutils/CREDITS.htm">CREDITS</a> file. The bulk
+ of code is written by Konstantin Boldyshev, with contributions
+ of various hackers all over the world.
+
+<p align=justify>
+ These programs are free software; you can redistribute and/or modify
+ them under the terms of the version 2 (and only version 2) of the GNU
+ General Public License as published by the Free Software Foundation.
+
+<p align=justify>
+ These programs are distributed in the hope that they will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty
+ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ See the version 2 of the <a href=http://www.gnu.org/copyleft/gpl.html>GNU General Public License</a> for more details.
+
+<p align=justify>
+ Authors are not responsible for any damage these programs can do.
+ This is development version, use solely at your own risk.
+
+</blockquote>
+
+<!--
+<h3>Does anyone use asmutils?</h3>
+<blockquote><p>
+I was told that following distributions use asmutils:
+<p><ul>
+<li><a href=http://smalllinux.netpedia.net>Small Linux</a> uses quite a lot of them
+<li><a href=http://www.turbolinux.com>Turbo Linux</a> includes asmutils as .rpm
+<li><a href=http://www.prosa.it/etlinux/>Etlinux</a> uses a couple of them
+<li><a href=http://www.stampede.org>Stampede GNU/Linux</a> includes asmutils as .slp
+</ul>
+<p>May be you would like to tell me smth more? :)
+</p></blockquote>
+
+<a href=http://dfarq.homeip.net/article/751>
+Wiping a disk securely By David L. Farquhar
+</a>
+-->
+
+<center><font size=-1 face="Tahoma, Helvetica">
+<hr>
+<a href="index(1).htm">home</a> |
+<a href="news.htm">news</a> |
+<a href="resources.htm#projects">projects</a> |
+<a href="resources.htm#docs">docs</a> |
+<a href="resources.htm#tutorials">tutorials</a> |
+<a href="resources.htm#links">links</a> |
+<a href="asmutils.htm">asmutils</a> |
+<a href="list.htm">list</a>
+<hr>
+$Revision: 1.29 $ . $Date: 2006/02/18 11:00:37 $ . $Author: konst $
+</font></center>
+
+</body><html>

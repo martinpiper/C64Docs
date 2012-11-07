@@ -1,0 +1,127 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Eintrag im Directory mit gesuchten Eintraegen vergleichen ($c4d8)
+
+Einsprung von <a href="ro8182b9.htm">$82D0</a>, <a href="ro8182e6.htm">$8309</a>:
+
+8327: A2 FF     LDX #$FF
+8329: 8E 6D 02  STX <a href="ra81026d.htm">$026D</a>        Flag fuer 'kein gesuchter Eintrag gefunden'
+832C: E8        INX
+832D: 8E A1 02  STX <a href="ra8102a1.htm">$02A1</a>        Jokerflag loeschen
+
+8330: 20 D7 83  JSR <a href="ro8183d7.htm">$83D7</a>        pruefen, ob noch Dateien nicht gefunden
+8333: F0 06     BEQ $833B        wurden. ja, ==&gt;
+
+Einsprung von $8339:
+
+8335: 60        RTS
+
+Einsprung von $8344, $834B, $8362, $8368, $8383, <a href="ro8183fa.htm">$8421</a>:
+
+8336: 20 E2 83  JSR <a href="ro8183d7.htm">$83E2</a>        naechste nicht gefundene Datei pruefen
+8339: D0 FA     BNE $8335        keine da ? ja, ==&gt;
+
+Einsprung von $8333:
+
+833B: A9 00     LDA #$00         Aktuelle Drivenummer
+833D: 55 EF     EOR <a href="ra81ef.htm">$EF</a>,X        mit angegebener Drivenummer vergleichen
+833F: 4A        LSR
+8340: 90 0B     BCC $834D        gleich, ==&gt;
+8342: 29 40     AND #$40         war eine Drivenummer angegeben ?
+8344: F0 F0     BEQ $8336        ja, (naechste Datei) ==&gt;
+8346: A9 02     LDA #$02         (macht bei der 1581 keinen Sinn)
+8348: CD A3 02  CMP <a href="ra8102a3.htm">$02A3</a>        ist immer 0 !
+834B: F0 E9     BEQ $8336        wird nie ausgefuehrt
+
+Einsprung von $8340:
+
+834D: BD 91 02  LDA <a href="ra810291.htm">$0291</a>,X      Position des Dateinamens holen
+8350: AA        TAX
+8351: 20 26 85  JSR <a href="ro818526.htm">$8526</a>        Laenge des Dateinamens ermitteln
+8354: A0 03     LDY #$03         Dateiname steht ab der 3.Position
+8356: 4C 6C 83  JMP $836C        im Direktory-Eintrag
+
+Einsprung von $8376:
+
+8359: BD 00 02  LDA <a href="ra810200.htm">$0200</a>,X      Zeichen aus Kommandozeile
+835C: D1 64     CMP (<a href="ra8164.htm">$64</a>),Y      mit Zeichen aus Dir-Eintrag vergleichen
+835E: F0 0A     BEQ $836A        gleich, ==&gt;
+8360: C9 3F     CMP #$3F         Joker '?' ?
+8362: D0 D2     BNE $8336        nein, (Name nicht richtig) ==&gt;
+8364: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Dateinamenende ?
+8366: C9 A0     CMP #$A0         (LOAD&quot;test?&quot; findet kein &quot;test&quot;)
+8368: F0 CC     BEQ $8336        ja, (Name nicht richtig) ==&gt;
+
+Einsprung von $835E:
+
+836A: E8        INX              naechste Zeichen vergleichen
+836B: C8        INY
+
+Einsprung von $8356:
+
+836C: EC 90 02  CPX <a href="ra810290.htm">$0290</a>        Dateinamenende erreicht ?
+836F: B0 0A     BCS $837B        ja, ==&gt;
+8371: BD 00 02  LDA <a href="ra810200.htm">$0200</a>,X      Ist ein '*' an der aktuellen Position
+8374: C9 2A     CMP #$2A
+8376: D0 E1     BNE $8359        nein, ==&gt;
+8378: 4C FA 83  JMP <a href="ro8183fa.htm">$83FA</a>        1581: Zeichen hinter '*' pruefen
+
+Einsprung von $836F:
+
+837B: C0 13     CPY #$13         max. Dateinamenlaenge (3+16) ?
+837D: B0 06     BCS $8385        ja, ==&gt;
+837F: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Auf Dateinamenende pruefen
+8381: C9 A0     CMP #$A0         ($a0: Endkennzeichen)
+8383: D0 B1     BNE $8336        nein, (Name nicht richtig) ==&gt;
+
+Dateidaten der gefundenen Datei merken
+
+Einsprung von $837D, <a href="ro8183fa.htm">$841E</a>:
+
+8385: AE 30 02  LDX <a href="ra810230.htm">$0230</a>        Nummer des gefundenen Dateinamens merken
+8388: 8E 6D 02  STX <a href="ra81026d.htm">$026D</a>
+838B: B5 F4     LDA <a href="ra81f4.htm">$F4</a>,X        Jokerflag holen
+838D: 29 80     AND #$80         und merken
+838F: 8D A1 02  STA <a href="ra8102a1.htm">$02A1</a>        (fuer uebergeordnete Routinen)
+8392: AD 32 02  LDA <a href="ra810232.htm">$0232</a>        Position und Dir-Block
+8395: 95 EA     STA <a href="ra81ea.htm">$EA</a>,X        des Dateieintrages merken
+8397: A5 4E     LDA <a href="ra814e.htm">$4E</a>          [Parameter wird eigentlich in $71
+8399: 95 E5     STA <a href="ra81e5.htm">$E5</a>,X         uebergeben - na ja, egal]
+839B: A0 00     LDY #$00
+839D: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Dateityp holen
+839F: C8        INY
+83A0: 48        PHA
+83A1: 29 40     AND #$40         Scratch-Schutz merken
+83A3: 85 40     STA <a href="ra8140.htm">$40</a>
+83A5: 68        PLA
+83A6: 29 DF     AND #$DF         Scratch-Schutz ausblenden
+83A8: 30 02     BMI $83AC        ist Datei geschlossen ? ja, ==&gt;
+83AA: 09 20     ORA #$20         Dateityp mit '*'-Flag merken
+
+Einsprung von $83A8:
+
+83AC: 29 27     AND #$27
+83AE: 05 40     ORA <a href="ra8140.htm">$40</a>          Scratch-Schutz einblenden
+83B0: 85 40     STA <a href="ra8140.htm">$40</a>
+83B2: A9 80     LDA #$80         Flag fuer Joker holen
+83B4: 35 F4     AND <a href="ra81f4.htm">$F4</a>,X
+83B6: 05 40     ORA <a href="ra8140.htm">$40</a>          Dateityp einblenden
+83B8: 95 F4     STA <a href="ra81f4.htm">$F4</a>,X
+83BA: B5 EF     LDA <a href="ra81ef.htm">$EF</a>,X        Drivenummer merken
+83BC: 29 80     AND #$80         ['ORA Drivenummer' entfaellt]
+83BE: 95 EF     STA <a href="ra81ef.htm">$EF</a>,X        b7=1: kein Laufwerk angegeben
+83C0: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Track merken
+83C2: 9D 97 02  STA <a href="ra810297.htm">$0297</a>,X
+83C5: C8        INY
+83C6: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Sektor merken
+83C8: 9D 9C 02  STA <a href="ra81029c.htm">$029C</a>,X
+83CB: AD 6F 02  LDA <a href="ra81026f.htm">$026F</a>        ist Recordlaenge gesetzt ?
+83CE: D0 07     BNE <a href="ro8183d7.htm">$83D7</a>        ja, ==&gt;
+83D0: A0 15     LDY #$15         Recordlaenge merken
+83D2: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+83D4: 8D 6F 02  STA <a href="ra81026f.htm">$026F</a>
+
+    <a href="ro8182e6.htm">Previous Page</a> / <a href="ro8183d7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

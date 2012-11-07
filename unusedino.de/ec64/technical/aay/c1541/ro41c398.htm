@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C398/50072:   Check given file type
+
+Jump from <a href="ro41c823.htm">$C823</a>, <a href="ro41da55.htm">$DA98</a>:
+
+C398: A0 00     LDY #$00
+C39A: AD 77 02  LDA <a href="ra410277.htm">$0277</a>       ; '=' found?
+C39D: CD 78 02  CMP <a href="ra410278.htm">$0278</a>
+C3A0: F0 16     BEQ $C3B8       ; no
+C3A2: CE 78 02  DEC <a href="ra410278.htm">$0278</a>       ; get pointer
+C3A5: AC 78 02  LDY <a href="ra410278.htm">$0278</a>
+C3A8: B9 7A 02  LDA <a href="ra41027a.htm">$027A</a>,Y     ; set pointer to character behind '='
+C3AB: A8        TAY
+C3AC: B1 A3     LDA (<a href="ra41a3.htm">$A3</a>),Y     ; pointer to buffer
+C3AE: A0 04     LDY #$04        ; compare with marker for file type
+
+Jump from $C3B6:
+
+C3B0: D9 BB FE  CMP <a href="ro41febb.htm">$FEBB</a>,Y     ; 'S', 'P', 'U', 'R'
+C3B3: F0 03     BEQ $C3B8       ; agreement
+C3B5: 88        DEY
+C3B6: D0 F8     BNE $C3B0
+
+Jump from $C3A0, $C3B3:
+
+C3B8: 98        TYA
+C3B9: 8D 96 02  STA <a href="ra410296.htm">$0296</a>       ; note file type (1-4)
+C3BC: 60        RTS
+
+    <a href="ro41c38f.htm">Previous Page</a> / <a href="ro41c3bd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

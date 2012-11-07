@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Groesste/kleinste Sektornummer suchen (bei der 1571: $8961)
+
+kleinste Sektornummer suchen
+
+Einsprung von <a href="ro81be06.htm">$BE79</a>:
+
+C097: A4 92     LDY <a href="ra8192.htm">$92</a>
+C099: 88        DEY
+C09A: A9 FF     LDA #$FF         groesstmoegliche Sektornummer
+
+Einsprung von $C0A5:
+
+C09C: D9 0B 02  CMP <a href="ra810200.htm">$020B</a>,Y      ist Sektornummer in der Tabelle kleiner ?
+C09F: 90 03     BCC $C0A4        nein, ==&gt;
+C0A1: B9 0B 02  LDA <a href="ra810200.htm">$020B</a>,Y      ja, Nummer merken
+
+Einsprung von $C09F:
+
+C0A4: 88        DEY
+C0A5: 10 F5     BPL $C09C        alle Sektornummern vergleichen, ==&gt;
+C0A7: 8D EF 01  STA <a href="ra8101ef.htm">$01EF</a>        kleinste Nummer merken
+
+groesste Sektornummer suchen
+
+C0AA: A4 92     LDY <a href="ra8192.htm">$92</a>          Anzahl der Sektoren
+C0AC: 88        DEY
+C0AD: A9 00     LDA #$00         kleinstmoegliche Sektornummer
+
+Einsprung von $C0B8:
+
+C0AF: D9 0B 02  CMP <a href="ra810200.htm">$020B</a>,Y      Sektornummer groesser ?
+C0B2: B0 03     BCS $C0B7        nein, ==&gt;
+C0B4: B9 0B 02  LDA <a href="ra810200.htm">$020B</a>,Y      ja, Nummer merken
+
+Einsprung von $C0B2:
+
+C0B7: 88        DEY
+C0B8: 10 F5     BPL $C0AF        alle Sektornummern vergleichen
+C0BA: 8D F0 01  STA <a href="ra8101f0.htm">$01F0</a>        groesste Nummer merken
+C0BD: 60        RTS
+
+Controller-Programm 1
+
+    <a href="ro81c07a.htm">Previous Page</a> / <a href="ro81c0be.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+REL-File zum Kopieren vorbereiten ($ca53)
+
+Laenge der Quell-Datei ermitteln
+
+Einsprung von <a href="ro81876e.htm">$8812</a>:
+
+8895: 20 5C A1  JSR <a href="ro81a15c.htm">$A15C</a>        Ende der Rel-Datei suchen
+8898: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Super-Side-Sektor verwenden ?
+889B: D0 04     BNE $88A1        nein, ==&gt;
+889D: AD 00 01  LDA <a href="ra810100.htm">$0100</a>        Gruppennummer des Records merken
+88A0: 48        PHA
+
+Einsprung von $889B:
+
+88A1: A5 6A     LDA <a href="ra816a.htm">$6A</a>          Position der T&amp;S im Side-Sektor und
+88A3: 48        PHA
+88A4: A5 69     LDA <a href="ra8169.htm">$69</a>          Side-Sektor-Nummer merken
+88A6: 48        PHA
+
+Zieldatei um die erforderliche Laenge erweitern
+
+88A7: A9 12     LDA #$12         Zieldatei oeffnen
+88A9: 85 52     STA <a href="ra8152.htm">$52</a>
+88AB: 20 42 90  JSR <a href="ro819042.htm">$9042</a>        Kanal zum Schreiben holen
+88AE: 20 38 A4  JSR <a href="ro81a438.htm">$A438</a>        Parameter des letzten Records merken
+88B1: 85 6B     STA <a href="ra816b.htm">$6B</a>          a=0: Position des Records loeschen
+88B3: 68        PLA              Side-Sektornummer zurueckholen
+88B4: 85 69     STA <a href="ra8169.htm">$69</a>
+88B6: 68        PLA              Position der T&amp;S im Side-Sektor zurueckholen
+88B7: 85 6A     STA <a href="ra816a.htm">$6A</a>
+88B9: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Super-Side-Sektor verwenden ?
+88BC: D0 04     BNE $88C2        nein, ==&gt;
+88BE: 68        PLA
+88BF: 8D 00 01  STA <a href="ra810100.htm">$0100</a>        Gruppennummer zurueckholen
+
+Einsprung von $88BC:
+
+88C2: 4C DC A2  JMP <a href="ro81a2d6.htm">$A2DC</a>        Datensaetze an REL-File anhaengen
+
+DOS 2
+
+    <a href="ro818876.htm">Previous Page</a> / <a href="ro8188c5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,94 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehl: Write mit logischen Blockangaben
+
+Einsprung von $BB83:
+
+BB74: A9 8D     LDA #$8D         b0-3: kein logisches Diskettenformat
+BB76: 8D EA 01  STA <a href="ra8101ea.htm">$01EA</a>        b7: Fremdformat; Burststatus ausgeben
+BB79: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BB7B: 09 08     ORA #$08         Flag: 'Nachdem die Daten empfangen worden
+BB7D: 85 7C     STA <a href="ra817c.htm">$7C</a>          sind, Fehlermeldung ausgeben' setzen
+BB7F: D0 04     BNE $BB85        ==&gt;
+
+(bei der 1571: $840e)
+
+Einsprung von $BBF0, <a href="ro81bc01.htm">$BC09</a>:
+
+BB81: A5 8A     LDA <a href="ra818a.htm">$8A</a>          &lt;--  Burst-Status-OR-Maske holen
+BB83: 30 EF     BMI $BB74        b7=1: Fremdformat ?
+
+Einsprung von $BB7F:
+
+BB85: A0 00     LDY #$00
+BB87: 84 7E     STY <a href="ra817e.htm">$7E</a>          Pufferzeiger auf $0300 setzen
+BB89: A9 03     LDA #$03
+BB8B: 85 7F     STA <a href="ra817e.htm">$7F</a>
+
+Einsprung von $BBAA:
+
+BB8D: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Burst-Clock kippen (und damit ein neues
+BB90: 49 08     EOR #$08         Byte anfordern)
+BB92: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        Flag: 'Byte empfangen' des SDR loeschen
+BB95: 8D 01 40  STA <a href="cia811.htm">$4001</a>        Burst-Clock setzen
+BB98: A9 08     LDA #$08
+
+Einsprung von $BBA2, $BBB1:
+
+BB9A: 2C 01 40  BIT <a href="cia811.htm">$4001</a>        ist b7=1:  ATN empfangen ?
+BB9D: 30 0F     BMI $BBAE        ja, ==&gt;
+BB9F: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>
+BBA2: F0 F6     BEQ $BB9A        warten, bis b3=1: Byte empfangen, ==&gt;
+BBA4: AD 0C 40  LDA <a href="cia81c.htm">$400C</a>        Byte aus dem Schieberegister holen
+BBA7: 91 7E     STA (<a href="ra817e.htm">$7E</a>),Y      und in Puffer schreiben
+BBA9: C8        INY
+BBAA: D0 E1     BNE $BB8D        ganzen Block einlesen, ==&gt;
+BBAC: F0 0C     BEQ $BBBA        ==&gt;
+
+Einsprung von $BB9D:
+
+BBAE: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+BBB1: 4C 9A BB  JMP $BB9A        weiter auf Byte warten ==&gt;
+
+Einsprung von $BBC1:
+
+BBB4: AD EA 01  LDA <a href="ra8101ea.htm">$01EA</a>        Burst-Status aus Zwischenspeicher holen
+BBB7: 4C FC BA  JMP <a href="ro81bafc.htm">$BAFC</a>        und an Computer senden
+
+Einsprung von $BBAC:
+
+BBBA: 20 03 AD  JSR <a href="ro81ad03.htm">$AD03</a>        CLOCK OUT auf Lo setzen
+BBBD: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BBBF: 29 08     AND #$08         b3=1: kein logisches Format ?
+BBC1: D0 F1     BNE $BBB4        ja, (Fehler ausgeben) ==&gt;
+BBC3: A2 00     LDX #$00
+BBC5: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Zielblock setzen
+BBC8: 95 0B     STA <a href="ra810b.htm">$0B</a>,X        Tracknummer
+BBCA: AD 04 02  LDA <a href="ra810200.htm">$0204</a>
+BBCD: 95 0C     STA <a href="ra810b.htm">$0C</a>,X        Sektornummer
+BBCF: A9 90     LDA #$90         Job $90: WRITE_DV
+BBD1: 20 B0 BF  JSR <a href="ro81bfb0.htm">$BFB0</a>        Job aufrufen
+BBD4: 20 66 BF  JSR <a href="ro81bf66.htm">$BF66</a>        Burst-Status setzen
+BBD7: 20 5A BF  JSR <a href="ro81bf5a.htm">$BF5A</a>        und an Computer senden
+BBDA: 24 7C     BIT <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BBDC: 70 0A     BVS $BBE8        E-Flag (b6)=1: Fehler ignorieren ? ja, ==&gt;
+BBDE: AD EA 01  LDA <a href="ra8101ea.htm">$01EA</a>        Fehlercode holen
+BBE1: C9 02     CMP #$02         &lt; 2 ?
+BBE3: 90 03     BCC $BBE8        ja, ==&gt;
+BBE5: 4C 0A BB  JMP <a href="ro81bafc.htm">$BB0A</a>        Fehler im Klartext ausgeben
+
+Einsprung von $BBDC, $BBE3:
+
+BBE8: CE 05 02  DEC <a href="ra810200.htm">$0205</a>        Anzahl zu schreibender Bloecke -1
+BBEB: F0 06     BEQ $BBF3        alle Bloecke geschrieben, ==&gt;
+BBED: 20 7A C0  JSR <a href="ro81c07a.htm">$C07A</a>        naechsten logischen Sektor holen
+BBF0: 4C 81 BB  JMP $BB81        Daten vom Compi holen und abspeichern ==&gt;
+
+Einsprung von $BBEB:
+
+BBF3: 4C 44 BF  JMP <a href="ro81bf44.htm">$BF44</a>        Kopf ggf. auf die angegebene Spur setzen
+
+    <a href="ro81bb11.htm">Previous Page</a> / <a href="ro81bbf6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

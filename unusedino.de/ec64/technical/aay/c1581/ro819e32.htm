@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Gruppe anwaehlen, ggf. Side-Sektor laden ($def8)
+A: v: 0: gesuchter Record existiert; 1: Record nicht vorhanden
+
+Einsprung von <a href="ro81a1a1.htm">$A1F0</a>, <a href="ro81a2d6.htm">$A426</a>:
+
+9E32: 20 D3 9E  JSR <a href="ro819ed3.htm">$9ED3</a>        Gruppe waehlen, Side-Sektor pruefen
+9E35: 30 0F     BMI $9E46        Record existiert nicht ?, ==&gt;
+9E37: 50 14     BVC $9E4D        Record O.k. ?, ==&gt;
+9E39: A6 50     LDX <a href="ra8150.htm">$50</a>          Side-Sektor-Puffer holen
+9E3B: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X
+9E3E: 20 56 9E  JSR <a href="ro819e56.htm">$9E56</a>        Side-Sektor laden
+9E41: 20 D3 9E  JSR <a href="ro819ed3.htm">$9ED3</a>        existiert Record ?
+9E44: 10 07     BPL $9E4D        ja, ==&gt;
+
+Einsprung von $9E35:
+
+9E46: 20 5C A1  JSR <a href="ro81a15c.htm">$A15C</a>        Zeiger auf letzten Datenblock setzen
+9E49: 2C BF DB  BIT <a href="ro81dafd.htm">$DBBF</a>        v=1:
+9E4C: 60        RTS              Record existiert nicht
+
+Einsprung von $9E37, $9E44:
+
+9E4D: A5 6A     LDA <a href="ra816a.htm">$6A</a>          Side-Sektor-Pufferzeiger auf
+9E4F: 20 23 9E  JSR <a href="ro819e23.htm">$9E23</a>        Position der T&amp;S im Side-Sektor setzen
+9E52: 2C BE DB  BIT <a href="ro81dafd.htm">$DBBE</a>        n=0, v=0: O.k.
+9E55: 60        RTS
+
+    <a href="ro819e23.htm">Previous Page</a> / <a href="ro819e56.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

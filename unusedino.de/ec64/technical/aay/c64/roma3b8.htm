@@ -1,0 +1,64 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A3B8/41912:   Open Space in Memory
+
+Jump from <a href="roma4a2.htm">$A50A</a>, <a href="romb128.htm">$B15D</a>:
+
+A3B8: 20 08 A4  <a href="bjsr.htm">JSR</a> <a href="roma408.htm">$A408</a>     ; Check Memory Overlap
+A3BB: 85 31     <a href="bsta.htm">STA</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+A3BD: 84 32     <a href="bsty.htm">STY</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+
+Jump from <a href="romb606.htm">$B628</a>:
+
+A3BF: 38        <a href="bsec.htm">SEC</a>
+A3C0: A5 5A     <a href="blda.htm">LDA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+A3C2: E5 5F     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A3C4: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A3C6: A8        <a href="btay.htm">TAY</a>
+A3C7: A5 5B     <a href="blda.htm">LDA</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+A3C9: E5 60     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A3CB: AA        <a href="btax.htm">TAX</a>
+A3CC: E8        <a href="binx.htm">INX</a>
+A3CD: 98        <a href="btya.htm">TYA</a>
+A3CE: F0 23     <a href="bbeq.htm">BEQ</a> $A3F3
+A3D0: A5 5A     <a href="blda.htm">LDA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+A3D2: 38        <a href="bsec.htm">SEC</a>
+A3D3: E5 22     <a href="bsbc.htm">SBC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A3D5: 85 5A     <a href="bsta.htm">STA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+A3D7: B0 03     <a href="bbcs.htm">BCS</a> $A3DC
+A3D9: C6 5B     <a href="bdec.htm">DEC</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+A3DB: 38        <a href="bsec.htm">SEC</a>
+
+Jump from $A3D7:
+
+A3DC: A5 58     <a href="blda.htm">LDA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+A3DE: E5 22     <a href="bsbc.htm">SBC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A3E0: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+A3E2: B0 08     <a href="bbcs.htm">BCS</a> $A3EC
+A3E4: C6 59     <a href="bdec.htm">DEC</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+A3E6: 90 04     <a href="bbcc.htm">BCC</a> $A3EC
+
+Jump from $A3ED:
+
+A3E8: B1 5A     <a href="blda.htm">LDA</a> (<a href="zp57.htm">$5A</a>),Y   ; Temporary storage for FLPT value
+A3EA: 91 58     <a href="bsta.htm">STA</a> (<a href="zp57.htm">$58</a>),Y   ; Temporary storage for FLPT value
+
+Jump from $A3E2, $A3E6, $A3F8:
+
+A3EC: 88        <a href="bdey.htm">DEY</a>
+A3ED: D0 F9     <a href="bbne.htm">BNE</a> $A3E8
+A3EF: B1 5A     <a href="blda.htm">LDA</a> (<a href="zp57.htm">$5A</a>),Y   ; Temporary storage for FLPT value
+A3F1: 91 58     <a href="bsta.htm">STA</a> (<a href="zp57.htm">$58</a>),Y   ; Temporary storage for FLPT value
+
+Jump from $A3CE:
+
+A3F3: C6 5B     <a href="bdec.htm">DEC</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+A3F5: C6 59     <a href="bdec.htm">DEC</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+A3F7: CA        <a href="bdex.htm">DEX</a>
+A3F8: D0 F2     <a href="bbne.htm">BNE</a> $A3EC
+A3FA: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma38a.htm">Previous Page</a> / <a href="roma3fb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

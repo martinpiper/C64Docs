@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F7EA/63466:   Find Specific Tape Header
+
+Jump from $F801, <a href="romf34a.htm">$F3A5</a>, <a href="romf533.htm">$F54D</a>:
+
+F7EA: 20 2C F7  <a href="bjsr.htm">JSR</a> <a href="romf72c.htm">$F72C</a>     ; Find Any Tape Header
+F7ED: B0 1D     <a href="bbcs.htm">BCS</a> $F80C
+F7EF: A0 05     <a href="bldy.htm">LDY</a> #$05
+F7F1: 84 9F     <a href="bsty.htm">STY</a> <a href="zp9f.htm">$9F</a>       ; Tape Error log pass 2
+F7F3: A0 00     <a href="bldy.htm">LDY</a> #$00
+F7F5: 84 9E     <a href="bsty.htm">STY</a> <a href="zp9e.htm">$9E</a>       ; Tape Error log pass 1
+
+Jump from $F809:
+
+F7F7: C4 B7     <a href="bcpy.htm">CPY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F7F9: F0 10     <a href="bbeq.htm">BEQ</a> $F80B
+F7FB: B1 BB     <a href="blda.htm">LDA</a> (<a href="zpbb.htm">$BB</a>),Y   ; Pointer: Current File name Address
+F7FD: A4 9F     <a href="bldy.htm">LDY</a> <a href="zp9f.htm">$9F</a>       ; Tape Error log pass 2
+F7FF: D1 B2     <a href="bcmp.htm">CMP</a> (<a href="zpb2.htm">$B2</a>),Y   ; Pointer: Start Address of Tape Buffer
+F801: D0 E7     <a href="bbne.htm">BNE</a> $F7EA
+F803: E6 9E     <a href="binc.htm">INC</a> <a href="zp9e.htm">$9E</a>       ; Tape Error log pass 1
+F805: E6 9F     <a href="binc.htm">INC</a> <a href="zp9f.htm">$9F</a>       ; Tape Error log pass 2
+F807: A4 9E     <a href="bldy.htm">LDY</a> <a href="zp9e.htm">$9E</a>       ; Tape Error log pass 1
+F809: D0 EC     <a href="bbne.htm">BNE</a> $F7F7
+
+Jump from $F7F9:
+
+F80B: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $F7ED:
+
+F80C: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf7d7.htm">Previous Page</a> / <a href="romf80d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

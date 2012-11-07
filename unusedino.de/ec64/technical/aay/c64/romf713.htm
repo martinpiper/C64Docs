@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F713/63251:   Output I/O Error Messages: 'ILLEGAL DEVICE NUMBER'
+
+Jump from <a href="romf34a.htm">$F390</a>, <a href="romf49e.htm">$F4AF</a>, <a href="romf533.htm">$F536</a>, <a href="romf533.htm">$F53E</a>, <a href="romf5dd.htm">$F5F1</a>, <a href="romf659.htm">$F65C</a>:
+
+F713: A9 09     <a href="blda.htm">LDA</a> #$09
+F715: 48        <a href="bpha.htm">PHA</a>
+F716: 20 CC FF  <a href="bjsr.htm">JSR</a> <a href="romffcc.htm">$FFCC</a>     ; Restore I/O Vector
+F719: A0 00     <a href="bldy.htm">LDY</a> #$00
+F71B: 24 9D     <a href="bbit.htm">BIT</a> <a href="zp9d.htm">$9D</a>       ; Error-Mode-Flag
+F71D: 50 0A     <a href="bbvc.htm">BVC</a> $F729
+F71F: 20 2F F1  <a href="bjsr.htm">JSR</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+F722: 68        <a href="bpla.htm">PLA</a>
+F723: 48        <a href="bpha.htm">PHA</a>
+F724: 09 30     <a href="bora.htm">ORA</a> #$30
+F726: 20 D2 FF  <a href="bjsr.htm">JSR</a> <a href="romffd2.htm">$FFD2</a>     ; Output Vector, chrout
+
+Jump from $F71D:
+
+F729: 68        <a href="bpla.htm">PLA</a>
+F72A: 38        <a href="bsec.htm">SEC</a>
+F72B: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf710.htm">Previous Page</a> / <a href="romf72c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

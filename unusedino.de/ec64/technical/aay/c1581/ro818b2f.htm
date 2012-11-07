@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block-Allocate ($cd03)
+
+8B2F: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        Auf Diskettenwechsel testen
+8B32: 20 32 8C  JSR <a href="ro818c2f.htm">$8C32</a>        Blockparameter holen
+8B35: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer merken
+8B37: 48        PHA
+8B38: 20 46 B7  JSR <a href="ro81b746.htm">$B746</a>        naechsten freien Block auf dem Track suchen
+8B3B: F0 0B     BEQ $8B48        kein Block frei, ==&gt;
+8B3D: 68        PLA              mit altem Sektor vergleichen
+8B3E: C5 4E     CMP <a href="ra814e.htm">$4E</a>          Ist der freie Sektor der gewuenschte ?
+8B40: D0 19     BNE $8B5B        nein, ==&gt;
+8B42: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        Block belegen
+8B45: 4C 50 80  JMP <a href="ro81804c.htm">$8050</a>        00, ok,00,00 ==&gt;
+
+Einsprung von $8B3B:
+
+8B48: 68        PLA
+
+Einsprung von $8B59:
+
+8B49: A9 00     LDA #$00         mit Sektor 0 beginnen
+8B4B: 85 4E     STA <a href="ra814e.htm">$4E</a>
+8B4D: E6 4D     INC <a href="ra814d.htm">$4D</a>          naechsten Track probieren
+8B4F: A5 4D     LDA <a href="ra814d.htm">$4D</a>          ist maximale Tracknummer + 1 erreicht ?
+8B51: CD 2C 02  CMP <a href="ra81022c.htm">$022C</a>
+8B54: B0 0A     BCS $8B60        ja, ==&gt;
+8B56: 20 46 B7  JSR <a href="ro81b746.htm">$B746</a>        einen freien Block auf dem Track suchen
+8B59: F0 EE     BEQ $8B49        nicht gefunden, ==&gt;
+
+Einsprung von $8B40:
+
+8B5B: A9 65     LDA #$65         65, no Block,tt,ss
+8B5D: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>        CMDERR-Ende
+
+Einsprung von $8B54:
+
+8B60: A9 65     LDA #$65         65, no Block,00,00
+8B62: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>        T&amp;S=0, Ende
+
+    <a href="ro818b23.htm">Previous Page</a> / <a href="ro818b65.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

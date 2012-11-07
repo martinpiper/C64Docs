@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C8C6/51398:   Format disk
+
+Jump from <a href="ro41ee0d.htm">$EE3D</a>:
+
+C8C6: A9 4C     LDA #$4C        ; JMP-command
+C8C8: 8D 00 06  STA <a href="ra410600.htm">$0600</a>
+C8CB: A9 C7     LDA #$C7
+C8CD: 8D 01 06  STA <a href="ra410600.htm">$0601</a>       ; JMP $FAC7 in $600 to $602
+C8D0: A9 FA     LDA #$FA
+C8D2: 8D 02 06  STA <a href="ra410600.htm">$0602</a>
+C8D5: A9 03     LDA #$03
+C8D7: 20 D3 D6  JSR <a href="ro41d6d0.htm">$D6D3</a>       ; set track and sector number
+C8DA: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+C8DC: 09 E0     ORA #$E0        ; command code for formatting
+C8DE: 85 03     STA <a href="ra4103.htm">$03</a>         ; transmit
+
+Jump from $C8E2:
+
+C8E0: A5 03     LDA <a href="ra4103.htm">$03</a>
+C8E2: 30 FC     BMI $C8E0       ; wait until formatting done
+C8E4: C9 02     CMP #$02
+C8E6: 90 07     BCC $C8EF       ; smaller than two, then ok
+C8E8: A9 03     LDA #$03
+C8EA: A2 00     LDX #$00
+C8EC: 4C 0A E6  JMP <a href="ro41e60a.htm">$E60A</a>       ; 21, 'read error'
+
+Jump from $C8E6:
+
+C8EF: 60        RTS
+
+    <a href="ro41c8c1.htm">Previous Page</a> / <a href="ro41c8f0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

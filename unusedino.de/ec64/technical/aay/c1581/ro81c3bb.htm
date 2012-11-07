@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $8e: FORMAT_DV
+
+C3BB: 20 B7 CF  JSR <a href="ro81cfb7.htm">$CFB7</a>        Copyzeiger auf Cachepuffer-Anfang setzen
+C3BE: 20 D6 C3  JSR <a href="ro81c3d6.htm">$C3D6</a>        Spur formatieren
+C3C1: B0 0E     BCS $C3D1        Fehler ? ja, ==&gt;
+C3C3: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+C3C6: D0 0B     BNE $C3D3        Fehler ? ja, ==&gt;
+C3C8: 20 B7 CF  JSR <a href="ro81cfb7.htm">$CFB7</a>        Copyzeiger auf Cachepuffer-Anfang setzen
+C3CB: 20 00 CA  JSR <a href="ro81ca00.htm">$CA00</a>        Verify (Bei Fehler kein RTS)
+C3CE: A9 01     LDA #$01         01: Ok.
+C3D0: 2C         B $2C
+
+Einsprung von $C3C1:
+
+C3D1: A9 06     LDA #$06         Format-Error
+
+Einsprung von $C3C6:
+
+C3D3: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        alle Jobs nochmal pruefen
+    <a href="ro81c3af.htm">Previous Page</a> / <a href="ro81c3d6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

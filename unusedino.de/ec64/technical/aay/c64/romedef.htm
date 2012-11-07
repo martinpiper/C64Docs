@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDEF/60911:   Send UNTALK
+
+Jump from <a href="romf333.htm">$F340</a>, <a href="romf4b8.htm">$F528</a>, <a href="romffab.htm">$FFAB</a>:
+
+EDEF: 78        <a href="bsei.htm">SEI</a>
+EDF0: 20 8E EE  <a href="bjsr.htm">JSR</a> <a href="romee8e.htm">$EE8E</a>     ; Serial Clock Off
+EDF3: AD 00 DD  <a href="blda.htm">LDA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EDF6: 09 08     <a href="bora.htm">ORA</a> #$08
+EDF8: 8D 00 DD  <a href="bsta.htm">STA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EDFB: A9 5F     <a href="blda.htm">LDA</a> #$5F
+EDFD: 2C        .BYTE $2C
+
+    <a href="romeddd.htm">Previous Page</a> / <a href="romedfe.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Feststellen, welcher Kanal schon am laengsten inaktiv ist
+(legt Reihenfolge fest fuer das 'Stehlen' von Puffern) ($cefa)
+
+Tabelle initialisieren
+
+Einsprung von $8D76, <a href="ro81afe9.htm">$B068</a>:
+
+8D59: A2 00     LDX #$00         Bereich von $df-$e4
+
+Einsprung von $8D61:
+
+8D5B: 8A        TXA              mit 0-5 fuellen
+8D5C: 95 DF     STA <a href="ra81df.htm">$DF</a>,X
+8D5E: E8        INX
+8D5F: E0 05     CPX #$05
+8D61: D0 F8     BNE $8D5B
+8D63: A9 05     LDA #$05         [bei der 1581 unnoetig,
+8D65: 95 DF     STA <a href="ra81df.htm">$DF</a>,X         bei der 1541 wurde der Bereich
+8D67: 60        RTS               mit 0-3, 6 gefuellt.]
+
+Aktuelle Kanalnummer ans Tabellenende ruecken
+
+Einsprung von <a href="ro818d7d.htm">$8D7D</a>, <a href="ro818e37.htm">$8E3C</a>:
+
+8D68: A0 05     LDY #$05         &lt;-- regulaerer Einsprung
+8D6A: A6 50     LDX <a href="ra8150.htm">$50</a>          aktuelle Kanalnummer holen
+
+Einsprung von $8D79:
+
+8D6C: B9 DF 00  LDA <a href="ra81df.htm">$00DF</a>,Y      alte Nummer aus der Tebelle merken
+8D6F: 96 DF     STX <a href="ra81df.htm">$DF</a>,Y        und durch die neue ersetzen
+8D71: C5 50     CMP <a href="ra8150.htm">$50</a>          ist die Kanalnummer gefunden ?
+8D73: F0 07     BEQ $8D7C        ja, (Ende) ==&gt;
+8D75: 88        DEY              War die Kanalnummer nicht in der Tabelle,
+8D76: 30 E1     BMI $8D59        wird diese neu initialisiert
+8D78: AA        TAX              Kanalnummer nach x
+8D79: 4C 6C 8D  JMP $8D6C        naechste Kanalnummer verschieben ==&gt;
+
+Einsprung von $8D73:
+
+8D7C: 60        RTS
+    <a href="ro818d4c.htm">Previous Page</a> / <a href="ro818d7d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C9D5/51669:   ?
+
+Jump from $C9E0:
+
+C9D5: 20 9B CF  JSR <a href="ro41cf9b.htm">$CF9B</a>       ; write byte in buffer
+
+Jump from <a href="ro41c9a7.htm">$C9D2</a>:
+
+C9D8: 20 35 CA  JSR <a href="ro41ca35.htm">$CA35</a>       ; and get byte
+C9DB: A9 80     LDA #$80
+C9DD: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 7
+C9E0: F0 F3     BEQ $C9D5       ; not set?
+C9E2: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+C9E5: F0 03     BEQ $C9EA       ; rel-file?
+C9E7: 20 9B CF  JSR <a href="ro41cf9b.htm">$CF9B</a>       ; get data byte in buffer
+
+Jump from $C9E5:
+
+C9EA: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+C9ED: E8        INX
+C9EE: EC 78 02  CPX <a href="ra410278.htm">$0278</a>
+C9F1: 90 C6     BCC <a href="ro41c9a7.htm">$C9B9</a>
+C9F3: A9 12     LDA #$12        ; 18
+C9F5: 85 83     STA <a href="ra4183.htm">$83</a>
+C9F7: 4C 02 DB  JMP <a href="ro41db02.htm">$DB02</a>       ; close channel
+
+    <a href="ro41c9a7.htm">Previous Page</a> / <a href="ro41c9fa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

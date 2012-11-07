@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehle $1c,$1d: Dump Cache
+
+BF02: AD 02 02  LDA <a href="ra810200.htm">$0202</a>
+BF05: A8        TAY              Laufwerksnummer
+BF06: 29 01     AND #$01         = 1
+BF08: D0 32     BNE $BF3C        ja, Fehler ==&gt;
+BF0A: A2 00     LDX #$00         Jobnummer 0 verwenden
+BF0C: 98        TYA              immer Schreiben ?
+BF0D: 10 15     BPL $BF24        nein ==&gt;
+BF0F: 29 40     AND #$40         ja
+BF11: 4A        LSR              Seite holen
+BF12: 4A        LSR
+BF13: 4A        LSR
+BF14: 4A        LSR
+BF15: 4A        LSR
+BF16: 4A        LSR
+BF17: 29 01     AND #$01         [doppelt maskiert haelt besser !?]
+BF19: 85 97     STA <a href="ra8197.htm">$97</a>          aktuelle Seite setzen
+BF1B: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Phys. Spur holen
+BF1E: 85 95     STA <a href="ra8195.htm">$95</a>
+BF20: A9 80     LDA #$80         Flag fuer Spur schreiben
+BF22: 85 87     STA <a href="ra8187.htm">$87</a>          setzen
+
+Einsprung von $BF0D:
+
+BF24: A5 87     LDA <a href="ra8187.htm">$87</a>          Cache auf Disk schreiben ?
+BF26: 10 17     BPL $BF3F        nein ==&gt;
+BF28: A9 B6     LDA #$B6         DET_WP: Schreibschutz testen
+BF2A: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BF2D: 8D FA 01  STA <a href="ra8101fa.htm">$01FA</a>        Ergebnis merken
+BF30: D0 0F     BNE $BF41        Diskette schreibgeschuetzt ==&gt;
+BF32: A9 80     LDA #$80
+BF34: 85 81     STA <a href="ra8181.htm">$81</a>          DOS-Fehlermeldung unterdruecken
+BF36: 20 6C FF  JSR <a href="ro81ff00.htm">$FF6C</a>        Cache schreiben
+BF39: 06 81     ASL <a href="ra8181.htm">$81</a>          Fehlermeldungen zulassen
+BF3B: 2C         B $2C
+
+Einsprung von $BF08:
+
+BF3C: A9 4F     LDA #$4F         kein Laufwerk verfuegbar
+BF3E: 2C         B $2C
+
+Einsprung von $BF26:
+
+BF3F: A9 00     LDA #$00         O.K.
+
+Einsprung von $BF30:
+
+BF41: 4C FC BA  JMP <a href="ro81bafc.htm">$BAFC</a>
+
+    <a href="ro81bef8.htm">Previous Page</a> / <a href="ro81bf44.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

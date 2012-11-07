@@ -1,0 +1,151 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Neuen Side-Sektor zur relativen Datei hinzufuegen ($e31c)
+
+Einsprung von <a href="ro81a2d6.htm">$A3CD</a>:
+
+A459: 20 68 B6  JSR <a href="ro81b668.htm">$B668</a>        Folgeblock fuer Datei suchen
+A45C: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln [Fuer das Erzeugen und
+                                 Updaten der Side-Sektoren wird der gerade
+                                 inaktive Datenpuffer verwendet.]
+A45F: 20 2E 9D  JSR <a href="ro819d2e.htm">$9D2E</a>        Puffer ggf. schreiben
+A462: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+A465: 48        PHA              und merken
+A466: 20 FA 9D  JSR $9DFA        Puffer mit $00 fuellen
+A469: A6 50     LDX <a href="ra8150.htm">$50</a>
+A46B: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X      Side-Sektor-Puffer holen
+A46E: A8        TAY              als Quellpuffer merken
+A46F: 68        PLA              Datenpuffer als Zielpuffer merken
+A470: AA        TAX
+A471: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Wird Super-Side-Sektor verwendet?
+A474: D0 03     BNE $A479        nein, ==&gt;
+A476: 4C 47 A5  JMP <a href="ro81a547.htm">$A547</a>        ggf. neue Gruppe anlegen ==&gt;
+
+Neuen Side-Sektor anlegen
+
+Einsprung von $A474, <a href="ro81a547.htm">$A54D</a>, <a href="ro81a547.htm">$A56B</a>:
+
+A479: A9 10     LDA #$10         Side-Sektor-Header uebernehmen
+A47B: 20 DE 9D  JSR <a href="ro819dde.htm">$9DDE</a>        y: Quellpuffer; x: Zielpuffer; a: Anzahl
+A47E: A9 00     LDA #$00         Side-Sektor-Nummer erhoehen
+A480: 20 15 9E  JSR <a href="ro819e15.htm">$9E15</a>        Side-Sektor-Pufferzeiger holen
+A483: A0 02     LDY #$02         [Die Nummer wird aus dem alten Side-Sektor
+A485: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y       geholt, um 1 erhoeht und in den neuen
+A487: 48        PHA               Side-Sektor geschrieben.]
+A488: A9 00     LDA #$00
+A48A: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Auf neuen Side-Sektor schalten
+A48D: 68        PLA
+A48E: 18        CLC              Side-Sektor-Nummer +1
+A48F: 69 01     ADC #$01
+A491: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      Nummer merken
+
+T&amp;S des Side-Sektors alten Side-Sektor eintragen
+
+A493: 0A        ASL              (2-Byte Tabelle)
+A494: 69 04     ADC #$04         Tabelle beginnt beim 4. Byte im Side-Sektor
+A496: 85 58     STA <a href="ra8158.htm">$58</a>          Zeiger auf die T&amp;S
+A498: A8        TAY              des aktuellen Side-Sektors merken
+A499: 38        SEC              -2 (vorhergehender Side-Sektor)
+A49A: E9 02     SBC #$02         Zeiger auf die T&amp;S der zu updatenden
+A49C: 85 59     STA <a href="ra8159.htm">$59</a>          Side-Sektoren merken
+
+Einsprung von <a href="ro81a547.htm">$A568</a>:
+
+A49E: A5 4D     LDA <a href="ra814d.htm">$4D</a>          T&amp;S in Side-Sektor eintragen
+A4A0: 85 56     STA <a href="ra8156.htm">$56</a>          und merken
+A4A2: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+A4A4: C8        INY
+A4A5: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+A4A7: 85 57     STA <a href="ra8157.htm">$57</a>
+A4A9: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+A4AB: A0 00     LDY #$00         Blockverkettung setzen
+A4AD: 98        TYA              [1. Byte ist 0: Kennzeichen fuer den letzten
+A4AE: 91 64     STA (<a href="ra8164.htm">$64</a>),Y       Side-Sektor.
+A4B0: C8        INY               Das 2. Byte gibt die Position des letzten
+A4B1: A9 11     LDA #$11          gebrauchten Bytes im Side-Sektor an.
+A4B3: 91 64     STA (<a href="ra8164.htm">$64</a>),Y       Es wird hier auf 17 gesetzt:
+                                 Der erste gueltige Zeiger auf einen
+                                 Datenblock steht in den Bytes 16-17; die
+                                 restlichen Zeiger sind noch nicht belegt.]
+A4B5: A9 10     LDA #$10         Pufferzeiger auf ersten Datenblock-Zeiger
+A4B7: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        setzen
+A4BA: 20 8E 9D  JSR <a href="ro819d8e.htm">$9D8E</a>        neuen Side-Sektor schreiben
+A4BD: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung pruefen
+A4C0: A6 50     LDX <a href="ra8150.htm">$50</a>
+A4C2: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X      Alten Side-Sektor merken
+A4C5: 48        PHA
+A4C6: 20 1C 9F  JSR <a href="ro819f1c.htm">$9F1C</a>        aktiven Puffer holen
+A4C9: A6 50     LDX <a href="ra8150.htm">$50</a>
+A4CB: 9D 65 02  STA <a href="ra810265.htm">$0265</a>,X      und als neuen Side-Sektor merken
+A4CE: 68        PLA
+A4CF: A6 74     LDX <a href="ra8174.htm">$74</a>          Alten Side-Sektor als aktiven Datenpuffer
+A4D1: 95 D1     STA <a href="ra81d1.htm">$D1</a>,X        merken
+A4D3: A9 00     LDA #$00         Pufferzeiger auf Datenblock setzen
+A4D5: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+A4D8: A0 00     LDY #$00         Blockverkettung des alten Side-Sektors
+A4DA: A5 4D     LDA <a href="ra814d.htm">$4D</a>          auf den neuen setzen
+A4DC: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+A4DE: C8        INY
+A4DF: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+A4E1: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+
+Super-Side-Sektor updaten
+
+A4E3: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        wird Super-Side-Sektor verwendet?
+A4E6: D0 41     BNE $A529        nein, ==&gt;
+A4E8: A5 55     LDA <a href="ra8155.htm">$55</a>          alte Side-Sektor-Nummer holen
+A4EA: C9 FF     CMP #$FF         wurde eine neue Gruppe angelegt ?
+A4EC: D0 3B     BNE $A529        nein ==&gt;
+A4EE: A5 4E     LDA <a href="ra814e.htm">$4E</a>          T&amp;S des neuen Side-Sektors merken
+A4F0: 48        PHA
+A4F1: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+A4F3: 48        PHA
+A4F4: 20 9A 9D  JSR <a href="ro819d8e.htm">$9D9A</a>        alten Side-Sektor schreiben
+A4F7: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung pruefen
+A4FA: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+A4FD: 20 7E A5  JSR <a href="ro81a574.htm">$A57E</a>        Super-Side-Sektor laden
+A500: E6 5A     INC <a href="ra815a.htm">$5A</a>          Aktuelle Gruppennummer +1
+A502: A5 5A     LDA <a href="ra815a.htm">$5A</a>
+A504: 0A        ASL              2-Byte Tabelle
+A505: 18        CLC
+A506: 69 03     ADC #$03         Die Tabelle faengt bei Byte 3 an
+A508: 20 23 9E  JSR <a href="ro819e23.htm">$9E23</a>        Pufferzeiger setzen
+A50B: 68        PLA
+A50C: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        T&amp;S der neuen Gruppe in die Gruppentabelle
+A50F: 68        PLA              eintragen
+A510: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+A513: 20 81 A5  JSR <a href="ro81a574.htm">$A581</a>        Super-Side-Sektor schreiben
+A516: A5 5A     LDA <a href="ra815a.htm">$5A</a>          Aktuelle Gruppennummer holen
+A518: 48        PHA
+A519: 4C CC A5  JMP <a href="ro81a5c0.htm">$A5CC</a>        Gruppe anwaehlen, Ende ==&gt;
+Tabellen der anderen Side-Sektoren anpassen
+
+Einsprung von $A542:
+
+A51C: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+A51F: A6 50     LDX <a href="ra8150.htm">$50</a>
+A521: 20 56 9E  JSR <a href="ro819e56.htm">$9E56</a>        Side-Sektor lesen (y: Nummer*2; a: Puffer)
+A524: A9 00     LDA #$00
+A526: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger auf 0 setzen
+
+Einsprung von $A4E6, $A4EC:
+
+A529: C6 59     DEC <a href="ra8159.htm">$59</a>          &lt;-- Einsprung
+A52B: C6 59     DEC <a href="ra8159.htm">$59</a>          Zeiger auf vorherigen SS setzen
+A52D: A4 58     LDY <a href="ra8158.htm">$58</a>          Zeiger auf T&amp;S des neuen SS
+A52F: A5 56     LDA <a href="ra8156.htm">$56</a>
+A531: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      T&amp;S in Side-Sektoren-Tabelle eintragen
+A533: C8        INY
+A534: A5 57     LDA <a href="ra8157.htm">$57</a>
+A536: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+A538: 20 9A 9D  JSR <a href="ro819d8e.htm">$9D9A</a>        Aktuellen Puffer schreiben
+A53B: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung ueberpruefen
+A53E: A4 59     LDY <a href="ra8159.htm">$59</a>          Zeiger auf T&amp;S des naechsten Side-Sektors
+A540: C0 03     CPY #$03         holen
+A542: B0 D8     BCS $A51C        noch nicht fertig, ==&gt;
+A544: 4C 7D 8D  JMP <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+
+    <a href="ro81a438.htm">Previous Page</a> / <a href="ro81a547.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

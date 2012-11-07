@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E9F0/59888:   Set Start of Line
+
+Jump from <a href="rome56c.htm">$E57C</a>, <a href="rome6ed.htm">$E6F4</a>, <a href="rome8ea.htm">$E900</a>, <a href="rome965.htm">$E990</a>, <a href="rome9ff.htm">$EA01</a>:
+
+E9F0: BD F0 EC  <a href="blda.htm">LDA</a> <a href="romecf0.htm">$ECF0</a>,X   ; Low Byte Screen Line Addresses
+E9F3: 85 D1     <a href="bsta.htm">STA</a> <a href="zpd1.htm">$D1</a>       ; Pointer: Current Screen Line Address
+E9F5: B5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E9F7: 29 03     <a href="band.htm">AND</a> #$03
+E9F9: 0D 88 02  <a href="bora.htm">ORA</a> <a href="zp0288.htm">$0288</a>     ; High Byte of Screen Memory Address
+E9FC: 85 D2     <a href="bsta.htm">STA</a> <a href="zpd1.htm">$D2</a>       ; Pointer: Current Screen Line Address
+E9FE: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome9e0.htm">Previous Page</a> / <a href="rome9ff.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Dateityp feststellen ('s,p,u,r,c') (z.B. '$*=s') ($c398)
+
+Einsprung von <a href="ro818688.htm">$8688</a>, <a href="ro8198f7.htm">$9939</a>:
+
+8270: A0 00     LDY #$00
+8272: AD 2E 02  LDA <a href="ra81022e.htm">$022E</a>        Anzahl der Parameter vor '='
+8275: CD 2F 02  CMP <a href="ra81022f.htm">$022F</a>        = Anzahl P. in Kommandozeile ?
+8278: F0 16     BEQ $8290        ja, kein Typ angegeben, ==&gt;
+827A: CE 2F 02  DEC <a href="ra81022f.htm">$022F</a>        Zeiger auf Zeilenende entfernen
+827D: AC 2F 02  LDY <a href="ra81022f.htm">$022F</a>        Letzten Parameter (zukuenftiges Zeilenende)
+8280: B9 91 02  LDA <a href="ra810291.htm">$0291</a>,Y      holen
+8283: A8        TAY              1. Zeichen des Parameters holen
+8284: B1 CD     LDA (<a href="ra81cd.htm">$CD</a>),Y
+8286: A0 05     LDY #$05         mit allen
+
+Einsprung von $828E:
+
+8288: D9 AB DB  CMP <a href="ro81dafd.htm">$DBAB</a>,Y      Dateitypenbezeichnungen vergleichen
+828B: F0 03     BEQ $8290        gleich, ==&gt;
+828D: 88        DEY              wenn der Typ nicht gefunden wird, oder
+828E: D0 F8     BNE $8288        der Typ = del ist:
+
+Einsprung von $8278, $828B:
+
+8290: 98        TYA              'Typ nicht gefunden bzw. angegeben' merken
+8291: 8D 33 02  STA <a href="ra810233.htm">$0233</a>        Dateityp merken
+8294: 60        RTS
+
+    <a href="ro818251.htm">Previous Page</a> / <a href="ro818295.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

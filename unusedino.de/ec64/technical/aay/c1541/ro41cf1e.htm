@@ -1,0 +1,85 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CF1E/53022:   ?
+
+Jump from <a href="ro41d0af.htm">$D0B7</a>, <a href="ro41d0af.htm">$D0C0</a>, <a href="ro41d156.htm">$D16A</a>, <a href="ro41d156.htm">$D180</a>, <a href="ro41d156.htm">$D18C</a>, <a href="ro41d19d.htm">$D1BB</a>, <a href="ro41db02.htm">$DB2F</a>, <a href="ro41db62.htm">$DB7D</a>, <a href="ro41db62.htm">$DBA2</a>,
+          <a href="ro41e03c.htm">$E04A</a>, <a href="ro41e03c.htm">$E05D</a>, <a href="ro41e03c.htm">$E072</a>, <a href="ro41e03c.htm">$E078</a>, <a href="ro41e120.htm">$E18D</a>, <a href="ro41e120.htm">$E19A</a>, <a href="ro41e120.htm">$E19D</a>, <a href="ro41e207.htm">$E2B9</a>, <a href="ro41e31c.htm">$E3B6</a>,
+          <a href="ro41e31c.htm">$E3C8</a>, <a href="ro41e31c.htm">$E439</a>, <a href="ro41e44e.htm">$E451</a>, <a href="ro41e44e.htm">$E4F9</a>:
+
+CF1E: 20 09 CF  JSR <a href="ro41cf09.htm">$CF09</a>
+CF21: 20 B7 DF  JSR <a href="ro41dfb7.htm">$DFB7</a>
+CF24: D0 46     BNE $CF6C
+CF26: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; set drive number
+CF29: 20 8E D2  JSR <a href="ro41d28e.htm">$D28E</a>
+CF2C: 30 48     BMI $CF76
+CF2E: 20 C2 DF  JSR <a href="ro41dfc2.htm">$DFC2</a>
+CF31: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+CF33: 48        PHA
+CF34: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+CF36: 48        PHA
+CF37: A9 01     LDA #$01
+CF39: 20 F6 D4  JSR <a href="ro41d4f6.htm">$D4F6</a>       ; get byte 1 from buffer
+CF3C: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector
+CF3E: A9 00     LDA #$00
+CF40: 20 F6 D4  JSR <a href="ro41d4f6.htm">$D4F6</a>       ; get byte 0 from buffer
+CF43: 85 80     STA <a href="ra4180.htm">$80</a>         ; track
+CF45: F0 1F     BEQ $CF66
+CF47: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+CF4A: F0 0B     BEQ $CF57       ; rel-file?
+CF4C: 20 AB DD  JSR <a href="ro41ddab.htm">$DDAB</a>
+CF4F: D0 06     BNE $CF57
+CF51: 20 8C CF  JSR <a href="ro41cf8c.htm">$CF8C</a>
+CF54: 4C 5D CF  JMP $CF5D
+
+Jump from $CF4A, $CF4F:
+
+CF57: 20 8C CF  JSR <a href="ro41cf8c.htm">$CF8C</a>
+CF5A: 20 57 DE  JSR <a href="ro41de57.htm">$DE57</a>
+
+Jump from $CF54:
+
+CF5D: 68        PLA
+CF5E: 85 81     STA <a href="ra4181.htm">$81</a>         ; get sector
+CF60: 68        PLA
+CF61: 85 80     STA <a href="ra4180.htm">$80</a>         ; and track number
+CF63: 4C 6F CF  JMP $CF6F
+
+Jump from $CF45:
+
+CF66: 68        PLA
+CF67: 85 81     STA <a href="ra4181.htm">$81</a>         ; get back sector
+CF69: 68        PLA
+CF6A: 85 80     STA <a href="ra4180.htm">$80</a>         ; and track number
+
+Jump from $CF24:
+
+CF6C: 20 8C CF  JSR <a href="ro41cf8c.htm">$CF8C</a>
+
+Jump from $CF63:
+
+CF6F: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>
+CF72: AA        TAX
+CF73: 4C 99 D5  JMP <a href="ro41d599.htm">$D599</a>       ; and verify
+
+Jump from $CF2C, $CF86:
+
+CF76: A9 70     LDA #$70
+CF78: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 70, 'no channel'
+
+Jump from <a href="ro41e31c.htm">$E325</a>:
+
+CF7B: 20 09 CF  JSR <a href="ro41cf09.htm">$CF09</a>
+CF7E: 20 B7 DF  JSR <a href="ro41dfb7.htm">$DFB7</a>
+CF81: D0 08     BNE $CF8B
+CF83: 20 8E D2  JSR <a href="ro41d28e.htm">$D28E</a>
+CF86: 30 EE     BMI $CF76
+CF88: 20 C2 DF  JSR <a href="ro41dfc2.htm">$DFC2</a>
+
+Jump from $CF81:
+
+CF8B: 60        RTS
+
+    <a href="ro41cf09.htm">Previous Page</a> / <a href="ro41cf8c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

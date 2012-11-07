@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B6DB/46811:   Clean Descriptor Stack
+
+Jump from <a href="romaa2c.htm">$AA6C</a>, <a href="romb6a3.htm">$B6AE</a>:
+
+B6DB: C4 18     <a href="bcpy.htm">CPY</a> <a href="zp17.htm">$18</a>       ; Last temporary String Address
+B6DD: D0 0C     <a href="bbne.htm">BNE</a> $B6EB
+B6DF: C5 17     <a href="bcmp.htm">CMP</a> <a href="zp17.htm">$17</a>       ; Last temporary String Address
+B6E1: D0 08     <a href="bbne.htm">BNE</a> $B6EB
+B6E3: 85 16     <a href="bsta.htm">STA</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+B6E5: E9 03     <a href="bsbc.htm">SBC</a> #$03
+B6E7: 85 17     <a href="bsta.htm">STA</a> <a href="zp17.htm">$17</a>       ; Last temporary String Address
+B6E9: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $B6DD, $B6E1:
+
+B6EB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb6a3.htm">Previous Page</a> / <a href="romb6ec.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

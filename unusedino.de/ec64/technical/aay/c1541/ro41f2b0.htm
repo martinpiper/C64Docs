@@ -1,0 +1,66 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F2B0/62128:   IRQ routine for disk controller
+
+Jump from <a href="ro41fe67.htm">$FE7C</a>:
+
+F2B0: BA        TSX
+F2B1: 86 49     STX <a href="ra4149.htm">$49</a>         ; save stack pointer
+F2B3: AD 04 1C  LDA <a href="via24.htm">$1C04</a>
+F2B6: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>       ; erase interrupt flag from timer
+F2B9: 09 0E     ORA #$0E
+F2BB: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+
+Jump from <a href="ro41f969.htm">$F97B</a>:
+
+F2BE: A0 05     LDY #$05
+
+Jump from $F2F4:
+
+F2C0: B9 00 00  LDA <a href="ra4100.htm">$00</a>,Y       ; command for buffer Y?
+F2C3: 10 2E     BPL $F2F3       ; no
+F2C5: C9 D0     CMP #$D0        ; execute code for program in buffer
+F2C7: D0 04     BNE $F2CD       ; no
+F2C9: 98        TYA
+F2CA: 4C 70 F3  JMP <a href="ro41f36e.htm">$F370</a>       ; execute program in buffer
+
+Jump from $F2C7:
+
+F2CD: 29 01     AND #$01        ; isolate drive number
+F2CF: F0 07     BEQ $F2D8       ; drive zero?
+F2D1: 84 3F     STY <a href="ra413f.htm">$3F</a>
+F2D3: A9 0F     LDA #$0F        ; else
+F2D5: 4C 69 F9  JMP <a href="ro41f969.htm">$F969</a>       ; 74, 'drive not ready'
+
+Jump from $F2CF:
+
+F2D8: AA        TAX
+F2D9: 85 3D     STA <a href="ra413d.htm">$3D</a>
+F2DB: C5 3E     CMP <a href="ra413e.htm">$3E</a>         ; motor running?
+F2DD: F0 0A     BEQ $F2E9       ; yes
+F2DF: 20 7E F9  JSR <a href="ro41f97e.htm">$F97E</a>       ; turn drive motor on
+F2E2: A5 3D     LDA <a href="ra413d.htm">$3D</a>
+F2E4: 85 3E     STA <a href="ra413e.htm">$3E</a>         ; set flag
+F2E6: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+Jump from $F2DD:
+
+F2E9: A5 20     LDA <a href="ra4120.htm">$20</a>
+F2EB: 30 03     BMI $F2F0       ; head transport programmed?
+F2ED: 0A        ASL
+F2EE: 10 09     BPL <a href="ro41f2f9.htm">$F2F9</a>
+
+Jump from $F2EB:
+
+F2F0: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+Jump from $F2C3:
+
+F2F3: 88        DEY
+F2F4: 10 CA     BPL $F2C0       ; check next buffer
+F2F6: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+    <a href="ro41f259.htm">Previous Page</a> / <a href="ro41f2f9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+pruefen, ob alle Files vor dem '=' nicht existieren
+und alle Files nach dem '=' existieren ($cae7)
+
+Einsprung von <a href="ro81876e.htm">$87F4</a>, <a href="ro8188c5.htm">$88D9</a>:
+
+891E: 20 03 89  JSR <a href="ro818903.htm">$8903</a>        existieren Files nach dem '=' ?
+
+Einsprung von $892C:
+
+8921: BD 97 02  LDA <a href="ra810297.htm">$0297</a>,X      ja; Tracknummer der Files vor dem '=' =0 ?
+8924: F0 05     BEQ $892B        ja, ==&gt;
+8926: A9 63     LDA #$63
+8928: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        63, File exists
+
+Einsprung von $8924:
+
+892B: CA        DEX              naechstes File pruefen
+892C: 10 F3     BPL $8921        noch eines vorhanden, ==&gt;
+892E: 60        RTS
+
+    <a href="ro818903.htm">Previous Page</a> / <a href="ro81892f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

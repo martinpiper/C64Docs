@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Daten vom Cache in den Puffer kopieren
+E: x  : x mal 256 Bytes
+   $4a: Bereich im Cache
+   $48: Pufferanfang
+
+D549: 54 48 49 53 20 49 53 20  this is
+D551: 4C 41 5A 59 21 21 21     lazy...
+
+Einsprung von $DA5F, <a href="ro81cea4.htm">$CED9</a>, <a href="ro81cf51.htm">$CF84</a>:
+
+D558: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y
+D55A: 91 48     STA (<a href="ra8148.htm">$48</a>),Y
+D55C: C8        INY
+.....                            [insgesamt 256 mal]
+DA53: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y
+DA55: 91 48     STA (<a href="ra8148.htm">$48</a>),Y
+DA57: C8        INY
+DA58: CA        DEX              schon alle Bloecke kopiert ?
+DA59: F0 07     BEQ $DA62        ja, ==&gt;
+DA5B: E6 49     INC <a href="ra8148.htm">$49</a>          Hi-Bytes erhoehen
+DA5D: E6 4B     INC <a href="ra814a.htm">$4B</a>
+DA5F: 4C 58 D5  JMP $D558
+
+Einsprung von $DA59:
+
+DA62: 60        RTS
+    <a href="ro81d00d.htm">Previous Page</a> / <a href="ro81da63.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

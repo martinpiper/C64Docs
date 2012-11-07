@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Hauptsteuerroutine des Controllers
+
+Einsprung von <a href="ro81c0be.htm">$C0DB</a>, <a href="ro81c0be.htm">$C146</a>, <a href="ro81c3af.htm">$C3B5</a>, <a href="ro81cae4.htm">$CB06</a>, <a href="ro81cd7b.htm">$CDB9</a>:
+
+CE00: A6 2C     LDX <a href="ra812c.htm">$2C</a>          Stackpointer vom Controlleraufruf
+CE02: E8        INX              +2 (JSR)
+CE03: E8        INX
+CE04: BD 04 01  LDA <a href="ra810102.htm">$0104</a>,X      p-Register (Flags) vom IRQ-Aufruf holen
+CE07: 29 10     AND #$10         b-Flag (BRK) gesetzt ?
+CE09: D0 66     BNE <a href="ro81ce71.htm">$CE71</a>        ja, (die folgenden Routinen muessen in
+                                festen Zeitabstaenden aufgerufen werden) ==&gt;
+CE0B: A5 9C     LDA <a href="ra819c.htm">$9C</a>          Cache-Schreibverzoegerung abzaehlen
+CE0D: F0 02     BEQ $CE11        [wird bei Busbetrieb gesetzt und von der
+CE0F: C6 9C     DEC <a href="ra819c.htm">$9C</a>          Haupt-Warteschleife abgefragt]
+
+LEDs-setzen
+
+Einsprung von $CE0D:
+
+CE11: A5 79     LDA <a href="ra8179.htm">$79</a>          LED-Blinken ?
+CE13: 29 20     AND #$20
+CE15: F0 10     BEQ $CE27        nein ==&gt;
+CE17: C6 9E     DEC <a href="ra819e.htm">$9E</a>          Blinkgeschwindigkeit
+CE19: 10 0C     BPL $CE27        warten, dann ==&gt;
+CE1B: A9 09     LDA #$09         Zaehler neu setzen
+CE1D: 85 9E     STA <a href="ra819e.htm">$9E</a>          alle 1/10 sec LED umschalten
+CE1F: AD 00 40  LDA <a href="cia810.htm">$4000</a>        LED-umschalten
+CE22: 49 20     EOR #$20
+CE24: 8D 00 40  STA <a href="cia810.htm">$4000</a>
+
+Einsprung von $CE15, $CE19:
+
+CE27: A5 79     LDA <a href="ra8179.htm">$79</a>          Drive LED anschalten ?
+CE29: 29 40     AND #$40         B6:1 :an
+CE2B: 25 79     AND <a href="ra8179.htm">$79</a>
+CE2D: 85 36     STA <a href="ra8136.htm">$36</a>
+CE2F: AD 00 40  LDA <a href="cia810.htm">$4000</a>        LED ein-/ausschalten
+CE32: 29 BF     AND #$BF
+CE34: 05 36     ORA <a href="ra8136.htm">$36</a>
+CE36: 8D 00 40  STA <a href="cia810.htm">$4000</a>
+
+Laufwerk behandeln
+
+CE39: AD 00 40  LDA <a href="cia810.htm">$4000</a>        b7=0: wurde die Diskette gewechselt ?
+CE3C: 29 80     AND #$80
+CE3E: D0 0A     BNE $CE4A        nein, ==&gt;
+CE40: 85 87     STA <a href="ra8187.htm">$87</a>          Cache nicht zurueckschreiben
+CE42: A9 80     LDA #$80         $80: Flag fuer 'Cache ist leer' setzen
+CE44: 85 95     STA <a href="ra8195.htm">$95</a>
+CE46: A9 01     LDA #$01         Flag fuer Diskettenwechsel setzen
+CE48: 85 25     STA <a href="ra8125.htm">$25</a>
+
+Einsprung von $CE3E:
+
+CE4A: A5 26     LDA <a href="ra8126.htm">$26</a>          Ist Laufwerk aktiv ?
+CE4C: F0 1F     BEQ $CE6D        nein, (Ende) ==&gt;
+CE4E: A8        TAY
+CE4F: C9 20     CMP #$20         b5=1: Motor eingeschaltet ?
+CE51: F0 20     BEQ <a href="ro81ce71.htm">$CE73</a>        nein, ==&gt;
+CE53: C6 2A     DEC <a href="ra812a.htm">$2A</a>          Laufwerk Anfahren (Nachlaufen Lo)
+CE55: D0 1C     BNE <a href="ro81ce71.htm">$CE73</a>        noch nicht fertig, ==&gt;
+CE57: 98        TYA
+CE58: 10 04     BPL $CE5E        b7=0: Laufwerk bereit ? ja, ==&gt;
+CE5A: 29 7F     AND #$7F         Anlaufvorgang ist abgeschlossen
+CE5C: 85 26     STA <a href="ra8126.htm">$26</a>
+
+Einsprung von $CE58:
+
+CE5E: 29 10     AND #$10         Motor nachlaufen lassen ?
+CE60: F0 11     BEQ <a href="ro81ce71.htm">$CE73</a>        nein, ==&gt;
+CE62: C6 2B     DEC <a href="ra812a.htm">$2B</a>          Nachlaufzeit abwarten
+CE64: D0 0D     BNE <a href="ro81ce71.htm">$CE73</a>        noch warten, ==&gt;
+CE66: 20 BA CB  JSR <a href="ro81cbb1.htm">$CBBA</a>        Drivemotor ausschalten
+CE69: A9 00     LDA #$00         0: 'Laufwerk inaktiv'
+CE6B: 85 26     STA <a href="ra8126.htm">$26</a>          in Drivemodus eintragen
+
+Einsprung von $CE4C, <a href="ro81ce71.htm">$CE76</a>, <a href="ro81ce71.htm">$CEA1</a>:
+
+CE6D: A6 2C     LDX <a href="ra812c.htm">$2C</a>          Stackpointer zurueckholen
+CE6F: 9A        TXS
+CE70: 60        RTS              Ende der Controllerroutine ==&gt;
+
+    <a href="ro81cde2.htm">Previous Page</a> / <a href="ro81ce71.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

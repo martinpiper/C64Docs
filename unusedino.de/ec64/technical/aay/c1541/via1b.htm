@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $180B/6155/VIA1+11:   Auxiliary Control Register
+
+   +----------+---------------------------------------------------------+
+   | Bits 7-6 |   Timer 1 Control:                                      |
+   |          |     00 = Timed Interrupt when Timer 1 is loaded, no PB7 |
+   |          |     01 = Continuous Interrupts, no PB7                  |
+   |          |     10 = Timed Interrupt when Timer 1 is loaded,        |
+   |          |          one-shot on PB7                                |
+   |          |     11 = Continuous Interrupts, square-wave on PB7      |
+   | Bit  5   |   Timer 2 Control: 0 = Timed Interrupt                  |
+   |          |                    1 = Count Pulses on PB6              |
+   | Bits 4-2 |   Shift Register Control:                               |
+   |          |     000 = Disabled                                      |
+   |          |     001 = Shift in under control of Timer 2             |
+   |          |     010 = Shift in under control of Phi2                |
+   |          |     011 = Shift in under control of ext. Clock          |
+   |          |     100 = Shift out free-running at Timer 2 rate        |
+   |          |     101 = Shift out under control of Timer 2            |
+   |          |     110 = Shift out under control of Phi2               |
+   |          |     111 = Shift out under control of ext. Clock         |
+   | Bit  1   |   1 = enable latching PB                                |
+   | Bit  0   |   1 = enable latching PA                                |
+   +----------+---------------------------------------------------------+
+
+ROM-Reference:
+
+ AND $180B  : <a href="ro41fac7.htm">$FBDA</a>
+ ORA $180B  : <a href="ro41fac7.htm">$FB22</a>
+ STA $180B  : <a href="ro41fac7.htm">$FB25</a> <a href="ro41fac7.htm">$FBDD</a>
+
+</pre></td></tr></table></center></body></html>

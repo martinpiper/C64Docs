@@ -1,0 +1,151 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E207/57863:   Perform [P] - Position command
+
+E207: 20 B3 C2  JSR <a href="ro41c2b3.htm">$C2B3</a>       ; verify lines
+E20A: AD 01 02  LDA <a href="ra410200.htm">$0201</a>       ; secondary address
+E20D: 85 83     STA <a href="ra4183.htm">$83</a>
+E20F: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; find channel number
+E212: 90 05     BCC $E219       ; found?
+E214: A9 70     LDA #$70
+E216: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 70, 'no block'
+
+Jump from $E212:
+
+E219: A9 A0     LDA #$A0
+E21B: 20 9D DD  JSR <a href="ro41dd95.htm">$DD9D</a>       ; erase bits 6 &amp; 7
+E21E: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; verify if 'REL'-file
+E221: F0 05     BEQ $E228       ; yes
+E223: A9 64     LDA #$64
+E225: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 64, 'file type mismatch'
+
+Jump from $E221:
+
+E228: B5 EC     LDA <a href="ra41ec.htm">$EC</a>,X
+E22A: 29 01     AND #$01
+E22C: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+E22E: AD 02 02  LDA <a href="ra410200.htm">$0202</a>       ; record number lo
+E231: 95 B5     STA <a href="ra41b5.htm">$B5</a>,X
+E233: AD 03 02  LDA <a href="ra410200.htm">$0203</a>       ; record number hi
+E236: 95 BB     STA <a href="ra41bb.htm">$BB</a>,X
+E238: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E23A: A9 89     LDA #$89
+E23C: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; READ and WRITE flag
+E23E: AD 04 02  LDA <a href="ra410200.htm">$0204</a>       ; byte-pointer
+E241: F0 10     BEQ $E253       ; zero?
+E243: 38        SEC
+E244: E9 01     SBC #$01
+E246: F0 0B     BEQ $E253
+E248: D5 C7     CMP <a href="ra41c7.htm">$C7</a>,X       ; compare with record length
+E24A: 90 07     BCC $E253
+E24C: A9 51     LDA #$51
+E24E: 8D 6C 02  STA <a href="ra41026c.htm">$026C</a>       ; 51, 'overflow in record'
+E251: A9 00     LDA #$00
+
+Jump from $E241, $E246, $E24A:
+
+E253: 85 D4     STA <a href="ra41d4.htm">$D4</a>
+E255: 20 0E CE  JSR <a href="ro41ce0e.htm">$CE0E</a>       ; calculate pointer in rel-file
+E258: 20 F8 DE  JSR <a href="ro41def8.htm">$DEF8</a>       ; and read appropriate side-sector
+E25B: 50 08     BVC $E265       ; does block exist?
+E25D: A9 80     LDA #$80
+E25F: 20 97 DD  JSR <a href="ro41dd95.htm">$DD97</a>       ; set bit 7
+E262: 4C 5E E1  JMP <a href="ro41e120.htm">$E15E</a>       ; and 50, 'record not present'
+
+Jump from $E25B:
+
+E265: 20 75 E2  JSR $E275
+E268: A9 80     LDA #$80
+E26A: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 7
+E26D: F0 03     BEQ $E272       ; not set
+E26F: 4C 5E E1  JMP <a href="ro41e120.htm">$E15E</a>       ; 50, 'record not present'
+
+Jump from $E26D:
+
+E272: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done
+
+Jump from $E265, <a href="ro41e31c.htm">$E441</a>:
+
+E275: 20 9C E2  JSR $E29C
+E278: A5 D7     LDA <a href="ra41d7.htm">$D7</a>         ; pointer in rel-file
+E27A: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+E27D: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E27F: B5 C7     LDA <a href="ra41c7.htm">$C7</a>,X       ; record length
+E281: 38        SEC
+E282: E5 D4     SBC <a href="ra41d4.htm">$D4</a>         ; minus position
+E284: B0 03     BCS $E289       ; positive?
+E286: 4C 02 E2  JMP <a href="ro41e1cb.htm">$E202</a>       ; 67, 'illegal track or sector'
+
+Jump from $E284:
+
+E289: 18        CLC
+E28A: 65 D7     ADC <a href="ra41d7.htm">$D7</a>         ; add pointer in data block
+E28C: 90 03     BCC $E291       ; no overflow
+E28E: 69 01     ADC #$01        ; plus 2
+E290: 38        SEC
+
+Jump from $E28C:
+
+E291: 20 09 E0  JSR <a href="ro41dfd0.htm">$E009</a>       ; set pointer
+E294: 4C 38 E1  JMP <a href="ro41e120.htm">$E138</a>       ; get byte from buffer
+E297: A9 51     LDA #$51
+E299: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 51, 'overflow in record'
+
+Jump from $E275, <a href="ro41ca35.htm">$CA6C</a>, <a href="ro41e31c.htm">$E322</a>:
+
+E29C: A5 94     LDA <a href="ra4194.htm">$94</a>         ; buffer pointer lo
+E29E: 85 89     STA <a href="ra4186.htm">$89</a>
+E2A0: A5 95     LDA <a href="ra4194.htm">$95</a>         ; buffer pointer hi
+E2A2: 85 8A     STA <a href="ra4186.htm">$8A</a>
+E2A4: 20 D0 E2  JSR $E2D0       ; compare track and sector
+E2A7: D0 01     BNE $E2AA       ; not equal?
+E2A9: 60        RTS
+
+Jump from $E2A7:
+
+E2AA: 20 F1 DD  JSR <a href="ro41ddf1.htm">$DDF1</a>
+E2AD: 20 0C DE  JSR <a href="ro41de0c.htm">$DE0C</a>
+E2B0: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+E2B2: F0 0E     BEQ $E2C2       ; no block following?
+E2B4: 20 D3 E2  JSR $E2D3       ; compare track and sector number
+E2B7: D0 06     BNE $E2BF       ; not equal?
+E2B9: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E2BC: 4C DA D2  JMP <a href="ro41d2da.htm">$D2DA</a>
+
+Jump from $E2B7:
+
+E2BF: 20 DA D2  JSR <a href="ro41d2da.htm">$D2DA</a>
+
+Jump from $E2B2:
+
+E2C2: A0 00     LDY #$00
+E2C4: B1 89     LDA (<a href="ra4186.htm">$89</a>),Y     ; track
+E2C6: 85 80     STA <a href="ra4180.htm">$80</a>
+E2C8: C8        INY
+E2C9: B1 89     LDA (<a href="ra4186.htm">$89</a>),Y     ; and sector of the next block
+E2CB: 85 81     STA <a href="ra4181.htm">$81</a>
+E2CD: 4C AF D0  JMP <a href="ro41d0af.htm">$D0AF</a>       ; read block
+
+Jump from $E2A4:
+
+E2D0: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>
+
+Jump from $E2B4:
+
+E2D3: A0 00     LDY #$00
+E2D5: B1 89     LDA (<a href="ra4186.htm">$89</a>),Y     ; track number
+E2D7: C5 80     CMP <a href="ra4180.htm">$80</a>         ; compare
+E2D9: F0 01     BEQ $E2DC
+E2DB: 60        RTS
+
+Jump from $E2D9:
+
+E2DC: C8        INY
+E2DD: B1 89     LDA (<a href="ra4186.htm">$89</a>),Y     ; sector number
+E2DF: C5 81     CMP <a href="ra4181.htm">$81</a>         ; compare
+E2E1: 60        RTS
+
+    <a href="ro41e1cb.htm">Previous Page</a> / <a href="ro41e2e2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

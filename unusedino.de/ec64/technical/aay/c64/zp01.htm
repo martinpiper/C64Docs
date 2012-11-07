@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  $01/1:   6510 On-chip 8-bit Input/Output Register
+
+   +----------+---------------------------------------------------+
+   | Bits 7-6 |   Undefined                                       |
+   | Bit  5   |   Cassette Motor Control (0 = On, 1 = Off)        |
+   | Bit  4   |   Cassette Switch Sense: 1 = Switch Closed        |
+   | Bit  3   |   Cassette Data Output Line                       |
+   | Bit  2   |   /CharEn-Signal (see <a href="memcfg.htm">Memory Configuration</a>)       |
+   | Bit  1   |   /HiRam-Signal  (see <a href="memcfg.htm">Memory Configuration</a>)       |
+   | Bit  0   |   /LoRam-Signal  (see <a href="memcfg.htm">Memory Configuration</a>)       |
+   +----------+---------------------------------------------------+
+   Default Value is $37/55 (%00110111).
+
+  (German-?)C128 only:
+
+   +--------+-----------------------------------------------------+
+   | Bit  6 |   ASCII/DIN-Switch (0=DIN, 1=ASCII)                 |
+   +--------+-----------------------------------------------------+
+   Default Value is $77/119 (%01110111).
+
+  Flash_8 only:
+
+   +--------+-----------------------------------------------------+
+   | Bit  7 |   1 = 1 MHz, 0 = 8 MHz (if DIP1 closed)             |
+   | Bit  6 |   (?)                                               |
+   +--------+-----------------------------------------------------+
+   Default Value is $37/55 (%00110111).
+
+Kernal-Reference:
+
+ ASL $01,X   : <a href="romb983.htm">$B9A6</a>
+ BIT $01     : <a href="romf82e.htm">$F830</a> <a href="romf82e.htm">$F834</a>
+ INC $01,X   : <a href="romb983.htm">$B9AA</a>
+ LDA $01     : <a href="romea31.htm">$EA61</a> <a href="romea31.htm">$EA6B</a> <a href="romea31.htm">$EA75</a> <a href="romf875.htm">$F8AB</a> <a href="romfba6.htm">$FBBF</a> <a href="romfcca.htm">$FCCA</a>
+     $01,X   : <a href="romf5dd.htm">$F5E6</a>
+     $0001,Y : <a href="romb867.htm">$B8CB</a>
+ LDY $01,X   : <a href="romb983.htm">$B991</a>
+ LSR $01,X   : <a href="romb867.htm">$B89E</a>
+ ROR $01,X   : <a href="romb983.htm">$B9AC</a> <a href="romb983.htm">$B9AE</a>
+ SBC $01,X   : <a href="romb867.htm">$B8CE</a>
+ STA $01     : <a href="romea31.htm">$EA79</a> <a href="romf875.htm">$F8AF</a> <a href="romfba6.htm">$FBC3</a> <a href="romfcca.htm">$FCCE</a> <a href="romfda3.htm">$FDD7</a>
+     $01,X   : <a href="romb4d5.htm">$B4DB</a>
+ STY $01,X   : <a href="romb983.htm">$B997</a>
+
+    <a href="zp00.htm">Previous Page</a> / <a href="zp02.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

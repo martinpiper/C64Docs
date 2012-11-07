@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DC0D/56333/CIA1+13:  Interrupt (IRQ) Control Register
+
+   +-------+------------------------------------------------------+
+   | Bit 7 |   On Read:  1 = Interrupt occured                    |
+   |       |   On Write: 1 = Set Int.-Flags, 0 = Clear Int-.Flags |
+   | Bit 4 |   FLAG1 IRQ (Cassette Read / Serial Bus SRQ Input)   |
+   | Bit 3 |   Serial Port Interrupt (<a href="cia112.htm">$DC0C</a> full/empty)           |
+   | Bit 2 |   Time-of-Day Clock Alarm Interrupt                  |
+   | Bit 1 |   Timer B Interrupt (Tape, Serial Port)              |
+   | Bit 0 |   Timer A Interrupt (Kernal-IRQ, Tape)               |
+   +-------+------------------------------------------------------+
+
+   <b>Your CIA does NOT clear this register! You have to do this by
+   simply reading it.</b>
+
+   Default Value: $81/129 (%10000001)
+
+Kernal-Reference:
+
+ LDA $DC0D   : <a href="romea31.htm">$EA7E</a> <a href="romed40.htm">$ED9C</a> <a href="romed40.htm">$ED9F</a> <a href="romee13.htm">$EE2D</a> <a href="romee13.htm">$EE30</a> <a href="romf8e2.htm">$F91A</a> <a href="romf92c.htm">$F948</a> <a href="romfba6.htm">$FBB7</a>
+ LDX $DC0D   : <a href="romfa60.htm">$FB52</a>
+ STA $DC0D   : <a href="romf875.htm">$F87A</a> <a href="romf92c.htm">$FA3F</a> <a href="romf92c.htm">$FA50</a> <a href="romfc93.htm">$FCA2</a> <a href="romfda3.htm">$FDA5</a> <a href="romff5b.htm">$FF70</a>
+ STX $DC0D   : <a href="romfa60.htm">$FB4F</a>
+ STY $DC0D   : <a href="romf875.htm">$F877</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,99 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kommandozeilenende feststellen (CR (/LF) entfernen) ($c2b3)
+(bei u0 Zeilenende nicht veraendern)
+Kommandozeilen-Parameter loeschen
+
+Einsprung von <a href="ro818004.htm">$8018</a>, <a href="ro819678.htm">$967C</a>, <a href="ro81a1a1.htm">$A1A1</a>:
+
+8165: A4 CD     LDY <a href="ra81cd.htm">$CD</a>          Laenge der Kommandozeile
+8167: F0 36     BEQ $819F        = 0 ?  ==&gt;
+8169: 88        DEY
+816A: F0 32     BEQ $819E        = 1 ?  ==&gt; (kann kein u0 sein)
+816C: AD 00 02  LDA <a href="ra810200.htm">$0200</a>        (etwas umstaendliche) Ueberpruefung auf 'u0'
+816F: C9 55     CMP #$55
+8171: D0 07     BNE $817A        (u0)
+8173: AD 01 02  LDA <a href="ra810200.htm">$0201</a>
+8176: C9 30     CMP #$30
+8178: F0 04     BEQ $817E        = u0 ? ==&gt;
+
+Einsprung von $8171:
+
+817A: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Zeilenende mit CR vergleichen
+817D: 2C         B $2C         (u0)
+
+Einsprung von $8178:
+
+817E: A9 00     LDA #$00         u0: CR nicht beachten
+8180: C9 0D     CMP #$0D
+8182: F0 1B     BEQ $819F
+8184: 88        DEY
+8185: AD 00 02  LDA <a href="ra810200.htm">$0200</a>        (u0 Abfrage) (wozu ?)
+8188: C9 55     CMP #$55
+818A: D0 07     BNE $8193
+818C: AD 01 02  LDA <a href="ra810200.htm">$0201</a>
+818F: C9 30     CMP #$30
+8191: F0 04     BEQ $8197        = u0 ? ==&gt;
+
+Einsprung von $818A:
+
+8193: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      vorletztes Zeichen mit CR vergleichen
+8196: 2C         B $2C
+
+Einsprung von $8191:
+
+8197: A9 00     LDA #$00         u0: CR nicht beachten
+8199: C9 0D     CMP #$0D
+819B: F0 02     BEQ $819F
+819D: C8        INY              &lt;= kein CR vorhanden bzw. u0
+
+Einsprung von $816A:
+
+819E: C8        INY              &lt;= CR vorhanden / Laenge=1
+
+Einsprung von $8167, $8182, $819B:
+
+819F: 84 29     STY <a href="ra8129.htm">$29</a>          &lt;= CL,LF vorhanden / Laenge=0
+81A1: C0 2A     CPY #$2A         Zeile zu lang ?
+81A3: A0 FF     LDY #$FF
+81A5: 90 08     BCC $81AF        nein, ==&gt;
+81A7: 8C 2A 02  STY <a href="ra81022a.htm">$022A</a>
+81AA: A9 32     LDA #$32         32, SYNTAX ERROR
+81AC: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Kommandozeilenparameter initialisieren ($c2dc)
+
+Einsprung von $81A5, <a href="ro8198f7.htm">$992C</a>:
+
+81AF: A0 00     LDY #$00
+81B1: 98        TYA
+81B2: 85 CD     STA <a href="ra81cd.htm">$CD</a>          Zeiger auf INPUT-Puffer Lo = 0
+81B4: 8D 6F 02  STA <a href="ra81026f.htm">$026F</a>        Aktuelle Recordlaenge = 0
+81B7: 8D 2D 02  STA <a href="ra81022d.htm">$022D</a>        Aktueller Dateityp = DEL
+81BA: 8D 33 02  STA <a href="ra810233.htm">$0233</a>        Dateityp fuer Dateisuche loeschen
+81BD: 85 67     STA <a href="ra8167.htm">$67</a>          Zaehler (z.B. fuer Block-Befehle) loeschen
+81BF: 8D 30 02  STA <a href="ra810230.htm">$0230</a>        Anzahl Parameter vor '=' bzw. Anzahl der
+                                Dateinamen
+81C2: 8D 2E 02  STA <a href="ra81022e.htm">$022E</a>        Parameterzaehler (vor '=') loeschen
+81C5: 8D 2F 02  STA <a href="ra81022f.htm">$022F</a>        Anzahl Parameter in Kommandozeile loeschen
+81C8: 8D A1 02  STA <a href="ra8102a1.htm">$02A1</a>        Jokerflag loeschen
+81CB: 8D AB 02  STA <a href="ra8102ab.htm">$02AB</a>        Fehlerflag loeschen
+81CE: A2 05     LDX #$05
+
+Einsprung von $81E2:
+
+81D0: 9D 90 02  STA <a href="ra810290.htm">$0290</a>,X      Positionen der Parameter
+81D3: 95 E4     STA <a href="ra81df.htm">$E4</a>,X        Dir-Block mit dem Dateieintrag
+81D5: 95 E9     STA <a href="ra81e5.htm">$E9</a>,X        Zeiger auf den Eintrag
+81D7: 95 EE     STA <a href="ra81ea.htm">$EE</a>,X        Drivenummern
+81D9: 95 F3     STA <a href="ra81ef.htm">$F3</a>,X        Jokerflags loeschen
+81DB: 9D 96 02  STA <a href="ra810291.htm">$0296</a>,X      T&amp;S der Dateien = 0 bzw.
+81DE: 9D 9B 02  STA <a href="ra810297.htm">$029B</a>,X      Parameter der Block-Befehle = 0
+81E1: CA        DEX
+81E2: D0 EC     BNE $81D0
+81E4: 60        RTS
+
+    <a href="ro81811c.htm">Previous Page</a> / <a href="ro8181e5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

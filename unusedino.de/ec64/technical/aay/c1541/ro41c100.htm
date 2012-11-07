@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C100/49408:   Turn LED on for current drive
+
+Jump from <a href="ro41c368.htm">$C38C</a>, <a href="ro41c3ca.htm">$C439</a>, <a href="ro41c44f.htm">$C46A</a>, <a href="ro41c48b.htm">$C49A</a>, <a href="ro41cdf2.htm">$CE0B</a>, <a href="ro41cf9b.htm">$CFA2</a>, <a href="ro41d39b.htm">$D39E</a>, <a href="ro41d7c7.htm">$D7E1</a>, <a href="ro41ee0d.htm">$EE1D</a>:
+
+C100: 78        SEI
+C101: A9 F7     LDA #$F7        ; erase LED bit
+C103: 2D 00 1C  AND <a href="via20.htm">$1C00</a>
+C106: 48        PHA
+C107: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+C109: F0 05     BEQ $C110       ; 0?
+C10B: 68        PLA
+C10C: 09 00     ORA #$00        ; not drive 0, turn LED off
+C10E: D0 03     BNE $C113
+
+Jump from $C109:
+
+C110: 68        PLA
+C111: 09 08     ORA #$08        ; turn LED on
+
+Jump from $C10E:
+
+C113: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+C116: 58        CLI
+C117: 60        RTS
+
+                     <a href="ro41c118.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

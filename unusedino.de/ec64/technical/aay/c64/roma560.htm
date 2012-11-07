@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A560/42336:   Input Line Into Buffer
+
+Jump from <a href="roma480.htm">$A483</a>, <a href="romabf9.htm">$AC03</a>:
+
+A560: A2 00     <a href="bldx.htm">LDX</a> #$00
+
+Jump from $A56F:
+
+A562: 20 12 E1  <a href="bjsr.htm">JSR</a> <a href="rome112.htm">$E112</a>     ; Input Character
+A565: C9 0D     <a href="bcmp.htm">CMP</a> #$0D
+A567: F0 0D     <a href="bbeq.htm">BEQ</a> $A576
+A569: 9D 00 02  <a href="bsta.htm">STA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+A56C: E8        <a href="binx.htm">INX</a>
+A56D: E0 59     <a href="bcpx.htm">CPX</a> #$59
+A56F: 90 F1     <a href="bbcc.htm">BCC</a> $A562
+A571: A2 17     <a href="bldx.htm">LDX</a> #$17
+A573: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $A567:
+
+A576: 4C CA AA  <a href="bjmp.htm">JMP</a> <a href="romaaca.htm">$AACA</a>     ; -Add zero terminator to string
+
+    <a href="roma533.htm">Previous Page</a> / <a href="roma579.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

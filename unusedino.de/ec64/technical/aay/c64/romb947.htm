@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B947/47431:   2's Complement FAC#1
+
+Jump from <a href="romb867.htm">$B8D4</a>:
+
+B947: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B949: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B94B: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+
+Jump from <a href="rombc9b.htm">$BCAB</a>:
+
+B94D: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B94F: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B951: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B953: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B955: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B957: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B959: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B95B: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B95D: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B95F: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B961: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B963: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B965: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B967: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B969: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B96B: E6 70     <a href="binc.htm">INC</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B96D: D0 0E     <a href="bbne.htm">BNE</a> $B97D
+
+Jump from <a href="rombc1b.htm">$BC23</a>:
+
+B96F: E6 65     <a href="binc.htm">INC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B971: D0 0A     <a href="bbne.htm">BNE</a> $B97D
+B973: E6 64     <a href="binc.htm">INC</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B975: D0 06     <a href="bbne.htm">BNE</a> $B97D
+B977: E6 63     <a href="binc.htm">INC</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B979: D0 02     <a href="bbne.htm">BNE</a> $B97D
+B97B: E6 62     <a href="binc.htm">INC</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+
+Jump from $B96D, $B971, $B975, $B979:
+
+B97D: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb867.htm">Previous Page</a> / <a href="romb97e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

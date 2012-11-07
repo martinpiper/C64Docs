@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B80D/47117:   Evaluate &lt;peek&gt;
+
+B80D: A5 15     <a href="blda.htm">LDA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+B80F: 48        <a href="bpha.htm">PHA</a>
+B810: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+B812: 48        <a href="bpha.htm">PHA</a>
+B813: 20 F7 B7  <a href="bjsr.htm">JSR</a> <a href="romb7f7.htm">$B7F7</a>     ; Convert FAC#1 to Integer in LINNUM
+B816: A0 00     <a href="bldy.htm">LDY</a> #$00
+B818: B1 14     <a href="blda.htm">LDA</a> (<a href="zp14.htm">$14</a>),Y   ; Temporary: Integer value
+B81A: A8        <a href="btay.htm">TAY</a>
+B81B: 68        <a href="bpla.htm">PLA</a>
+B81C: 85 14     <a href="bsta.htm">STA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+B81E: 68        <a href="bpla.htm">PLA</a>
+B81F: 85 15     <a href="bsta.htm">STA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+B821: 4C A2 B3  <a href="bjmp.htm">JMP</a> <a href="romb39e.htm">$B3A2</a>     ; Evaluate &lt;pos&gt;
+
+    <a href="romb7f7.htm">Previous Page</a> / <a href="romb824.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

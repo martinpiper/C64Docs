@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C194/49556:   Prepare error msg after executing command
+
+Jump from <a href="ro41c8f0.htm">$C99E</a>, <a href="ro41c9a1.htm">$C9A4</a>, <a href="ro41ca88.htm">$CAC9</a>, <a href="ro41cb5c.htm">$CB6F</a>, <a href="ro41cb84.htm">$CC18</a>, <a href="ro41ccf5.htm">$CCFB</a>, <a href="ro41cd03.htm">$CD16</a>, <a href="ro41cd56.htm">$CD5C</a>, <a href="ro41cd5f.htm">$CD70</a>,
+          <a href="ro41cd73.htm">$CD94</a>, <a href="ro41cd97.htm">$CDA0</a>, <a href="ro41cda3.htm">$CDB7</a>, <a href="ro41cdbd.htm">$CDCF</a>, <a href="ro41d005.htm">$D00B</a>, <a href="ro41d7c7.htm">$D7F0</a>, <a href="ro41d940.htm">$D99D</a>, <a href="ro41dac0.htm">$DAE6</a>, <a href="ro41dac0.htm">$DAFC</a>,
+          <a href="ro41e207.htm">$E272</a>, <a href="ro41ed84.htm">$EDB0</a>, <a href="ro41ee0d.htm">$EEB4</a>:
+
+C194: A9 00     LDA #$00
+C196: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+
+Jump from <a href="ro41d9e3.htm">$DA06</a>:
+
+C199: AD 6C 02  LDA <a href="ra41026c.htm">$026C</a>       ; flag set?
+C19C: D0 2A     BNE <a href="ro41c1c8.htm">$C1C8</a>       ; yes, then set error message
+C19E: A0 00     LDY #$00
+C1A0: 98        TYA             ; error number 0
+C1A1: 84 80     STY <a href="ra4180.htm">$80</a>         ; track number 0
+
+Jump from <a href="ro41c823.htm">$C87A</a>:
+
+C1A3: 84 81     STY <a href="ra4181.htm">$81</a>         ; sector number 0
+C1A5: 84 A3     STY <a href="ra41a3.htm">$A3</a>
+C1A7: 20 C7 E6  JSR <a href="ro41e6c7.htm">$E6C7</a>       ; prepare 'ok' message
+C1AA: 20 23 C1  JSR <a href="ro41c123.htm">$C123</a>       ; erase error flag
+
+Jump from <a href="ro41dac0.htm">$DAE9</a>, <a href="ro41dac0.htm">$DAFF</a>:
+
+C1AD: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+C1AF: 8D 8E 02  STA <a href="ra41028e.htm">$028E</a>       ; save as last drive number
+C1B2: AA        TAX
+C1B3: A9 00     LDA #$00
+C1B5: 95 FF     STA <a href="ra41ff.htm">$FF</a>,X
+C1B7: 20 BD C1  JSR <a href="ro41c1bd.htm">$C1BD</a>       ; erase input buffer
+C1BA: 4C DA D4  JMP <a href="ro41d4da.htm">$D4DA</a>       ; close internal channel
+
+    <a href="ro41c146.htm">Previous Page</a> / <a href="ro41c1bd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

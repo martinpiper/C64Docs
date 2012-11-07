@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E8B3/59571:   Check Line Increment
+
+Jump from <a href="rome6b6.htm">$E6B6</a>, <a href="rome72a.htm">$E797</a>:
+
+E8B3: A2 02     <a href="bldx.htm">LDX</a> #$02
+E8B5: A9 27     <a href="blda.htm">LDA</a> #$27
+
+Jump from $E8BF:
+
+E8B7: C5 D3     <a href="bcmp.htm">CMP</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E8B9: F0 07     <a href="bbeq.htm">BEQ</a> $E8C2
+E8BB: 18        <a href="bclc.htm">CLC</a>
+E8BC: 69 28     <a href="badc.htm">ADC</a> #$28
+E8BE: CA        <a href="bdex.htm">DEX</a>
+E8BF: D0 F6     <a href="bbne.htm">BNE</a> $E8B7
+E8C1: 60        <a href="brts.htm">RTS</a>
+
+Jump from $E8B9:
+
+E8C2: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E8C4: E0 19     <a href="bcpx.htm">CPX</a> #$19
+E8C6: F0 02     <a href="bbeq.htm">BEQ</a> $E8CA
+E8C8: E6 D6     <a href="binc.htm">INC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+
+Jump from $E8C6:
+
+E8CA: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome8a1.htm">Previous Page</a> / <a href="rome8cb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

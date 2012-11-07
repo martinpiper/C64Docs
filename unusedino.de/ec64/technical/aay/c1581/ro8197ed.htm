@@ -1,0 +1,68 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Zugriffsart feststellen und File zum Lesen oeffnen ($d940)
+
+Einsprung von <a href="ro819678.htm">$975B</a>:
+
+97ED: AD 97 02  LDA <a href="ra810297.htm">$0297</a>        Tracknummer des 1. Blocks holen
+97F0: D0 05     BNE $97F7        &gt; 0 (File gefunden) ? ja, ==&gt;
+97F2: A9 62     LDA #$62         62, File not found
+97F4: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $97F0:
+
+97F7: AD A7 02  LDA <a href="ra8102a7.htm">$02A7</a>        Ist die Zugriffsart = 'M' (Modify) ?
+97FA: C9 03     CMP #$03
+97FC: F0 0B     BEQ $9809        ja, ==&gt;
+97FE: A9 20     LDA #$20         b5=1: ist die Datei offen ?
+9800: 24 F4     BIT <a href="ra81f4.htm">$F4</a>
+9802: F0 05     BEQ $9809        nein, ==&gt;
+9804: A9 60     LDA #$60         60, Write File open
+9806: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $97FC, $9802:
+
+9809: A5 F4     LDA <a href="ra81f4.htm">$F4</a>          Typ der Datei
+980B: 29 07     AND #$07
+980D: CD 2D 02  CMP <a href="ra81022d.htm">$022D</a>        = gesuchter Typ ?
+9810: F0 05     BEQ $9817        ja, ==&gt;
+
+Einsprung von $9825, <a href="ro8197a2.htm">$97A9</a>, <a href="ro8197a2.htm">$97AD</a>:
+
+9812: A9 64     LDA #$64         64, File type mismatch
+9814: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $9810:
+
+9817: A0 00     LDY #$00         Anzahl der Dateinamen = 1
+9819: 8C 30 02  STY <a href="ra810230.htm">$0230</a>
+981C: AE A7 02  LDX <a href="ra8102a7.htm">$02A7</a>        Zugriffsart holen
+981F: E0 02     CPX #$02         = Append ?
+9821: D0 1A     BNE $983D        nein, ==&gt;
+9823: C9 04     CMP #$04         Filetyp = REL ?
+9825: F0 EB     BEQ $9812        ja, (Fehler) ==&gt;
+9827: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      b7=0: Flag 'File offen' im Directory setzen
+9829: 29 4F     AND #$4F
+982B: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+982D: A5 52     LDA <a href="ra8152.htm">$52</a>          aktuelle SA merken
+982F: 48        PHA
+9830: A9 11     LDA #$11         internen Lesekanal aktivieren
+9832: 85 52     STA <a href="ra8152.htm">$52</a>
+9834: 20 79 9D  JSR <a href="ro819d79.htm">$9D79</a>        T&amp;S der aktuellen Datei holen
+9837: 20 C1 93  JSR <a href="ro8193bd.htm">$93C1</a>        Puffer schreiben
+983A: 68        PLA
+983B: 85 52     STA <a href="ra8152.htm">$52</a>          SA zurueckholen
+
+Einsprung von $9821:
+
+983D: 20 4D 98  JSR <a href="ro81984d.htm">$984D</a>        File zum Lesen oeffnen
+9840: AD A7 02  LDA <a href="ra8102a7.htm">$02A7</a>        Zugriffsart
+9843: C9 02     CMP #$02         = Append ?
+9845: D0 4F     BNE <a href="ro819896.htm">$9896</a>        nein, ==&gt;
+9847: 20 CC 98  JSR <a href="ro8198cc.htm">$98CC</a>        Append-Befehl aufrufen
+984A: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+    <a href="ro8197a2.htm">Previous Page</a> / <a href="ro81984d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

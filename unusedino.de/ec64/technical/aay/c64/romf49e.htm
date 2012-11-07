@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F49E/62622:   Load RAM
+
+Jump from <a href="romffd5.htm">$FFD5</a>:
+
+F49E: 86 C3     <a href="bstx.htm">STX</a> <a href="zpc3.htm">$C3</a>       ; Pointer: Type 3 Tape LOAD and general use
+F4A0: 84 C4     <a href="bsty.htm">STY</a> <a href="zpc3.htm">$C4</a>       ; Pointer: Type 3 Tape LOAD and general use
+F4A2: 6C 30 03  <a href="bjmp.htm">JMP</a> (<a href="zp0330.htm">$0330</a>)   ; Vector: Kernal LOAD Routine
+F4A5: 85 93     <a href="bsta.htm">STA</a> <a href="zp93.htm">$93</a>       ; Flag: 0 = Load, 1 = Verify
+F4A7: A9 00     <a href="blda.htm">LDA</a> #$00
+F4A9: 85 90     <a href="bsta.htm">STA</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+F4AB: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F4AD: D0 03     <a href="bbne.htm">BNE</a> $F4B2
+
+Jump from $F4B4, $F4B6 (SX64):
+
+F4AF: 4C 13 F7  <a href="bjmp.htm">JMP</a> <a href="romf713.htm">$F713</a>     ; Output I/O Error Messages: 'ILLEGAL DEVICE NUMBER'
+
+Jump from $F4AD:
+
+F4B2: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F4B4: F0 F9     <a href="bbeq.htm">BEQ</a> $F4AF
+F4B6: 90 7B     <a href="bbcc.htm">BCC</a> <a href="romf533.htm">$F533</a>     ; Load File From Tape
+<b>* SX64:
+F4B6: 90 F7     <a href="bbcc.htm">BCC</a> $F4AF
+</b>
+    <a href="romf409.htm">Previous Page</a> / <a href="romf4b8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

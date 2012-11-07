@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CB5C/52060:   Perform [U] - User command
+
+CB5C: AC 01 02  LDY <a href="ra410200.htm">$0201</a>       ; second char
+CB5F: C0 30     CPY #$30        ; '0'
+CB61: D0 09     BNE $CB6C       ; no
+
+Jump from <a href="ro41eaa0.htm">$EBBC</a>:
+
+CB63: A9 EA     LDA #$EA
+CB65: 85 6B     STA <a href="ra416b.htm">$6B</a>         ; pointer to table of user-addresses
+CB67: A9 FF     LDA #$FF        ; $FFEA
+CB69: 85 6C     STA <a href="ra416b.htm">$6C</a>
+CB6B: 60        RTS
+
+Jump from $CB61:
+
+CB6C: 20 72 CB  JSR $CB72
+CB6F: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done, prepare error message
+
+Jump from $CB6C:
+
+CB72: 88        DEY
+CB73: 98        TYA
+CB74: 29 0F     AND #$0F        ; number
+CB76: 0A        ASL             ; times 2
+CB77: A8        TAY
+CB78: B1 6B     LDA (<a href="ra416b.htm">$6B</a>),Y     ; as pointer in table
+CB7A: 85 75     STA <a href="ra4175.htm">$75</a>
+CB7C: C8        INY             ; address at $75/$76
+CB7D: B1 6B     LDA (<a href="ra416b.htm">$6B</a>),Y
+CB7F: 85 76     STA <a href="ra4175.htm">$76</a>
+CB81: 6C 75 00  JMP (<a href="ra4175.htm">$0075</a>)     ; execute function
+
+    <a href="ro41cb50.htm">Previous Page</a> / <a href="ro41cb84.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

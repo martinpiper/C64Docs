@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $ED84/60804:   Perform [V] - Validate command
+
+ED84: 20 D1 C1  JSR <a href="ro41c1d1.htm">$C1D1</a>       ; find drive number in input line
+ED87: 20 42 D0  JSR <a href="ro41d042.htm">$D042</a>       ; load BAM
+ED8A: A9 40     LDA #$40
+ED8C: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+ED8F: 20 B7 EE  JSR <a href="ro41eeb7.htm">$EEB7</a>       ; create new BAM in buffer
+ED92: A9 00     LDA #$00
+ED94: 8D 92 02  STA <a href="ra410292.htm">$0292</a>
+ED97: 20 AC C5  JSR <a href="ro41c5ac.htm">$C5AC</a>       ; load directory, find 1st flag
+ED9A: D0 3D     BNE <a href="ro41edb3.htm">$EDD9</a>       ; found?
+
+Jump from <a href="ro41edb3.htm">$EDD7</a>:
+
+ED9C: A9 00     LDA #$00
+ED9E: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector 0
+EDA0: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18
+EDA3: 85 80     STA <a href="ra4180.htm">$80</a>         ; track 18 for BAM
+EDA5: 20 E5 ED  JSR <a href="ro41ede5.htm">$EDE5</a>       ; mark directory blocks as allocated
+EDA8: A9 00     LDA #$00
+EDAA: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+EDAD: 20 FF EE  JSR <a href="ro41eef4.htm">$EEFF</a>       ; write BAM back to disk
+EDB0: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done, prepare disk status
+
+    <a href="ro41ed67.htm">Previous Page</a> / <a href="ro41edb3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

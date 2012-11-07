@@ -1,0 +1,99 @@
+<html>
+
+<head>
+<title>cw</title>
+</head>
+
+<body bgcolor="#c8c8d8" text="#000000" link="#4040ff" alink="#ffffff" vlink="#000000">
+<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%"><tr height="99%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br><h1 align="right">cw</h1>
+<hr size="1" noshade style="color:#000000;">
+&nbsp;<br>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" width="18%">
+
+<table bgcolor="#000000" border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%">
+<tr bgcolor="#a0a0c8"><td align="center" width="100%"><b>.....&nbsp;download&nbsp;.....</b></td></tr>
+<tr bgcolor="#c8c8d8"><td align="center" width="100%">
+&nbsp;<br>
+<a href="http://unusedino.de/cw/download/cw-latest.tar.gz">cw-0.12.3-20080211.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.12.2-20070324.tar.gz">cw-0.12.2-20070324.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.12.1-20070319.tar.gz">cw-0.12.1-20070319.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.12-20070305.tar.gz">cw-0.12-20070305.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.11-20060806.tar.gz">cw-0.11-20060806.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.10-20060215.tar.gz">cw-0.10-20060215.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.09-20060110.tar.gz">cw-0.09-20060110.tar.gz</a><br>
+<a href="http://unusedino.de/cw/download/cw-0.08-20051202.tar.gz">cw-0.08-20051202.tar.gz</a><br>
+&nbsp;<br>
+</td></tr>
+<tr bgcolor="#a0a0c8"><td align="center" width="100%"><b>.....&nbsp;links&nbsp;.....</b></td></tr>
+<tr bgcolor="#c8c8d8"><td align="center" width="100%">
+&nbsp;<br>
+<a href="http://www.jschoenfeld.com/">Individual&nbsp;Computers</a><br>
+<a href="http://llg.cubic.org/cw/">catweasel&nbsp;Homepage</a><br>
+<a href="http://www.soundtracker.org/raw/cwfloppy/">cwfloppy&nbsp;Homepage</a><br>
+<a href="http://hardsid.sourceforge.net/">hardsid&nbsp;Homepage</a><br>
+<a href="http://www.bel.fi/~alankila/blog/2005/12/30/HardSID-Catweasel%200.01.html">hardsid-catweasel&nbsp;Homepage</a><br>
+<a href="http://www.tim-mann.org/catweasel.html">cw2dmk&nbsp;Homepage</a><br>
+&nbsp;<br>
+</td></tr></table></td></tr></table>
+
+</td><td width="2%">&nbsp;</td><td valign="top" width="80%">
+
+<p align="justify">cw is (yet another) package for the Catweasel controller,
+look below what other packages do exist. This package is especially for
+accessing the floppy drives connected to Catweasel. Currently the MK3 and
+MK4 controller cards are supported. cw consists of a kernel driver and a
+companion user space program (<a href="cwtool.htm">cwtool</a>).
+The kernel driver should work with Linux 2.4 and 2.6. Look at the
+homepage of the manufacturer
+<a href="http://www.jschoenfeld.com/">Individual Computers</a>
+for more details about the controller features.</p>
+
+<p align="justify">There are at least 5 other Linux drivers for the
+Catweasel controller:
+<dl>
+<dt><a href="http://llg.cubic.org/cw/">catweasel</a></dt>
+<dd>Written by Dirk Jagdmann. A
+Linux driver for SID, Joysticks and Amiga keyboard.</dd>
+<dt><a href="http://www.soundtracker.org/raw/cwfloppy/">cwfloppy</a>
+<dd>Written by
+Michael Krause. A Linux driver for accessing the floppies on a
+Catweasel controller. This driver exports block devices, so you are
+able to mount Amiga disks under Linux. Currently it supports Amiga
+and MSDOS disks (and C1541 with a
+<a href="http://unusedino.de/cw/download/cwfloppy-0.3.2-c1541-20030902.tar.gz">patch</a>
+written by me). To support
+more formats i found it more useful to use another method to export
+data to user space, thats why i started my own driver. Instead of a
+block device cw uses a char device and passes the raw Catweasel data
+to the calling program, so all format routines do not reside in the
+kernel driver anymore.</dd>
+<dt><a href="http://hardsid.sourceforge.net/">hardsid</a>
+<dd>Written by Jarno Paananen and Simon White. A Linux driver for the
+Hardsidcards and the SID-Chips on Catweasel MK3 and MK4.</dd>
+<dt><a href="http://www.bel.fi/~alankila/blog/2005/12/30/HardSID-Catweasel%200.01.html">hardsid-catweasel</a>
+<dd>Written by Antti Lankila. This driver only contains support for
+Catweasel MK4 cards and is a rework of the hardsid driver.</dd>
+<dt><a href="http://www.tim-mann.org/catweasel.html">cw2dmk</a>
+<dd>Written by Tim Mann.
+A Linux driver (other platforms are also supported) for accessing the
+floppies on a Catweasel Controller, especially TRS80 related formats
+are supported. This package does not use a kernel driver to access
+the Catweasel controller, but you should avoid using this program
+when a kernel driver from another package is loaded.</dd>
+</dl>
+The README included in the
+<a href="http://unusedino.de/cw/download/cw-latest.tar.gz">cw tarball</a> contains more
+information.</p>
+
+</td></tr></table>
+
+</td><td width="3%">&nbsp;</td></tr>
+<tr height="1%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br>
+<p align="center"><font size="1">&lt;&nbsp;Karsten&nbsp;Scheibler&nbsp;|&nbsp;2008-FEB-11&nbsp;&gt;</font></p>
+</td><td width="3%">&nbsp;</td></tr></table>
+</body>
+
+</html>

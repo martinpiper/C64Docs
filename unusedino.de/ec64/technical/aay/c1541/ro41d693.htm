@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D693/54931:   Move head one track in or out
+
+Jump from <a href="ro41d676.htm">$D67E</a>, <a href="ro41d676.htm">$D68A</a>:
+
+D693: 48        PHA
+D694: 98        TYA
+D695: A4 7F     LDY <a href="ra417f.htm">$7F</a>         ; drive number
+D697: 99 FE 02  STA <a href="ra4102fe.htm">$02FE</a>,Y
+
+Jump from $D69D:
+
+D69A: D9 FE 02  CMP <a href="ra4102fe.htm">$02FE</a>,Y     ; wait for return message from
+D69D: F0 FB     BEQ $D69A
+D69F: A9 00     LDA #$00        ; disk controller
+D6A1: 99 FE 02  STA <a href="ra4102fe.htm">$02FE</a>,Y
+D6A4: 68        PLA
+D6A5: 60        RTS
+
+    <a href="ro41d676.htm">Previous Page</a> / <a href="ro41d6a6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

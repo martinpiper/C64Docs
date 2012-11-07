@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D227/53799:   Close channel
+
+Jump from <a href="ro41c87d.htm">$C8AA</a>, <a href="ro41d1e2.htm">$D1E6</a>, <a href="ro41d307.htm">$D30B</a>, <a href="ro41d313.htm">$D331</a>, <a href="ro41d4da.htm">$D4DE</a>, <a href="ro41d4da.htm">$D4E5</a>, <a href="ro41dac0.htm">$DACE</a>, <a href="ro41db02.htm">$DB29</a>, <a href="ro41db02.htm">$DB5F</a>,
+          <a href="ro41e688.htm">$E695</a>, <a href="ro41ede5.htm">$EE01</a>:
+
+D227: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D229: C9 0F     CMP #$0F        ; 15?
+D22B: D0 01     BNE $D22E       ; no
+D22D: 60        RTS             ; else done already
+
+Jump from $D22B:
+
+D22E: A6 83     LDX <a href="ra4183.htm">$83</a>
+D230: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X     ; channel number
+D233: C9 FF     CMP #$FF        ; not associated?
+D235: F0 22     BEQ $D259       ; then done
+D237: 29 3F     AND #$3F
+D239: 85 82     STA <a href="ra4182.htm">$82</a>         ; channel number
+D23B: A9 FF     LDA #$FF
+D23D: 9D 2B 02  STA <a href="ra41022b.htm">$022B</a>,X     ; erase association in table
+D240: A6 82     LDX <a href="ra4182.htm">$82</a>
+D242: A9 00     LDA #$00
+D244: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; erase READ and WRITE flag
+D246: 20 5A D2  JSR <a href="ro41d25a.htm">$D25A</a>       ; free buffer
+D249: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D24B: A9 01     LDA #$01        ; set bit 0
+
+Jump from $D251:
+
+D24D: CA        DEX
+D24E: 30 03     BMI $D253       ; shift to correct position
+D250: 0A        ASL
+D251: D0 FA     BNE $D24D
+
+Jump from $D24E:
+
+D253: 0D 56 02  ORA <a href="ra410256.htm">$0256</a>       ; free in allocation register
+D256: 8D 56 02  STA <a href="ra410256.htm">$0256</a>
+
+Jump from $D235:
+
+D259: 60        RTS
+
+    <a href="ro41d1e2.htm">Previous Page</a> / <a href="ro41d25a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

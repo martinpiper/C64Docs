@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  AND                  &quot;AND&quot; memory with accumulator                    AND
+
+  Operation:  A /\ M -&gt; A                               N V - B D I Z C
+                                                        / . . . . . / .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>     |   AND #$FF            |   $29   |    2    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   AND $FF             |   $25   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   AND $FF,X           |   $35   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   AND $FFFF           |   $2D   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   AND $FFFF,X         |   $3D   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   AND $FFFF,Y         |   $39   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   AND ($FF,X)         |   $21   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   AND ($FF),Y         |   $31   |    2    |    5*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 if page boundary is crossed.
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3a.htm">AbsoluteLong</a>   |   AND $FFFFFF         |   $2F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr13.htm">AbsoluteLong,X</a> |   AND $FFFFFF,X       |   $3F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr18.htm">(Indirect)</a>     |   AND ($FF)           |   $32   |    2    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr19.htm">[Indirect Long]</a>|   AND [$FF]           |   $27   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr8.htm">[Ind.Long],Y</a>   |   AND [$FF],Y         |   $37   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr22.htm">Relative,S</a>     |   AND $FF,S           |   $23   |    2    |     4    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr23.htm">(Indirect,S),Y</a> |   AND ($FF,S),Y       |   $33   |    2    |     7    |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

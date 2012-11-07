@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DD0D/56589/CIA2+13:  Interrupt (NMI) Control Register
+
+   +-------+------------------------------------------------------+
+   | Bit 7 |   On Read:  1 = Interrupt occured                    |
+   |       |   On Write: 1 = Set Int.-Flags, 0 = Clear Int.-Flags |
+   | Bit 4 |   FLAG1 NMI (User/RS232 Received Data Input)         |
+   | Bit 3 |   Serial Port Interrupt (<a href="cia212.htm">$DD0C</a> full/empty)           |
+   | Bit 2 |   Time-of-Day Clock Alarm Interrupt                  |
+   | Bit 1 |   Timer B Interrupt (RS232)                          |
+   | Bit 0 |   Timer A Interrupt (RS232)                          |
+   +-------+------------------------------------------------------+
+
+   <b>Your CIA does NOT clear this register! You have to do this by
+   simply reading it.</b>
+
+   Default Value: $7F/127 (%01111111)
+
+Kernal-Reference:
+
+ LDY $DD0D   : <a href="romfe43.htm">$FE51</a>
+ STA $DD0D   : <a href="romef39.htm">$EF3B</a> <a href="romef39.htm">$EF46</a> <a href="romef7e.htm">$EF80</a> <a href="romf0a4.htm">$F0B3</a> <a href="romf409.htm">$F485</a> <a href="romfda3.htm">$FDA8</a> <a href="romfe43.htm">$FE4E</a> <a href="romfe66.htm">$FE88</a> <a href="romfe66.htm">$FEB9</a> <a href="romfed6.htm">$FEF9</a>
+
+</pre></td></tr></table></center></body></html>

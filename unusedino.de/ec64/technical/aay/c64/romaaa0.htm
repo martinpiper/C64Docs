@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AAA0/43680:   Perform [print]
+
+Jump from <a href="romaa86.htm">$AA97</a>:
+
+AAA0: F0 35     <a href="bbeq.htm">BEQ</a> <a href="romaad7.htm">$AAD7</a>     ; Output CR/LF
+
+Jump from <a href="romaae8.htm">$AB16</a>:
+
+AAA2: F0 43     <a href="bbeq.htm">BEQ</a> <a href="romaad7.htm">$AAE7</a>     ; Output CR/LF
+AAA4: C9 A3     <a href="bcmp.htm">CMP</a> #$A3
+AAA6: F0 50     <a href="bbeq.htm">BEQ</a> <a href="romaae8.htm">$AAF8</a>     ; Handle comma, TAB(, SPC(
+AAA8: C9 A6     <a href="bcmp.htm">CMP</a> #$A6
+AAAA: 18        <a href="bclc.htm">CLC</a>
+AAAB: F0 4B     <a href="bbeq.htm">BEQ</a> <a href="romaae8.htm">$AAF8</a>     ; Handle comma, TAB(, SPC(
+AAAD: C9 2C     <a href="bcmp.htm">CMP</a> #$2C
+AAAF: F0 37     <a href="bbeq.htm">BEQ</a> <a href="romaae8.htm">$AAE8</a>     ; Handle comma, TAB(, SPC(
+AAB1: C9 3B     <a href="bcmp.htm">CMP</a> #$3B
+AAB3: F0 5E     <a href="bbeq.htm">BEQ</a> <a href="romaae8.htm">$AB13</a>     ; Handle comma, TAB(, SPC(
+AAB5: 20 9E AD  <a href="bjsr.htm">JSR</a> <a href="romad9e.htm">$AD9E</a>     ; Evaluate Expression in Text
+
+    <a href="romaa9a.htm">Previous Page</a> / <a href="romaab8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

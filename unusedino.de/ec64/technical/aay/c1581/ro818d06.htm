@@ -1,0 +1,59 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+24/8-Bit-Divisionsroutine ($ce71)
+[Der Vergleich mit dem 1541-ROM lohnt sich ...]
+
+Einsprung von <a href="ro818c89.htm">$8C8C</a>:
+
+8D06: A9 FE     LDA #$FE         x/254 (Sektorlaenge)
+8D08: 2C         B $2C
+
+Einsprung von <a href="ro818c89.htm">$8C93</a>:
+
+8D09: A9 78     LDA #$78         x/120 (Blocks pro Side-Sektor)
+8D0B: 2C         B $2C
+
+Einsprung von <a href="ro818c89.htm">$8CB4</a>:
+
+8D0C: A9 06     LDA #$06         x/6   (Side-Sektoren pro Gruppe)
+
+E:  $5b-$5d: Divident
+    a      : Divisor
+A:  $5b-$5d: Quotient
+    $60    : Rest
+
+8D0E: 85 40     STA <a href="ra8140.htm">$40</a>          &lt;--   (x/a)
+8D10: A9 00     LDA #$00         9-Bit Rest-Register loeschen
+8D12: 85 60     STA <a href="ra8160.htm">$60</a>
+8D14: 85 61     STA <a href="ra8160.htm">$61</a>
+8D16: A2 18     LDX #$18         (24-Bit)
+
+Einsprung von $8D35:
+
+8D18: 06 5B     ASL <a href="ra815b.htm">$5B</a>          Divident ins Restregister schieben
+8D1A: 26 5C     ROL <a href="ra815b.htm">$5C</a>          [Der Divident wird so lange in das
+8D1C: 26 5D     ROL <a href="ra815b.htm">$5D</a>           Rest-Register geschoben (Hi-Bit voran),
+
+8D1E: 26 60     ROL <a href="ra8160.htm">$60</a>           bis der Inhalt des Rest-Registers
+8D20: 26 61     ROL <a href="ra8160.htm">$61</a>           mindestens so gross ist wie der Divisor.
+8D22: A5 60     LDA <a href="ra8160.htm">$60</a>           In diesem Fall wird dann der Divisor vom
+8D24: 38        SEC               Rest-Register abgezogen und das ent-
+8D25: E5 40     SBC <a href="ra8140.htm">$40</a>           sprechende Bit im Ergebnisspeicher ge-
+8D27: A8        TAY               setzt. Um drei Shift-Befehle zu sparen,
+8D28: A5 61     LDA <a href="ra8160.htm">$61</a>           werden Divident und Quotient im selben
+8D2A: E9 00     SBC #$00          Register gespeichert.]
+8D2C: 90 06     BCC $8D34        Rest gross genug (&gt;=Divisor) ?
+8D2E: E6 5B     INC <a href="ra815b.htm">$5B</a>          ja, Bit im Ergebnis setzen (B0 war ja 0)
+8D30: 85 61     STA <a href="ra8160.htm">$61</a>          Restregister setzen
+8D32: 84 60     STY <a href="ra8160.htm">$60</a>          [Bei einer Division durch 0 werden alle
+
+Einsprung von $8D2C:
+
+8D34: CA        DEX               Bits des Ergebnisses =1 und der Rest ist
+8D35: D0 E1     BNE $8D18         gleich den zwei niederwertigen Bytes des
+8D37: 60        RTS               Dividenden.]
+
+    <a href="ro818ce6.htm">Previous Page</a> / <a href="ro818d38.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Wenn die BAM geaendert wurde, dann
+BAM auf Fehler pruefen und wenn Ok., abspeichern ($eef4)
+
+Einsprung von <a href="ro818688.htm">$872C</a>, <a href="ro81995c.htm">$997D</a>, <a href="ro819986.htm">$9996</a>, <a href="ro81999f.htm">$99C2</a>, <a href="ro819bc3.htm">$9C7C</a>, <a href="ro81a2d6.htm">$A41D</a>, <a href="ro81b262.htm">$B280</a>, <a href="ro81b633.htm">$B633</a>, <a href="ro81dbc7.htm">$DBEE</a>:
+
+B515: A5 35     LDA <a href="ra8135.htm">$35</a>          wurde BAM geaendert ?
+B517: F0 28     BEQ $B541        nein, ==&gt;
+B519: AD 2C 02  LDA <a href="ra81022c.htm">$022C</a>        letzter Track der Partition
+B51C: 85 66     STA <a href="ra8166.htm">$66</a>
+B51E: 20 52 B6  JSR <a href="ro81b64f.htm">$B652</a>        Zeiger auf 1. BAM-Puffer setzen
+
+Einsprung von $B53B:
+
+B521: A9 10     LDA #$10         Bei 1. Track des BAM-Puffers anfangen
+
+Einsprung von $B531:
+
+B523: 85 31     STA <a href="ra8131.htm">$31</a>
+B525: 20 5E B7  JSR <a href="ro81b75e.htm">$B75E</a>        BAM-Eintrag pruefen
+B528: C6 66     DEC <a href="ra8166.htm">$66</a>          noch ein Track zu pruefen ?
+B52A: F0 12     BEQ $B53E        nein, ==&gt;
+B52C: 18        CLC
+B52D: A5 31     LDA <a href="ra8131.htm">$31</a>          Naechsten Track auswaehlen
+B52F: 69 06     ADC #$06
+B531: 90 F0     BCC $B523        Ende des Bampuffer ? nein, ==&gt;
+B533: A5 32     LDA <a href="ra8131.htm">$32</a>          aktuelle Puffer-Nummer testen
+B535: C9 0B     CMP #$0B         war schon der 2. Bampuffer dran ?
+B537: F0 05     BEQ $B53E        ja, ==&gt;
+B539: E6 32     INC <a href="ra8131.htm">$32</a>          auf 2. Puffer schalten
+B53B: 4C 21 B5  JMP $B521        und pruefen
+
+Einsprung von $B52A, $B537:
+
+B53E: 20 12 B6  JSR <a href="ro81b612.htm">$B612</a>        BAM auf Diskette schreiben
+
+Einsprung von $B517:
+
+B541: A9 00     LDA #$00         Flag fuer 'BAM geaendert' loeschen
+B543: 85 35     STA <a href="ra8135.htm">$35</a>
+B545: 60        RTS
+    <a href="ro81b44a.htm">Previous Page</a> / <a href="ro81b546.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

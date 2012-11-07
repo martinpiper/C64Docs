@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BBC7/48071:   Store FAC#1 in Memory
+
+Jump from <a href="rome043.htm">$E05D</a>:
+
+BBC7: A2 5C     <a href="bldx.htm">LDX</a> #$5C
+BBC9: 2C        .BYTE $2C
+
+Jump from <a href="rome043.htm">$E047</a>, <a href="rome2b4.htm">$E2B4</a>:
+
+BBCA: A2 57     <a href="bldx.htm">LDX</a> #$57
+BBCC: A0 00     <a href="bldy.htm">LDY</a> #$00
+BBCE: F0 04     <a href="bbeq.htm">BEQ</a> $BBD4
+
+Jump from <a href="roma9d6.htm">$A9D6</a>, <a href="romad1e.htm">$AD52</a>:
+
+BBD0: A6 49     <a href="bldx.htm">LDX</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+BBD2: A4 4A     <a href="bldy.htm">LDY</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+
+Jump from $BBCE, <a href="romb3f4.htm">$B420</a>, <a href="rombf7b.htm">$BF88</a>, <a href="rome097.htm">$E0F6</a>:
+
+BBD4: 20 1B BC  <a href="bjsr.htm">JSR</a> <a href="rombc1b.htm">$BC1B</a>     ; Round FAC#1
+BBD7: 86 22     <a href="bstx.htm">STX</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+BBD9: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+BBDB: A0 04     <a href="bldy.htm">LDY</a> #$04
+BBDD: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BBDF: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBE1: 88        <a href="bdey.htm">DEY</a>
+BBE2: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BBE4: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBE6: 88        <a href="bdey.htm">DEY</a>
+BBE7: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BBE9: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBEB: 88        <a href="bdey.htm">DEY</a>
+BBEC: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BBEE: 09 7F     <a href="bora.htm">ORA</a> #$7F
+BBF0: 25 62     <a href="band.htm">AND</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BBF2: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBF4: 88        <a href="bdey.htm">DEY</a>
+BBF5: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BBF7: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBF9: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BBFB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombba2.htm">Previous Page</a> / <a href="rombbfc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

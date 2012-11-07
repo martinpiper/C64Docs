@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Warten ... .  .   .zzz . .z ..
+
+Einsprung von $CBD9, <a href="ro81c163.htm">$C2E9</a>, <a href="ro81c163.htm">$C2EE</a>, <a href="ro81cb0f.htm">$CB20</a>, <a href="ro81cd7b.htm">$CD9E</a>, <a href="ro81ce71.htm">$CE9E</a>:
+
+CBD5: 20 DF CB  JSR $CBDF        &lt;--- y x 1 ms warten
+CBD8: 88        DEY
+CBD9: D0 FA     BNE $CBD5
+CBDB: 60        RTS
+
+Einsprung von <a href="ro81c9e1.htm">$C9E5</a>, <a href="ro81c9e1.htm">$C9F0</a>, <a href="ro81cb35.htm">$CB49</a>:
+
+CBDC: A2 03     LDX #$03         &lt;--- 3300 Zyklen warten (1,65 ms)
+CBDE: 2C         B $2C         (Angaben in Klammern)
+
+Einsprung von $CBD5:
+
+CBDF: A2 02     LDX #$02         &lt;--- 2016 Zyklen warten (1 ms)
+CBE1: 18        CLC
+CBE2: A9 6F     LDA #$6F         6 (10)
+
+Einsprung von $CBE6, $CBE9:
+
+CBE4: 69 01     ADC #$01         + 145 Durchlaeufe x 5 Takte
+CBE6: D0 FC     BNE $CBE4        + (1 (2) x 255) Durchlaeufe x 5 Takte
+CBE8: CA        DEX              + 2 (3) Durchlaeufe x 5 Takte
+CBE9: D0 F9     BNE $CBE4
+CBEB: 60        RTS
+
+    <a href="ro81cbc3.htm">Previous Page</a> / <a href="ro81cbec.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

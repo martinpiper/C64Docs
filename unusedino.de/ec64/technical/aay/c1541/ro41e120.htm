@@ -1,0 +1,134 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E120/57632:   Get byte from REL file
+
+Jump from <a href="ro41d39b.htm">$D3B1</a>:
+
+E120: A9 80     LDA #$80
+E122: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 7
+E125: D0 37     BNE $E15E       ; set?
+E127: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get byte from buffer
+E12A: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+E12C: D9 44 02  CMP <a href="ra410244.htm">$0244</a>,Y     ; compare to end pointer
+E12F: F0 22     BEQ $E153       ; equal?
+E131: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+E133: D0 06     BNE $E13B       ; not zero?
+E135: 20 3C E0  JSR <a href="ro41e03c.htm">$E03C</a>       ; write block, read next one
+
+Jump from <a href="ro41e207.htm">$E294</a>:
+
+E138: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get byte from buffer
+
+Jump from $E133:
+
+E13B: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)
+
+Jump from $E15B:
+
+E13D: 99 3E 02  STA <a href="ra41022e.htm">$023E</a>,Y     ; in output register
+E140: A9 89     LDA #$89
+E142: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y       ; set READ and WRITE flag
+E145: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+E147: D9 44 02  CMP <a href="ra410244.htm">$0244</a>,Y     ; compare to end pointer
+E14A: F0 01     BEQ $E14D       ; same?
+E14C: 60        RTS
+
+Jump from $E14A:
+
+E14D: A9 81     LDA #$81
+E14F: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y       ; set flag for end
+E152: 60        RTS
+
+Jump from $E12F, <a href="ro41dc46.htm">$DCA3</a>, <a href="ro41e0ab.htm">$E0CB</a>:
+
+E153: 20 D0 DF  JSR <a href="ro41dfd0.htm">$DFD0</a>       ; find next record
+E156: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get buffer and channel number
+E159: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E15B: 4C 3D E1  JMP $E13D       ; into output register
+
+Jump from $E125, <a href="ro41e207.htm">$E262</a>, <a href="ro41e207.htm">$E26F</a>:
+
+E15E: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E160: A9 0D     LDA #$0D        ; CR
+E162: 9D 3E 02  STA <a href="ra41022e.htm">$023E</a>,X     ; into output register
+E165: A9 81     LDA #$81
+E167: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; set flag for end
+E169: A9 50     LDA #$50
+E16B: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 50, 'record not present'
+
+Jump from <a href="ro41dfd0.htm">$E039</a>:
+
+E16E: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E170: B5 C1     LDA <a href="ra41c1.htm">$C1</a>,X       ; write pointer
+E172: 85 87     STA <a href="ra4186.htm">$87</a>         ; save
+E174: C6 87     DEC <a href="ra4186.htm">$87</a>
+E176: C9 02     CMP #$02        ; equal 2?
+E178: D0 04     BNE $E17E       ; no
+E17A: A9 FF     LDA #$FF
+E17C: 85 87     STA <a href="ra4186.htm">$87</a>
+
+Jump from $E178:
+
+E17E: B5 C7     LDA <a href="ra41c7.htm">$C7</a>,X       ; record length
+E180: 85 88     STA <a href="ra4186.htm">$88</a>
+E182: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+E185: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E187: C5 87     CMP <a href="ra4186.htm">$87</a>         ; buffer pointer &gt; write pointer?
+E189: 90 19     BCC $E1A4
+E18B: F0 17     BEQ $E1A4       ; no
+E18D: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E190: 20 B2 E1  JSR $E1B2
+E193: 90 08     BCC $E19D
+E195: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E197: 9D 44 02  STA <a href="ra410244.htm">$0244</a>,X
+E19A: 4C 1E CF  JMP <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+
+Jump from $E193:
+
+E19D: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E1A0: A9 FF     LDA #$FF
+E1A2: 85 87     STA <a href="ra4186.htm">$87</a>
+
+Jump from $E189, $E18B:
+
+E1A4: 20 B2 E1  JSR $E1B2
+E1A7: B0 03     BCS $E1AC
+E1A9: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+
+Jump from $E1A7:
+
+E1AC: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E1AE: 9D 44 02  STA <a href="ra410244.htm">$0244</a>,X     ; end pointer
+E1B1: 60        RTS
+
+Jump from $E190, $E1A4:
+
+E1B2: 20 2B DE  JSR <a href="ro41de2b.htm">$DE2B</a>       ; buffer pointer to zero
+E1B5: A4 87     LDY <a href="ra4186.htm">$87</a>
+
+Jump from $E1C2:
+
+E1B7: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; byte from buffer
+E1B9: D0 0D     BNE $E1C8       ; not zero?
+E1BB: 88        DEY
+E1BC: C0 02     CPY #$02
+E1BE: 90 04     BCC $E1C4
+E1C0: C6 88     DEC <a href="ra4186.htm">$88</a>
+E1C2: D0 F3     BNE $E1B7
+
+Jump from $E1BE:
+
+E1C4: C6 88     DEC <a href="ra4186.htm">$88</a>
+E1C6: 18        CLC
+E1C7: 60        RTS
+
+Jump from $E1B9:
+
+E1C8: 98        TYA
+E1C9: 38        SEC
+E1CA: 60        RTS
+
+    <a href="ro41e105.htm">Previous Page</a> / <a href="ro41e1cb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

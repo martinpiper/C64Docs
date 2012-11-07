@@ -1,0 +1,55 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EEF4/61172:   Write BAM if needed
+
+Jump from <a href="ro41c87d.htm">$C8A7</a>, <a href="ro41db02.htm">$DB26</a>, <a href="ro41dcda.htm">$DD87</a>, <a href="ro41e31c.htm">$E433</a>:
+
+EEF4: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+EEF7: AA        TAX
+EEF8: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X     ; command for disk controller
+EEFB: 29 01     AND #$01
+EEFD: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; isolate drive number
+
+Jump from <a href="ro41ed84.htm">$EDAD</a>, <a href="ro41ee0d.htm">$EEA0</a>:
+
+EEFF: A4 7F     LDY <a href="ra417f.htm">$7F</a>
+EF01: B9 51 02  LDA <a href="ra410251.htm">$0251</a>,Y     ; BAM-changed flag set?
+EF04: D0 01     BNE $EF07       ; yes
+EF06: 60        RTS
+
+Jump from $EF04:
+
+EF07: A9 00     LDA #$00
+EF09: 99 51 02  STA <a href="ra410251.htm">$0251</a>,Y     ; reset BAM-changed flag
+EF0C: 20 3A EF  JSR <a href="ro41ef3a.htm">$EF3A</a>       ; set buffer pointer for BAM
+EF0F: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+EF11: 0A        ASL             ; times 2
+EF12: 48        PHA
+EF13: 20 A5 F0  JSR <a href="ro41f05b.htm">$F0A5</a>       ; verify BAM entry
+EF16: 68        PLA
+EF17: 18        CLC
+EF18: 69 01     ADC #$01        ; inrement track number
+EF1A: 20 A5 F0  JSR <a href="ro41f05b.htm">$F0A5</a>       ; verify BAM entry
+EF1D: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+EF1F: 48        PHA
+EF20: A9 01     LDA #$01        ; track 1
+EF22: 85 80     STA <a href="ra4180.htm">$80</a>
+
+Jump from $EF32:
+
+EF24: 0A        ASL             ; times 4
+EF25: 0A        ASL
+EF26: 85 6D     STA <a href="ra416d.htm">$6D</a>
+EF28: 20 20 F2  JSR <a href="ro41f220.htm">$F220</a>       ; verify BAM
+EF2B: E6 80     INC <a href="ra4180.htm">$80</a>         ; increment track number
+EF2D: A5 80     LDA <a href="ra4180.htm">$80</a>
+EF2F: CD D7 FE  CMP <a href="ro41fed7.htm">$FED7</a>       ; and compare with max val + 1 = 36
+EF32: 90 F0     BCC $EF24       ; ok, next track
+EF34: 68        PLA
+EF35: 85 80     STA <a href="ra4180.htm">$80</a>         ; get track number back
+EF37: 4C 8A D5  JMP <a href="ro41d58a.htm">$D58A</a>       ; write BAM to disk
+
+    <a href="ro41eeb7.htm">Previous Page</a> / <a href="ro41ef3a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

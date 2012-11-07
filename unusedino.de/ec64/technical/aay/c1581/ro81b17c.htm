@@ -1,0 +1,110 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Directory formatieren und in Ausgabepuffer schreiben ($ec9e)
+[Der Directory-Zeilen-Puffer wird in den Ausgabepuffer kopiert, dann wird
+ eine neue Zeile formatiert. Dieser Vorgang wiederholt sich, bis der
+ Ausgabepuffer voll ist. Beim ersten Aufruf muss sich der Diskname in dem
+ Dir-Zeilen-Puffer befinden (s. $8627) und der erste Filename mit JSR $82ed
+ gefunden worden sein. 8-Basiczeilen muessen den Ausgabepuffer genau fuellen,
+ deshalb ist jede Zeile 32-Bytes lang, bis auf den Disknamen: Er ist nur 30
+ Bytes lang, damit noch 2 Bytes Basic-Startadresse in den Puffer passen.
+ Ist der ganze Puffer ausgegeben worden, kann die Formatierung mit
+ JSR $b1c8 fortgesetzt werden.]
+
+Einsprung von <a href="ro8198f7.htm">$9948</a>:
+
+B17C: A9 00     LDA #$00
+B17E: 85 52     STA <a href="ra8152.htm">$52</a>          Aktuelle SA=0
+B180: A9 01     LDA #$01
+B182: 20 5A 91  JSR <a href="ro819157.htm">$915A</a>        Lesekanal suchen 1 Puffer belegen
+B185: A9 00     LDA #$00         Pufferzeiger auf 0 setzen
+B187: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+B18A: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer holen
+B18C: A9 00     LDA #$00
+B18E: 9D 42 02  STA <a href="ra810242.htm">$0242</a>,X      EOI-Flag loeschen
+B191: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Pufferzeiger auf 0 setzen
+B194: AA        TAX              [alle 256 Bytes werden genutzt]
+B195: A9 00     LDA #$00         letzten Jobcode loeschen
+B197: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X      (Drivenummer 0 )
+B19A: A9 01     LDA #$01         Startadersse = $0401
+B19C: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Byte in Puffer schreiben
+B19F: A9 04     LDA #$04         [diese Adresse stammt noch aus der Zeit der
+B1A1: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>         alten CBM-Rechner / VC-20.]
+B1A4: A9 01     LDA #$01         Platzhalter fuer den Basic-Verkettungszeiger
+B1A6: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        in den Puffer schreiben
+B1A9: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+B1AC: AD 8D 02  LDA <a href="ra81028d.htm">$028D</a>        Drivenummer als Basiczeilennummer
+B1AF: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        in Puffer schreiben (Lo)
+B1B2: A9 00     LDA #$00
+B1B4: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        (Hi)
+B1B7: 20 37 B2  JSR <a href="ro81b237.htm">$B237</a>        Disk-Namen in den Puffer kopieren
+B1BA: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktiven Puffer holen
+B1BD: 0A        ASL
+B1BE: AA        TAX
+B1BF: D6 BB     DEC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger -2 (=32)
+B1C1: D6 BB     DEC <a href="ra81bb.htm">$BB</a>,X
+B1C3: A9 00     LDA #$00         Basic-Zeilenende-Kennzeichen in Puffer
+B1C5: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        schreiben
+Puffer mit Directoryzeilen fuellen
+
+Einsprung von $B1E9, <a href="ro81b245.htm">$B25D</a>:
+
+B1C8: A9 01     LDA #$01         &lt;-- (Einsprung)
+B1CA: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Platzhalter fuer den Basic-Verkettungszeiger
+B1CD: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+B1D0: 20 4D 85  JSR <a href="ro81854d.htm">$854D</a>        Directory-Zeile erzeugen
+B1D3: 90 2C     BCC $B201        kein File mehr auszugeben ?, ==&gt;
+B1D5: AD 8D 02  LDA <a href="ra81028d.htm">$028D</a>        Programmlaenge als Basic-Zeilennummer
+B1D8: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        verwenden (LO)
+B1DB: AD 8E 02  LDA <a href="ra81028e.htm">$028E</a>        (Hi)
+B1DE: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+B1E1: 20 37 B2  JSR <a href="ro81b237.htm">$B237</a>        Directoryzeile in Puffer kopieren
+B1E4: A9 00     LDA #$00         Basic-Zeilenende-Kennzeichen
+B1E6: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        in Puffer schreiben
+B1E9: D0 DD     BNE $B1C8        Puffer noch nicht voll, ==&gt;
+
+Einsprung von $B234:
+
+B1EB: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktiven Puffer holen
+B1EE: 0A        ASL
+B1EF: AA        TAX
+B1F0: A9 00     LDA #$00         Pufferzeiger auf 0 setzen
+B1F2: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X
+B1F4: A9 88     LDA #$88
+B1F6: A4 50     LDY <a href="ra8150.htm">$50</a>          Flag:
+B1F8: 8D 6E 02  STA <a href="ra81026e.htm">$026E</a>        'Directory wird auf SA 0 ausgegeben' setzen
+B1FB: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y      b7=1: 'Daten ausgeben'; b3=1: kein EOI
+B1FE: A5 54     LDA <a href="ra8154.htm">$54</a>          aktuelles Datenbyte zurueckholen
+B200: 60        RTS
+
+'Blocks free'-Meldung in den Puffer schreiben
+
+Einsprung von $B1D3:
+
+B201: AD 8D 02  LDA <a href="ra81028d.htm">$028D</a>        'Blocks free' als Basic-Zeilennummer merken
+B204: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        (Lo)
+B207: AD 8E 02  LDA <a href="ra81028e.htm">$028E</a>
+B20A: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        (Hi)
+B20D: 20 37 B2  JSR <a href="ro81b237.htm">$B237</a>        Directoryzeile in Puffer kopieren
+B210: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>
+B213: 0A        ASL              Pufferzeiger -2
+B214: AA        TAX              [Die Zeile darf incl. Basic-Ende-Zeichen
+B215: D6 BB     DEC <a href="ra81bb.htm">$BB</a>,X         nicht laenger als 32 Bytes sein.]
+B217: D6 BB     DEC <a href="ra81bb.htm">$BB</a>,X
+B219: A9 00     LDA #$00         Zeichen fuer Basic-Ende in Puffer schreiben
+B21B: 20 B1 8E  JSR $8EB1        (3 x $00)
+B21E: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+B221: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+B224: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktuellen Pufferzeiger holen
+B227: 0A        ASL
+B228: A8        TAY
+B229: B9 BB 00  LDA <a href="ra81bb.htm">$00BB</a>,Y
+B22C: A6 50     LDX <a href="ra8150.htm">$50</a>
+B22E: 9D 42 02  STA <a href="ra810242.htm">$0242</a>,X      und als Puffer-Ende merken
+B231: DE 42 02  DEC <a href="ra810242.htm">$0242</a>,X      -1 (letztes benutztes Zeichen merken)
+B234: 4C EB B1  JMP $B1EB
+
+    <a href="ro81b15b.htm">Previous Page</a> / <a href="ro81b237.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

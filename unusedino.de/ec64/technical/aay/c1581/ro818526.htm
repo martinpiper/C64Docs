@@ -1,0 +1,41 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Laenge eines Parameters ermitteln ($c6a6)
+Sucht ab der x-ten Position nach ',' oder '='
+E: x: Startposition des Parameters
+A: $0290: Ende des Parameters in der Befehlszeile
+   $026c: Laenge des Parameters (max. 15)
+
+Einsprung von <a href="ro818327.htm">$8351</a>, <a href="ro8184ee.htm">$84EF</a>, <a href="ro81b851.htm">$B853</a>:
+
+8526: A9 00     LDA #$00
+8528: 8D 6C 02  STA <a href="ra81026c.htm">$026C</a>        Parameterlaenge auf 0 setzen
+852B: 8A        TXA              x-Register retten
+852C: 48        PHA
+
+Einsprung von $8545:
+
+852D: BD 00 02  LDA <a href="ra810200.htm">$0200</a>,X      ist das Zeichen ein Trennzeichen ?
+8530: C9 2C     CMP #$2C
+8532: F0 13     BEQ $8547        ja, ==&gt;
+8534: C9 3D     CMP #$3D
+8536: F0 0F     BEQ $8547        ja, ==&gt;
+8538: EE 6C 02  INC <a href="ra81026c.htm">$026C</a>        Parameterlaenge + 1
+853B: E8        INX              naechstes Zeichen pruefen
+853C: A9 0F     LDA #$0F         Parameter schon 15 Bytes lang ?
+853E: CD 6C 02  CMP <a href="ra81026c.htm">$026C</a>
+8541: 90 04     BCC $8547        ja, ==&gt;
+8543: E4 29     CPX <a href="ra8129.htm">$29</a>          Kommandozeile zuende ?
+8545: 90 E6     BCC $852D        nein, ==&gt;
+
+Einsprung von $8532, $8536, $8541:
+
+8547: 8E 90 02  STX <a href="ra810290.htm">$0290</a>        Ende des Parameters merken
+854A: 68        PLA              ($0290 zeigt auf Trennzeichen)
+854B: AA        TAX              x-Register zurueckholen
+854C: 60        RTS
+
+    <a href="ro8184ee.htm">Previous Page</a> / <a href="ro81854d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

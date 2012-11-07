@@ -1,0 +1,102 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F409/62473:   Open RS232
+
+Jump from <a href="romf34a.htm">$F388</a>:
+
+F409: 20 83 F4  <a href="bjsr.htm">JSR</a> $F483
+F40C: 8C 97 02  <a href="bsty.htm">STY</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+
+Jump from $F41B:
+
+F40F: C4 B7     <a href="bcpy.htm">CPY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F411: F0 0A     <a href="bbeq.htm">BEQ</a> $F41D
+F413: B1 BB     <a href="blda.htm">LDA</a> (<a href="zpbb.htm">$BB</a>),Y   ; Pointer: Current File name Address
+F415: 99 93 02  <a href="bsta.htm">STA</a> <a href="zp0293.htm">$0293</a>,Y   ; RS232 Pseudo 6551 control Register Image
+F418: C8        <a href="biny.htm">INY</a>
+F419: C0 04     <a href="bcpy.htm">CPY</a> #$04
+F41B: D0 F2     <a href="bbne.htm">BNE</a> $F40F
+
+Jump from $F411:
+
+F41D: 20 4A EF  <a href="bjsr.htm">JSR</a> <a href="romef4a.htm">$EF4A</a>     ; Compute Bit Count
+F420: 8E 98 02  <a href="bstx.htm">STX</a> <a href="zp0298.htm">$0298</a>     ; RS232 Number of Bits left to send
+F423: AD 93 02  <a href="blda.htm">LDA</a> <a href="zp0293.htm">$0293</a>     ; RS232 Pseudo 6551 control Register Image
+F426: 29 0F     <a href="band.htm">AND</a> #$0F
+F428: F0 1C     <a href="bbeq.htm">BEQ</a> $F446
+F42A: 0A        <a href="basl.htm">ASL</a>
+F42B: AA        <a href="btax.htm">TAX</a>
+F42C: AD A6 02  <a href="blda.htm">LDA</a> <a href="zp02a6.htm">$02A6</a>     ; Flag: TV Standard
+F42F: D0 09     <a href="bbne.htm">BNE</a> $F43A
+F431: BC C1 FE  <a href="bldy.htm">LDY</a> <a href="romfebc.htm">$FEC1</a>,X   ; Exit Interrupt
+F434: BD C0 FE  <a href="blda.htm">LDA</a> <a href="romfebc.htm">$FEC0</a>,X   ; Exit Interrupt
+F437: 4C 40 F4  <a href="bjmp.htm">JMP</a> $F440
+
+Jump from $F42F:
+
+F43A: BC EB E4  <a href="bldy.htm">LDY</a> <a href="rome4e0.htm">$E4EB</a>,X   ; Pause After Finding Tape File
+F43D: BD EA E4  <a href="blda.htm">LDA</a> <a href="rome4e0.htm">$E4EA</a>,X   ; Pause After Finding Tape File
+
+Jump from $F437:
+
+F440: 8C 96 02  <a href="bsty.htm">STY</a> <a href="zp0295.htm">$0296</a>     ; RS232 Non-standard Bits/Second
+F443: 8D 95 02  <a href="bsta.htm">STA</a> <a href="zp0295.htm">$0295</a>     ; RS232 Non-standard Bits/Second
+
+Jump from $F428:
+
+F446: AD 95 02  <a href="blda.htm">LDA</a> <a href="zp0295.htm">$0295</a>     ; RS232 Non-standard Bits/Second
+F449: 0A        <a href="basl.htm">ASL</a>
+F44A: 20 2E FF  <a href="bjsr.htm">JSR</a> <a href="romff07.htm">$FF2E</a>     ; NMI RS232 Out
+F44D: AD 94 02  <a href="blda.htm">LDA</a> <a href="zp0294.htm">$0294</a>     ; RS232 Pseudo 6551 command Register Image
+F450: 4A        <a href="blsr.htm">LSR</a>
+F451: 90 09     <a href="bbcc.htm">BCC</a> $F45C
+F453: AD 01 DD  <a href="blda.htm">LDA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F456: 0A        <a href="basl.htm">ASL</a>
+F457: B0 03     <a href="bbcs.htm">BCS</a> $F45C
+F459: 20 0D F0  <a href="bjsr.htm">JSR</a> <a href="romf00d.htm">$F00D</a>     ; No DSR (Data Set Ready) Error
+
+Jump from $F451, $F457:
+
+F45C: AD 9B 02  <a href="blda.htm">LDA</a> <a href="zp029b.htm">$029B</a>     ; RS232 Index to End of Input Buffer
+F45F: 8D 9C 02  <a href="bsta.htm">STA</a> <a href="zp029c.htm">$029C</a>     ; RS232 Pointer: High Byte of Input Buffer
+F462: AD 9E 02  <a href="blda.htm">LDA</a> <a href="zp029e.htm">$029E</a>     ; RS232 Index to End of Output Buffer
+F465: 8D 9D 02  <a href="bsta.htm">STA</a> <a href="zp029d.htm">$029D</a>     ; RS232 Pointer: High Byte of Output Buffer
+F468: 20 27 FE  <a href="bjsr.htm">JSR</a> <a href="romfe25.htm">$FE27</a>     ; Read / Set Top of Memory
+F46B: A5 F8     <a href="blda.htm">LDA</a> <a href="zpf7.htm">$F8</a>       ; RS232 Input Buffer Pointer
+F46D: D0 05     <a href="bbne.htm">BNE</a> $F474
+F46F: 88        <a href="bdey.htm">DEY</a>
+F470: 84 F8     <a href="bsty.htm">STY</a> <a href="zpf7.htm">$F8</a>       ; RS232 Input Buffer Pointer
+F472: 86 F7     <a href="bstx.htm">STX</a> <a href="zpf7.htm">$F7</a>       ; RS232 Input Buffer Pointer
+
+Jump from $F46D:
+
+F474: A5 FA     <a href="blda.htm">LDA</a> <a href="zpf9.htm">$FA</a>       ; RS232 Output Buffer Pointer
+F476: D0 05     <a href="bbne.htm">BNE</a> $F47D
+F478: 88        <a href="bdey.htm">DEY</a>
+F479: 84 FA     <a href="bsty.htm">STY</a> <a href="zpf9.htm">$FA</a>       ; RS232 Output Buffer Pointer
+F47B: 86 F9     <a href="bstx.htm">STX</a> <a href="zpf9.htm">$F9</a>       ; RS232 Output Buffer Pointer
+
+Jump from $F476, <a href="romf291.htm">$F2C5</a>:
+
+F47D: 38        <a href="bsec.htm">SEC</a>
+F47E: A9 F0     <a href="blda.htm">LDA</a> #$F0
+F480: 4C 2D FE  <a href="bjmp.htm">JMP</a> <a href="romfe25.htm">$FE2D</a>     ; Read / Set Top of Memory
+
+Jump from $F409, <a href="romf291.htm">$F2AF</a>:
+
+F483: A9 7F     <a href="blda.htm">LDA</a> #$7F
+F485: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+F488: A9 06     <a href="blda.htm">LDA</a> #$06
+F48A: 8D 03 DD  <a href="bsta.htm">STA</a> <a href="cia23.htm">$DD03</a>     ; CIA2: Data Direction Register B
+F48D: 8D 01 DD  <a href="bsta.htm">STA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F490: A9 04     <a href="blda.htm">LDA</a> #$04
+F492: 0D 00 DD  <a href="bora.htm">ORA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+F495: 8D 00 DD  <a href="bsta.htm">STA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+F498: A0 00     <a href="bldy.htm">LDY</a> #$00
+F49A: 8C A1 02  <a href="bsty.htm">STY</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F49D: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf3d5.htm">Previous Page</a> / <a href="romf49e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

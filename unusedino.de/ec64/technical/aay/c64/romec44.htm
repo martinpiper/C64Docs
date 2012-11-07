@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EC44/60484:   Graphics/Text Control
+
+Jump from <a href="rome72a.htm">$E7D1</a>:
+
+EC44: C9 0E     <a href="bcmp.htm">CMP</a> #$0E
+EC46: D0 07     <a href="bbne.htm">BNE</a> $EC4F
+EC48: AD 18 D0  <a href="blda.htm">LDA</a> <a href="vic24.htm">$D018</a>     ; VIC: Memory Control Register
+EC4B: 09 02     <a href="bora.htm">ORA</a> #$02
+EC4D: D0 09     <a href="bbne.htm">BNE</a> $EC58
+
+Jump from $EC46, <a href="rome7d4.htm">$E879</a>:
+
+EC4F: C9 8E     <a href="bcmp.htm">CMP</a> #$8E
+EC51: D0 0B     <a href="bbne.htm">BNE</a> $EC5E
+EC53: AD 18 D0  <a href="blda.htm">LDA</a> <a href="vic24.htm">$D018</a>     ; VIC: Memory Control Register
+EC56: 29 FD     <a href="band.htm">AND</a> #$FD
+
+Jump from $EC4D:
+
+EC58: 8D 18 D0  <a href="bsta.htm">STA</a> <a href="vic24.htm">$D018</a>     ; VIC: Memory Control Register
+
+Jump from $EC6B:
+
+EC5B: 4C A8 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E6A8</a>     ; Set Up Screen Print
+
+Jump from $EC51:
+
+EC5E: C9 08     <a href="bcmp.htm">CMP</a> #$08
+EC60: D0 07     <a href="bbne.htm">BNE</a> $EC69
+EC62: A9 80     <a href="blda.htm">LDA</a> #$80
+EC64: 0D 91 02  <a href="bora.htm">ORA</a> <a href="zp0291.htm">$0291</a>     ; Flag: Upper/Lower Case change
+EC67: 30 09     <a href="bbmi.htm">BMI</a> $EC72
+
+Jump from $EC60:
+
+EC69: C9 09     <a href="bcmp.htm">CMP</a> #$09
+EC6B: D0 EE     <a href="bbne.htm">BNE</a> $EC5B
+EC6D: A9 7F     <a href="blda.htm">LDA</a> #$7F
+EC6F: 2D 91 02  <a href="band.htm">AND</a> <a href="zp0291.htm">$0291</a>     ; Flag: Upper/Lower Case change
+
+Jump from $EC67:
+
+EC72: 8D 91 02  <a href="bsta.htm">STA</a> <a href="zp0291.htm">$0291</a>     ; Flag: Upper/Lower Case change
+EC75: 4C A8 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E6A8</a>     ; Set Up Screen Print
+
+    <a href="romec03.htm">Previous Page</a> / <a href="romec78.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

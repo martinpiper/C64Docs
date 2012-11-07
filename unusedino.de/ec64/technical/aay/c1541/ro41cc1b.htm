@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CC1B/52251:   Perform [B] - Block/Buffer command
+
+CC1B: A0 00     LDY #$00
+CC1D: A2 00     LDX #$00
+CC1F: A9 2D     LDA #$2D        ; '-'
+CC21: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; search for minus sign
+CC24: D0 0A     BNE $CC30       ; found?
+
+Jump from $CC40:
+
+CC26: A9 31     LDA #$31
+CC28: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 31, 'syntax error'
+
+Jump from $CC31, <a href="ro41cc6f.htm">$CC9F</a>:
+
+CC2B: A9 30     LDA #$30
+CC2D: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 30, 'syntax error'
+
+Jump from $CC24:
+
+CC30: 8A        TXA
+CC31: D0 F8     BNE $CC2B       ; comma, then error
+CC33: A2 05     LDX #$05
+CC35: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; char from buffer
+
+Jump from $CC3E:
+
+CC38: DD 5D CC  CMP <a href="ro41cc5d.htm">$CC5D</a>,X     ; compare with 'AFRWEP'
+CC3B: F0 05     BEQ $CC42       ; found?
+CC3D: CA        DEX
+CC3E: 10 F8     BPL $CC38       ; compare with all characters
+CC40: 30 E4     BMI $CC26       ; not found, error
+
+Jump from $CC3B:
+
+CC42: 8A        TXA
+CC43: 09 80     ORA #$80        ; command number, set bit 7
+CC45: 8D 2A 02  STA <a href="ra41022a.htm">$022A</a>
+CC48: 20 6F CC  JSR <a href="ro41cc6f.htm">$CC6F</a>       ; get parameters
+CC4B: AD 2A 02  LDA <a href="ra41022a.htm">$022A</a>
+CC4E: 0A        ASL             ; number times 2
+CC4F: AA        TAX             ; as index
+CC50: BD 64 CC  LDA <a href="ro41cc63.htm">$CC64</a>,X     ; address of command hi
+CC53: 85 70     STA <a href="ra416f.htm">$70</a>
+CC55: BD 63 CC  LDA <a href="ro41cc63.htm">$CC63</a>,X     ; address lo
+CC58: 85 6F     STA <a href="ra416f.htm">$6F</a>
+CC5A: 6C 6F 00  JMP (<a href="ra416f.htm">$006F</a>)     ; jump to command
+
+    <a href="ro41cb84.htm">Previous Page</a> / <a href="ro41cc5d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

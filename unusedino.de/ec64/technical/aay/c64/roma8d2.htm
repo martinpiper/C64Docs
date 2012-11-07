@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A8D2/43218:   Perform [return]
+
+A8D2: D0 FD     <a href="bbne.htm">BNE</a> <a href="roma8a0.htm">$A8D1</a>     ; Perform [goto]
+A8D4: A9 FF     <a href="blda.htm">LDA</a> #$FF
+A8D6: 85 4A     <a href="bsta.htm">STA</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A8D8: 20 8A A3  <a href="bjsr.htm">JSR</a> <a href="roma38a.htm">$A38A</a>     ; Find FOR/GOSUB Entry on Stack
+A8DB: 9A        <a href="btxs.htm">TXS</a>
+A8DC: C9 8D     <a href="bcmp.htm">CMP</a> #$8D
+A8DE: F0 0B     <a href="bbeq.htm">BEQ</a> $A8EB
+A8E0: A2 0C     <a href="bldx.htm">LDX</a> #$0C
+A8E2: 2C        .BYTE $2C
+
+Jump from <a href="roma8a0.htm">$A8C3</a>:
+
+A8E3: A2 11     <a href="bldx.htm">LDX</a> #$11
+A8E5: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from <a href="roma94b.htm">$A955</a>:
+
+A8E8: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $A8DE:
+
+A8EB: 68        <a href="bpla.htm">PLA</a>
+A8EC: 68        <a href="bpla.htm">PLA</a>
+A8ED: 85 39     <a href="bsta.htm">STA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+A8EF: 68        <a href="bpla.htm">PLA</a>
+A8F0: 85 3A     <a href="bsta.htm">STA</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+A8F2: 68        <a href="bpla.htm">PLA</a>
+A8F3: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A8F5: 68        <a href="bpla.htm">PLA</a>
+A8F6: 85 7B     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+    <a href="roma8a0.htm">Previous Page</a> / <a href="roma8f8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

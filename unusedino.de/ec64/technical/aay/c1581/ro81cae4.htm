@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $b8: SEEKPHD_DV
+
+CAE4: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen und analysieren
+CAE7: A5 27     LDA <a href="ra8127.htm">$27</a>          ist aktuelle Spur
+CAE9: C5 88     CMP <a href="ra8188.htm">$88</a>          = Sollspur ?
+CAEB: D0 19     BNE $CB06        nein, (zur Hauptsteuerroutine) ==&gt;
+CAED: A0 3C     LDY #$3C         60 Versuche, den gesuchten Block
+CAEF: 84 39     STY <a href="ra8139.htm">$39</a>          auf dieser Spur zu finden
+
+Einsprung von $CAFF:
+
+CAF1: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen und Spurdaten merken
+CAF4: A4 99     LDY <a href="ra8199.htm">$99</a>          Job-Index fuer 2-Byte Tabellen
+CAF6: B9 BD 01  LDA <a href="ra8101bc.htm">$01BD</a>,Y      gesuchte Blocknummer mit der gefundenen
+CAF9: C5 21     CMP <a href="ra8121.htm">$21</a>          Blocknummer vergleichen
+CAFB: F0 0C     BEQ $CB09        gleich, ==&gt;
+CAFD: C6 39     DEC <a href="ra8139.htm">$39</a>          ansonsten naechsten Versuch
+CAFF: D0 F0     BNE $CAF1
+CB01: A9 02     LDA #$02         MISHD_DV_ER: Blockheader nicht gefunden
+CB03: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Jobauftrag beenden
+
+Einsprung von $CAEB:
+
+CB06: 4C 00 CE  JMP <a href="ro81ce00.htm">$CE00</a>        Hauptsteuerroutine aufrufen
+
+JOB $b0: SEEKHD_DV
+
+Einsprung von $CAFB:
+
+CB09: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen und analysieren
+CB0C: 4C 8B C3  JMP <a href="ro81c163.htm">$C38B</a>        Ok. Ende
+
+    <a href="ro81cadc.htm">Previous Page</a> / <a href="ro81cb0f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

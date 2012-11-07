@@ -1,0 +1,59 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CE2C/52780:   ?
+
+Jump from <a href="ro41ce0e.htm">$CE0E</a>:
+
+CE2C: 20 D9 CE  JSR <a href="ro41ced9.htm">$CED9</a>       ; erase work storage
+CE2F: 85 92     STA <a href="ra418f.htm">$92</a>
+CE31: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+CE33: B5 B5     LDA <a href="ra41b5.htm">$B5</a>,X       ; record number lo
+CE35: 85 90     STA <a href="ra418f.htm">$90</a>
+CE37: B5 BB     LDA <a href="ra41bb.htm">$BB</a>,X       ; record number hi
+CE39: 85 91     STA <a href="ra418f.htm">$91</a>
+CE3B: D0 04     BNE $CE41
+CE3D: A5 90     LDA <a href="ra418f.htm">$90</a>
+CE3F: F0 0B     BEQ $CE4C       ; record number not zero?
+
+Jump from $CE3B:
+
+CE41: A5 90     LDA <a href="ra418f.htm">$90</a>
+CE43: 38        SEC
+CE44: E9 01     SBC #$01        ; then subtract one
+CE46: 85 90     STA <a href="ra418f.htm">$90</a>
+CE48: B0 02     BCS $CE4C
+CE4A: C6 91     DEC <a href="ra418f.htm">$91</a>
+
+Jump from $CE3F, $CE48:
+
+CE4C: B5 C7     LDA <a href="ra41c7.htm">$C7</a>,X       ; record length
+CE4E: 85 6F     STA <a href="ra416f.htm">$6F</a>
+
+Jump from $CE5C:
+
+CE50: 46 6F     LSR <a href="ra416f.htm">$6F</a>
+CE52: 90 03     BCC $CE57
+CE54: 20 ED CE  JSR <a href="ro41ceed.htm">$CEED</a>       ; record number * record length
+
+Jump from $CE52:
+
+CE57: 20 E5 CE  JSR <a href="ro41cee5.htm">$CEE5</a>       ; shift register left
+CE5A: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+CE5C: D0 F2     BNE $CE50
+CE5E: A5 D4     LDA <a href="ra41d4.htm">$D4</a>
+CE60: 18        CLC
+CE61: 65 8B     ADC <a href="ra418b.htm">$8B</a>
+CE63: 85 8B     STA <a href="ra418b.htm">$8B</a>
+CE65: 90 06     BCC $CE6D       ; result in $8B/$8C/$8D
+CE67: E6 8C     INC <a href="ra418b.htm">$8C</a>
+CE69: D0 02     BNE $CE6D
+CE6B: E6 8D     INC <a href="ra418b.htm">$8D</a>
+
+Jump from $CE65, $CE69:
+
+CE6D: 60        RTS
+
+    <a href="ro41ce0e.htm">Previous Page</a> / <a href="ro41ce6e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

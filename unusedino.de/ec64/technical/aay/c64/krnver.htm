@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ KERNAL Versions:
+
+   Revision 1 (prototype, not mentioned in AAY64)
+   Revision 2 (&quot;old&quot;, used until 1983(?))
+   Revision 3 (&quot;new&quot;, used from 1983(?) on)
+   SX64       (like Rev. 3, but adapted for the SX64)
+
+   AAY64 contains a disassembly of the new version, but differences
+   are also stated. They are at:
+
+  +-------------------------------------------------------------------------
+  |   Rev. 2 &lt;&gt; Rev. 3
+  +-------------+-----------------------------------------------------------
+  | <a href="rome4ac.htm">$E4AC</a>       | Version Indicator(?)
+  | <a href="rome4d3.htm">$E4D3-$E4D9</a> | Patch for RS232-Routines:
+  |             |   Old Kernal didn't set Input Parity at <a href="zpab.htm">$AB</a>
+  | <a href="rome4da.htm">$E4DA-$E4DC</a> | Reset Character Color:
+  |             |   Old Kernal gets Color from <a href="vic33.htm">$D021</a> instead of <a href="zp0286.htm">$0286</a>.
+  | <a href="rome56c.htm">$E57C-$E599</a> | Set Screen Pointers:
+  |             |   Old Kernal lacks some error-checks
+  | <a href="rome5ca.htm">$E622+$E623</a> | Input From Keyboard:
+  |             |   Old Kernal doesn't check if cursor line = 0
+  | <a href="rome9ff.htm">$EA07-$EA12</a> | Clear Screen Line:
+  |             |   Just a differnce in order of code
+  | <a href="romef90.htm">$EF94-$EF96</a> | Process RS232 Byte:
+  |             |   Apply patch at <a href="rome4d3.htm">$E4D3</a> in newer version
+  | <a href="romff80.htm">$FF80</a>       | Version number
+  +-------------+-----------------------------------------------------------
+
+  +-------------------------------------------------------------------------
+  |   SX64 &lt;&gt; Rev. 3
+  +-------------+-----------------------------------------------------------
+  | <a href="rome45f.htm">$E479-$E4AC</a> | Power-Up Message:
+  |             |   Adapted for SX64
+  | <a href="rome4ac.htm">$E4AC</a>       | Version Indicator(?)
+  | <a href="rome518.htm">$E535</a>       | Initialize I/O:
+  |             |   Text-Color is Blue instead of Light Blue
+  | <a href="rome5ca.htm">$E5EF</a>       | Input From Keyboard:
+  |/<a href="rome5ca.htm">$E5F4+$E5F5</a> |   Other parameters for RUN/STOP-String
+  | <a href="romecb9.htm">$ECD9+$ECDA</a> | Video Chip Setup Table:
+  |             |   Cyan Border and White Background
+  | <a href="romf0bd.htm">$F0D8-$F0E6</a> | Table of Kernal I/O Messages:
+  |             |   New RUN/STOP-String (loads from disk as SX64 has no tape)
+  | <a href="romf34a.htm">$F387</a>       | Open File:
+  |             |   Tape access will cause error
+  | <a href="romf49e.htm">$F4B7</a>       | Load RAM:
+  |             |   Tape access will cause error
+  | <a href="romf5dd.htm">$F5F9</a>       | Save RAM:
+  |             |   Tape access will cause error
+  | <a href="romff80.htm">$FF80</a>       | Version number
+  +-------------+-----------------------------------------------------------
+
+</pre></td></tr></table></center></body></html>

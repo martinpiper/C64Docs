@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D8F5/55541:   Open a file with overwriting (@)
+
+Jump from <a href="ro41d815.htm">$D8E6</a>:
+
+D8F5: A5 E7     LDA <a href="ra41e7.htm">$E7</a>         ; file type
+D8F7: 29 07     AND #$07        ; isolate
+D8F9: CD 4A 02  CMP <a href="ra41024a.htm">$024A</a>
+D8FC: D0 67     BNE <a href="ro41d940.htm">$D965</a>       ; file type different?
+D8FE: C9 04     CMP #$04        ; rel-file?
+D900: F0 63     BEQ <a href="ro41d940.htm">$D965</a>       ; 64, 'file type mismatch'
+D902: 20 DA DC  JSR <a href="ro41dcda.htm">$DCDA</a>
+D905: A5 82     LDA <a href="ra4182.htm">$82</a>
+D907: 8D 70 02  STA <a href="ra410270.htm">$0270</a>       ; save channel number
+D90A: A9 11     LDA #$11
+D90C: 85 83     STA <a href="ra4183.htm">$83</a>
+D90E: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open read channel
+D911: AD 94 02  LDA <a href="ra410294.htm">$0294</a>
+D914: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer for directory
+D917: A0 00     LDY #$00
+D919: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; file type
+D91B: 09 20     ORA #$20        ; set bit 5, open file
+D91D: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+D91F: A0 1A     LDY #$1A
+D921: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+D923: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+D925: C8        INY
+D926: A5 81     LDA <a href="ra4181.htm">$81</a>         ; and sector
+D928: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; for open with at-sign
+D92A: AE 70 02  LDX <a href="ra410270.htm">$0270</a>       ; channel number
+D92D: A5 D8     LDA <a href="ra41d8.htm">$D8</a>
+D92F: 9D 60 02  STA <a href="ra410260.htm">$0260</a>,X     ; pointer to directory block
+D932: A5 DD     LDA <a href="ra41dd.htm">$DD</a>
+D934: 9D 66 02  STA <a href="ra410266.htm">$0266</a>,X
+D937: 20 3B DE  JSR <a href="ro41de3b.htm">$DE3B</a>       ; get track and sector number
+D93A: 20 64 D4  JSR <a href="ro41d464.htm">$D464</a>       ; write block
+D93D: 4C EF D9  JMP <a href="ro41d9e3.htm">$D9EF</a>       ; prepare track, sector, and drive number
+
+    <a href="ro41d815.htm">Previous Page</a> / <a href="ro41d940.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

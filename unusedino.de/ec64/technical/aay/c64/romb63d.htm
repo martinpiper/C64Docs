@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B63D/46653:   Concatenate Two Strings
+
+Jump from <a href="romad9e.htm">$ADE5</a>:
+
+B63D: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B63F: 48        <a href="bpha.htm">PHA</a>
+B640: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B642: 48        <a href="bpha.htm">PHA</a>
+B643: 20 83 AE  <a href="bjsr.htm">JSR</a> <a href="romae83.htm">$AE83</a>     ; Evaluate Single Term
+B646: 20 8F AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8F</a>     ; Confirm Result
+B649: 68        <a href="bpla.htm">PLA</a>
+B64A: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B64C: 68        <a href="bpla.htm">PLA</a>
+B64D: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B64F: A0 00     <a href="bldy.htm">LDY</a> #$00
+B651: B1 6F     <a href="blda.htm">LDA</a> (<a href="zp6f.htm">$6F</a>),Y   ; Sign of result of Arithmetic Evaluation
+B653: 18        <a href="bclc.htm">CLC</a>
+B654: 71 64     <a href="badc.htm">ADC</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+B656: 90 05     <a href="bbcc.htm">BCC</a> $B65D
+B658: A2 17     <a href="bldx.htm">LDX</a> #$17
+B65A: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $B656:
+
+B65D: 20 75 B4  <a href="bjsr.htm">JSR</a> <a href="romb465.htm">$B475</a>     ; Evaluate &lt;str$&gt;
+B660: 20 7A B6  <a href="bjsr.htm">JSR</a> <a href="romb67a.htm">$B67A</a>     ; Store String in High RAM
+B663: A5 50     <a href="blda.htm">LDA</a> <a href="zp4e.htm">$50</a>       ; Temporary storage for FLPT value
+B665: A4 51     <a href="bldy.htm">LDY</a> <a href="zp4e.htm">$51</a>       ; Temporary storage for FLPT value
+B667: 20 AA B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6AA</a>     ; Perform String Housekeeping
+B66A: 20 8C B6  <a href="bjsr.htm">JSR</a> <a href="romb67a.htm">$B68C</a>     ; Store String in High RAM
+B66D: A5 6F     <a href="blda.htm">LDA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B66F: A4 70     <a href="bldy.htm">LDY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B671: 20 AA B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6AA</a>     ; Perform String Housekeeping
+B674: 20 CA B4  <a href="bjsr.htm">JSR</a> <a href="romb487.htm">$B4CA</a>     ; Set Up String
+B677: 4C B8 AD  <a href="bjmp.htm">JMP</a> <a href="romad9e.htm">$ADB8</a>     ; Evaluate Expression in Text
+
+    <a href="romb606.htm">Previous Page</a> / <a href="romb67a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

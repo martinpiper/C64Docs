@@ -1,0 +1,151 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AC35/44085:   General Purpose Read Routine
+
+AC35: 20 24 E1  <a href="bjsr.htm">JSR</a> <a href="rome124.htm">$E124</a>     ; Get One Character
+AC38: 8D 00 02  <a href="bsta.htm">STA</a> <a href="zp0200.htm">$0200</a>     ; BASIC Input Buffer (Input Line from Screen)
+AC3B: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+AC3D: A0 01     <a href="bldy.htm">LDY</a> #$01
+AC3F: D0 0C     <a href="bbne.htm">BNE</a> $AC4D
+
+Jump from <a href="romac06.htm">$AC33</a>:
+
+AC41: 30 75     <a href="bbmi.htm">BMI</a> $ACB8
+AC43: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AC45: D0 03     <a href="bbne.htm">BNE</a> $AC4A
+AC47: 20 45 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB45</a>     ; Output Format Character
+
+Jump from $AC45:
+
+AC4A: 20 F9 AB  <a href="bjsr.htm">JSR</a> <a href="romabf9.htm">$ABF9</a>     ; Do Input Prompt
+
+Jump from $AC3F:
+
+AC4D: 86 7A     <a href="bstx.htm">STX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC4F: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+Jump from $ACDC, <a href="romac06.htm">$AC2F</a>:
+
+AC51: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+AC54: 24 0D     <a href="bbit.htm">BIT</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+AC56: 10 31     <a href="bbpl.htm">BPL</a> $AC89
+AC58: 24 11     <a href="bbit.htm">BIT</a> <a href="zp11.htm">$11</a>       ; Input Flag
+AC5A: 50 09     <a href="bbvc.htm">BVC</a> $AC65
+AC5C: E8        <a href="binx.htm">INX</a>
+AC5D: 86 7A     <a href="bstx.htm">STX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC5F: A9 00     <a href="blda.htm">LDA</a> #$00
+AC61: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+AC63: F0 0C     <a href="bbeq.htm">BEQ</a> $AC71
+
+Jump from $AC5A:
+
+AC65: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+AC67: C9 22     <a href="bcmp.htm">CMP</a> #$22
+AC69: F0 07     <a href="bbeq.htm">BEQ</a> $AC72
+AC6B: A9 3A     <a href="blda.htm">LDA</a> #$3A
+AC6D: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+AC6F: A9 2C     <a href="blda.htm">LDA</a> #$2C
+
+Jump from $AC63:
+
+AC71: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $AC69:
+
+AC72: 85 08     <a href="bsta.htm">STA</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+AC74: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC76: A4 7B     <a href="bldy.htm">LDY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+AC78: 69 00     <a href="badc.htm">ADC</a> #$00
+AC7A: 90 01     <a href="bbcc.htm">BCC</a> $AC7D
+AC7C: C8        <a href="biny.htm">INY</a>
+
+Jump from $AC7A:
+
+AC7D: 20 8D B4  <a href="bjsr.htm">JSR</a> <a href="romb487.htm">$B48D</a>     ; Set Up String
+AC80: 20 E2 B7  <a href="bjsr.htm">JSR</a> <a href="romb7b5.htm">$B7E2</a>     ; Convert ASCII String to Flpt
+AC83: 20 DA A9  <a href="bjsr.htm">JSR</a> <a href="roma9d9.htm">$A9DA</a>     ; Assign String
+AC86: 4C 91 AC  <a href="bjmp.htm">JMP</a> $AC91
+
+Jump from $AC56:
+
+AC89: 20 F3 BC  <a href="bjsr.htm">JSR</a> <a href="rombcf3.htm">$BCF3</a>     ; Convert ASCII String to a Number in FAC
+AC8C: A5 0E     <a href="blda.htm">LDA</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+AC8E: 20 C2 A9  <a href="bjsr.htm">JSR</a> <a href="roma9a5.htm">$A9C2</a>     ; Perform [let]
+
+Jump from $AC86:
+
+AC91: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+AC94: F0 07     <a href="bbeq.htm">BEQ</a> $AC9D
+AC96: C9 2C     <a href="bcmp.htm">CMP</a> #$2C
+AC98: F0 03     <a href="bbeq.htm">BEQ</a> $AC9D
+AC9A: 4C 4D AB  <a href="bjmp.htm">JMP</a> <a href="romab4d.htm">$AB4D</a>     ; Handle Bad Data
+
+Jump from $AC94, $AC98:
+
+AC9D: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC9F: A4 7B     <a href="bldy.htm">LDY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+ACA1: 85 43     <a href="bsta.htm">STA</a> <a href="zp43.htm">$43</a>       ; Pointer: Temporary storage during INPUT
+ACA3: 84 44     <a href="bsty.htm">STY</a> <a href="zp43.htm">$44</a>       ; Pointer: Temporary storage during INPUT
+ACA5: A5 4B     <a href="blda.htm">LDA</a> <a href="zp4b.htm">$4B</a>       ; Temporary storage for TXTPTR
+ACA7: A4 4C     <a href="bldy.htm">LDY</a> <a href="zp4b.htm">$4C</a>       ; Temporary storage for TXTPTR
+ACA9: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+ACAB: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+ACAD: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+ACB0: F0 2D     <a href="bbeq.htm">BEQ</a> $ACDF
+ACB2: 20 FD AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFD</a>     ; Test ','
+ACB5: 4C 15 AC  <a href="bjmp.htm">JMP</a> <a href="romac06.htm">$AC15</a>     ; Perform [read]
+
+Jump from $AC41, $ACDA:
+
+ACB8: 20 06 A9  <a href="bjsr.htm">JSR</a> <a href="roma906.htm">$A906</a>     ; Search for Next Statement / Line
+ACBB: C8        <a href="biny.htm">INY</a>
+ACBC: AA        <a href="btax.htm">TAX</a>
+ACBD: D0 12     <a href="bbne.htm">BNE</a> $ACD1
+ACBF: A2 0D     <a href="bldx.htm">LDX</a> #$0D
+ACC1: C8        <a href="biny.htm">INY</a>
+ACC2: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+ACC4: F0 6C     <a href="bbeq.htm">BEQ</a> <a href="romad1e.htm">$AD32</a>     ; Perform [next]
+ACC6: C8        <a href="biny.htm">INY</a>
+ACC7: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+ACC9: 85 3F     <a href="bsta.htm">STA</a> <a href="zp3f.htm">$3F</a>       ; Current DATA Line number
+ACCB: C8        <a href="biny.htm">INY</a>
+ACCC: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+ACCE: C8        <a href="biny.htm">INY</a>
+ACCF: 85 40     <a href="bsta.htm">STA</a> <a href="zp3f.htm">$40</a>       ; Current DATA Line number
+
+Jump from $ACBD:
+
+ACD1: 20 FB A8  <a href="bjsr.htm">JSR</a> <a href="roma8f8.htm">$A8FB</a>     ; Perform [data]
+ACD4: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+ACD7: AA        <a href="btax.htm">TAX</a>
+ACD8: E0 83     <a href="bcpx.htm">CPX</a> #$83
+ACDA: D0 DC     <a href="bbne.htm">BNE</a> $ACB8
+ACDC: 4C 51 AC  <a href="bjmp.htm">JMP</a> $AC51
+
+Jump from $ACB0:
+
+ACDF: A5 43     <a href="blda.htm">LDA</a> <a href="zp43.htm">$43</a>       ; Pointer: Temporary storage during INPUT
+ACE1: A4 44     <a href="bldy.htm">LDY</a> <a href="zp43.htm">$44</a>       ; Pointer: Temporary storage during INPUT
+ACE3: A6 11     <a href="bldx.htm">LDX</a> <a href="zp11.htm">$11</a>       ; Input Flag
+ACE5: 10 03     <a href="bbpl.htm">BPL</a> $ACEA
+ACE7: 4C 27 A8  <a href="bjmp.htm">JMP</a> <a href="roma81d.htm">$A827</a>     ; Perform [restore]
+
+Jump from $ACE5:
+
+ACEA: A0 00     <a href="bldy.htm">LDY</a> #$00
+ACEC: B1 43     <a href="blda.htm">LDA</a> (<a href="zp43.htm">$43</a>),Y   ; Pointer: Temporary storage during INPUT
+ACEE: F0 0B     <a href="bbeq.htm">BEQ</a> $ACFB
+ACF0: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ACF2: D0 07     <a href="bbne.htm">BNE</a> $ACFB
+ACF4: A9 FC     <a href="blda.htm">LDA</a> #$FC
+ACF6: A0 AC     <a href="bldy.htm">LDY</a> #$AC
+ACF8: 4C 1E AB  <a href="bjmp.htm">JMP</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+
+Jump from $ACEE, $ACF2:
+
+ACFB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romac06.htm">Previous Page</a> / <a href="romacfc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

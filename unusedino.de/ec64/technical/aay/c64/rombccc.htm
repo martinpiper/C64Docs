@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BCCC/48332:   Evaluate &lt;int&gt;
+
+Jump from <a href="rombf7b.htm">$BF8F</a>, <a href="rome000.htm">$E00E</a>, <a href="rome26b.htm">$E27A</a>:
+
+BCCC: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BCCE: C9 A0     <a href="bcmp.htm">CMP</a> #$A0
+BCD0: B0 20     <a href="bbcs.htm">BCS</a> $BCF2
+BCD2: 20 9B BC  <a href="bjsr.htm">JSR</a> <a href="rombc9b.htm">$BC9B</a>     ; Convert FAC#1 to Integer
+BCD5: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BCD7: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BCD9: 84 66     <a href="bsty.htm">STY</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BCDB: 49 80     <a href="beor.htm">EOR</a> #$80
+BCDD: 2A        <a href="brol.htm">ROL</a>
+BCDE: A9 A0     <a href="blda.htm">LDA</a> #$A0
+BCE0: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BCE2: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BCE4: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+BCE6: 4C D2 B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B8D2</a>     ; Perform Addition
+
+Jump from <a href="rombc9b.htm">$BC9D</a>:
+
+BCE9: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BCEB: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BCED: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BCEF: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BCF1: A8        <a href="btay.htm">TAY</a>
+
+Jump from $BCD0:
+
+BCF2: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombc9b.htm">Previous Page</a> / <a href="rombcf3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

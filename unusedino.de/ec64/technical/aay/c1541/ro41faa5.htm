@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FAA5/64165:   Prepare slow head movement
+
+FAA5: AD 07 1C  LDA <a href="via27.htm">$1C07</a>
+FAA8: 18        CLC
+FAA9: 65 5F     ADC <a href="ra415f.htm">$5F</a>
+FAAB: 8D 05 1C  STA <a href="via25.htm">$1C05</a>
+FAAE: C6 60     DEC <a href="ra415f.htm">$60</a>         ; decrement counter
+FAB0: D0 E2     BNE <a href="ro41fa7b.htm">$FA94</a>       ; not yet zero?
+FAB2: A9 4E     LDA #$4E
+FAB4: 85 62     STA <a href="ra4162.htm">$62</a>
+FAB6: A9 FA     LDA #$FA        ; pointer $62/$63 to $FA4E
+FAB8: 85 63     STA <a href="ra4162.htm">$63</a>
+FABA: A9 05     LDA #$05
+FABC: 85 60     STA <a href="ra415f.htm">$60</a>         ; counter to 5
+
+Jump from <a href="ro41f9cb.htm">$F9D6</a>, <a href="ro41f9d9.htm">$F9FF</a>, <a href="ro41fa3b.htm">$FA4B</a>, <a href="ro41fa4e.htm">$FA50</a>, <a href="ro41fa4e.htm">$FA60</a>, <a href="ro41fa63.htm">$FA78</a>:
+
+FABE: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>
+FAC1: 29 FD     AND #$FD        ; erase bit 1
+FAC3: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+FAC6: 60        RTS
+
+    <a href="ro41fa97.htm">Previous Page</a> / <a href="ro41fac7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

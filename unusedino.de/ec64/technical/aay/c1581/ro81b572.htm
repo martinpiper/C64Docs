@@ -1,0 +1,53 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block in BAM belegen ($ef93)
+E: $4d, $4e: T&amp;S
+
+Einsprung von <a href="ro818b2f.htm">$8B42</a>, <a href="ro81b2c7.htm">$B2CA</a>, <a href="ro81b2c7.htm">$B2E6</a>, <a href="ro81b33c.htm">$B33F</a>, <a href="ro81b390.htm">$B417</a>, <a href="ro81b390.htm">$B41C</a>, <a href="ro81b390.htm">$B421</a>, <a href="ro81b390.htm">$B429</a>, <a href="ro81b44a.htm">$B4FD</a>,
+              <a href="ro81b44a.htm">$B502</a>, <a href="ro81b44a.htm">$B507</a>, <a href="ro81b44a.htm">$B50F</a>, <a href="ro81b668.htm">$B6DE</a>, <a href="ro81b6ed.htm">$B73E</a>, <a href="ro81b811.htm">$B828</a>, <a href="ro81b88d.htm">$B8AA</a>:
+
+B572: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        BAM-Zeiger auf aktuellen Track setzen
+B575: 20 D8 B5  JSR <a href="ro81b5d8.htm">$B5D8</a>        ist Block schon belegt ?
+B578: F0 39     BEQ $B5B3        ja, ==&gt;
+B57A: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Block belegen
+B57C: 5D EA B5  EOR <a href="ro81b5d8.htm">$B5EA</a>,X
+B57F: 91 31     STA (<a href="ra8131.htm">$31</a>),Y
+B581: A9 01     LDA #$01         Flag fuer 'BAM geaendert' setzen
+B583: 85 35     STA <a href="ra8135.htm">$35</a>
+B585: A0 00     LDY #$00
+B587: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Anzahl der freien Blocks -1
+B589: 38        SEC
+B58A: E9 01     SBC #$01
+B58C: 91 31     STA (<a href="ra8131.htm">$31</a>),Y
+B58E: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Aktueller Track
+B590: CD 2B 02  CMP <a href="ra81022b.htm">$022B</a>        = Direktory-Track
+B593: F0 0B     BEQ $B5A0        ja, ==&gt;
+B595: AD A9 02  LDA <a href="ra8102a9.htm">$02A9</a>        Anzahl 'Blocks free' -1
+B598: D0 03     BNE $B59D
+B59A: CE AA 02  DEC <a href="ra8102a9.htm">$02AA</a>
+
+Einsprung von $B598, <a href="ro81b546.htm">$B567</a>:
+
+B59D: CE A9 02  DEC <a href="ra8102a9.htm">$02A9</a>
+
+Einsprung von $B593:
+
+B5A0: AD AA 02  LDA <a href="ra8102a9.htm">$02AA</a>        Sind weniger als 3 Blocks frei ?
+B5A3: D0 0E     BNE $B5B3
+B5A5: AD A9 02  LDA <a href="ra8102a9.htm">$02A9</a>
+B5A8: C9 03     CMP #$03
+B5AA: B0 05     BCS $B5B1
+B5AC: A9 72     LDA #$72         72, Disk full ausgeben, aber nicht als
+B5AE: 4C 6D A8  JMP <a href="ro81a862.htm">$A86D</a>        Fehler behandeln, sondern als Hinweis
+
+Einsprung von $B5AA:
+
+B5B1: A9 01     LDA #$01         z=0: Block ist belegt worden
+
+Einsprung von $B578, $B5A3:
+
+B5B3: 60        RTS              (z=1: Block war schon belegt)
+    <a href="ro81b546.htm">Previous Page</a> / <a href="ro81b5b4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

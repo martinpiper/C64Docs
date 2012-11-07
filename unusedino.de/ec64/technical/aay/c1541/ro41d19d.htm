@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D19D/53661:   Write byte in buffer and block
+
+Jump from <a href="ro41cf9b.htm">$CFC6</a>:
+
+D19D: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; byte in buffer
+D1A0: F0 01     BEQ $D1A3       ; buffer full?
+D1A2: 60        RTS
+
+Jump from $D1A0, <a href="ro41da2a.htm">$DA3D</a>:
+
+D1A3: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; get drive number
+D1A6: 20 1E F1  JSR <a href="ro41f11e.htm">$F11E</a>       ; find free block in BAM
+D1A9: A9 00     LDA #$00
+D1AB: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+D1AE: A5 80     LDA <a href="ra4180.htm">$80</a>
+D1B0: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; track number as first byte
+D1B3: A5 81     LDA <a href="ra4181.htm">$81</a>
+D1B5: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; sector number as second byte
+D1B8: 20 C7 D0  JSR <a href="ro41d0c7.htm">$D0C7</a>       ; write block
+D1BB: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+D1BE: 20 D0 D6  JSR <a href="ro41d6d0.htm">$D6D0</a>       ; parameter to disk controller
+D1C1: A9 02     LDA #$02
+D1C3: 4C C8 D4  JMP <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 2
+
+    <a href="ro41d156.htm">Previous Page</a> / <a href="ro41d1c6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

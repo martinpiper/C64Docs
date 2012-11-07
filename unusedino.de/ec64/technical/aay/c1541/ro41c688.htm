@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C688/50824:   Copy filename to work buffer
+
+Jump from <a href="ro41c66e.htm">$C672</a>:
+
+C688: 98        TYA             ; buffer number
+C689: 0A        ASL
+C68A: A8        TAY             ; times 2 as pointer
+C68B: B9 99 00  LDA <a href="ra4199.htm">$99</a>,Y
+C68E: 85 94     STA <a href="ra4194.htm">$94</a>
+C690: B9 9A 00  LDA <a href="ra4199.htm">$9A</a>,Y       ; buffer pointer after $94/$95
+C693: 85 95     STA <a href="ra4194.htm">$95</a>
+C695: A0 00     LDY #$00
+
+Jump from $C6A3:
+
+C697: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; transmit characters in buffer
+C69A: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+C69C: C8        INY
+C69D: F0 06     BEQ $C6A5       ; buffer already full?
+C69F: E8        INX
+C6A0: EC 76 02  CPX <a href="ra410276.htm">$0276</a>
+C6A3: 90 F2     BCC $C697
+
+Jump from $C69D:
+
+C6A5: 60        RTS
+
+    <a href="ro41c66e.htm">Previous Page</a> / <a href="ro41c6a6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

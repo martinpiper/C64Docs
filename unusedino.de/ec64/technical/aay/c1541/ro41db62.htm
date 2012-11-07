@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DB62/56162:   Write last block
+
+Jump from <a href="ro41db02.htm">$DB20</a>:
+
+DB62: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DB64: B5 B5     LDA <a href="ra41b5.htm">$B5</a>,X       ; record number lo
+DB66: 15 BB     ORA <a href="ra41bb.htm">$BB</a>,X       ; record number hi
+DB68: D0 0C     BNE $DB76       ; not zero?
+DB6A: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+DB6D: C9 02     CMP #$02
+DB6F: D0 05     BNE $DB76       ; not 2
+DB71: A9 0D     LDA #$0D        ; CR
+DB73: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+
+Jump from $DB68, $DB6F:
+
+DB76: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+DB79: C9 02     CMP #$02        ; now equal to 2?
+DB7B: D0 0F     BNE $DB8C       ; no
+DB7D: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+DB80: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DB82: B5 B5     LDA <a href="ra41b5.htm">$B5</a>,X       ; record number lo
+DB84: D0 02     BNE $DB88
+DB86: D6 BB     DEC <a href="ra41bb.htm">$BB</a>,X       ; decrement block number hi
+
+Jump from $DB84:
+
+DB88: D6 B5     DEC <a href="ra41b5.htm">$B5</a>,X       ; and block number lo
+DB8A: A9 00     LDA #$00
+
+Jump from $DB7B:
+
+DB8C: 38        SEC
+DB8D: E9 01     SBC #$01        ; set pointer
+DB8F: 48        PHA
+DB90: A9 00     LDA #$00
+DB92: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+DB95: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write zero in buffer
+DB98: 68        PLA             ; second byte = pointer to end
+DB99: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write in buffer
+DB9C: 20 C7 D0  JSR <a href="ro41d0c7.htm">$D0C7</a>       ; write block to disk
+DB9F: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+DBA2: 4C 1E CF  JMP <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+
+    <a href="ro41db02.htm">Previous Page</a> / <a href="ro41dba5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

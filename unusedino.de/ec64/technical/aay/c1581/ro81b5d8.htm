@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Pruefen, ob Block $4e im aktuellen Track frei ist ($efd2)
+
+Einsprung von <a href="ro81b546.htm">$B549</a>, <a href="ro81b572.htm">$B575</a>, <a href="ro81b746.htm">$B752</a>:
+
+B5D8: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Blocknummer / 8 + 1
+B5DA: 4A        LSR              = Position des Bytes mit gesuchtem Bit
+B5DB: 4A        LSR
+B5DC: 4A        LSR
+B5DD: A8        TAY
+B5DE: C8        INY              Anzahl freie Blocks ueberspringen
+B5DF: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Blocknummer and #$07
+B5E1: 29 07     AND #$07         = Position des gesuchten Bits im Byte
+B5E3: AA        TAX
+B5E4: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Zustand des Bits ermitteln
+B5E6: 3D EA B5  AND $B5EA,X      Bit=0 (z=1): Block belegt
+B5E9: 60        RTS
+
+B5EA: 01 02 04 08 10 20 40 80  Bit-Tabelle (fuer BAM-Zugriffe)
+
+    <a href="ro81b5b4.htm">Previous Page</a> / <a href="ro81b5f2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

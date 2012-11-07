@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A96B/43371:   Fetch linnum From BASIC
+
+Jump from <a href="roma49c.htm">$A49C</a>, <a href="roma69c.htm">$A6A4</a>, <a href="roma69c.htm">$A6B6</a>, <a href="roma8a0.htm">$A8A0</a>, <a href="roma94b.htm">$A962</a>:
+
+A96B: A2 00     <a href="bldx.htm">LDX</a> #$00
+A96D: 86 14     <a href="bstx.htm">STX</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A96F: 86 15     <a href="bstx.htm">STX</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+
+Jump from $A9A2:
+
+A971: B0 F7     <a href="bbcs.htm">BCS</a> <a href="roma94b.htm">$A96A</a>     ; Perform [on]
+A973: E9 2F     <a href="bsbc.htm">SBC</a> #$2F
+A975: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+A977: A5 15     <a href="blda.htm">LDA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A979: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A97B: C9 19     <a href="bcmp.htm">CMP</a> #$19
+A97D: B0 D4     <a href="bbcs.htm">BCS</a> <a href="roma94b.htm">$A953</a>     ; Perform [on]
+A97F: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A981: 0A        <a href="basl.htm">ASL</a>
+A982: 26 22     <a href="brol.htm">ROL</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A984: 0A        <a href="basl.htm">ASL</a>
+A985: 26 22     <a href="brol.htm">ROL</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A987: 65 14     <a href="badc.htm">ADC</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A989: 85 14     <a href="bsta.htm">STA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A98B: A5 22     <a href="blda.htm">LDA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A98D: 65 15     <a href="badc.htm">ADC</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A98F: 85 15     <a href="bsta.htm">STA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A991: 06 14     <a href="basl.htm">ASL</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A993: 26 15     <a href="brol.htm">ROL</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A995: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A997: 65 07     <a href="badc.htm">ADC</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+A999: 85 14     <a href="bsta.htm">STA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A99B: 90 02     <a href="bbcc.htm">BCC</a> $A99F
+A99D: E6 15     <a href="binc.htm">INC</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+
+Jump from $A99B:
+
+A99F: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A9A2: 4C 71 A9  <a href="bjmp.htm">JMP</a> $A971
+
+    <a href="roma94b.htm">Previous Page</a> / <a href="roma9a5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

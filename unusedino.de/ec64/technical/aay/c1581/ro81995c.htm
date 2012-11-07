@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+CLOSE-Routine: aktuelle Sekundaeradresse schliessen ($dac0)
+E: $50: SA der zu schliessenden Datei
+[Diese Routine wird aufgerufen, wenn ueber den BUS ein Close-Kommando kommt.
+ Geschlossen werden:
+ - 'normale' Dateien
+ - REL-Dateien
+ - Direktzugriffe
+ - Directory
+ Wenn die SA 15 angegeben wird, werden alle Dateien geschlossen.
+ Veraenderte Puffer werden auf die Diskette geschrieben und die Directory-
+ Eintraege ggf. aktualisiert.]
+
+Einsprung von <a href="ro81abcf.htm">$AC51</a>:
+
+995C: A5 52     LDA <a href="ra8152.htm">$52</a>          Ist die aktuelle SA = 0 ?
+995E: D0 0B     BNE $996B        nein, ==&gt;
+9960: A9 00     LDA #$00         Flag: 'Directory wird ausgegeben' loeschen
+9962: 8D 6E 02  STA <a href="ra81026e.htm">$026E</a>
+9965: 20 9E 91  JSR <a href="ro81919e.htm">$919E</a>        SA schliessen
+
+Einsprung von $9976:
+
+9968: 4C 34 94  JMP <a href="ro819434.htm">$9434</a>        interne Kanaele freigeben ==&gt;
+
+Einsprung von $995E:
+
+996B: C9 0F     CMP #$0F         SA=15 (Kommandokanal) ?
+996D: F0 17     BEQ <a href="ro819986.htm">$9986</a>        ja, (alle Dateien schliessen) ==&gt;
+996F: 20 9F 99  JSR <a href="ro81999f.htm">$999F</a>        Datei schliessen
+9972: A5 52     LDA <a href="ra8152.htm">$52</a>          SA &lt; 2 ?
+9974: C9 02     CMP #$02
+9976: 90 F0     BCC $9968        ja, ==&gt;
+9978: AD AB 02  LDA <a href="ra8102ab.htm">$02AB</a>        Ist ein Fehler aufgetreten ?
+997B: D0 06     BNE $9983        ja, ==&gt;
+997D: 20 15 B5  JSR <a href="ro81b515.htm">$B515</a>        BAM abspeichern
+9980: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+Einsprung von $997B:
+
+9983: 4C 67 80  JMP <a href="ro81804c.htm">$8067</a>        Fehlermeldung ausgeben
+
+    <a href="ro8198f7.htm">Previous Page</a> / <a href="ro819986.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

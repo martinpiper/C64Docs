@@ -1,0 +1,101 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A4A2/42146:   Insert BASIC Text
+
+A4A2: 84 0B     <a href="bsty.htm">STY</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+A4A4: 20 13 A6  <a href="bjsr.htm">JSR</a> <a href="roma613.htm">$A613</a>     ; Search for Line Number
+A4A7: 90 44     <a href="bbcc.htm">BCC</a> $A4ED
+A4A9: A0 01     <a href="bldy.htm">LDY</a> #$01
+A4AB: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A4AD: 85 23     <a href="bsta.htm">STA</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A4AF: A5 2D     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A4B1: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A4B3: A5 60     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A4B5: 85 25     <a href="bsta.htm">STA</a> <a href="zp22.htm">$25</a>       ; Second Utility Pointer
+A4B7: A5 5F     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A4B9: 88        <a href="bdey.htm">DEY</a>
+A4BA: F1 5F     <a href="bsbc.htm">SBC</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A4BC: 18        <a href="bclc.htm">CLC</a>
+A4BD: 65 2D     <a href="badc.htm">ADC</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A4BF: 85 2D     <a href="bsta.htm">STA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A4C1: 85 24     <a href="bsta.htm">STA</a> <a href="zp22.htm">$24</a>       ; Second Utility Pointer
+A4C3: A5 2E     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+A4C5: 69 FF     <a href="badc.htm">ADC</a> #$FF
+A4C7: 85 2E     <a href="bsta.htm">STA</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+A4C9: E5 60     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A4CB: AA        <a href="btax.htm">TAX</a>
+A4CC: 38        <a href="bsec.htm">SEC</a>
+A4CD: A5 5F     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A4CF: E5 2D     <a href="bsbc.htm">SBC</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A4D1: A8        <a href="btay.htm">TAY</a>
+A4D2: B0 03     <a href="bbcs.htm">BCS</a> $A4D7
+A4D4: E8        <a href="binx.htm">INX</a>
+A4D5: C6 25     <a href="bdec.htm">DEC</a> <a href="zp22.htm">$25</a>       ; Second Utility Pointer
+
+Jump from $A4D2:
+
+A4D7: 18        <a href="bclc.htm">CLC</a>
+A4D8: 65 22     <a href="badc.htm">ADC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A4DA: 90 03     <a href="bbcc.htm">BCC</a> $A4DF
+A4DC: C6 23     <a href="bdec.htm">DEC</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A4DE: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $A4DA, $A4E4, $A4EB:
+
+A4DF: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A4E1: 91 24     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+A4E3: C8        <a href="biny.htm">INY</a>
+A4E4: D0 F9     <a href="bbne.htm">BNE</a> $A4DF
+A4E6: E6 23     <a href="binc.htm">INC</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A4E8: E6 25     <a href="binc.htm">INC</a> <a href="zp22.htm">$25</a>       ; Second Utility Pointer
+A4EA: CA        <a href="bdex.htm">DEX</a>
+A4EB: D0 F2     <a href="bbne.htm">BNE</a> $A4DF
+
+Jump from $A4A7:
+
+A4ED: 20 59 A6  <a href="bjsr.htm">JSR</a> <a href="roma642.htm">$A659</a>     ; Perform [new]
+A4F0: 20 33 A5  <a href="bjsr.htm">JSR</a> <a href="roma533.htm">$A533</a>     ; Rechain Lines
+A4F3: AD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>     ; BASIC Input Buffer (Input Line from Screen)
+A4F6: F0 88     <a href="bbeq.htm">BEQ</a> <a href="roma480.htm">$A480</a>     ; Input &amp; Identify BASIC Line
+A4F8: 18        <a href="bclc.htm">CLC</a>
+A4F9: A5 2D     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A4FB: 85 5A     <a href="bsta.htm">STA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+A4FD: 65 0B     <a href="badc.htm">ADC</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+A4FF: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+A501: A4 2E     <a href="bldy.htm">LDY</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+A503: 84 5B     <a href="bsty.htm">STY</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+A505: 90 01     <a href="bbcc.htm">BCC</a> $A508
+A507: C8        <a href="biny.htm">INY</a>
+
+Jump from $A505:
+
+A508: 84 59     <a href="bsty.htm">STY</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+A50A: 20 B8 A3  <a href="bjsr.htm">JSR</a> <a href="roma3b8.htm">$A3B8</a>     ; Open Space in Memory
+A50D: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A50F: A4 15     <a href="bldy.htm">LDY</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A511: 8D FE 01  <a href="bsta.htm">STA</a> <a href="zp013f.htm">$01FE</a>     ; BASIC Stack Area
+A514: 8C FF 01  <a href="bsty.htm">STY</a> <a href="zp013f.htm">$01FF</a>     ; BASIC Stack Area
+A517: A5 31     <a href="blda.htm">LDA</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+A519: A4 32     <a href="bldy.htm">LDY</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+A51B: 85 2D     <a href="bsta.htm">STA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A51D: 84 2E     <a href="bsty.htm">STY</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+A51F: A4 0B     <a href="bldy.htm">LDY</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+A521: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $A528:
+
+A522: B9 FC 01  <a href="blda.htm">LDA</a> <a href="zp013f.htm">$01FC</a>,Y   ; BASIC Stack Area
+A525: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A527: 88        <a href="bdey.htm">DEY</a>
+A528: 10 F8     <a href="bbpl.htm">BPL</a> $A522
+
+Jump from <a href="rome165.htm">$E1B2</a>:
+
+A52A: 20 59 A6  <a href="bjsr.htm">JSR</a> <a href="roma642.htm">$A659</a>     ; Perform [new]
+A52D: 20 33 A5  <a href="bjsr.htm">JSR</a> <a href="roma533.htm">$A533</a>     ; Rechain Lines
+A530: 4C 80 A4  <a href="bjmp.htm">JMP</a> <a href="roma480.htm">$A480</a>     ; Input &amp; Identify BASIC Line
+
+    <a href="roma49c.htm">Previous Page</a> / <a href="roma533.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

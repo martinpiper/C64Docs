@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D075/53365:   Calculate blocks free
+
+Jump from <a href="ro41eeb7.htm">$EEF1</a>:
+
+D075: 20 3A EF  JSR <a href="ro41ef3a.htm">$EF3A</a>       ; buffer address to $6D/$6E
+D078: A0 04     LDY #$04        ; begin at position 4
+D07A: A9 00     LDA #$00
+D07C: AA        TAX
+
+Jump from $D08D:
+
+D07D: 18        CLC
+D07E: 71 6D     ADC (<a href="ra416d.htm">$6D</a>),Y     ; add number of free blocks per track
+D080: 90 01     BCC $D083
+D082: E8        INX             ; X as hi-byte
+
+Jump from $D080, $D089:
+
+D083: C8        INY
+D084: C8        INY             ; plus 4
+D085: C8        INY
+D086: C8        INY
+D087: C0 48     CPY #$48        ; track 18?
+D089: F0 F8     BEQ $D083       ; then skip
+D08B: C0 90     CPY #$90        ; last track number?
+D08D: D0 EE     BNE $D07D       ; no
+D08F: 48        PHA             ; lo-byte
+D090: 8A        TXA             ; hi-byte
+D091: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+D093: 9D FC 02  STA <a href="ra4102fc.htm">$02FC</a>,X     ; hi-byte to $2FC
+D096: 68        PLA             ; lo-byte
+D097: 9D FA 02  STA <a href="ra4102fa.htm">$02FA</a>,X     ; to $2FA
+D09A: 60        RTS
+
+    <a href="ro41d042.htm">Previous Page</a> / <a href="ro41d09b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

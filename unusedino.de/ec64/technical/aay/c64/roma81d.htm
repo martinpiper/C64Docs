@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A81D/43037:   Perform [restore]
+
+Jump from <a href="roma65e.htm">$A677</a>:
+
+A81D: 38        <a href="bsec.htm">SEC</a>
+A81E: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+A820: E9 01     <a href="bsbc.htm">SBC</a> #$01
+A822: A4 2C     <a href="bldy.htm">LDY</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+A824: B0 01     <a href="bbcs.htm">BCS</a> $A827
+A826: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $A824, <a href="romac35.htm">$ACE7</a>:
+
+A827: 85 41     <a href="bsta.htm">STA</a> <a href="zp41.htm">$41</a>       ; Pointer: Used by READ - current DATA Item
+A829: 84 42     <a href="bsty.htm">STY</a> <a href="zp41.htm">$42</a>       ; Pointer: Used by READ - current DATA Item
+
+Jump from <a href="roma7ed.htm">$A7ED</a>:
+
+A82B: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma7ed.htm">Previous Page</a> / <a href="roma82c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

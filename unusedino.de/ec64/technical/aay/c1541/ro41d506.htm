@@ -1,0 +1,67 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D506/54534:   Check track and sector numbers
+
+Jump from <a href="ro41d0c7.htm">$D0D0</a>, <a href="ro41de73.htm">$DE92</a>:
+
+D506: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X     ; command code for disk controller
+D509: 29 01     AND #$01        ; drive number
+D50B: 0D 4D 02  ORA <a href="ra41024d.htm">$024D</a>       ; plus command code
+
+Jump from <a href="ro41d58a.htm">$D596</a>:
+
+D50E: 48        PHA             ; save
+D50F: 86 F9     STX <a href="ra41f9.htm">$F9</a>         ; buffer number
+D511: 8A        TXA
+D512: 0A        ASL             ; times 2
+D513: AA        TAX
+D514: B5 07     LDA <a href="ra4106.htm">$07</a>,X       ; sector
+D516: 8D 4D 02  STA <a href="ra41024d.htm">$024D</a>       ; save
+D519: B5 06     LDA <a href="ra4106.htm">$06</a>,X       ; track
+D51B: F0 2D     BEQ $D54A       ; 66, 'illegal track or sector'
+D51D: CD D7 FE  CMP <a href="ro41fed7.htm">$FED7</a>       ; 36, highest track number + 1
+D520: B0 28     BCS $D54A       ; 66, 'illegal track or sector'
+D522: AA        TAX
+D523: 68        PLA             ; command code
+D524: 48        PHA
+D525: 29 F0     AND #$F0
+D527: C9 90     CMP #$90        ; code for writing?
+D529: D0 4F     BNE <a href="ro41d572.htm">$D57A</a>       ; no
+D52B: 68        PLA
+D52C: 48        PHA
+D52D: 4A        LSR
+D52E: B0 05     BCS $D535
+D530: AD 01 01  LDA <a href="ra410101.htm">$0101</a>
+D533: 90 03     BCC $D538
+
+Jump from $D52E:
+
+D535: AD 02 01  LDA <a href="ra410102.htm">$0102</a>
+
+Jump from $D533:
+
+D538: F0 05     BEQ $D53F
+D53A: CD D5 FE  CMP <a href="ro41fed5.htm">$FED5</a>       ; 'A', format marker
+D53D: D0 33     BNE <a href="ro41d572.htm">$D572</a>       ; 73, 'cbm dos v2.6 1541'
+
+Jump from $D538:
+
+D53F: 8A        TXA             ; track number
+D540: 20 4B F2  JSR <a href="ro41f24b.htm">$F24B</a>       ; get maximum sector number
+D543: CD 4D 02  CMP <a href="ra41024d.htm">$024D</a>       ; compare with sector number
+D546: F0 02     BEQ $D54A       ; equal, then error
+D548: B0 30     BCS <a href="ro41d572.htm">$D57A</a>       ; smaller?
+
+Jump from $D51B, $D520, $D546:
+
+D54A: 20 52 D5  JSR <a href="ro41d552.htm">$D552</a>       ; get track and sector number
+
+Jump from <a href="ro41d55f.htm">$D561</a>, <a href="ro41d55f.htm">$D566</a>, <a href="ro41d55f.htm">$D56D</a>, <a href="ro41d55f.htm">$D56F</a>:
+
+D54D: A9 66     LDA #$66
+D54F: 4C 45 E6  JMP <a href="ro41e645.htm">$E645</a>       ; 66, 'illegal track or sector'
+
+    <a href="ro41d4f6.htm">Previous Page</a> / <a href="ro41d552.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

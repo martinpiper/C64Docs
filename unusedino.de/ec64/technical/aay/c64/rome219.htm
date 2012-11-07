@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E219/57881:   Get Parameters For OPEN/CLOSE
+
+Jump from <a href="rome1be.htm">$E1BE</a>, <a href="rome1c7.htm">$E1C7</a>:
+
+E219: A9 00     <a href="blda.htm">LDA</a> #$00
+E21B: 20 BD FF  <a href="bjsr.htm">JSR</a> <a href="romffbd.htm">$FFBD</a>     ; Set Filename
+E21E: 20 11 E2  <a href="bjsr.htm">JSR</a> <a href="rome20e.htm">$E211</a>     ; Check For Comma
+E221: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+E224: 86 49     <a href="bstx.htm">STX</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E226: 8A        <a href="btxa.htm">TXA</a>
+E227: A2 01     <a href="bldx.htm">LDX</a> #$01
+E229: A0 00     <a href="bldy.htm">LDY</a> #$00
+E22B: 20 BA FF  <a href="bjsr.htm">JSR</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+E22E: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E231: 20 00 E2  <a href="bjsr.htm">JSR</a> <a href="rome200.htm">$E200</a>     ; Get Next One Byte Parameter
+E234: 86 4A     <a href="bstx.htm">STX</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E236: A0 00     <a href="bldy.htm">LDY</a> #$00
+E238: A5 49     <a href="blda.htm">LDA</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E23A: E0 03     <a href="bcpx.htm">CPX</a> #$03
+E23C: 90 01     <a href="bbcc.htm">BCC</a> $E23F
+E23E: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $E23C:
+
+E23F: 20 BA FF  <a href="bjsr.htm">JSR</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+E242: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E245: 20 00 E2  <a href="bjsr.htm">JSR</a> <a href="rome200.htm">$E200</a>     ; Get Next One Byte Parameter
+E248: 8A        <a href="btxa.htm">TXA</a>
+E249: A8        <a href="btay.htm">TAY</a>
+E24A: A6 4A     <a href="bldx.htm">LDX</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E24C: A5 49     <a href="blda.htm">LDA</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E24E: 20 BA FF  <a href="bjsr.htm">JSR</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+E251: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E254: 20 0E E2  <a href="bjsr.htm">JSR</a> <a href="rome20e.htm">$E20E</a>     ; Check For Comma
+
+Jump from <a href="rome1d4.htm">$E1E3</a>:
+
+E257: 20 9E AD  <a href="bjsr.htm">JSR</a> <a href="romad9e.htm">$AD9E</a>     ; Evaluate Expression in Text
+E25A: 20 A3 B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6A3</a>     ; Perform String Housekeeping
+E25D: A6 22     <a href="bldx.htm">LDX</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+E25F: A4 23     <a href="bldy.htm">LDY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+E261: 4C BD FF  <a href="bjmp.htm">JMP</a> <a href="romffbd.htm">$FFBD</a>     ; Set Filename
+
+    <a href="rome20e.htm">Previous Page</a> / <a href="rome264.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D7B4/55220:   OPEN command, secondary addr 15
+
+Jump from <a href="ro41c146.htm">$C15D</a>:
+
+D7B4: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D7B6: 8D 4C 02  STA <a href="ra41024c.htm">$024C</a>
+D7B9: 20 B3 C2  JSR <a href="ro41c2b3.htm">$C2B3</a>       ; get line length, erase flags
+D7BC: 8E 2A 02  STX <a href="ra41022a.htm">$022A</a>
+D7BF: AE 00 02  LDX <a href="ra410200.htm">$0200</a>       ; first character from buffer
+D7C2: AD 4C 02  LDA <a href="ra41024c.htm">$024C</a>       ; secondary address
+D7C5: D0 2C     BNE <a href="ro41d7f3.htm">$D7F3</a>       ; not equal 0 (LOAD)?
+
+    <a href="ro41d6e4.htm">Previous Page</a> / <a href="ro41d7c7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

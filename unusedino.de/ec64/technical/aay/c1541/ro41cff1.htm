@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CFF1/53233:   Write data byte in buffer
+
+Jump from <a href="ro41cd73.htm">$CD87</a>, <a href="ro41cf9b.htm">$CFD0</a>, <a href="ro41cf9b.htm">$CFE5</a>, <a href="ro41d19d.htm">$D19D</a>, <a href="ro41d19d.htm">$D1B0</a>, <a href="ro41d19d.htm">$D1B5</a>, <a href="ro41d48d.htm">$D4A8</a>, <a href="ro41d48d.htm">$D4AD</a>, <a href="ro41d48d.htm">$D4BB</a>,
+          <a href="ro41d48d.htm">$D4C0</a>, <a href="ro41d48d.htm">$D4C5</a>, <a href="ro41d6e4.htm">$D74D</a>, <a href="ro41d6e4.htm">$D754</a>, <a href="ro41d6e4.htm">$D75B</a>, <a href="ro41db62.htm">$DB73</a>, <a href="ro41db62.htm">$DB95</a>, <a href="ro41db62.htm">$DB99</a>, <a href="ro41ec9e.htm">$ECBE</a>,
+          <a href="ro41ec9e.htm">$ECC3</a>, <a href="ro41ec9e.htm">$ECC8</a>, <a href="ro41ec9e.htm">$ECCB</a>, <a href="ro41ec9e.htm">$ECD1</a>, <a href="ro41ec9e.htm">$ECD6</a>, <a href="ro41ec9e.htm">$ECE7</a>, <a href="ro41ec9e.htm">$ECEC</a>, <a href="ro41ec9e.htm">$ECEF</a>, <a href="ro41ec9e.htm">$ECFA</a>,
+          <a href="ro41ec9e.htm">$ED00</a>, <a href="ro41ec9e.htm">$ED08</a>, <a href="ro41ed23.htm">$ED26</a>, <a href="ro41ed23.htm">$ED2C</a>, <a href="ro41ed23.htm">$ED3D</a>, <a href="ro41ed23.htm">$ED40</a>, <a href="ro41ed23.htm">$ED43</a>, <a href="ro41ed59.htm">$ED5E</a>:
+
+CFF1: 48        PHA             ; save data byte
+CFF2: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+CFF5: 10 06     BPL $CFFD       ; associated buffer?
+CFF7: 68        PLA
+CFF8: A9 61     LDA #$61
+CFFA: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 61, 'file not open'
+
+Jump from $CFF5, <a href="ro41dd8d.htm">$DD92</a>:
+
+CFFD: 0A        ASL             ; buffer number times 2
+CFFE: AA        TAX             ; as index
+CFFF: 68        PLA             ; data byte
+D000: 81 99     STA (<a href="ra4199.htm">$99</a>,X)     ; write in buffer
+D002: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+D004: 60        RTS
+
+    <a href="ro41cf9b.htm">Previous Page</a> / <a href="ro41d005.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

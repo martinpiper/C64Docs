@@ -1,0 +1,67 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kanal oeffnen und entsprechende Zahl Puffer zuordnen ($d1df)
+E: a  : Anzahl der Puffer (0, 1, oder 2 Puffer)
+   $52: Sekundaeradresse
+A: $50: neue Kanalnummer
+Wenn kein Kanal oder Puffer gefunden wird, erfolgt kein Ruecksprung in die
+aufrufende Routine
+
+Einsprung von <a href="ro819bc3.htm">$9BC8</a>:
+
+9157: 38        SEC              &lt;-- Schreibkanal suchen
+9158: B0 01     BCS $915B
+
+Einsprung von <a href="ro8189e4.htm">$89F4</a>, <a href="ro8189e4.htm">$8A23</a>, <a href="ro819b0d.htm">$9B0F</a>, <a href="ro81b17c.htm">$B182</a>:
+
+915A: 18        CLC              &lt;-- Lesekanal suchen
+
+Einsprung von $9158:
+
+915B: 08        PHP
+915C: 85 40     STA <a href="ra8140.htm">$40</a>          Anzahl der gesuchten Puffer merken
+915E: 20 9E 91  JSR <a href="ro81919e.htm">$919E</a>        Kanal freigeben
+9161: 20 DB 92  JSR <a href="ro8192db.htm">$92DB</a>        freien Kanal suchen
+9164: 85 50     STA <a href="ra8150.htm">$50</a>          und als aktuellen Kanal merken
+9166: A6 52     LDX <a href="ra8152.htm">$52</a>          Sekundaeradresse holen
+9168: 28        PLP
+9169: 90 02     BCC $916D        Lesekanal ? ja, ==&gt;
+916B: 09 80     ORA #$80         b76=10: Flag: Schreibkanal
+
+Einsprung von $9169:
+
+916D: 95 A8     STA <a href="ra81a8.htm">$A8</a>,X        Kanal der SA zuordnen
+916F: 29 3F     AND #$3F
+9171: A8        TAY
+9172: A9 FF     LDA #$FF         Pufferzuordnung loeschen
+9174: 99 D1 00  STA <a href="ra81d1.htm">$00D1</a>,Y      1. Puffer
+9177: 99 D8 00  STA <a href="ra81d8.htm">$00D8</a>,Y      2. Puffer
+917A: 99 65 02  STA <a href="ra810265.htm">$0265</a>,Y      SS-Puffer
+917D: C6 40     DEC <a href="ra8140.htm">$40</a>          Soll ein Puffer gesucht werden ?
+917F: 30 1C     BMI $919D        nein, ==&gt;
+9181: 20 04 92  JSR <a href="ro819204.htm">$9204</a>        freien Puffer suchen
+9184: 10 08     BPL $918E        Puffer gefunden ? ja, ==&gt;
+
+Einsprung von $9198, <a href="ro819b0d.htm">$9B44</a>, <a href="ro819bc3.htm">$9BFC</a>:
+
+9186: 20 CE 91  JSR <a href="ro8191ce.htm">$91CE</a>        Puffer wieder freigeben
+9189: A9 70     LDA #$70         70, no Channel
+918B: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $9184:
+
+918E: 99 D1 00  STA <a href="ra81d1.htm">$00D1</a>,Y      1. Puffer merken
+9191: C6 40     DEC <a href="ra8140.htm">$40</a>          noch einen Puffer suchen ?
+9193: 30 08     BMI $919D        nein, ==&gt;
+9195: 20 04 92  JSR <a href="ro819204.htm">$9204</a>        freien Puffer suchen
+9198: 30 EC     BMI $9186        keinen Puffer gefunden ? ja, ==&gt;
+919A: 99 D8 00  STA <a href="ra81d8.htm">$00D8</a>,Y      2. Puffer merken
+
+Einsprung von $917F, $9193:
+
+919D: 60        RTS
+
+    <a href="ro819145.htm">Previous Page</a> / <a href="ro81919e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

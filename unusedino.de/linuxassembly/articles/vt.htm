@@ -1,0 +1,473 @@
+<html>
+
+<head>
+	<title>linuxassembly.org - Using Virtual Terminals under Linux</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+	<h1 align="center">Using Virtual Terminals under Linux</h1>
+	<p align="center"><font size="-1">by <a href="mailto:linuxassembly@unusedino.de">Karsten Scheibler</a><br>
+	thanks to Richard Cooper</font></p>
+
+	<dl><dt><b>Remark&nbsp;(a):</b></dt>
+	<dd>Save this page as <tt>vt.html</tt> and use the following command to extract the source code with a sample Makefile:<br>
+	<tt>sh&nbsp;-c&nbsp;&quot;( mkdir&nbsp;vt&nbsp;&amp;&amp; cd&nbsp;vt&nbsp;&amp;&amp; awk&nbsp;'/^&lt;!--eof/{d=0}{if(d)print&gt;f}/^&lt;!--sof/{f=\$2;d=1}' )&nbsp;&lt;&nbsp;vt.html&quot;</tt>
+	</dd><dt><b>Remark&nbsp;(b):</b></dt>
+	<dd>Some browsers try to be super smart and reformat the html code
+	so you may have trouble to extract the files. This is the right time to learn more
+	about wget, a tool to download files via http or ftp ;-)
+	</dd><dt><b>Remark&nbsp;(c):</b></dt>
+	<dd>Some versions of nasm are known to generate broken code.
+	I have used nasm-0.98 for this example which worked for me.
+	</dd>
+	</dl>
+
+	<p align="justify">This code shows how to control the virtual terminal switching.
+	As a standalone example it doesn't make much sense, but in connection
+	with the <a href="fb.htm">framebuffer</a> or <a href="modex.htm">ModeX</a>
+	example code it is quite useful.</p>
+
+	<p align="justify">The switching between the virtual terminals is normally
+	controlled by the kernel. The key combinations ALT-F1, ALT-F2, ...,
+	ALT-CURSORLEFT, ALT-CURSORRIGHT are reserved for that. But it is
+	also possible to tell the kernel that you want to get a signal if
+	the user wants to leave the virtual terminal of your program (in this context
+	it is called release signal) and which signal you want to get when
+	the user switches back to the virtual terminal your program runs on
+	(acquire signal).</p>
+
+	<p align="justify">In this example <b>SIGUSR1</b> and
+	<b>SIGUSR2</b> are used
+	for this purpose. The according <a href="vt.htm#handlers">handlers</a> are
+	registered with <b>sys_sigaction</b>. Now lets have a closer look how this
+	example works:<ul>
+	<li><a href="vt.htm#release">vt_release_handler</a> simply sets vt_flag.</li>
+	We have no possibility to check if the signal was sent from
+	someone else, so this is all we can do here</li>
+	<li><a href="vt.htm#acquire">vt_acquire_handler</a> checks if we are on our
+	own virtual terminal, if yes vt_flag gets cleared. If not someone
+	else sent us this signal and we ignore it</li>
+	<li>the main work is done in the <a href="vt.htm#mainloop">mainloop</a>
+	it checks if someone pressed enter and looks also periodically for vt_flag if it
+	was changed. If the kernel sent us the release signal it expects
+	a confirmation that we are ready for the switch. In case someone
+	else sent us the signal this confirmation results in an error
+	(because the kernel doesn't know anything about a pending switch).
+	So the result will tell us if the signal was sent because of
+	a pending virtual terminal switch. But this is ugly, because
+	we can only check this after restoring the terminal to its
+	original state. Especially under <a href="modex.htm#mainloop">ModeX</a>
+	this results in a screen flickering if someone else sends us
+	<b>SIGUSR1</b> and our terminal is active. Look here how
+	mainloop looks in the <a href="fb.htm#mainloop">framebuffer</a>
+	example.
+	</ul></p>
+
+	<dl><dt><b>Note:</b></dt>
+	<dd><p align="justify">Instead of tinkering around with the release
+	signal, you can set the release signal in <a href="vt.htm#setmode"><b>VT_SETMODE</b></a>
+	to 0, so you won't get one. To still recognize that the user
+	wants to switch the vt, you can enable
+	<a href="rawkb.htm">raw keyboard mode</a> and look yourself for
+	ALT-F1. Use <b>VT_ACTIVATE</b> and <b>VT_WAITACTIVE</b>
+	to switch the vt manually, but you need root rights for this.
+	</p></dd></dl>
+
+	<p align="justify">It is also possible to place the switch code in the signal handlers itself,
+	but you have to ensure that the underlying program knows that the
+	switch happened to determine if graphics activity is allowed or not.</p>
+
+	<p align="justify">In the <a href="fb.htm">framebuffer</a> and
+	<a href="modex.htm">ModeX</a> code we make use of the
+	<b>KDSETMODE</b> ioctl to switch to <b>KD_GRAPHICS</b>.
+	It is not necessary to
+	switch back to <b>KD_TEXT</b> if a terminal switch is going to happen,
+	because the kernel manages this flag for every virtual terminal.</p>
+
+	<p>short procedure for handling vt switches:<ol type="1">
+		<li>register signal <a href="vt.htm#handlers">handlers</a></li>
+		<li>use the <a href="vt.htm#getstate"><b>VT_GETSTATE</b></a> ioctl to determine
+		the current virtual terminal (if this fails we are not
+		on local console)</li>
+		<li>tell the kernel via <a href="vt.htm#setmode"><b>VT_SETMODE</b></a>
+		which signals to send in case of terminal release and acquire</li>
+		<li>handle incoming signals, in this example done in
+		the <a href="vt.htm#mainloop">mainloop</a></li>
+	</ol></p>
+
+	<p align="justify">In this example we use <b>STDIN</b> as file
+	descriptor for <b>sys_ioctl</b>. This is ok as long as nobody
+	redirects it to a file or pipe. If you want that the
+	program even works in this cases: open <b>/dev/tty</b>
+	and use that file descriptor instead.</p>
+
+<center><table><tr><td><pre>
+<!--sof vt.n -->
+;****************************************************************************
+;****************************************************************************
+;*
+;* USING VIRTUAL TERMINALS UNDER LINUX
+;*
+;* written by Karsten Scheibler, 2003-DEC-08
+;*
+;****************************************************************************
+;****************************************************************************
+
+
+
+
+
+global vt_start
+
+
+
+;****************************************************************************
+;* some assign's
+;****************************************************************************
+%assign SYS_IOCTL			54
+%assign SYS_SIGACTION			67
+%assign SYS_SELECT			142
+
+%assign VT_GETMODE			0x00005601
+%assign VT_SETMODE			0x00005602
+%assign VT_GETSTATE			0x00005603
+%assign VT_RELDISP			0x00005605
+
+%assign VT_PROCESS			1
+
+%assign SIGUSR1				10
+%assign SIGUSR2				12
+
+%assign STDIN				0
+
+%assign SA_RESTART			0x10000000
+
+					struc 	tvtmode
+					alignb	4
+tvtmode_mode:				resb	1
+tvtmode_waitv:				resb	1
+tvtmode_relsig:				resw	1
+tvtmode_acqsig:				resw	1
+tvtmode_frsig:				resw	1
+					endstruc
+
+%if tvtmode_size != 8
+%error "wrong size"
+%endif
+
+					struc	tvtstat
+					alignb	4
+tvtstat_active:				resw	1
+tvtstat_signal:				resw	1
+tvtstat_state:				resw	1
+					endstruc
+
+%if tvtstat_size > 8
+%error "wrong size"
+%endif
+
+%assign VT_MODE_SAVED			0x00000001
+
+
+
+;****************************************************************************
+;* data
+;****************************************************************************
+section .data
+					align	4
+vt_state:				dd	0
+vt_flag:				dd	0
+
+section .bss
+					alignb	4
+exit_handler:				resd	1
+error_handler:				resd	1
+vtmode_data:				resb	tvtmode_size
+vtmode_original:			resb	tvtmode_size
+vtstat_data:				resb	tvtstat_size
+
+
+
+;****************************************************************************
+;* vt_start
+;****************************************************************************
+section .text
+vt_start:
+	xor	dword eax, eax
+	xor	dword ebx, ebx
+	call	near  vt_init
+
+	;<a name="mainloop"></a>mainloop: this code checks if the user
+	;pressed enter and checks if we have to switch the virtual terminal
+
+.keypress1:
+	call	near  vt_check_keypress
+	cmp	dword eax, byte 1
+	je	near  vt_end
+	call	near  vt_check_release
+	test	dword eax, eax
+	js	short .keypress1
+	call	near  vt_commit_release
+	test	dword eax, eax
+	js	short .keypress1
+.keypress2:
+	call	near  vt_check_keypress	;vt is not active => no keypress
+					;possible, we simply use select to
+					;wait here
+	call	near  vt_check_acquire
+	test	dword eax, eax
+	js	short .keypress2
+	jmp	short .keypress1
+
+
+
+;****************************************************************************
+;* vt_init
+;****************************************************************************
+section .text
+vt_init:
+	mov	dword [exit_handler], eax
+	mov	dword [error_handler], ebx
+
+	;<a name="handlers"></a>signal handler for release and acquire signal
+
+	xor	dword edx, edx
+	push	dword edx
+	push	dword SA_RESTART
+	push	dword edx
+	push	dword vt_release_handler
+	mov	dword eax, SYS_SIGACTION
+	mov	dword ebx, SIGUSR1
+	mov	dword ecx, esp
+	int	byte  0x80
+	add	dword esp, byte 16
+	test	dword eax, eax
+	js	near  vt_error
+
+	xor	dword edx, edx
+	push	dword edx
+	push	dword SA_RESTART
+	push	dword edx
+	push	dword vt_acquire_handler
+	mov	dword eax, SYS_SIGACTION
+	mov	dword ebx, SIGUSR2
+	mov	dword ecx, esp
+	int	byte  0x80
+	add	dword esp, byte 16
+	test	dword eax, eax
+	js	near  vt_error
+
+	;<a name="getstate"></a>get current active virtual terminal
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_GETSTATE
+	mov	dword edx, vtstat_data
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  vt_error
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_GETMODE
+	mov	dword edx, vtmode_data
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  vt_error
+
+	mov	dword eax, [vtmode_data]
+	mov	dword ebx, [vtmode_data + 4]
+	mov	dword [vtmode_original], eax
+	mov	dword [vtmode_original + 4], ebx
+	or	dword [vt_state], VT_MODE_SAVED
+
+	;<a name="setmode"></a>tell the kernel which signals to use
+
+	mov	byte  [vtmode_data + tvtmode_mode], VT_PROCESS
+	mov	word  [vtmode_data + tvtmode_relsig], SIGUSR1
+	mov	word  [vtmode_data + tvtmode_acqsig], SIGUSR2
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_SETMODE
+	mov	dword edx, vtmode_data
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  vt_error
+	ret
+
+
+
+;****************************************************************************
+;* vt_check_keypress
+;****************************************************************************
+section .text
+vt_check_keypress:
+	push	dword (1 << STDIN)
+	mov	dword ecx, esp
+	push	dword 50000		;1/20 second
+	push	dword 0
+	mov	dword eax, SYS_SELECT
+	mov	dword ebx, (STDIN + 1)
+	xor	dword edx, edx
+	xor	dword esi, esi
+	mov	dword edi, esp
+	int	byte  0x80
+	add	dword esp, byte 12
+	ret
+
+
+
+;****************************************************************************
+;* vt_check_release
+;****************************************************************************
+section .text
+vt_check_release:
+	xor	dword eax, eax
+	cmp	dword [vt_flag], byte 1
+	je	short .release
+	dec	dword eax
+.release:
+	ret
+
+
+
+;****************************************************************************
+;* vt_commit_release
+;****************************************************************************
+section .text
+vt_commit_release:
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_RELDISP
+	mov	dword edx, 1
+	int	byte  0x80
+	test	dword eax, eax
+	jns	short .release
+	mov	dword [vt_flag], 0
+.release:
+	ret
+
+
+
+;****************************************************************************
+;* vt_check_acquire
+;****************************************************************************
+section .text
+vt_check_acquire:
+	xor	dword eax, eax
+	cmp	dword eax, [vt_flag]
+	je	short .acquire
+	dec	dword eax
+.acquire:
+	ret
+
+
+
+;<a name="release"></a>****************************************************************************
+;* vt_release_handler
+;****************************************************************************
+section .text
+vt_release_handler:
+	mov	dword [vt_flag], 1
+	ret
+
+
+
+;<a name="acquire"></a>****************************************************************************
+;* vt_acquire_handler
+;****************************************************************************
+section .text
+vt_acquire_handler:
+	sub	dword esp, byte 8
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_GETSTATE
+	mov	dword edx, esp
+	int	byte  0x80
+	mov	word  bx, [esp + tvtstat_active]
+	add	dword esp, byte 8
+	test	dword eax, eax
+	js	short .no_acquire
+	cmp	word  bx, [vtstat_data + tvtstat_active]
+	jne	short .no_acquire
+	mov	dword [vt_flag], 0
+.no_acquire:
+	ret
+
+
+
+;****************************************************************************
+;* vt_restore
+;****************************************************************************
+section .text
+vt_restore:
+	test	dword [vt_state], VT_MODE_SAVED
+	jz	short .no_mode_saved
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, VT_SETMODE
+	mov	dword edx, vtmode_original
+	int	byte  0x80
+.no_mode_saved:
+	ret
+
+
+
+;****************************************************************************
+;* vt_error
+;****************************************************************************
+section .text
+vt_error:
+	call	near  vt_restore
+	xor	dword eax, eax
+	cmp	dword eax, [error_handler]
+	je	short .no_handler
+	jmp	dword [error_handler]
+.no_handler:
+	inc	dword eax
+	mov	dword ebx, eax
+	int	byte  0x80
+
+
+
+;****************************************************************************
+;* vt_end
+;****************************************************************************
+section .text
+vt_end:
+	call	near  vt_restore
+	xor	dword eax, eax
+	cmp	dword eax, [exit_handler]
+	je	short .no_handler
+	jmp	dword [exit_handler]
+.no_handler:
+	xor	dword ebx, ebx
+	inc	dword eax
+	int	byte  0x80
+;*********************************************** linuxassembly@unusedino.de *
+<!--eof-->
+</pre></td></tr></table></center>
+
+<!--sof Makefile
+NASM=nasm -w+orphan-labels -w+macro-params -w+number-overflow -f elf
+STRIP=strip -R .note -R .comment
+LD=ld -s
+RM=rm -f
+
+.PHONY: all clean
+
+all: vt
+
+vt: vt.n
+	${NASM} -o vt.o vt.n
+	${LD} -e vt_start -o vt vt.o
+	${STRIP} vt
+
+
+clean:
+	${RM} *.bak *~ vt vt.o core
+<!--eof-->
+
+</body>
+
+</html>

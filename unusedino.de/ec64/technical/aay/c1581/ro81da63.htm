@@ -1,0 +1,117 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+CRC-Pruefsumme des Blockheaders testen
+
+Einsprung von <a href="ro81cd00.htm">$CD36</a>:
+
+DA63: A5 38     LDA <a href="ra8138.htm">$38</a>          Vgl. ROM-Test ($ab1d)
+DA65: 48        PHA
+DA66: A5 39     LDA <a href="ra8139.htm">$39</a>          Rechenregister retten
+DA68: 48        PHA
+DA69: A5 3A     LDA <a href="ra813a.htm">$3A</a>
+DA6B: 48        PHA
+DA6C: A5 3B     LDA <a href="ra813b.htm">$3B</a>
+DA6E: 48        PHA
+DA6F: A5 3C     LDA <a href="ra813c.htm">$3C</a>
+DA71: 48        PHA
+DA72: A5 3D     LDA <a href="ra813d.htm">$3D</a>
+DA74: 48        PHA
+DA75: A5 3E     LDA <a href="ra813e.htm">$3E</a>
+DA77: 48        PHA
+DA78: A9 30     LDA #$30         Startwert ist $b230
+DA7A: 85 3D     STA <a href="ra813d.htm">$3D</a>
+DA7C: A9 B2     LDA #$B2
+DA7E: 85 3E     STA <a href="ra813e.htm">$3E</a>
+DA80: A0 00     LDY #$00
+
+Einsprung von $DAD3:
+
+DA82: B9 1F 00  LDA <a href="ra811f.htm">$001F</a>,Y      2-Byte Wert aus Blockheader
+DA85: 85 39     STA <a href="ra8139.htm">$39</a>          nach $38/$39 holen
+DA87: AA        TAX
+DA88: C8        INY
+DA89: B9 1F 00  LDA <a href="ra811f.htm">$001F</a>,Y
+DA8C: 85 38     STA <a href="ra8138.htm">$38</a>
+DA8E: 8A        TXA
+DA8F: A2 10     LDX #$10         16 Bits muessen getestet werden
+
+[da91  -- --     lda   39       (zum besseren Verstaendnis) ]
+
+Einsprung von $DACE:
+
+DA91: 85 3A     STA <a href="ra813a.htm">$3A</a>          Hi-Byte fuer BIT-Test merken
+DA93: 18        CLC
+DA94: 26 38     ROL <a href="ra8138.htm">$38</a>          naechstes Bit zum Testen bereitstellen
+DA96: 26 39     ROL <a href="ra8139.htm">$39</a>
+
+DA98: A9 00     LDA #$00
+DA9A: 85 3B     STA <a href="ra813b.htm">$3B</a>
+DA9C: 85 3C     STA <a href="ra813c.htm">$3C</a>
+DA9E: 24 3A     BIT <a href="ra813a.htm">$3A</a>          ist das zu testende Bit (b7) =0 ?
+DAA0: 10 08     BPL $DAAA        ja,   ($3b/$3c = $0000) ==&gt;
+DAA2: A9 21     LDA #$21         nein, ($3b/$3c = $1021)
+DAA4: 85 3B     STA <a href="ra813b.htm">$3B</a>
+DAA6: A9 10     LDA #$10
+DAA8: 85 3C     STA <a href="ra813c.htm">$3C</a>
+
+Einsprung von $DAA0:
+
+DAAA: 24 3E     BIT <a href="ra813e.htm">$3E</a>          ist das MSB der Pruefsumme =1 ?
+DAAC: 10 0C     BPL $DABA        nein, ==&gt;
+DAAE: A5 3B     LDA <a href="ra813b.htm">$3B</a>          ja, Wert in $3b/$3c austauschen
+DAB0: 49 21     EOR #$21
+DAB2: 85 3B     STA <a href="ra813b.htm">$3B</a>          (aus $0000 wird $1021,
+DAB4: A5 3C     LDA <a href="ra813c.htm">$3C</a>           aus $1021 wird $0000)
+DAB6: 49 10     EOR #$10
+DAB8: 85 3C     STA <a href="ra813c.htm">$3C</a>
+
+Einsprung von $DAAC:
+
+DABA: 18        CLC              Pruefsumme *2
+DABB: 26 3D     ROL <a href="ra813d.htm">$3D</a>
+DABD: 26 3E     ROL <a href="ra813e.htm">$3E</a>
+
+DABF: A5 3D     LDA <a href="ra813d.htm">$3D</a>          $3d/$3e = $3d/$3e eor $3b/$3c
+DAC1: 45 3B     EOR <a href="ra813b.htm">$3B</a>
+DAC3: 85 3D     STA <a href="ra813d.htm">$3D</a>
+DAC5: A5 3E     LDA <a href="ra813e.htm">$3E</a>
+DAC7: 45 3C     EOR <a href="ra813c.htm">$3C</a>
+DAC9: 85 3E     STA <a href="ra813e.htm">$3E</a>
+DACB: A5 39     LDA <a href="ra8139.htm">$39</a>
+DACD: CA        DEX              muessen noch Bits getestet werden?
+DACE: D0 C1     BNE $DA91        ja, ==&gt;
+DAD0: C8        INY
+DAD1: C0 05     CPY #$05         naechsten 16-Bit-Wert holen ?
+DAD3: 90 AD     BCC $DA82        ja, ==&gt;
+DAD5: A4 3D     LDY <a href="ra813d.htm">$3D</a>          Die Pruefsumme muss $0000 ergeben
+DAD7: A6 3E     LDX <a href="ra813e.htm">$3E</a>
+DAD9: 68        PLA              Register zurueckholen
+DADA: 85 3E     STA <a href="ra813e.htm">$3E</a>
+DADC: 68        PLA
+DADD: 85 3D     STA <a href="ra813d.htm">$3D</a>
+DADF: 68        PLA
+DAE0: 85 3C     STA <a href="ra813c.htm">$3C</a>
+DAE2: 68        PLA
+DAE3: 85 3B     STA <a href="ra813b.htm">$3B</a>
+DAE5: 68        PLA
+DAE6: 85 3A     STA <a href="ra813a.htm">$3A</a>
+DAE8: 68        PLA
+DAE9: 85 39     STA <a href="ra8139.htm">$39</a>
+DAEB: 68        PLA
+DAEC: 85 38     STA <a href="ra8138.htm">$38</a>
+DAEE: C0 00     CPY #$00         Pruefsumme &lt;&gt; $0000 ?
+DAF0: D0 06     BNE $DAF8        ja, ==&gt;
+DAF2: E0 00     CPX #$00
+DAF4: D0 02     BNE $DAF8        ja, ==&gt;
+DAF6: 18        CLC
+DAF7: 60        RTS
+
+Einsprung von $DAF0, $DAF4:
+
+DAF8: A9 09     LDA #$09         CRC-Error
+DAFA: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>
+
+    <a href="ro81d549.htm">Previous Page</a> / <a href="ro81dafd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

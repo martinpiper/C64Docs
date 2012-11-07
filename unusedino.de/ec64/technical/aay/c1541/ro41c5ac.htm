@@ -1,0 +1,94 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C5AC/50604:   ?
+
+Jump from <a href="ro41c44f.htm">$C457</a>, <a href="ro41c48b.htm">$C4A2</a>, <a href="ro41d6e4.htm">$D70E</a>, <a href="ro41ed84.htm">$ED97</a>:
+
+C5AC: A0 00     LDY #$00
+C5AE: 8C 91 02  STY <a href="ra410291.htm">$0291</a>
+C5B1: 88        DEY
+C5B2: 8C 53 02  STY <a href="ra410253.htm">$0253</a>
+C5B5: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+C5B8: 85 80     STA <a href="ra4180.htm">$80</a>
+C5BA: A9 01     LDA #$01
+C5BC: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector 1
+C5BE: 8D 93 02  STA <a href="ra410293.htm">$0293</a>
+C5C1: 20 75 D4  JSR <a href="ro41d475.htm">$D475</a>       ; read sector
+
+Jump from $C62C:
+
+C5C4: AD 93 02  LDA <a href="ra410293.htm">$0293</a>
+C5C7: D0 01     BNE $C5CA
+C5C9: 60        RTS
+
+Jump from $C5C7:
+
+C5CA: A9 07     LDA #$07
+C5CC: 8D 95 02  STA <a href="ra410295.htm">$0295</a>       ; number of directory entries (-1)
+C5CF: A9 00     LDA #$00
+C5D1: 20 F6 D4  JSR <a href="ro41d4f6.htm">$D4F6</a>       ; get pointer from buffer
+C5D4: 8D 93 02  STA <a href="ra410293.htm">$0293</a>       ; save as track number
+
+Jump from $C626:
+
+C5D7: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+C5DA: CE 95 02  DEC <a href="ra410295.htm">$0295</a>       ; decrement counter
+C5DD: A0 00     LDY #$00
+C5DF: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; first byte from directory
+C5E1: D0 18     BNE $C5FB
+C5E3: AD 91 02  LDA <a href="ra410291.htm">$0291</a>
+C5E6: D0 2F     BNE $C617
+C5E8: 20 3B DE  JSR <a href="ro41de3b.htm">$DE3B</a>       ; get track and sector number
+C5EB: A5 81     LDA <a href="ra4181.htm">$81</a>
+C5ED: 8D 91 02  STA <a href="ra410291.htm">$0291</a>       ; sector number
+C5F0: A5 94     LDA <a href="ra4194.htm">$94</a>
+C5F2: AE 92 02  LDX <a href="ra410292.htm">$0292</a>
+C5F5: 8D 92 02  STA <a href="ra410292.htm">$0292</a>       ; buffer pointer
+C5F8: F0 1D     BEQ $C617
+C5FA: 60        RTS
+
+Jump from $C5E1:
+
+C5FB: A2 01     LDX #$01
+C5FD: EC 92 02  CPX <a href="ra410292.htm">$0292</a>       ; buffer pointer to one?
+C600: D0 2D     BNE $C62F
+C602: F0 13     BEQ $C617
+
+Jump from <a href="ro41c48b.htm">$C48B</a>, <a href="ro41edb3.htm">$EDD4</a>:
+
+C604: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, track number of BAM
+C607: 85 80     STA <a href="ra4180.htm">$80</a>         ; track number
+C609: AD 90 02  LDA <a href="ra410290.htm">$0290</a>
+C60C: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector number
+C60E: 20 75 D4  JSR <a href="ro41d475.htm">$D475</a>       ; read block
+C611: AD 94 02  LDA <a href="ra410294.htm">$0294</a>
+C614: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+
+Jump from $C5E6, $C5F8, $C602, <a href="ro41c44f.htm">$C470</a>, <a href="ro41c48b.htm">$C4B5</a>, <a href="ro41d6e4.htm">$D72B</a>:
+
+C617: A9 FF     LDA #$FF
+C619: 8D 53 02  STA <a href="ra410253.htm">$0253</a>       ; erase-file found flag
+C61C: AD 95 02  LDA <a href="ra410295.htm">$0295</a>
+C61F: 30 08     BMI $C629       ; all directory entries checked?
+C621: A9 20     LDA #$20
+C623: 20 C6 D1  JSR <a href="ro41d1c6.htm">$D1C6</a>       ; increment buffer ptr by 32, next entry
+C626: 4C D7 C5  JMP $C5D7       ; and continue
+
+Jump from $C61F:
+
+C629: 20 4D D4  JSR <a href="ro41d44d.htm">$D44D</a>       ; set buffer pointer
+C62C: 4C C4 C5  JMP $C5C4       ; read next block
+
+Jump from $C600:
+
+C62F: A5 94     LDA <a href="ra4194.htm">$94</a>
+C631: 8D 94 02  STA <a href="ra410294.htm">$0294</a>
+C634: 20 3B DE  JSR <a href="ro41de3b.htm">$DE3B</a>       ; get track &amp; sector number from buffer
+C637: A5 81     LDA <a href="ra4181.htm">$81</a>
+C639: 8D 90 02  STA <a href="ra410290.htm">$0290</a>       ; save sector number
+C63C: 60        RTS
+
+    <a href="ro41c4d8.htm">Previous Page</a> / <a href="ro41c63d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

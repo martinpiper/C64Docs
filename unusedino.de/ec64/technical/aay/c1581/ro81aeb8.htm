@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Daten vom seriellem Bus holen ($ea2e; bei der 1571: $8342)
+
+Einsprung von $AED6:
+
+AEB8: 78        SEI
+AEB9: 20 42 90  JSR <a href="ro819042.htm">$9042</a>        Schreibkanal holen
+AEBC: B0 06     BCS $AEC4        Kanal ist kein kein Schreibkanal, ==&gt;
+AEBE: BD 34 02  LDA <a href="ra810234.htm">$0234</a>,X      Kanalstatus holen
+AEC1: 6A        ROR
+AEC2: B0 0B     BCS $AECF        Schreibkanal, (O.k.)==&gt;
+
+Einsprung von $AEBC:
+
+AEC4: A5 53     LDA <a href="ra8153.htm">$53</a>          SA vom Computer holen
+AEC6: 29 F0     AND #$F0         Kommando-Bits isolieren
+AEC8: C9 F0     CMP #$F0         = OPEN ?
+AECA: F0 03     BEQ $AECF        ja, ==&gt;
+AECC: 4C DF AE  JMP <a href="ro81aedf.htm">$AEDF</a>        Fehler: Busbetrieb beenden ==&gt;
+
+Einsprung von $AEC2, $AECA:
+
+AECF: 20 42 AE  JSR <a href="ro81ae42.htm">$AE42</a>        Daten vom seriellen Bus holen
+AED2: 58        CLI
+AED3: 20 78 8E  JSR <a href="ro818e78.htm">$8E78</a>        und in den aktuellen Puffer schreiben
+AED6: 4C B8 AE  JMP $AEB8
+
+    <a href="ro81ae42.htm">Previous Page</a> / <a href="ro81aed9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D307/54023:   Close all channels
+
+Jump from <a href="ro41ee0d.htm">$EE36</a>:
+
+D307: A9 0E     LDA #$0E        ; 14
+D309: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+
+Jump from $D310:
+
+D30B: 20 27 D2  JSR <a href="ro41d227.htm">$D227</a>       ; close channel
+D30E: C6 83     DEC <a href="ra4183.htm">$83</a>         ; next secondary address
+D310: D0 F9     BNE $D30B
+D312: 60        RTS
+
+    <a href="ro41d2da.htm">Previous Page</a> / <a href="ro41d313.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

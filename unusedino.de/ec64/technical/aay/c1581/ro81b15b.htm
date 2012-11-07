@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Cache am Ende der Verzoegerungszeit auf Diskette schreiben
+
+Einsprung von <a href="ro81b0f0.htm">$B155</a>:
+
+B15B: A5 87     LDA <a href="ra8187.htm">$87</a>          ist Cache veraendert worden ?
+B15D: F0 1C     BEQ $B17B        nein, ==&gt;
+B15F: A9 40     LDA #$40         Flag: 'T&amp;S nicht pruefen' setzen
+B161: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>
+B164: A5 6C     LDA <a href="ra816c.htm">$6C</a>          aktuelle Puffernummer
+B166: 48        PHA
+B167: A5 4D     LDA <a href="ra814d.htm">$4D</a>          und T&amp;S
+B169: 48        PHA
+B16A: A5 4E     LDA <a href="ra814e.htm">$4E</a>          retten
+B16C: 48        PHA
+B16D: A2 07     LDX #$07
+B16F: 20 6C FF  JSR <a href="ro81ff00.htm">$FF6C</a>        Cache auf Diskette schreiben
+B172: 68        PLA              T&amp;S zurueckholen
+B173: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B175: 68        PLA
+B176: 85 4D     STA <a href="ra814d.htm">$4D</a>
+B178: 68        PLA              aktuelle Puffernummer zurueckholen
+B179: 85 6C     STA <a href="ra816c.htm">$6C</a>
+
+Einsprung von $B15D:
+
+B17B: 60        RTS
+
+    <a href="ro81b0f0.htm">Previous Page</a> / <a href="ro81b17c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

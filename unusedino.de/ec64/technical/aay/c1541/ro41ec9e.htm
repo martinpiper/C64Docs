@@ -1,0 +1,73 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EC9E/60574:   Load dir
+
+Jump from <a href="ro41da55.htm">$DAA7</a>:
+
+EC9E: A9 00     LDA #$00
+ECA0: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address 0
+ECA2: A9 01     LDA #$01
+ECA4: 20 E2 D1  JSR <a href="ro41d1e2.htm">$D1E2</a>       ; find channel and buffer
+ECA7: A9 00     LDA #$00
+ECA9: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; initialize buffer pointer
+ECAC: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+ECAE: A9 00     LDA #$00
+ECB0: 9D 44 02  STA <a href="ra410244.htm">$0244</a>,X     ; pointer to end = zero
+ECB3: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+ECB6: AA        TAX
+ECB7: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+ECB9: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X     ; bring in table
+ECBC: A9 01     LDA #$01        ; 1
+ECBE: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write in buffer
+ECC1: A9 04     LDA #$04        ; 4, start address $0401
+ECC3: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write in buffer
+ECC6: A9 01     LDA #$01        ; 2 times 1
+ECC8: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>
+ECCB: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write in buffer as link address
+ECCE: AD 72 02  LDA <a href="ra410272.htm">$0272</a>       ; drive number
+ECD1: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write in buffer as line number
+ECD4: A9 00     LDA #$00        ; line number hi
+ECD6: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+ECD9: 20 59 ED  JSR <a href="ro41ed59.htm">$ED59</a>       ; directory entry in buffer
+ECDC: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+ECDF: 0A        ASL
+ECE0: AA        TAX
+ECE1: D6 99     DEC <a href="ra4199.htm">$99</a>,X       ; decrement buffer pointer
+ECE3: D6 99     DEC <a href="ra4199.htm">$99</a>,X
+ECE5: A9 00     LDA #$00
+ECE7: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; 0 as line end in buffer
+
+Jump from $ED0B, <a href="ro41ed67.htm">$ED7F</a>:
+
+ECEA: A9 01     LDA #$01
+ECEC: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; 2 times 1 as link address
+ECEF: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>
+ECF2: 20 CE C6  JSR <a href="ro41c6ce.htm">$C6CE</a>       ; directory entry in buffer
+ECF5: 90 2C     BCC <a href="ro41ed23.htm">$ED23</a>       ; another entry?
+ECF7: AD 72 02  LDA <a href="ra410272.htm">$0272</a>       ; block number lo
+ECFA: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+ECFD: AD 73 02  LDA <a href="ra410272.htm">$0273</a>       ; block number hi
+ED00: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; in buffer
+ED03: 20 59 ED  JSR <a href="ro41ed59.htm">$ED59</a>       ; directory entry in buffer
+ED06: A9 00     LDA #$00
+ED08: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; zero as end marker in buffer
+ED0B: D0 DD     BNE $ECEA       ; buffer full? no
+
+Jump from <a href="ro41ed23.htm">$ED56</a>:
+
+ED0D: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+ED10: 0A        ASL
+ED11: AA        TAX
+ED12: A9 00     LDA #$00
+ED14: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer to zero
+ED16: A9 88     LDA #$88        ; set READ flag
+ED18: A4 82     LDY <a href="ra4182.htm">$82</a>         ; channel number
+ED1A: 8D 54 02  STA <a href="ra410254.htm">$0254</a>
+ED1D: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y       ; flag for channel
+ED20: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+ED22: 60        RTS
+
+    <a href="ro41ebff.htm">Previous Page</a> / <a href="ro41ed23.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

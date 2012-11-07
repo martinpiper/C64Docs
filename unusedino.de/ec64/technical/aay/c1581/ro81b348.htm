@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+NEW-Befehl ($ee0d)
+
+B348: 20 FD 81  JSR <a href="ro8181fd.htm">$81FD</a>        Laufwerksnummer holen
+B34B: A5 EF     LDA <a href="ra81ef.htm">$EF</a>          Laufwerksnummer OK. ?
+B34D: 10 05     BPL $B354        ja, ==&gt;
+B34F: A9 33     LDA #$33         33, Syntax Error
+B351: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $B34D:
+
+B354: A9 00     LDA #$00
+B356: 85 6E     STA <a href="ra816e.htm">$6E</a>          Drivestatus loeschen
+B358: 8D FA 01  STA <a href="ra8101fa.htm">$01FA</a>        Schreibschutz-Status loeschen
+B35B: 20 F6 81  JSR <a href="ro8181e5.htm">$81F6</a>        Drive-LED einschalten
+B35E: A2 00     LDX #$00
+B360: AC 92 02  LDY <a href="ra810291.htm">$0292</a>        2. Parameter
+B363: C4 29     CPY <a href="ra8129.htm">$29</a>          = Zeilenende ?
+B365: F0 19     BEQ <a href="ro81b380.htm">$B380</a>        ja, nur Verzeichnis anlegen ==&gt;
+B367: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Neue ID setzen
+B36A: 95 1D     STA <a href="ra811d.htm">$1D</a>,X        (x=0)
+B36C: B9 01 02  LDA <a href="ra810200.htm">$0201</a>,Y
+B36F: 95 1E     STA <a href="ra811d.htm">$1E</a>,X
+B371: 20 62 92  JSR <a href="ro819262.htm">$9262</a>        Kanaele der SA 1-14 freigeben
+B374: 20 69 FF  JSR <a href="ro81ff00.htm">$FF69</a>        Prueft auf Diskettenwechsel
+B377: 20 46 87  JSR <a href="ro818746.htm">$8746</a>        Partition formatieren
+B37A: 20 3D B4  JSR <a href="ro81b43d.htm">$B43D</a>        BAM-Puffer loeschen
+B37D: 4C 90 B3  JMP <a href="ro81b390.htm">$B390</a>        Verzeichnis anlegen
+
+    <a href="ro81b33c.htm">Previous Page</a> / <a href="ro81b380.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

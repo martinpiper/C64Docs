@@ -1,0 +1,58 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F69B/63131:   Bump Clock
+
+Jump from <a href="romffea.htm">$FFEA</a>:
+
+F69B: A2 00     <a href="bldx.htm">LDX</a> #$00
+F69D: E6 A2     <a href="binc.htm">INC</a> <a href="zpa0.htm">$A2</a>       ; Real-time jiffy Clock
+F69F: D0 06     <a href="bbne.htm">BNE</a> $F6A7
+F6A1: E6 A1     <a href="binc.htm">INC</a> <a href="zpa0.htm">$A1</a>       ; Real-time jiffy Clock
+F6A3: D0 02     <a href="bbne.htm">BNE</a> $F6A7
+F6A5: E6 A0     <a href="binc.htm">INC</a> <a href="zpa0.htm">$A0</a>       ; Real-time jiffy Clock
+
+Jump from $F69F, $F6A3:
+
+F6A7: 38        <a href="bsec.htm">SEC</a>
+F6A8: A5 A2     <a href="blda.htm">LDA</a> <a href="zpa0.htm">$A2</a>       ; Real-time jiffy Clock
+F6AA: E9 01     <a href="bsbc.htm">SBC</a> #$01
+F6AC: A5 A1     <a href="blda.htm">LDA</a> <a href="zpa0.htm">$A1</a>       ; Real-time jiffy Clock
+F6AE: E9 1A     <a href="bsbc.htm">SBC</a> #$1A
+F6B0: A5 A0     <a href="blda.htm">LDA</a> <a href="zpa0.htm">$A0</a>       ; Real-time jiffy Clock
+F6B2: E9 4F     <a href="bsbc.htm">SBC</a> #$4F
+F6B4: 90 06     <a href="bbcc.htm">BCC</a> $F6BC
+F6B6: 86 A0     <a href="bstx.htm">STX</a> <a href="zpa0.htm">$A0</a>       ; Real-time jiffy Clock
+F6B8: 86 A1     <a href="bstx.htm">STX</a> <a href="zpa0.htm">$A1</a>       ; Real-time jiffy Clock
+F6BA: 86 A2     <a href="bstx.htm">STX</a> <a href="zpa0.htm">$A2</a>       ; Real-time jiffy Clock
+
+Jump from $F6B4, $F6C2, <a href="romf875.htm">$F8CA</a>, <a href="romfe43.htm">$FE5E</a>:
+
+F6BC: AD 01 DC  <a href="blda.htm">LDA</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+F6BF: CD 01 DC  <a href="bcmp.htm">CMP</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+F6C2: D0 F8     <a href="bbne.htm">BNE</a> $F6BC
+F6C4: AA        <a href="btax.htm">TAX</a>
+F6C5: 30 13     <a href="bbmi.htm">BMI</a> $F6DA
+F6C7: A2 BD     <a href="bldx.htm">LDX</a> #$BD
+F6C9: 8E 00 DC  <a href="bstx.htm">STX</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+
+Jump from $F6D2:
+
+F6CC: AE 01 DC  <a href="bldx.htm">LDX</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+F6CF: EC 01 DC  <a href="bcpx.htm">CPX</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+F6D2: D0 F8     <a href="bbne.htm">BNE</a> $F6CC
+F6D4: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+F6D7: E8        <a href="binx.htm">INX</a>
+F6D8: D0 02     <a href="bbne.htm">BNE</a> $F6DC
+
+Jump from $F6C5:
+
+F6DA: 85 91     <a href="bsta.htm">STA</a> <a href="zp91.htm">$91</a>       ; Flag: $7F = STOP key
+
+Jump from $F6D8:
+
+F6DC: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf68f.htm">Previous Page</a> / <a href="romf6dd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

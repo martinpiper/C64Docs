@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehl $0c: Inquire Status (bei der 1571: $856b)
+
+BEBB: 24 7C     BIT <a href="ra817c.htm">$7C</a>          b7: W-Bit abfragen (0=Status schreiben)
+BEBD: 10 09     BPL $BEC8        W=0, dann ==&gt;
+
+Einsprung von <a href="ro81bafc.htm">$BAFF</a>:
+
+BEBF: 20 D4 AC  JSR <a href="ro81accf.htm">$ACD4</a>        FSM zur Ausgabe vorbereiten
+BEC2: 20 AB BF  JSR <a href="ro81bfab.htm">$BFAB</a>        Burst-Statusbyte ausgeben
+BEC5: 4C BB AC  JMP <a href="ro81acb6.htm">$ACBB</a>        FSM auf Eingabe
+
+Einsprung von $BEBD:
+
+BEC8: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Neuen Status
+BECB: 85 80     STA <a href="ra8180.htm">$80</a>          in Burst-Status
+BECD: A9 20     LDA #$20         b5: M-Bit abfragen (1=Maske aendern)
+BECF: 24 7C     BIT <a href="ra817c.htm">$7C</a>          Burst-Status-Maske aendern ?
+BED1: F0 0A     BEQ $BEDD        nein ==&gt;
+BED3: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        neue OR-Maske
+BED6: 85 8A     STA <a href="ra818a.htm">$8A</a>
+BED8: AD 05 02  LDA <a href="ra810200.htm">$0205</a>        neue AND-Maske
+BEDB: 85 89     STA <a href="ra8189.htm">$89</a>
+
+Einsprung von $BED1:
+
+BEDD: 24 7C     BIT <a href="ra817c.htm">$7C</a>          b6: C-Bit abfragen (1=Diskette anmelden)
+BEDF: 50 10     BVC $BEF1        nicht gesetzt ==&gt;
+BEE1: 08        PHP
+BEE2: 58        CLI              Diskette anmelden
+BEE3: A9 80     LDA #$80         DOS-Fehler unterdruecken
+BEE5: 85 81     STA <a href="ra8181.htm">$81</a>
+BEE7: 20 69 FF  JSR <a href="ro81ff00.htm">$FF69</a>        Prueft auf Diskettenwechsel
+BEEA: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Diskette initialisieren
+BEED: 06 81     ASL <a href="ra8181.htm">$81</a>          Fehler freigeben
+BEEF: 28        PLP
+BEF0: 60        RTS
+Standard-1581-Format setzen
+
+Einsprung von $BEDF, <a href="ro81bcb2.htm">$BCC8</a>:
+
+BEF1: A9 01     LDA #$01         Flag fuer Diskettenwechsel setzen
+BEF3: 85 25     STA <a href="ra8125.htm">$25</a>
+BEF5: 4C 69 FF  JMP <a href="ro81ff00.htm">$FF69</a>        1581-Format vorwaehlen
+
+    <a href="ro81be06.htm">Previous Page</a> / <a href="ro81bef8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

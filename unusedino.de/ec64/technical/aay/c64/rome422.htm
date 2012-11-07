@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E422/58402:   Output Power-Up Message
+
+Jump from <a href="rome394.htm">$E39A</a>:
+
+E422: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+E424: A4 2C     <a href="bldy.htm">LDY</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+E426: 20 08 A4  <a href="bjsr.htm">JSR</a> <a href="roma408.htm">$A408</a>     ; Check Memory Overlap
+E429: A9 73     <a href="blda.htm">LDA</a> #$73
+E42B: A0 E4     <a href="bldy.htm">LDY</a> #$E4
+E42D: 20 1E AB  <a href="bjsr.htm">JSR</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+E430: A5 37     <a href="blda.htm">LDA</a> <a href="zp37.htm">$37</a>       ; Pointer: Highest Address available to BASIC
+E432: 38        <a href="bsec.htm">SEC</a>
+E433: E5 2B     <a href="bsbc.htm">SBC</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+E435: AA        <a href="btax.htm">TAX</a>
+E436: A5 38     <a href="blda.htm">LDA</a> <a href="zp37.htm">$38</a>       ; Pointer: Highest Address available to BASIC
+E438: E5 2C     <a href="bsbc.htm">SBC</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+E43A: 20 CD BD  <a href="bjsr.htm">JSR</a> <a href="rombdcd.htm">$BDCD</a>     ; Output Positive Integer in A/X
+E43D: A9 60     <a href="blda.htm">LDA</a> #$60
+E43F: A0 E4     <a href="bldy.htm">LDY</a> #$E4
+E441: 20 1E AB  <a href="bjsr.htm">JSR</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+E444: 4C 44 A6  <a href="bjmp.htm">JMP</a> <a href="roma642.htm">$A644</a>     ; Perform [new]
+
+    <a href="rome3bf.htm">Previous Page</a> / <a href="rome447.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

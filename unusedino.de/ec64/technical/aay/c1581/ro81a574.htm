@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Super-Side-Sektor laden
+
+Einsprung von <a href="ro81a5c0.htm">$A5C9</a>:
+
+A574: A6 50     LDX <a href="ra8150.htm">$50</a>
+A576: A9 FE     LDA #$FE         Super-Side-Sektor im Puffer ?
+A578: DD 02 01  CMP <a href="ra810102.htm">$0102</a>,X
+A57B: D0 01     BNE $A57E        nein, ==&gt;
+A57D: 60        RTS              ja ==&gt;
+
+Einsprung von $A57B, <a href="ro81a459.htm">$A4FD</a>:
+
+A57E: A9 80     LDA #$80         &lt;-- Super-Side-Sektor lesen
+A580: 2C         B $2C
+
+Einsprung von <a href="ro819bc3.htm">$9CC4</a>, <a href="ro81a459.htm">$A513</a>:
+
+A581: A9 90     LDA #$90         &lt;-- Super-Side-Sektor schreiben
+A583: 48        PHA
+A584: A6 50     LDX <a href="ra8150.htm">$50</a>
+A586: BD 10 01  LDA <a href="ra810110.htm">$0110</a>,X      T&amp;S holen
+A589: 85 4D     STA <a href="ra814d.htm">$4D</a>
+A58B: BD 09 01  LDA <a href="ra810109.htm">$0109</a>,X
+A58E: 85 4E     STA <a href="ra814e.htm">$4E</a>          (fuer den Fehlerfall vorsichts-
+A590: A9 FF     LDA #$FF         halber) Flag: 'kein Side-Sektor
+A592: 9D 02 01  STA <a href="ra810102.htm">$0102</a>,X      geladen' setzen
+A595: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X
+A598: 85 6C     STA <a href="ra816c.htm">$6C</a>
+A59A: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+A59D: 68        PLA
+A59E: 20 E4 94  JSR <a href="ro8194de.htm">$94E4</a>        Job aufrufen
+A5A1: A6 50     LDX <a href="ra8150.htm">$50</a>
+A5A3: A9 FE     LDA #$FE         $fe: Flag fuer
+A5A5: 9D 02 01  STA <a href="ra810102.htm">$0102</a>,X      'Super-Side-Sektor geladen'
+A5A8: 60        RTS
+
+    <a href="ro81a56e.htm">Previous Page</a> / <a href="ro81a5a9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

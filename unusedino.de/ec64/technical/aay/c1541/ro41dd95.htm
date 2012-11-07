@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DD95/56725:   Manipulate flags
+
+DD95: 90 06     BCC $DD9D
+
+Jump from <a href="ro41ca35.htm">$CA4F</a>, <a href="ro41dfd0.htm">$E01A</a>, <a href="ro41e07c.htm">$E0A0</a>, <a href="ro41e105.htm">$E107</a>, <a href="ro41e207.htm">$E25F</a>, <a href="ro41e31c.htm">$E446</a>:
+
+DD97: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DD99: 15 EC     ORA <a href="ra41ec.htm">$EC</a>,X       ; set flag
+DD9B: D0 06     BNE $DDA3
+
+Jump from $DD95, <a href="ro41cf9b.htm">$CFAC</a>, <a href="ro41dfd0.htm">$DFD2</a>, <a href="ro41dfd0.htm">$E003</a>, <a href="ro41e0ab.htm">$E0ED</a>, <a href="ro41e207.htm">$E21B</a>:
+
+DD9D: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DD9F: 49 FF     EOR #$FF
+DDA1: 35 EC     AND <a href="ra41ec.htm">$EC</a>,X       ; erase flag
+
+Jump from $DD9B:
+
+DDA3: 95 EC     STA <a href="ra41ec.htm">$EC</a>,X
+DDA5: 60        RTS
+
+    <a href="ro41dd8d.htm">Previous Page</a> / <a href="ro41dda6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

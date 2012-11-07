@@ -1,0 +1,470 @@
+<HTML
+><HEAD
+><TITLE
+>Linux Assembly HOWTO</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="NEXT"
+TITLE="Introduction"
+HREF="introduction.html"><META
+NAME="KEYWORD"
+CONTENT="assembly"><META
+NAME="KEYWORD"
+CONTENT="assembler"><META
+NAME="KEYWORD"
+CONTENT="asm"><META
+NAME="KEYWORD"
+CONTENT="inline"><META
+NAME="KEYWORD"
+CONTENT="32-bit"><META
+NAME="KEYWORD"
+CONTENT="IA-32"><META
+NAME="KEYWORD"
+CONTENT="i386"><META
+NAME="KEYWORD"
+CONTENT="x86"><META
+NAME="KEYWORD"
+CONTENT="nasm"><META
+NAME="KEYWORD"
+CONTENT="gas"><META
+NAME="KEYWORD"
+CONTENT="as"><META
+NAME="KEYWORD"
+CONTENT="as86"><META
+NAME="KEYWORD"
+CONTENT="yasm"><META
+NAME="KEYWORD"
+CONTENT="fasm"><META
+NAME="KEYWORD"
+CONTENT="shasm"><META
+NAME="KEYWORD"
+CONTENT="osimpa"><META
+NAME="KEYWORD"
+CONTENT="OS"><META
+NAME="KEYWORD"
+CONTENT="Linux"><META
+NAME="KEYWORD"
+CONTENT="Unix"><META
+NAME="KEYWORD"
+CONTENT="kernel"><META
+NAME="KEYWORD"
+CONTENT="system"><META
+NAME="KEYWORD"
+CONTENT="libc"><META
+NAME="KEYWORD"
+CONTENT="glibc"><META
+NAME="KEYWORD"
+CONTENT="system call"><META
+NAME="KEYWORD"
+CONTENT="interrupt"><META
+NAME="KEYWORD"
+CONTENT="small"><META
+NAME="KEYWORD"
+CONTENT="fast"><META
+NAME="KEYWORD"
+CONTENT="embedded"><META
+NAME="KEYWORD"
+CONTENT="hardware"><META
+NAME="KEYWORD"
+CONTENT="port"><META
+NAME="KEYWORD"
+CONTENT="macroprocessor"><META
+NAME="KEYWORD"
+CONTENT="metaprogramming"><META
+NAME="KEYWORD"
+CONTENT="preprocessor"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+></A
+>Linux Assembly HOWTO</H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN5"
+></A
+>Konstantin Boldyshev</H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+>	    <A
+HREF="http://linuxassembly.org"
+TARGET="_top"
+>	    Linux Assembly<A
+NAME="KONST"
+></A
+></A
+>
+	<BR></SPAN
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="EMAIL"
+>&#60;<A
+HREF="mailto:konst@linuxassembly.org"
+>konst@linuxassembly.org</A
+>&#62;</TT
+><br>
+	</P
+></DIV
+></DIV
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN14"
+></A
+>Francois-Rene Rideau</H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+>	    <A
+HREF="http://tunes.org"
+TARGET="_top"
+>	    Tunes project<A
+NAME="FARE"
+></A
+></A
+>
+	<BR></SPAN
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="EMAIL"
+>&#60;<A
+HREF="mailto:fare@tunes.org"
+>fare@tunes.org</A
+>&#62;</TT
+><br>
+	</P
+></DIV
+></DIV
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1999-2006 Konstantin Boldyshev</P
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1996-1999 Francois-Rene Rideau</P
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><A
+NAME="AEN34"
+></A
+><P
+></P
+><P
+>This is the Linux Assembly HOWTO, version 0.6g.
+This document describes how to program in assembly language
+using <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>free</I
+></SPAN
+> programming tools,
+focusing on development for or from the Linux Operating System,
+mostly on IA-32 (i386) platform.
+Included material may or may not be applicable
+to other hardware and/or software platforms.</P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="LEGALNOTICE"
+><A
+NAME="AEN29"
+></A
+><P
+></P
+><P
+>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1;
+with no Invariant Sections, with no Front-Cover Texts, and no Back-Cover texts.</P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html#AEN75"
+>Legal Blurb</A
+></DT
+><DT
+>1.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html#AEN83"
+>Foreword</A
+></DT
+><DT
+>1.3. <A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html#AEN100"
+>Contributions</A
+></DT
+><DT
+>1.4. <A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html#AEN111"
+>Translations</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="http://unusedino.de/linuxassembly/howto/doyouneed.html"
+>Do you need assembly?</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/doyouneed.html#AEN120"
+>Pros and Cons</A
+></DT
+><DT
+>2.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/howtonot.html"
+>How to NOT use Assembly</A
+></DT
+><DT
+>2.3. <A
+HREF="http://unusedino.de/linuxassembly/howto/landa.html"
+>Linux and assembly</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="http://unusedino.de/linuxassembly/howto/assemblers.html"
+>Assemblers</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/assemblers.html#P-GCC"
+>GCC Inline Assembly</A
+></DT
+><DT
+>3.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/gas.html"
+>GAS</A
+></DT
+><DT
+>3.3. <A
+HREF="http://unusedino.de/linuxassembly/howto/nasm.html"
+>NASM</A
+></DT
+><DT
+>3.4. <A
+HREF="http://unusedino.de/linuxassembly/howto/other.html"
+>Other Assemblers</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="http://unusedino.de/linuxassembly/howto/metaprogramming.html"
+>Metaprogramming</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/metaprogramming.html#AEN565"
+>External filters</A
+></DT
+><DT
+>4.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/meta.html"
+>Metaprogramming</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="http://unusedino.de/linuxassembly/howto/conventions.html"
+>Calling conventions</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/conventions.html#AEN622"
+>Linux</A
+></DT
+><DT
+>5.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/dos.html"
+>DOS and Windows</A
+></DT
+><DT
+>5.3. <A
+HREF="http://unusedino.de/linuxassembly/howto/ownos.html"
+>Your own OS</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="http://unusedino.de/linuxassembly/howto/quickstart.html"
+>Quick start</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/quickstart.html#AEN825"
+>Introduction</A
+></DT
+><DT
+>6.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/hello.html"
+>Hello, world!</A
+></DT
+><DT
+>6.3. <A
+HREF="http://unusedino.de/linuxassembly/howto/build.html"
+>Building an executable</A
+></DT
+><DT
+>6.4. <A
+HREF="http://unusedino.de/linuxassembly/howto/mips.html"
+>MIPS Example</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="http://unusedino.de/linuxassembly/howto/resources.html"
+>Resources</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="http://unusedino.de/linuxassembly/howto/resources.html#S-RES-URL"
+>Pointers</A
+></DT
+><DT
+>7.2. <A
+HREF="http://unusedino.de/linuxassembly/howto/resources.html#S-RES-LIST"
+>Mailing list</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="http://unusedino.de/linuxassembly/howto/faq.html"
+>Frequently Asked Questions</A
+></DT
+><DT
+>A. <A
+HREF="http://unusedino.de/linuxassembly/howto/history.html"
+>History</A
+></DT
+><DT
+>B. <A
+HREF="http://unusedino.de/linuxassembly/howto/acknowledgements.html"
+>Acknowledgements</A
+></DT
+><DT
+>C. <A
+HREF="http://unusedino.de/linuxassembly/howto/endorsements.html"
+>Endorsements</A
+></DT
+><DT
+>D. <A
+HREF="http://unusedino.de/linuxassembly/howto/fdl.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="http://unusedino.de/linuxassembly/howto/introduction.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introduction</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

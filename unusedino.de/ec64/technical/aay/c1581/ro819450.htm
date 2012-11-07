@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Holt Byte aus aktuellem Puffer ($d4f6)
+E: a  : Position im Puffer
+   $50: aktuelle Kanalnummer
+A: a  : Byte aus Puffer
+
+Einsprung von <a href="ro818424.htm">$8449</a>, <a href="ro819f4c.htm">$9F8F</a>, <a href="ro81a2d6.htm">$A37C</a>:
+
+9450: 85 42     STA <a href="ra8140.htm">$42</a>          Index in Puffer
+9452: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktuellen Puffer holen
+9455: AA        TAX
+9456: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X      Hi-Byte der Pufferadresse holen
+9459: 85 43     STA <a href="ra8140.htm">$43</a>
+945B: A0 00     LDY #$00         Byte aus Puffer holen
+945D: B1 42     LDA (<a href="ra8140.htm">$42</a>),Y
+945F: 60        RTS
+
+    <a href="ro819434.htm">Previous Page</a> / <a href="ro819460.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

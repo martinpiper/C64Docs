@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D0EB/53483:   Open channel for reading
+
+Jump from <a href="ro41c6de.htm">$C6E2</a>, <a href="ro41c9a7.htm">$C9C3</a>, <a href="ro41cb20.htm">$CB45</a>, <a href="ro41cdd2.htm">$CDE7</a>, <a href="ro41d39b.htm">$D39B</a>, <a href="ro41d8f5.htm">$D90E</a>, <a href="ro41de3b.htm">$DE3B</a>, <a href="ro41e207.htm">$E20F</a>, <a href="ro41e680.htm">$E680</a>,
+          <a href="ro41e909.htm">$E90A</a>:
+
+D0EB: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D0ED: C9 13     CMP #$13        ; 19
+D0EF: 90 02     BCC $D0F3       ; smaller?
+D0F1: 29 0F     AND #$0F
+
+Jump from $D0EF:
+
+D0F3: C9 0F     CMP #$0F
+D0F5: D0 02     BNE $D0F9
+D0F7: A9 10     LDA #$10        ; 16
+
+Jump from $D0F5:
+
+D0F9: AA        TAX
+D0FA: 38        SEC
+D0FB: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X
+D0FE: 30 06     BMI $D106
+D100: 29 0F     AND #$0F
+D102: 85 82     STA <a href="ra4182.htm">$82</a>
+D104: AA        TAX
+D105: 18        CLC             ; flag for ok
+
+Jump from $D0FE:
+
+D106: 60        RTS
+
+    <a href="ro41d0c7.htm">Previous Page</a> / <a href="ro41d107.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

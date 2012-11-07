@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E544/58692:   Clear Screen
+
+Jump from <a href="rome7d4.htm">$E86E</a>:
+
+E544: AD 88 02  <a href="blda.htm">LDA</a> <a href="zp0288.htm">$0288</a>     ; High Byte of Screen Memory Address
+E547: 09 80     <a href="bora.htm">ORA</a> #$80
+E549: A8        <a href="btay.htm">TAY</a>
+E54A: A9 00     <a href="blda.htm">LDA</a> #$00
+E54C: AA        <a href="btax.htm">TAX</a>
+
+Jump from $E558:
+
+E54D: 94 D9     <a href="bsty.htm">STY</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E54F: 18        <a href="bclc.htm">CLC</a>
+E550: 69 28     <a href="badc.htm">ADC</a> #$28
+E552: 90 01     <a href="bbcc.htm">BCC</a> $E555
+E554: C8        <a href="biny.htm">INY</a>
+
+Jump from $E552:
+
+E555: E8        <a href="binx.htm">INX</a>
+E556: E0 1A     <a href="bcpx.htm">CPX</a> #$1A
+E558: D0 F3     <a href="bbne.htm">BNE</a> $E54D
+E55A: A9 FF     <a href="blda.htm">LDA</a> #$FF
+E55C: 95 D9     <a href="bsta.htm">STA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E55E: A2 18     <a href="bldx.htm">LDX</a> #$18
+
+Jump from $E564:
+
+E560: 20 FF E9  <a href="bjsr.htm">JSR</a> <a href="rome9ff.htm">$E9FF</a>     ; Clear Screen Line
+E563: CA        <a href="bdex.htm">DEX</a>
+E564: 10 FA     <a href="bbpl.htm">BPL</a> $E560
+
+    <a href="rome518.htm">Previous Page</a> / <a href="rome566.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

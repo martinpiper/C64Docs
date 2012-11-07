@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E1D4/57812:   Get Parameters For LOAD/SAVE
+
+Jump from <a href="rome156.htm">$E156</a>, <a href="rome165.htm">$E16C</a>:
+
+E1D4: A9 00     <a href="blda.htm">LDA</a> #$00
+E1D6: 20 BD FF  <a href="bjsr.htm">JSR</a> <a href="romffbd.htm">$FFBD</a>     ; Set Filename
+E1D9: A2 08     <a href="bldx.htm">LDX</a> #$08
+E1DB: A0 00     <a href="bldy.htm">LDY</a> #$00
+E1DD: 20 BA FF  <a href="bjsr.htm">JSR</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+E1E0: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E1E3: 20 57 E2  <a href="bjsr.htm">JSR</a> <a href="rome219.htm">$E257</a>     ; Get Parameters For OPEN/CLOSE
+E1E6: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E1E9: 20 00 E2  <a href="bjsr.htm">JSR</a> <a href="rome200.htm">$E200</a>     ; Get Next One Byte Parameter
+E1EC: A0 00     <a href="bldy.htm">LDY</a> #$00
+E1EE: 86 49     <a href="bstx.htm">STX</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E1F0: 20 BA FF  <a href="bjsr.htm">JSR</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+E1F3: 20 06 E2  <a href="bjsr.htm">JSR</a> <a href="rome206.htm">$E206</a>     ; Check Default Parameters
+E1F6: 20 00 E2  <a href="bjsr.htm">JSR</a> <a href="rome200.htm">$E200</a>     ; Get Next One Byte Parameter
+E1F9: 8A        <a href="btxa.htm">TXA</a>
+E1FA: A8        <a href="btay.htm">TAY</a>
+E1FB: A6 49     <a href="bldx.htm">LDX</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+E1FD: 4C BA FF  <a href="bjmp.htm">JMP</a> <a href="romffba.htm">$FFBA</a>     ; Set Logical File Parameters
+
+    <a href="rome1c7.htm">Previous Page</a> / <a href="rome200.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FF20/65312:   Patch for listen to serial bus, from $E9DC
+
+Jump from $FF25, <a href="ro41e9c9.htm">$E9DC</a>:
+
+FF20: AD 00 18  LDA <a href="via10.htm">$1800</a>
+FF23: 29 01     AND #$01
+FF25: D0 F9     BNE $FF20
+FF27: A9 01     LDA #$01
+FF29: 8D 05 18  STA <a href="via15.htm">$1805</a>
+FF2C: 4C DF E9  JMP <a href="ro41e9c9.htm">$E9DF</a>
+
+    <a href="ro41ff10.htm">Previous Page</a> / <a href="ro41ff2f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

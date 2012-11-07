@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $1C0C/7180/VIA2+12:   Peripheral Control Register
+
+   +----------+-----------------------------------------------------+
+   | Bits 7-5 |   CB2 Control:                                      |
+   |          |     000 = Input negative active edge                |
+   |          |     001 = Independent interrupt input negative edge |
+   |          |     010 = Input positive active edge                |
+   |          |     011 = Independent interrupt input positive edge |
+   |          |     100 = Handshake output                          |
+   |          |     101 = Pulse output                              |
+   |          |     110 = Low output                                |
+   |          |     111 = High output                               |
+   | Bit  4   |   CB1 Interrupt Control: 0 = Negative active edge   |
+   |          |                          1 = Positive active edge   |
+   | Bit  3-1 |   CA2 Control: see Bits 7-5                         |
+   | Bit  0   |   CA1 Interrupt Control: see Bit 4                  |
+   +----------+-----------------------------------------------------+
+
+   CA1 (Input):  BYTE-READY
+   CA2 (Output): SOE (High = activate BYTE-READY)
+   CB2 (Output): Head Mode (Low = Write, High = Read)
+
+ROM-Reference:
+
+ LDA $1C0C  : <a href="ro41f259.htm">$F263</a> <a href="ro41f2b0.htm">$F2B6</a> <a href="ro41f575.htm">$F599</a> <a href="ro41f575.htm">$F5CC</a> <a href="ro41faa5.htm">$FABE</a> <a href="ro41fda3.htm">$FDA3</a> <a href="ro41fe00.htm">$FE00</a> <a href="ro41fe0e.htm">$FE0E</a>
+ STA $1C0C  : <a href="ro41f259.htm">$F26C</a> <a href="ro41f2b0.htm">$F2BB</a> <a href="ro41f575.htm">$F5A0</a> <a href="ro41f575.htm">$F5D1</a> <a href="ro41faa5.htm">$FAC3</a> <a href="ro41fda3.htm">$FDAA</a> <a href="ro41fe00.htm">$FE05</a> <a href="ro41fe0e.htm">$FE15</a>
+
+</pre></td></tr></table></center></body></html>

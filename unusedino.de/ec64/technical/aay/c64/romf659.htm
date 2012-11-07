@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F659/63065:   Save to Tape
+
+Jump from <a href="romf5dd.htm">$F5F8</a>:
+
+F659: 4A        <a href="blsr.htm">LSR</a>
+F65A: B0 03     <a href="bbcs.htm">BCS</a> $F65F
+F65C: 4C 13 F7  <a href="bjmp.htm">JMP</a> <a href="romf713.htm">$F713</a>     ; Output I/O Error Messages: 'ILLEGAL DEVICE NUMBER'
+
+Jump from $F65A:
+
+F65F: 20 D0 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d0.htm">$F7D0</a>     ; Get Buffer Address
+F662: 90 8D     <a href="bbcc.htm">BCC</a> <a href="romf5dd.htm">$F5F1</a>     ; Save RAM
+F664: 20 38 F8  <a href="bjsr.htm">JSR</a> <a href="romf838.htm">$F838</a>     ; Print &quot;PRESS RECORD...&quot;
+F667: B0 25     <a href="bbcs.htm">BCS</a> $F68E
+F669: 20 8F F6  <a href="bjsr.htm">JSR</a> <a href="romf68f.htm">$F68F</a>     ; Print &quot;SAVING&quot;
+F66C: A2 03     <a href="bldx.htm">LDX</a> #$03
+F66E: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F670: 29 01     <a href="band.htm">AND</a> #$01
+F672: D0 02     <a href="bbne.htm">BNE</a> $F676
+F674: A2 01     <a href="bldx.htm">LDX</a> #$01
+
+Jump from $F672:
+
+F676: 8A        <a href="btxa.htm">TXA</a>
+F677: 20 6A F7  <a href="bjsr.htm">JSR</a> <a href="romf76a.htm">$F76A</a>     ; Write Tape Header
+F67A: B0 12     <a href="bbcs.htm">BCS</a> $F68E
+F67C: 20 67 F8  <a href="bjsr.htm">JSR</a> <a href="romf864.htm">$F867</a>     ; Initiate Tape Write
+F67F: B0 0D     <a href="bbcs.htm">BCS</a> $F68E
+F681: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F683: 29 02     <a href="band.htm">AND</a> #$02
+F685: F0 06     <a href="bbeq.htm">BEQ</a> $F68D
+F687: A9 05     <a href="blda.htm">LDA</a> #$05
+F689: 20 6A F7  <a href="bjsr.htm">JSR</a> <a href="romf76a.htm">$F76A</a>     ; Write Tape Header
+F68C: 24        .BYTE $24
+
+Jump from $F685:
+
+F68D: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $F667, $F67A, $F67F, <a href="romf68f.htm">$F691</a>:
+
+F68E: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf5fa.htm">Previous Page</a> / <a href="romf68f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BBA2/48034:   Load FAC#1 From Memory
+
+Jump from <a href="roma742.htm">$A78F</a>, <a href="romad1e.htm">$AD42</a>, <a href="romae83.htm">$AEA2</a>, <a href="romaf48.htm">$AFA4</a>, <a href="rombb07.htm">$BB09</a>, <a href="rombf71.htm">$BF78</a>, <a href="rome097.htm">$E0C2</a>, <a href="rome2b4.htm">$E2C9</a>:
+
+BBA2: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+BBA4: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+BBA6: A0 04     <a href="bldy.htm">LDY</a> #$04
+BBA8: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBAA: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BBAC: 88        <a href="bdey.htm">DEY</a>
+BBAD: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBAF: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BBB1: 88        <a href="bdey.htm">DEY</a>
+BBB2: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBB4: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BBB6: 88        <a href="bdey.htm">DEY</a>
+BBB7: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBB9: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BBBB: 09 80     <a href="bora.htm">ORA</a> #$80
+BBBD: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BBBF: 88        <a href="bdey.htm">DEY</a>
+BBC0: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BBC2: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BBC4: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BBC6: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombb0f.htm">Previous Page</a> / <a href="rombbc7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

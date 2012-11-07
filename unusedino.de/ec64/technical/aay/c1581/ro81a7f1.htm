@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+CmdError: Error-Routine des DOS ($e645)
+
+A7F1: 20 6D A8  JSR <a href="ro81a862.htm">$A86D</a>        Fehlertext generieren
+
+Einsprung von <a href="ro81a7ae.htm">$A7ED</a>:
+
+A7F4: 20 71 80  JSR <a href="ro818071.htm">$8071</a>        INPUT-Puffer loeschen
+A7F7: A9 00     LDA #$00         BAM nicht schreiben
+A7F9: 85 35     STA <a href="ra8135.htm">$35</a>
+A7FB: 20 F1 81  JSR <a href="ro8181e5.htm">$81F1</a>        LED-Blinken aktivieren
+A7FE: 20 34 94  JSR <a href="ro819434.htm">$9434</a>        interne Schreib-/Lesekanaele freigeben
+A801: A9 00     LDA #$00
+A803: 85 CD     STA <a href="ra81cd.htm">$CD</a>          Zeiger in INPUT-Puffer loeschen
+A805: A6 4F     LDX <a href="ra814f.htm">$4F</a>          Stackpointer initialisieren
+A807: 9A        TXS
+A808: A5 53     LDA <a href="ra8153.htm">$53</a>          Sekundaeradresse vom Bus
+A80A: 29 0F     AND #$0F
+A80C: 85 52     STA <a href="ra8152.htm">$52</a>          als aktuelle Sekundaeradresse setzen
+A80E: C9 0F     CMP #$0F         = Fehlerkanal
+A810: F0 29     BEQ $A83B        ja, Ende
+A812: 78        SEI
+A813: 24 76     BIT <a href="ra8176.htm">$76</a>          Uebertragungsmodus holen
+A815: 70 17     BVS $A82E        LISTEN ? ==&gt;
+A817: 30 0F     BMI $A828        TALK ? ==&gt;
+A819: A6 52     LDX <a href="ra8152.htm">$52</a>
+A81B: B5 A8     LDA <a href="ra81a8.htm">$A8</a>,X
+A81D: C9 FF     CMP #$FF         War SA geschlossen ?
+A81F: F0 1A     BEQ $A83B        ja, Ende
+A821: 29 0F     AND #$0F         entsprechende Kanalnummer holen
+A823: 85 50     STA <a href="ra8150.htm">$50</a>
+A825: 4C 31 A8  JMP $A831
+
+Fehlerbehandlung bei Talk
+
+Einsprung von $A817:
+
+A828: 20 27 90  JSR <a href="ro819027.htm">$9027</a>        Kanal zum Lesen holen
+A82B: 4C 31 A8  JMP $A831
+Fehlerbehandlung bei Listen
+
+Einsprung von $A815:
+
+A82E: 20 42 90  JSR <a href="ro819042.htm">$9042</a>        Kanal zum Schreiben holen
+
+Einsprung von $A825, $A82B:
+
+A831: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Filetyp holen
+A834: C9 04     CMP #$04         REL-Datei oder Direktzugriff ?
+A836: B0 03     BCS $A83B        ja, (Kanal nicht freigeben) ==&gt;
+A838: 20 9E 91  JSR <a href="ro81919e.htm">$919E</a>        Kanal freigeben
+
+Einsprung von $A810, $A81F, $A836:
+
+A83B: 4C 00 FF  JMP <a href="ro81ff00.htm">$FF00</a>        Zur Haupt-Warteschleife
+
+DOS 6
+
+    <a href="ro81a7ae.htm">Previous Page</a> / <a href="ro81a83e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

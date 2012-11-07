@@ -1,0 +1,89 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EE13/60947:   Receive From Serial Bus
+
+Jump from <a href="romf199.htm">$F1B5</a>, <a href="romf4b8.htm">$F4D5</a>, <a href="romf4b8.htm">$F4E0</a>, <a href="romf4b8.htm">$F501</a>, <a href="romffa5.htm">$FFA5</a>:
+
+EE13: 78        <a href="bsei.htm">SEI</a>
+EE14: A9 00     <a href="blda.htm">LDA</a> #$00
+EE16: 85 A5     <a href="bsta.htm">STA</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+EE18: 20 85 EE  <a href="bjsr.htm">JSR</a> <a href="romee85.htm">$EE85</a>     ; Serial Clock On
+
+Jump from $EE1E:
+
+EE1B: 20 A9 EE  <a href="bjsr.htm">JSR</a> <a href="romeea9.htm">$EEA9</a>     ; Get Serial Data And Clock In
+EE1E: 10 FB     <a href="bbpl.htm">BPL</a> $EE1B
+
+Jump from $EE54:
+
+EE20: A9 01     <a href="blda.htm">LDA</a> #$01
+EE22: 8D 07 DC  <a href="bsta.htm">STA</a> <a href="cia17.htm">$DC07</a>     ; CIA1: Timer B High-Byte (Tape, Serial Port)
+EE25: A9 19     <a href="blda.htm">LDA</a> #$19
+EE27: 8D 0F DC  <a href="bsta.htm">STA</a> <a href="cia115.htm">$DC0F</a>     ; CIA1: Control Register B
+EE2A: 20 97 EE  <a href="bjsr.htm">JSR</a> <a href="romee97.htm">$EE97</a>     ; Serial Output 1
+EE2D: AD 0D DC  <a href="blda.htm">LDA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+
+Jump from $EE3A:
+
+EE30: AD 0D DC  <a href="blda.htm">LDA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+EE33: 29 02     <a href="band.htm">AND</a> #$02
+EE35: D0 07     <a href="bbne.htm">BNE</a> $EE3E
+EE37: 20 A9 EE  <a href="bjsr.htm">JSR</a> <a href="romeea9.htm">$EEA9</a>     ; Get Serial Data And Clock In
+EE3A: 30 F4     <a href="bbmi.htm">BMI</a> $EE30
+EE3C: 10 18     <a href="bbpl.htm">BPL</a> $EE56
+
+Jump from $EE35:
+
+EE3E: A5 A5     <a href="blda.htm">LDA</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+EE40: F0 05     <a href="bbeq.htm">BEQ</a> $EE47
+EE42: A9 02     <a href="blda.htm">LDA</a> #$02
+EE44: 4C B2 ED  <a href="bjmp.htm">JMP</a> <a href="romedb0.htm">$EDB2</a>     ; Flag Errors: Status #03 - WRITE TIMEOUT
+
+Jump from $EE40:
+
+EE47: 20 A0 EE  <a href="bjsr.htm">JSR</a> <a href="romeea0.htm">$EEA0</a>     ; Serial Output 0
+EE4A: 20 85 EE  <a href="bjsr.htm">JSR</a> <a href="romee85.htm">$EE85</a>     ; Serial Clock On
+EE4D: A9 40     <a href="blda.htm">LDA</a> #$40
+EE4F: 20 1C FE  <a href="bjsr.htm">JSR</a> <a href="romfe18.htm">$FE1C</a>     ; Control OS Messages
+EE52: E6 A5     <a href="binc.htm">INC</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+EE54: D0 CA     <a href="bbne.htm">BNE</a> $EE20
+
+Jump from $EE3C:
+
+EE56: A9 08     <a href="blda.htm">LDA</a> #$08
+EE58: 85 A5     <a href="bsta.htm">STA</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+
+Jump from $EE60, $EE63, $EE74:
+
+EE5A: AD 00 DD  <a href="blda.htm">LDA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EE5D: CD 00 DD  <a href="bcmp.htm">CMP</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EE60: D0 F8     <a href="bbne.htm">BNE</a> $EE5A
+EE62: 0A        <a href="basl.htm">ASL</a>
+EE63: 10 F5     <a href="bbpl.htm">BPL</a> $EE5A
+EE65: 66 A4     <a href="bror.htm">ROR</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+
+Jump from $EE6D, $EE70:
+
+EE67: AD 00 DD  <a href="blda.htm">LDA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EE6A: CD 00 DD  <a href="bcmp.htm">CMP</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+EE6D: D0 F8     <a href="bbne.htm">BNE</a> $EE67
+EE6F: 0A        <a href="basl.htm">ASL</a>
+EE70: 30 F5     <a href="bbmi.htm">BMI</a> $EE67
+EE72: C6 A5     <a href="bdec.htm">DEC</a> <a href="zpa5.htm">$A5</a>       ; Tape Synchronising count down
+EE74: D0 E4     <a href="bbne.htm">BNE</a> $EE5A
+EE76: 20 A0 EE  <a href="bjsr.htm">JSR</a> <a href="romeea0.htm">$EEA0</a>     ; Serial Output 0
+EE79: 24 90     <a href="bbit.htm">BIT</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+EE7B: 50 03     <a href="bbvc.htm">BVC</a> $EE80
+EE7D: 20 06 EE  <a href="bjsr.htm">JSR</a> <a href="romedfe.htm">$EE06</a>     ; Send UNLISTEN
+
+Jump from $EE7B:
+
+EE80: A5 A4     <a href="blda.htm">LDA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+EE82: 58        <a href="bcli.htm">CLI</a>
+EE83: 18        <a href="bclc.htm">CLC</a>
+EE84: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romedfe.htm">Previous Page</a> / <a href="romee85.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

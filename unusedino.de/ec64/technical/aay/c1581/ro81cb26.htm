@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOBs $d0, $e0: JUMPC_DV, EXBUF_DV: Programm im Jobpuffer ausfuehren
+Ruecksprung in das Controllerprogramm mit:
+- JMP $CDCC: Job beenden, Rueckmeldung in a, alle Jobspeicher nochmal testen
+  Achtung: Alle Rueckmeldungen &gt;1 loeschen den Cachepuffer !!!
+- Rueckmeldung in Jobpuffer schreiben, JMP $CDE2: naechsten Job testen
+  Der Cachepuffer bleibt immer erhalten.
+- JMP $CE00: Job beim naechsten IRQ nochmal aufrufen
+
+CB26: A6 83     LDX <a href="ra8183.htm">$83</a>
+CB28: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X      Pufferadresse setzen
+CB2B: 85 49     STA <a href="ra8148.htm">$49</a>
+CB2D: A0 00     LDY #$00         Lo-Byte immer 0
+CB2F: 84 48     STY <a href="ra8148.htm">$48</a>
+CB31: 8A        TXA              Puffernummer uebergeben
+CB32: 6C 48 00  JMP (<a href="ra8148.htm">$0048</a>)      Programm ausfuehren
+
+    <a href="ro81cb0f.htm">Previous Page</a> / <a href="ro81cb35.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

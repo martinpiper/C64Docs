@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B0E7/45287:   Locate Ordinary Variable
+
+Jump from <a href="romb08b.htm">$B0E2</a>:
+
+B0E7: A0 00     <a href="bldy.htm">LDY</a> #$00
+B0E9: 84 10     <a href="bsty.htm">STY</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+B0EB: A5 2D     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+B0ED: A6 2E     <a href="bldx.htm">LDX</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+
+Jump from $B111:
+
+B0EF: 86 60     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+
+Jump from $B10E:
+
+B0F1: 85 5F     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B0F3: E4 30     <a href="bcpx.htm">CPX</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+B0F5: D0 04     <a href="bbne.htm">BNE</a> $B0FB
+B0F7: C5 2F     <a href="bcmp.htm">CMP</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+B0F9: F0 22     <a href="bbeq.htm">BEQ</a> <a href="romb11d.htm">$B11D</a>     ; Create New Variable
+
+Jump from $B0F5:
+
+B0FB: A5 45     <a href="blda.htm">LDA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B0FD: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B0FF: D0 08     <a href="bbne.htm">BNE</a> $B109
+B101: A5 46     <a href="blda.htm">LDA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B103: C8        <a href="biny.htm">INY</a>
+B104: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B106: F0 7D     <a href="bbeq.htm">BEQ</a> <a href="romb128.htm">$B185</a>     ; Create Variable
+B108: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $B0FF:
+
+B109: 18        <a href="bclc.htm">CLC</a>
+B10A: A5 5F     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B10C: 69 07     <a href="badc.htm">ADC</a> #$07
+B10E: 90 E1     <a href="bbcc.htm">BCC</a> $B0F1
+B110: E8        <a href="binx.htm">INX</a>
+B111: D0 DC     <a href="bbne.htm">BNE</a> $B0EF
+
+    <a href="romb08b.htm">Previous Page</a> / <a href="romb113.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

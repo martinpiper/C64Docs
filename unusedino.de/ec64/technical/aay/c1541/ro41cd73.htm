@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CD73/52595:   B-W block write
+
+CD73: 20 F2 CD  JSR <a href="ro41cdf2.htm">$CDF2</a>       ; open channel
+CD76: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+CD79: A8        TAY
+CD7A: 88        DEY
+CD7B: C9 02     CMP #$02        ; buffer pointer lo less than 2?
+CD7D: B0 02     BCS $CD81       ; no
+CD7F: A0 01     LDY #$01
+
+Jump from $CD7D:
+
+CD81: A9 00     LDA #$00
+CD83: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+CD86: 98        TYA
+CD87: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write byte in buffer
+CD8A: 8A        TXA
+CD8B: 48        PHA
+CD8C: 20 64 D4  JSR <a href="ro41d464.htm">$D464</a>       ; write block to disk
+CD8F: 68        PLA
+CD90: AA        TAX
+CD91: 20 EE D3  JSR <a href="ro41d39b.htm">$D3EE</a>       ; get byte from buffer
+CD94: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done, error message
+
+    <a href="ro41cd5f.htm">Previous Page</a> / <a href="ro41cd97.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

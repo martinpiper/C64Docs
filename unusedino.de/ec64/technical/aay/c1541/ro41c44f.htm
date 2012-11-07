@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C44F/50255:   Search for file in directory
+
+Jump from <a href="ro41c8f0.htm">$C952</a>, <a href="ro41ca88.htm">$CA99</a>, <a href="ro41e7a3.htm">$E7B8</a>:
+
+C44F: 20 CA C3  JSR <a href="ro41c3ca.htm">$C3CA</a>       ; initialize drive
+
+Jump from $C46D:
+
+C452: A9 00     LDA #$00
+C454: 8D 92 02  STA <a href="ra410292.htm">$0292</a>       ; pointer
+C457: 20 AC C5  JSR <a href="ro41c5ac.htm">$C5AC</a>       ; read first directory block
+C45A: D0 19     BNE $C475       ; entry present?
+
+Jump from $C488:
+
+C45C: CE 8C 02  DEC <a href="ra41028c.htm">$028C</a>       ; drive number clear?
+C45F: 10 01     BPL $C462       ; no
+C461: 60        RTS
+
+Jump from $C45F:
+
+C462: A9 01     LDA #$01
+C464: 8D 8D 02  STA <a href="ra41028d.htm">$028D</a>
+C467: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>       ; change drive
+C46A: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+C46D: 4C 52 C4  JMP $C452       ; and search
+
+Jump from $C481:
+
+C470: 20 17 C6  JSR <a href="ro41c5ac.htm">$C617</a>       ; search next file in directory
+C473: F0 10     BEQ $C485       ; not found?
+
+Jump from $C45A, $C483:
+
+C475: 20 D8 C4  JSR <a href="ro41c4d8.htm">$C4D8</a>       ; verify directory entry
+C478: AD 8F 02  LDA <a href="ra41028f.htm">$028F</a>
+C47B: F0 01     BEQ $C47E       ; more files?
+C47D: 60        RTS
+
+Jump from $C47B:
+
+C47E: AD 53 02  LDA <a href="ra410253.htm">$0253</a>
+C481: 30 ED     BMI $C470       ; file not found?
+C483: 10 F0     BPL $C475       ; yes
+
+Jump from $C473:
+
+C485: AD 8F 02  LDA <a href="ra41028f.htm">$028F</a>
+C488: F0 D2     BEQ $C45C
+C48A: 60        RTS
+
+    <a href="ro41c440.htm">Previous Page</a> / <a href="ro41c48b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,72 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B02E/45102:   String Comparison
+
+Jump from <a href="romb016.htm">$B019</a>:
+
+B02E: A9 00     <a href="blda.htm">LDA</a> #$00
+B030: 85 0D     <a href="bsta.htm">STA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B032: C6 4D     <a href="bdec.htm">DEC</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+B034: 20 A6 B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6A6</a>     ; Perform String Housekeeping
+B037: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B039: 86 62     <a href="bstx.htm">STX</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B03B: 84 63     <a href="bsty.htm">STY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B03D: A5 6C     <a href="blda.htm">LDA</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+B03F: A4 6D     <a href="bldy.htm">LDY</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+B041: 20 AA B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6AA</a>     ; Perform String Housekeeping
+B044: 86 6C     <a href="bstx.htm">STX</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+B046: 84 6D     <a href="bsty.htm">STY</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+B048: AA        <a href="btax.htm">TAX</a>
+B049: 38        <a href="bsec.htm">SEC</a>
+B04A: E5 61     <a href="bsbc.htm">SBC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B04C: F0 08     <a href="bbeq.htm">BEQ</a> $B056
+B04E: A9 01     <a href="blda.htm">LDA</a> #$01
+B050: 90 04     <a href="bbcc.htm">BCC</a> $B056
+B052: A6 61     <a href="bldx.htm">LDX</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B054: A9 FF     <a href="blda.htm">LDA</a> #$FF
+
+Jump from $B04C, $B050:
+
+B056: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B058: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+B05A: E8        <a href="binx.htm">INX</a>
+
+Jump from $B06A:
+
+B05B: C8        <a href="biny.htm">INY</a>
+B05C: CA        <a href="bdex.htm">DEX</a>
+B05D: D0 07     <a href="bbne.htm">BNE</a> $B066
+B05F: A6 66     <a href="bldx.htm">LDX</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+
+Jump from <a href="romb01b.htm">$B02B</a>:
+
+B061: 30 0F     <a href="bbmi.htm">BMI</a> $B072
+B063: 18        <a href="bclc.htm">CLC</a>
+B064: 90 0C     <a href="bbcc.htm">BCC</a> $B072
+
+Jump from $B05D:
+
+B066: B1 6C     <a href="blda.htm">LDA</a> (<a href="zp6a.htm">$6C</a>),Y   ; AFAC Mantissa
+B068: D1 62     <a href="bcmp.htm">CMP</a> (<a href="zp62.htm">$62</a>),Y   ; FAC Mantissa
+B06A: F0 EF     <a href="bbeq.htm">BEQ</a> $B05B
+B06C: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+B06E: B0 02     <a href="bbcs.htm">BCS</a> $B072
+B070: A2 01     <a href="bldx.htm">LDX</a> #$01
+
+Jump from $B061, $B064, $B06E:
+
+B072: E8        <a href="binx.htm">INX</a>
+B073: 8A        <a href="btxa.htm">TXA</a>
+B074: 2A        <a href="brol.htm">ROL</a>
+B075: 25 12     <a href="band.htm">AND</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+B077: F0 02     <a href="bbeq.htm">BEQ</a> $B07B
+B079: A9 FF     <a href="blda.htm">LDA</a> #$FF
+
+Jump from $B077:
+
+B07B: 4C 3C BC  <a href="bjmp.htm">JMP</a> <a href="rombc39.htm">$BC3C</a>     ; Evaluate &lt;sgn&gt;
+
+    <a href="romb01b.htm">Previous Page</a> / <a href="romb07e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

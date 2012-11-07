@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B465/46181:   Evaluate &lt;str$&gt;
+
+B465: 20 8D AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8D</a>     ; Confirm Result
+B468: A0 00     <a href="bldy.htm">LDY</a> #$00
+B46A: 20 DF BD  <a href="bjsr.htm">JSR</a> <a href="rombddd.htm">$BDDF</a>     ; Convert FAC#1 to ASCII String
+B46D: 68        <a href="bpla.htm">PLA</a>
+B46E: 68        <a href="bpla.htm">PLA</a>
+
+Jump from <a href="romaf48.htm">$AF59</a>:
+
+B46F: A9 FF     <a href="blda.htm">LDA</a> #$FF
+B471: A0 00     <a href="bldy.htm">LDY</a> #$00
+B473: F0 12     <a href="bbeq.htm">BEQ</a> <a href="romb487.htm">$B487</a>     ; Set Up String
+
+Jump from <a href="romaa2c.htm">$AA56</a>, <a href="romb487.htm">$B4C0</a>, <a href="romb63d.htm">$B65D</a>:
+
+B475: A6 64     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B477: A4 65     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B479: 86 50     <a href="bstx.htm">STX</a> <a href="zp4e.htm">$50</a>       ; Temporary storage for FLPT value
+B47B: 84 51     <a href="bsty.htm">STY</a> <a href="zp4e.htm">$51</a>       ; Temporary storage for FLPT value
+
+Jump from <a href="romb6ec.htm">$B6F3</a>, <a href="romb700.htm">$B70F</a>:
+
+B47D: 20 F4 B4  <a href="bjsr.htm">JSR</a> <a href="romb4f4.htm">$B4F4</a>     ; Allocate Space for String
+B480: 86 62     <a href="bstx.htm">STX</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B482: 84 63     <a href="bsty.htm">STY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B484: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B486: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb3f4.htm">Previous Page</a> / <a href="romb487.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

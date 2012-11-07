@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D6A6/54950:   Attempt command execution multiple times
+
+Jump from <a href="ro41d5c6.htm">$D5D9</a>, <a href="ro41d5c6.htm">$D616</a>, <a href="ro41d5c6.htm">$D655</a>, <a href="ro41d5c6.htm">$D666</a>:
+
+D6A6: A5 6A     LDA <a href="ra416a.htm">$6A</a>         ; maximum number of repetitions
+D6A8: 29 3F     AND #$3F
+D6AA: A8        TAY
+
+Jump from $D6C2:
+
+D6AB: AD 6D 02  LDA <a href="ra41026d.htm">$026D</a>       ; bit for LED
+D6AE: 4D 00 1C  EOR <a href="via20.htm">$1C00</a>
+D6B1: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+D6B4: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X     ; command
+D6B7: 95 00     STA <a href="ra4100.htm">$00</a>,X       ; transmit to disk controller
+
+Jump from $D6BB:
+
+D6B9: B5 00     LDA <a href="ra4100.htm">$00</a>,X       ; and return message
+D6BB: 30 FC     BMI $D6B9       ; wait
+D6BD: C9 02     CMP #$02        ; ok?
+D6BF: 90 03     BCC $D6C4       ; yes
+D6C1: 88        DEY             ; decrement counter
+D6C2: D0 E7     BNE $D6AB       ; attempt again
+
+Jump from $D6BF:
+
+D6C4: 48        PHA
+D6C5: AD 6D 02  LDA <a href="ra41026d.htm">$026D</a>
+D6C8: 0D 00 1C  ORA <a href="via20.htm">$1C00</a>       ; LED off
+D6CB: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+D6CE: 68        PLA
+D6CF: 60        RTS
+
+    <a href="ro41d693.htm">Previous Page</a> / <a href="ro41d6d0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

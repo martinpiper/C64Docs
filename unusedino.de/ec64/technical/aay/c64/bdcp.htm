@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  DCP                    DCP DEC memory, CMP memory                     DCP
+
+                                                        N V - B D I Z C
+  Operation:  M &lt;- (M)-1, (A-M) -&gt; NZC                  / . . . . . / /
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4b.htm">ZeroPage</a>      |   DCP $FF             |   $C7   |    2    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10b.htm">ZeroPage,X</a>    |   DCP $FF,X           |   $D7   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2b.htm">Absolute</a>      |   DCP $FFFF           |   $CF   |    3    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,X</a>    |   DCP $FFFF,X         |   $DF   |    3    |    7     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,Y</a>    |   DCP $FFFF,Y         |   $DB   |    3    |    7     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9b.htm">(Indirect,X)</a>  |   DCP ($FF,X)         |   $C3   |    2    |    8     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7b.htm">(Indirect),Y</a>  |   DCP ($FF),Y         |   $D3   |    2    |    8     |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

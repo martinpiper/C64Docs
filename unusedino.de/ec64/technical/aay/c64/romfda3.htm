@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FDA3/64931:   Initialise I/O
+
+Jump from <a href="romfce2.htm">$FCF2</a>, <a href="romfe66.htm">$FE69</a>, <a href="romff84.htm">$FF84</a>:
+
+FDA3: A9 7F     <a href="blda.htm">LDA</a> #$7F
+FDA5: 8D 0D DC  <a href="bsta.htm">STA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+FDA8: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+FDAB: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+FDAE: A9 08     <a href="blda.htm">LDA</a> #$08
+FDB0: 8D 0E DC  <a href="bsta.htm">STA</a> <a href="cia114.htm">$DC0E</a>     ; CIA1: Control Register A
+FDB3: 8D 0E DD  <a href="bsta.htm">STA</a> <a href="cia214.htm">$DD0E</a>     ; CIA2: Control Register A
+FDB6: 8D 0F DC  <a href="bsta.htm">STA</a> <a href="cia115.htm">$DC0F</a>     ; CIA1: Control Register B
+FDB9: 8D 0F DD  <a href="bsta.htm">STA</a> <a href="cia215.htm">$DD0F</a>     ; CIA2: Control Register B
+FDBC: A2 00     <a href="bldx.htm">LDX</a> #$00
+FDBE: 8E 03 DC  <a href="bstx.htm">STX</a> <a href="cia13.htm">$DC03</a>     ; CIA1: Data Direction Register B
+FDC1: 8E 03 DD  <a href="bstx.htm">STX</a> <a href="cia23.htm">$DD03</a>     ; CIA2: Data Direction Register B
+FDC4: 8E 18 D4  <a href="bstx.htm">STX</a> <a href="sid24.htm">$D418</a>     ; SID: Select Filter Mode and Volume
+FDC7: CA        <a href="bdex.htm">DEX</a>
+FDC8: 8E 02 DC  <a href="bstx.htm">STX</a> <a href="cia12.htm">$DC02</a>     ; CIA1: Data Direction Register A
+FDCB: A9 07     <a href="blda.htm">LDA</a> #$07
+FDCD: 8D 00 DD  <a href="bsta.htm">STA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+FDD0: A9 3F     <a href="blda.htm">LDA</a> #$3F
+FDD2: 8D 02 DD  <a href="bsta.htm">STA</a> <a href="cia22.htm">$DD02</a>     ; CIA2: Data Direction Register A
+FDD5: A9 E7     <a href="blda.htm">LDA</a> #$E7
+FDD7: 85 01     <a href="bsta.htm">STA</a> <a href="zp01.htm">$01</a>       ; 6510 On-chip 8-bit Input/Output Register
+FDD9: A9 2F     <a href="blda.htm">LDA</a> #$2F
+FDDB: 85 00     <a href="bsta.htm">STA</a> <a href="zp00.htm">$00</a>       ; 6510 On-chip Data Direction Register
+
+    <a href="romfd9b.htm">Previous Page</a> / <a href="romfddd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

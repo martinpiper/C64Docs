@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E87C/59516:   Go to Next Line
+
+Jump from <a href="rome6ed.htm">$E6F9</a>, <a href="rome72a.htm">$E7A3</a>, <a href="rome72a.htm">$E7C8</a>, <a href="rome891.htm">$E89B</a>:
+
+E87C: 46 C9     <a href="blsr.htm">LSR</a> <a href="zpc9.htm">$C9</a>       ; Cursor X/Y position at start of Input
+E87E: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+
+Jump from $E88A:
+
+E880: E8        <a href="binx.htm">INX</a>
+E881: E0 19     <a href="bcpx.htm">CPX</a> #$19
+E883: D0 03     <a href="bbne.htm">BNE</a> $E888
+E885: 20 EA E8  <a href="bjsr.htm">JSR</a> <a href="rome8ea.htm">$E8EA</a>     ; Scroll Screen
+
+Jump from $E883:
+
+E888: B5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E88A: 10 F4     <a href="bbpl.htm">BPL</a> $E880
+E88C: 86 D6     <a href="bstx.htm">STX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E88E: 4C 6C E5  <a href="bjmp.htm">JMP</a> <a href="rome56c.htm">$E56C</a>     ; Set Screen Pointers
+
+    <a href="rome7d4.htm">Previous Page</a> / <a href="rome891.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

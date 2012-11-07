@@ -1,0 +1,294 @@
+<html>
+
+<head>
+	<title>Technical SID Information/Examination of SID triangle waveform</title>
+</head>
+
+<body bgcolor="#ffffff">
+
+	<h1 align="center">Examination of SID triangle waveform</h1>
+
+	<h3>Data recorded on the triangle waveform ($10)</h3>
+
+	<p align="justify">The data are recorded using a REU. The recording is done like this:</p>
+
+<pre>
+        ;* Program 1 *
+
+	;Turn off screen and sprites
+
+	...
+
+	;Set frequency of voice 3
+
+	LDA #&lt;freq
+	LDX #&gt;freq
+	STA $D40E
+	STX $D40F
+
+	;Reset waveform
+
+	LDA #$08	;Set test bit
+	STA $D412
+
+	;Setup REU to sample register $D41B for $10000 cycles
+
+	...
+
+	;Start recording
+
+	LDA #$10	;Waveform: Triangle
+	LDX #%1001000	;REU-command: Start transfer
+	STA $D412	;Start waveform
+	STX $DF01	;Start transfer
+
+	...
+</pre>
+
+	<p align="justify">Furthermore, a construct like this is used to get a value from the waveform
+	as fast as possible (via software) from the SID:</p>
+
+<pre>
+	;* Program 2 *
+
+	...
+
+	LDA #$10
+	STA $D412	;Start waveform
+	LDA $D41B	;Record early value
+	STA Haps	;Save value
+
+	...
+</pre>
+
+	<p align="justify">The table below summarizes the recordings (all values in hex):</p>
+
+<pre>
+Frequency  Haps REU
+
+8000	   04   05 06 07 ... FD FE FF FF FE ... 01 00 00 01 ...
+4000       02   02 03 03 04 04 ...
+2000       01   01 01 01 02 02 02 02 03 03 03 03 04 ...
+1000       00   00 00 00 01 01 01 01 01 01 01 01 01 02 ...
+FFFF       07   09 0B 0D 0F 11 13 15 17
+DEAD       06   08 0A 0C 0D 0F 11 13 14 16 18 1A 1B 1D 1F 21 22 24 26
+                28 29 2B 2D 2E 30 32 34 35 37 39 3B 3C 3E 40 42 43 45
+                47 49 4A 4C 4E 50 51 53 55 56 58 5A 5C 5D 5F 61 63 64
+</pre>
+
+	<p align="justify"><b>Legend:</b><ul>
+		<li>Frequency is the value stored to $D40E and $D40F.</li>
+		<li>Haps is the value of the Haps variable from program 2.</li>
+		<li>REU is the data collected with the REU after running program 1.</li>
+	</ul></p>
+
+	<p align="justify"><b>Conclusion:</b> The triangle waveform starts with value $00 and goes
+	to $ff linearly. Then it goes from $ff to $00 linearly.
+	<i>(As a sidenote, I'll mention that the data for the sawtooth
+	waveform at frequency $8000 is Haps= 02, REU= 02 03 03 04 04 ... FE FE FF
+	FF 00 00 01 01 ...)</i>
+	The Haps variable is the value of the waveform on one cycle earlier than
+	the REU starts recording.</p>
+
+	<p align="justify">Further data used to investigate the frequency/waveform mapping:</p>
+
+<pre>
+Frequency
+      Haps+REU, Number of this*value
+
+0001  7FFC*00 8000*01 8000*02 ...
+0002  3FFC*00 4000*01 4000*02 ...
+0003  2AA7*00 2AAB*01 2AAA*02 2AAB*03
+0004  1FFC*00 2000*01 2000*02 ...
+0005  1996*00 199A*01 1999*02 199A*03 1999*04
+0006  1552*00 1555*01 1555*02 1556*03 1555*04 1555*05 1556*06
+0007  1245*00 1249*01 1249*02 1249*03 1249*04 1249*05 1249*06 124A*07
+      1249*08
+0008  0FFC*00 1000*01 1000*02 ...
+0009  0E35*00 0E39*01 0E39*02
+000A  0CC9*00 0CCD*01
+000B  0B9F*00
+</pre>
+
+	<p align="justify"><b>Legend:</b><ul>
+		<li>Frequency is the value stored to $D40E and $D40F.</li>
+		<li>Haps+REU is the contents of the Haps variable from program 2 and the contents
+		of the REU after running program 1.
+		The format is number of times of repeation * value. (i.e. 7FFC*00 means
+		that the value &quot;00&quot; repeated $7FFC times after each other in the
+		data. 0003*FE 0004*DE would mean this sequence of data was recorded: FE
+		FE FE DE DE DE DE. The first FE would come from the variable Haps, while
+		the rest would be obtained with the REU.)</li>
+	</ul></p>
+	<p align="justify"><b>Conclusion:</b> We know that with the STA $D412; LDA $D41B construct,
+	A contains the value of the waveform after 4 cycles. This is consistence
+	with the observation that the number of times the value $00 appears generally
+	is 4 lower than the number of times the other values appear.</p>
+
+	<p align="justify">The overall behaviour can thus be simulated with this C-program:</p>
+
+<pre>
+void Triangle(long Frequency) {
+	long Cycle; /* Count of Phi2 cycles */
+
+	long Delay= 0x8000;
+	long Counter= 0; /* Initial value is 0 */
+
+	for (Cycle=0; ;Cycle= Cycle+1) {
+
+		/* Build waveform: Triangle */
+		if (Counter  256)
+			Waveform[cycle]= Counter;
+		else
+			Waveform[cycle]= 511- Counter;
+
+			/*
+			For the sawtooth waveform, use:
+
+			Waveform[Cycle]= Counter / 2;
+			*/
+
+		/* Handle frequency-function */
+		Delay = Delay- Frequency;
+
+		/* Frequency overflow? */
+		while (Delay =0 ) do {
+			/* For frequencies above $8000, this will be executed twice */
+
+			Delay = Delay + 0x8000;
+
+			 /* Calculate new value for waveform */
+			Counter= (Counter+1) % 512; /* Keep in range 0..511 */
+			}
+		}
+	}
+</pre>
+
+	<p align="justify">The above program (when checked) is only capable of reproducing the output
+	of register $1B. We can't be sure that the true output of pin 27 of the
+	SID is the same. In this respect, there are two issues:<ul>
+		<li>Is the output digital and 8 bit?</li>
+		<li>Is the output aligned to the &oslash;2 clock?</li>
+	</ul></p>
+
+	<h3>Is the output digital and 8 bit?</h3>
+
+	<p align="justify">People have used oscilloscopes and concluded that this is the output is
+	digital and probably 8 bit. This can also be checked with this program,
+	if you have decent audio-equipment:</p>
+
+<pre>
+	jsr $e544	;Clear screen
+
+	ldx #0
+	stx $d021       ;Background color black
+	stx $d020	;Border black
+			;(The black color reduces noise with my equipment)
+
+	lda #11		;As of request from Andreas with kernal R2 :-)
+col	sta $d800,x	;Character color dark grey
+	inx
+	bne col
+
+	lda #$01 	;Frequency 1
+	sta $d40e
+	lda #$00
+	sta $d40f
+
+	lda #$00	;ADSR:00F0
+	sta $d412
+	lda #$f0
+	sta $d413
+
+	lda #$81	;Waveform: Random, changes rarely.
+			;Change for other waveforms
+	sta $d412
+
+	lda #$0f	;Max volume: $f
+	sta $d418
+
+	ldx $d41b
+loop1	stx temp
+
+loop2	ldx $d41b
+	cpx temp
+	bne loop2
+
+	lda $0400,x	;Display when value changes
+	eor #$80
+	sta $0400,x
+	jmp loop1
+
+temp 	.byte $00
+</pre>
+
+	<p align="justify">Turn up the volume of the TV-set and you can hear the &quot;ticks&quot;
+	when the waveform changes every few seconds. If the ticks happen in alignment
+	with the changes on the screen, the output is digital and 8 bit.
+	You can also try other waveforms (substitute the lda #$81 with lda #$11
+	for triangle or lda #$21 for sawtooth. Pulse ($41) requires definition of
+	the pulse width in $d410 and $d411), but these are all much faster and/or
+	the changes in the waveform are small, so it is not as easy to hear the
+	distinct ticks.</p>
+
+	<h3>Is the output aligned to the &oslash;2 clock?</h3>
+
+	<p align="justify">This is an open question as of now (23 Mar 1995 :-). My feeling is that
+	the output is aligned, but this is only a feeling based on the fact that,
+	all, the SID has available to synchronize with, is the &oslash;2 feed.
+	I believe examination of this requires an oscilloscope, which I have no
+	access to.</p>
+
+	<p align="justify">What should be done is to display the &oslash;2 clock alongwith the pin
+	27 output with a triangle waveform at frequency $ffff (Just modify the above
+	program to use frequency $ffff and triangle waveform). If the waveform change
+	only once every &oslash;2 cycle, the output is &oslash;2 aligned and thus
+	&quot;skipping values&quot;. If not, the waveform would change twice every
+	&oslash;2 cycle and thus display all 256 values. If this is the case, I
+	have further studies to be done to clarify whether the output is happening
+	in a discrete partition of the &oslash;2 cycle.</p>
+
+	<h3>Observation</h3>
+
+	<p align="justify">If you record the data of the waveform with a structure like this:</p>
+
+<pre>
+	...
+
+	lda #$08 	;Reset waveform: Test bit is 1.
+	sta $d412
+
+	lda #$00	;Frequency $8000
+	sta $d40e
+	lda #$80
+	sta $d40f
+
+	...
+
+	ldy #$00	;Clear test bit
+	lda #$10	;Waveform triangle
+	ldx #$90	;REU command
+	sty $d412	;The difference!
+	sta $d412
+	stx $df01
+</pre>
+
+	<p align="justify">the recorded data are all 4 cycles behind! I.e. the first value in the REU
+	data is not $05, but $09. The similar thing happens if you use the capture
+	in program 2: Instead of getting $04, you get $08. The 4 cycle delay is
+	the time, the sta $d412 takes.
+	If you change the ldy #$00 (test bit=0) to ldy #$08 (test bit=1), the effect
+	disappears, so the conclusion is:</p>
+
+	<p align="justify">The triangle counter counts all the time, whether or not the waveform is
+	activated. The counter is held reset to 0 when the test bit is 1 (supposedly),
+	and as soon as the test bit is 0, the counter starts counting.
+	Another explanation, with the same result, is that the counter is reset
+	on falling edge of the test bit.</p>
+
+	<p align="justify">I have not examined whether this is the case for the sawtooth and the pulse
+	waveforms, but my bet is, this is the case.</p>
+</body>
+
+</html>
+

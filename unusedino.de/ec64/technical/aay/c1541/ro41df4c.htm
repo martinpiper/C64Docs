@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DF4C/57164:   Calculate number of blocks in a REL file
+
+Jump from $DF52:
+
+DF4C: A9 78     LDA #$78        ; 120 block pointers per side-sector
+DF4E: 20 5C DF  JSR $DF5C       ; add to $70/$71
+
+Jump from <a href="ro41db02.htm">$DB48</a>, <a href="ro41e31c.htm">$E381</a>:
+
+DF51: CA        DEX             ; side-sector number
+DF52: 10 F8     BPL $DF4C       ; next side-sector?
+DF54: A5 72     LDA <a href="ra4172.htm">$72</a>         ; pointer value in last block
+DF56: 4A        LSR             ; divided by 2
+DF57: 20 5C DF  JSR $DF5C       ; add to previous sum
+DF5A: A5 73     LDA <a href="ra4173.htm">$73</a>         ; number of the side-sector block
+
+Jump from $DF4E, $DF57:
+
+DF5C: 18        CLC
+DF5D: 65 70     ADC <a href="ra416f.htm">$70</a>
+DF5F: 85 70     STA <a href="ra416f.htm">$70</a>         ; add
+DF61: 90 02     BCC $DF65
+DF63: E6 71     INC <a href="ra4171.htm">$71</a>
+
+Jump from $DF61:
+
+DF65: 60        RTS
+
+    <a href="ro41df45.htm">Previous Page</a> / <a href="ro41df66.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

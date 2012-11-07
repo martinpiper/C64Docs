@@ -1,0 +1,91 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DCDA/56538:   Construct a new block
+
+Jump from <a href="ro41d486.htm">$D48A</a>, <a href="ro41d8f5.htm">$D902</a>, <a href="ro41d9e3.htm">$D9E9</a>:
+
+DCDA: 20 A9 F1  JSR <a href="ro41f1a9.htm">$F1A9</a>       ; find free sector in BAM
+DCDD: A9 01     LDA #$01
+DCDF: 20 DF D1  JSR <a href="ro41d1df.htm">$D1DF</a>       ; open channel
+DCE2: 20 D0 D6  JSR <a href="ro41d6d0.htm">$D6D0</a>       ; transmit parameter to disk controller
+DCE5: 20 B6 DC  JSR <a href="ro41dcb6.htm">$DCB6</a>       ; reset pointer
+DCE8: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DCEA: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>       ; file type
+DCED: 48        PHA
+DCEE: 0A        ASL
+DCEF: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+DCF1: 95 EC     STA <a href="ra41ec.htm">$EC</a>,X       ; save as flag
+DCF3: 68        PLA
+DCF4: C9 04     CMP #$04        ; rel-file?
+DCF6: F0 05     BEQ $DCFD       ; yes
+DCF8: A9 01     LDA #$01
+DCFA: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; set WRITE flag
+DCFC: 60        RTS
+
+Jump from $DCF6:
+
+DCFD: A4 83     LDY <a href="ra4183.htm">$83</a>         ; secondary address
+DCFF: B9 2B 02  LDA <a href="ra41022b.htm">$022B</a>,Y     ; channel number in table
+DD02: 29 3F     AND #$3F        ; erase the top two bits
+DD04: 09 40     ORA #$40        ; set bit 6
+DD06: 99 2B 02  STA <a href="ra41022b.htm">$022B</a>,Y     ; READ and WRITE flag
+DD09: AD 58 02  LDA <a href="ra410258.htm">$0258</a>       ; record length
+DD0C: 95 C7     STA <a href="ra41c7.htm">$C7</a>,X       ; in table
+DD0E: 20 8E D2  JSR <a href="ro41d28e.htm">$D28E</a>       ; find buffer
+DD11: 10 03     BPL $DD16       ; found?
+DD13: 4C 0F D2  JMP <a href="ro41d1e2.htm">$D20F</a>       ; 70, 'no channel'
+
+Jump from $DD11:
+
+DD16: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DD18: 95 CD     STA <a href="ra41cd.htm">$CD</a>,X       ; buffer number for side-sector
+DD1A: 20 C1 DE  JSR <a href="ro41dec1.htm">$DEC1</a>       ; erase buffer
+DD1D: 20 1E F1  JSR <a href="ro41f11e.htm">$F11E</a>       ; find free block in BAM
+DD20: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+DD22: 8D 59 02  STA <a href="ra410259.htm">$0259</a>       ; for side-sector
+DD25: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+DD27: 8D 5A 02  STA <a href="ra41025a.htm">$025A</a>       ; for side-sector
+DD2A: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DD2C: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number
+DD2E: 20 D3 D6  JSR <a href="ro41d6d0.htm">$D6D3</a>       ; transmit parameter to disk controller
+DD31: A9 00     LDA #$00
+DD33: 20 E9 DE  JSR <a href="ro41dee9.htm">$DEE9</a>       ; buffer pointer to zero
+DD36: A9 00     LDA #$00
+DD38: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>
+DD3B: A9 11     LDA #$11        ; 17
+DD3D: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; as end pointer in buffer
+DD40: A9 00     LDA #$00        ; zero
+DD42: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; as side-sector number in buffer
+DD45: AD 58 02  LDA <a href="ra410258.htm">$0258</a>       ; record length
+DD48: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; in buffer
+DD4B: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number of this block
+DD4D: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; in buffer
+DD50: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+DD52: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; in buffer
+DD55: A9 10     LDA #$10        ; 16
+DD57: 20 E9 DE  JSR <a href="ro41dee9.htm">$DEE9</a>       ; buffer pointer to 16
+DD5A: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>       ; get track and sector number
+DD5D: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number of the first data block
+DD5F: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; in buffer
+DD62: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number of the first data block
+DD64: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; in buffer
+DD67: 20 6C DE  JSR <a href="ro41de6c.htm">$DE6C</a>       ; write block to disk
+DD6A: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and check
+DD6D: A9 02     LDA #$02
+DD6F: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 2
+DD72: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DD74: 38        SEC
+DD75: A9 00     LDA #$00
+DD77: F5 C7     SBC <a href="ra41c7.htm">$C7</a>,X       ; record length
+DD79: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X       ; pointer for writing
+DD7B: 20 E2 E2  JSR <a href="ro41e2e2.htm">$E2E2</a>       ; erase buffer
+DD7E: 20 19 DE  JSR <a href="ro41de19.htm">$DE19</a>       ; write link bytes in buffer
+DD81: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block to disk
+DD84: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and check
+DD87: 20 F4 EE  JSR <a href="ro41eef4.htm">$EEF4</a>       ; write BAM
+DD8A: 4C 98 DC  JMP <a href="ro41dc46.htm">$DC98</a>       ; and done
+
+    <a href="ro41dcb6.htm">Previous Page</a> / <a href="ro41dd8d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Physikalisches 1581-Diskettenformat festlegen
+
+Einsprung von <a href="ro8184ae.htm">$84B8</a>, <a href="ro818746.htm">$8751</a>, <a href="ro818ec5.htm">$8EC8</a>, <a href="ro819460.htm">$946A</a>, <a href="ro81c163.htm">$C2F9</a>:
+
+B0CF: A9 28     LDA #$28         40 Sektoren pro Track
+B0D1: 85 75     STA <a href="ra8175.htm">$75</a>
+B0D3: A0 02     LDY #$02         Sektorgroesse 2: 512 Bytes
+B0D5: 84 91     STY <a href="ra8191.htm">$91</a>
+B0D7: B9 06 BD  LDA <a href="ro81bcb2.htm">$BD06</a>,Y      Anzahl der Sektoren / Spur holen
+B0DA: 85 92     STA <a href="ra8192.htm">$92</a>          = Anzahl der Sektoren / Spur
+B0DC: 85 93     STA <a href="ra8193.htm">$93</a>          = letzte Sektornummer
+B0DE: 8D F0 01  STA <a href="ra8101f0.htm">$01F0</a>        = groesste physikalische Sektornummer
+B0E1: 88        DEY              y=1
+B0E2: 84 94     STY <a href="ra8194.htm">$94</a>          1. Sektornummer auf Zylinder = 1
+B0E4: 8C EF 01  STY <a href="ra8101ef.htm">$01EF</a>        kleinster physikalischer Sektor
+B0E7: A9 F5     LDA #$F5         $f5: Verify vergleicht mit Cacheinhalt
+B0E9: 85 9B     STA <a href="ra819b.htm">$9B</a>          (&lt;&gt;$f5: Vergleich mit $9b)
+B0EB: A9 23     LDA #$23         Anzahl der $4e-Bytes fuer Luecke zwischen
+B0ED: 85 9A     STA <a href="ra819a.htm">$9A</a>          zwei Sektoren
+B0EF: 60        RTS
+    <a href="ro81b0b3.htm">Previous Page</a> / <a href="ro81b0f0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

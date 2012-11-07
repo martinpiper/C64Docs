@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Fehlermeldung bereitstellen ($e6bc)
+
+'00, OK,00,00' in Errorpuffer schreiben
+
+Einsprung von <a href="ro818004.htm">$8008</a>, <a href="ro81a033.htm">$A05E</a>:
+
+A862: 20 E5 81  JSR <a href="ro8181e5.htm">$81E5</a>        Fehlerflag loeschen, LED aus
+A865: A9 00     LDA #$00         00, OK
+
+Errortext mit T&amp;S=0 generieren
+E: a: Fehlernummer im BCD-Code
+
+Einsprung von <a href="ro818c61.htm">$8C81</a>, <a href="ro818c61.htm">$8C86</a>, <a href="ro819370.htm">$9386</a>, <a href="ro81afca.htm">$AFE0</a>, <a href="ro81afe9.htm">$B0B0</a>:
+
+A867: A0 00     LDY #$00         ,00,00
+A869: 84 4D     STY <a href="ra814d.htm">$4D</a>
+A86B: 84 4E     STY <a href="ra814e.htm">$4E</a>
+Error ausgeben
+
+E: a      : Fehlernummer im BCD-Code
+   $4d-$4e: T&amp;S im Binaercode
+
+Einsprung von <a href="ro81804c.htm">$8061</a>, <a href="ro81a7ae.htm">$A7E7</a>, <a href="ro81a7f1.htm">$A7F1</a>, <a href="ro81b572.htm">$B5AE</a>:
+
+A86D: A0 00     LDY #$00         Anfang des Errorpuffers
+A86F: A2 D0     LDX #$D0
+A871: 86 CF     STX <a href="ra81cf.htm">$CF</a>          $02d0
+A873: A2 02     LDX #$02
+A875: 86 D0     STX <a href="ra81cf.htm">$D0</a>
+A877: 20 51 A8  JSR <a href="ro81a83e.htm">$A851</a>        Fehlernummer in A ausgeben + tax
+A87A: A9 2C     LDA #$2C
+A87C: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y      ',' in Puffer schreiben
+A87E: C8        INY
+A87F: AD D0 02  LDA <a href="ra8102d0.htm">$02D0</a>        erstes Zeichen zur Ausgabe bereitstellen
+A882: 8D 41 02  STA <a href="ra810241.htm">$0241</a>        (s.u.)
+A885: 8A        TXA
+A886: 20 AD A8  JSR <a href="ro81a8ad.htm">$A8AD</a>        Fehlertext in Puffer schreiben
+A889: A9 2C     LDA #$2C
+A88B: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y      ',' in Puffer schreiben
+A88D: C8        INY
+A88E: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+A890: 20 3E A8  JSR <a href="ro81a83e.htm">$A83E</a>        Tracknummer in Puffer schreiben
+A893: A9 2C     LDA #$2C
+A895: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y      ',' in Puffer schreiben
+A897: C8        INY
+A898: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+A89A: 20 3E A8  JSR <a href="ro81a83e.htm">$A83E</a>        Sektornummer in Puffer schreiben
+A89D: 88        DEY
+A89E: 98        TYA              Ende der Fehlermeldung merken
+A89F: 18        CLC
+A8A0: 69 D0     ADC #$D0         + Anfang des Error-Puffers
+A8A2: 8D 48 02  STA <a href="ra810242.htm">$0248</a>        = Puffergroesse
+A8A5: E6 CF     INC <a href="ra81cf.htm">$CF</a>          1. Zeichen steht bereits zur Ausgabe bereit
+A8A7: A9 88     LDA #$88         Zeiger auf 2. Zeichen setzen
+A8A9: 8D 3A 02  STA <a href="ra81023a.htm">$023A</a>        b7=1: Lesekanal; b4=1: kein EOI
+A8AC: 60        RTS
+
+    <a href="ro81a83e.htm">Previous Page</a> / <a href="ro81a8ad.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

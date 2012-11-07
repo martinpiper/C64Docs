@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F556/62806:   Wait for SYNC
+
+Jump from <a href="ro41f3b1.htm">$F3BB</a>, <a href="ro41f50a.htm">$F50D</a>, <a href="ro41f510.htm">$F538</a>, <a href="ro41fac7.htm">$FB1D</a>, <a href="ro41fac7.htm">$FD39</a>, <a href="ro41fac7.htm">$FD62</a>:
+
+F556: A9 D0     LDA #$D0        ; 208
+F558: 8D 05 18  STA <a href="via15.htm">$1805</a>       ; start timer
+F55B: A9 03     LDA #$03        ; error code
+
+Jump from $F565:
+
+F55D: 2C 05 18  BIT <a href="via15.htm">$1805</a>
+F560: 10 F1     BPL <a href="ro41f510.htm">$F553</a>       ; timer run down, then 'read error'
+F562: 2C 00 1C  BIT <a href="via20.htm">$1C00</a>       ; SYNC signal
+F565: 30 F6     BMI $F55D       ; not yet found?
+F567: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; read byte
+F56A: B8        CLV
+F56B: A0 00     LDY #$00
+F56D: 60        RTS
+
+    <a href="ro41f510.htm">Previous Page</a> / <a href="ro41f56e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

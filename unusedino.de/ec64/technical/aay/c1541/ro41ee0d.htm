@@ -1,0 +1,94 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EE0D/60941:   Perform [N] - New (Format) command
+
+EE0D: 20 12 C3  JSR <a href="ro41c312.htm">$C312</a>       ; get drive number
+EE10: A5 E2     LDA <a href="ra41e2.htm">$E2</a>         ; drive number
+EE12: 10 05     BPL $EE19       ; not clear?
+EE14: A9 33     LDA #$33
+EE16: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 33, 'syntax error'
+
+Jump from $EE12:
+
+EE19: 29 01     AND #$01
+EE1B: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+EE1D: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+EE20: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+EE22: 0A        ASL             ; times 2
+EE23: AA        TAX
+EE24: AC 7B 02  LDY <a href="ra41027a.htm">$027B</a>       ; comma position
+EE27: CC 74 02  CPY <a href="ra410274.htm">$0274</a>       ; compare with end name
+EE2A: F0 1A     BEQ $EE46       ; format without ID
+EE2C: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; first character of ID
+EE2F: 95 12     STA <a href="ra4112.htm">$12</a>,X       ; save
+EE31: B9 01 02  LDA <a href="ra410200.htm">$0201</a>,Y     ; second character
+EE34: 95 13     STA <a href="ra4112.htm">$13</a>,X
+EE36: 20 07 D3  JSR <a href="ro41d307.htm">$D307</a>       ; close all channels
+EE39: A9 01     LDA #$01
+EE3B: 85 80     STA <a href="ra4180.htm">$80</a>         ; track 1
+EE3D: 20 C6 C8  JSR <a href="ro41c8c6.htm">$C8C6</a>       ; format disk
+EE40: 20 05 F0  JSR <a href="ro41f005.htm">$F005</a>       ; erase buffer
+EE43: 4C 56 EE  JMP $EE56       ; continue as below
+
+Jump from $EE2A:
+
+EE46: 20 42 D0  JSR <a href="ro41d042.htm">$D042</a>       ; load BAM
+EE49: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+EE4B: BD 01 01  LDA <a href="ra410101.htm">$0101</a>,X
+EE4E: CD D5 FE  CMP <a href="ro41fed5.htm">$FED5</a>       ; 'A', marker for 1541 format
+EE51: F0 03     BEQ $EE56       ; ok
+EE53: 4C 72 D5  JMP <a href="ro41d572.htm">$D572</a>       ; 73, 'cbm dos v2.6 1541'
+
+Jump from $EE43, $EE51:
+
+EE56: 20 B7 EE  JSR <a href="ro41eeb7.htm">$EEB7</a>       ; create BAM
+EE59: A5 F9     LDA <a href="ra41f9.htm">$F9</a>         ; buffer number
+EE5B: A8        TAY
+EE5C: 0A        ASL
+EE5D: AA        TAX
+EE5E: AD 88 FE  LDA <a href="ro41fe88.htm">$FE88</a>       ; $90, start of disk name
+EE61: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer to name
+EE63: AE 7A 02  LDX <a href="ra41027a.htm">$027A</a>
+EE66: A9 1B     LDA #$1B        ; 27
+EE68: 20 6E C6  JSR <a href="ro41c66e.htm">$C66E</a>       ; write filenames in buffer
+EE6B: A0 12     LDY #$12        ; position 18
+EE6D: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+EE6F: AD D5 FE  LDA <a href="ro41fed5.htm">$FED5</a>       ; 'A', 1541 format
+EE72: 9D 01 01  STA <a href="ra410101.htm">$0101</a>,X
+EE75: 8A        TXA
+EE76: 0A        ASL             ; times 2
+EE77: AA        TAX
+EE78: B5 12     LDA <a href="ra4112.htm">$12</a>,X       ; ID, first character
+EE7A: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+EE7C: C8        INY
+EE7D: B5 13     LDA <a href="ra4112.htm">$13</a>,X       ; and second character
+EE7F: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+EE81: C8        INY
+EE82: C8        INY
+EE83: A9 32     LDA #$32        ; '2'
+EE85: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+EE87: C8        INY
+EE88: AD D5 FE  LDA <a href="ro41fed5.htm">$FED5</a>       ; 'A' 1541 format
+EE8B: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+EE8D: A0 02     LDY #$02
+EE8F: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; and at position 2
+EE91: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18
+EE94: 85 80     STA <a href="ra4180.htm">$80</a>         ; track number
+EE96: 20 93 EF  JSR <a href="ro41ef90.htm">$EF93</a>       ; mark block as allocated
+EE99: A9 01     LDA #$01        ; 1
+EE9B: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector number
+EE9D: 20 93 EF  JSR <a href="ro41ef90.htm">$EF93</a>       ; mark block as allocated
+EEA0: 20 FF EE  JSR <a href="ro41eef4.htm">$EEFF</a>       ; write BAM
+EEA3: 20 05 F0  JSR <a href="ro41f005.htm">$F005</a>       ; pointer $6D/$6E to buffer, erase buffer
+EEA6: A0 01     LDY #$01
+EEA8: A9 FF     LDA #$FF
+EEAA: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; track following is zero
+EEAC: 20 64 D4  JSR <a href="ro41d464.htm">$D464</a>       ; write BAM
+EEAF: C6 81     DEC <a href="ra4181.htm">$81</a>         ; decrement sector number, 0
+EEB1: 20 60 D4  JSR <a href="ro41d460.htm">$D460</a>       ; read block
+EEB4: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; prepare disk status
+
+    <a href="ro41ede5.htm">Previous Page</a> / <a href="ro41eeb7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

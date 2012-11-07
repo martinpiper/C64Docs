@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A94B/43339:   Perform [on]
+
+A94B: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+A94E: 48        <a href="bpha.htm">PHA</a>
+A94F: C9 8D     <a href="bcmp.htm">CMP</a> #$8D
+A951: F0 04     <a href="bbeq.htm">BEQ</a> $A957
+
+Jump from <a href="roma96b.htm">$A97D</a>:
+
+A953: C9 89     <a href="bcmp.htm">CMP</a> #$89
+A955: D0 91     <a href="bbne.htm">BNE</a> <a href="roma8d2.htm">$A8E8</a>     ; Perform [return]
+
+Jump from $A951, $A967:
+
+A957: C6 65     <a href="bdec.htm">DEC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+A959: D0 04     <a href="bbne.htm">BNE</a> $A95F
+A95B: 68        <a href="bpla.htm">PLA</a>
+A95C: 4C EF A7  <a href="bjmp.htm">JMP</a> <a href="roma7ed.htm">$A7EF</a>     ; Perform BASIC Keyword
+
+Jump from $A959:
+
+A95F: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A962: 20 6B A9  <a href="bjsr.htm">JSR</a> <a href="roma96b.htm">$A96B</a>     ; Fetch linnum From BASIC
+A965: C9 2C     <a href="bcmp.htm">CMP</a> #$2C
+A967: F0 EE     <a href="bbeq.htm">BEQ</a> $A957
+A969: 68        <a href="bpla.htm">PLA</a>
+
+Jump from <a href="roma96b.htm">$A971</a>:
+
+A96A: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma93b.htm">Previous Page</a> / <a href="roma96b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

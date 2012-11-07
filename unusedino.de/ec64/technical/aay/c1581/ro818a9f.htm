@@ -1,0 +1,44 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+-
+Parameter der Block-Befehle holen ($cc7c)
+-
+
+Einsprung von <a href="ro818a5d.htm">$8A8A</a>, <a href="ro818b9a.htm">$8B9A</a>, <a href="ro818bd7.htm">$8BD7</a>:
+
+8A9F: A0 00     LDY #$00         Zeile vom Anfang an pruefen
+8AA1: A2 00     LDX #$00         Anzahl gefundener Kommas = 0
+8AA3: A9 3A     LDA #$3A
+8AA5: 20 1C 81  JSR <a href="ro81811c.htm">$811C</a>        Eingabezeile bis zum ':' pruefen
+8AA8: D0 02     BNE $8AAC        ':' gefunden ? ja, ==&gt;
+8AAA: A0 03     LDY #$03         Zeiger hinter 'b-x' setzen
+
+Einsprung von $8AA8, $8ABE, <a href="ro8189e4.htm">$8A01</a>:
+
+8AAC: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Zeichen aus Input-Puffer
+8AAF: C9 20     CMP #$20         mit gueltigen Trennzeichen
+8AB1: F0 08     BEQ $8ABB        vergleichen
+8AB3: C9 1D     CMP #$1D         &lt;Space&gt;, &lt;Cursor-Right&gt;, ','
+8AB5: F0 04     BEQ $8ABB
+8AB7: C9 2C     CMP #$2C         aktuelles Zeichen ist kein Trennzeichen,
+8AB9: D0 06     BNE $8AC1        Zeichen gehoert also zum Parameter, ==&gt;
+
+Einsprung von $8AB1, $8AB5, $8ACC:
+
+8ABB: C8        INY              naechstes Zeichen
+8ABC: C4 29     CPY <a href="ra8129.htm">$29</a>          Zeilenende ?
+8ABE: 90 EC     BCC $8AAC        nein, ==&gt;
+8AC0: 60        RTS              Ende
+
+Einsprung von $8AB9:
+
+8AC1: 20 D0 8A  JSR <a href="ro818ad0.htm">$8AD0</a>        ASCII-Wert in HEX-Wert umwandeln
+8AC4: EE 2E 02  INC <a href="ra81022e.htm">$022E</a>        naechsten Parameterspeicher waehlen
+8AC7: AC 30 02  LDY <a href="ra810230.htm">$0230</a>        Zeiger in Zeile zurueckholen
+8ACA: E0 04     CPX #$04         Anzahl Dezimalstellen &gt;= 4 ?
+8ACC: 90 ED     BCC $8ABB        nein, ==&gt;
+8ACE: B0 9D     BCS <a href="ro818a5d.htm">$8A6D</a>        30, Syntax Error
+
+    <a href="ro818a5d.htm">Previous Page</a> / <a href="ro818ad0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

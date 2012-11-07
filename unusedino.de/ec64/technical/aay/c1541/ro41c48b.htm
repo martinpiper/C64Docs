@@ -1,0 +1,64 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C48B/50315:   ?
+
+Jump from <a href="ro41c823.htm">$C86D</a>:
+
+C48B: 20 04 C6  JSR <a href="ro41c5ac.htm">$C604</a>       ; search next directory block
+C48E: F0 1A     BEQ $C4AA       ; not found?
+C490: D0 28     BNE $C4BA
+
+Jump from $C4B2:
+
+C492: A9 01     LDA #$01
+C494: 8D 8D 02  STA <a href="ra41028d.htm">$028D</a>
+C497: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>       ; change drive
+C49A: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+
+Jump from <a href="ro41c823.htm">$C830</a>, <a href="ro41d815.htm">$D852</a>, <a href="ro41da55.htm">$DAA4</a>:
+
+C49D: A9 00     LDA #$00
+C49F: 8D 92 02  STA <a href="ra410292.htm">$0292</a>
+C4A2: 20 AC C5  JSR <a href="ro41c5ac.htm">$C5AC</a>       ; read directory block
+C4A5: D0 13     BNE $C4BA       ; found?
+C4A7: 8D 8F 02  STA <a href="ra41028f.htm">$028F</a>
+
+Jump from $C48E, $C4B8:
+
+C4AA: AD 8F 02  LDA <a href="ra41028f.htm">$028F</a>
+C4AD: D0 28     BNE $C4D7
+C4AF: CE 8C 02  DEC <a href="ra41028c.htm">$028C</a>
+C4B2: 10 DE     BPL $C492
+C4B4: 60        RTS
+
+Jump from $C4C5, $C4D5, <a href="ro41c6de.htm">$C7A7</a>:
+
+C4B5: 20 17 C6  JSR <a href="ro41c5ac.htm">$C617</a>       ; next entry in directory
+C4B8: F0 F0     BEQ $C4AA       ; not found?
+
+Jump from $C490, $C4A5:
+
+C4BA: 20 D8 C4  JSR <a href="ro41c4d8.htm">$C4D8</a>       ; check entry
+C4BD: AE 53 02  LDX <a href="ra410253.htm">$0253</a>
+C4C0: 10 07     BPL $C4C9       ; file found?
+C4C2: AD 8F 02  LDA <a href="ra41028f.htm">$028F</a>
+C4C5: F0 EE     BEQ $C4B5       ; yes
+C4C7: D0 0E     BNE $C4D7       ; no, then done
+
+Jump from $C4C0:
+
+C4C9: AD 96 02  LDA <a href="ra410296.htm">$0296</a>
+C4CC: F0 09     BEQ $C4D7
+C4CE: B5 E7     LDA <a href="ra41e7.htm">$E7</a>,X       ; file type
+C4D0: 29 07     AND #$07
+C4D2: CD 96 02  CMP <a href="ra410296.htm">$0296</a>       ; same as desired file type?
+C4D5: D0 DE     BNE $C4B5       ; no
+
+Jump from $C4AD, $C4C7, $C4CC:
+
+C4D7: 60        RTS
+
+    <a href="ro41c44f.htm">Previous Page</a> / <a href="ro41c4d8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

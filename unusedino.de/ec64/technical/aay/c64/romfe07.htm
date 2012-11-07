@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FE07/65031:   Get I/O Status Word
+
+Jump from <a href="romffb7.htm">$FFB7</a>:
+
+FE07: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+FE09: C9 02     <a href="bcmp.htm">CMP</a> #$02
+FE0B: D0 0D     <a href="bbne.htm">BNE</a> <a href="romfe18.htm">$FE1A</a>     ; Control OS Messages
+FE0D: AD 97 02  <a href="blda.htm">LDA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+FE10: 48        <a href="bpha.htm">PHA</a>
+FE11: A9 00     <a href="blda.htm">LDA</a> #$00
+FE13: 8D 97 02  <a href="bsta.htm">STA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+FE16: 68        <a href="bpla.htm">PLA</a>
+FE17: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfe00.htm">Previous Page</a> / <a href="romfe18.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

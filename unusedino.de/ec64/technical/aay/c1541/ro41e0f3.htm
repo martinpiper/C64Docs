@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E0F3/57587:   Fill record with 0s
+
+Jump from $E101, <a href="ro41e0ab.htm">$E0C8</a>:
+
+E0F3: A9 20     LDA #$20
+E0F5: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 5
+E0F8: D0 0A     BNE $E104       ; set?
+E0FA: A9 00     LDA #$00
+E0FC: 85 85     STA <a href="ra4185.htm">$85</a>         ; zero as data byte
+E0FE: 20 7C E0  JSR <a href="ro41e07c.htm">$E07C</a>       ; write in record
+E101: 4C F3 E0  JMP $E0F3       ; until record full
+
+Jump from $E0F8:
+
+E104: 60        RTS
+
+    <a href="ro41e0ab.htm">Previous Page</a> / <a href="ro41e105.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

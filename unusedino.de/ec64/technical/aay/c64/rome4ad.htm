@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E4AD/58541:   Patch for BASIC Call to CHKOUT
+
+Jump from <a href="rome118.htm">$E118</a>:
+
+E4AD: 48        <a href="bpha.htm">PHA</a>
+E4AE: 20 C9 FF  <a href="bjsr.htm">JSR</a> <a href="romffc9.htm">$FFC9</a>     ; Set Output
+E4B1: AA        <a href="btax.htm">TAX</a>
+E4B2: 68        <a href="bpla.htm">PLA</a>
+E4B3: 90 01     <a href="bbcc.htm">BCC</a> $E4B6
+E4B5: 8A        <a href="btxa.htm">TXA</a>
+
+Jump from $E4B3:
+
+E4B6: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome4ac.htm">Previous Page</a> / <a href="rome4b7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,128 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Utility-Loader (&amp;) ($e7a3)
+
+Einsprung von <a href="ro81a938.htm">$A94A</a>:
+
+A956: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        auf Diskettenwechsel testen
+A959: A5 91     LDA <a href="ra8191.htm">$91</a>          Ist die Sektorgroesse = 512 Bytes ?
+A95B: C9 02     CMP #$02
+A95D: D0 1D     BNE $A97C        nein, (Fehler) ==&gt;
+A95F: A9 01     LDA #$01         Position der Drivenummer setzen
+A961: 8D 91 02  STA <a href="ra810291.htm">$0291</a>
+A964: 20 FD 81  JSR <a href="ro8181fd.htm">$81FD</a>        Laufwerksnummer holen
+A967: AD 2F 02  LDA <a href="ra81022f.htm">$022F</a>        Anzahl Dateinamen (= 1 !)
+A96A: 48        PHA              merken
+A96B: A9 01     LDA #$01         Anzahl Dateinamen =1 setzen [is' schon]
+A96D: 8D 2F 02  STA <a href="ra81022f.htm">$022F</a>
+A970: A9 FF     LDA #$FF         Flag: 'Aufrufadresse gefunden' loeschen
+A972: 85 55     STA <a href="ra8155.htm">$55</a>
+A974: 20 B9 82  JSR <a href="ro8182b9.htm">$82B9</a>        Datei suchen
+A977: AD 97 02  LDA <a href="ra810297.htm">$0297</a>        Starttrack &gt; 0 (Datei gefunden) ?
+A97A: D0 05     BNE $A981        ja, ==&gt;
+
+Einsprung von $A95D:
+
+A97C: A9 39     LDA #$39         39, Syntax Error
+A97E: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>        ==&gt;
+
+Einsprung von $A97A:
+
+A981: 68        PLA              a=1
+A982: 8D 2F 02  STA <a href="ra81022f.htm">$022F</a>        Anzahl Dateinamen =1
+A985: AD 97 02  LDA <a href="ra810297.htm">$0297</a>        T&amp;S des 1. Dateiblocks setzen
+A988: 85 4D     STA <a href="ra814d.htm">$4D</a>
+A98A: AD 9C 02  LDA <a href="ra81029c.htm">$029C</a>
+A98D: 85 4E     STA <a href="ra814e.htm">$4E</a>
+A98F: A9 03     LDA #$03
+A991: 20 D1 93  JSR <a href="ro8193cf.htm">$93D1</a>        Dateityp USR setzen und Datei oeffnen
+
+Einsprung von $A9EA:
+
+A994: A9 00     LDA #$00
+A996: 85 56     STA <a href="ra8156.htm">$56</a>          Checksumme initialisieren
+A998: 20 F5 A9  JSR $A9F5        Startadresse (Lo) aus der Datei holen
+A99B: 85 57     STA <a href="ra8157.htm">$57</a>          und merken
+A99D: 20 07 AA  JSR $AA07        zur Checksumme addieren
+A9A0: 20 F5 A9  JSR $A9F5        Startadresse (Hi) aus der Datei holen
+A9A3: 85 58     STA <a href="ra8158.htm">$58</a>          merken
+A9A5: 20 07 AA  JSR $AA07        und zur Checksumme addieren
+A9A8: A5 55     LDA <a href="ra8155.htm">$55</a>          Wurde die Aufrufadresse schon festgelegt ?
+A9AA: F0 0A     BEQ $A9B6        ja, ==&gt;
+A9AC: A5 57     LDA <a href="ra8157.htm">$57</a>          Startadresse merken
+A9AE: 48        PHA
+A9AF: A5 58     LDA <a href="ra8158.htm">$58</a>
+A9B1: 48        PHA
+A9B2: A9 00     LDA #$00         Flag: 'Aufrufadresse gefunden' setzen
+A9B4: 85 55     STA <a href="ra8155.htm">$55</a>
+
+Einsprung von $A9AA:
+
+A9B6: 20 F5 A9  JSR $A9F5        Programm-Blockgroesse merken
+A9B9: 85 59     STA <a href="ra8159.htm">$59</a>
+A9BB: 20 07 AA  JSR $AA07        und zur Checksumme addieren
+
+Einsprung von $A9D5:
+
+A9BE: 20 F5 A9  JSR $A9F5        Programmbyte holen
+A9C1: A0 00     LDY #$00
+A9C3: 91 57     STA (<a href="ra8157.htm">$57</a>),Y      und an die geforderte Adresse schreiben
+A9C5: 20 07 AA  JSR $AA07        Byte zur Checksumme addieren
+A9C8: A5 57     LDA <a href="ra8157.htm">$57</a>          Zeiger erhoehen
+A9CA: 18        CLC
+A9CB: 69 01     ADC #$01
+A9CD: 85 57     STA <a href="ra8157.htm">$57</a>
+A9CF: 90 02     BCC $A9D3
+A9D1: E6 58     INC <a href="ra8158.htm">$58</a>
+
+Einsprung von $A9CF:
+
+A9D3: C6 59     DEC <a href="ra8159.htm">$59</a>          Anzahl zu ladender Bytes -1
+A9D5: D0 E7     BNE $A9BE        sind noch Bytes des Blocks zu laden, ==&gt;
+A9D7: 20 76 88  JSR <a href="ro818876.htm">$8876</a>        Byte aus der Datei holen
+A9DA: A5 54     LDA <a href="ra8154.htm">$54</a>          Byte mit Checksumme vergleichen
+A9DC: C5 56     CMP <a href="ra8156.htm">$56</a>
+A9DE: F0 08     BEQ $A9E8        gleich, ==&gt;
+A9E0: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S fuer die Fehlermeldung holen
+A9E3: A9 50     LDA #$50         50, Record not Present
+A9E5: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>        ==&gt;
+
+Einsprung von $A9DE:
+
+A9E8: A5 51     LDA <a href="ra8151.htm">$51</a>          EOI-Flag: Dateiende erreicht ?
+A9EA: D0 A8     BNE $A994        nein, ==&gt;
+A9EC: 68        PLA
+A9ED: 85 58     STA <a href="ra8158.htm">$58</a>          Aufrufadresse zurueckholen
+A9EF: 68        PLA
+A9F0: 85 57     STA <a href="ra8157.htm">$57</a>
+A9F2: 6C 57 00  JMP (<a href="ra8157.htm">$0057</a>)      und Programm starten
+
+Byte aus der Datei holen und auf Dateiende pruefen
+
+Einsprung von $A998, $A9A0, $A9B6, $A9BE:
+
+A9F5: 20 76 88  JSR <a href="ro818876.htm">$8876</a>        Byte aus der Datei holen
+A9F8: A5 51     LDA <a href="ra8151.htm">$51</a>          EOI gesetzt
+A9FA: D0 08     BNE $AA04        nein, ==&gt;
+A9FC: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S fuer die Fehlermeldung holen
+A9FF: A9 51     LDA #$51         51, Overflow in Record
+AA01: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>        ==&gt;
+
+Einsprung von $A9FA:
+
+AA04: A5 54     LDA <a href="ra8154.htm">$54</a>          Programmbyte holen
+AA06: 60        RTS
+
+Byte zur Checksumme addieren
+
+Einsprung von $A99D, $A9A5, $A9BB, $A9C5:
+
+AA07: 18        CLC
+AA08: 65 56     ADC <a href="ra8156.htm">$56</a>          Byte addieren
+AA0A: 69 00     ADC #$00         bei Uebertrag +1
+AA0C: 85 56     STA <a href="ra8156.htm">$56</a>
+AA0E: 60        RTS
+    <a href="ro81a94c.htm">Previous Page</a> / <a href="ro81aa0f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

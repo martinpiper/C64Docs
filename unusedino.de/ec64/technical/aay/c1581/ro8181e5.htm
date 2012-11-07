@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+LED-Routinen ($c100)
+
+Einsprung von <a href="ro81804c.htm">$8064</a>, <a href="ro819370.htm">$9381</a>, <a href="ro81a862.htm">$A862</a>:
+
+81E5: A9 00     LDA #$00         LEDs ausschalten
+81E7: 8D AB 02  STA <a href="ra8102ab.htm">$02AB</a>        Fehlerflag loeschen
+81EA: A5 79     LDA <a href="ra8179.htm">$79</a>          Drive-LED ausschalten
+81EC: 29 DF     AND #$DF
+81EE: 85 79     STA <a href="ra8179.htm">$79</a>
+81F0: 60        RTS
+
+Einsprung von <a href="ro81a7f1.htm">$A7FB</a>:
+
+81F1: A9 50     LDA #$50         LED-Blinken
+81F3: 8D AB 02  STA <a href="ra8102ab.htm">$02AB</a>
+
+Einsprung von <a href="ro818251.htm">$826D</a>, <a href="ro8182a2.htm">$82B6</a>, <a href="ro81898f.htm">$89B1</a>, <a href="ro818c2f.htm">$8C41</a>, <a href="ro818c44.htm">$8C53</a>, <a href="ro818e5c.htm">$8E63</a>, <a href="ro8192f4.htm">$92F7</a>, <a href="ro819678.htm">$96A0</a>, <a href="ro81b348.htm">$B35B</a>:
+
+81F6: A5 79     LDA <a href="ra8179.htm">$79</a>          Drive-LED einschalten
+81F8: 09 40     ORA #$40
+81FA: 85 79     STA <a href="ra8179.htm">$79</a>
+81FC: 60        RTS
+    <a href="ro818165.htm">Previous Page</a> / <a href="ro8181fd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

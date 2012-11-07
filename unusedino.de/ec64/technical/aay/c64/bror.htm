@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  ROR          ROR Rotate one bit right (memory or accumulator)         ROR
+
+               +------------------------------+
+               |                              |
+               |   +-+    +-+-+-+-+-+-+-+-+   |
+  Operation:   +-&gt; |C| -&gt; |7|6|5|4|3|2|1|0| &gt;-+         N V - B D I Z C
+                   +-+    +-+-+-+-+-+-+-+-+             / . . . . . / /
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr5.htm">Accumulator</a>   |   ROR A               |   $6A   |    1    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4b.htm">ZeroPage</a>      |   ROR $FF             |   $66   |    2    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10b.htm">ZeroPage,X</a>    |   ROR $FF,X           |   $76   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2b.htm">Absolute</a>      |   ROR $FFFF           |   $6E   |    3    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,X</a>    |   ROR $FFFF,X         |   $7E   |    3    |    7     |
+  +----------------+-----------------------+---------+---------+----------+
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+    Note: ROR instruction is available on MCS650X microprocessors after
+          June, 1976.
+
+</pre></td></tr></table></center></body></html>

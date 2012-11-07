@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E5A0/58784:   Set I/O Defaults
+
+Jump from <a href="rome518.htm">$E518</a>, <a href="rome59a.htm">$E59A</a>:
+
+E5A0: A9 03     <a href="blda.htm">LDA</a> #$03
+E5A2: 85 9A     <a href="bsta.htm">STA</a> <a href="zp9a.htm">$9A</a>       ; Default Output Device (3)
+E5A4: A9 00     <a href="blda.htm">LDA</a> #$00
+E5A6: 85 99     <a href="bsta.htm">STA</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+E5A8: A2 2F     <a href="bldx.htm">LDX</a> #$2F
+
+Jump from $E5B1:
+
+E5AA: BD B8 EC  <a href="blda.htm">LDA</a> <a href="romec78.htm">$ECB8</a>,X   ; Keyboard 4 -- Control
+E5AD: 9D FF CF  <a href="bsta.htm">STA</a> $CFFF,X
+E5B0: CA        <a href="bdex.htm">DEX</a>
+E5B1: D0 F7     <a href="bbne.htm">BNE</a> $E5AA
+E5B3: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome59a.htm">Previous Page</a> / <a href="rome5b4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

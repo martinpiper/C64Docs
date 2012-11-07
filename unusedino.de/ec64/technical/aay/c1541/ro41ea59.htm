@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EA59/59993:   Test for ATN
+
+Jump from <a href="ro41e909.htm">$E916</a>, <a href="ro41e909.htm">$E925</a>, <a href="ro41e909.htm">$E937</a>, <a href="ro41e909.htm">$E941</a>, <a href="ro41e909.htm">$E94E</a>, <a href="ro41e909.htm">$E987</a>, <a href="ro41e9c9.htm">$E9CD</a>, <a href="ro41e9c9.htm">$E9DF</a>, <a href="ro41e9f2.htm">$E9FD</a>,
+          <a href="ro41e9f2.htm">$EA1A</a>:
+
+EA59: A5 7D     LDA <a href="ra417d.htm">$7D</a>         ; EOI received?
+EA5B: F0 06     BEQ $EA63       ; yes
+EA5D: AD 00 18  LDA <a href="via10.htm">$1800</a>       ; IEEE port
+EA60: 10 09     BPL $EA6B
+
+Jump from $EA66:
+
+EA62: 60        RTS
+
+Jump from $EA5B:
+
+EA63: AD 00 18  LDA <a href="via10.htm">$1800</a>       ; IEEE port
+EA66: 10 FA     BPL $EA62
+EA68: 4C 5B E8  JMP <a href="ro41e85b.htm">$E85B</a>       ; to serial bus main loop
+
+Jump from $EA60:
+
+EA6B: 4C D7 E8  JMP <a href="ro41e85b.htm">$E8D7</a>       ; set EOI, serial bus
+
+    <a href="ro41ea2e.htm">Previous Page</a> / <a href="ro41ea6e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

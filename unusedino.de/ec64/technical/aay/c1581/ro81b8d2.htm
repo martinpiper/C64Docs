@@ -1,0 +1,187 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehl $1f: Fastload (bei der 1571: $9080)
+
+Einsprung von $B8D9:
+
+B8D2: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>        Burst-Load mit langsamen Bus (Ende) ==&gt;
+
+Datei suchen
+
+B8D5: A9 08     LDA #$08         &lt;-- (Einsprung)
+B8D7: 24 76     BIT <a href="ra8176.htm">$76</a>          langsamen Bus benutzen ?
+B8D9: F0 F7     BEQ $B8D2        ja, (Ende) ==&gt;
+B8DB: 20 D4 AC  JSR <a href="ro81accf.htm">$ACD4</a>        FSM-Bus vorbereiten, auf Ausgabe schalten
+B8DE: 20 06 BA  JSR <a href="ro81ba06.htm">$BA06</a>        Filenamen holen
+B8E1: B0 59     BCS $B93C        Drive 1, dann Fehler
+B8E3: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        Drive ggf. initialisieren
+B8E6: A5 6E     LDA <a href="ra816e.htm">$6E</a>          Drivestatus holen
+B8E8: D0 52     BNE $B93C        Fehler, (Ende) ==&gt;
+B8EA: A9 80     LDA #$80         Flag: 'Datei hat nur einen Block' setzen
+B8EC: 85 3C     STA <a href="ra813c.htm">$3C</a>
+B8EE: 20 64 BA  JSR <a href="ro81ba64.htm">$BA64</a>        Fehlerbehandlung auf eigene Routinen biegen
+B8F1: AD 00 02  LDA <a href="ra810200.htm">$0200</a>        '*' als Filename ?
+B8F4: C9 2A     CMP #$2A
+B8F6: D0 0F     BNE $B907        nein, ==&gt;
+B8F8: A5 4C     LDA <a href="ra814c.htm">$4C</a>          ja, letztes File laden
+B8FA: F0 0B     BEQ $B907        kein letztes File, ==&gt;
+B8FC: 48        PHA              Track des letzten Files merken
+B8FD: AD 8B 02  LDA <a href="ra81028b.htm">$028B</a>        Sektornummer
+B900: 8D 9C 02  STA <a href="ra81029c.htm">$029C</a>        merken
+B903: 68        PLA              [Die Fehlervektoren werden vergessen !!!]
+B904: 4C 41 B9  JMP $B941        Datei laden ==&gt;
+
+Einsprung von $B8F6, $B8FA:
+
+B907: A9 00     LDA #$00
+B909: A8        TAY              [unnoetig]
+B90A: AA        TAX
+B90B: 8D 91 02  STA <a href="ra810291.htm">$0291</a>        moegl. Position der Laufwerksnummer setzen
+B90E: 20 FD 81  JSR <a href="ro8181fd.htm">$81FD</a>        Laufwerksnummer holen
+B911: AD 2F 02  LDA <a href="ra81022f.htm">$022F</a>        Anzahl Dateinamen (=1) merken
+B914: 48        PHA
+B915: A9 01     LDA #$01         Anzahl Dateinamen =1 setzen
+B917: 8D 2F 02  STA <a href="ra81022f.htm">$022F</a>
+B91A: A9 FF     LDA #$FF         ['Aufrufadresse gefunden' (hier unnoetig)
+B91C: 85 55     STA <a href="ra8155.htm">$55</a>           vgl. &amp;-Befehl $a961-$a974 mit $b90b-$b91e]
+B91E: 20 B9 82  JSR <a href="ro8182b9.htm">$82B9</a>        Datei suchen
+B921: 68        PLA              Anzahl Dateinamen (1) zurueckholen
+B922: 8D 2F 02  STA <a href="ra81022f.htm">$022F</a>
+B925: 20 95 BA  JSR <a href="ro81ba95.htm">$BA95</a>        Vektoren der Fehlerbehandlung zurueckholen
+B928: 24 7C     BIT <a href="ra817c.htm">$7C</a>          Burst Kommandobyte holen
+B92A: 30 08     BMI $B934        b7=1: Dateityp nicht testen ? ja, ==&gt;
+B92C: A5 F4     LDA <a href="ra81f4.htm">$F4</a>          Dateityp holen
+B92E: 29 07     AND #$07         [Fehler aus 1571-DOS beseitigt: nur Datei-
+B930: C9 02     CMP #02         TYP ($B0-2)  testen.]
+B932: D0 05     BNE $B939        Typ = PRG ? nein, ==&gt;
+
+Einsprung von $B92A:
+
+B934: AD 97 02  LDA <a href="ra810297.htm">$0297</a>        Starttrack holen
+B937: D0 08     BNE $B941        &gt;0 (Datei gefunden), ==&gt;
+
+Einsprung von $B932:
+
+B939: A2 02     LDX #$02         Datei nicht gefunden
+B93B: 2C         B $2C
+
+Einsprung von $B8E1, $B8E8:
+
+B93C: A2 0F     LDX #$0F         kein Laufwerk verfuegbar
+B93E: 4C EC B9  JMP <a href="ro81b9ec.htm">$B9EC</a>
+
+Datei laden
+
+Einsprung von $B904, $B937:
+
+B941: 85 4C     STA <a href="ra814c.htm">$4C</a>          Starttrack merken (letzte benutzte Datei)
+B943: A2 00     LDX #$00
+B945: 95 0B     STA <a href="ra810b.htm">$0B</a>,X        Tracknummer in Jobspeicher schreiben
+B947: AD 9C 02  LDA <a href="ra81029c.htm">$029C</a>        Startsektor
+B94A: 8D 8B 02  STA <a href="ra81028b.htm">$028B</a>        fuer 'letzte benutzte Datei' merken
+B94D: 95 0C     STA <a href="ra810b.htm">$0C</a>,X        Sektornummer in Jobspeicher schreiben
+ - Track ggf. einlesen; Zeiger auf Position im Cache setzen
+
+Einsprung von $B98D:
+
+B94F: 58        CLI
+B950: A2 00     LDX #$00         Jobspeicher 0 verwenden
+B952: A9 AA     LDA #$AA         TREAD_DV: Track einlesen; Zeiger $9f setzen
+B954: 20 B7 BF  JSR <a href="ro81bfb0.htm">$BFB7</a>        Job aufrufen
+B957: AA        TAX
+B958: E0 02     CPX #$02         ist ein Lesefehler aufgetreten ?
+B95A: 90 03     BCC $B95F
+B95C: 4C D7 B9  JMP <a href="ro81b9d3.htm">$B9D7</a>        ja, ==&gt;
+
+ - auf Dateiende pruefen
+
+Einsprung von $B95A:
+
+B95F: 78        SEI
+B960: A0 00     LDY #$00         Pufferzeiger (Lo) auf 0 setzen
+B962: 84 7E     STY <a href="ra817e.htm">$7E</a>
+B964: B9 9F 00  LDA <a href="ra819f.htm">$009F</a>,Y      Zeiger auf den Block im Cache holen
+B967: 29 7F     AND #$7F         b7 (Flag: 'T&amp;S ins phy. Format gewandelt')
+B969: 18        CLC              ausblenden
+B96A: 65 8C     ADC <a href="ra818b.htm">$8C</a>          + Cacheanfang
+B96C: 85 7F     STA <a href="ra817e.htm">$7F</a>          als Pufferzeiger (Hi) merken
+B96E: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Folgetrack holen
+B970: F0 1E     BEQ $B990        =0 (Dateiende) ? ja, ==&gt;
+B972: 06 3C     ASL <a href="ra813c.htm">$3C</a>          Flag: 'Datei hat nur einen Block' loeschen
+B974: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>        Jobrueckmeldung in x als Status ausgeben
+
+ - Block uebertragen
+
+B977: A0 02     LDY #$02         Zeiger auf 1. Datenbyte setzen
+
+Einsprung von $B980:
+
+B979: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Datenbyte holen
+B97B: AA        TAX
+B97C: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>        und an Computer senden
+B97F: C8        INY
+B980: D0 F7     BNE $B979        ganzen Block ausgeben, ==&gt;
+B982: A2 00     LDX #$00
+B984: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      T&amp;S des Folgeblocks in Jobspeicher
+B986: 95 0B     STA <a href="ra810b.htm">$0B</a>,X        uebernehmen
+B988: C8        INY
+B989: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y
+B98B: 95 0C     STA <a href="ra810b.htm">$0C</a>,X
+B98D: 4C 4F B9  JMP $B94F
+
+ - letzten Block der Datei ausgeben
+
+Einsprung von $B970:
+
+B990: A2 1F     LDX #$1F         Meldung: 'letzter Dateiblock' ausgeben
+B992: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>
+B995: 24 3C     BIT <a href="ra813c.htm">$3C</a>          Flag: 'Datei hat nur einen Block' testen
+B997: 10 1F     BPL $B9B8        Flag geloescht, ==&gt;
+
+   - einzigen Block der Datei ausgeben
+
+B999: A0 01     LDY #$01
+B99B: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Zeiger auf letztes Byte im Block holen
+B99D: 38        SEC              [+1 waere Anzahl Bytes im Block]
+B99E: E9 03     SBC #$03         -3 [2 Bytes Verkettungszeiger und
+B9A0: 85 38     STA <a href="ra8138.htm">$38</a>              2 Bytes Startadresse
+B9A2: AA        TAX                  1 Byte ist schon abgezogen ==&gt; -3.]
+B9A3: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>        Anzahl Bytes ausgeben
+B9A6: C8        INY
+B9A7: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Startadresse (Lo) ausgeben
+B9A9: AA        TAX              [Der Computer zaehlt bei der Startadresse
+B9AA: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>         die Anzahl uebertragener Bytes nicht
+B9AD: C8        INY               weiter.]
+B9AE: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Startadresse (Hi) ausgeben
+B9B0: AA        TAX
+B9B1: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>
+B9B4: A0 04     LDY #$04         Zeiger auf Byte 4 setzen
+B9B6: D0 0D     BNE $B9C5        ==&gt;
+   - Datei enthaelt mehrere Bloecke
+
+Einsprung von $B997:
+
+B9B8: A0 01     LDY #$01
+B9BA: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Zeiger auf letztes Byte im Block holen
+B9BC: AA        TAX              [+1 waere Anzahl Bytes im Block]
+B9BD: CA        DEX              -1 [2 Bytes Verkettungszeiger
+B9BE: 86 38     STX <a href="ra8138.htm">$38</a>              1 Byte ist schon abgezogen == -1.]
+B9C0: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>        Anzahl Bytes ausgeben
+B9C3: A0 02     LDY #$02
+
+   - Datenbytes des letzten Blocks ausgeben
+
+Einsprung von $B9B6, $B9CE:
+
+B9C5: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Datenbyte holen
+B9C7: AA        TAX
+B9C8: 20 FC 01  JSR <a href="ra8101fc.htm">$01FC</a>        und ausgeben
+B9CB: C8        INY
+B9CC: C6 38     DEC <a href="ra8138.htm">$38</a>          Anzahl auszugebender Bytes vermindern
+B9CE: D0 F5     BNE $B9C5        alle Bytes ausgeben, ==&gt;
+B9D0: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>        00, Ok
+
+    <a href="ro81b88d.htm">Previous Page</a> / <a href="ro81b9d3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

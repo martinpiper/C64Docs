@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DF21/57121:   Write side-sector
+
+DF21: 85 F9     STA <a href="ra41f9.htm">$F9</a>         ; buffer number
+DF23: A9 90     LDA #$90        ; command code for writing
+
+Jump from <a href="ro41df1b.htm">$DF1F</a>:
+
+DF25: 48        PHA
+DF26: B5 EC     LDA <a href="ra41ec.htm">$EC</a>,X
+DF28: 29 01     AND #$01        ; isolate drive number
+DF2A: 85 7F     STA <a href="ra417f.htm">$7F</a>
+DF2C: 68        PLA
+DF2D: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; command code plus drive number
+DF2F: 8D 4D 02  STA <a href="ra41024d.htm">$024D</a>       ; save
+DF32: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track number
+DF34: 85 80     STA <a href="ra4180.htm">$80</a>
+DF36: C8        INY
+DF37: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; sector number
+DF39: 85 81     STA <a href="ra4181.htm">$81</a>
+DF3B: A5 F9     LDA <a href="ra41f9.htm">$F9</a>         ; buffer number
+DF3D: 20 D3 D6  JSR <a href="ro41d6d0.htm">$D6D3</a>       ; transmit parameter to disk controller
+DF40: A6 F9     LDX <a href="ra41f9.htm">$F9</a>         ; buffer number
+DF42: 4C 93 D5  JMP <a href="ro41d58a.htm">$D593</a>       ; transmit command to disk controller
+
+    <a href="ro41df1b.htm">Previous Page</a> / <a href="ro41df45.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

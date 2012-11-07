@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF06/61190:   Send New RS232 Byte
+
+Jump from <a href="romeebb.htm">$EEBD</a>, <a href="romf017.htm">$F044</a>:
+
+EF06: AD 94 02  <a href="blda.htm">LDA</a> <a href="zp0294.htm">$0294</a>     ; RS232 Pseudo 6551 command Register Image
+EF09: 4A        <a href="blsr.htm">LSR</a>
+EF0A: 90 07     <a href="bbcc.htm">BCC</a> $EF13
+EF0C: 2C 01 DD  <a href="bbit.htm">BIT</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+EF0F: 10 1D     <a href="bbpl.htm">BPL</a> <a href="romef2e.htm">$EF2E</a>     ; 'No DSR' / 'No CTS' Error
+EF11: 50 1E     <a href="bbvc.htm">BVC</a> <a href="romef2e.htm">$EF31</a>     ; 'No DSR' / 'No CTS' Error
+
+Jump from $EF0A:
+
+EF13: A9 00     <a href="blda.htm">LDA</a> #$00
+EF15: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+EF17: 85 B5     <a href="bsta.htm">STA</a> <a href="zpb5.htm">$B5</a>       ; RS232 Next Bit to send/Tape Read - End of Tape
+EF19: AE 98 02  <a href="bldx.htm">LDX</a> <a href="zp0298.htm">$0298</a>     ; RS232 Number of Bits left to send
+EF1C: 86 B4     <a href="bstx.htm">STX</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+EF1E: AC 9D 02  <a href="bldy.htm">LDY</a> <a href="zp029d.htm">$029D</a>     ; RS232 Pointer: High Byte of Output Buffer
+EF21: CC 9E 02  <a href="bcpy.htm">CPY</a> <a href="zp029e.htm">$029E</a>     ; RS232 Index to End of Output Buffer
+EF24: F0 13     <a href="bbeq.htm">BEQ</a> <a href="romef39.htm">$EF39</a>     ; Disable Timer
+EF26: B1 F9     <a href="blda.htm">LDA</a> (<a href="zpf9.htm">$F9</a>),Y   ; RS232 Output Buffer Pointer
+EF28: 85 B6     <a href="bsta.htm">STA</a> <a href="zpb6.htm">$B6</a>       ; RS232 Output Byte Buffer/Tape Read Error Flag
+EF2A: EE 9D 02  <a href="binc.htm">INC</a> <a href="zp029d.htm">$029D</a>     ; RS232 Pointer: High Byte of Output Buffer
+EF2D: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romeebb.htm">Previous Page</a> / <a href="romef2e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

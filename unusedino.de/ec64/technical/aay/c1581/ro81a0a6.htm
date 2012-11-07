@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte aus Record-Puffer holen ($e120)
+
+Einsprung von <a href="ro819303.htm">$930A</a>:
+
+A0A6: A9 80     LDA #$80         Ist b7=1: 'Record existiert nicht' ?
+A0A8: 20 E4 9C  JSR <a href="ro819cd3.htm">$9CE4</a>        (Dateistatus testen)
+A0AB: D0 3F     BNE <a href="ro81a0ec.htm">$A0EC</a>        ja, (50, Record not Present) ==&gt;
+A0AD: 20 69 90  JSR <a href="ro819069.htm">$9069</a>        Kanal-/Puffernummer holen
+A0B0: B5 BB     LDA <a href="ra81bb.htm">$BB</a>,X        Recordende erreicht ?
+A0B2: D9 42 02  CMP <a href="ra810242.htm">$0242</a>,Y
+A0B5: F0 2A     BEQ <a href="ro81a0e1.htm">$A0E1</a>        ja, (naechsten Record lesen) ==&gt;
+A0B7: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen
+A0B9: D0 0E     BNE $A0C9        Pufferende erreicht ?
+A0BB: AD 01 01  LDA <a href="ra810101.htm">$0101</a>        ja, Flag '2. Teil des Records geladen'
+A0BE: 09 10     ORA #$10         setzen (s. $a286)
+A0C0: 8D 01 01  STA <a href="ra810101.htm">$0101</a>
+A0C3: 20 BF 9F  JSR <a href="ro819fbf.htm">$9FBF</a>        (ueber-)naechsten Datenblock lesen
+
+Einsprung von <a href="ro81a20d.htm">$A22D</a>:
+
+A0C6: 20 69 90  JSR <a href="ro819069.htm">$9069</a>        Kanal- und Puffernummer holen
+
+Einsprung von $A0B9:
+
+A0C9: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      Byte aus Record holen
+
+Einsprung von <a href="ro81a0e1.htm">$A0E9</a>:
+
+A0CB: 99 3B 02  STA <a href="ra81023b.htm">$023B</a>,Y      Byte in Ausgabepuffer schreiben
+A0CE: A9 89     LDA #$89         b3=1: EOI-Flag loeschen
+A0D0: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y
+A0D3: B5 BB     LDA <a href="ra81bb.htm">$BB</a>,X        Steht der Pufferzeiger auf dem letzten
+A0D5: D9 42 02  CMP <a href="ra810242.htm">$0242</a>,Y      auszugebenden Byte ?
+A0D8: F0 01     BEQ $A0DB        ja, (EOI-Flag setzen)==&gt;
+A0DA: 60        RTS
+
+Einsprung von $A0D8:
+
+A0DB: A9 81     LDA #$81         b3=0: EOI-Flag setzen
+A0DD: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y
+A0E0: 60        RTS
+
+    <a href="ro81a09c.htm">Previous Page</a> / <a href="ro81a0e1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EFE1/61409:   Submit to RS232
+
+Jump from <a href="romf250.htm">$F26C</a>:
+
+EFE1: 85 9A     <a href="bsta.htm">STA</a> <a href="zp9a.htm">$9A</a>       ; Default Output Device (3)
+EFE3: AD 94 02  <a href="blda.htm">LDA</a> <a href="zp0294.htm">$0294</a>     ; RS232 Pseudo 6551 command Register Image
+EFE6: 4A        <a href="blsr.htm">LSR</a>
+EFE7: 90 29     <a href="bbcc.htm">BCC</a> <a href="romf00d.htm">$F012</a>     ; No DSR (Data Set Ready) Error
+EFE9: A9 02     <a href="blda.htm">LDA</a> #$02
+EFEB: 2C 01 DD  <a href="bbit.htm">BIT</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+EFEE: 10 1D     <a href="bbpl.htm">BPL</a> <a href="romf00d.htm">$F00D</a>     ; No DSR (Data Set Ready) Error
+EFF0: D0 20     <a href="bbne.htm">BNE</a> <a href="romf00d.htm">$F012</a>     ; No DSR (Data Set Ready) Error
+
+Jump from $EFF7:
+
+EFF2: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+EFF5: 29 02     <a href="band.htm">AND</a> #$02
+EFF7: D0 F9     <a href="bbne.htm">BNE</a> $EFF2
+
+Jump from $EFFC:
+
+EFF9: 2C 01 DD  <a href="bbit.htm">BIT</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+EFFC: 70 FB     <a href="bbvs.htm">BVS</a> $EFF9
+EFFE: AD 01 DD  <a href="blda.htm">LDA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F001: 09 02     <a href="bora.htm">ORA</a> #$02
+F003: 8D 01 DD  <a href="bsta.htm">STA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+
+Jump from $F00B:
+
+F006: 2C 01 DD  <a href="bbit.htm">BIT</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F009: 70 07     <a href="bbvs.htm">BVS</a> <a href="romf00d.htm">$F012</a>     ; No DSR (Data Set Ready) Error
+F00B: 30 F9     <a href="bbmi.htm">BMI</a> $F006
+
+    <a href="romef90.htm">Previous Page</a> / <a href="romf00d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

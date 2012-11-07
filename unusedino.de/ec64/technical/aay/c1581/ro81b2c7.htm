@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Blocks eines Files in BAM belegen ($ede5)
+[Es ist etwas unguenstig, dass das File auf der selben SA geoeffnet wird, wie
+ das Directory. So muss nach jedem File das Directory neu geladen werden.]
+
+Einsprung von <a href="ro81b262.htm">$B27D</a>, <a href="ro81b262.htm">$B29B</a>, <a href="ro81b262.htm">$B2A4</a>:
+
+B2C7: 20 B5 94  JSR <a href="ro8194b5.htm">$94B5</a>        auf gueltige T&amp;S pruefen
+B2CA: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        Block in Bam belegen
+B2CD: 20 CF 93  JSR <a href="ro8193cf.htm">$93CF</a>        File auf SA 17 zum Lesen oeffnen
+
+Einsprung von $B2EC:
+
+B2D0: A9 00     LDA #$00         Pufferzeiger auf 0 setzen
+B2D2: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+B2D5: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        T&amp;S des Folgeblocks holen
+B2D8: 85 4D     STA <a href="ra814d.htm">$4D</a>
+B2DA: 20 71 90  JSR <a href="ro819071.htm">$9071</a>
+B2DD: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B2DF: A5 4D     LDA <a href="ra814d.htm">$4D</a>          existiert Folgeblock ?
+B2E1: D0 03     BNE $B2E6        ja, ==&gt;
+B2E3: 4C 9E 91  JMP <a href="ro81919e.htm">$919E</a>        aktuelle SA schliessen
+
+Einsprung von $B2E1:
+
+B2E6: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        naechsten Block in BAM belegen
+B2E9: 20 AA 93  JSR <a href="ro8193aa.htm">$93AA</a>        naechsten Block lesen
+B2EC: 4C D0 B2  JMP $B2D0
+
+    <a href="ro81b262.htm">Previous Page</a> / <a href="ro81b2ef.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Autoboot bei Warmstart ein/aus
+c=1 : ein
+c=0 : aus
+
+Einsprung von <a href="ro81ff00.htm">$FF60</a>:
+
+9145: AD FB 01  LDA <a href="ra8101fb.htm">$01FB</a>        Autoboot-Flag loeschen
+9148: 29 7F     AND #$7F
+914A: 8D FB 01  STA <a href="ra8101fb.htm">$01FB</a>
+914D: A9 00     LDA #$00
+914F: 6A        ROR              c-Flag nach b7 schieben
+9150: 0D FB 01  ORA <a href="ra8101fb.htm">$01FB</a>        Autoboot-Flag entsprechend setzen
+9153: 8D FB 01  STA <a href="ra8101fb.htm">$01FB</a>
+9156: 60        RTS
+    <a href="ro819138.htm">Previous Page</a> / <a href="ro819157.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,69 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehle $04,$14: Inquire Disk (bei der 1571: $848b)
+
+Einsprung von <a href="ro81be06.htm">$BE06</a>:
+
+BCB2: AD 02 02  LDA <a href="ra810200.htm">$0202</a>        Burst-Befehl holen
+BCB5: 29 01     AND #$01         N-Flag (b0) testen (Laufwerksnummer)
+BCB7: D0 2E     BNE $BCE7        Laufwerk 1 angesprochen ? ja, ==&gt;
+BCB9: A2 00     LDX #$00         Burst-Status loeschen
+BCBB: 86 80     STX <a href="ra8180.htm">$80</a>
+
+(bei der 1571: $8a09)
+
+BCBD: A9 C0     LDA #$C0         RESTORE_DV: Kopf auf Spur 0 setzen
+BCBF: 20 B0 BF  JSR <a href="ro81bfb0.htm">$BFB0</a>
+BCC2: 08        PHP              i-Flag merken
+BCC3: 58        CLI              i-Flag loeschen
+BCC4: A9 80     LDA #$80         DOS-Fehlermeldungen unterdruecken
+BCC6: 85 81     STA <a href="ra8181.htm">$81</a>
+BCC8: 20 F1 BE  JSR <a href="ro81bebb.htm">$BEF1</a>        Standard-1581-Format setzen
+BCCB: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Diskette initialisieren
+BCCE: 06 81     ASL <a href="ra8181.htm">$81</a>          DOS-Fehlermeldungen wieder zulassen
+BCD0: 28        PLP              i-Flag zurueckholen
+BCD1: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BCD3: 29 10     AND #$10         S-Flag (b4) holen (Seitenauswahl)
+BCD5: 4A        LSR
+BCD6: 4A        LSR
+BCD7: 4A        LSR
+BCD8: 4A        LSR
+BCD9: 9D CE 01  STA <a href="ra8101ce.htm">$01CE</a>,X      und in Job-Seitenspeicher (SIDS) schreiben
+BCDC: A9 9C     LDA #$9C         SIDE_DV: Diskettenseite auswaehlen
+BCDE: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BCE1: A9 B0     LDA #$B0         SEEKHD_DV: beliebigen Blockheader suchen
+BCE3: 20 B0 BF  JSR <a href="ro81bfb0.htm">$BFB0</a>        Job aufrufen
+BCE6: 2C         B $2C
+
+Einsprung von $BCB7:
+
+BCE7: A9 4F     LDA #$4F         b6=1: Laufwerk 1; b0-3=$0f: Laufwerk n.v.
+
+Einsprung von $BD04:
+
+BCE9: 20 FC BA  JSR <a href="ro81bafc.htm">$BAFC</a>        Status ausgeben
+BCEC: A9 01     LDA #$01
+BCEE: 8D EF 01  STA <a href="ra8101ef.htm">$01EF</a>        kleinste Sektornummer setzen
+BCF1: 85 94     STA <a href="ra8194.htm">$94</a>          1. Sektornummer auf der Spur
+BCF3: A6 22     LDX <a href="ra8122.htm">$22</a>          Sektorgroesse aus Blockheader holen
+BCF5: BD 06 BD  LDA $BD06,X      Anzahl Sektoren pro Spur holen
+BCF8: F0 08     BEQ $BD02        = 0 (128-Byte-Sektoren) ? ja, =&gt;
+BCFA: 85 92     STA <a href="ra8192.htm">$92</a>          Anzahl Sektoren der Spur setzen
+BCFC: 85 93     STA <a href="ra8193.htm">$93</a>          letzter Sektor auf der Spur
+BCFE: 8D F0 01  STA <a href="ra8101f0.htm">$01F0</a>        groesste Sektornummer der Spur
+BD01: 60        RTS
+
+Einsprung von $BCF8:
+
+BD02: A9 0E     LDA #$0E         Syntax-Fehler (gemeint ist: Format wird
+BD04: D0 E3     BNE $BCE9        nicht unterstuetzt) ==&gt;
+
+Anzahl der Sektoren pro Spur bei verschiedenen Sektorgroessen.
+128-Byte-Sektoren werden nicht unterstuetzt
+
+BD06: 00 10 0A 05
+
+    <a href="ro81bc01.htm">Previous Page</a> / <a href="ro81bd0a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

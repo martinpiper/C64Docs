@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+'Stehlen' eines inaktiven Puffers ($d339)
+A: a: gestohlener Puffer ($ff: kein Puffer gefunden)
+[Wenn alle Puffer belegt sind, und trotzdem noch ein Puffer benoetigt wird,
+ kann mit dieser Routine ein 'inaktiver Puffer' freigegeben werden.
+ Inaktive Puffer enthalten normalerweise:
+ - Daten, die von der 2-Puffer-Automatik im Voraus geladen worden sind, und
+   die noch nicht sofort gebraucht werden (Diese Daten muessen spaeter ein
+   zweites Mal geladen werden),
+ - oder Daten, die abgespeichert werden sollen, sobald der Schreib-/Lese-
+   kopf positioniert worden ist (In diesem Fall muss man nur den Schreib-
+   vorgang abwarten).
+ Dieses Konzept ist bei der 1581 jedoch nicht mehr sinnvoll, da das DOS so
+ lange fast voellig angehalten wird, bis alle Schreib-/Lesejobs erledigt
+ sind und das Laden und Speichern deshalb nicht mehr im Hintergrund
+ geschieht.]
+
+Einsprung von <a href="ro819204.htm">$920B</a>:
+
+9291: A5 40     LDA <a href="ra8140.htm">$40</a>          Zwischenspeicher merken
+9293: 48        PHA
+9294: A0 00     LDY #$00
+
+Einsprung von $92B0:
+
+9296: B6 DF     LDX <a href="ra81df.htm">$DF</a>,Y        am laengsten nicht benutzte Kanaele zuerst
+9298: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        testen
+929A: 10 04     BPL $92A0        1. Puffer aktiv, dann ==&gt;
+929C: C9 FF     CMP #$FF         besitzt Kanal einen 1. Puffer ?
+929E: D0 16     BNE $92B6        ja, versuchen zu 'stehlen' ==&gt;
+
+Einsprung von $929A, $92CB:
+
+92A0: 8A        TXA
+92A1: 18        CLC
+92A2: 69 08     ADC #$08         2. Puffer testen
+92A4: AA        TAX
+92A5: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X
+92A7: 10 04     BPL $92AD        Puffer aktiv, dann ==&gt;
+92A9: C9 FF     CMP #$FF         besitze Kanal einen 2. Puffer ?
+92AB: D0 09     BNE $92B6        ja, versuchen zu 'stehlen' ==&gt;
+
+Einsprung von $92A7, $92CD:
+
+92AD: C8        INY              naechsten Kanal versuchen
+92AE: C0 06     CPY #$06
+92B0: 90 E4     BCC $9296
+92B2: A2 FF     LDX #$FF         keinen 'stehlbaren' Puffer gefunden
+92B4: D0 20     BNE $92D6        immer ==&gt;
+Versuchen, den gefundenen Puffer zu stehlen
+
+Einsprung von $929E, $92AB:
+
+92B6: 86 40     STX <a href="ra8140.htm">$40</a>          Kanalnummer (ggf. +8: 2. Puffer) merken
+92B8: 29 3F     AND #$3F         Puffernummer isolieren
+92BA: AA        TAX
+
+Einsprung von $92BD:
+
+92BB: B5 02     LDA <a href="ra8102.htm">$02</a>,X        evtl. Job abwarten
+92BD: 30 FC     BMI $92BB
+92BF: C9 02     CMP #$02         ist ein Fehler aufgetreten ?
+92C1: 90 0C     BCC $92CF        nein, ==&gt;
+92C3: C9 0F     CMP #$0F
+92C5: F0 08     BEQ $92CF        Drive not ready ?, ==&gt;
+92C7: A6 40     LDX <a href="ra8140.htm">$40</a>          Lesefehler, naechsten Puffer probieren
+92C9: E0 08     CPX #$08         weitermachen bei:
+92CB: 90 D3     BCC $92A0        2. Puffer, ==&gt;
+92CD: B0 DE     BCS $92AD        1. Puffer, naechster Kanal (bzw. Ende) ==&gt;
+
+Einsprung von $92C1, $92C5:
+
+92CF: A4 40     LDY <a href="ra8140.htm">$40</a>          Puffer freigeben
+92D1: A9 FF     LDA #$FF
+92D3: 99 D1 00  STA <a href="ra81d1.htm">$00D1</a>,Y
+
+Einsprung von $92B4:
+
+92D6: 68        PLA              Zwischenspeicher zurueckholen
+92D7: 85 40     STA <a href="ra8140.htm">$40</a>
+92D9: 8A        TXA              gefundenen Puffer nach A
+92DA: 60        RTS
+
+    <a href="ro81926e.htm">Previous Page</a> / <a href="ro8192db.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

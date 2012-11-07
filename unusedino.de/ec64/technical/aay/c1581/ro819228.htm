@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Suchen und belegen eines freien Puffers ($d2ba)
+A: a,x: Puffernummer ($ff: kein Puffer gefunden)
+
+Einsprung von <a href="ro819204.htm">$9206</a>:
+
+9228: A2 07     LDX #$07         Bit suchen, das 0 ist (= freier Puffer)
+
+Einsprung von $9232:
+
+922A: A5 6D     LDA <a href="ra816d.htm">$6D</a>
+922C: 3D EA B5  AND <a href="ro81b5d8.htm">$B5EA</a>,X
+922F: F0 04     BEQ $9235        Position in x
+9231: CA        DEX
+9232: 10 F6     BPL $922A
+9234: 60        RTS              kein freier Puffer
+
+Einsprung von $922F, <a href="ro818edc.htm">$8EE2</a>:
+
+9235: A5 6D     LDA <a href="ra816d.htm">$6D</a>          Puffer belegen
+9237: 5D EA B5  EOR <a href="ro81b5d8.htm">$B5EA</a>,X
+923A: 85 6D     STA <a href="ra816d.htm">$6D</a>
+923C: 8A        TXA
+923D: 60        RTS
+
+    <a href="ro819204.htm">Previous Page</a> / <a href="ro81923e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+aktuellen Filetyp ermitteln und
+pruefen, ob alle Files nach dem '=' existieren ($cacc)
+
+Einsprung von <a href="ro81876e.htm">$87BE</a>, <a href="ro81891e.htm">$891E</a>:
+
+8903: A5 F5     LDA <a href="ra81f4.htm">$F5</a>          Dateityp des 1. Files hinter dem '=' holen
+8905: 29 07     AND #$07
+8907: 8D 2D 02  STA <a href="ra81022d.htm">$022D</a>        und als aktuellen Filetyp merken
+890A: AE 2F 02  LDX <a href="ra81022f.htm">$022F</a>        vom letzten Fileeintrag bis zum
+
+Einsprung von $8916:
+
+890D: CA        DEX
+890E: EC 2E 02  CPX <a href="ra81022e.htm">$022E</a>        1. Fileeintrag nach dem '='
+8911: 90 0A     BCC $891D        ( fertig, ==&gt; )
+8913: BD 97 02  LDA <a href="ra810297.htm">$0297</a>,X      Tracknummer des aktuellen Files holen
+8916: D0 F5     BNE $890D        &gt;0 (File existiert), ==&gt;
+8918: A9 62     LDA #$62
+891A: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        62, File not found
+
+Einsprung von $8911:
+
+891D: 60        RTS
+
+    <a href="ro8188c5.htm">Previous Page</a> / <a href="ro81891e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

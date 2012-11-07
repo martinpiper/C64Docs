@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F817/63511:   Print &quot;PRESS PLAY ON TAPE&quot;
+
+Jump from <a href="romf34a.htm">$F399</a>, <a href="romf533.htm">$F541</a>, <a href="romf841.htm">$F84A</a>:
+
+F817: 20 2E F8  <a href="bjsr.htm">JSR</a> <a href="romf82e.htm">$F82E</a>     ; Check Tape Status
+F81A: F0 1A     <a href="bbeq.htm">BEQ</a> <a href="romf82e.htm">$F836</a>     ; Check Tape Status
+F81C: A0 1B     <a href="bldy.htm">LDY</a> #$1B
+
+Jump from <a href="romf838.htm">$F83F</a>:
+
+F81E: 20 2F F1  <a href="bjsr.htm">JSR</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+
+Jump from $F827:
+
+F821: 20 D0 F8  <a href="bjsr.htm">JSR</a> <a href="romf8d0.htm">$F8D0</a>     ; Check Tape Stop
+F824: 20 2E F8  <a href="bjsr.htm">JSR</a> <a href="romf82e.htm">$F82E</a>     ; Check Tape Status
+F827: D0 F8     <a href="bbne.htm">BNE</a> $F821
+F829: A0 6A     <a href="bldy.htm">LDY</a> #$6A
+F82B: 4C 2F F1  <a href="bjmp.htm">JMP</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+
+    <a href="romf80d.htm">Previous Page</a> / <a href="romf82e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FE0E/65038:   Write $55 10240 times
+
+Jump from <a href="ro41fac7.htm">$FCAE</a>:
+
+FE0E: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>
+FE11: 29 1F     AND #$1F
+FE13: 09 C0     ORA #$C0        ; switch PCR to writing
+FE15: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+FE18: A9 FF     LDA #$FF
+FE1A: 8D 03 1C  STA <a href="via23.htm">$1C03</a>       ; port A to output (write head)
+FE1D: A9 55     LDA #$55        ; %01010101
+FE1F: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; to port A (write head)
+FE22: A2 28     LDX #$28
+FE24: A0 00     LDY #$00
+
+Jump from $FE26, $FE2A, $FE2D:
+
+FE26: 50 FE     BVC $FE26       ; byte ready for write electronics
+FE28: B8        CLV
+FE29: 88        DEY
+FE2A: D0 FA     BNE $FE26       ; 10240 times
+FE2C: CA        DEX
+FE2D: D0 F7     BNE $FE26
+FE2F: 60        RTS
+
+    <a href="ro41fe00.htm">Previous Page</a> / <a href="ro41fe30.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

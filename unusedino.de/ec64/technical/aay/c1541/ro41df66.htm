@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DF66/57190:   Verify side-sector in buffer
+
+Jump from <a href="ro41def8.htm">$DEF8</a>, <a href="ro41def8.htm">$DF06</a>:
+
+DF66: 20 D2 DE  JSR <a href="ro41ded2.htm">$DED2</a>       ; get side-sector number
+DF69: C5 D5     CMP <a href="ra41d5.htm">$D5</a>         ; = number of necessary block?
+DF6B: D0 0E     BNE $DF7B       ; no
+DF6D: A4 D6     LDY <a href="ra41d6.htm">$D6</a>         ; pointer in side-sector
+DF6F: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track number
+DF71: F0 04     BEQ $DF77
+DF73: 2C CD FE  BIT <a href="ro41fecd.htm">$FECD</a>       ; erase bits
+DF76: 60        RTS
+
+Jump from $DF71:
+
+DF77: 2C CF FE  BIT <a href="ro41fecd.htm">$FECF</a>       ; set N-bit
+DF7A: 60        RTS
+
+Jump from $DF6B:
+
+DF7B: A5 D5     LDA <a href="ra41d5.htm">$D5</a>         ; side-sector number
+DF7D: C9 06     CMP #$06        ; 6 or greater?
+DF7F: B0 0A     BCS $DF8B       ; yes
+DF81: 0A        ASL
+DF82: A8        TAY
+DF83: A9 04     LDA #$04
+DF85: 85 94     STA <a href="ra4194.htm">$94</a>
+DF87: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track number
+DF89: D0 04     BNE $DF8F
+
+Jump from $DF7F:
+
+DF8B: 2C D0 FE  BIT <a href="ro41fecd.htm">$FED0</a>       ; set N and V bits
+DF8E: 60        RTS
+
+Jump from $DF89:
+
+DF8F: 2C CE FE  BIT <a href="ro41fecd.htm">$FECE</a>       ; set V bit
+DF92: 60        RTS
+
+    <a href="ro41df4c.htm">Previous Page</a> / <a href="ro41df93.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

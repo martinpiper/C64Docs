@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DE0C/56844:   Get following track and sector numbers
+
+Jump from <a href="ro41e207.htm">$E2AD</a>, <a href="ro41e31c.htm">$E3D7</a>:
+
+DE0C: 20 2B DE  JSR <a href="ro41de2b.htm">$DE2B</a>       ; set buffer pointer
+DE0F: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; following track number
+DE11: 85 80     STA <a href="ra4180.htm">$80</a>
+DE13: C8        INY
+DE14: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; and get sector number
+DE16: 85 81     STA <a href="ra4181.htm">$81</a>
+DE18: 60        RTS
+
+    <a href="ro41ddfd.htm">Previous Page</a> / <a href="ro41de19.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

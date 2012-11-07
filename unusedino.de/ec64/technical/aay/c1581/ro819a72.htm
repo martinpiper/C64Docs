@@ -1,0 +1,106 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Eintrag im Directory nach dem Schreiben updaten ($dba5)
+
+Einsprung von <a href="ro81999f.htm">$99BF</a>, <a href="ro81999f.htm">$99FF</a>:
+
+9A72: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer der Datei merken
+9A74: 8E 8C 02  STX <a href="ra81028c.htm">$028C</a>
+9A77: A5 52     LDA <a href="ra8152.htm">$52</a>          SA der Datei merken
+9A79: 48        PHA
+
+entsprechenden Directory-Eintrag holen
+
+9A7A: BD 7D 02  LDA <a href="ra81027d.htm">$027D</a>,X      Dir-Block des Eintrages holen
+9A7D: 85 4E     STA <a href="ra814e.htm">$4E</a>
+9A7F: BD 84 02  LDA <a href="ra810284.htm">$0284</a>,X      Position des Eintrages im Block holen
+9A82: 8D 32 02  STA <a href="ra810232.htm">$0232</a>
+9A85: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Tracknummer des Directorys setzen
+9A88: 85 4D     STA <a href="ra814d.htm">$4D</a>
+9A8A: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        aktuellen Puffer der Datei holen
+9A8D: 48        PHA              [Der Dir-Block wird in den Puffer der Datei
+9A8E: 85 6C     STA <a href="ra816c.htm">$6C</a>           gelesen, damit die Replace-Funktion den
+                                 Scratch-Befehl verwenden kann.]
+9A90: 20 BD 93  JSR <a href="ro8193bd.htm">$93BD</a>        Directory-Block lesen
+9A93: A0 00     LDY #$00
+9A95: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X      Pufferadresse holen
+9A98: 85 56     STA <a href="ra8156.htm">$56</a>          und als Pufferzeiger Hi merken
+9A9A: AD 32 02  LDA <a href="ra810232.htm">$0232</a>        Position des Eintrages holen und als
+9A9D: 85 55     STA <a href="ra8155.htm">$55</a>          Pufferzeiger Lo merken
+
+9A9F: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      Filetyp holen
+9AA1: 29 20     AND #$20         b5=1: 'Datei wird ueberschrieben' ?
+9AA3: F0 43     BEQ $9AE8        nein, ==&gt;
+9AA5: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Filetyp des Kanals holen
+9AA8: C9 04     CMP #$04         = REL-Datei ?
+9AAA: F0 44     BEQ $9AF0        ja, ==&gt;
+
+REPLACE-Funktion
+
+9AAC: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      b5: Replace-Flag und b6: Scratch-Schutz
+9AAE: 29 8F     AND #$8F         loeschen
+9AB0: 91 55     STA (<a href="ra8155.htm">$55</a>),Y
+9AB2: C8        INY
+9AB3: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      Tracknummer der alten Datei holen
+9AB5: 85 4D     STA <a href="ra814d.htm">$4D</a>          und merken
+9AB7: 84 42     STY <a href="ra8140.htm">$42</a>
+9AB9: A0 1B     LDY #$1B
+9ABB: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      T&amp;S der neuen Datei holen und merken
+9ABD: 48        PHA              (Sektornummer)
+9ABE: 88        DEY
+9ABF: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      Tracknummer = 0 ?
+9AC1: D0 0A     BNE $9ACD        nein, ==&gt;
+9AC3: 85 4D     STA <a href="ra814d.htm">$4D</a>          [Ja: in diesem Fall existiert gar keine
+9AC5: 68        PLA               neue Datei, also darf die alte nicht
+9AC6: 85 4E     STA <a href="ra814e.htm">$4E</a>           geloescht werden.]
+9AC8: A9 67     LDA #$67         67, Illegal Track or Sector, 00, ss
+9ACA: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>        ==&gt;
+
+Einsprung von $9AC1:
+
+9ACD: 48        PHA              Tracknummer merken
+9ACE: A9 00     LDA #$00
+9AD0: 91 55     STA (<a href="ra8155.htm">$55</a>),Y      Replace-T&amp;S-Zwischenspeicher loeschen
+9AD2: C8        INY
+9AD3: 91 55     STA (<a href="ra8155.htm">$55</a>),Y
+9AD5: 68        PLA
+9AD6: A4 42     LDY <a href="ra8140.htm">$42</a>          Tracknummer der neuen Datei als Dateianfang
+9AD8: 91 55     STA (<a href="ra8155.htm">$55</a>),Y      merken
+9ADA: C8        INY
+9ADB: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      Sektornummer der alten Datei
+9ADD: 85 4E     STA <a href="ra814e.htm">$4E</a>          merken
+9ADF: 68        PLA
+9AE0: 91 55     STA (<a href="ra8155.htm">$55</a>),Y      und durch neue Sektornummer ersetzen
+9AE2: 20 13 87  JSR <a href="ro818688.htm">$8713</a>        alte Datei loeschen
+9AE5: 4C F0 9A  JMP $9AF0
+
+Datei im Directory abschliessen
+
+Einsprung von $9AA3:
+
+9AE8: B1 55     LDA (<a href="ra8155.htm">$55</a>),Y      Datei als 'ordnungsgemaess geschlossen'
+9AEA: 29 0F     AND #$0F         kennzeichnen
+9AEC: 09 80     ORA #$80
+9AEE: 91 55     STA (<a href="ra8155.htm">$55</a>),Y
+
+Einsprung von $9AAA, $9AE5:
+
+9AF0: AE 8C 02  LDX <a href="ra81028c.htm">$028C</a>        Nummer der Datei holen
+9AF3: A0 1C     LDY #$1C
+9AF5: BD 49 02  LDA <a href="ra810249.htm">$0249</a>,X      Dateilaenge im Directory eintragen
+9AF8: 91 55     STA (<a href="ra8155.htm">$55</a>),Y
+9AFA: C8        INY
+9AFB: BD 50 02  LDA <a href="ra810250.htm">$0250</a>,X
+9AFE: 91 55     STA (<a href="ra8155.htm">$55</a>),Y
+9B00: 68        PLA
+9B01: AA        TAX
+9B02: A9 90     LDA #$90         Jobcode fuer 'Sektor schreiben'
+9B04: 20 E6 94  JSR <a href="ro8194de.htm">$94E6</a>        an DC uebergeben
+9B07: 68        PLA
+9B08: 85 52     STA <a href="ra8152.htm">$52</a>          SA der Datei zurueckholen
+9B0A: 4C 42 90  JMP <a href="ro819042.htm">$9042</a>        SA freigeben
+
+    <a href="ro819a2a.htm">Previous Page</a> / <a href="ro819b0d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

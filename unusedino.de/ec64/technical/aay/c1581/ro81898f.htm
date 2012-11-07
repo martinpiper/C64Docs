@@ -1,0 +1,68 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+User-Befehle ($cb5c)
+
+898F: AC 01 02  LDY <a href="ra810200.htm">$0201</a>        u0-Befehle ?
+8992: C0 30     CPY #$30
+8994: D0 36     BNE $89CC        nein ==&gt;
+8996: A5 29     LDA <a href="ra8129.htm">$29</a>          'u0' ?
+8998: C9 03     CMP #$03
+899A: 90 27     BCC $89C3        ja, Tabelle $ffea aktivieren ==&gt;
+899C: 78        SEI              'u0...'
+899D: AD 02 02  LDA <a href="ra810200.htm">$0202</a>        Befehl holen
+89A0: 85 7C     STA <a href="ra817c.htm">$7C</a>          und merken
+89A2: 29 1F     AND #$1F         b0-4: Befehlsnummer
+89A4: AA        TAX
+89A5: 0A        ASL              16-Bit Index
+89A6: A8        TAY
+89A7: B9 36 DB  LDA <a href="ro81dafd.htm">$DB36</a>,Y      Sprungadresse des Userbefehls holen
+89AA: 85 46     STA <a href="ra8146.htm">$46</a>
+89AC: B9 37 DB  LDA <a href="ro81dafd.htm">$DB37</a>,Y
+89AF: 85 47     STA <a href="ra8146.htm">$47</a>
+89B1: 20 F6 81  JSR <a href="ro8181e5.htm">$81F6</a>        Drive-LED einschalten
+89B4: A5 76     LDA <a href="ra8176.htm">$76</a>          b2=0: Burst-Clock Zustand loeschen
+89B6: 29 FB     AND #$FB
+89B8: 85 76     STA <a href="ra8176.htm">$76</a>
+89BA: 20 C0 89  JSR $89C0        Userbefehl aufrufen
+89BD: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>        DOS-Meldung ausgeben
+
+Einsprung von $89BA:
+
+89C0: 6C 46 00  JMP (<a href="ra8146.htm">$0046</a>)
+
+Einsprung von $899A, <a href="ro81afe9.htm">$B065</a>:
+
+89C3: A9 EA     LDA #$EA         Standardtabelle fuer u1-u: ($ffea) setzen
+89C5: 85 33     STA <a href="ra8133.htm">$33</a>
+89C7: A9 FF     LDA #$FF
+89C9: 85 34     STA <a href="ra8133.htm">$34</a>
+
+Burst-Befehle $18,$19: (RTS)
+
+89CB: 60        RTS
+
+USER-Befehle '1' - ':' aufrufen
+
+Einsprung von $8994:
+
+89CC: 20 D2 89  JSR $89D2        'u1' - 'u:' aufrufen
+89CF: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+Einsprung von $89CC:
+
+89D2: 88        DEY              Beginn mit 1 (nicht 0)
+89D3: 98        TYA
+89D4: 29 0F     AND #$0F
+89D6: 0A        ASL
+89D7: A8        TAY              Adresse holen
+89D8: B1 33     LDA (<a href="ra8133.htm">$33</a>),Y
+89DA: 85 46     STA <a href="ra8146.htm">$46</a>
+89DC: C8        INY
+89DD: B1 33     LDA (<a href="ra8133.htm">$33</a>),Y
+89DF: 85 47     STA <a href="ra8146.htm">$47</a>
+89E1: 6C 46 00  JMP (<a href="ra8146.htm">$0046</a>)      und anspringen
+
+    <a href="ro81892f.htm">Previous Page</a> / <a href="ro8189e4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

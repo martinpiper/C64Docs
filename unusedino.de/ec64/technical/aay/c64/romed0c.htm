@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $ED0C/60684:   Send LISTEN Command on Serial Bus
+
+Jump from <a href="romf250.htm">$F27A</a>, <a href="romf3d5.htm">$F3E3</a>, <a href="romf5fa.htm">$F60D</a>, <a href="romf5fa.htm">$F648</a>, <a href="romffb1.htm">$FFB1</a>:
+
+ED0C: 09 20     <a href="bora.htm">ORA</a> #$20
+ED0E: 20 A4 F0  <a href="bjsr.htm">JSR</a> <a href="romf0a4.htm">$F0A4</a>     ; Serial Bus Idle
+
+Jump from <a href="romedfe.htm">$EE00</a>:
+
+ED11: 48        <a href="bpha.htm">PHA</a>
+ED12: 24 94     <a href="bbit.htm">BIT</a> <a href="zp94.htm">$94</a>       ; Flag: Serial Bus - Output Character buffered
+ED14: 10 0A     <a href="bbpl.htm">BPL</a> $ED20
+ED16: 38        <a href="bsec.htm">SEC</a>
+ED17: 66 A3     <a href="bror.htm">ROR</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+ED19: 20 40 ED  <a href="bjsr.htm">JSR</a> <a href="romed40.htm">$ED40</a>     ; Send Data On Serial Bus
+ED1C: 46 94     <a href="blsr.htm">LSR</a> <a href="zp94.htm">$94</a>       ; Flag: Serial Bus - Output Character buffered
+ED1E: 46 A3     <a href="blsr.htm">LSR</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+
+Jump from $ED14:
+
+ED20: 68        <a href="bpla.htm">PLA</a>
+ED21: 85 95     <a href="bsta.htm">STA</a> <a href="zp95.htm">$95</a>       ; Buffered Character for Serial Bus
+ED23: 78        <a href="bsei.htm">SEI</a>
+ED24: 20 97 EE  <a href="bjsr.htm">JSR</a> <a href="romee97.htm">$EE97</a>     ; Serial Output 1
+ED27: C9 3F     <a href="bcmp.htm">CMP</a> #$3F
+ED29: D0 03     <a href="bbne.htm">BNE</a> $ED2E
+ED2B: 20 85 EE  <a href="bjsr.htm">JSR</a> <a href="romee85.htm">$EE85</a>     ; Serial Clock On
+
+Jump from $ED29:
+
+ED2E: AD 00 DD  <a href="blda.htm">LDA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+ED31: 09 08     <a href="bora.htm">ORA</a> #$08
+ED33: 8D 00 DD  <a href="bsta.htm">STA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+
+Jump from <a href="romedb9.htm">$EDBB</a>, <a href="romedc7.htm">$EDC9</a>:
+
+ED36: 78        <a href="bsei.htm">SEI</a>
+ED37: 20 8E EE  <a href="bjsr.htm">JSR</a> <a href="romee8e.htm">$EE8E</a>     ; Serial Clock Off
+ED3A: 20 97 EE  <a href="bjsr.htm">JSR</a> <a href="romee97.htm">$EE97</a>     ; Serial Output 1
+ED3D: 20 B3 EE  <a href="bjsr.htm">JSR</a> <a href="romeeb3.htm">$EEB3</a>     ; Delay 1 ms
+
+    <a href="romed09.htm">Previous Page</a> / <a href="romed40.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

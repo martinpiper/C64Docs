@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+LED-Routinen des Controller-Programms
+
+JOB $94: LEDACTON_DV
+
+C546: A5 79     LDA <a href="ra8179.htm">$79</a>          b6=1: Drive-LED an
+C548: 09 40     ORA #$40
+C54A: 85 79     STA <a href="ra8179.htm">$79</a>
+C54C: 4C 99 C3  JMP <a href="ro81c396.htm">$C399</a>
+
+JOB $96: LEDACTOFF_DV
+
+C54F: A5 79     LDA <a href="ra8179.htm">$79</a>          b6=0: Drive-LED aus
+C551: 29 BF     AND #$BF
+C553: 85 79     STA <a href="ra8179.htm">$79</a>
+C555: 4C 99 C3  JMP <a href="ro81c396.htm">$C399</a>
+
+JOB $98: ERRLEDON_DV
+
+C558: A5 79     LDA <a href="ra8179.htm">$79</a>          b5=1: Fehler-LED-Blinken
+C55A: 09 20     ORA #$20
+C55C: 85 79     STA <a href="ra8179.htm">$79</a>
+C55E: 4C 99 C3  JMP <a href="ro81c396.htm">$C399</a>
+
+JOB $9a: ERRLEDOFF_DV
+
+C561: A5 79     LDA <a href="ra8179.htm">$79</a>          b5=0: kein Fehler-LED-Blinken
+C563: 29 DF     AND #$DF
+C565: 85 79     STA <a href="ra8179.htm">$79</a>
+C567: 4C 99 C3  JMP <a href="ro81c396.htm">$C399</a>
+
+    <a href="ro81c3d6.htm">Previous Page</a> / <a href="ro81c56a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

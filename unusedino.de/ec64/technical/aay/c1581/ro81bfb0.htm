@@ -1,0 +1,44 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Job ausfuehren und ggf. bei Fehlern mehrmals versuchen (bei der 1571: $864b)
+
+Einsprung von <a href="ro81baae.htm">$BAC5</a>, <a href="ro81bb11.htm">$BB31</a>, <a href="ro81bb74.htm">$BBD1</a>, <a href="ro81bc01.htm">$BC21</a>, <a href="ro81bcb2.htm">$BCBF</a>, <a href="ro81bcb2.htm">$BCE3</a>:
+
+BFB0: 48        PHA
+BFB1: A9 40     LDA #$40         T&amp;S-Check ausschalten
+BFB3: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>
+BFB6: 68        PLA
+
+Einsprung von <a href="ro81b8d2.htm">$B954</a>:
+
+BFB7: 08        PHP              i-Flag merken
+BFB8: 58        CLI              i-Flag loeschen
+BFB9: 85 28     STA <a href="ra8128.htm">$28</a>          Jobcode merken
+BFBB: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BFBE: C9 02     CMP #$02         kein Fehler ?
+BFC0: 90 03     BCC $BFC5        ja, ==&gt;
+BFC2: 20 CE BF  JSR $BFCE        Fehler behandeln
+
+Einsprung von $BFC0:
+
+BFC5: A9 00     LDA #$00         Fehlerpruefung wieder einschalten
+BFC7: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>
+BFCA: B5 02     LDA <a href="ra8102.htm">$02</a>,X        Jobrueckmeldung holen
+BFCC: 28        PLP              i-Flag zurueckholen
+BFCD: 60        RTS
+
+Einsprung von $BFC2:
+
+BFCE: AD A8 02  LDA <a href="ra8102a8.htm">$02A8</a>        DOS-Fehlerunterdrueckung einschalten
+BFD1: 09 80     ORA #$80
+BFD3: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>
+BFD6: 86 6C     STX <a href="ra816c.htm">$6C</a>
+BFD8: A5 28     LDA <a href="ra8128.htm">$28</a>
+BFDA: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X
+BFDD: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>
+BFE0: 4C ED 94  JMP <a href="ro8194de.htm">$94ED</a>        mehrere Leseversuche durchfuehren
+
+    <a href="ro81bfab.htm">Previous Page</a> / <a href="ro81bfe3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

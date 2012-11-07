@@ -1,0 +1,127 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Dos-Tabellen initialisieren ($eb3a)
+
+Einsprung von <a href="ro81afca.htm">$AFD3</a>:
+
+AFE9: AD 00 40  LDA <a href="cia810.htm">$4000</a>        Geraetenummer auslesen
+AFEC: 29 18     AND #$18
+AFEE: 4A        LSR
+AFEF: 4A        LSR
+AFF0: 4A        LSR              Schalter-Bits + 8
+AFF1: 09 48     ORA #$48         TALK (+ $40)
+AFF3: 85 78     STA <a href="ra8178.htm">$78</a>
+AFF5: 49 60     EOR #$60         LISTEN (+ $20)
+AFF7: 85 77     STA <a href="ra8177.htm">$77</a>
+AFF9: A2 08     LDX #$08         Hi-Bytes der Pufferadressen
+AFFB: A9 0B     LDA #$0B         berechnen
+
+Einsprung von $B004:
+
+AFFD: 9D F1 01  STA <a href="ra8101f1.htm">$01F1</a>,X      $01F1: 03 04 .. 0b
+B000: 38        SEC
+B001: E9 01     SBC #$01
+B003: CA        DEX
+B004: 10 F7     BPL $AFFD
+B006: A2 00     LDX #$00         Pufferzeiger initialisieren
+B008: A0 00     LDY #$00
+
+Einsprung von $B018:
+
+B00A: A9 00     LDA #$00
+B00C: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        Lo-Byte = 0
+B00E: E8        INX
+B00F: B9 F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,Y      Hi-Byte = 03 04 .. 0b
+B012: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X
+B014: E8        INX
+B015: C8        INY
+B016: C0 09     CPY #$09
+B018: D0 F0     BNE $B00A
+
+B01A: A9 00     LDA #$00         INPUT-Puffer nach $0200
+B01C: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X
+B01E: A9 02     LDA #$02
+B020: 95 BC     STA <a href="ra81bb.htm">$BC</a>,X
+B022: A9 D0     LDA #$D0         ERROR-Puffer nach $02d0
+B024: 95 BD     STA <a href="ra81bb.htm">$BD</a>,X
+B026: A9 02     LDA #$02
+B028: 95 BE     STA <a href="ra81bb.htm">$BE</a>,X
+
+B02A: A9 FF     LDA #$FF         Kanalzuordnung loeschen
+B02C: A2 12     LDX #$12         (SA sind keinem Kanal zugeordnet)
+
+Einsprung von $B031:
+
+B02E: 95 A8     STA <a href="ra81a8.htm">$A8</a>,X
+B030: CA        DEX
+B031: 10 FB     BPL $B02E
+B033: A2 06     LDX #$06
+
+Einsprung von $B03D:
+
+B035: 95 D1     STA <a href="ra81d1.htm">$D1</a>,X        1. Pufferzuordnung freigeben
+B037: 95 D8     STA <a href="ra81d8.htm">$D8</a>,X        2. Pufferzuordnung freigeben
+B039: 9D 65 02  STA <a href="ra810265.htm">$0265</a>,X      Side-Sektor Tabelle loeschen
+B03C: CA        DEX              Puffer 7+8 werden nicht
+B03D: 10 F6     BPL $B035        Kanaelen zugeordnet (BAM)
+B03F: A9 09     LDA #$09         Puffer 9 (INPUT) auf Kanal 5
+B041: 85 D6     STA <a href="ra81d1.htm">$D6</a>
+B043: A9 0A     LDA #$0A         Puffer 10 (ERROR) auf Kanal 6
+B045: 85 D7     STA <a href="ra81d1.htm">$D7</a>
+B047: A9 06     LDA #$06         SA 16 belegt Kanal 6 (lesen)
+B049: 85 B8     STA <a href="ra81a8.htm">$B8</a>
+B04B: A9 85     LDA #$85         SA 15 belegt Kanal 5 (schreiben)
+B04D: 85 B7     STA <a href="ra81a8.htm">$B7</a>
+B04F: A9 1F     LDA #$1F         Kanal 0-4 freigeben
+B051: 85 70     STA <a href="ra8170.htm">$70</a>
+B053: A9 01     LDA #$01         Kanal 5 auf Schreiben stellen
+B055: 8D 39 02  STA <a href="ra810234.htm">$0239</a>
+B058: A9 88     LDA #$88         Kanal 6 auf Lesen / kein EOI
+B05A: 8D 3A 02  STA <a href="ra81023a.htm">$023A</a>
+B05D: A9 80     LDA #$80         Pufferbelegung: Puffer 7 belegen
+B05F: 85 6D     STA <a href="ra816d.htm">$6D</a>          [Puffer 8 hat kein Bit; ist immer belegt]
+B061: A9 01     LDA #$01         Diskette wurde gewechselt
+B063: 85 25     STA <a href="ra8125.htm">$25</a>
+B065: 20 C3 89  JSR <a href="ro81898f.htm">$89C3</a>        Standard Uservektoren-Tabelle setzen
+B068: 20 59 8D  JSR <a href="ro818d59.htm">$8D59</a>        Reihenfolge der Pufferbelegung festlegen
+B06B: A9 01     LDA #$01         Sektorversatz auf 1
+B06D: 85 2E     STA <a href="ra812e.htm">$2E</a>
+B06F: A9 02     LDA #$02         Anzahl der Leseversuche
+B071: 85 30     STA <a href="ra8130.htm">$30</a>
+B073: A9 00     LDA #$00         Burst-OR-Maske
+B075: 85 8A     STA <a href="ra818a.htm">$8A</a>
+B077: A9 FF     LDA #$FF         Burst-AND-Maske
+B079: 85 89     STA <a href="ra8189.htm">$89</a>
+B07B: A9 00     LDA #$00         Zeiger auf Cachepuffer
+B07D: 85 8B     STA <a href="ra818b.htm">$8B</a>
+B07F: A9 0C     LDA #$0C         nach $0c00
+B081: 85 8C     STA <a href="ra818b.htm">$8C</a>
+B083: A9 08     LDA #$08         FSM-Bus aktiv / C64-Modus
+B085: 85 76     STA <a href="ra8176.htm">$76</a>
+B087: A9 33     LDA #$33         Dos-Version
+B089: 8D EC 01  STA <a href="ra8101ec.htm">$01EC</a>
+B08C: A9 44     LDA #$44         1581-Formatkennzeichen
+B08E: 8D EB 01  STA <a href="ra8101eb.htm">$01EB</a>
+B091: A9 C0     LDA #$C0         E/A-Byte: b6=1: CRC-Test ein; b7:Verify ein
+B093: 85 8D     STA <a href="ra818d.htm">$8D</a>          b5=0: Super-Side-Sektoren verwenden
+B095: A9 50     LDA #$50         Anlaufzeit des Motors setzen (0,8 sec)
+B097: 8D D9 01  STA <a href="ra8101d9.htm">$01D9</a>
+B09A: A9 20     LDA #$20         Cache-Verzoegerung auf 32 (= 320 ms) setzen
+B09C: 85 9D     STA <a href="ra819d.htm">$9D</a>
+B09E: A2 00     LDX #$00         Job 0 benutzen
+B0A0: A9 82     LDA #$82         RESET_DV: Controller initialisieren
+B0A2: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job ausfuehren
+B0A5: C9 02     CMP #$02         Fehler ?
+B0A7: B0 05     BCS $B0AE        ja, (Controller Error) ==&gt;
+B0A9: A9 C0     LDA #$C0         RESTORE_DV: ('Bump')
+B0AB: 4C 9D 95  JMP <a href="ro819598.htm">$959D</a>        Job ausfuehren
+
+Einsprung von $B0A7:
+
+B0AE: A9 76     LDA #$76         76, Controller Error
+B0B0: 4C 67 A8  JMP <a href="ro81a862.htm">$A867</a>
+
+    <a href="ro81afca.htm">Previous Page</a> / <a href="ro81b0b3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

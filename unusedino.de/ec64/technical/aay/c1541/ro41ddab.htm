@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DDAB/56747:   Verify command code for writing
+
+Jump from <a href="ro41cf1e.htm">$CF4C</a>, <a href="ro41e03c.htm">$E052</a>, <a href="ro41e03c.htm">$E060</a>:
+
+DDAB: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+DDAE: AA        TAX
+DDAF: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X
+DDB2: 29 F0     AND #$F0        ; isolate command code
+DDB4: C9 90     CMP #$90        ; code for writing?
+DDB6: 60        RTS
+
+    <a href="ro41dda6.htm">Previous Page</a> / <a href="ro41ddb7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

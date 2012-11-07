@@ -1,0 +1,100 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E8EA/59626:   Scroll Screen
+
+Jump from <a href="rome6b6.htm">$E6D3</a>, <a href="rome87c.htm">$E885</a>, <a href="rome965.htm">$E975</a>:
+
+E8EA: A5 AC     <a href="blda.htm">LDA</a> <a href="zpac.htm">$AC</a>       ; Pointer: Tape Buffer/Screen scrolling
+E8EC: 48        <a href="bpha.htm">PHA</a>
+E8ED: A5 AD     <a href="blda.htm">LDA</a> <a href="zpac.htm">$AD</a>       ; Pointer: Tape Buffer/Screen scrolling
+E8EF: 48        <a href="bpha.htm">PHA</a>
+E8F0: A5 AE     <a href="blda.htm">LDA</a> <a href="zpae.htm">$AE</a>       ; Tape End Address/End of Program
+E8F2: 48        <a href="bpha.htm">PHA</a>
+E8F3: A5 AF     <a href="blda.htm">LDA</a> <a href="zpae.htm">$AF</a>       ; Tape End Address/End of Program
+E8F5: 48        <a href="bpha.htm">PHA</a>
+
+Jump from $E931:
+
+E8F6: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+E8F8: C6 D6     <a href="bdec.htm">DEC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E8FA: C6 C9     <a href="bdec.htm">DEC</a> <a href="zpc9.htm">$C9</a>       ; Cursor X/Y position at start of Input
+E8FC: CE A5 02  <a href="bdec.htm">DEC</a> <a href="zp02a5.htm">$02A5</a>     ; Temporary for Line Index
+
+Jump from $E911:
+
+E8FF: E8        <a href="binx.htm">INX</a>
+E900: 20 F0 E9  <a href="bjsr.htm">JSR</a> <a href="rome9f0.htm">$E9F0</a>     ; Set Start of Line
+E903: E0 18     <a href="bcpx.htm">CPX</a> #$18
+E905: B0 0C     <a href="bbcs.htm">BCS</a> $E913
+E907: BD F1 EC  <a href="blda.htm">LDA</a> <a href="romecf0.htm">$ECF1</a>,X   ; Low Byte Screen Line Addresses
+E90A: 85 AC     <a href="bsta.htm">STA</a> <a href="zpac.htm">$AC</a>       ; Pointer: Tape Buffer/Screen scrolling
+E90C: B5 DA     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$DA</a>,X     ; Screen Line Link Table
+E90E: 20 C8 E9  <a href="bjsr.htm">JSR</a> <a href="rome9c8.htm">$E9C8</a>     ; Move A Screen Line
+E911: 30 EC     <a href="bbmi.htm">BMI</a> $E8FF
+
+Jump from $E905:
+
+E913: 20 FF E9  <a href="bjsr.htm">JSR</a> <a href="rome9ff.htm">$E9FF</a>     ; Clear Screen Line
+E916: A2 00     <a href="bldx.htm">LDX</a> #$00
+
+Jump from $E927:
+
+E918: B5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E91A: 29 7F     <a href="band.htm">AND</a> #$7F
+E91C: B4 DA     <a href="bldy.htm">LDY</a> <a href="zpd9.htm">$DA</a>,X     ; Screen Line Link Table
+E91E: 10 02     <a href="bbpl.htm">BPL</a> $E922
+E920: 09 80     <a href="bora.htm">ORA</a> #$80
+
+Jump from $E91E:
+
+E922: 95 D9     <a href="bsta.htm">STA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E924: E8        <a href="binx.htm">INX</a>
+E925: E0 18     <a href="bcpx.htm">CPX</a> #$18
+E927: D0 EF     <a href="bbne.htm">BNE</a> $E918
+E929: A5 F1     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$F1</a>       ; Screen Line Link Table
+E92B: 09 80     <a href="bora.htm">ORA</a> #$80
+E92D: 85 F1     <a href="bsta.htm">STA</a> <a href="zpd9.htm">$F1</a>       ; Screen Line Link Table
+E92F: A5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>       ; Screen Line Link Table
+E931: 10 C3     <a href="bbpl.htm">BPL</a> $E8F6
+E933: E6 D6     <a href="binc.htm">INC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E935: EE A5 02  <a href="binc.htm">INC</a> <a href="zp02a5.htm">$02A5</a>     ; Temporary for Line Index
+E938: A9 7F     <a href="blda.htm">LDA</a> #$7F
+E93A: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+E93D: AD 01 DC  <a href="blda.htm">LDA</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+E940: C9 FB     <a href="bcmp.htm">CMP</a> #$FB
+E942: 08        <a href="bphp.htm">PHP</a>
+E943: A9 7F     <a href="blda.htm">LDA</a> #$7F
+E945: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+E948: 28        <a href="bplp.htm">PLP</a>
+E949: D0 0B     <a href="bbne.htm">BNE</a> $E956
+E94B: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $E94F, $E952:
+
+E94D: EA        <a href="bnop.htm">NOP</a>
+E94E: CA        <a href="bdex.htm">DEX</a>
+E94F: D0 FC     <a href="bbne.htm">BNE</a> $E94D
+E951: 88        <a href="bdey.htm">DEY</a>
+E952: D0 F9     <a href="bbne.htm">BNE</a> $E94D
+E954: 84 C6     <a href="bsty.htm">STY</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+
+Jump from $E949:
+
+E956: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+
+Jump from <a href="rome965.htm">$E9C5</a>:
+
+E958: 68        <a href="bpla.htm">PLA</a>
+E959: 85 AF     <a href="bsta.htm">STA</a> <a href="zpae.htm">$AF</a>       ; Tape End Address/End of Program
+E95B: 68        <a href="bpla.htm">PLA</a>
+E95C: 85 AE     <a href="bsta.htm">STA</a> <a href="zpae.htm">$AE</a>       ; Tape End Address/End of Program
+E95E: 68        <a href="bpla.htm">PLA</a>
+E95F: 85 AD     <a href="bsta.htm">STA</a> <a href="zpac.htm">$AD</a>       ; Pointer: Tape Buffer/Screen scrolling
+E961: 68        <a href="bpla.htm">PLA</a>
+E962: 85 AC     <a href="bsta.htm">STA</a> <a href="zpac.htm">$AC</a>       ; Pointer: Tape Buffer/Screen scrolling
+E964: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome8da.htm">Previous Page</a> / <a href="rome965.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

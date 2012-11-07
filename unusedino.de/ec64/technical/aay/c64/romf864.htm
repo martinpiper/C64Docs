@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F864/63588:   Initiate Tape Write
+
+Jump from <a href="romf1ca.htm">$F1EA</a>, <a href="romf291.htm">$F2D7</a>:
+
+F864: 20 D7 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d7.htm">$F7D7</a>     ; Set Buffer Stat / End Pointers
+
+Jump from <a href="romf659.htm">$F67C</a>:
+
+F867: A9 14     <a href="blda.htm">LDA</a> #$14
+F869: 85 AB     <a href="bsta.htm">STA</a> <a href="zpab.htm">$AB</a>       ; RS232 Input parity/Tape temporary
+
+Jump from <a href="romf76a.htm">$F7BE</a>:
+
+F86B: 20 38 F8  <a href="bjsr.htm">JSR</a> <a href="romf838.htm">$F838</a>     ; Print &quot;PRESS RECORD...&quot;
+
+Jump from <a href="romf841.htm">$F84D</a>:
+
+F86E: B0 6C     <a href="bbcs.htm">BCS</a> <a href="romf8d0.htm">$F8DC</a>     ; Check Tape Stop
+F870: 78        <a href="bsei.htm">SEI</a>
+F871: A9 82     <a href="blda.htm">LDA</a> #$82
+F873: A2 08     <a href="bldx.htm">LDX</a> #$08
+
+    <a href="romf841.htm">Previous Page</a> / <a href="romf875.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

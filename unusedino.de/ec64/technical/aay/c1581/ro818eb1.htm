@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte in Puffer schreiben, Pufferzeiger erhoehen ($cff1)
+
+Einsprung von <a href="ro818bae.htm">$8BC2</a>, <a href="ro818e78.htm">$8E91</a>, <a href="ro818e78.htm">$8EA6</a>, <a href="ro819112.htm">$9112</a>, <a href="ro819112.htm">$9122</a>, <a href="ro819112.htm">$9127</a>, <a href="ro8193e7.htm">$9402</a>, <a href="ro8193e7.htm">$9407</a>, <a href="ro8193e7.htm">$9415</a>,
+              <a href="ro8193e7.htm">$941A</a>, <a href="ro8193e7.htm">$941F</a>, <a href="ro8195ab.htm">$9613</a>, <a href="ro8195ab.htm">$961A</a>, <a href="ro8195ab.htm">$9621</a>, <a href="ro819a2a.htm">$9A3D</a>, <a href="ro819a2a.htm">$9A62</a>, <a href="ro819a2a.htm">$9A66</a>, <a href="ro81b17c.htm">$B19C</a>,
+              <a href="ro81b17c.htm">$B1A1</a>, <a href="ro81b17c.htm">$B1A6</a>, <a href="ro81b17c.htm">$B1A9</a>, <a href="ro81b17c.htm">$B1AF</a>, <a href="ro81b17c.htm">$B1B4</a>, <a href="ro81b17c.htm">$B1C5</a>, <a href="ro81b17c.htm">$B1CA</a>, <a href="ro81b17c.htm">$B1CD</a>, <a href="ro81b17c.htm">$B1D8</a>,
+              <a href="ro81b17c.htm">$B1DE</a>, <a href="ro81b17c.htm">$B1E6</a>, <a href="ro81b17c.htm">$B204</a>, <a href="ro81b17c.htm">$B20A</a>, <a href="ro81b17c.htm">$B21B</a>, <a href="ro81b17c.htm">$B21E</a>, <a href="ro81b17c.htm">$B221</a>, <a href="ro81b237.htm">$B23C</a>, <a href="ro81b88d.htm">$B8C5</a>:
+
+8EB1: 48        PHA              Byte merken
+8EB2: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Puffer holen
+8EB5: 10 06     BPL $8EBD
+8EB7: 68        PLA              Kein Puffer gefunden
+8EB8: A9 61     LDA #$61         61, FILE NOT OPEN
+8EBA: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $8EB5, <a href="ro819cca.htm">$9CD0</a>:
+
+8EBD: 0A        ASL              (Puffernummer)
+8EBE: AA        TAX
+8EBF: 68        PLA              Byte zurueckholen
+8EC0: 81 BB     STA (<a href="ra81bb.htm">$BB</a>,X)      Byte in Puffer schreiben
+8EC2: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen
+8EC4: 60        RTS
+
+    <a href="ro818e78.htm">Previous Page</a> / <a href="ro818ec5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

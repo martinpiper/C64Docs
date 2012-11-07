@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D37F/54143:   Find channel and allocate
+
+Jump from <a href="ro41d1e2.htm">$D1E9</a>:
+
+D37F: A0 00     LDY #$00
+D381: A9 01     LDA #$01        ; set bit 0
+
+Jump from $D38A:
+
+D383: 2C 56 02  BIT <a href="ra410256.htm">$0256</a>
+D386: D0 09     BNE $D391       ; channel free?
+D388: C8        INY
+D389: 0A        ASL             ; rotate bit to left
+D38A: D0 F7     BNE $D383       ; all channels checked?
+D38C: A9 70     LDA #$70
+D38E: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 70, 'no channel'
+
+Jump from $D386:
+
+D391: 49 FF     EOR #$FF        ; rotate bit model
+D393: 2D 56 02  AND <a href="ra410256.htm">$0256</a>       ; erase bit
+D396: 8D 56 02  STA <a href="ra410256.htm">$0256</a>       ; allocate channel
+D399: 98        TYA
+D39A: 60        RTS
+
+    <a href="ro41d339.htm">Previous Page</a> / <a href="ro41d39b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

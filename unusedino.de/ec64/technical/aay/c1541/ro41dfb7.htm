@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DFB7/57271:   ?
+
+Jump from <a href="ro41cf1e.htm">$CF21</a>, <a href="ro41cf1e.htm">$CF7E</a>:
+
+DFB7: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DFB9: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X       ; buffer number
+DFBB: 30 02     BMI $DFBF       ; buffer free?
+DFBD: B5 AE     LDA <a href="ra41ae.htm">$AE</a>,X       ; buffer number from table 2
+
+Jump from $DFBB:
+
+DFBF: C9 FF     CMP #$FF        ; free?
+DFC1: 60        RTS
+
+    <a href="ro41df9e.htm">Previous Page</a> / <a href="ro41dfc2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

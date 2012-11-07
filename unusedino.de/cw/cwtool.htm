@@ -1,0 +1,163 @@
+<html>
+
+<head>
+<title>cwtool</title>
+</head>
+
+<body bgcolor="#c8c8d8" text="#000000" link="#4040ff" alink="#ffffff" vlink="#000000">
+<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%"><tr height="99%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br><h1 align="right">cwtool</h1>
+<hr size="1" noshade style="color:#000000;">
+&nbsp;<br>
+
+<h3>NAME</h3>
+cwtool - tool for reading and writing floppy disk images with a Catweasel controller
+<h3>SYNOPSIS</h3>
+<p align="justify"><p align="justify"><tt><b>cwtool</b> -V</tt></p><p align="justify"><tt><b>cwtool</b> -D</tt></p><p align="justify"><tt><b>cwtool</b> -I [-v] [-n] [-f <i>&lt;file&gt;</i>] [-e <i>&lt;config&gt;</i>]</tt></p><p align="justify"><tt><b>cwtool</b> -L [-v] [-n] [-f <i>&lt;file&gt;</i>] [-e <i>&lt;config&gt;</i>]</tt></p><p align="justify"><tt><b>cwtool</b> -S [-v] [-n] [-f <i>&lt;file&gt;</i>] [-e <i>&lt;config&gt;</i>] <i>&lt;diskname&gt;</i> <i>&lt;srcfile&gt;</i></tt></p><p align="justify"><tt><b>cwtool</b> -R [-v] [-n] [-f <i>&lt;file&gt;</i>] [-e <i>&lt;config&gt;</i>] [-r <i>&lt;num&gt;</i>] <i>&lt;diskname&gt;</i> <i>&lt;srcfile&gt;</i> [<i>&lt;srcfile&gt;</i> ...] <i>&lt;dstfile&gt;</i></tt></p><p align="justify"><tt><b>cwtool</b> -W [-v] [-n] [-f <i>&lt;file&gt;</i>] [-e <i>&lt;config&gt;</i>] [-s] <i>&lt;diskname&gt;</i> <i>&lt;srcfile&gt;</i> <i>&lt;dstfile&gt;</i></tt></p></p>
+<h3>DESCRIPTION</h3>
+<p align="justify"><p align="justify"><b>cwtool</b> is the user space companion program for the cw kernel driver module. cw is a package for the Catweasel controller especially for accessing the floppy drives connected to Catweasel. Some preliminary remarks:
+<ul>
+<li><b>cwtool</b> uses one number for track numbering (you see those numbers with the options <tt>-R -v</tt> or <tt>-W -v</tt>). This number contains the hardware track and side. How the conversion is done depends on the configuration of the selected disk format. In some cases the track number is equal to 2 * hardware_track + side.</li>
+<li>Options like <tt>-D</tt>, <tt>-n</tt>, <tt>-f</tt> or <tt>-e</tt> refer to a configuration. The configuration syntax is currently undocumented, because it may change in future versions.</li>
+<li>If you want to use files named <tt>-</tt> use <tt>./-</tt>, because otherwise <b>cwtool</b> would use stdin or stdout (depending on the file being source or destination).</li>
+<li><b>cwtool</b> reads or writes disk images, it does not care if these images contain valid file systems or not.</li>
+<li>If you have problems reading 3.5 inch HD disks written in a DD drive, or if you are unable to read the flip side of a C1541 disk, please consult the <tt>README</tt> file coming with the source distribution of cw.</li>
+<li>Not all formats have been extensively tested, if you have problems please contact the author (the email address is listed in the <tt>README</tt> of the source distribution).</li>
+<li>To allow reading and writing of G64 disk images <b>cwtool</b> has some built-in magic. Before writing such images to disk unneeded data is stripped away, to shorten the track. Otherwise the track data may be too long and the last bytes of the track would overwrite the SYNC of the first sector. This does only work if the G64 image does contain valid CBM sector header ids, if not the data is written unchanged and may be too long. After reading a disk the same routines are used to strip away the track gap. It may be possible that too many data is discarded and the image is unusable (especially disks with copy protection mechanisms may use obscure sector layouts or other things). If you have such disks please send the author a raw image of it (look below how to create one). Additionally after reading the data after a SYNC is also byte aligned, because it seems VICE does not like unaligned data. To see what the track stripping and aligning routines are doing use <tt>-v -v -v -v</tt>.</li>
+</ul>
+</p></p>
+<h3>OPTIONS</h3>
+<dl>
+<dt><tt>-V, --version</tt></dt>
+<dd><p align="justify">Print out version and exit.</p></dd>
+<dt><tt>-D, --dump</tt></dt>
+<dd><p align="justify">Dump builtin config and exit.</p></dd>
+<dt><tt>-I, --initialize</tt></dt>
+<dd><p align="justify">Initialize the configured devices.</p></dd>
+<dt><tt>-L, --list</tt></dt>
+<dd><p align="justify">List available disk names and exit.</p></dd>
+<dt><tt>-S, --statistics</tt></dt>
+<dd><p align="justify">Print out statistics of a disk, most notably the histogram.</p></dd>
+<dt><tt>-R, --read</tt></dt>
+<dd><p align="justify">Read a disk and write the content to an image file. In combination with <tt>-v</tt> a detailed report about bad sectors is given, the format is <tt>ss=ee@0xhhhhhh</tt>, with:
+<ul>
+<li><tt>ss</tt> -- sector number</li>
+<li><tt>ee</tt> -- error description: <tt>nf</tt> - not found, <tt>en</tt> - encoding error (MFM, GCR, ...), <tt>nu</tt> - wrong track/other number, <tt>si</tt> - wrong sector size, <tt>cs</tt> - checksum error, <tt>id</tt> - wrong id, <tt>mx</tt> - mixed error</li>
+<li><tt>hhhhhh</tt> -- hexadecimal offset in destination file</li>
+</ul>
+</p></dd>
+<dt><tt>-W, --write</tt></dt>
+<dd><p align="justify">Write a disk with content read from an image file.</p></dd>
+<dt><tt>-h, --help</tt></dt>
+<dd><p align="justify">Print out usage information.</p></dd>
+<dt><tt>-v, --verbose</tt></dt>
+<dd><p align="justify">Increase verbosity level.</p></dd>
+<dt><tt>-n, --no-rcfiles</tt></dt>
+<dd><p align="justify">Do not read rcfiles (<tt>/etc/cwtoolrc</tt> and <tt>~/.cwtoolrc</tt>) on startup.</p></dd>
+<dt><tt>-f <i>&lt;file&gt;</i>, --config <i>&lt;file&gt;</i></tt></dt>
+<dd><p align="justify">Read additional config from <i>&lt;file&gt;</i>.</p></dd>
+<dt><tt>-e <i>&lt;config&gt;</i>, --evaluate <i>&lt;config&gt;</i></tt></dt>
+<dd><p align="justify">Evaluate the given string <i>&lt;config&gt;</i> as configuration parameters.</p></dd>
+<dt><tt>-r <i>&lt;num&gt;</i>, --retry <i>&lt;num&gt;</i></tt></dt>
+<dd><p align="justify">Retry <i>&lt;num&gt;</i> times on read errors.</p></dd>
+<dt><tt>-s, --ignore-size</tt></dt>
+<dd><p align="justify">Do not check if source file contains more or less bytes than needed.</p></dd>
+</dl>
+<h3>EXAMPLES</h3>
+<dl>
+<dt>1.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-L&nbsp;-v</tt><br>
+&nbsp;<br>
+<p align="justify">Get a list of all available disk names with some additional information.</p></p></dd>
+<dt>2.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-S&nbsp;raw_14&nbsp;/dev/cw0raw0</tt><br>
+&nbsp;<br>
+<p align="justify">Access first floppy drive on first controller and print out a histogram of a disk read with 14 MHz.</p></p></dd>
+<dt>3.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-R&nbsp;-v&nbsp;msdos_hd&nbsp;/dev/cw0raw0&nbsp;bootdisk.img</tt><br>
+&nbsp;<br>
+<p align="justify">Read an MSDOS HD disk and write the content to file <tt>bootdisk.img</tt>. Print out some status information while reading.</p></p></dd>
+<dt>4.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;c1541&nbsp;image.d64&nbsp;/dev/cw2raw1</tt><br>
+&nbsp;<br>
+<p align="justify">Write a C1541 disk with the content read from <tt>image.d64</tt> to the second floppy drive of the third controller.</p></p></dd>
+<dt>5.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gzip</b>&nbsp;-d&nbsp;-c&nbsp;image.adf.gz&nbsp;|</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;amiga_dd&nbsp;-&nbsp;/dev/cw0raw0</tt><br>
+&nbsp;<br>
+<p align="justify">Uncompress <tt>image.adf.gz</tt> on the fly and write it to disk.</p></p></dd>
+<dt>6.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;amiga_dd&nbsp;image.adf&nbsp;/dev/cw0raw0&nbsp;&amp;&amp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-R&nbsp;amiga_dd&nbsp;/dev/cw0raw0&nbsp;-&nbsp;|</tt><br>
+<tt><b>cmp</b>&nbsp;-&nbsp;image.adf</tt><br>
+&nbsp;<br>
+<p align="justify">Write <tt>image.adf</tt> to disk, read it in and compare with the original data, if there is a difference <b>cmp</b> will exit with an error message.</p></p></dd>
+<dt>7.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-R&nbsp;-r&nbsp;0&nbsp;-v&nbsp;raw_14&nbsp;/dev/cw0raw0&nbsp;-&nbsp;|</tt><br>
+<tt><b>bzip2</b>&nbsp;-c&nbsp;-&nbsp;&gt;&nbsp;image.cwraw.bz2</tt><br>
+&nbsp;<br>
+<p align="justify">Read a disk with 14 MHz and compress the data on the fly. The written data is in raw format, this means it contains just the values <b>cwtool</b> got from the kernel driver. This is useful for later analysis of the disk format, if the format is currently not supported by <b>cwtool</b>. DD disks should be read with raw_14 and HD disks with raw_28. Giving higher values to -r means that more copies of every track will be saved. This will enlarge the raw image files noticeable.</p></p></dd>
+<dt>8.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-S&nbsp;-v&nbsp;-f&nbsp;-&nbsp;my_raw&nbsp;/dev/cw0raw0&nbsp;&lt;&lt;EOC</tt><br>
+<tt>disk&nbsp;&quot;my_raw&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format&nbsp;&quot;raw&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image&nbsp;&quot;raw&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clock&nbsp;28</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;track&nbsp;120&nbsp;timeout&nbsp;500</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt><br>
+<tt>EOC</tt><br>
+&nbsp;<br>
+<p align="justify">Read track 120 (hardware track 60, first side) of a disk with 28 MHz, print out a long histogram.</p></p></dd>
+<dt>9.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;msdos_hd&nbsp;/dev/zero&nbsp;/dev/cw0raw0</tt><br>
+&nbsp;<br>
+<p align="justify">Format an MSDOS HD disk with all sectors containing zeros.</p></p></dd>
+<dt>10.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;amiga_dd&nbsp;/dev/urandom&nbsp;/dev/cw0raw0</tt><br>
+&nbsp;<br>
+<p align="justify">Format an Amiga DD disk with all sectors containing random data.</p></p></dd>
+<dt>11.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-R&nbsp;-r&nbsp;0&nbsp;-v&nbsp;-v&nbsp;-v&nbsp;-v&nbsp;amiga_dd&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/dev/cw0raw0&nbsp;/dev/null&nbsp;2&gt;&nbsp;log</tt><br>
+&nbsp;<br>
+<p align="justify">Write a more verbose report of what happened while reading an Amiga DD disk to <tt>log</tt>, do not retry on disk errors.</p></p></dd>
+<dt>12.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-W&nbsp;-v&nbsp;c1541_42_g64&nbsp;image.g64&nbsp;/dev/cw2raw1</tt><br>
+&nbsp;<br>
+<p align="justify">Write a C1541 disk with the content read from <tt>image.g64</tt> to the second floppy drive of the third controller. If <tt>image.g64</tt> contains more or less than the needed 42 tracks you will get warnings.</p></p></dd>
+<dt>13.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>cwtool</b>&nbsp;-I&nbsp;-f&nbsp;-&nbsp;&lt;&lt;EOC</tt><br>
+<tt>drive&nbsp;&quot;/dev/cw0raw0&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ignore_diskchange&nbsp;yes</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double_step&nbsp;yes</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</tt><br>
+<tt>EOC</tt><br>
+&nbsp;<br>
+<p align="justify">This instructs the driver to not check if an index pulse is present or not. This also means that the driver always reads from the drive, regardless if there is a disk or not. This is especially useful to read the flip side of C1541 disks with an unmodified 360K drive.</p></p></dd>
+</dl>
+<h3>AUTHOR</h3>
+<p align="justify">Karsten Scheibler</p>
+
+</td><td width="3%">&nbsp;</td></tr>
+<tr height="1%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br>
+<p align="center"><font size="1">&lt;&nbsp;Karsten&nbsp;Scheibler&nbsp;|&nbsp;2008-FEB-11&nbsp;&gt;</font></p>
+</td><td width="3%">&nbsp;</td></tr></table>
+</body>
+
+</html>

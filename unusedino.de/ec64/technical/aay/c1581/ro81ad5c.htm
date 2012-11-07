@@ -1,0 +1,172 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Daten auf seriellen Bus ausgeben ($e909; bei der 1571: $823d)
+
+Pruefen, ob die SA auch tatsaechlich Daten zum Computer senden darf
+
+AD5C: 78        SEI
+AD5D: 20 27 90  JSR <a href="ro819027.htm">$9027</a>        Kanal zum Lesen suchen
+AD60: B0 07     BCS $AD69        Schreibkanal gefunden, ==&gt;
+
+Einsprung von $AE3C:
+
+AD62: A6 50     LDX <a href="ra8150.htm">$50</a>
+AD64: BD 34 02  LDA <a href="ra810234.htm">$0234</a>,X      Kanalstatus holen
+AD67: 30 01     BMI $AD6A        Lesekanal, ==&gt;
+
+Einsprung von $AD60:
+
+AD69: 60        RTS              kein Lesekanal / Dateiende ueberschritten
+
+Einsprung von $AD67:
+
+AD6A: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AD6D: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AD70: 29 01     AND #$01         DATA IN isolieren
+AD72: 08        PHP
+AD73: 20 03 AD  JSR <a href="ro81ad03.htm">$AD03</a>        CLOCK OUT = Lo setzen
+AD76: 28        PLP              war DATA IN = Lo ?
+AD77: F0 13     BEQ $AD8C        ja, (EOI senden) ==&gt;
+
+warten, bis der Computer bereit ist
+
+Einsprung von $AD81:
+
+AD79: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AD7C: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AD7F: 29 01     AND #$01         DATA IN isolieren
+AD81: D0 F6     BNE $AD79        Auf Freigabe warten (DATA IN = Lo)
+AD83: A6 50     LDX <a href="ra8150.htm">$50</a>
+AD85: BD 34 02  LDA <a href="ra810234.htm">$0234</a>,X      Kanalstatus testen
+AD88: 29 08     AND #$08         b3=1: kein EOI ?
+AD8A: D0 14     BNE $ADA0        ja, ==&gt;
+
+EOI senden [Da wird eigentlich gar nichts gesendet, sondern nur gewartet,
+ bis der Computer die DATA-Leitung von Lo nach Hi gekippt hat.]
+
+Einsprung von $AD77, $AD94:
+
+AD8C: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AD8F: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AD92: 29 01     AND #$01         Warten, bis DATA IN = Lo wird
+AD94: D0 F6     BNE $AD8C
+
+Einsprung von $AD9E:
+
+AD96: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AD99: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AD9C: 29 01     AND #$01
+AD9E: F0 F6     BEQ $AD96        Warten, bis DATA IN = Hi wird
+
+Einsprung von $AD8A, $ADAB:
+
+ADA0: 20 FA AC  JSR <a href="ro81acfa.htm">$ACFA</a>        CLOCK OUT = Hi setzen
+ADA3: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+ADA6: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+ADA9: 29 01     AND #$01
+ADAB: D0 F3     BNE $ADA0        Warten, bis DATA IN = Lo wird
+
+ADAD: A9 20     LDA #$20         Bus-Modus
+ADAF: 24 76     BIT <a href="ra8176.htm">$76</a>          b5=1: FSM-Modus ?
+ADB1: F0 34     BEQ $ADE7        nein, ==&gt;
+
+FSM-Betrieb
+[Die eigentliche Datenuebertragung dauert:
+ 33 us Programm + 56 us Uebertragung = 89 us (bei 202 Blocks 4,5 s).]
+
+ADB3: AD 01 40  LDA <a href="cia811.htm">$4001</a>        4 Bustreiber auf Ausgabe schalten
+ADB6: 09 20     ORA #$20         2
+ADB8: 8D 01 40  STA <a href="cia811.htm">$4001</a>        4
+ADBB: AD 0E 40  LDA <a href="cia81e.htm">$400E</a>        4 SDR auf Ausgabe schalten
+ADBE: 09 40     ORA #$40         2
+ADC0: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        4
+ADC3: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        4 Flag: 'oebertragung beendet' loeschen
+ADC6: A6 50     LDX <a href="ra8150.htm">$50</a>          3
+ADC8: BD 3B 02  LDA <a href="ra81023b.htm">$023B</a>,X      4 Datenbyte in das SDR schreiben
+ADCB: 8D 0C 40  STA <a href="cia81c.htm">$400C</a>        4
+ADCE: A9 08     LDA #$08         - und die Uebertragung abwarten
+
+Einsprung von $ADD3:
+
+ADD0: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        4 [Warten dauert:
+ADD3: F0 FB     BEQ $ADD0        2  Uebertragungszeit + Ende erkennen]
+ADD5: AD 0E 40  LDA <a href="cia81e.htm">$400E</a>        4 SDR auf Eingabe schalten
+ADD8: 29 BF     AND #$BF         2
+ADDA: 8D 0E 40  STA <a href="cia81e.htm">$400E</a>        4
+ADDD: AD 01 40  LDA <a href="cia811.htm">$4001</a>        4 Bustreiber auf Eingabe schalten
+ADE0: 29 DF     AND #$DF         2
+ADE2: 8D 01 40  STA <a href="cia811.htm">$4001</a>        4
+ADE5: D0 43     BNE $AE2A        3 ==&gt;  65 Takte = 33 us
+
+seriell, langsam
+[Die eigentliche Datenuebertragung dauert:
+ - im C64-Modus : 8*188 us. Dies entspricht bei 202 Blocks 1 min 17 sec.
+ - im VC20-Modus: 8*109 us (= 44 sec).]
+
+Einsprung von $ADB1:
+
+ADE7: A9 08     LDA #$08
+ADE9: 85 66     STA <a href="ra8166.htm">$66</a>          Zaehler fuer 8 Datenbits initialisieren
+
+Einsprung von $AE28:
+
+ADEB: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        22 Bus auslesen
+ADEE: 29 01     AND #$01          2 ist DATA IN = Hi ?
+ADF0: D0 4D     BNE $AE3F         2 ja, (Ausgabefehler) ==&gt;
+ADF2: A6 50     LDX <a href="ra8150.htm">$50</a>           3
+ADF4: BD 3B 02  LDA <a href="ra81023b.htm">$023B</a>,X       4 naechstes Datenbit ins Carry schieben
+ADF7: 6A        ROR               2
+ADF8: 9D 3B 02  STA <a href="ra81023b.htm">$023B</a>,X       4
+ADFB: B0 05     BCS $AE02         2 ist das Bit = 1 ? ja, ==&gt;
+ADFD: 20 F1 AC  JSR <a href="ro81acf1.htm">$ACF1</a>        11:Bit=0: DATA OUT auf Hi setzen
+AE00: D0 03     BNE $AE05         1:[Takte/2, da Programm verzweigt] ==&gt;
+
+Einsprung von $ADFB:
+
+AE02: 20 E8 AC  JSR <a href="ro81ace8.htm">$ACE8</a>        11:Bit=1: DATA OUT auf Lo setzen
+
+Einsprung von $AE00:
+
+AE05: 20 34 AD  JSR <a href="ro81ad2f.htm">$AD34</a>        32 16 us warten
+AE08: A9 10     LDA #$10          2 C64 Modus ?
+AE0A: 24 76     BIT <a href="ra8176.htm">$76</a>           3
+AE0C: D0 03     BNE $AE11         2 nein, (VC20) ==&gt;
+AE0E: 20 2F AD  JSR <a href="ro81ad2f.htm">$AD2F</a>        80 40 us warten
+
+Einsprung von $AE0C:
+
+AE11: 20 03 AD  JSR <a href="ro81ad03.htm">$AD03</a>        22 CLOCK OUT auf Lo setzen
+AE14: 20 34 AD  JSR <a href="ro81ad2f.htm">$AD34</a>        32 16 us warten
+AE17: A9 10     LDA #$10          2 b4=0: C64 Modus ?
+AE19: 24 76     BIT <a href="ra8176.htm">$76</a>           3
+AE1B: D0 03     BNE $AE20         2 nein, (VC20)==&gt;
+AE1D: 20 2F AD  JSR <a href="ro81ad2f.htm">$AD2F</a>        80 ja, 40 us warten
+
+Einsprung von $AE1B:
+
+AE20: 20 FA AC  JSR <a href="ro81acfa.htm">$ACFA</a>        22 CLOCK OUT auf Hi setzen
+AE23: 20 E8 AC  JSR <a href="ro81ace8.htm">$ACE8</a>        22 DATA OUT auf Lo setzen
+AE26: C6 66     DEC <a href="ra8166.htm">$66</a>           5 sind noch Bits zu uebertragen ?
+AE28: D0 C1     BNE $ADEB         3 ja, ==&gt; (C64-Modus: 376 Takte = 188 us)
+Warten, bis der Computer den Bus sperrt
+
+Einsprung von $ADE5, $AE32:
+
+AE2A: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AE2D: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AE30: 29 01     AND #$01
+AE32: F0 F6     BEQ $AE2A        warten, bis DATA IN = Hi
+AE34: 58        CLI
+AE35: 20 03 93  JSR <a href="ro819303.htm">$9303</a>        Byte aus dem aktuellen Kanal holen
+AE38: 78        SEI
+AE39: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AE3C: 4C 62 AD  JMP $AD62        Byte ausgeben
+
+Einsprung von $ADF0:
+
+AE3F: 4C D9 AE  JMP <a href="ro81aed9.htm">$AED9</a>
+
+    <a href="ro81ad3c.htm">Previous Page</a> / <a href="ro81ae42.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

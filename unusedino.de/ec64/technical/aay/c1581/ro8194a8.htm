@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Track und Sektor aus Jobpuffer holen und als aktuelle T&amp;S merken ($d552)
+E: $6c     : Puffernummer
+a: $4d, $4e: T&amp;S aus dem Jobpuffer
+
+Einsprung von <a href="ro819471.htm">$94A0</a>, <a href="ro8194cb.htm">$94CB</a>:
+
+94A8: A5 6C     LDA <a href="ra816c.htm">$6C</a>          Puffernummer
+94AA: 0A        ASL              * 2
+94AB: AA        TAX
+94AC: B5 0B     LDA <a href="ra810b.htm">$0B</a>,X        T&amp;S holen
+94AE: 85 4D     STA <a href="ra814d.htm">$4D</a>
+94B0: B5 0C     LDA <a href="ra810b.htm">$0C</a>,X
+94B2: 85 4E     STA <a href="ra814e.htm">$4E</a>
+94B4: 60        RTS
+
+    <a href="ro819471.htm">Previous Page</a> / <a href="ro8194b5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

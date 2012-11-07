@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C368/50024:   Get drive number
+
+Jump from <a href="ro41c1d1.htm">$C1E2</a>:
+
+C368: A9 00     LDA #$00
+C36A: 8D 8B 02  STA <a href="ra41028a.htm">$028B</a>       ; erase syntax flag
+C36D: AC 7A 02  LDY <a href="ra41027a.htm">$027A</a>       ; position in command line
+
+Jump from $C381:
+
+C370: B1 A3     LDA (<a href="ra41a3.htm">$A3</a>),Y     ; get chars from command buffer
+C372: 20 BD C3  JSR <a href="ro41c3bd.htm">$C3BD</a>       ; get drive number
+C375: 10 11     BPL $C388       ; certain number?
+C377: C8        INY             ; increment pointer
+C378: CC 74 02  CPY <a href="ra410274.htm">$0274</a>       ; line end?
+C37B: B0 06     BCS $C383       ; yes
+C37D: AC 74 02  LDY <a href="ra410274.htm">$0274</a>
+C380: 88        DEY
+C381: D0 ED     BNE $C370       ; search line for drive number
+
+Jump from $C37B:
+
+C383: CE 8B 02  DEC <a href="ra41028a.htm">$028B</a>
+C386: A9 00     LDA #$00
+
+Jump from $C375:
+
+C388: 29 01     AND #$01
+C38A: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+C38C: 4C 00 C1  JMP <a href="ro41c100.htm">$C100</a>       ; turn LED on
+
+    <a href="ro41c33c.htm">Previous Page</a> / <a href="ro41c38f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

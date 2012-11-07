@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Warmstart ($eb22)
+
+Einsprung von <a href="ro81af24.htm">$AFC5</a>:
+
+AFCA: 78        SEI
+AFCB: A2 8F     LDX #$8F         Stackpointer initialisieren
+AFCD: 86 4F     STX <a href="ra814f.htm">$4F</a>
+AFCF: 9A        TXS
+
+AFD0: 20 AD FF  JSR <a href="ro81ff75.htm">$FFAD</a>        DOS-Vektoren initialisieren
+AFD3: 20 E9 AF  JSR <a href="ro81afe9.htm">$AFE9</a>        DOS-Tabellen initialisieren
+AFD6: 2C FB 01  BIT <a href="ra8101fb.htm">$01FB</a>        Autoboot ?
+AFD9: 10 03     BPL $AFDE        nein, ==&gt;
+AFDB: 4C 38 A9  JMP <a href="ro81a938.htm">$A938</a>        ja ==&gt;
+
+Einsprung von $AFD9, <a href="ro81a94c.htm">$A953</a>:
+
+AFDE: A9 73     LDA #$73         73, COPYR...
+AFE0: 20 67 A8  JSR <a href="ro81a862.htm">$A867</a>        Meldung bereitstellen
+AFE3: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        Bus bedienen
+AFE6: 4C 00 FF  JMP <a href="ro81ff00.htm">$FF00</a>        zur Warteschleife
+
+DOS 7
+
+    <a href="ro81af24.htm">Previous Page</a> / <a href="ro81afe9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

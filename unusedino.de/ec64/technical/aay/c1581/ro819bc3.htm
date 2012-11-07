@@ -1,0 +1,143 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+File zum Schreiben oeffnen ($dcda)
+E: $52    : benutzte Sekundaeradresse
+A: $4d-$4e: Startblock
+
+Einsprung von <a href="ro8193e0.htm">$93E4</a>, <a href="ro8197a2.htm">$97AF</a>, <a href="ro819890.htm">$9890</a>:
+
+9BC3: 20 ED B6  JSR <a href="ro81b6ed.htm">$B6ED</a>        Freien Block suchen und belegen
+
+Einsprung von <a href="ro81b88d.htm">$B89C</a>:
+
+9BC6: A9 01     LDA #$01         Schreibkanal suchen und
+9BC8: 20 57 91  JSR <a href="ro819157.htm">$9157</a>        einen Puffer belegen
+9BCB: 20 85 95  JSR <a href="ro819585.htm">$9585</a>        T&amp;S an DC uebergeben
+9BCE: 20 9B 9B  JSR <a href="ro819b9b.htm">$9B9B</a>        Pufferzeiger initialisieren
+9BD1: A6 50     LDX <a href="ra8150.htm">$50</a>
+9BD3: AD 2D 02  LDA <a href="ra81022d.htm">$022D</a>        Aktuellen Dateityp
+9BD6: 48        PHA              merken
+9BD7: 0A        ASL              b0=0: Drivenummer
+9BD8: 95 F9     STA <a href="ra81f9.htm">$F9</a>,X        b1-3: Dateityp
+9BDA: 68        PLA
+9BDB: C9 04     CMP #$04         REL-Datei ?
+9BDD: F0 06     BEQ $9BE5        ja, ==&gt;
+9BDF: A9 01     LDA #$01         b1=1: Datei auf Schreiben festlegen
+9BE1: 9D 34 02  STA <a href="ra810234.htm">$0234</a>,X
+9BE4: 60        RTS
+
+REL-Datei oeffnen
+
+Einsprung von $9BDD:
+
+9BE5: A4 52     LDY <a href="ra8152.htm">$52</a>
+9BE7: B9 A8 00  LDA <a href="ra81a8.htm">$00A8</a>,Y      Kanalnummer holen
+9BEA: 29 3F     AND #$3F         b76=01: Lese- und Schreibzugriffe erlauben
+9BEC: 09 40     ORA #$40
+9BEE: 99 A8 00  STA <a href="ra81a8.htm">$00A8</a>,Y      Kanalmodus setzen
+9BF1: AD 6F 02  LDA <a href="ra81026f.htm">$026F</a>        Recordlaenge fuer aktuellen Kanal merken
+9BF4: 9D 5E 02  STA <a href="ra81025e.htm">$025E</a>,X
+9BF7: 20 04 92  JSR <a href="ro819204.htm">$9204</a>        Puffer suchen (fuer den Side-Sektor)
+9BFA: 10 03     BPL $9BFF        Puffer gefunden ? ja, ==&gt;
+9BFC: 4C 86 91  JMP <a href="ro819157.htm">$9186</a>        70, No Channel
+
+1. Side-Sektor erzeugen
+
+Einsprung von $9BFA:
+
+9BFF: A6 50     LDX <a href="ra8150.htm">$50</a>
+9C01: 9D 65 02  STA <a href="ra810265.htm">$0265</a>,X      Side-Sektor-Puffer merken
+9C04: 20 FA 9D  JSR <a href="ro819dfa.htm">$9DFA</a>        Puffer loeschen
+9C07: 20 68 B6  JSR <a href="ro81b668.htm">$B668</a>        freien Block suchen
+9C0A: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+9C0C: 8D 70 02  STA <a href="ra810270.htm">$0270</a>        und als ersten Side-Sektor merken
+9C0F: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+9C11: 8D 71 02  STA <a href="ra810271.htm">$0271</a>
+9C14: A6 50     LDX <a href="ra8150.htm">$50</a>
+9C16: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X      Side-Sektor-Puffernummer holen
+9C19: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+9C1C: A9 00     LDA #$00         Pufferzeiger des Side-Sektors auf 0 setzen
+9C1E: 20 23 9E  JSR <a href="ro819e23.htm">$9E23</a>
+9C21: A9 00     LDA #$00         Byte 0 = 0: Letzter Side-Sektor
+9C23: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        (Byte in Side-Sektor schreiben)
+9C26: A9 11     LDA #$11         Anzahl gueltige Bytes = 17:
+9C28: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        ein Datenblock vorhanden
+9C2B: A9 00     LDA #$00         0 : Nummer des Side-Sektors
+9C2D: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        Byte in Side-Sektor schreiben
+9C30: AD 6F 02  LDA <a href="ra81026f.htm">$026F</a>        Recordlaenge
+9C33: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9C36: A5 4D     LDA <a href="ra814d.htm">$4D</a>          T&amp;S des ersten Side-Sektors
+9C38: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        in Side-Sektor schreiben
+9C3B: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+9C3D: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9C40: A9 10     LDA #$10         Zeiger auf 1. Datenblock-Verweis setzen
+9C42: 20 23 9E  JSR <a href="ro819e23.htm">$9E23</a>
+9C45: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S des aktiven Datenpuffers holen
+9C48: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+9C4A: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        und in Side-Sektor schreiben
+9C4D: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+9C4F: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9C52: 20 A6 9D  JSR <a href="ro819d8e.htm">$9DA6</a>        Side-Sektor schreiben
+9C55: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung pruefen
+9C58: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Super-Side-Sektor verwenden ?
+9C5B: D0 03     BNE $9C60        nein, ==&gt;
+9C5D: 20 82 9C  JSR $9C82        Super-Side-Sektor anlegen
+
+Einsprung von $9C5B:
+
+9C60: A9 02     LDA #$02
+9C62: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger auf Byte 2 setzen
+9C65: A6 50     LDX <a href="ra8150.htm">$50</a>
+ersten Datenblock erzeugen
+
+[Man muss sich vorstellen, vor dem 1. Datensatz existiert ein 'Schein'-
+ Datensatz, dessen Position so gewaehlt werden muss, dass beim Anhaengen eines
+ Datensatzes dieser genau am Datenblock-Anfang erzeugt wird.]
+
+9C67: 38        SEC              Position des Schein-Datensatzes berechnen:
+9C68: A9 00     LDA #$00         Von 0 (Blockanfang):
+9C6A: FD 5E 02  SBC <a href="ra81025e.htm">$025E</a>,X      Recordlaenge abziehen = Anfangsposition
+9C6D: 9D 57 02  STA <a href="ra810257.htm">$0257</a>,X      des Schein-Datensatzes
+9C70: 20 98 A2  JSR <a href="ro81a298.htm">$A298</a>        einen Datenblock voll 'leerer' Records
+                                an den Schein-Datensatz haengen.
+9C73: 20 56 9D  JSR <a href="ro819d56.htm">$9D56</a>        Blocklaenge setzen
+9C76: 20 9A 9D  JSR <a href="ro819d8e.htm">$9D9A</a>        Block schreiben
+9C79: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung ueberpruefen
+9C7C: 20 15 B5  JSR <a href="ro81b515.htm">$B515</a>        Bam ggf. abspeichern
+9C7F: 4C 7B 9B  JMP <a href="ro819b0d.htm">$9B7B</a>        Recordzeiger auf 1. Record setzen
+
+Super-Side-Sektor anlegen
+
+Einsprung von $9C5D:
+
+9C82: A6 50     LDX <a href="ra8150.htm">$50</a>          aktuellen Side-Sektor-Puffer holen
+9C84: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X
+9C87: 20 FA 9D  JSR $9DFA        Puffer mit $00 fuellen
+9C8A: 20 23 9E  JSR <a href="ro819e23.htm">$9E23</a>        Side-Sektor-Pufferzeiger auf 0
+9C8D: AD 70 02  LDA <a href="ra810270.htm">$0270</a>        Blockverkettung des Super-Side-Sektors
+9C90: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>        auf 1. Side-Sektor setzen
+9C93: AD 71 02  LDA <a href="ra810271.htm">$0271</a>
+9C96: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9C99: A9 FE     LDA #$FE         $fe: Kennzeichen des Super-Side-Sektors
+9C9B: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9C9E: AD 70 02  LDA <a href="ra810270.htm">$0270</a>        1. Side-Sektor in Gruppentabelle eintragen
+9CA1: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9CA4: AD 71 02  LDA <a href="ra810271.htm">$0271</a>
+9CA7: 20 CA 9C  JSR <a href="ro819cca.htm">$9CCA</a>
+9CAA: 20 68 B6  JSR <a href="ro81b668.htm">$B668</a>        Folgeblock fuer Datei suchen
+9CAD: A6 50     LDX <a href="ra8150.htm">$50</a>
+9CAF: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Als T&amp;S des Super-Side-Sektors
+9CB1: 9D 10 01  STA <a href="ra810110.htm">$0110</a>,X      des Kanals merken
+9CB4: 8D 70 02  STA <a href="ra810270.htm">$0270</a>        und als 1. Side-Sektor merken
+9CB7: A5 4E     LDA <a href="ra814e.htm">$4E</a>          [wird im Directory eingetragen]
+9CB9: 9D 09 01  STA <a href="ra810109.htm">$0109</a>,X
+9CBC: 8D 71 02  STA <a href="ra810271.htm">$0271</a>
+9CBF: A9 FF     LDA #$FF         Flag: 'kein Side-Sektor geladen' setzen
+9CC1: 9D 02 01  STA <a href="ra810102.htm">$0102</a>,X
+9CC4: 20 81 A5  JSR <a href="ro81a574.htm">$A581</a>        Super-Side-Sektor schreiben
+9CC7: 4C 7C 9D  JMP <a href="ro819d79.htm">$9D7C</a>        T&amp;S des Datenblocks holen
+
+    <a href="ro819b9b.htm">Previous Page</a> / <a href="ro819cca.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,61 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Feststellen, ob Record existiert und ggf. richtige Gruppe anwaehlen ($df66)
+A: n=0, v=0: Record und Side-Sektor sind O.k.
+   n=0, v=1: Ein falscher Side-Sektor ist geladen. Record kann existieren.
+   n=1, v=0: Der richtige Side-Sektor ist geladen. Record existiert nicht.
+   n=1, v=1: Der Side-Sektor (oder sogar die ganze Gruppe) existiert noch
+             nicht. Der gesuchte Record kann also noch nicht existieren.
+
+Einsprung von <a href="ro819e32.htm">$9E32</a>, <a href="ro819e32.htm">$9E41</a>:
+
+9ED3: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Ist Super-Side-Sektor aktiv ?
+9ED6: D0 0C     BNE $9EE4        nein, ==&gt;
+9ED8: AD 00 01  LDA <a href="ra810100.htm">$0100</a>        gewuenschte Gruppennummer holen
+9EDB: 20 C0 A5  JSR <a href="ro81a5c0.htm">$A5C0</a>        richtige Gruppe anwaehlen
+9EDE: F0 04     BEQ $9EE4        gefunden ? ja, ==&gt;
+9EE0: 2C C1 DB  BIT <a href="ro81dafd.htm">$DBC1</a>        n- und v-Flag setzen
+9EE3: 60        RTS              (Gruppe existiert nicht)
+
+Einsprung von $9ED6, $9EDE:
+
+9EE4: 20 0B 9E  JSR <a href="ro819e0b.htm">$9E0B</a>        Nummer des Side-Sektors holen
+9EE7: C5 69     CMP <a href="ra8169.htm">$69</a>          = gesuchter Nummer ?
+9EE9: D0 0E     BNE $9EF9        nein, ==&gt;
+9EEB: A4 6A     LDY <a href="ra816a.htm">$6A</a>          Zeiger auf T&amp;S des Datenblocks holen
+9EED: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Track = 0 (Block nicht vorhanden) ?
+9EEF: F0 04     BEQ $9EF5        ja, ==&gt;
+9EF1: 2C BE DB  BIT <a href="ro81dafd.htm">$DBBE</a>        n- und v-Flag loeschen (O.k.)
+9EF4: 60        RTS              (O.k.)
+
+Einsprung von $9EEF:
+
+9EF5: 2C C0 DB  BIT <a href="ro81dafd.htm">$DBC0</a>        n-Flag setzen
+9EF8: 60        RTS              (Record existiert nicht)
+
+Einsprung von $9EE9:
+
+9EF9: A5 69     LDA <a href="ra8169.htm">$69</a>          gesuchte Nummer
+9EFB: C9 06     CMP #$06         &gt;= 6
+9EFD: B0 0A     BCS $9F09        ja, ==&gt;
+9EFF: 0A        ASL
+9F00: A8        TAY
+9F01: A9 04     LDA #$04         Zeiger auf T&amp;S des gesuchten Side-Sektors
+9F03: 85 64     STA <a href="ra8164.htm">$64</a>          setzen
+9F05: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Side-Sektor vorhanden (Track&gt;0) ?
+9F07: D0 04     BNE $9F0D        ja, ==&gt;
+
+Einsprung von $9EFD:
+
+9F09: 2C C1 DB  BIT <a href="ro81dafd.htm">$DBC1</a>        n- und v-Flag setzen
+9F0C: 60        RTS              (der Side-Sektor existiert nicht)
+
+Einsprung von $9F07:
+
+9F0D: 2C BF DB  BIT <a href="ro81dafd.htm">$DBBF</a>        v-Flag setzen
+9F10: 60        RTS              (falscher Side-Sektor geladen)
+
+    <a href="ro819e97.htm">Previous Page</a> / <a href="ro819f11.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

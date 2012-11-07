@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FDC3/64963:   Read/write ($621/$622) times
+
+Jump from <a href="ro41fac7.htm">$FB0F</a>, <a href="ro41fac7.htm">$FB17</a>:
+
+FDC3: AE 21 06  LDX <a href="ra410621.htm">$0621</a>
+FDC6: AC 22 06  LDY <a href="ra410621.htm">$0622</a>
+
+Jump from $FDC9, $FDCD, $FDD0:
+
+FDC9: 50 FE     BVC $FDC9       ; byte ready?
+FDCB: B8        CLV
+FDCC: CA        DEX
+FDCD: D0 FA     BNE $FDC9
+FDCF: 88        DEY
+FDD0: 10 F7     BPL $FDC9
+FDD2: 60        RTS
+
+    <a href="ro41fda3.htm">Previous Page</a> / <a href="ro41fdd3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EA13/59923:   Print To Screen
+
+Jump from <a href="rome5ca.htm">$E5E4</a>, <a href="rome691.htm">$E6A2</a>:
+
+EA13: A8        <a href="btay.htm">TAY</a>
+EA14: A9 02     <a href="blda.htm">LDA</a> #$02
+EA16: 85 CD     <a href="bsta.htm">STA</a> <a href="zpcd.htm">$CD</a>       ; Timer: Count down for Cursor blink toggle
+EA18: 20 24 EA  <a href="bjsr.htm">JSR</a> <a href="romea24.htm">$EA24</a>     ; Syncronise Color Pointer
+EA1B: 98        <a href="btya.htm">TYA</a>
+
+Jump from <a href="romea31.htm">$EA5E</a>:
+
+EA1C: A4 D3     <a href="bldy.htm">LDY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+EA1E: 91 D1     <a href="bsta.htm">STA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+EA20: 8A        <a href="btxa.htm">TXA</a>
+EA21: 91 F3     <a href="bsta.htm">STA</a> (<a href="zpf3.htm">$F3</a>),Y   ; Pointer: Current Color RAM Location
+EA23: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome9ff.htm">Previous Page</a> / <a href="romea24.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

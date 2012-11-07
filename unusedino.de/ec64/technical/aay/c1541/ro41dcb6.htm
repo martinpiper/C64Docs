@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DCB6/56502:   Reset pointer
+
+Jump from <a href="ro41dc46.htm">$DC4B</a>, <a href="ro41dcda.htm">$DCE5</a>:
+
+DCB6: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DCB8: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X       ; buffer number
+DCBA: 0A        ASL             ; times 2
+DCBB: A8        TAY
+DCBC: A9 02     LDA #$02
+DCBE: 99 99 00  STA <a href="ra4199.htm">$99</a>,Y       ; buffer pointer lo
+DCC1: B5 AE     LDA <a href="ra41ae.htm">$AE</a>,X
+DCC3: 09 80     ORA #$80        ; set bit 7
+DCC5: 95 AE     STA <a href="ra41ae.htm">$AE</a>,X
+DCC7: 0A        ASL
+DCC8: A8        TAY
+DCC9: A9 02     LDA #$02
+DCCB: 99 99 00  STA <a href="ra4199.htm">$99</a>,Y       ; buffer pointer lo
+DCCE: A9 00     LDA #$00
+DCD0: 95 B5     STA <a href="ra41b5.htm">$B5</a>,X       ; block number lo
+DCD2: 95 BB     STA <a href="ra41bb.htm">$BB</a>,X       ; block number hi
+DCD4: A9 00     LDA #$00
+DCD6: 9D 44 02  STA <a href="ra410244.htm">$0244</a>,X     ; end pointer
+DCD9: 60        RTS
+
+    <a href="ro41dc46.htm">Previous Page</a> / <a href="ro41dcda.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

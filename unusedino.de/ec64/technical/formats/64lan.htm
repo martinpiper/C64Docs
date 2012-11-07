@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>L64 (64LAN container files)</title>
+</head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+
+*** L64 (64LAN container files)
+*** Document revision: 1.3
+*** Last updated: March 11, 2004
+*** Contributors/sources: Markus Mehring
+
+  64LAN gives your C64 access to files on your PC  hard  disk  (similar  to
+64NET). It uses a custom file format extension &quot;L64&quot;,  which  contains  the
+original C64 filename and attributes.
+
+      00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F        ASCII
+      -----------------------------------------------   ----------------
+0000: 36 34 4C 41 4E 20 49 44 42 4C 4F 43 4B 20 0D 0A   64LAN?IDBLOCK???
+0010: 73 64 66 67 73 66 20 20 20 20 20 20 20 20 20 20   sdfgsf??????????
+0020: 0D 0A 30 38 30 31 2C 44 33 45 42 0D 0A 20 20 20   ??0801,D3EB?????
+0030: 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20   ????????????????
+0040: 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20   ????????????????
+0050: 20 20 20 20 0D 0A 20 20 20 20 20 20 20 20 20 20   ????????????????
+0060: 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20   ????????????????
+0070: 20 20 20 20 20 20 20 20 20 20 20 20 20 0D 0A 1A   ????????????????
+0080: 09 65 FF FF FF FF FF 01 00 00 00 00 00 00 00 00   ?e??????????????
+0090: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00A0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00B0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00C0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00D0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00E0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+00F0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ????????????????
+0100: 0E 08 E9 03 9E 20 28 32 30 36 34 29 00 00 00 78   ??????(2064)???x
+
+   Bytes: $00-0F: 64LAN file signature (&quot;64LAN IDBLOCK &quot;, with &lt;CR&gt;&lt;LF&gt;)
+           10-21: 16-byte filename of contained C64  file,  with  &lt;CR&gt;&lt;LF&gt;.
+                  Filename padded with $20 (spaces!)
+           22-2C: Starting and ending HEX load addresses, with &lt;CR&gt;&lt;LF&gt;
+           2D-55: 39-byte comment #1, with &lt;CR&gt;&lt;LF&gt;
+           56-7E: 39-byte comment #2, with &lt;CR&gt;&lt;LF&gt;
+              7F: EOF marker, for text viewing
+           80-81: Version number of  file  (high/low  byte  format),  Above
+                  example provides a version of 09.65
+           82-86: 5-byte CRC
+              87: Origin of file:
+                   0 - Real C64
+                   1 - C64s emulator
+           88-FF: Reserved for future use
+            100-: File data starts here, without the original load address
+
+  All the strings in the beginning of the file, from 00-7F  are  in  ASCII,
+and delimited with &lt;CR&gt; and &lt;LF&gt; markers. This block ends  in  a  text-mode
+EOF marker. This is to help with the viewing of the contents of these files
+using the DOS &quot;TYPE&quot; command.
+
+</pre></td></tr></table></center>
+</body>
+</html>

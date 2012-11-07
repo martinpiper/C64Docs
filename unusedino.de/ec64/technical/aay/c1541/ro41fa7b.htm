@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FA7B/64123:   Prepare fast head movement
+
+FA7B: 38        SEC
+FA7C: AD 07 1C  LDA <a href="via27.htm">$1C07</a>
+FA7F: E5 5F     SBC <a href="ra415f.htm">$5F</a>
+FA81: 8D 05 1C  STA <a href="via25.htm">$1C05</a>
+FA84: C6 60     DEC <a href="ra415f.htm">$60</a>         ; decrement counter
+FA86: D0 0C     BNE $FA94       ; not yet zero?
+FA88: A5 5E     LDA <a href="ra415e.htm">$5E</a>
+FA8A: 85 60     STA <a href="ra415f.htm">$60</a>
+FA8C: A9 97     LDA #$97
+FA8E: 85 62     STA <a href="ra4162.htm">$62</a>
+FA90: A9 FA     LDA #$FA        ; pointer $62/$63 to $FA97
+FA92: 85 63     STA <a href="ra4162.htm">$63</a>
+
+Jump from $FA86, <a href="ro41fa97.htm">$FA99</a>, <a href="ro41fa97.htm">$FAA3</a>, <a href="ro41faa5.htm">$FAB0</a>:
+
+FA94: 4C 2E FA  JMP <a href="ro41fa1c.htm">$FA2E</a>
+
+    <a href="ro41fa63.htm">Previous Page</a> / <a href="ro41fa97.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

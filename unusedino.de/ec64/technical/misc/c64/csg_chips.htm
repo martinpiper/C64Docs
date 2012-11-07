@@ -1,0 +1,1222 @@
+<html>
+
+<head>
+<title>Commodore 8-bit IC Technical Reference</title>
+</head>
+
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+
+  Commodore 8-bit IC Technical Ref		Last updated: 15.11.1996
+
+  This file is part of the X64 Emulator project.
+
+
+
+	C=  Commodore Semiconductor Group
+		Microprocessors
+		Peripheral Interface Devices
+		Video Display Devices
+		Special Application
+		6581/6582 Sound Interface Device (SID)
+		Static Read Only Memory
+
+	Signetics
+		82 S 100  Field Programmable Logic Array
+
+
+-------------------------------------------------------------------------------
+
+		C=  Commodore Semiconductor Group
+
+			Microprocessors
+
+Description
+The 6500/8500 Series family includes a range of software compatible micro-
+processors which provide a selection of addressable memory range, interrupt
+input options and on-chip oscillators and drivers. All of the microprocessors
+within the group are directly bus compatible with the MC6800 series IC's.
+
+The family includes ten microprocessors with on-board clock oscillators and
+seven microprocessors driven by external clocks. The on-chip clock versions
+are aimed at high performance, low cost applications where single phase crystal
+or RC inputs provide the time base. The external clock versions are geared for
+multiprocessor system applications where maximum timing control is mandatory.
+
+Common Features
+	Single +5 volt supply
+	N channel, silicon gate, depletion load technology
+	Tri-state address bus, data bus and R/W controlled by AEC input
+	&quot;Ready&quot; input (for single cycle execution)
+	Direct memory access capability
+	True indexing capability
+	Decimal and binary arithmetic
+	56 Instructions with 13 addressing modes
+	8 bit parallel processing
+	8 bit Bi-directional Data Bus
+	Programmable Stack Pointer
+
+Additional Features on 6510
+	8-Bit Bi-directional I/O Port
+	Variable length stack
+	Interrupt capability
+	Addressable memory range of up to 64K bytes
+	Bus compatible with M6800
+	Pipeline architehture
+	1 and 2 MHz operation
+	Use with any type or speed memory
+
+
+Available Microprocessors
+
+Device	*Clocks	Pins	IRQ NMI RDY	Port	Address	AEC Sync Speed (MHz)
+6502	  O	40	 X   X   X	-	64K	 -   X	  1,2,3,4
+65CE02	  O	40	 X   X   X	-	64K	 -   X	  0 - 10
+6503	  O	28	 X   X   -	-	 4K	 -   -	  1,2,3,4
+6504	  O	28	 X   -   -	-	 8K	 -   -	  1,2,3,4
+6505	  O	28	 X   -   X	-	 4K	 -   -	  1,2,3,4
+6506	  O	28	 X   -   -	-	 4K	 -   -	  1,2,3,4
+6507	  O	28	 -   -   X	-	 8K	 -   -	  1,2,3,4
+6508	  E	40	 X   -   -	8	64K	 X   -	  1,2,3
+6509	  E	40	 X   X   X	**	1 M	 X   X	  1,2,3
+6510	 O,E	40	 X   X   X	6,8	64K	 X   -	  1,2,3,4
+
+R6511
+
+6512	  E	40	 X   X   X	-	64K	 -   X	  1,2,3,4
+6513	  E	28	 X   X   -	-	 4K	 -   -	  1,2,3,4
+6514	  E	28	 X   -   -	-	 8K	 -   -	  1,2,3,4
+6515	  E	28	 X   -   X	-	 4K	 -   -	  1,2,3,4
+
+7501	same as 8501
+8500	same as 6510
+8501	  O	40	 X   -   X	7 (8?)	64K	 X   -	  1,2,3
+8502	  O	40	 X   X   X	7	64K	 X   -	  1,2,3,4
+8503	  O	40	 X   -   -	8	64K	 X   -	  1,2,3,4
+
+	 * O - On chip clocks, E - External Clocks
+	** Four extended address pins expand memory capacity to one megabyte.
+
+
+Pinout
+
+Pin	6502		6510/8500	7501/8501	8502
+
+ 1	Vss		Phi0 in		Phi0 in		Phi0 in
+ 2	RDY		RDY		RDY		RDY
+ 3	Phi1 out	/IRQ		/IRQ		/IRQ
+ 4	/IRQ		/NMI		AEC		/NMI
+ 5	NC		AEC		Vcc		AEC
+ 6	/NMI		Vcc		A0		Vcc
+ 7	Sync		A0		A1		A0
+ 8	Vcc		A1		A2		A1
+ 9	AB0		A2		A3		A2
+10	AB1		A3		A4		A3
+11	AB2		A4		A5		A4
+12	AB3		A5		A6		A5
+13	AB4		A6		A7		A6
+14	AB5		A7		A8		A7
+15	AB6		A8		A9		A8
+16	AB7		A9		A10		A9
+17	AB8		A10		A11		A10
+18	AB9		A11		A12		A11
+19	AB10		A12		A13		A12
+20	AB11		A13		GND		A13
+
+21	Vss		GND		A14		GND
+22	AB12		A14		A15		A14
+23	AB13		A15		GATE IN		A15
+24	AB14		P5		P7		P6
+25	AB15		P4		P6		P5
+26	D7		P3		P4		P4
+27	D6		P2		P3		P3
+28	D5		P1		P2		P2
+29	D4		P0		P1		P1
+30	D3		D7		P0		P0
+31	D2		D6		D7		D7
+32	D1		D5		D6		D6
+33	D0		D4		D5		D5
+34	R/W		D3		D4		D4
+35	NC		D2		D3		D3
+36	NC		D1		D2		D2
+37	Phi0 in		D0		D1		D1
+38	SO		R/W		D0		D0
+39	Phi2 out	Phi2 out	R/W		R/W
+40	/RES		/RES		/RES		/RES
+
+
+  Peripheral Port Description
+
+	8502 I/O Registers
+
+	C128 mode:
+
+0000	x	0	1	0	1	1	1	1
+0001	x	Caps	Motor	Sense	Write	HIRAM	LORAM	CHAREN
+
+			HIRAM,LORAM = colour memory bank selection
+			CHAREN = character generator ROM enable/disable
+
+	6510 C64 mode:
+
+0000	0		7-0	MOS 8502 Data Direction
+					Register (xx101111)
+					Bit= 1: Output, Bit=0: Input,
+					x = Don't Care
+
+0001	1			MOS 8502 Micro-Processor On-Chip I/O Port
+			0	/LORAM Signal (0 = Switch BASIC ROM Out)
+			1	/HIRAM Signal (0 = Switch Kernal ROM Out)
+			2	/CHAREN Signal (0 = Swith Char. ROM In)
+			3	Cassette Data Output Line
+			4	Cassette Switch Sense: 1 = Switch Closed
+			5	Cassette Motor Control:	0 = ON, 1 = OFF
+			6-7	Undefined (bit 6 is Caps lock on the C128)
+
+
+	VIC-20 and PET
+
+   There is no Peripheral Port on the 6502.
+
+
+
+
+			Peripheral Interface Devices
+
+Device:
+	6520 = PIA (Parallel Interface Adapter) == MC6821
+	6522 = VIA (Versatile Interface Adapter)
+	6526 = CIA (Complex Interface Adapter)
+	6532 = RIOT (RAM, I/O and Timer) [Used in Atari 2600]
+
+
+Description
+Commodore offers a wide assortment of peripheral interface devices compatible
+with the 6500/8500 microprocessor family. These devices were specifically
+designed to simplify the implementation of Input/Output control in micro-
+processor systems. All of these devices are TTL compatible, have a single +5
+volt supply, and are based on N-channel depletion load technology. Each device
+features from 8 to 24 individually programmable I/O lines. Additional func-
+tions on selected devices include handshaking capability, control/interrupt
+input lines, interrupt output, serial I/O, timers, RAM, and ROM.
+
+
+Available Peripheral Devices
+
+		       Hand-	Control/  Darling-
+	    8-bit      shaking  Interrupt  ton    Serial	 Timer/	      Speed
+Device Pins Ports IRQ  (Port)   I/P Lines Drive    I/O   Timers Counters RAM  (MHz)
+
+6520	40    2    2
+
+6522	40    2	   X   Read A     4/4     Port B    X	 One	One	  -    1,2
+		       Write A,B	  CB1,CB2	 16-bit 16-bit
+
+6525	40    3**  X   Read A	  2/5	    -	    -	  -	 -	  -    ***
+		       Write B
+
+6526*	40    2    X   Read B	  2/1	    -	    X	  -	Two	  -    1,2,3
+ ****		       Write B					16-bit
+
+6529	20    1    -	-	   -	    -	    -	  -	 -	  -    ***
+
+
+6530	40    2    X	-	   -	  Port A,B  -	  One	 -	 64x8  1,2
+							  8-bit	      ROM 1024x8
+
+6532	40    2    X	-	   -	  Port B    -	  One	 -	 128x8 1,2
+							  8-bit
+
+8520	40    2    X   Read B	  2/1	    -	    X	  -	Two	  -    1,2
+		       Write B					16-bit
+
+
+	  * Note: Supports Time of Day Clock function.
+	 ** Note: 2 ports if using control/interrupt lines.
+	*** Note: These devices are not clocked. Speed is determined by access
+		  time.
+
+       **** 6526 is the 1MHz version while 6526A is rated for 2MHz. Either one
+		can be used on CBM 8-bit machines, (C64, C128) as the I/O is
+		always clocked at 1MHz.
+
+
+Pinout
+
+Pin	6520	6522	6526
+
+ 1		Vss	GND
+ 2		PA0	PA0
+ 3		PA1	PA1
+ 4		PA2	PA2
+ 5		PA3	PA3
+ 6		PA4	PA4
+ 7		PA5	PA5
+ 8		PA6	PA6
+ 9		PA7	PA7
+10		PB0	PB0
+11		PB1	PB1
+12		PB2	PB2
+13		PB3	PB3
+14		PB4	PB4
+15		PB5	PB5
+16		PB6	PB6
+17		PB7	PB7
+18		CB1	/PC
+19		CB2	TOD in
+20		Vcc	Vcc
+
+21		/IRQ	/IRQ
+22		R/W	R/W
+23		/CS2	/CS
+24		CS1	/FLAG
+25		Phi2	Phi2
+26		D7	D7
+27		D6	D6
+28		D5	D5
+29		D4	D4
+30		D3	D3
+31		D2	D2
+32		D1	D1
+33		D0	D0
+34		/RES	/RES
+35		RS3	RS3
+36		RS2	RS2
+37		RS1	RS1
+38		RS0	RS0
+39		CA2	SP
+40		CA1	CNT
+
+
+--
+From: schaefer@cluster.dfki.uni-sb.de (Ulrich Schaefer)
+Subject: Re: 1551 floppy drive (and: CBM 600 / 6525 TPI)
+
+
+It is possible to connect two 1551s because one drive can have
+two different device numbers. If (and only if) you give them two
+different numbers, you can plug both into the computer (you will
+need a large table, of course...). See the 1551's user's guide,
+appendix A, page 72. There, they explain how to change the device
+number by simply removing a jumper on the main circuit of the drive.
+I guess you do not have warranty any more...
+
+The jumper selects the decoding of the 6523 which is in the interface
+cartridge (but uses address space of the computer's CPU!).
+If the device number is 8, the 6523's base address (at the computer side)
+is $FEF0. If the device number is 9, its base address is $FEC0.
+Because of this fixed decoding, no more than two 1551s can be plugged
+into the computer without major changes.
+
+Michael called the 6523 a triple interface adapter (which is it's
+official name, I guess). I would rather call it a cripple interface
+adapter. In my opinion, the 6523 is just a 'cripple' 6525 TPI (which
+is well known from the CBM 500/600/700 series, where two of them
+control the IEEE and user port interface).
+
+The 6525 has three 8 bit ports (i.e. TPI=tri port interface) and 40
+pins, while the 6523 has three 'cripple' ports and only 28 pins (which
+make it cheaper). I guess the internal architecture of both is the same.
+Both the 6523 and the 6525 have three data and three direction registers.
+The 6525 has two additional: a control and an 'active interrupt register'.
+                     
+Address  6525 TPI                             6523 TIA
+--------------------------------------------------------------------------
+    0    Port A Data                          Port A Data (full 8 bit)
+    1    Port B Data                          Port B Data (only bits 0+1?)
+    2    Port C Data or interrupt latch reg.  Port C Data (only bits 6+7?)
+    3    Port A Direction                     Port A Direction
+    4    Port B Direction                     Port B Direction
+    5    Port C Direction or MIR interr. mask Port C Direction
+    6    Control reg.                         - (?)
+    7    Active Interrupt reg.                - (?)
+
+This is what I found in my notes from 1987. I do not have any data sheets
+of these circuits. If anybody has, I would be interested, because I plan
+to re-use my old CBM 610 ...
+
+In the 1551 cartridge, port A of the 6523 is used as the data port
+(8 bit parallel, which makes it so fast).
+Bit 0 and 1 of port B are used as status bits, and bit 6 and 7 of port
+C are used for 'busy' and 'strobe' (this is what I called them in my
+notes).
+--
+
+
+Newsgroups: comp.sys.cbm
+From: rhialto@mbfys.kun.nl (Olaf Seibert)
+Date: Sun, 30 Apr 1995 02:34:11 GMT
+
+From: PetIO.doc   V1.2 08.01.95
+
+RIOT 6532
+---------
+Source: TOuCHE manual: the keyboard for the Apple-II clone from
+the Computer Hobbyvereniging Eindhoven. (They got DDRA and DDRB reversed.)
+
+The RIOT is used at least in the diskdrives of type 2040, 3040, 4040, 8050,
+8250. They contaijn two RIOTs (at $0200 and $0280) and a VIA (at $????).
+
+The RIOT (RAM, I/O and Timer) has 128 bytes of RAM, 2 8-bit bidirectional
+I/O ports, and a timer that can count down at 4 different rates.
+
+Reg.	Name	Description
+---------------------------
+ 0	PA	Port A data
+ 1	DDRA	Port A Data Direction Register
+ 2	PB	Port B data
+ 3	DDRB	Port B Data Direction Register
+ 4	Timer	Timer read register
+14,0E	T1	1 clocks per decrement
+15,0F	T8	8
+16,10	T64	64
+17,11	T1024	1024
+
+The Data and DDR registers are as usual. The input is a buffer, the output
+is a latch.
+
+The Timer register reads out the timer value; its initial value is set by
+writing into the T1..T1024 registers. Which one is used determines the
+number of clock cycles between decrements of the Timer register.
+
+The chip also has an IRQ line but the cited source does not say anything
+further about it. The 8050 fdc rom usage suggests an irq is generated on
+timer underflow, with no special setup required.
+
+Pinout:
+
+ 1  0V				    21	PB3
+ 2  A5	Address lines		    22	PB2
+ 3  A4	(see also pin 40)	    23	PB1
+ 4  A3				    24	PB0
+ 5  A2				    25	IRQn
+ 6  A1				    26	D7	Data bus lines
+ 7  A0				    27	D6
+ 8  PA0 Port A data		    28	D5
+ 9  PA1 			    29	D4
+10  PA2 			    30	D3
+11  PA3 			    31	D2
+12  PA4 			    32	D1
+13  PA5 			    33	D0
+14  PA6 			    34	RESn	Reset
+15  PA7 			    35	R/Wn
+16  PB7 Port B data		    36	RSn	RAM Select
+17  PB6 			    37	CSn
+18  PB5 			    38	CS	Circuit Select
+19  PB4 			    39	PHI2	Clock
+20  +5V 			    40	A6	Address line
+
+
+-------------------------------------------------------------------------------
+
+		Video Display Devices
+
+Description
+Commodore's family of Video Controllers offers attractive integration of all
+video logic necessary for color video graphics and text applications, such as
+low cost CRT terminals, industrial monitors, control system displays and home
+video games. Complete logic to implement all format timing, memory interface,
+attribute control, row buffering and high-speed shifting of pixel data are
+resident in each device.
+
+The family of VIC II and TED devices provide fixed format display with 5 sepa-
+rate character/bit-map modes of operation. A raster Compare Interrupt allows
+the easy mixing of these modes for display of high-res graphics with text. A
+transparent scheme of using PhO time for fetching video data from memory allows
+for optimal CPU thruput. The VICs a|so contain a special type of display image,
+Movable Image Block (MIB), that once defined, can be moved to any screen posi-
+tion without the inherent character cell constraints.
+
+The programmable 8563/68 features digital RGBI output for very sharp 640Vx400H
+color video. Direct video memory interface to 64K of DRAM requires no external
+logic.
+
+
+Available Video Devices
+-------------------------------------------------------------------------------
+
+Device:		 VIC
+Part No:	 6560 (NTSC (NTSC-M))
+		 6561 (PAL-B)
+Display Format:	 programmable up to 24x25 text, 192Hx200V bit-map *)
+Display Modes:	 2 character modes: HiRes, Multicolor
+Video Output:	 16 color composite
+Features:	 on chip sound system, 2 8-bit A/D converters,
+		 interlace/non-interlace, light pen input
+Memory Interface:access 16K, transparent DMA
+Pins:		 40
+Supply:		 +5V
+
+ *) Mr. M&auml;kel&auml; said:
+	 6561:n tarkkuus on mittausteni mukaan 232 * 282, merkkein&auml; 29 * 35.
+	Kellojaksoja on juovalla 71 ja juovia 312.
+	6560:ssa on kellojaksoja juovalla 65 ja juovia 261.
+
+
+Description
+The 6560 Video Interface Chip (VIC) is designed for color video graphics
+applications such as low cost CRT terminals, biomedical monitors, control
+system displays and arcade or home video games. It provides all of the
+circuitry necessary for generating color programmable character graphics
+with high screen resolution. VIC also incorporates sound effects and A/D
+convertersfor use in a video game environment.
+
+Features
+	Fully expandable system with a 16K byte address space
+	System uses industry standard 8 bit wide ROMs and 4 bit wide RAMs
+	Mask programmable sync generation, NTSC-6560, PAL-6561
+	On-chip color generation (16 colors)
+	Up to 600 independently programmable and movable background
+	 locations on a standard TV
+	Screen centering capability
+	Screen grid size up to 192 Horizontal and 200 Vertical dots
+	Two selectable graphic character sizes
+	On-chip sound system including:
+	  a) Three independent, programmable tone generators
+	  b) White noise generator
+	  c) Amplitude modulator
+	Two on-chip 8 bit A/D converters
+	On-chip DMA and address generation
+	No CPU wait states or screen hash during screen refresh
+	Interlaced/Non-Interlaced switch
+	16 addressable control registers
+	2 modes of color operation
+
+
+Pinout
+
+Pin	6560/6561
+
+ 1	NC
+ 2	Comp Color
+ 3	Sync &amp; Lumin
+ 4	R/W
+ 5	DB11
+ 6	DB10
+ 7	DB9
+ 8	DB8
+ 9	DB7
+10	DB6
+11	DB5
+12	DB4
+13	DB3
+14	DB2
+15	DB1
+16	DB0
+17	POT X
+18	POT Y
+19	Comp Snd
+20	Vss
+
+21	A0
+22	A1
+23	A2
+24	A3
+25	A4
+26	A5
+27	A6
+28	A7
+29	A8
+30	A9
+31	A10
+32	A11
+33	A12
+34	A13
+35	P Phi 1
+36	P Phi 2
+37	Option
+38	Phi 2 In
+39	Phi 1 In
+40	Vdd
+
+
+-------------------------------------------------------------------------------
+
+Device:		 VIC II
+Part No:	 6566 (NTSC (NTSC-M), non-multiplexed address lines)
+		 6567 (NTSC (NTSC-M))
+		 6569 (PAL-B)
+		 6572 (PAL-N)
+		 6573 (PAL-M)
+
+		 8562 (NTSC (NTSC-M))
+		 8565 (PAL-B)
+
+Display Format:	 40x25 text, 320Hx200V bit-map
+Display Modes:	 3 character modes: Standard, Multicolor, Extended
+		 2 bit-map modes:  HiRes, Multicolor
+Video Output:	 16 color composite
+Features:	 8 MIB's (sprites), horiz. and vert. scrolling,
+		 light pen input, Raster Compare Interrupt
+Memory Interface:access 16K, interface to multiplexed DRAM,
+		 transparent DMA, provides system RAS and CAS (except 6566)
+Pins:		 40
+Supply  65xx:	+5V and +12V
+	85xx:	+5V
+
+Description
+The 6566/6567 are multi-purpose color video controller devices for use in
+both computer video terminals and video game applications. Both devices
+contain 47 control registers which are accessed via a standard 8-bit
+microprocessor bus (65XX) and will access up to 16K of memory for display
+information.
+
+
+Pinout
+
+Pin	6566		6567/6569	8565
+
+ 1	DB6		DB6
+ 2	DB5		DB5
+ 3	DB4		DB4
+ 4	DB3		DB3
+ 5	DB2		DB2
+ 6	DB1		DB1
+ 7	DB0		DB0
+ 8	/IRQ		/IRQ
+ 9	LP		LP
+10	/CS		/CS
+11	R/W		R/W
+12	BA		BA
+13	Vdd (+12V)	Vdd (+12V)	Vdd (+5V)
+14	Color		Color
+15	S/LUM		S/LUM
+16	AEC		AEC
+17	PH0		PH0
+18	PHIN		/RAS
+19	PHCOL		/CAS
+20	Vss		Vss
+
+21	A0		PHCL
+22	A1		PHIN
+23	A2		A11
+24	A3		A0 (A8)
+25	A4		A1 (A9)
+26	A5		A2 (A10)
+27	A6		A3 (A11)
+28	A7		A4 (A12)
+29	A8		A5 (A13)
+30	A9		A6 (&quot;1&quot;)
+31	A10		A7
+32	A11		A8
+33	A12		A9
+34	A13		A10
+35	DB11		DB11
+36	DB10		DB10
+37	DB9		DB9
+38	DB8		DB8
+39	DB7		DB7
+40	Vcc		Vcc		Vcc
+
+
+-------------------------------------------------------------------------------
+
+Device:		 VIC IIE
+Part No:	 8564 (NTSC (NTSC-M))
+		 8566 (PAL-B)
+		 8569 (PAL-N)
+
+Display Format:	 40x25 text, 320Hx200V bit-map
+Display Modes:	 3 character modes: Standard, Multicolor, Extended
+		 2 bit-mapo modes:  HiRes, Multicolor
+Video Output:	 16 color composite
+Features:	 8 MIB's (sprites), horiz. and vert. scrolling,
+		 light pen input, Raster Compare Interrupt,
+		 Keyboard Control Register, 2MHz clock,
+		 true external DMA and arbitration control
+Memory Interface:access 16K, interface to multiplexed DRAM,
+		 transparent DMA, provides system RAS and CAS
+Pins:		 48
+Supply:		 +5V
+
+
+Pinout
+
+Pin	8564/8566
+
+ 1	D6
+ 2	D5
+ 3	D4
+ 4	D3
+ 5	D2
+ 6	D1
+ 7	D0
+ 8	/IRQ
+ 9	LP
+10	BA
+11	-
+12	AEC
+13	/CS
+14	R/W
+15	-
+16	Color
+17	Sync
+18	1MHz
+19	/RAS
+20	/CAS
+21	MUX
+22	IOACC
+23	2MHz
+24	Vss
+
+25	Z80 Phi
+26	K0
+27	K1
+28	K2
+29	PH_CL
+30	PH_IN
+31	A11
+32	A0
+33	A1
+34	A2
+35	A3
+36	A4
+37	A5
+38	A6
+39	A7
+40	A8
+41	A9
+42	A10
+43	D11
+44	D10
+45	D9
+46	D8
+47	D7
+48	Vdd
+
+
+-------------------------------------------------------------------------------
+
+Device:		 TED
+Part No:	 7360/8360 (NTSC-M / PAL-B by same chip)
+		 8365 (PAL-N)
+		 8366 (PAL-M)
+
+Display Format:	 40x25 text, 320Hx200V bit-map
+Display Modes:	 3 character modes: Standard, Multicolor, Extended
+		 2 bit-mapo modes:  HiRes, Multicolor
+Video Output:	 121 color composite
+Features:	 2 voice sound, 8-bit keyport control, Clk doubling,
+		 horiz. and vert. scrolling,
+		 Raster Compare  and 3 timer generated interrupts,
+		 hardware cursor blink and reverse video attributes
+		 true external DMA and arbitration control
+Memory Interface:access 64K, transparent DMA,
+		 provides system RAS, CAS and MUX
+Pins:		 48
+Supply:		 +5V
+
+
+Pinout
+
+Pin	7360/8360
+
+ 1	A2
+ 2	A1
+ 3	A0
+ 4	Vdd
+ 5	/CS0
+ 6	/CS1
+ 7	R/W
+ 8	/IRQ
+ 9	MUX
+10	/RAS
+11	/CAS
+12	Phi0 out
+13	COLOR
+14	Clk in
+15	K0
+16	K1
+17	K2
+18	K3
+19	K4
+20	K5
+21	K6
+22	K7
+23	Syn/Lum
+24	Vss
+
+25	D0
+26	D1
+27	D2
+28	D3
+29	D4
+30	D5
+31	D6
+32	D7
+33	Snd
+34	BA
+35	AEC
+36	A15
+37	A14
+38	A13
+39	A12
+40	A11
+41	A10
+42	A9
+43	A8
+44	A7
+45	A6
+46	A5
+47	A4
+48	A3
+
+
+-------------------------------------------------------------------------------
+
+Device:		 DVDC
+Part No:	 8563
+		 8568
+
+Display Format:	 programmable up to up to 80x25 text, 640Hx400V bitmap
+		 (interlaced up to 80x50 text, 640Hx480V bitmap, and more)
+Display Modes:	 3 char modes: Std, Semigraph and pixel,
+		 double width &amp; HiRes bitmap mode
+Video Output:	 digital RGBI 16 color or 16 gray-shades
+Features: 8563:	 interlace/non-interlace, horiz &amp; vert scroll,
+		 lightpen input, hardware cursor, underline, blink and
+		 reverse video, supports 2 character sets of 256 each
+	  8568:  above plus Update Ready Interrupt, composite video and
+		 composite sync
+Memory Interface:access 64K, programmable to interface either 4164/4464 or
+		 4416 DRAM
+Pins:		 48
+Supply:		 +5V
+
+
+	 Make sure you get one that says R9a or R9b after the 8568.
+	 These are later Revisions that seem to work better.
+
+Pinout
+
+Pin	8563
+
+ 1	CCLK
+ 2	DCLK
+ 3	HSYN
+ 4	/CS
+ 5	-
+ 6	-
+ 7	/CS
+ 8	/RS
+ 9	R/W
+10	D7
+11	D6
+12	Vss
+13	D5
+14	D4
+15	D3
+16	D2
+17	D1
+18	D0
+19	DISPEN
+20	VSYN
+21	DR/W
+22	INIT
+23	/RES
+24	TST
+
+25	/LP2
+26	DA0
+27	DA1
+28	DA2
+29	DA3
+30	DA4
+31	DA5
+32	DA6
+33	DA7
+34	DD0
+35	DD1
+36	DD2
+37	Vdd
+38	DD3
+39	DD4
+40	DD5
+41	DD6
+42	DD7
+43	I
+44	B
+45	G
+46	R
+47	/RAS
+48	/CAS
+
+
+
+  The VDC VideoRAM Upgrade
+
+
+From: Raymond Carlsen &lt;rrcc@u.washington.edu&gt;
+Newsgroups: comp.sys.cbm
+Subject: Re: W: 8563 RAM swap instructions
+Date: Wed, 27 Sep 1995 20:50:02 -0700
+
+&gt; The subject says it all. How do you do this 16k to 64k swap?
+
+     I assume you mean the video RAM upgrade for the C-128. If you're
+good with a de-soldering iron, it just involves removing two chips from
+the board and installing replacements. The original chips are 4416 DRAM
+at board locations U23 and U25 inside the metal can, between the VIC and
+RGB chips. The replacements are 4464. The numbers on the chips may vary
+with manufacturers, but the originals are 4 bit wide 16K... two of them
+make 16K by 8 bits. The upgrade to two 4 bit wide 64K chips give a total
+of 64K by 8 for the flat 128. The 128D was built with 64K of VRAM already
+installed.
+     I always install sockets anytime I replace chips in a PC board.
+Removing the old chips is the worst part of the job. Probably the easiest
+way is to cut all of the pins on the old chip, then remove them one at a
+time with a regular iron. As a tech, I hate to destroy anything that
+still works. I use a desoldering iron to free each pin, then remove the
+chip intact. If the new chips don't work for any reason, I can cross
+check my work by reinstalling the old ones. Sockets mean never having to
+solder again. It's important to orient the new chips in the board correctly.
+One end of the chip will have a notch and the outline on the board will match.
+
+     Unless you have software that takes advantage of the extra video RAM
+you will not see any difference in the performance of your computer. I
+think Maverick uses that RAM space to speed up copying files. It's useful
+for improved bitmapped graphics. It is only good for the 80 column screen...
+the 40 column VIC doesn't access it. To verify C-128 VRAM as either 16K or
+64K, run this little program:
+
+POKE DEC(&quot;D600&quot;),28:POKE DEC(&quot;D601&quot;),63:SYS DEC(&quot;FF62&quot;):SCNCLR  &lt;RETURN&gt;
+
+If the screen shows the READY prompt and looks normal, the 128 has 64K
+of VRAM installed. If it only has 16K (stock 128 without upgrade), the
+screen fills up with zeros. Hit RUN/STOP-RESTORE to clear it.
+
+     At one time, some company was selling a piggyback board with the RAM
+installed. It needed no soldering as the on-board 4116s were bypassed. All
+that was necessary was to remove the 80 Column RGB (8563, also known as
+the VDC) chip from its' socket, install the piggyback board and plug the
+RGB chip into the piggyback. I haven't seen that board advertised for
+some time.
+
+     [Chips are available from Jameco Electronics @ 1-800-831-4242. Order
+part #41582 (41464-12), or 41574 (41464-10), or 41611 (41464-80). They
+cost less than 3 bucks each. Jameco also has other replacement chips for
+Commodore computers.]
+
+
+          Ray Carlsen  Univ. of Washington, Seattle
+
+
+-------------------------------------------------------------------------------
+
+Device:		 CRTC
+Part No:	 6545-1
+
+Display Format:	 programmable controller
+Display Modes:	 -
+Video Output:	 -
+Features:	 programmable cursor, lightpen input
+Memory Interface:access 16K, straight binary or row/column
+Pins:		 40
+Supply:		 +5V
+
+
+-------------------------------------------------------------------------------
+
+  Note: MIB's (Movable Image Blocks) are later known better as MOB's for
+	Movable Object Blocks.
+
+
+
+		Special Application
+
+	6581/6582 Sound Interface Device (SID)
+
+Description
+The 6581 Sound Interface Device (SID) is a single-chip, 3-voice electronic
+music systhesizer/sound effects generator compatible with the 65XX and
+similar microprocessor families.
+SID provides wide-range, high-resolution control of pitch (frequency),
+tone color (harmonic content), and dynamics (volume). Specialized control
+circuitry minimizes software overhead, facilitating use in arcade/home video
+games and low-cost musical instruments.
+
+The 6582 Sound Interface Device (SID) is a sound generator chip compatible with
+the 6500/8500 microprocessor families.
+
+Features
+	3 Tone Oscillators, Range 0-4kHz
+	4 Waveforms per Oscillator: Triangle, Sawtooth, Variable Pulse, Noise
+	3 Amplitude Modulators, Range 48 dB
+	Random Number/Modulation Generator
+	3 Envelope Generators
+	  Exponential response
+	  Attack Rate:  2 ms - 8 s
+	  Decay Rate:   6 ms - 24 s
+	  Sustain Level: 0 - peak volume
+	  Release Rate: 6 ms - 24 s
+	Oscillator Synchronization
+	Ring Modulation
+	Programmable Filter
+	  Cutoff Range: 30Hz-12kHz
+	  12 dB/octave Rolloff
+	  Low pass, Band pass, High pass, Notch outputs
+	  Variable resonance
+	Master Volume Control
+	2 A/D POT Interfaces
+	External Audio Input
+
+Pins:		 24
+Supply:		 +12 V (6581)
+		  +9 V (6582 / 8580)
+
+
+Pinout
+
+Pin	6581/8580
+
+ 1	Cap 1A
+ 2	Cap 1B
+ 3	Cap 2A
+ 4	Cap 2B
+ 5	/RES
+ 6	Phi In
+ 7	R/W
+ 8	/CS
+ 9	A0
+10	A1
+11	A2
+12	A3
+13	A4
+14	GND
+
+15	D0
+16	D1
+17	D2
+18	D3
+19	D4
+20	D5
+21	D6
+22	D7
+23	Pot Y
+24	Pot X
+25	+5 V
+26	Ext In
+27	Audio Out
+28	+12 V (6581)
+	+9 V (8580)
+
+
+The 8580 is used in the newer (white) C64's.
+
+-------------------------------------------------------------------------------
+
+		Static Read Only Memory
+
+Description
+Commodore offers a variety of high performance ROMs with a wide range of access
+times providing compatibility with most microprocessor systems. The ROMs are
+TTL compatible, having a single +5 volt power supply and totally static opera-
+tion.
+The 2400 series &quot;Power Down&quot; ROMs offer significantly reduced power consumption
+while in stand-by mode. Each device has programmable chip select and/or output
+enable for output bus control and is designed to replace equivalent EPROMs.
+
+
+Available ROMS
+
+	Organization	 Access Time (ns)    Operating	  Standby   Process
+Device	Words x Bits	Address	 CE  CS/OE   Current	  Current   Technology
+
+ 2332/3	 4096 x 8	200	N/A    75      100 mA	    N/A	     HMOS
+ 2364	 8192 x 8	200	N/A   100      100 mA	    N/A	     HMOS
+23128	16384 x 8	250	N/A   100      100 mA	    N/A	     HMOS
+24128	16384 x 8	250	250   100      100 mA	   12 mA     HMOS
+24256	32768 x 8	250	250   100      100 mA	   12 mA     HMOS
+24512	65536 x 8	250	250   100      100 mA	   12 mA     HMOS
+24C128	16384 x 8	200	200   100       10 mA	   50 uA     CMOS
+24C256	32768 x 8	250	250   100       10 mA	   50 uA     CMOS
+
+
+-------------------------------------------------------------------------------
+
+	82 S 100  Field Programmable Logic Array (16 x 48 x 8)
+
+Description
+
+The 82S100 (Three-State) and 82 S 101 (Open Collector) are Bipolar, Fuse-Link
+Programmable Logic Arrays (FPLAs). Each device utilizes the standard
+AND/OR/Invert architecture to directly implement custom sum-of-product logic
+equations.
+
+Each device consists of 16 dedicated inputs and 8 dedicated outputs. Each
+output is capable of being actively controlled by any or all of the 48
+product terms. The true, complement, or don't care condition of each of the
+16 inputs ANDed together comprise one P-Term. All 48 P-Terms are then OR-d
+to each output. The user must then only select which P-Terms will activate
+an output by disconnecting terms which do not affect the output. In addition,
+each output can be fused as active high (H) or active low (L).
+
+The 82S100 and 82S101 are  fully TTL compatible and includes chip-enable
+control for expansion of input variables and output inhibit. They feature
+either Three-State or Open Collector outputs for ease of expansion of product
+terms and application in bus-organized systems.
+
+
+Features:
+	Field programmable Ni-Cr links
+	16 inputs
+	8 outputs
+	48 product terms
+	Address access time:
+	   S82S100/101:	80 ns max
+	   N82S100/101:	50 ns max (Commercial verion)
+	Power dissipation - 600mW typ
+	Input loading - 100uA max
+	Chip enable input
+	Three state outputs
+	Separate I/O architecture
+
+Applications
+	CRT display systems
+	Random logic
+	Code conversion
+	Peripheral controllers
+	Function generators
+	Look-up and decision tables
+	Microprogramming
+	Address mapping
+	Character generators
+	Data security encoders
+	Fault detectors
+	Frequency synthesizers
+	16-bit to 8-bit bus interface
+
+
+The 82S100 devices are shipped in an unprogrammed state characterised by:
+All internal Ni-Cr links are intact and therefore each product term contains
+both true and complement values of every input variable,
+the OR matrix contains all 48 P-Terms,
+the polarity of each output is set to active high,
+all outputs are at a low logic level.
+
+
+Pinout
+
+Pin	82s100  (Cerdip, Plastic, Flat Pack)
+
+ 1	FE (open or grounded in normal operation)
+ 2	I7
+ 3	I6
+ 4	I5
+ 5	I4
+ 6	I3
+ 7	I2
+ 8	I1
+ 9	I0
+10	F7
+11	F6
+12	F5
+13	F4
+14	GND
+
+15	F3
+16	F2
+17	F1
+18	F0
+19	/CE
+20	I15
+21	I14
+22	I13
+23	I12
+24	I11
+25	I10
+26	I9
+27	I8
+28	Vcc
+
+
+-------------------------------------------------------------------------------
+
+	More info wanted on (at least) these:
+
+	8362 PAL Video Chip
+	CSG 5719
+	CSG 4567 VIC-III
+	CSG 8362
+	CSG 8372A Super Agnus (for Amiga)
+
+The Amiga has 8520's as CIA's, which are the Amiga version of the 6522 et al.
+Characteristics are almost the same; there is 24-bit counter in place of the
+CIA's TOD clock.
+
+
+From: phdss@worf.netins.net (Phd Software Systems)
+Newsgroups: comp.sys.cbm
+Subject: Re: 6502 pin configuratio
+Date: 7 Aug 1996 22:39:42 GMT
+
+
+ Df&gt; Could someone please send me the 6502 pin configuration or
+ Df&gt; tell me where I can find this info.
+
+
+              ---------------
+         Vss  -1          40- RES
+         RDY  -2          39- o2 (OUT)
+    o1 (OUT)  -3          38- SO
+         IRQ  -4          37- o2 (IN)
+          NC  -5          36- NC
+         NMI  -6          35- NC
+        SYNC  -7          34- R/W
+         Vdd  -8          33- D0
+          A0  -9   6502   32- D1
+          A1  -10         31- D2
+          A2  -11         30- D3
+          A3  -12         29- D4
+          A4  -13         28- D5
+          A5  -14         27- D6
+          A6  -15         26- D7
+          A7  -16         25- A15
+          A8  -17         24- A14
+          A9  -18         23- A13
+         A10  -19         22- A12
+         A11  -20         21- Vss
+              ---------------
+
+
+                    A
+                    B
+                    O               R           0
+            M   I   R   R   V   V   E   V   M   2
+            L   R   T   D   P   S   S   D   /   I   B
+            B   Q   B   Y   B   S   B   A   X   N   E
+           /-------------------------------------------
+          / 6   5   4   3   2  ?1  44  43  42  41  40 -
+    NMIB - 7                                       39 - E
+     VPA - 8                                       38 - R/WB
+     VDD - 9                                       37 - VDD
+      A0 - 10                                      36 - D0/BA0
+      A1 - 11                                      35 - D1/BA1
+     VSS - 12               W65C816S               34 - D2/BA2
+      A2 - 13                                      33 - D3/BA3
+      A3 - 14                                      32 - D4/BA4
+      A4 - 15                                      31 - D5/BA5
+      A5 - 16                                      30 - D6/BA6
+      A6 - 17                                      29 - D7/BA7
+         - 18  19  20  21  22  23  24  25  26  27  28 -
+         ----------------------------------------------
+            A   A   A   A   A   V   V   A   A   A   A
+            7   8   9   1   1   S   S   1   1   1   1
+                        0   1   S   S   2   3   4   5
+
+                   44 pin W65C816S PLCC Pinout
+
+Brett Tabke
+
+ ]-----------------------------------------------------[
+ ] PHD Software Systems   : NET: phdss@worf.netins.net [
+ ] PO Box 23              :                            [
+ ] Moville, IA. USA 51039 :          Home of RES 80128 [
+ ]-----------------------------------------------------[
+
+                                            
+
+</pre></td></tr></table></center>
+</body>
+
+</html>

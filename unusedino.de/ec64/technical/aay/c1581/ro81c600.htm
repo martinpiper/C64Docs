@@ -1,0 +1,143 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Cachepuffer auf Diskette schreiben
+
+Pruefen, ob der Kopf auf der richtigen Spur steht
+
+Einsprung von <a href="ro81c0be.htm">$C12E</a>:
+
+C600: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen
+C603: A5 95     LDA <a href="ra8195.htm">$95</a>          steht der Kopf auf der richtigen Spur ?
+C605: C5 1F     CMP <a href="ra811f.htm">$1F</a>          (Spur im Cache mit gefundener Nummer vgl.)
+C607: F0 03     BEQ $C60C        ja, ==&gt;
+C609: 4C 88 CB  JMP <a href="ro81cb85.htm">$CB88</a>        nein: MISHD_DV_ER ==&gt;
+
+Berechnen, welcher Sektor als naechstes geschrieben werden kann
+und seine Position im Cachepuffer bestimmen
+
+Einsprung von $C607:
+
+C60C: 8D 01 60  STA <a href="wd811.htm">$6001</a>        Spurnummer setzen
+C60F: 20 E3 CF  JSR <a href="ro81cfe3.htm">$CFE3</a>        Precompensation ein-/ausschalten
+C612: 20 B7 CF  JSR <a href="ro81cfb7.htm">$CFB7</a>        Zeiger auf Cachepuffer-Anfang setzen
+C615: A5 92     LDA <a href="ra8192.htm">$92</a>          Anzahl der Sektoren holen
+C617: 85 3A     STA <a href="ra813a.htm">$3A</a>
+C619: A5 21     LDA <a href="ra8121.htm">$21</a>          aktuelle Sektornummer holen
+C61B: AA        TAX              und merken
+C61C: C5 93     CMP <a href="ra8193.htm">$93</a>          letzten Sektor der Spur erreicht ?
+C61E: 08        PHP              (Ergebnis merken)
+
+- Position des Folgesektors im Cachepuffer bestimmen
+
+C61F: D0 06     BNE $C627        nicht letzter Sektor der Spur, ==&gt;
+C621: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornummer auf der Spur holen
+C623: AA        TAX              und merken
+C624: 38        SEC              -1 [ergibt einen gedachten Sektor vor dem
+C625: E9 01     SBC #$01             1. Sektor - entspricht letztem Sektor.]
+
+Einsprung von $C61F:
+
+C627: 38        SEC              aktuelle Sektornummer
+C628: E5 94     SBC <a href="ra8194.htm">$94</a>          - '1. Sektornummer auf der Spur'
+C62A: 18        CLC
+C62B: 69 01     ADC #$01         +1 (Folgesektor wird gesucht)
+
+C62D: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+
+Einsprung von $C633:
+
+C62F: 88        DEY              [Um dir Position im Cache zu bekommen,
+C630: F0 03     BEQ $C635         muss die Sektornummer mit der Blockgroesse
+C632: 0A        ASL               multipliziert werden
+C633: 90 FA     BCC $C62F         (*256, *512, oder *1024)]
+
+Einsprung von $C630:
+
+C635: 20 8D CB  JSR <a href="ro81cb8d.htm">$CB8D</a>        Zeiger in Cache setzen
+- physikalische Sektornummer des Folgesektors bestimmen
+
+C638: 8A        TXA              aktuelle Sektornummer holen
+C639: 28        PLP              = letzter Sektor der Spur ?
+C63A: F0 05     BEQ $C641        ja, ==&gt;
+C63C: 18        CLC              Sektornummer +1
+C63D: 69 01     ADC #$01
+C63F: D0 02     BNE $C643        immer ==&gt;
+
+Einsprung von $C63A:
+
+C641: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornummer der Spur
+
+Einsprung von $C63F:
+
+C643: 8D 02 60  STA <a href="wd812.htm">$6002</a>        Sektor anwaehlen
+C646: EA  ....  NOP            [20 NOPS]
+C659: ....  EA  NOP
+
+Einsprung von $C6AA, $C6C9:
+
+C65A: AD E0 01  LDA <a href="ra8101e0.htm">$01E0</a>        Controller-Befehl: 'Write sector'
+C65D: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        in Controller schreiben
+
+Anzahl der zu schreibenden Seiten pro Sektor berechnen
+
+C660: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+C662: C0 03     CPY #$03         [y=1:  256 Bytes, 1 Seite;
+C664: D0 01     BNE $C667         y=2:  512 Bytes, 2 Seiten;
+C666: C8        INY               y=3: 1024 Bytes, 4 Seiten.]
+
+Sektor schreiben
+
+Einsprung von $C664, $C66F, $C67E, $C683:
+
+C667: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Controller-Status einlesen
+C66A: 29 03     AND #$03
+C66C: 4A        LSR
+C66D: 90 5D     BCC $C6CC        b0=0: 'Controller ready', ==&gt;
+C66F: F0 F6     BEQ $C667        b1=0: noch kein 'Byte ready', ==&gt;
+C671: 84 82     STY <a href="ra8182.htm">$82</a>
+C673: A0 00     LDY #$00
+C675: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y      Byte aus Cachepuffer holen
+C677: 8D 03 60  STA <a href="wd813.htm">$6003</a>        und auf Diskette schreiben
+C67A: A4 82     LDY <a href="ra8182.htm">$82</a>
+C67C: E6 4A     INC <a href="ra814a.htm">$4A</a>          Pufferzeiger erhoehen
+C67E: D0 E7     BNE $C667
+C680: E6 4B     INC <a href="ra814a.htm">$4B</a>
+C682: 88        DEY              noch eine Speicherseite abspeichern ?
+C683: D0 E2     BNE $C667        ja, ==&gt;
+C685: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+C688: D0 42     BNE $C6CC        Fehler, ==&gt;
+C68A: C6 3A     DEC <a href="ra813a.htm">$3A</a>          noch einen Sektor schreiben ?
+C68C: F0 3E     BEQ $C6CC        nein, ==&gt;
+C68E: AD 02 60  LDA <a href="wd812.htm">$6002</a>        aktuellen Sektor merken
+C691: EE 02 60  INC <a href="wd812.htm">$6002</a>        naechsten Sektor anwaehlen
+C694: EA  ....  NOP            [20 NOPS]
+C6A7: ....  EA  NOP
+
+auf Spurende pruefen
+
+C6A8: C5 93     CMP <a href="ra8193.htm">$93</a>          wurde gerade der letzte Sektor der Spur
+C6AA: D0 AE     BNE $C65A        geschrieben ? nein, ==&gt;
+C6AC: A5 8C     LDA <a href="ra818b.htm">$8C</a>          Cachezeiger auf Cachepufferanfang setzen
+C6AE: 85 4B     STA <a href="ra814a.htm">$4B</a>
+C6B0: A5 94     LDA <a href="ra8194.htm">$94</a>          1. physikalischen Sektor anwaehlen
+C6B2: 8D 02 60  STA <a href="wd812.htm">$6002</a>
+C6B5: EA  ....  NOP            [20 NOPS]
+C6C8: ....  EA  NOP
+C6C9: 4C 5A C6  JMP $C65A
+
+auf korrekte Durchfuehrung des Schreibvorgangs pruefen
+
+Einsprung von $C66D, $C688, $C68C:
+
+C6CC: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+C6CF: F0 03     BEQ $C6D4        kein Fehler, ==&gt;
+C6D1: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Jobauftrag beenden
+
+Einsprung von $C6CF:
+
+C6D4: 4C E1 C9  JMP <a href="ro81c9e1.htm">$C9E1</a>        Verify durchfuehren
+
+    <a href="ro81c5af.htm">Previous Page</a> / <a href="ro81c6d7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

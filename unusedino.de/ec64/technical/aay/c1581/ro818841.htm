@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+aktuelles File oeffnen ($c9fa)
+
+Einsprung von <a href="ro81876e.htm">$87C6</a>, <a href="ro81876e.htm">$8803</a>:
+
+8841: AE 30 02  LDX <a href="ra810230.htm">$0230</a>        Nummer des Files holen
+8844: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory-Track als aktuellen Track setzen
+8847: 85 4D     STA <a href="ra814d.htm">$4D</a>
+8849: B5 E5     LDA <a href="ra81e5.htm">$E5</a>,X        Dir-Block mit Fileeintrag holen
+884B: 85 4E     STA <a href="ra814e.htm">$4E</a>
+884D: 20 CF 93  JSR <a href="ro8193cf.htm">$93CF</a>        SA 17 oeffnen und Dir-Block lesen
+8850: AE 30 02  LDX <a href="ra810230.htm">$0230</a>
+8853: B5 EA     LDA <a href="ra81ea.htm">$EA</a>,X        Zeiger auf den Eintrag holen
+8855: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger setzen
+8858: AE 30 02  LDX <a href="ra810230.htm">$0230</a>
+885B: B5 F4     LDA <a href="ra81f4.htm">$F4</a>,X        Dateityp holen und
+885D: 29 07     AND #$07
+885F: 8D 2D 02  STA <a href="ra81022d.htm">$022D</a>        als aktuellen Dateitypen merken
+8862: A9 00     LDA #$00
+8864: 8D 6F 02  STA <a href="ra81026f.htm">$026F</a>        Aktuelle Recordlaenge = 0
+8867: 20 4D 98  JSR <a href="ro81984d.htm">$984D</a>        File oeffnen und 1. Block lesen
+886A: A0 01     LDY #$01         Pufferzeiger =1
+886C: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Dateityp auf REL-Datei testen
+886F: F0 01     BEQ $8872        gleich, (Pufferzeiger =1) ==&gt;
+8871: C8        INY              Zeiger =2
+
+Einsprung von $886F:
+
+8872: 98        TYA
+8873: 4C 22 94  JMP <a href="ro819422.htm">$9422</a>        Pufferzeiger setzen
+    <a href="ro81876e.htm">Previous Page</a> / <a href="ro818876.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

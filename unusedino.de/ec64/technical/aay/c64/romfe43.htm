@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FE43/65091:   NMI Transfer Entry
+
+FE43: 78        <a href="bsei.htm">SEI</a>
+FE44: 6C 18 03  <a href="bjmp.htm">JMP</a> (<a href="zp0318.htm">$0318</a>)   ; Vector: Hardware NMI Interrupt Address
+FE47: 48        <a href="bpha.htm">PHA</a>
+FE48: 8A        <a href="btxa.htm">TXA</a>
+FE49: 48        <a href="bpha.htm">PHA</a>
+FE4A: 98        <a href="btya.htm">TYA</a>
+FE4B: 48        <a href="bpha.htm">PHA</a>
+FE4C: A9 7F     <a href="blda.htm">LDA</a> #$7F
+FE4E: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+FE51: AC 0D DD  <a href="bldy.htm">LDY</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+FE54: 30 1C     <a href="bbmi.htm">BMI</a> <a href="romfe66.htm">$FE72</a>     ; Warm Start Basic
+FE56: 20 02 FD  <a href="bjsr.htm">JSR</a> <a href="romfd02.htm">$FD02</a>     ; Check For 8-ROM
+FE59: D0 03     <a href="bbne.htm">BNE</a> $FE5E
+FE5B: 6C 02 80  <a href="bjmp.htm">JMP</a> ($8002)
+
+Jump from $FE59:
+
+FE5E: 20 BC F6  <a href="bjsr.htm">JSR</a> <a href="romf69b.htm">$F6BC</a>     ; Bump Clock
+FE61: 20 E1 FF  <a href="bjsr.htm">JSR</a> <a href="romffe1.htm">$FFE1</a>     ; Test-Stop Vector
+FE64: D0 0C     <a href="bbne.htm">BNE</a> <a href="romfe66.htm">$FE72</a>     ; Warm Start Basic
+
+    <a href="romfe34.htm">Previous Page</a> / <a href="romfe66.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

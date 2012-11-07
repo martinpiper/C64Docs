@@ -1,0 +1,59 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Gruppe anwaehlen
+E: a: gewuenschte Gruppennummer
+
+Einsprung von <a href="ro819ed3.htm">$9EDB</a>, <a href="ro81a5a9.htm">$A5AE</a>:
+
+A5C0: A6 50     LDX <a href="ra8150.htm">$50</a>
+A5C2: DD 02 01  CMP <a href="ra810102.htm">$0102</a>,X      Ist richtige Gruppe bereits gewaehlt ?
+A5C5: D0 01     BNE $A5C8        nein, ==&gt;
+A5C7: 60        RTS
+
+Einsprung von $A5C5:
+
+A5C8: 48        PHA              Gruppennummer merken
+A5C9: 20 74 A5  JSR <a href="ro81a574.htm">$A574</a>        Super-Side-Sektor laden
+
+Einsprung von <a href="ro81a459.htm">$A519</a>:
+
+A5CC: A9 03     LDA #$03         Zeiger auf Tabelle mit T&amp;S der
+A5CE: 20 15 9E  JSR <a href="ro819e15.htm">$9E15</a>        Gruppenanfaenge setzen
+A5D1: 68        PLA
+
+Einsprung von <a href="ro81a5a9.htm">$A5BA</a>:
+
+A5D2: AA        TAX              Gruppennummer nach x
+A5D3: 0A        ASL              (2-Byte Tabelle)
+A5D4: A8        TAY
+A5D5: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Eintrag vorhanden (Track&gt;0) ?
+A5D7: D0 03     BNE $A5DC        ja, ==&gt;
+A5D9: 09 FF     ORA #$FF         Fehler-Ende
+A5DB: 60        RTS
+
+Einsprung von $A5D7:
+
+A5DC: 85 4D     STA <a href="ra814d.htm">$4D</a>          T&amp;S des 1. Side-Sektors als aktuelle T&amp;S
+A5DE: C8        INY              merken
+A5DF: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+A5E1: 85 4E     STA <a href="ra814e.htm">$4E</a>
+A5E3: 8A        TXA              Gruppennummer merken
+A5E4: 48        PHA
+A5E5: A9 FF     LDA #$FF
+A5E7: A6 50     LDX <a href="ra8150.htm">$50</a>          Flag: 'Kein Side-Sektor geladen' setzen
+A5E9: 9D 02 01  STA <a href="ra810102.htm">$0102</a>,X
+A5EC: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X      Puffer fuer Side-Sektor holen
+A5EF: 85 6C     STA <a href="ra816c.htm">$6C</a>
+A5F1: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+A5F4: A9 80     LDA #$80
+A5F6: 20 E4 94  JSR <a href="ro8194de.htm">$94E4</a>        1. Side-Sektor der Gruppe lesen
+A5F9: A6 50     LDX <a href="ra8150.htm">$50</a>
+A5FB: 68        PLA
+A5FC: 9D 02 01  STA <a href="ra810102.htm">$0102</a>,X      aktuelle Gruppennummer merken
+A5FF: A9 00     LDA #$00         O.k. Ende
+A601: 60        RTS
+
+    <a href="ro81a5a9.htm">Previous Page</a> / <a href="ro81a602.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

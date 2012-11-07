@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FDF5/65013:   Copy data from overflow buffer
+
+Jump from <a href="ro41fac7.htm">$FC9B</a>:
+
+FDF5: A0 44     LDY #$44
+
+Jump from $FDFD:
+
+FDF7: B9 BB 01  LDA <a href="ra4101ba.htm">$01BB</a>,Y     ; $1BB to $1FF
+FDFA: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; write in buffer $30/$31
+FDFC: 88        DEY
+FDFD: 10 F8     BPL $FDF7
+FDFF: 60        RTS
+
+    <a href="ro41fde5.htm">Previous Page</a> / <a href="ro41fe00.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

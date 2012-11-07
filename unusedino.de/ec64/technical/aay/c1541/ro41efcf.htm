@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EFCF/61391:   Erase bit for sector in BAM entry
+
+Jump from <a href="ro41ef5c.htm">$EF5F</a>, <a href="ro41ef90.htm">$EF93</a>:
+
+EFCF: 20 11 F0  JSR <a href="ro41f011.htm">$F011</a>       ; find BAM field for this track
+EFD2: 98        TYA
+EFD3: 85 6F     STA <a href="ra416f.htm">$6F</a>
+
+Jump from <a href="ro41f1fa.htm">$F214</a>:
+
+EFD5: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+EFD7: 4A        LSR
+EFD8: 4A        LSR             ; divide by 8
+EFD9: 4A        LSR
+EFDA: 38        SEC
+EFDB: 65 6F     ADC <a href="ra416f.htm">$6F</a>
+EFDD: A8        TAY             ; byte number in BAM entry
+EFDE: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+EFE0: 29 07     AND #$07
+EFE2: AA        TAX             ; bit number in BAM entry
+EFE3: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y     ; byte in BAM
+EFE5: 3D E9 EF  AND <a href="ro41efe9.htm">$EFE9</a>,X     ; erase bit for corresponding sector
+EFE8: 60        RTS
+
+    <a href="ro41ef90.htm">Previous Page</a> / <a href="ro41efe9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

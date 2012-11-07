@@ -1,0 +1,96 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F11E/61726:   Find and allocate free block
+
+Jump from <a href="ro41d19d.htm">$D1A6</a>, <a href="ro41dcda.htm">$DD1D</a>, <a href="ro41e31c.htm">$E3A9</a>, <a href="ro41e31c.htm">$E3BC</a>, <a href="ro41e44e.htm">$E44E</a>:
+
+F11E: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>       ; get track and sector number
+F121: A9 03     LDA #$03
+F123: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; counter
+F125: A9 01     LDA #$01
+F127: 0D F9 02  ORA <a href="ra4102f9.htm">$02F9</a>
+F12A: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+
+Jump from $F14A, $F158, $F161, $F16F, <a href="ro41d48d.htm">$D49B</a>:
+
+F12D: A5 6F     LDA <a href="ra416f.htm">$6F</a>         ; save counter
+F12F: 48        PHA
+F130: 20 11 F0  JSR <a href="ro41f011.htm">$F011</a>       ; find BAM field for this track
+F133: 68        PLA
+F134: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; get counter back
+F136: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y     ; number of free blocks in track
+F138: D0 39     BNE $F173       ; blocks still free?
+F13A: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+F13C: CD 85 FE  CMP <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track?
+F13F: F0 19     BEQ $F15A       ; yes, 'disk full'
+F141: 90 1C     BCC $F15F       ; smaller, then next lower track
+F143: E6 80     INC <a href="ra4180.htm">$80</a>         ; increment track number
+F145: A5 80     LDA <a href="ra4180.htm">$80</a>
+F147: CD D7 FE  CMP <a href="ro41fed7.htm">$FED7</a>       ; 36, highest track number plus one
+F14A: D0 E1     BNE $F12D       ; no, continue searching this track
+F14C: AE 85 FE  LDX <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+F14F: CA        DEX             ; decrement
+F150: 86 80     STX <a href="ra4180.htm">$80</a>         ; save as track number
+F152: A9 00     LDA #$00
+F154: 85 81     STA <a href="ra4181.htm">$81</a>         ; begin with sector number zero
+F156: C6 6F     DEC <a href="ra416f.htm">$6F</a>         ; decrement counter
+F158: D0 D3     BNE $F12D       ; not yet zero, then continue
+
+Jump from $F13F, $F171:
+
+F15A: A9 72     LDA #$72
+F15C: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 72, 'disk full'
+
+Jump from $F141:
+
+F15F: C6 80     DEC <a href="ra4180.htm">$80</a>         ; decrement track number
+F161: D0 CA     BNE $F12D       ; not yet 0, continue in this track
+F163: AE 85 FE  LDX <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+F166: E8        INX             ; increment
+F167: 86 80     STX <a href="ra4180.htm">$80</a>         ; save as track number
+F169: A9 00     LDA #$00
+F16B: 85 81     STA <a href="ra4181.htm">$81</a>         ; begin with sector zero
+F16D: C6 6F     DEC <a href="ra416f.htm">$6F</a>         ; decrement counter
+F16F: D0 BC     BNE $F12D       ; not yet zero, then continue
+F171: F0 E7     BEQ $F15A       ; else 'disk full'
+
+Jump from $F138:
+
+F173: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+F175: 18        CLC
+F176: 65 69     ADC <a href="ra4169.htm">$69</a>         ; plus step width (10)
+F178: 85 81     STA <a href="ra4181.htm">$81</a>         ; as new number
+F17A: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number
+F17C: 20 4B F2  JSR <a href="ro41f24b.htm">$F24B</a>       ; get maximum sector number
+F17F: 8D 4E 02  STA <a href="ra41024e.htm">$024E</a>
+F182: 8D 4D 02  STA <a href="ra41024d.htm">$024D</a>       ; and save
+F185: C5 81     CMP <a href="ra4181.htm">$81</a>         ; greater than selected sector number?
+F187: B0 0C     BCS $F195       ; yes
+F189: 38        SEC             ; else
+F18A: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+F18C: ED 4E 02  SBC <a href="ra41024e.htm">$024E</a>       ; minus maximum sector number
+F18F: 85 81     STA <a href="ra4181.htm">$81</a>         ; save as new sector number
+F191: F0 02     BEQ $F195       ; zero?
+F193: C6 81     DEC <a href="ra4181.htm">$81</a>         ; else decrement sector number by one
+
+Jump from $F187, $F191:
+
+F195: 20 FA F1  JSR <a href="ro41f1fa.htm">$F1FA</a>       ; check BAM, find free sector
+F198: F0 03     BEQ $F19D       ; not found?
+
+Jump from $F1A4:
+
+F19A: 4C 90 EF  JMP <a href="ro41ef90.htm">$EF90</a>       ; allocate block in BAM
+
+Jump from $F198:
+
+F19D: A9 00     LDA #$00
+F19F: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector zero
+F1A1: 20 FA F1  JSR <a href="ro41f1fa.htm">$F1FA</a>       ; find free sector
+F1A4: D0 F4     BNE $F19A       ; found?
+F1A6: 4C F5 F1  JMP <a href="ro41f1a9.htm">$F1F5</a>       ; no, 'dir sector'
+
+    <a href="ro41f119.htm">Previous Page</a> / <a href="ro41f1a9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

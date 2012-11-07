@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B1BF/45503:   FAC#1 to Positive Integer
+
+Jump from <a href="roma9c4.htm">$A9C7</a>, <a href="romaead.htm">$AED4</a>, <a href="romafe6.htm">$AFED</a>, <a href="romafe6.htm">$AFFF</a>, <a href="romb1aa.htm">$B1AA</a>:
+
+B1BF: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B1C1: C9 90     <a href="bcmp.htm">CMP</a> #$90
+B1C3: 90 09     <a href="bbcc.htm">BCC</a> $B1CE
+B1C5: A9 A5     <a href="blda.htm">LDA</a> #$A5
+B1C7: A0 B1     <a href="bldy.htm">LDY</a> #$B1
+B1C9: 20 5B BC  <a href="bjsr.htm">JSR</a> <a href="rombc5b.htm">$BC5B</a>     ; Compare FAC#1 With Memory
+
+Jump from <a href="romb1b2.htm">$B1BD</a>:
+
+B1CC: D0 7A     <a href="bbne.htm">BNE</a> <a href="romb248.htm">$B248</a>     ; ?ILLEGAL QUANTITY
+
+Jump from $B1C3:
+
+B1CE: 4C 9B BC  <a href="bjmp.htm">JMP</a> <a href="rombc9b.htm">$BC9B</a>     ; Convert FAC#1 to Integer
+
+    <a href="romb1b2.htm">Previous Page</a> / <a href="romb1d1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

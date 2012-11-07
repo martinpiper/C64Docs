@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $90/144:   Kernal I/O Status Word ST
+
+   +-------+---------------------------------+
+   | Bit 7 |   1 = Device not present (S)    |
+   |       |   1 = End of Tape (T)           |
+   | Bit 6 |   1 = End of File (S+T)         |
+   | Bit 5 |   1 = Checksum error (T)        |
+   | Bit 4 |   1 = Different error (T)       |
+   | Bit 3 |   1 = Too many bytes (T)        |
+   | Bit 2 |   1 = Too few bytes (T)         |
+   | Bit 1 |   1 = Timeout Read (S)          |
+   | Bit 0 |   1 = Timeout Write (S)         |
+   +-------+---------------------------------+
+
+   (S) = Serial bus, (T) = Tape
+
+Kernal-Reference:
+
+ AND $90     : <a href="romf4b8.htm">$F4F5</a>
+ BIT $90     : <a href="romee13.htm">$EE79</a> <a href="romf20e.htm">$F249</a> <a href="romf250.htm">$F28A</a> <a href="romf4b8.htm">$F524</a>
+ LDA $90     : <a href="romf199.htm">$F1AD</a> <a href="romf3d5.htm">$F3ED</a> <a href="romf4b8.htm">$F4DA</a> <a href="romf4b8.htm">$F505</a> <a href="romf533.htm">$F55D</a> <a href="romfe18.htm">$FE1A</a>
+ ORA $90     : <a href="romfe18.htm">$FE1C</a>
+ STA $90     : <a href="romf30f.htm">$F311</a> <a href="romf3d5.htm">$F3DF</a> <a href="romf49e.htm">$F4A9</a> <a href="romf4b8.htm">$F4F7</a> <a href="romf841.htm">$F843</a> <a href="romfe18.htm">$FE1E</a>
+
+    <a href="zp8b.htm">Previous Page</a> / <a href="zp91.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

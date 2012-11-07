@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Parameter des letzten Records der Datei merken
+
+Einsprung von <a href="ro818895.htm">$88AE</a>, <a href="ro81a2d6.htm">$A2D6</a>:
+
+A438: 20 5C A1  JSR <a href="ro81a15c.htm">$A15C</a>        Ende der REL-Datei suchen
+A43B: 20 35 A2  JSR <a href="ro81a235.htm">$A235</a>        benoetigte Blocks einlesen
+A43E: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        Super-Side-Sektoren verwenden ?
+A441: D0 07     BNE $A44A        nein, ==&gt;
+A443: AD 00 01  LDA <a href="ra810100.htm">$0100</a>        aktuelle Gruppennummer
+A446: 85 5A     STA <a href="ra815a.htm">$5A</a>          = bearbeitete Gruppennummer
+A448: 85 58     STA <a href="ra8158.htm">$58</a>          Anzahl vorhendener Gruppen merken
+
+Einsprung von $A441:
+
+A44A: A5 6A     LDA <a href="ra816a.htm">$6A</a>          Zeiger auf aktuelle T&amp;S des Side-Sektors
+A44C: 85 56     STA <a href="ra8156.htm">$56</a>          merken
+A44E: A5 69     LDA <a href="ra8169.htm">$69</a>          Side-Sektor-Nummer merken
+A450: 85 55     STA <a href="ra8155.htm">$55</a>          (als aktuell bearbeitete)
+A452: A9 00     LDA #$00         Flags loeschen:
+A454: 85 57     STA <a href="ra8157.htm">$57</a>          nur einen Datenblock anlegen
+A456: 85 68     STA <a href="ra8168.htm">$68</a>          Zeiger in Record loeschen
+A458: 60        RTS
+
+    <a href="ro81a2d6.htm">Previous Page</a> / <a href="ro81a459.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BA59/47705:   Multiply by a Byte
+
+Jump from <a href="romba28.htm">$BA3F</a>, <a href="romba28.htm">$BA44</a>, <a href="romba28.htm">$BA49</a>, <a href="romba28.htm">$BA4E</a>:
+
+BA59: D0 03     <a href="bbne.htm">BNE</a> $BA5E
+BA5B: 4C 83 B9  <a href="bjmp.htm">JMP</a> <a href="romb983.htm">$B983</a>     ; Multiply by Zero Byte
+
+Jump from $BA59, <a href="romba28.htm">$BA53</a>:
+
+BA5E: 4A        <a href="blsr.htm">LSR</a>
+BA5F: 09 80     <a href="bora.htm">ORA</a> #$80
+
+Jump from $BA89:
+
+BA61: A8        <a href="btay.htm">TAY</a>
+BA62: 90 19     <a href="bbcc.htm">BCC</a> $BA7D
+BA64: 18        <a href="bclc.htm">CLC</a>
+BA65: A5 29     <a href="blda.htm">LDA</a> <a href="zp26.htm">$29</a>       ; Floating point product of Multiply and Divide
+BA67: 65 6D     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BA69: 85 29     <a href="bsta.htm">STA</a> <a href="zp26.htm">$29</a>       ; Floating point product of Multiply and Divide
+BA6B: A5 28     <a href="blda.htm">LDA</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+BA6D: 65 6C     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BA6F: 85 28     <a href="bsta.htm">STA</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+BA71: A5 27     <a href="blda.htm">LDA</a> <a href="zp26.htm">$27</a>       ; Floating point product of Multiply and Divide
+BA73: 65 6B     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BA75: 85 27     <a href="bsta.htm">STA</a> <a href="zp26.htm">$27</a>       ; Floating point product of Multiply and Divide
+BA77: A5 26     <a href="blda.htm">LDA</a> <a href="zp26.htm">$26</a>       ; Floating point product of Multiply and Divide
+BA79: 65 6A     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BA7B: 85 26     <a href="bsta.htm">STA</a> <a href="zp26.htm">$26</a>       ; Floating point product of Multiply and Divide
+
+Jump from $BA62:
+
+BA7D: 66 26     <a href="bror.htm">ROR</a> <a href="zp26.htm">$26</a>       ; Floating point product of Multiply and Divide
+BA7F: 66 27     <a href="bror.htm">ROR</a> <a href="zp26.htm">$27</a>       ; Floating point product of Multiply and Divide
+BA81: 66 28     <a href="bror.htm">ROR</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+BA83: 66 29     <a href="bror.htm">ROR</a> <a href="zp26.htm">$29</a>       ; Floating point product of Multiply and Divide
+BA85: 66 70     <a href="bror.htm">ROR</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BA87: 98        <a href="btya.htm">TYA</a>
+BA88: 4A        <a href="blsr.htm">LSR</a>
+BA89: D0 D6     <a href="bbne.htm">BNE</a> $BA61
+
+Jump from <a href="romba28.htm">$BA2D</a>:
+
+BA8B: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romba28.htm">Previous Page</a> / <a href="romba8c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

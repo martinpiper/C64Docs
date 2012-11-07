@@ -1,0 +1,97 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F291/62097:   Close File
+
+F291: 20 14 F3  <a href="bjsr.htm">JSR</a> <a href="romf30f.htm">$F314</a>     ; Find File
+F294: F0 02     <a href="bbeq.htm">BEQ</a> $F298
+F296: 18        <a href="bclc.htm">CLC</a>
+F297: 60        <a href="brts.htm">RTS</a>
+
+Jump from $F294:
+
+F298: 20 1F F3  <a href="bjsr.htm">JSR</a> <a href="romf31f.htm">$F31F</a>     ; Set File values
+F29B: 8A        <a href="btxa.htm">TXA</a>
+F29C: 48        <a href="bpha.htm">PHA</a>
+F29D: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F29F: F0 50     <a href="bbeq.htm">BEQ</a> $F2F1
+F2A1: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F2A3: F0 4C     <a href="bbeq.htm">BEQ</a> $F2F1
+F2A5: B0 47     <a href="bbcs.htm">BCS</a> $F2EE
+F2A7: C9 02     <a href="bcmp.htm">CMP</a> #$02
+F2A9: D0 1D     <a href="bbne.htm">BNE</a> $F2C8
+F2AB: 68        <a href="bpla.htm">PLA</a>
+F2AC: 20 F2 F2  <a href="bjsr.htm">JSR</a> $F2F2
+F2AF: 20 83 F4  <a href="bjsr.htm">JSR</a> <a href="romf409.htm">$F483</a>     ; Open RS232
+F2B2: 20 27 FE  <a href="bjsr.htm">JSR</a> <a href="romfe25.htm">$FE27</a>     ; Read / Set Top of Memory
+F2B5: A5 F8     <a href="blda.htm">LDA</a> <a href="zpf7.htm">$F8</a>       ; RS232 Input Buffer Pointer
+F2B7: F0 01     <a href="bbeq.htm">BEQ</a> $F2BA
+F2B9: C8        <a href="biny.htm">INY</a>
+
+Jump from $F2B7:
+
+F2BA: A5 FA     <a href="blda.htm">LDA</a> <a href="zpf9.htm">$FA</a>       ; RS232 Output Buffer Pointer
+F2BC: F0 01     <a href="bbeq.htm">BEQ</a> $F2BF
+F2BE: C8        <a href="biny.htm">INY</a>
+
+Jump from $F2BC:
+
+F2BF: A9 00     <a href="blda.htm">LDA</a> #$00
+F2C1: 85 F8     <a href="bsta.htm">STA</a> <a href="zpf7.htm">$F8</a>       ; RS232 Input Buffer Pointer
+F2C3: 85 FA     <a href="bsta.htm">STA</a> <a href="zpf9.htm">$FA</a>       ; RS232 Output Buffer Pointer
+F2C5: 4C 7D F4  <a href="bjmp.htm">JMP</a> <a href="romf409.htm">$F47D</a>     ; Open RS232
+
+Jump from $F2A9:
+
+F2C8: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F2CA: 29 0F     <a href="band.htm">AND</a> #$0F
+F2CC: F0 23     <a href="bbeq.htm">BEQ</a> $F2F1
+F2CE: 20 D0 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d0.htm">$F7D0</a>     ; Get Buffer Address
+F2D1: A9 00     <a href="blda.htm">LDA</a> #$00
+F2D3: 38        <a href="bsec.htm">SEC</a>
+F2D4: 20 DD F1  <a href="bjsr.htm">JSR</a> <a href="romf1ca.htm">$F1DD</a>     ; Output One Character
+F2D7: 20 64 F8  <a href="bjsr.htm">JSR</a> <a href="romf864.htm">$F864</a>     ; Initiate Tape Write
+F2DA: 90 04     <a href="bbcc.htm">BCC</a> $F2E0
+F2DC: 68        <a href="bpla.htm">PLA</a>
+F2DD: A9 00     <a href="blda.htm">LDA</a> #$00
+F2DF: 60        <a href="brts.htm">RTS</a>
+
+Jump from $F2DA:
+
+F2E0: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F2E2: C9 62     <a href="bcmp.htm">CMP</a> #$62
+F2E4: D0 0B     <a href="bbne.htm">BNE</a> $F2F1
+F2E6: A9 05     <a href="blda.htm">LDA</a> #$05
+F2E8: 20 6A F7  <a href="bjsr.htm">JSR</a> <a href="romf76a.htm">$F76A</a>     ; Write Tape Header
+F2EB: 4C F1 F2  <a href="bjmp.htm">JMP</a> $F2F1
+
+Jump from $F2A5:
+
+F2EE: 20 42 F6  <a href="bjsr.htm">JSR</a> <a href="romf5fa.htm">$F642</a>     ; Save to Serial Bus
+
+Jump from $F29F, $F2A3, $F2CC, $F2E4, $F2EB:
+
+F2F1: 68        <a href="bpla.htm">PLA</a>
+
+Jump from $F2AC:
+
+F2F2: AA        <a href="btax.htm">TAX</a>
+F2F3: C6 98     <a href="bdec.htm">DEC</a> <a href="zp98.htm">$98</a>       ; Number of Open Files/Index to File Table
+F2F5: E4 98     <a href="bcpx.htm">CPX</a> <a href="zp98.htm">$98</a>       ; Number of Open Files/Index to File Table
+F2F7: F0 14     <a href="bbeq.htm">BEQ</a> $F30D
+F2F9: A4 98     <a href="bldy.htm">LDY</a> <a href="zp98.htm">$98</a>       ; Number of Open Files/Index to File Table
+F2FB: B9 59 02  <a href="blda.htm">LDA</a> <a href="zp0259.htm">$0259</a>,Y   ; Active logical File numbers
+F2FE: 9D 59 02  <a href="bsta.htm">STA</a> <a href="zp0259.htm">$0259</a>,X   ; Active logical File numbers
+F301: B9 63 02  <a href="blda.htm">LDA</a> <a href="zp0263.htm">$0263</a>,Y   ; Active File First Addresses (Device numbers)
+F304: 9D 63 02  <a href="bsta.htm">STA</a> <a href="zp0263.htm">$0263</a>,X   ; Active File First Addresses (Device numbers)
+F307: B9 6D 02  <a href="blda.htm">LDA</a> <a href="zp026d.htm">$026D</a>,Y   ; Active File Secondary Addresses
+F30A: 9D 6D 02  <a href="bsta.htm">STA</a> <a href="zp026d.htm">$026D</a>,X   ; Active File Secondary Addresses
+
+Jump from $F2F7:
+
+F30D: 18        <a href="bclc.htm">CLC</a>
+F30E: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf250.htm">Previous Page</a> / <a href="romf30f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

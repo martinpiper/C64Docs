@@ -1,0 +1,60 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ 1541 Job Codes:
+
+  This table contains the addresses and the assigned buffers:
+
+     +-------+---------+----------+---------------+
+     |  JOB  |  TRACK  |  SECTOR  |     BUFFER    |
+     +-------+---------+----------+---------------+
+     |  <a href="ra4100.htm">$00</a>  |   <a href="ra4106.htm">$06</a>   |   <a href="ra4106.htm">$07</a>    |  <a href="ra410300.htm">$0300-$03FF</a>  |
+     |  <a href="ra4101.htm">$01</a>  |   <a href="ra4108.htm">$08</a>   |   <a href="ra4108.htm">$09</a>    |  <a href="ra410400.htm">$0400-$04FF</a>  |
+     |  <a href="ra4102.htm">$02</a>  |   <a href="ra410a.htm">$0A</a>   |   <a href="ra410a.htm">$0B</a>    |  <a href="ra410500.htm">$0500-$05FF</a>  |
+     |  <a href="ra4103.htm">$03</a>  |   <a href="ra410c.htm">$0C</a>   |   <a href="ra410c.htm">$0D</a>    |  <a href="ra410600.htm">$0600-$06FF</a>  |
+     |  <a href="ra4104.htm">$04</a>  |   <a href="ra410e.htm">$0E</a>   |   <a href="ra410e.htm">$0F</a>    |  <a href="ra410700.htm">$0700-$07FF</a>  |
+     |  <a href="ra4105.htm">$05</a>  |   <a href="ra4110.htm">$10</a>   |   <a href="ra4110.htm">$11</a>    |   - no RAM -  |
+     +-------+---------+----------+---------------+
+
+  If a disk controller routine is to be performed in the interrupt, one
+  writes the job code and the track and sector numbers of the block to be
+  processed (if necessary) in the appropriate memory locations. Now the
+  job code can be passed. This job code has a value greater than 127 (the
+  7th bit is set). In order to wait until the job is finished, only the
+  seventh bit need be tested. If this bit is cleared, the job is completed.
+  The disk controller can perform the following jobs:
+
+     +-------+---------+-------------------------------+
+     |  JOB  |  NAME   |          DESCRIPTION          |
+     +-------+---------+-------------------------------+
+     |  $80  | READ    | Read sector                   |
+     |  $90  | WRITE   | Write sector (includes $A0)   |
+     |  $A0  | VERIFY  | Verify sector                 |
+     |  $B0  | SEEK    | Find sector                   |
+     |  $C0  | BUMP    | Bump, Find track 1            |
+     |  $D0  | JUMP    | Execute program in buffer     |
+     |  $E0  | EXECUTE | Execute program, first switch |
+     |       |         | drive on and find track       |
+     +-------+---------+-------------------------------+
+
+  If the job ends in an error then the memory location with job command
+  code is replaced with and error code. Here is a list of the error numbers:
+
+     +------+--------------------------------+----------------------+
+     | CODE | MEANING                        | DOS ERROR MESSAGE    |
+     +------+--------------------------------+----------------------+
+     | $01  | Everything OK                  | 00, OK               |
+     | $02  | Header block not found         | 20, READ ERROR       |
+     | $03  | SYNC not found                 | 21, READ ERROR       |
+     | $04  | Data block not found           | 22, READ ERROR       |
+     | $05  | Checksum error in data block   | 23, READ ERROR       |
+     | $07  | Verify error                   | 25, WRITE ERROR      |
+     | $08  | Disk write protected           | 26, WRITE PROTECT ON |
+     | $09  | Checksum error in header block | 27, READ ERROR       |
+     | $0B  | Id mismatch                    | 29, DISK ID MISMATCH |
+     | $0F  | Disk not inserted              | 74, DRIVE NOT READY  |
+     +------+--------------------------------+----------------------+
+
+  Error codes $06 and $0A do not occur on the 1541.
+
+</pre></td></tr></table></center></body></html>

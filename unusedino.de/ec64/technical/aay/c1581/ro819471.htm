@@ -1,0 +1,52 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+T&amp;S auf Gueltigkeit pruefen       ($d506)
+ggf. Formatkennzeichen pruefen, Jobcode setzen und Controller aufrufen
+E: x  : Puffernummer
+   $28: Jobcode
+
+Einsprung von <a href="ro818ffe.htm">$900A</a>, <a href="ro819d8e.htm">$9DCB</a>:
+
+9471: A5 28     LDA <a href="ra8128.htm">$28</a>          Zwischenspeicher fuer Jobcode merken
+
+Einsprung von <a href="ro8194de.htm">$94EA</a>:
+
+9473: 48        PHA
+9474: 86 6C     STX <a href="ra816c.htm">$6C</a>          aktuelle Puffernummer merken
+9476: 2C A8 02  BIT <a href="ra8102a8.htm">$02A8</a>        b6=1: T&amp;S Pruefung abgeschaltet ?
+9479: 70 58     BVS <a href="ro8194d3.htm">$94D3</a>        ja, ==&gt;
+947B: 8A        TXA              Index fuer 16-Bit Tabelle berechnen
+947C: 0A        ASL
+947D: AA        TAX
+947E: B5 0C     LDA <a href="ra810b.htm">$0C</a>,X        Sektornummer merken
+9480: 85 28     STA <a href="ra8128.htm">$28</a>
+9482: B5 0B     LDA <a href="ra810b.htm">$0B</a>,X        Tracknummer
+9484: F0 1A     BEQ $94A0        = 0 ? ja, (Fehler) ==&gt;
+9486: CD 2C 02  CMP <a href="ra81022c.htm">$022C</a>        &gt; letzter Track der Partition ?
+9489: B0 15     BCS $94A0        ja, (Fehler) ==&gt;
+948B: 68        PLA              Jobcode holen
+948C: 48        PHA
+948D: C9 90     CMP #$90         'Schreiben' ?
+948F: D0 42     BNE <a href="ro8194d3.htm">$94D3</a>        nein, ==&gt; [Anscheinend wird die Sektor-
+                                nummer nur bei Schreibjobs geprueft ?!]
+9491: A5 6F     LDA <a href="ra816f.htm">$6F</a>          Formatkennzeichen
+9493: CD EB 01  CMP <a href="ra8101eb.htm">$01EB</a>        = 1581-Formatkennzeichen ?
+9496: D0 33     BNE <a href="ro8194cb.htm">$94CB</a>        nein, ==&gt;
+9498: A5 75     LDA <a href="ra8175.htm">$75</a>          Anzahl der Sektoren pro Track
+949A: C5 28     CMP <a href="ra8128.htm">$28</a>          mit Sektornummer vergleichen
+949C: F0 02     BEQ $94A0        gleich, dann Fehler ==&gt;
+949E: B0 33     BCS <a href="ro8194d3.htm">$94D3</a>        groesser, dann Ok. ==&gt;
+
+Einsprung von $9484, $9489, $949C:
+
+94A0: 20 A8 94  JSR <a href="ro8194a8.htm">$94A8</a>        T&amp;S aus Jobpuffer holen
+
+Einsprung von <a href="ro8194b5.htm">$94B7</a>, <a href="ro8194b5.htm">$94BC</a>, <a href="ro8194b5.htm">$94C0</a>, <a href="ro8194b5.htm">$94C6</a>, <a href="ro8194b5.htm">$94C8</a>:
+
+94A3: A9 66     LDA #$66         66, Illegal Track or Sector
+94A5: 4C 3F FF  JMP <a href="ro81ff00.htm">$FF3F</a>
+
+    <a href="ro819460.htm">Previous Page</a> / <a href="ro8194a8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

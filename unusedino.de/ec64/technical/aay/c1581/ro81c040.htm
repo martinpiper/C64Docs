@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+physikalischen Folgesektor holen (bei der 1571: $886c)
+
+Einsprung von <a href="ro81bb11.htm">$BB6B</a>, <a href="ro81bc01.htm">$BC90</a>:
+
+C040: 38        SEC
+C041: AD EF 01  LDA <a href="ra8101ef.htm">$01EF</a>        kleinste gefundene Sektornummer
+C044: F0 03     BEQ $C049        =0, ==&gt;
+C046: E9 02     SBC #$02
+C048: 2C         B $2C
+
+Einsprung von $C044:
+
+C049: E9 01     SBC #$01         a=$ff
+C04B: 85 3D     STA <a href="ra813d.htm">$3D</a>
+C04D: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        aktuelle Sektornummer mit der
+C050: CD F0 01  CMP <a href="ra8101f0.htm">$01F0</a>        groessten gefundenen Sektornummer vergleichen
+C053: F0 06     BEQ $C05B        gleich, ==&gt;
+C055: 18        CLC              Sektornummer erhoehen
+C056: 69 01     ADC #$01
+C058: 4C 6E C0  JMP $C06E        [Hier ist doch das Carry geloescht, oder ?]
+
+Einsprung von $C053:
+
+C05B: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Seite wechseln (0/1)
+C05D: A8        TAY
+C05E: 49 10     EOR #$10
+C060: 85 7C     STA <a href="ra817c.htm">$7C</a>
+C062: 98        TYA
+C063: 29 10     AND #$10         war Seite 1 angewaehlt ?
+C065: F0 03     BEQ $C06A        nein, ==&gt;
+C067: EE 03 02  INC <a href="ra810200.htm">$0203</a>        Spurnummer erhoehen
+
+Einsprung von $C065:
+
+C06A: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornumer holen
+C06C: B0 08     BCS $C076        , ==&gt;
+
+Einsprung von $C058:
+
+C06E: 90 06     BCC $C076        ==&gt;
+
+C070: ED F0 01  SBC <a href="ra8101f0.htm">$01F0</a>        [Wird nie aufgerufen ?]
+C073: 18        CLC               &quot;
+C074: 65 3D     ADC <a href="ra813d.htm">$3D</a>           &quot;
+
+Einsprung von $C06C, $C06E:
+
+C076: 8D 04 02  STA <a href="ra810200.htm">$0204</a>        neue Sektornummer merken
+C079: 60        RTS
+
+    <a href="ro81c026.htm">Previous Page</a> / <a href="ro81c07a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

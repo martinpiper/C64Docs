@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Parameter '0' und '1' auswerten (CHGUTL-Parameter)
+A: b7: Wert entsprechend der Angabe
+
+Einsprung von <a href="ro81aa3c.htm">$AA8E</a>, <a href="ro81aa3c.htm">$AAA0</a>:
+
+AB09: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        Test auf '0' oder '1'
+AB0C: C9 31     CMP #$31
+AB0E: F0 07     BEQ $AB17
+AB10: C9 30     CMP #$30
+AB12: F0 03     BEQ $AB17
+AB14: 4C 83 AA  JMP <a href="ro81aa3c.htm">$AA83</a>        31, SYNTAX ERROR
+
+Einsprung von $AB0E, $AB12:
+
+AB17: 29 01     AND #$01         '0' : b7=0;
+AB19: 18        CLC              '1' : b7=1;
+AB1A: 6A        ROR
+AB1B: 6A        ROR
+AB1C: 60        RTS
+
+    <a href="ro81aaa8.htm">Previous Page</a> / <a href="ro81ab1d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

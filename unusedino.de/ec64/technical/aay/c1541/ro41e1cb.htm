@@ -1,0 +1,55 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E1CB/57803:   Get last side-sector
+
+Jump from <a href="ro41ca35.htm">$CA56</a>, <a href="ro41ca35.htm">$CA69</a>, <a href="ro41db02.htm">$DB32</a>, <a href="ro41def8.htm">$DF0B</a>, <a href="ro41e31c.htm">$E31F</a>:
+
+E1CB: 20 D2 DE  JSR <a href="ro41ded2.htm">$DED2</a>       ; get number of the side-sector
+E1CE: 85 D5     STA <a href="ra41d5.htm">$D5</a>         ; save
+E1D0: A9 04     LDA #$04
+E1D2: 85 94     STA <a href="ra4194.htm">$94</a>         ; pointer to side-sectors
+E1D4: A0 0A     LDY #$0A
+E1D6: D0 04     BNE $E1DC
+
+Jump from $E1DE:
+
+E1D8: 88        DEY
+E1D9: 88        DEY
+E1DA: 30 26     BMI $E202
+
+Jump from $E1D6:
+
+E1DC: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track number of the previous block
+E1DE: F0 F8     BEQ $E1D8
+E1E0: 98        TYA
+E1E1: 4A        LSR             ; divide by 2
+E1E2: C5 D5     CMP <a href="ra41d5.htm">$D5</a>         ; = number of the actual block?
+E1E4: F0 09     BEQ $E1EF       ; yes
+E1E6: 85 D5     STA <a href="ra41d5.htm">$D5</a>         ; else save all numbers
+E1E8: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E1EA: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number
+E1EC: 20 1B DF  JSR <a href="ro41df1b.htm">$DF1B</a>       ; read block
+
+Jump from $E1E4:
+
+E1EF: A0 00     LDY #$00
+E1F1: 84 94     STY <a href="ra4194.htm">$94</a>         ; buffer pointer
+E1F3: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; track number
+E1F5: D0 0B     BNE $E202       ; another block?
+E1F7: C8        INY
+E1F8: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; sector number = end pointer
+E1FA: A8        TAY
+E1FB: 88        DEY
+E1FC: 84 D6     STY <a href="ra41d6.htm">$D6</a>         ; save end pointer
+E1FE: 98        TYA
+E1FF: 4C E9 DE  JMP <a href="ro41dee9.htm">$DEE9</a>       ; set buffer pointer
+
+Jump from $E1DA, $E1F5, <a href="ro41e207.htm">$E286</a>:
+
+E202: A9 67     LDA #$67
+E204: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 67, 'illegal track or sector'
+
+    <a href="ro41e120.htm">Previous Page</a> / <a href="ro41e207.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

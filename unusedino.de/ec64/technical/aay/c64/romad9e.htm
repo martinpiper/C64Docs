@@ -1,0 +1,203 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AD9E/44446:   Evaluate Expression in Text
+
+Jump from <a href="roma928.htm">$A928</a>, <a href="roma9a5.htm">$A9B7</a>, <a href="romaaa0.htm">$AAB5</a>, <a href="romad8a.htm">$AD8A</a>, <a href="romaef1.htm">$AEF4</a>, <a href="romafb1.htm">$AFB4</a>, <a href="romb1b2.htm">$B1B5</a>, <a href="rome219.htm">$E257</a>:
+
+AD9E: A6 7A     <a href="bldx.htm">LDX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+ADA0: D0 02     <a href="bbne.htm">BNE</a> $ADA4
+ADA2: C6 7B     <a href="bdec.htm">DEC</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+Jump from $ADA0:
+
+ADA4: C6 7A     <a href="bdec.htm">DEC</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+ADA6: A2 00     <a href="bldx.htm">LDX</a> #$00
+ADA8: 24        .BYTE $24
+
+Jump from $AE2D:
+
+ADA9: 48        <a href="bpha.htm">PHA</a>
+ADAA: 8A        <a href="btxa.htm">TXA</a>
+ADAB: 48        <a href="bpha.htm">PHA</a>
+ADAC: A9 01     <a href="blda.htm">LDA</a> #$01
+ADAE: 20 FB A3  <a href="bjsr.htm">JSR</a> <a href="roma3fb.htm">$A3FB</a>     ; Check Stack Depth
+ADB1: 20 83 AE  <a href="bjsr.htm">JSR</a> <a href="romae83.htm">$AE83</a>     ; Evaluate Single Term
+ADB4: A9 00     <a href="blda.htm">LDA</a> #$00
+ADB6: 85 4D     <a href="bsta.htm">STA</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+
+Jump from <a href="romb63d.htm">$B677</a>:
+
+ADB8: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+
+Jump from $ADD4:
+
+ADBB: 38        <a href="bsec.htm">SEC</a>
+ADBC: E9 B1     <a href="bsbc.htm">SBC</a> #$B1
+ADBE: 90 17     <a href="bbcc.htm">BCC</a> $ADD7
+ADC0: C9 03     <a href="bcmp.htm">CMP</a> #$03
+ADC2: B0 13     <a href="bbcs.htm">BCS</a> $ADD7
+ADC4: C9 01     <a href="bcmp.htm">CMP</a> #$01
+ADC6: 2A        <a href="brol.htm">ROL</a>
+ADC7: 49 01     <a href="beor.htm">EOR</a> #$01
+ADC9: 45 4D     <a href="beor.htm">EOR</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+ADCB: C5 4D     <a href="bcmp.htm">CMP</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+ADCD: 90 61     <a href="bbcc.htm">BCC</a> $AE30
+ADCF: 85 4D     <a href="bsta.htm">STA</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+ADD1: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+ADD4: 4C BB AD  <a href="bjmp.htm">JMP</a> $ADBB
+
+Jump from $ADBE, $ADC2:
+
+ADD7: A6 4D     <a href="bldx.htm">LDX</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+ADD9: D0 2C     <a href="bbne.htm">BNE</a> $AE07
+ADDB: B0 7B     <a href="bbcs.htm">BCS</a> $AE58
+ADDD: 69 07     <a href="badc.htm">ADC</a> #$07
+ADDF: 90 77     <a href="bbcc.htm">BCC</a> $AE58
+ADE1: 65 0D     <a href="badc.htm">ADC</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+ADE3: D0 03     <a href="bbne.htm">BNE</a> $ADE8
+ADE5: 4C 3D B6  <a href="bjmp.htm">JMP</a> <a href="romb63d.htm">$B63D</a>     ; Concatenate Two Strings
+
+Jump from $ADE3:
+
+ADE8: 69 FF     <a href="badc.htm">ADC</a> #$FF
+ADEA: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+ADEC: 0A        <a href="basl.htm">ASL</a>
+ADED: 65 22     <a href="badc.htm">ADC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+ADEF: A8        <a href="btay.htm">TAY</a>
+
+Jump from $AE17:
+
+ADF0: 68        <a href="bpla.htm">PLA</a>
+ADF1: D9 80 A0  <a href="bcmp.htm">CMP</a> <a href="roma080.htm">$A080</a>,Y   ; BASIC Operator Vectors
+ADF4: B0 67     <a href="bbcs.htm">BCS</a> $AE5D
+ADF6: 20 8D AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8D</a>     ; Confirm Result
+
+Jump from $AE1E:
+
+ADF9: 48        <a href="bpha.htm">PHA</a>
+
+Jump from <a href="romaf0d.htm">$AF11</a>:
+
+ADFA: 20 20 AE  <a href="bjsr.htm">JSR</a> $AE20
+ADFD: 68        <a href="bpla.htm">PLA</a>
+ADFE: A4 4B     <a href="bldy.htm">LDY</a> <a href="zp4b.htm">$4B</a>       ; Temporary storage for TXTPTR
+AE00: 10 17     <a href="bbpl.htm">BPL</a> $AE19
+AE02: AA        <a href="btax.htm">TAX</a>
+AE03: F0 56     <a href="bbeq.htm">BEQ</a> $AE5B
+AE05: D0 5F     <a href="bbne.htm">BNE</a> $AE66
+
+Jump from $ADD9:
+
+AE07: 46 0D     <a href="blsr.htm">LSR</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+AE09: 8A        <a href="btxa.htm">TXA</a>
+AE0A: 2A        <a href="brol.htm">ROL</a>
+AE0B: A6 7A     <a href="bldx.htm">LDX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AE0D: D0 02     <a href="bbne.htm">BNE</a> $AE11
+AE0F: C6 7B     <a href="bdec.htm">DEC</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+Jump from $AE0D:
+
+AE11: C6 7A     <a href="bdec.htm">DEC</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AE13: A0 1B     <a href="bldy.htm">LDY</a> #$1B
+AE15: 85 4D     <a href="bsta.htm">STA</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+AE17: D0 D7     <a href="bbne.htm">BNE</a> $ADF0
+
+Jump from $AE00:
+
+AE19: D9 80 A0  <a href="bcmp.htm">CMP</a> <a href="roma080.htm">$A080</a>,Y   ; BASIC Operator Vectors
+AE1C: B0 48     <a href="bbcs.htm">BCS</a> $AE66
+AE1E: 90 D9     <a href="bbcc.htm">BCC</a> $ADF9
+
+Jump from $ADFA:
+
+AE20: B9 82 A0  <a href="blda.htm">LDA</a> <a href="roma080.htm">$A082</a>,Y   ; BASIC Operator Vectors
+AE23: 48        <a href="bpha.htm">PHA</a>
+AE24: B9 81 A0  <a href="blda.htm">LDA</a> <a href="roma080.htm">$A081</a>,Y   ; BASIC Operator Vectors
+AE27: 48        <a href="bpha.htm">PHA</a>
+AE28: 20 33 AE  <a href="bjsr.htm">JSR</a> $AE33
+AE2B: A5 4D     <a href="blda.htm">LDA</a> <a href="zp4d.htm">$4D</a>       ; Mask used during FRMEVL
+AE2D: 4C A9 AD  <a href="bjmp.htm">JMP</a> $ADA9
+
+Jump from $ADCD:
+
+AE30: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $AE28:
+
+AE33: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+AE35: BE 80 A0  <a href="bldx.htm">LDX</a> <a href="roma080.htm">$A080</a>,Y   ; BASIC Operator Vectors
+
+Jump from <a href="roma742.htm">$A7A2</a>:
+
+AE38: A8        <a href="btay.htm">TAY</a>
+AE39: 68        <a href="bpla.htm">PLA</a>
+AE3A: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+AE3C: E6 22     <a href="binc.htm">INC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+AE3E: 68        <a href="bpla.htm">PLA</a>
+AE3F: 85 23     <a href="bsta.htm">STA</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+AE41: 98        <a href="btya.htm">TYA</a>
+AE42: 48        <a href="bpha.htm">PHA</a>
+
+Jump from <a href="roma742.htm">$A788</a>:
+
+AE43: 20 1B BC  <a href="bjsr.htm">JSR</a> <a href="rombc1b.htm">$BC1B</a>     ; Round FAC#1
+AE46: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AE48: 48        <a href="bpha.htm">PHA</a>
+AE49: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AE4B: 48        <a href="bpha.htm">PHA</a>
+AE4C: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+AE4E: 48        <a href="bpha.htm">PHA</a>
+AE4F: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+AE51: 48        <a href="bpha.htm">PHA</a>
+AE52: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+AE54: 48        <a href="bpha.htm">PHA</a>
+AE55: 6C 22 00  <a href="bjmp.htm">JMP</a> (<a href="zp22.htm">$0022</a>)   ; Second Utility Pointer
+
+Jump from $ADDB, $ADDF:
+
+AE58: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+AE5A: 68        <a href="bpla.htm">PLA</a>
+
+Jump from $AE03:
+
+AE5B: F0 23     <a href="bbeq.htm">BEQ</a> $AE80
+
+Jump from $ADF4:
+
+AE5D: C9 64     <a href="bcmp.htm">CMP</a> #$64
+AE5F: F0 03     <a href="bbeq.htm">BEQ</a> $AE64
+AE61: 20 8D AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8D</a>     ; Confirm Result
+
+Jump from $AE5F:
+
+AE64: 84 4B     <a href="bsty.htm">STY</a> <a href="zp4b.htm">$4B</a>       ; Temporary storage for TXTPTR
+
+Jump from $AE05, $AE1C:
+
+AE66: 68        <a href="bpla.htm">PLA</a>
+AE67: 4A        <a href="blsr.htm">LSR</a>
+AE68: 85 12     <a href="bsta.htm">STA</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+AE6A: 68        <a href="bpla.htm">PLA</a>
+AE6B: 85 69     <a href="bsta.htm">STA</a> <a href="zp69.htm">$69</a>       ; AFAC Exponent
+AE6D: 68        <a href="bpla.htm">PLA</a>
+AE6E: 85 6A     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+AE70: 68        <a href="bpla.htm">PLA</a>
+AE71: 85 6B     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+AE73: 68        <a href="bpla.htm">PLA</a>
+AE74: 85 6C     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+AE76: 68        <a href="bpla.htm">PLA</a>
+AE77: 85 6D     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+AE79: 68        <a href="bpla.htm">PLA</a>
+AE7A: 85 6E     <a href="bsta.htm">STA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+AE7C: 45 66     <a href="beor.htm">EOR</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+AE7E: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+
+Jump from $AE5B:
+
+AE80: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+AE82: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romad8a.htm">Previous Page</a> / <a href="romae83.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

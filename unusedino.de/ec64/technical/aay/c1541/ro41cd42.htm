@@ -1,0 +1,19 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CD42/52546:   Read block from disk
+
+Jump from <a href="ro41cd56.htm">$CD56</a>, <a href="ro41cd5f.htm">$CD62</a>:
+
+CD42: 20 36 CD  JSR <a href="ro41cd36.htm">$CD36</a>       ; open channel, read block
+CD45: A9 00     LDA #$00
+CD47: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer to zero
+CD4A: 20 3C CD  JSR <a href="ro41cd3c.htm">$CD3C</a>       ; get a byte from the buffer
+CD4D: 99 44 02  STA <a href="ra410244.htm">$0244</a>,Y
+CD50: A9 89     LDA #$89        ; set read and write flag
+CD52: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y
+CD55: 60        RTS
+
+    <a href="ro41cd3c.htm">Previous Page</a> / <a href="ro41cd56.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

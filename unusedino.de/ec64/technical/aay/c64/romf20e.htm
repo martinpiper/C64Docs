@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F20E/61966:   Set Input Device
+
+F20E: 20 0F F3  <a href="bjsr.htm">JSR</a> <a href="romf30f.htm">$F30F</a>     ; Find File
+F211: F0 03     <a href="bbeq.htm">BEQ</a> $F216
+F213: 4C 01 F7  <a href="bjmp.htm">JMP</a> <a href="romf701.htm">$F701</a>     ; Output I/O Error Messages: 'FILE NOT OPEN'
+
+Jump from $F211:
+
+F216: 20 1F F3  <a href="bjsr.htm">JSR</a> <a href="romf31f.htm">$F31F</a>     ; Set File values
+F219: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F21B: F0 16     <a href="bbeq.htm">BEQ</a> $F233
+F21D: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F21F: F0 12     <a href="bbeq.htm">BEQ</a> $F233
+F221: B0 14     <a href="bbcs.htm">BCS</a> $F237
+F223: C9 02     <a href="bcmp.htm">CMP</a> #$02
+F225: D0 03     <a href="bbne.htm">BNE</a> $F22A
+F227: 4C 4D F0  <a href="bjmp.htm">JMP</a> <a href="romf04d.htm">$F04D</a>     ; Input From RS232
+
+Jump from $F225:
+
+F22A: A6 B9     <a href="bldx.htm">LDX</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F22C: E0 60     <a href="bcpx.htm">CPX</a> #$60
+F22E: F0 03     <a href="bbeq.htm">BEQ</a> $F233
+F230: 4C 0A F7  <a href="bjmp.htm">JMP</a> <a href="romf70a.htm">$F70A</a>     ; Output I/O Error Messages: 'NOT INPUT FILE'
+
+Jump from $F21B, $F21F, $F22E, $F24B:
+
+F233: 85 99     <a href="bsta.htm">STA</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+F235: 18        <a href="bclc.htm">CLC</a>
+F236: 60        <a href="brts.htm">RTS</a>
+
+Jump from $F221:
+
+F237: AA        <a href="btax.htm">TAX</a>
+F238: 20 09 ED  <a href="bjsr.htm">JSR</a> <a href="romed09.htm">$ED09</a>     ; Send TALK Command on Serial Bus
+F23B: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F23D: 10 06     <a href="bbpl.htm">BPL</a> $F245
+F23F: 20 CC ED  <a href="bjsr.htm">JSR</a> <a href="romedcc.htm">$EDCC</a>     ; Wait For Clock
+F242: 4C 48 F2  <a href="bjmp.htm">JMP</a> $F248
+
+Jump from $F23D:
+
+F245: 20 C7 ED  <a href="bjsr.htm">JSR</a> <a href="romedc7.htm">$EDC7</a>     ; Send TALK Secondary Address
+
+Jump from $F242:
+
+F248: 8A        <a href="btxa.htm">TXA</a>
+F249: 24 90     <a href="bbit.htm">BIT</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+F24B: 10 E6     <a href="bbpl.htm">BPL</a> $F233
+F24D: 4C 07 F7  <a href="bjmp.htm">JMP</a> <a href="romf707.htm">$F707</a>     ; Output I/O Error Messages: 'DEVICE NOT PRESENT'
+
+    <a href="romf1ca.htm">Previous Page</a> / <a href="romf250.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

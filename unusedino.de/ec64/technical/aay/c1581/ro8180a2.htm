@@ -1,0 +1,96 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Eingabezeile pruefen bei Copy, Rename, New ($c1ee)
+
+Befehlszeile bis zum ':' auswerten
+
+Einsprung von <a href="ro818004.htm">$8039</a>:
+
+80A2: 20 99 80  JSR <a href="ro818099.htm">$8099</a>        ':' in der Kommandozeile suchen
+80A5: D0 05     BNE $80AC        gefunden, ==&gt;
+
+Einsprung von $80B2:
+
+80A7: A9 34     LDA #$34         34, Syntax Error
+80A9: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        (':' fehlt)
+
+Einsprung von $80A5, <a href="ro81876e.htm">$877F</a>:
+
+80AC: 88        DEY
+80AD: 88        DEY              Zeiger auf Drivenummer merken
+80AE: 8C 91 02  STY <a href="ra810291.htm">$0291</a>        (falls vorhanden)
+80B1: 8A        TXA              Anzahl der gefundenen Kommas &gt;0 ?
+80B2: D0 F3     BNE $80A7        ja, Fehler: ',' vor ':' ==&gt;
+Befehlszeile zwischen ':' und '=' auswerten
+
+Einsprung von <a href="ro8198f7.htm">$9936</a>:
+
+80B4: A9 3D     LDA #$3D
+80B6: 20 1C 81  JSR <a href="ro81811c.htm">$811C</a>        '=' suchen
+80B9: 8A        TXA
+80BA: F0 02     BEQ $80BE        ist ein ',' vor dem '=' ?
+80BC: A9 40     LDA #$40         ja, ', vor =' -Flag setzen
+
+Einsprung von $80BA:
+
+80BE: 09 21     ORA #$21         b0-1 = 01: 'Kein =' -Flag setzen
+80C0: 8D A2 02  STA <a href="ra8102a2.htm">$02A2</a>        Bitmaske merken
+80C3: E8        INX              Anzahl der gefundenen Kommas
+80C4: 8E 2E 02  STX <a href="ra81022e.htm">$022E</a>        +1 = Anzahl der Parameter
+80C7: 8E 2F 02  STX <a href="ra81022f.htm">$022F</a>        (z.B. 'xxx,p,r')
+80CA: AD A1 02  LDA <a href="ra8102a1.htm">$02A1</a>        Ist ein Joker vorhanden ?
+80CD: F0 0D     BEQ $80DC        nein, ==&gt;
+80CF: A9 80     LDA #$80         'Joker vor =' -Flag setzen
+80D1: 0D A2 02  ORA <a href="ra8102a2.htm">$02A2</a>        In Bitmaske eintragen
+80D4: 8D A2 02  STA <a href="ra8102a2.htm">$02A2</a>
+80D7: A9 00     LDA #$00         Jokerflag loeschen
+80D9: 8D A1 02  STA <a href="ra8102a1.htm">$02A1</a>
+
+Einsprung von $80CD:
+
+80DC: 98        TYA              Wurde ein '=' gefunden ?
+80DD: F0 29     BEQ $8108        Nein, ==&gt;
+80DF: 9D 91 02  STA <a href="ra810291.htm">$0291</a>,X      Position des '=' merken
+80E2: AD 2E 02  LDA <a href="ra81022e.htm">$022E</a>        Anzahl Parameter vor dem '=' merken
+80E5: 8D 30 02  STA <a href="ra810230.htm">$0230</a>
+
+Befehlszeile vom '=' bis zum Zeilenende auswerten
+
+80E8: A9 8D     LDA #$8D         $8d = &lt;Shift Return&gt;
+80EA: 20 1C 81  JSR <a href="ro81811c.htm">$811C</a>        vom '=' bis zum Zeilenende untersuchen
+80ED: E8        INX              Anzahl der Parameter merken
+80EE: 8E 2F 02  STX <a href="ra81022f.htm">$022F</a>
+80F1: CA        DEX              = Anzahl ','
+80F2: AD A1 02  LDA <a href="ra8102a1.htm">$02A1</a>        Joker vorhanden ?
+80F5: F0 02     BEQ $80F9        Nein, ==&gt;
+80F7: A9 08     LDA #$08         'Joker hinter ='-Flag setzen
+
+Einsprung von $80F5:
+
+80F9: EC 2E 02  CPX <a href="ra81022e.htm">$022E</a>        Anzahl Kommas = Anzahl Kommas vor '=' ?
+80FC: F0 02     BEQ $8100        ja, (keine Kommas gefunden) ==&gt;
+80FE: 09 04     ORA #$04         ', hinter =' -Flag setzen
+
+Einsprung von $80FC:
+
+8100: 09 03     ORA #$03         b0-1 = 10: '=' -Flag setzen
+8102: 4D A2 02  EOR <a href="ra8102a2.htm">$02A2</a>        Evtl. b7-8 setzen
+8105: 8D A2 02  STA <a href="ra8102a2.htm">$02A2</a>        b0-1 kippen
+
+Einsprung von $80DD:
+
+8108: AD A2 02  LDA <a href="ra8102a2.htm">$02A2</a>        Bitmaske mit Kontrollmaske
+810B: AE 2A 02  LDX <a href="ra81022a.htm">$022A</a>        (aktuelle Befehlsnummer)
+810E: 3D 94 DB  AND <a href="ro81dafd.htm">$DB94</a>,X      bei $db9c verknuepfen
+8111: D0 01     BNE $8114        muss 0 werden, sonst Fehler ==&gt;
+8113: 60        RTS              Format OK.
+
+Einsprung von $8111:
+
+8114: 8D AB 02  STA <a href="ra8102ab.htm">$02AB</a>        Fehlerflag setzen
+8117: A9 30     LDA #$30         30, Syntax Error
+8119: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+    <a href="ro818099.htm">Previous Page</a> / <a href="ro81811c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E0F9/57593:   Handle I/O Error in BASIC
+
+Jump from <a href="rome10c.htm">$E10F</a>, <a href="rome112.htm">$E115</a>, <a href="rome118.htm">$E11B</a>, <a href="rome11e.htm">$E121</a>, <a href="rome124.htm">$E127</a>, <a href="rome156.htm">$E162</a>, <a href="rome1c7.htm">$E1D1</a>:
+
+E0F9: C9 F0     <a href="bcmp.htm">CMP</a> #$F0
+E0FB: D0 07     <a href="bbne.htm">BNE</a> $E104
+E0FD: 84 38     <a href="bsty.htm">STY</a> <a href="zp37.htm">$38</a>       ; Pointer: Highest Address available to BASIC
+E0FF: 86 37     <a href="bstx.htm">STX</a> <a href="zp37.htm">$37</a>       ; Pointer: Highest Address available to BASIC
+E101: 4C 63 A6  <a href="bjmp.htm">JMP</a> <a href="roma65e.htm">$A663</a>     ; Perform [clr]
+
+Jump from $E0FB:
+
+E104: AA        <a href="btax.htm">TAX</a>
+E105: D0 02     <a href="bbne.htm">BNE</a> $E109
+E107: A2 1E     <a href="bldx.htm">LDX</a> #$1E
+
+Jump from $E105:
+
+E109: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+    <a href="rome097.htm">Previous Page</a> / <a href="rome10c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

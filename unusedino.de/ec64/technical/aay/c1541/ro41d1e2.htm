@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D1E2/53730:   Find read channel and buffer
+
+Jump from <a href="ro41cb84.htm">$CB9A</a>, <a href="ro41cb84.htm">$CBDF</a>, <a href="ro41dc46.htm">$DC48</a>, <a href="ro41ec9e.htm">$ECA4</a>:
+
+D1E2: 18        CLC             ; flag for reading
+
+Jump from <a href="ro41d1df.htm">$D1E0</a>:
+
+D1E3: 08        PHP             ; save
+D1E4: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; buffer number
+D1E6: 20 27 D2  JSR <a href="ro41d227.htm">$D227</a>       ; close channel
+D1E9: 20 7F D3  JSR <a href="ro41d37f.htm">$D37F</a>       ; allocate free channel
+D1EC: 85 82     STA <a href="ra4182.htm">$82</a>         ; channel number
+D1EE: A6 83     LDX <a href="ra4183.htm">$83</a>         ; secondary address
+D1F0: 28        PLP
+D1F1: 90 02     BCC $D1F5       ; read channel?
+D1F3: 09 80     ORA #$80        ; flag for writing
+
+Jump from $D1F1:
+
+D1F5: 9D 2B 02  STA <a href="ra41022b.htm">$022B</a>,X     ; set
+D1F8: 29 3F     AND #$3F
+D1FA: A8        TAY
+D1FB: A9 FF     LDA #$FF        ; default value
+D1FD: 99 A7 00  STA <a href="ra41a7.htm">$A7</a>,Y
+D200: 99 AE 00  STA <a href="ra41ae.htm">$AE</a>,Y       ; write in associated table
+D203: 99 CD 00  STA <a href="ra41cd.htm">$CD</a>,Y
+D206: C6 6F     DEC <a href="ra416f.htm">$6F</a>         ; decrement buffer number
+D208: 30 1C     BMI $D226       ; done already?
+D20A: 20 8E D2  JSR <a href="ro41d28e.htm">$D28E</a>       ; find buffer
+D20D: 10 08     BPL $D217       ; found?
+
+Jump from $D221, <a href="ro41dc46.htm">$DC7E</a>, <a href="ro41dcda.htm">$DD13</a>:
+
+D20F: 20 5A D2  JSR <a href="ro41d25a.htm">$D25A</a>       ; erase flags in table
+D212: A9 70     LDA #$70
+D214: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 70, 'no channel'
+
+Jump from $D20D:
+
+D217: 99 A7 00  STA <a href="ra41a7.htm">$A7</a>,Y       ; buffer number in table
+D21A: C6 6F     DEC <a href="ra416f.htm">$6F</a>         ; buffer number
+D21C: 30 08     BMI $D226       ; already done?
+D21E: 20 8E D2  JSR <a href="ro41d28e.htm">$D28E</a>       ; find buffer
+D221: 30 EC     BMI $D20F       ; not found?
+D223: 99 AE 00  STA <a href="ra41ae.htm">$AE</a>,Y       ; buffer number in table
+
+Jump from $D208, $D21C:
+
+D226: 60        RTS
+
+    <a href="ro41d1df.htm">Previous Page</a> / <a href="ro41d227.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

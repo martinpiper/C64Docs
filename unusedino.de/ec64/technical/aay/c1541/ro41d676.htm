@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D676/54902:   Move head by half a track
+
+Jump from <a href="ro41d5c6.htm">$D610</a>, <a href="ro41d5c6.htm">$D628</a>:
+
+D676: C9 00     CMP #$00
+D678: F0 18     BEQ $D692
+D67A: 30 0C     BMI $D688
+
+Jump from $D684:
+
+D67C: A0 01     LDY #$01
+D67E: 20 93 D6  JSR <a href="ro41d693.htm">$D693</a>       ; transmit data for head position
+D681: 38        SEC
+D682: E9 01     SBC #$01
+D684: D0 F6     BNE $D67C
+D686: F0 0A     BEQ $D692
+
+Jump from $D67A, $D690:
+
+D688: A0 FF     LDY #$FF
+D68A: 20 93 D6  JSR <a href="ro41d693.htm">$D693</a>       ; transmit data for head position
+D68D: 18        CLC
+D68E: 69 01     ADC #$01
+D690: D0 F6     BNE $D688
+
+Jump from $D678, $D686:
+
+D692: 60        RTS
+
+    <a href="ro41d5c6.htm">Previous Page</a> / <a href="ro41d693.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

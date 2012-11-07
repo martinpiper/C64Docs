@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A408/41992:   Check Memory Overlap
+
+Jump from <a href="roma3b8.htm">$A3B8</a>, <a href="romb261.htm">$B264</a>, <a href="romb261.htm">$B2B9</a>, <a href="rome422.htm">$E426</a>:
+
+A408: C4 34     <a href="bcpy.htm">CPY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+A40A: 90 28     <a href="bbcc.htm">BCC</a> $A434
+A40C: D0 04     <a href="bbne.htm">BNE</a> $A412
+A40E: C5 33     <a href="bcmp.htm">CMP</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+A410: 90 22     <a href="bbcc.htm">BCC</a> $A434
+
+Jump from $A40C:
+
+A412: 48        <a href="bpha.htm">PHA</a>
+A413: A2 09     <a href="bldx.htm">LDX</a> #$09
+A415: 98        <a href="btya.htm">TYA</a>
+
+Jump from $A41A:
+
+A416: 48        <a href="bpha.htm">PHA</a>
+A417: B5 57     <a href="blda.htm">LDA</a> <a href="zp57.htm">$57</a>,X     ; Temporary storage for FLPT value
+A419: CA        <a href="bdex.htm">DEX</a>
+A41A: 10 FA     <a href="bbpl.htm">BPL</a> $A416
+A41C: 20 26 B5  <a href="bjsr.htm">JSR</a> <a href="romb526.htm">$B526</a>     ; Garbage Collection
+A41F: A2 F7     <a href="bldx.htm">LDX</a> #$F7
+
+Jump from $A425:
+
+A421: 68        <a href="bpla.htm">PLA</a>
+A422: 95 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>,X     ; FAC Exponent
+A424: E8        <a href="binx.htm">INX</a>
+A425: 30 FA     <a href="bbmi.htm">BMI</a> $A421
+A427: 68        <a href="bpla.htm">PLA</a>
+A428: A8        <a href="btay.htm">TAY</a>
+A429: 68        <a href="bpla.htm">PLA</a>
+A42A: C4 34     <a href="bcpy.htm">CPY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+A42C: 90 06     <a href="bbcc.htm">BCC</a> $A434
+A42E: D0 05     <a href="bbne.htm">BNE</a> <a href="roma435.htm">$A435</a>     ; Output ?OUT OF MEMORY Error
+A430: C5 33     <a href="bcmp.htm">CMP</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+A432: B0 01     <a href="bbcs.htm">BCS</a> <a href="roma435.htm">$A435</a>     ; Output ?OUT OF MEMORY Error
+
+Jump from $A40A, $A410, $A42C:
+
+A434: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma3fb.htm">Previous Page</a> / <a href="roma435.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

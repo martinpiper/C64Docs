@@ -1,0 +1,71 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D339/54073:   ?
+
+Jump from <a href="ro41d28e.htm">$D29D</a>:
+
+D339: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+D33B: 48        PHA
+D33C: A0 00     LDY #$00
+
+Jump from $D358:
+
+D33E: B6 FA     LDX <a href="ra41fa.htm">$FA</a>,Y
+D340: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+D342: 10 04     BPL $D348
+D344: C9 FF     CMP #$FF
+D346: D0 16     BNE $D35E
+
+Jump from $D342, $D36F:
+
+D348: 8A        TXA
+D349: 18        CLC
+D34A: 69 07     ADC #$07
+D34C: AA        TAX
+D34D: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+D34F: 10 04     BPL $D355
+D351: C9 FF     CMP #$FF
+D353: D0 09     BNE $D35E
+
+Jump from $D34F, $D371:
+
+D355: C8        INY
+D356: C0 05     CPY #$05
+D358: 90 E4     BCC $D33E
+D35A: A2 FF     LDX #$FF
+D35C: D0 1C     BNE $D37A
+
+Jump from $D346, $D353:
+
+D35E: 86 6F     STX <a href="ra416f.htm">$6F</a>
+D360: 29 3F     AND #$3F
+D362: AA        TAX
+
+Jump from $D365:
+
+D363: B5 00     LDA <a href="ra4100.htm">$00</a>,X
+D365: 30 FC     BMI $D363
+D367: C9 02     CMP #$02
+D369: 90 08     BCC $D373
+D36B: A6 6F     LDX <a href="ra416f.htm">$6F</a>
+D36D: E0 07     CPX #$07
+D36F: 90 D7     BCC $D348
+D371: B0 E2     BCS $D355
+
+Jump from $D369:
+
+D373: A4 6F     LDY <a href="ra416f.htm">$6F</a>
+D375: A9 FF     LDA #$FF
+D377: 99 A7 00  STA <a href="ra41a7.htm">$A7</a>,Y
+
+Jump from $D35C:
+
+D37A: 68        PLA
+D37B: 85 6F     STA <a href="ra416f.htm">$6F</a>
+D37D: 8A        TXA
+D37E: 60        RTS
+
+    <a href="ro41d313.htm">Previous Page</a> / <a href="ro41d37f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

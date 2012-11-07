@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E50A/58634:   Put / Get Row And Column
+
+Jump from <a href="romfff0.htm">$FFF0</a>:
+
+E50A: B0 07     <a href="bbcs.htm">BCS</a> $E513
+E50C: 86 D6     <a href="bstx.htm">STX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E50E: 84 D3     <a href="bsty.htm">STY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E510: 20 6C E5  <a href="bjsr.htm">JSR</a> <a href="rome56c.htm">$E56C</a>     ; Set Screen Pointers
+
+Jump from $E50A:
+
+E513: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E515: A4 D3     <a href="bldy.htm">LDY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E517: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome505.htm">Previous Page</a> / <a href="rome518.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

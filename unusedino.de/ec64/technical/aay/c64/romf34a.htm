@@ -1,0 +1,116 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F34A/62282:   Open File
+
+F34A: A6 B8     <a href="bldx.htm">LDX</a> <a href="zpb8.htm">$B8</a>       ; Current File - Logical File number
+F34C: D0 03     <a href="bbne.htm">BNE</a> $F351
+F34E: 4C 0A F7  <a href="bjmp.htm">JMP</a> <a href="romf70a.htm">$F70A</a>     ; Output I/O Error Messages: 'NOT INPUT FILE'
+
+Jump from $F34C:
+
+F351: 20 0F F3  <a href="bjsr.htm">JSR</a> <a href="romf30f.htm">$F30F</a>     ; Find File
+F354: D0 03     <a href="bbne.htm">BNE</a> $F359
+F356: 4C FE F6  <a href="bjmp.htm">JMP</a> <a href="romf6fe.htm">$F6FE</a>     ; Output I/O Error Messages: 'FILE OPEN'
+
+Jump from $F354:
+
+F359: A6 98     <a href="bldx.htm">LDX</a> <a href="zp98.htm">$98</a>       ; Number of Open Files/Index to File Table
+F35B: E0 0A     <a href="bcpx.htm">CPX</a> #$0A
+F35D: 90 03     <a href="bbcc.htm">BCC</a> $F362
+F35F: 4C FB F6  <a href="bjmp.htm">JMP</a> <a href="romf6fb.htm">$F6FB</a>     ; Output I/O Error Messages: 'TOO MANY FILES'
+
+Jump from $F35D:
+
+F362: E6 98     <a href="binc.htm">INC</a> <a href="zp98.htm">$98</a>       ; Number of Open Files/Index to File Table
+F364: A5 B8     <a href="blda.htm">LDA</a> <a href="zpb8.htm">$B8</a>       ; Current File - Logical File number
+F366: 9D 59 02  <a href="bsta.htm">STA</a> <a href="zp0259.htm">$0259</a>,X   ; Active logical File numbers
+F369: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F36B: 09 60     <a href="bora.htm">ORA</a> #$60
+F36D: 85 B9     <a href="bsta.htm">STA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F36F: 9D 6D 02  <a href="bsta.htm">STA</a> <a href="zp026d.htm">$026D</a>,X   ; Active File Secondary Addresses
+F372: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F374: 9D 63 02  <a href="bsta.htm">STA</a> <a href="zp0263.htm">$0263</a>,X   ; Active File First Addresses (Device numbers)
+F377: F0 5A     <a href="bbeq.htm">BEQ</a> $F3D3
+F379: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F37B: F0 56     <a href="bbeq.htm">BEQ</a> $F3D3
+F37D: 90 05     <a href="bbcc.htm">BCC</a> $F384
+F37F: 20 D5 F3  <a href="bjsr.htm">JSR</a> <a href="romf3d5.htm">$F3D5</a>     ; Send Secondary Address
+F382: 90 4F     <a href="bbcc.htm">BCC</a> $F3D3
+
+Jump from $F37D:
+
+F384: C9 02     <a href="bcmp.htm">CMP</a> #$02
+F386: D0 03     <a href="bbne.htm">BNE</a> $F38B
+<b>* SX64:
+F386: D0 08     <a href="bbne.htm">BNE</a> $F390
+</b>
+F388: 4C 09 F4  <a href="bjmp.htm">JMP</a> <a href="romf409.htm">$F409</a>     ; Open RS232
+
+Jump from $F386:
+
+F38B: 20 D0 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d0.htm">$F7D0</a>     ; Get Buffer Address
+F38E: B0 03     <a href="bbcs.htm">BCS</a> $F393
+
+Jump from $F386 (SX64):
+
+F390: 4C 13 F7  <a href="bjmp.htm">JMP</a> <a href="romf713.htm">$F713</a>     ; Output I/O Error Messages: 'ILLEGAL DEVICE NUMBER'
+
+Jump from $F38E:
+
+F393: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F395: 29 0F     <a href="band.htm">AND</a> #$0F
+F397: D0 1F     <a href="bbne.htm">BNE</a> $F3B8
+F399: 20 17 F8  <a href="bjsr.htm">JSR</a> <a href="romf817.htm">$F817</a>     ; Print &quot;PRESS PLAY ON TAPE&quot;
+F39C: B0 36     <a href="bbcs.htm">BCS</a> $F3D4
+F39E: 20 AF F5  <a href="bjsr.htm">JSR</a> <a href="romf5af.htm">$F5AF</a>     ; Print &quot;SEARCHING&quot;
+F3A1: A5 B7     <a href="blda.htm">LDA</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F3A3: F0 0A     <a href="bbeq.htm">BEQ</a> $F3AF
+F3A5: 20 EA F7  <a href="bjsr.htm">JSR</a> <a href="romf7ea.htm">$F7EA</a>     ; Find Specific Tape Header
+F3A8: 90 18     <a href="bbcc.htm">BCC</a> $F3C2
+F3AA: F0 28     <a href="bbeq.htm">BEQ</a> $F3D4
+
+Jump from $F3B6:
+
+F3AC: 4C 04 F7  <a href="bjmp.htm">JMP</a> <a href="romf704.htm">$F704</a>     ; Output I/O Error Messages: 'FILE NOT FOUND'
+
+Jump from $F3A3:
+
+F3AF: 20 2C F7  <a href="bjsr.htm">JSR</a> <a href="romf72c.htm">$F72C</a>     ; Find Any Tape Header
+F3B2: F0 20     <a href="bbeq.htm">BEQ</a> $F3D4
+F3B4: 90 0C     <a href="bbcc.htm">BCC</a> $F3C2
+F3B6: B0 F4     <a href="bbcs.htm">BCS</a> $F3AC
+
+Jump from $F397:
+
+F3B8: 20 38 F8  <a href="bjsr.htm">JSR</a> <a href="romf838.htm">$F838</a>     ; Print &quot;PRESS RECORD...&quot;
+F3BB: B0 17     <a href="bbcs.htm">BCS</a> $F3D4
+F3BD: A9 04     <a href="blda.htm">LDA</a> #$04
+F3BF: 20 6A F7  <a href="bjsr.htm">JSR</a> <a href="romf76a.htm">$F76A</a>     ; Write Tape Header
+
+Jump from $F3A8, $F3B4:
+
+F3C2: A9 BF     <a href="blda.htm">LDA</a> #$BF
+F3C4: A4 B9     <a href="bldy.htm">LDY</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F3C6: C0 60     <a href="bcpy.htm">CPY</a> #$60
+F3C8: F0 07     <a href="bbeq.htm">BEQ</a> $F3D1
+F3CA: A0 00     <a href="bldy.htm">LDY</a> #$00
+F3CC: A9 02     <a href="blda.htm">LDA</a> #$02
+F3CE: 91 B2     <a href="bsta.htm">STA</a> (<a href="zpb2.htm">$B2</a>),Y   ; Pointer: Start Address of Tape Buffer
+F3D0: 98        <a href="btya.htm">TYA</a>
+
+Jump from $F3C8:
+
+F3D1: 85 A6     <a href="bsta.htm">STA</a> <a href="zpa6.htm">$A6</a>       ; Pointer: Tape I/O buffer
+
+Jump from $F377, $F37B, $F382, <a href="romf3d5.htm">$F3D7</a>, <a href="romf3d5.htm">$F3DB</a>:
+
+F3D3: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $F39C, $F3AA, $F3B2, $F3BB:
+
+F3D4: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf333.htm">Previous Page</a> / <a href="romf3d5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

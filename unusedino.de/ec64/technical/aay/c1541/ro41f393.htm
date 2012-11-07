@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F393/62355:   Initialise pointer in buffer
+
+Jump from <a href="ro41f2f9.htm">$F301</a>, <a href="ro41f423.htm">$F43A</a>, <a href="ro41f423.htm">$F48F</a>:
+
+F393: A4 3F     LDY <a href="ra413f.htm">$3F</a>         ; buffer number
+
+Jump from <a href="ro41f2f9.htm">$F30C</a>:
+
+F395: B9 00 00  LDA <a href="ra4100.htm">$00</a>,Y       ; command code
+F398: 48        PHA             ; save
+F399: 10 10     BPL $F3AB
+F39B: 29 78     AND #$78        ; erase bits 0,1,2, and 7
+F39D: 85 45     STA <a href="ra4145.htm">$45</a>
+F39F: 98        TYA             ; buffer number
+F3A0: 0A        ASL             ; times two
+F3A1: 69 06     ADC #$06        ; plus 6
+F3A3: 85 32     STA <a href="ra4132.htm">$32</a>         ; equals pointer to actual buffer
+F3A5: 98        TYA             ; buffer number
+F3A6: 18        CLC
+F3A7: 69 03     ADC #$03        ; plus 3
+F3A9: 85 31     STA <a href="ra4130.htm">$31</a>         ; equals buffer address hi
+
+Jump from $F399:
+
+F3AB: A0 00     LDY #$00
+F3AD: 84 30     STY <a href="ra4130.htm">$30</a>         ; buffer address lo
+F3AF: 68        PLA             ; get command code back
+F3B0: 60        RTS
+
+    <a href="ro41f37c.htm">Previous Page</a> / <a href="ro41f3b1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

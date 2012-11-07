@@ -1,0 +1,127 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte aus beliebigem Kanal holen ($d3aa)
+Diese Routine wird von DOS jedesmal aufgerufen, wenn ein Byte zum Computer
+uebertragen werden soll. Es werden sowohl Daten aus 'normalen' Dateien
+gelesen, als auch Daten aus dem Directory, aus REL-Dateien, oder
+Direktzugriffen ('#').
+E: $50: aktueller Kanal
+A: Byte im Ausgabepuffer $023b+KN  (Kanalnummer $50)
+   Kanalstatus $0234+KN
+
+[kleiner Zeitvergleich:
+ Die Routine benoetigt ca. 140 Taktzyklen, um bei LOAD ein Byte zu holen,
+ bei SA 2-14 (PRG,SEQ,USR) sind es ca. 162 Zyklen. Dies entspricht bei
+ 202 Blocks einer Zeit von 3,6 - 4,2 sec.
+ Wenn ein Block nachgeladen werden muss, werden ca. 910 Taktzyklen
+ zusaetzlich gebraucht (reiner DOS-Aufwand, ohne Controllerprogramm)
+ = 0,1 sec. bei 202 Blocks.
+ Um die reale Geschwindigkeit der Routine zu testen, verwenden wir den
+ Append-Befehl (SA=2). Der Vorgang dauert bei 202 Blocks 12 sec. Er selbst
+ benoetigt ca. 130 Zyklen pro Byte (= 3,3 sec).
+ Also braucht diese Routine tatsaechlich ca. 8,7 sec. fuer 202 Blocks. Wir
+ hatten aber nur 4,3 sec. (4,2 + 0,1) ausgerechnet.
+ Die restlichen 4,4 sec. werden verbraucht:
+ - vom Controller (min. 3,0 sec):
+   - Lesen der benoetigten Spuren (mindestens 2,8 sec.):
+     - 11 x ersten Blockheader finden ( = 0,1 sec.),
+     - 11 x 2 folgende Datenbereiche ueberlesen ( = 0,4 sec.)
+     - 11 Spuren lesen bei 5 Umdrehungen/sec. ( = 2,2 sec.),
+   - Positionieren der Schreib-/Lesekoepfe (ca. 0,3 sec.),
+ - vom Controller-Programm (min. 0,5 sec.):
+   - Abfragen der Jobspeicher: 266 Takte x 1200 (Timer-IRQ) +
+     180 Takte x 202 x 4 (BRK) (ca. 0,2 sec.),
+   - Kopieren der Daten vom Cache in den DOS-Puffer (0,3 sec.).
+ Die restlichen 0.9 sec. verteilen sich auf die vielen verschiedenen
+ kleineren Routinen (Log. in Phy. Format umwandeln, ...).
+ (Die angegebenen Zeiten sind uebrigens alle 'Mindest-Zeiten'.)]
+
+Einsprung von <a href="ro8192f4.htm">$92FA</a>, <a href="ro81ad5c.htm">$AE35</a>:
+
+9303: A6 50     LDX <a href="ra8150.htm">$50</a>
+9305: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Filetyp holen
+9308: D0 03     BNE $930D        kein Rel-File, ==&gt;
+930A: 4C A6 A0  JMP <a href="ro81a0a6.htm">$A0A6</a>        Byte aus Record-Puffer holen
+
+Einsprung von $9308:
+
+930D: A5 52     LDA <a href="ra8152.htm">$52</a>          SA = 15 ?
+930F: C9 0F     CMP #$0F
+9311: F0 5D     BEQ <a href="ro819370.htm">$9370</a>        ja, Fehlermeldung bzw. M-R-Byte holen
+
+9313: BD 34 02  LDA <a href="ra810234.htm">$0234</a>,X      Kanalstatus holen
+9316: 29 08     AND #$08         EOI gesetzt ?
+9318: D0 15     BNE $932F        nein, ==&gt;
+931A: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Filetyp holen
+931D: C9 07     CMP #$07         Direktzugriff ?
+931F: D0 08     BNE $9329        nein, ==&gt;
+9321: A9 89     LDA #$89         b7=1: Lesen und b0=1: Schreiben ermoeglichen
+9323: 9D 34 02  STA <a href="ra810234.htm">$0234</a>,X      b4=1: EOI loeschen
+9326: 4C 3A 93  JMP $933A        1. Byte zur Ausgabe bereitstellen
+
+Einsprung von $931F:
+
+9329: A9 00     LDA #$00         Kanal verriegeln (weder Lesen noch
+932B: 9D 34 02  STA <a href="ra810234.htm">$0234</a>,X      Schreiben ist gesetzt)
+932E: 60        RTS
+
+Einsprung von $9318:
+
+932F: A5 52     LDA <a href="ra8152.htm">$52</a>          SA=0: LOAD ?
+9331: F0 32     BEQ $9365        ja, ==&gt;
+9333: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        Filetyp holen
+9336: C9 04     CMP #$04         &lt;4 (SEQ,PRG,USR)
+9338: 90 22     BCC $935C        ja, ==&gt;
+Byte aus Direktzugriffskanal holen
+
+Einsprung von $9326:
+
+933A: 20 69 90  JSR <a href="ro819069.htm">$9069</a>        Kanal- und Puffernummer holen
+933D: B5 BB     LDA <a href="ra81bb.htm">$BB</a>,X        Pufferende erreicht ?
+933F: D9 42 02  CMP <a href="ra810242.htm">$0242</a>,Y
+9342: D0 04     BNE $9348        nein, ==&gt;
+9344: A9 00     LDA #$00         Zeiger auf Pufferanfang setzen (1. Byte
+9346: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        ueberlesen (es enthaelt die Blocklaenge bei
+                                M-R bzw. M-W))
+
+Einsprung von $9342, <a href="ro818b85.htm">$8B88</a>:
+
+9348: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen
+
+Einsprung von <a href="ro818bfa.htm">$8C09</a>, <a href="ro818e78.htm">$8E96</a>:
+
+934A: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      Byte aus Puffer holen
+934C: 99 3B 02  STA <a href="ra81023b.htm">$023B</a>,Y      und in Ausgabepuffer schreiben
+934F: B5 BB     LDA <a href="ra81bb.htm">$BB</a>,X        Pufferende erreicht ?
+9351: D9 42 02  CMP <a href="ra810242.htm">$0242</a>,Y
+9354: D0 05     BNE $935B        nein, ==&gt;
+9356: A9 81     LDA #$81         b4=0: EOI ausgeben
+9358: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y
+
+Einsprung von $9354:
+
+935B: 60        RTS
+
+Byte aus PRG-/SEQ-/USR-Dateien holen
+
+Einsprung von $9338, $9368:
+
+935C: 20 9B 90  JSR <a href="ro81909b.htm">$909B</a>        Byte holen (im 2-Puffer-Modus)
+
+Einsprung von $936D:
+
+935F: A6 50     LDX <a href="ra8150.htm">$50</a>
+9361: 9D 3B 02  STA <a href="ra81023b.htm">$023B</a>,X      und in Ausgabepuffer schreiben
+9364: 60        RTS
+
+Einsprung von $9331:
+
+9365: AD 6E 02  LDA <a href="ra81026e.htm">$026E</a>        &lt;-- SA=0: DIRECTORY-Modus aktiv ?
+9368: F0 F2     BEQ $935C        nein, ==&gt;
+936A: 20 45 B2  JSR <a href="ro81b245.htm">$B245</a>        Byte aus Directory holen
+936D: 4C 5F 93  JMP $935F        und zur Ausgabe bereitstellen
+
+    <a href="ro8192f4.htm">Previous Page</a> / <a href="ro819370.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

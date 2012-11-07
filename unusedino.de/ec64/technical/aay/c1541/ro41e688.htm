@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E688/59016:   LISTEN
+
+Jump from <a href="ro41e645.htm">$E66A</a>:
+
+E688: 20 07 D1  JSR <a href="ro41d107.htm">$D107</a>       ; open channel for writing
+E68B: EA        NOP             ; accept byte
+E68C: EA        NOP
+E68D: EA        NOP
+
+Jump from <a href="ro41e645.htm">$E67D</a>, <a href="ro41e680.htm">$E686</a>:
+
+E68E: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; verify file type
+E691: C9 04     CMP #$04        ; file type REL?
+E693: B0 03     BCS $E698       ; yes
+E695: 20 27 D2  JSR <a href="ro41d227.htm">$D227</a>       ; close channel
+
+Jump from $E693, <a href="ro41e645.htm">$E665</a>, <a href="ro41e645.htm">$E677</a>:
+
+E698: 4C E7 EB  JMP <a href="ro41eaa0.htm">$EBE7</a>
+
+    <a href="ro41e680.htm">Previous Page</a> / <a href="ro41e69b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B4D5/46293:   Save String Descriptor
+
+Jump from <a href="romb487.htm">$B4CE</a>:
+
+B4D5: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B4D7: 95 00     <a href="bsta.htm">STA</a> <a href="zp00.htm">$00</a>,X     ; 6510 On-chip Data Direction Register
+B4D9: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B4DB: 95 01     <a href="bsta.htm">STA</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B4DD: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B4DF: 95 02     <a href="bsta.htm">STA</a> <a href="zp02.htm">$02</a>,X     ; Unused
+B4E1: A0 00     <a href="bldy.htm">LDY</a> #$00
+B4E3: 86 64     <a href="bstx.htm">STX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B4E5: 84 65     <a href="bsty.htm">STY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B4E7: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B4E9: 88        <a href="bdey.htm">DEY</a>
+B4EA: 84 0D     <a href="bsty.htm">STY</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B4EC: 86 17     <a href="bstx.htm">STX</a> <a href="zp17.htm">$17</a>       ; Last temporary String Address
+B4EE: E8        <a href="binx.htm">INX</a>
+B4EF: E8        <a href="binx.htm">INX</a>
+B4F0: E8        <a href="binx.htm">INX</a>
+B4F1: 86 16     <a href="bstx.htm">STX</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+B4F3: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb487.htm">Previous Page</a> / <a href="romb4f4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

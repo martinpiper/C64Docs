@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  JSR          JSR Jump to new location saving return address           JSR
+
+  Operation:  PC + 2 to Stack, (PC + 1) -&gt; PCL          N V - B D I Z C
+                               (PC + 2) -&gt; PCH          . . . . . . . .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2d.htm">Absolute</a>      |   JSR $FFFF           |   $20   |    3    |    6     |
+  +----------------+-----------------------+---------+---------+----------+
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr20b.htm">(Abs.Ind.,X)</a>   |   JSR ($FFFF,X)       |   $FC   |    3    |     6    |
+  +----------------+-----------------------+---------+---------+----------+
+   See also: <a href="bjsl.htm">JSL</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF90/61328:   Mark block as allocated
+
+Jump from <a href="ro41cd03.htm">$CD13</a>, <a href="ro41ede5.htm">$EDE8</a>, <a href="ro41ede5.htm">$EE04</a>, <a href="ro41f11e.htm">$F19A</a>, <a href="ro41f1a9.htm">$F1F2</a>:
+
+EF90: 20 F1 EF  JSR <a href="ro41eff1.htm">$EFF1</a>       ; set buffer pointer
+
+Jump from <a href="ro41ee0d.htm">$EE96</a>, <a href="ro41ee0d.htm">$EE9D</a>:
+
+EF93: 20 CF EF  JSR <a href="ro41efcf.htm">$EFCF</a>       ; erase bit for sector in BAM
+EF96: F0 36     BEQ $EFCE       ; already allocated, then done
+EF98: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y
+EF9A: 5D E9 EF  EOR <a href="ro41efe9.htm">$EFE9</a>,X     ; erase bit for block
+EF9D: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y
+EF9F: 20 88 EF  JSR <a href="ro41ef88.htm">$EF88</a>       ; set flag for BAM changed
+EFA2: A4 6F     LDY <a href="ra416f.htm">$6F</a>
+EFA4: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y
+EFA6: 38        SEC
+EFA7: E9 01     SBC #$01        ; decrement number of blocks per track
+EFA9: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y
+EFAB: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+EFAD: CD 85 FE  CMP <a href="ro41fe85.htm">$FE85</a>       ; 18?
+EFB0: F0 0B     BEQ $EFBD
+EFB2: BD FA 02  LDA <a href="ra4102fa.htm">$02FA</a>,X     ; number of free blocks lo
+EFB5: D0 03     BNE $EFBA
+EFB7: DE FC 02  DEC <a href="ra4102fc.htm">$02FC</a>,X     ; decrement number of free blocks
+
+Jump from $EFB5, <a href="ro41ef5c.htm">$EF7D</a>:
+
+EFBA: DE FA 02  DEC <a href="ra4102fa.htm">$02FA</a>,X
+
+Jump from $EFB0:
+
+EFBD: BD FC 02  LDA <a href="ra4102fc.htm">$02FC</a>,X     ; number of free blocks hi
+EFC0: D0 0C     BNE $EFCE       ; more than 255 blocks free?
+EFC2: BD FA 02  LDA <a href="ra4102fa.htm">$02FA</a>,X     ; free blocks lo
+EFC5: C9 03     CMP #$03
+EFC7: B0 05     BCS $EFCE       ; smaller than 3?
+EFC9: A9 72     LDA #$72
+EFCB: 20 C7 E6  JSR <a href="ro41e6c7.htm">$E6C7</a>       ; 72, 'disk full'
+
+Jump from $EF96, $EFC0, $EFC7:
+
+EFCE: 60        RTS
+
+    <a href="ro41ef88.htm">Previous Page</a> / <a href="ro41efcf.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

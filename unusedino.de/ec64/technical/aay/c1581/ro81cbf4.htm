@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kommandobyte in Controller schreiben
+
+Einsprung von <a href="ro81c3d6.htm">$C3E9</a>, <a href="ro81c600.htm">$C65D</a>, <a href="ro81c700.htm">$C736</a>, <a href="ro81c800.htm">$C836</a>, <a href="ro81c900.htm">$C95E</a>, <a href="ro81ca00.htm">$CA5E</a>, <a href="ro81cb0f.htm">$CB12</a>, <a href="ro81cd00.htm">$CD10</a>, <a href="ro81cd7b.htm">$CD8D</a>,
+              <a href="ro81cd7b.htm">$CD96</a>, <a href="ro81ce71.htm">$CE89</a>:
+
+CBF4: EA        NOP
+CBF5: 8D 00 60  STA <a href="wd810.htm">$6000</a>        Befehl ins Befehlsregister schreiben
+CBF8: A9 01     LDA #$01         b0: Busy-Flag
+
+Einsprung von $CBFD:
+
+CBFA: 2C 00 60  BIT <a href="wd810.htm">$6000</a>
+CBFD: F0 FB     BEQ $CBFA        Warten, bis Controller 'busy' ist, ==&gt;
+CBFF: 4C 34 AD  JMP <a href="ro81ad2f.htm">$AD34</a>        kurze Verzoegerung (14 us)
+
+CC02: FF  ....
+CCFF: ....  FF
+
+    <a href="ro81cbec.htm">Previous Page</a> / <a href="ro81cd00.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

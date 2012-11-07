@@ -1,0 +1,116 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+65816 instruction chart:
+
+ Hi                                                                      Low
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+   |   0   |    1   |   2    |    3     |    4   |   5    |   6    |    7    |
+ --+-------+--------+--------+----------+--------+--------+--------+---------+
+ 0 | <a href="bbrk.htm">BRK</a> s |<a href="bora.htm">ORA</a>(d,x)| <a href="bcop.htm">COP</a> s  | <a href="bora.htm">ORA</a> d,s  | <a href="btsb.htm">TSB</a> d  | <a href="bora.htm">ORA</a> d  | <a href="basl.htm">ASL</a> d  | <a href="bora.htm">ORA</a> [d] |
+   |  2 8  |  2 6   |  2 8   |   2 4    |  2 5   |  2 3   |  2 5   |   2 6   |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 1 | <a href="bbpl.htm">BPL</a> r |<a href="bora.htm">ORA</a>(d),y| <a href="bora.htm">ORA</a>(d) |<a href="bora.htm">ORA</a>(d,s),y| <a href="btrb.htm">TRB</a> d  | <a href="bora.htm">ORA</a> d,x| <a href="basl.htm">ASL</a> d,x|<a href="bora.htm">ORA</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  2 5   |  2 4   |  2 6   |   2 6   |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 2 | <a href="bjsr.htm">JSR</a> a |<a href="band.htm">AND</a>(d,x)| <a href="bjsl.htm">JSL</a> al | <a href="band.htm">AND</a> d,s  | <a href="bbit.htm">BIT</a> d  | <a href="band.htm">AND</a> d  | <a href="brol.htm">ROL</a> d  | <a href="band.htm">AND</a> [d] |
+   |  3 6  |  2 6   |  4 8   |   2 4    |  2 3   |  2 3   |  2 5   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 3 | <a href="bbmi.htm">BMI</a> r |<a href="band.htm">AND</a>(d),y| <a href="band.htm">AND</a> (d)|<a href="band.htm">AND</a>(d,s),y| <a href="bbit.htm">BIT</a> d,x| <a href="band.htm">AND</a> d,x| <a href="brol.htm">ROL</a> d,x|<a href="band.htm">AND</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  2 4   |  2 4   |  2 6   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 4 | <a href="brti.htm">RTI</a> s |<a href="beor.htm">EOR</a>(d,x)| reserve| <a href="beor.htm">EOR</a> d,s  | <a href="bmvp.htm">MVP</a> xya| <a href="beor.htm">EOR</a> d  | <a href="blsr.htm">LSR</a> d  | <a href="beor.htm">EOR</a> [d] |
+   |  1 7  |  2 6   |  2 2   |   2 4    |  3 7   |  2 3   |  2 5   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 5 | <a href="bbvc.htm">BVC</a> r |<a href="beor.htm">EOR</a>(d),y| <a href="beor.htm">EOR</a> (d)|<a href="beor.htm">EOR</a>(d,s),y| <a href="bmvn.htm">MVN</a> xya| <a href="beor.htm">EOR</a> d,x| <a href="blsr.htm">LSR</a> d,x|<a href="beor.htm">EOR</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  3 7   |  2 4   |  2 6   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 6 | <a href="brts.htm">RTS</a> s |<a href="badc.htm">ADC</a>(d,x)| <a href="bper.htm">PER</a> s  | <a href="badc.htm">ADC</a> d,s  | <a href="bstz.htm">STZ</a> d  | <a href="badc.htm">ADC</a> d  | <a href="bror.htm">ROR</a> d  | <a href="badc.htm">ADC</a> [d] |
+   |  1 6  |  2 6   |  3 6   |   2 4    |  2 3   |  2 3   |  2 5   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 7 | <a href="bbvs.htm">BVS</a> r |<a href="badc.htm">ADC</a>(d),y| <a href="badc.htm">ADC</a> (d)|<a href="badc.htm">ADC</a>(d,s),y| <a href="bstz.htm">STZ</a> d,x| <a href="badc.htm">ADC</a> d,x| <a href="bror.htm">ROR</a> d,x|<a href="badc.htm">ADC</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  2 4   |  2 4   |  2 6   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 8 | <a href="bbra.htm">BRA</a> r |<a href="bsta.htm">STA</a>(d,x)| <a href="bbrl.htm">BRL</a> rl | <a href="bsta.htm">STA</a> d,s  | <a href="bsty.htm">STY</a> d  | <a href="bsta.htm">STA</a> d  | <a href="bstx.htm">STX</a> d  | <a href="bsta.htm">STA</a> [d] |
+   |  2 2  |  2 6   |  3 3   |   2 4    |  2 3   |  2 3   |  2 3   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ 9 | <a href="bbcc.htm">BCC</a> r |<a href="bsta.htm">STA</a>(d),y| <a href="bsta.htm">STA</a> (d)|<a href="bsta.htm">STA</a>(d,s),y| <a href="bsty.htm">STY</a>d,x | <a href="bsta.htm">STA</a> d,x| <a href="bstx.htm">STX</a> d,y|<a href="bsta.htm">STA</a> [d],y|
+   |  2 2  |  2 6   |  2 5   |   2 7    |  2 4   |  2 4   |  2 4   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ A | <a href="bldy.htm">LDY</a> # |<a href="blda.htm">LDA</a>(d,x)|  <a href="bldx.htm">LDX</a> # | <a href="blda.htm">LDA</a> d,s  | <a href="bldy.htm">LDY</a> d  | <a href="blda.htm">LDA</a> d  | <a href="bldx.htm">LDX</a> d  | <a href="blda.htm">LDA</a> [d] |
+   |  2 2  |  2 6   |  2 2   |   2 4    |  2 3   |  2 3   |  2 3   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ B | <a href="bbcs.htm">BCS</a> r |<a href="blda.htm">LDA</a>(d),y| <a href="blda.htm">LDA</a> (d)|<a href="blda.htm">LDA</a>(d,s),y| <a href="bldy.htm">LDY</a> d,x| <a href="blda.htm">LDA</a> d,x| <a href="bldx.htm">LDX</a> d,y|<a href="blda.htm">LDA</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  2 4   |  2 4   |  2 4   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ C | <a href="bcpy.htm">CPY</a> # |<a href="bcmp.htm">CMP</a>(d,x)| <a href="brep.htm">REP</a> #  | <a href="bcmp.htm">CMP</a> d,s  | <a href="bcpy.htm">CPY</a> d  | <a href="bcmp.htm">CMP</a> d  | <a href="bdec.htm">DEC</a> d  | <a href="bcmp.htm">CMP</a> [d] |
+   |  2 2  |  2 6   |  2 3   |   2 4    |  2 3   |  2 3   |  2 5   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ D | <a href="bbne.htm">BNE</a> r |<a href="bcmp.htm">CMP</a>(d),y| <a href="bcmp.htm">CMP</a> (d)|<a href="bcmp.htm">CMP</a>(d,s),y| <a href="bpei.htm">PEI</a> s  | <a href="bcmp.htm">CMP</a> d,x| <a href="bdec.htm">DEC</a> d,x|<a href="bcmp.htm">CMP</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  2 6   |  2 4   |  2 6   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ E | <a href="bcpx.htm">CPX</a> # |<a href="bsbc.htm">SBC</a>(d,x)| <a href="bsep.htm">SEP</a> #  | <a href="bsbc.htm">SBC</a> d,s  | <a href="bcpx.htm">CPX</a> d  | <a href="bsbc.htm">SBC</a> d  | <a href="binc.htm">INC</a> d  | <a href="bsbc.htm">SBC</a> [d] |
+   |  2 2  |  2 6   |  2 3   |   2 4    |  2 3   |  2 3   |  2 5   |  2 6    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+ F | <a href="bbeq.htm">BEQ</a> r |<a href="bsbc.htm">SBC</a>(d),y| <a href="bsbc.htm">SBC</a> (d)|<a href="bsbc.htm">SBC</a>(d,s),y| <a href="bpea.htm">PEA</a> s  | <a href="bsbc.htm">SBC</a> d,x| <a href="binc.htm">INC</a> d,x|<a href="bsbc.htm">SBC</a> [d],y|
+   |  2 2  |  2 5   |  2 5   |   2 7    |  3 5   |  2 4   |  2 6   |   2 6   |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+   |   0   |    1   |   2    |    3     |    4   |   5    |   6    |    7    |
+   +-------+--------+--------+----------+--------+--------+--------+---------+
+
+ Hi                                                                  Low
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+   |   8   |   9    |   A   |   B   |   C    |   D    |    E   |    F    |
+ --+-------+--------+-------+-------+--------+--------+--------+---------+
+ 0 | <a href="bphp.htm">PHP</a> s | <a href="bora.htm">ORA</a> #  | <a href="basl.htm">ASL</a> A | <a href="bphd.htm">PHD</a> s | <a href="btsb.htm">TSB</a> a  | <a href="bora.htm">ORA</a> a  | <a href="basl.htm">ASL</a> a  | <a href="bora.htm">ORA</a> al  |
+   |  1 3  |  2 2   |  1 2  |  1 4  |  3 6   |  3 4   |  3 6   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 1 | <a href="bclc.htm">CLC</a> i | <a href="bora.htm">ORA</a> a,y| <a href="binc.htm">INC</a> A | <a href="btcs.htm">TCS</a> i | <a href="btrb.htm">TRB</a> a  | <a href="bora.htm">ORA</a> a,x| <a href="basl.htm">ASL</a> a,x| <a href="bora.htm">ORA</a> al,x|
+   |  1 2  |  3 4   |  1 2  |  1 2  |  3 6   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 2 | <a href="bplp.htm">PLP</a> s | <a href="band.htm">AND</a> #  | <a href="brol.htm">ROL</a> A | <a href="bpld.htm">PLD</a> s | <a href="bbit.htm">BIT</a> a  | <a href="band.htm">AND</a> a  | <a href="brol.htm">ROL</a> a  | <a href="band.htm">AND</a> al  |
+   |  1 4  |  2 2   |  1 2  |  1 5  |  3 4   |  3 4   |  3 6   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 3 | <a href="bsec.htm">SEC</a> i | <a href="band.htm">AND</a> a,y| <a href="bdec.htm">DEC</a> A | <a href="btsc.htm">TSC</a> i | <a href="bbit.htm">BIT</a> a,x| <a href="band.htm">AND</a> a,x| <a href="brol.htm">ROL</a> a,x| <a href="band.htm">AND</a> al,x|
+   |  1 2  |  3 4   |  1 2  |  1 2  |  3 4   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 4 | <a href="bpha.htm">PHA</a> s | <a href="beor.htm">EOR</a> #  | <a href="blsr.htm">LSR</a> A | <a href="bphk.htm">PHK</a> s | <a href="bjmp.htm">JMP</a> a  | <a href="beor.htm">EOR</a> a  | <a href="blsr.htm">LSR</a> a  | <a href="beor.htm">EOR</a> al  |
+   |  1 3  |  2 2   |  1 2  |  1 3  |  3 3   |  3 4   |  3 6   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 5 | <a href="bcli.htm">CLI</a> i | <a href="beor.htm">EOR</a> a,y| <a href="bphy.htm">PHY</a> s | <a href="btcd.htm">TCD</a> i | <a href="bjmp.htm">JMP</a> al | <a href="beor.htm">EOR</a> a,x| <a href="blsr.htm">LSR</a> a,x| <a href="beor.htm">EOR</a> al,x|
+   |  1 2  |  3 4   |  1 3  |  1 2  |  4 4   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 6 | <a href="bpla.htm">PLA</a> s | <a href="badc.htm">ADC</a> #  | <a href="bror.htm">ROR</a> A | <a href="brtl.htm">RTL</a> s | <a href="bjmp.htm">JMP</a> (a)| <a href="badc.htm">ADC</a> a  | <a href="bror.htm">ROR</a> a  | <a href="badc.htm">ADC</a> al  |
+   |  1 4  |  2 2   |  1 2  |  1 6  |  3 5   |  3 4   |  3 6   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 7 | <a href="bsei.htm">SEI</a> i | <a href="badc.htm">ADC</a> a,y| <a href="bply.htm">PLY</a> s | <a href="btdc.htm">TDC</a> i |<a href="bjmp.htm">JMP</a>(a,x)| <a href="badc.htm">ADC</a> a,x| <a href="bror.htm">ROR</a> a,x| <a href="badc.htm">ADC</a> al,x|
+   |  1 2  |  3 4   |  1 4  |  1 2  |  3 6   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 8 | <a href="bdey.htm">DEY</a> i | <a href="bbit.htm">BIT</a> #  | <a href="btxa.htm">TXA</a> i | <a href="bphb.htm">PHB</a> s | <a href="bsty.htm">STY</a> a  | <a href="bsta.htm">STA</a> a  | <a href="bstx.htm">STX</a> a  | <a href="bsta.htm">STA</a> al  |
+   |  1 2  |  2 2   |  1 2  |  1 3  |  3 4   |  3 4   |  3 4   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ 9 | <a href="btya.htm">TYA</a> i | <a href="bsta.htm">STA</a> a,y| <a href="btxs.htm">TXS</a> i | <a href="btxy.htm">TXY</a> i | <a href="bstz.htm">STZ</a> a  | <a href="bsta.htm">STA</a> a,x| <a href="bstz.htm">STZ</a> a,x| <a href="bsta.htm">STA</a> al,x|
+   |  1 2  |  3 5   |  1 2  |  1 2  |  3 4   |  3 5   |  3 5   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ A | <a href="btay.htm">TAY</a> i | <a href="blda.htm">LDA</a> #  | <a href="btax.htm">TAX</a> i | <a href="bplb.htm">PLB</a> s | <a href="bldy.htm">LDY</a> a  | <a href="blda.htm">LDA</a> a  | <a href="bldx.htm">LDX</a> a  | <a href="blda.htm">LDA</a> al  |
+   |  1 2  |  2 2   |  1 2  |  1 4  |  3 4   |  3 4   |  3 4   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ B | <a href="bclv.htm">CLV</a> i | <a href="blda.htm">LDA</a> a,y| <a href="btsx.htm">TSX</a> i | <a href="btyx.htm">TYX</a> i | <a href="bldy.htm">LDY</a> a,x| <a href="blda.htm">LDA</a> a,x| <a href="bldx.htm">LDX</a> a,y| <a href="blda.htm">LDA</a> al,x|
+   |  1 2  |  3 4   |  1 2  |  1 2  |  3 4   |  3 4   |  3 4   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ C | <a href="biny.htm">INY</a> i | <a href="bcmp.htm">CMP</a> #  | <a href="bdex.htm">DEX</a> i | <a href="bwai.htm">WAI</a> i | <a href="bcpy.htm">CPY</a> a  | <a href="bcmp.htm">CMP</a> a  | <a href="bdec.htm">DEC</a> a  | <a href="bcmp.htm">CMP</a> al  |
+   | 1 2   |  2 2   |  1 2  |  1 3  |  3 4   |  3 4   |  3 4   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ D | <a href="bcld.htm">CLD</a> i | <a href="bcmp.htm">CMP</a> a,y| <a href="bphx.htm">PHX</a> s | <a href="bstp.htm">STP</a> i | <a href="bjml.htm">JML</a> (a)| <a href="bcmp.htm">CMP</a> a,x| <a href="bdec.htm">DEC</a> a,x| <a href="bcmp.htm">CMP</a> al,x|
+   |  1 2  |  3 4   |  1 3  |  1 3  |  3 6   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ E | <a href="binx.htm">INX</a> i | <a href="bsbc.htm">SBC</a> #  | <a href="bnop.htm">NOP</a> i | <a href="bxba.htm">XBA</a> i | <a href="bcpx.htm">CPX</a> a  | <a href="bsbc.htm">SBC</a> a  | <a href="binc.htm">INC</a> a  | <a href="bsbc.htm">SBC</a> al  |
+   |  1 2  |  2 2   |  1 2  |  1 3  |  3 4   |  3 4   |  3 6   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+ F | <a href="bsed.htm">SED</a> i | <a href="bsbc.htm">SBC</a> a,y| <a href="bplx.htm">PLX</a> s | <a href="bxce.htm">XCE</a> i |<a href="bjsr.htm">JSR</a>(a,x)| <a href="bsbc.htm">SBC</a> a,x| <a href="binc.htm">INC</a> a,x| <a href="bsbc.htm">SBC</a> al,x|
+   |  1 2  |  3 4   |  1 4  |  1 2  |  3 6   |  3 4   |  3 7   |   4 5   |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+   |   8   |   9    |   A   |   B   |   C    |   D    |    E   |    F    |
+   +-------+--------+-------+-------+--------+--------+--------+---------+
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F99C/63900:   Job loop disk controller
+
+Jump from <a href="ro41f2b0.htm">$F2E6</a>, <a href="ro41f2b0.htm">$F2F0</a>, <a href="ro41f2b0.htm">$F2F6</a>, <a href="ro41f2f9.htm">$F31D</a>, <a href="ro41f423.htm">$F48A</a>, <a href="ro41fac7.htm">$FAF2</a>, <a href="ro41fac7.htm">$FAFD</a>, <a href="ro41fac7.htm">$FD93</a>, <a href="ro41fdd3.htm">$FDD8</a>:
+
+F99C: AD 07 1C  LDA <a href="via27.htm">$1C07</a>
+F99F: 8D 05 1C  STA <a href="via25.htm">$1C05</a>
+F9A2: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+F9A5: 29 10     AND #$10        ; write protect?
+F9A7: C5 1E     CMP <a href="ra411e.htm">$1E</a>
+F9A9: 85 1E     STA <a href="ra411e.htm">$1E</a>
+F9AB: F0 04     BEQ $F9B1
+F9AD: A9 01     LDA #$01
+F9AF: 85 1C     STA <a href="ra411c.htm">$1C</a>
+
+Jump from $F9AB:
+
+F9B1: AD FE 02  LDA <a href="ra4102fe.htm">$02FE</a>
+F9B4: F0 15     BEQ <a href="ro41f9cb.htm">$F9CB</a>
+F9B6: C9 02     CMP #$02
+F9B8: D0 07     BNE $F9C1
+F9BA: A9 00     LDA #$00
+F9BC: 8D FE 02  STA <a href="ra4102fe.htm">$02FE</a>
+F9BF: F0 0A     BEQ <a href="ro41f9cb.htm">$F9CB</a>
+
+Jump from $F9B8:
+
+F9C1: 85 4A     STA <a href="ra414a.htm">$4A</a>
+F9C3: A9 02     LDA #$02
+F9C5: 8D FE 02  STA <a href="ra4102fe.htm">$02FE</a>
+F9C8: 4C 2E FA  JMP <a href="ro41fa1c.htm">$FA2E</a>
+
+    <a href="ro41f98f.htm">Previous Page</a> / <a href="ro41f9cb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ERROR: Controller-Error-Routine des Burst-Fastloads
+
+B9D3: AA        TAX              Fehlernummer merken
+B9D4: 20 95 BA  JSR <a href="ro81ba95.htm">$BA95</a>        Vektoren der Error-Routinen zuruecksetzen
+
+[Wieso wird bei einem Lesefehler 'File not found' ausgegeben ?]
+
+Einsprung von <a href="ro81b8d2.htm">$B95C</a>:
+
+B9D7: 20 FB B9  JSR $B9FB        $02: 'File not found' ausgeben
+                                [besser waere JSR $01FC.]
+B9DA: A2 00     LDX #$00
+B9DC: 4C 2D FF  JMP <a href="ro81ff00.htm">$FF2D</a>        ERROR-Routine des Controllers
+
+    <a href="ro81b8d2.htm">Previous Page</a> / <a href="ro81b9df.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

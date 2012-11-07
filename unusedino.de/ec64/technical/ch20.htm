@@ -1,0 +1,4218 @@
+<html>
+
+<head>
+<title>C=Hacking #20</title>
+</head>
+
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+                   ########
+             ##################
+         ######            ######
+      #####
+    #####  ####  ####      ##      #####   ####  ####  ####  ####  ####   #####
+  #####    ##    ##      ####    ##   ##   ##  ###     ##    ####  ##   ##   ##
+ #####    ########     ##  ##   ##        #####       ##    ## ## ##   ##
+#####    ##    ##    ########  ##   ##   ##  ###     ##    ##  ####   ##   ##
+#####  ####  ####  ####  ####  #####   ####  ####  ####  ####  ####   ######
+#####                                                                    ##
+ ######            ######           Issue #20
+   ##################             April 18, 2001
+       ########	
+
+
+...............................................................................
+
+
+	Ineptitude: If you can't learn to do something well, learn to enjoy
+		    doing it poorly.
+					-- &quot;Demotivator&quot; poster
+
+...............................................................................
+
+BSOUT
+
+Hoo-ah!  Time for another late (but hopefully great) issue of C=Hacking!
+
+This issue features several nifty articles on both software and hardware
+projects.  There seems to be a lot of activity in the hardware area right
+now, so hopefully we'll see more hardware articles in future issues.
+
+In the software area, however...
+
+If I may pithily berate for a moment, I'd like to observe that talking about
+programming on comp.sys.cbm is -- this may come as a surprise to some -- not
+the same as actually programming.  I'd like to once again encourage those who
+have been talking about projects, or have half-completed projects sitting
+around on an FD disk somewhere, to go for it and get the job done!
+
+Just like... um... C=Hacking (hey, it gets done... eventually...).
+
+The format for this issue has changed a little, with all the news and stuff
+moved into the previously skimpy &quot;Jiffies&quot; section.  Therefore, this is now
+just the 'me' column.
+
+So 'me' would like to thank all the authors in this issue for their time
+and effort (and patience), and all of the true C= Hackers out there for their
+spirit and work and cool projects.
+
+'Me' is also very happy to announce that he is getting married on August 17.
+And heck, you're ALL INVITED (I think an SX-64 would make an excellent
+wedding present, don't you?).
+
+And finally, me still thinks the 64 is the niftiest computer ever made.
+
+Onwards!
+
+-Steve
+
+.......
+....
+..
+.                                    C=H #20
+
+::::::::::::::::::::::::::::::::::: Contents ::::::::::::::::::::::::::::::::::
+
+BSOUT
+	o Voluminous ruminations from your unfettered editor.
+
+
+Jiffies
+	o News, things, and stuff.
+
+
+Side Hacking
+
+	o &quot;Super/Turbo CPU VDC Hack&quot;, by Henry Sopko &lt;henry.sopko@hwcn.org&gt;
+	  Normally it is not possible to access the VDC chip when using
+	  a SuperCPU64 or Turbo CPU on a 128.  The 1-wire hack described
+	  in this article fixes that situation!
+
+	o &quot;16K Memory Expansion for the VIC-20&quot;, by Per Olofsson
+	  &lt;MagerValp@cling.gu.se&gt;.  This article describes a nifty way to
+	  add more memory to the VIC-20, along with some basic circuit
+	  design information for the hardware neophyte (i.e. people like me!).
+
+	o &quot;Quick Quadratic Splines&quot;, by moi &lt;sjudd@ffd2.com&gt;
+	  A spline is a powerful tool for drawing a curve through an arbitrary
+	  set of points -- for motion/animation, for arbitrary curves (like
+	  fonts), and numerous other tasks.  This article describes _quadratic_
+	  splines and some fast C64 implementations, and includes a program
+	  for experimenting with splines.
+
+
+Main Articles
+
+	o &quot;VIC-20 Kernal ROM Disassembly Project&quot;, by Richard Cini
+	  &lt;rcini@email.msn.com&gt;
+
+	  The ever-dependable Richard Cini has written the fourth article
+	  in the quest for a complete disassembly of the VIC-20 kernal.  This
+	  installment focuses on device I/O routines: SETNAM, SETLF, OPEN,
+	  and beyond.
+
+	o &quot;MODs and Digital Mixing&quot;, by Jolse Maginnis
+				       &lt;jmaginni@postoffice.utas.edu.au&gt;.
+
+	  Josmod is a program for JOS, by Jolse, that can play Amiga MOD files
+	  (and their newer successors).  This article describes the general
+	  functioning of the program, the layout of a MOD file, and how to mix
+	  multiple digital samples in real-time (and hence play MODs!).
+
+	o &quot;The C64 Digi&quot;, by Robin Harbron &lt;macbeth@psw.ca&gt;, Levente
+	  Harsfalvi &lt;levente@terrasoft.hu&gt;, and Stephen Judd &lt;sjudd@ffd2.com&gt;
+
+	  This article is, we hope, a complete reference on digital sampling
+	  and the C64, including: general theory, SID hardware description,
+	  and methods of playback (changing $d418, pulse width modulation,
+	  and various tricks).  Numerous code examples are given, along with
+	  a program that does true 8-bit playback at 16KHz -- it requires a
+	  SuperCPU, but it is most impressive, and chances are awfully good
+	  that you've never heard a digi like this out of SID before.
+
+	  
+.................................. Credits ...................................
+
+Editor, The Big Kahuna, The Car'a'carn..... Stephen L. Judd
+C=Hacking logo by.......................... Mark Lawrence
+
+Special thanks to the folks who have helped out with reviewing and such,
+to the article authors for being patient, and to all the cbm hackers that
+make this possible!
+
+Legal disclaimer:
+	1) If you screw it up it's your own fault!  
+	2) If you use someone's stuff without permission you're a dork!
+
+About the authors:
+
+Jolse Maginnis is a 20 year old programmer and web page designer,
+currently taking a break from CS studies.  He first came into contact
+with the C64 at just five or six years of age, when his parents brought
+home their &quot;work&quot; computer.  He started out playing games, then moved on
+to BASIC, and then on to ML.  He always wanted to be a demo coder, and in
+1994 met up with a coder at a user's group meeting, and has since worked
+on a variety of projects from NTSC fixing to writing demo pages and intros
+and even a music collection.  JOS is taking up all his C64 time and he
+is otherwise playing/watching sports, out with his girlfriend, or at a
+movie or concert somewhere.  He'd just like to say that &quot;everyone MUST
+buy a SuperCPU, it's the way of the future&quot; and that if he can afford
+one, anyone can!
+
+Richard Cini is a 31 year old vice president of Congress Financial
+Corporation, and first became involved with Commodore 8-bits in 1981, when
+his parents bought him a VIC-20 as a birthday present.  Mostly he used it
+for general BASIC programming, with some ML later on, for projects such as
+controlling the lawn sprinkler system, and for a text-to-speech synthesyzer.
+All his CBM stuff is packed up right now, along with his other &quot;classic&quot; 
+computers, including a PDP11/34 and a KIM-1.  In addition to collecting
+old computers Richard enjoys gardening, golf, and recently has gotten
+interested in robotics.  As to the C= community, he feels that it
+is unique in being fiercely loyal without being evangelical, unlike
+some other communities, while being extremely creative in making the 
+best use out of the 64.
+
+Robin Harbron is a 28 year old internet tech support at a local
+independent phone company.  He first got involved with C= 8-bits
+in 1980, playing with school PETs, and in 1983 his parents convinced
+him to spend the extra money on a C64 instead of getting a VIC-20.
+Like most of us he played a lot of games, typed in games out of
+magazines, and tried to write his own games.  Now he writes demos,
+dabbles with Internet stuff, writes C= magazine articles, and, yes,
+plays games.  He is currently working on a few demos and a few games,
+as well as the &quot;in-progress-but-sometimes-stalled-for-a-real-long-time-
+until-inspiration-hits-again Internet stuff&quot;.  He is also working on
+raising a family, and enjoys music (particularly playing bass and guitar), 
+church, ice hockey and cricket, and classic video games.
+
+Levente Harsfalvi is a 26 year old microcontroller programmer who works at
+a small local company.  His first C= encounter was a Plus/4 at school, at
+the age of 12, and later (1988) his parents bought a C-16.  After learning
+BASIC and ASM coding he joined a Plus/4 demo group (GOTU, and later Coroners),
+and has worked on game conversions, an FLI editor, music software (including
+a SID emulator to play c64 music on TED) and numerous other software and
+hardware projects.  More recently he has begun taking some measurements on
+the Plus/4 to figure out things such as how the sound generator works and is
+working on a C-16 demo.  Outside of the C= he enjoys cycling and running,
+and ~50km walking tours.
+
+
+For information on the mailing list, ftp and web sites, send some email
+to chacking-info@jbrain.com.
+
+While http://www.ffd2.com/fridge/chacking is the main C=Hacking homepage,
+C=Hacking is available many other places including
+
+	http://www.funet.fi/pub/cbm/magazines/c=hacking/
+	http://metalab.unc.edu/pub/micro/commodore/magazines/c=hacking/
+
+
+................................... Jiffies ..................................
+
+$01 Not _too_ long ago, an effort was made to write down the pin assignments
+    for the video port of all the major C= computers.  The result, as compiled
+    by William Levak &lt;wlevak@cyberspace.org&gt;, is:
+
+
+            8              7
+Commodore          6           Video Connector
+            3              1
+ 
+              5         4
+                   2
+                                                    Plus4     C16/C128
+     CBM-II      VIC20     VIC20CR    C64     Pin C64A/SX64   C64B/C/E
+    --------- ------------ ------- ---------- --- ---------- ----------
+(R) Luminance +5 V         +5 V    Monochrome  1  Monochrome Monochrome (Y)
+    Ground    Ground       Ground  Ground      2  Ground     Ground
+(B) V. Sync.  Audio        Audio   Audio       3  Audio      Audio      (W)
+(W) Video     50 Ohm Video Video   Video       4  Video      Video
+(Y) H. Sync.  Video        Video   Audio In    5  Audio In   Audio In
+                                               6  Chroma     Chroma     (R)
+                                               7
+                                               8             +5 V
+
+
+$02 &quot;Professor Dredd&quot; &lt;profdredd@yahoo.com&gt; has uploaded the programs
+    from &quot;Inside Commodore DOS&quot; to his webpage at
+
+	http://www.geocities.com/profdredd
+
+
+$03 Todd Elliot has written a version of Pasi Ojala's zip/unzip program
+    for GEOS/Wheels, available at:
+
+	http://www.cs.tut.fi/~albert/Dev/gunzip-geos/
+
+
+$04 Jeri has been hard at work on her video/cpu-board:
+
+	http://www.geocities.com/cm_easy/
+
+
+$05 Jolse has been hard at work on JOS (but you'll have to wait until next
+    issue for the article!):
+
+    Here's the latest Jos news:
+    Support for CMD HD, including native partitions. (Read only atm, and no
+    1581 partitions)
+    Enhanced shell with filename completion and recursive wildcards.
+    Improvements to the GUI - the architecture now allows for a different
+    window interface styles transparent to the application.
+    Numerous showstopper bugs killed.
+    Improvements to the httpd server to allow directory listings.
+    Swiftlink/T232/Duart drivers.
+    Started writing tutorials for programmers wanting to give Jos a go.
+
+    Plus heaps more things not worth mentioning..
+
+    cya!,
+    Jolse
+
+
+$06 Philip 'Pepto' Timmermann has made some very accurate measurements
+    (and RGB calculations) of VIC-II colors:
+
+	http://www.pepto.de/projects/colorvic/
+
+
+$07 And finally, I have written a 2D graphics library for use by assembly
+    language programs (plot points, draw lines and circles, that kind of
+    thing).  It's super-easy to use and pretty fast, so go ahead and use it
+    if you need some hires drawing routines!
+
+    For more information, pop on over to
+
+	http://www.ffd2.com/fridge/grlib/
+
+
+
+................................ Side Hacking ................................
+
+                           Super/Turbo CPU VDC Hack
+                                     for
+         Commodore 128 with SuperCPU 64 or Turbo Master CPU Accelerators
+
+	     		        by Henry Sopko
+		            (henry.sopko@hwcn.org)
+
+As many of you probably know, accessing the VDC (8563) chip is not
+possible when using a SuperCPU 64 (version 1 tested only!) or the
+TurboMaster CPU (latest revision), until now. With this 1 wire hack,
+you can have access to the C128 (flat only tested) VDC 80 column
+chip with your SCPU 64 or TurboMaster CPU!
+
+
+DISCLAIMER
+--------------------------------------------------------------------
+I take no responsibility whatsoever to any damage that may occur to
+your Computer or SCPU 64/TM CPU resulting from this hardware hack!
+You do this hack totally at YOUR OWN RISK!
+
+[C=Hacking disclaimer: if you screw it up, it's your fault!]
+
+-------------------------------------------------------------------- 
+
+This hack was only tested on a flat C128, using CMD's SCPU 64 (version 1).
+Tested also was the Turbo Master CPU 4.09 MHz accelerator from Schnedler
+Systems (latest revision).
+
+Parts required: (1) long wire (12 inches or so, cutting it to length).
+
+INSTRUCTIONS
+
+Dissassemble your C128, taking the metal shield completely off.  With the
+motherboard exposed, find the 8563 VDC chip (U22). After locating this chip,
+remove it (take note of the notch position, so you correctly re-insert the
+chip). Bend out PIN 9 (R/W) of the 8563 just enough so it does not touch the
+socket or any metal (in the flat 128, theres not much room, so be carefull).
+
+Now re-insert the 8563 chip. Take a wire (you can either solder the wire to
+pin 9 as I did, or use Microclips -- your choice).  Now, connect the wire by
+soldering or using Microclips to PIN 5 on the CARTRIDGE EXPANSION PORT. Thats
+it!
+
+I have done this hack quite a while ago without any signs of problems
+whatsoever. The C128 functions the same with or without a SCPU 64 or TM CPU
+connected after preforming this hack. I really did this hack for the Turbo
+Master CPU so I could access the VDC. Turns out, that the SCPU 64 accelerator
+(and maybe others?) work with this hack as well. The better choice of course
+is to buy a CMD SuperCPU 128 to take full advantage of the Commodore 128 in
+both modes!
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+                      16K Memory Expansion for the Vic-20
+
+By Per Olofsson &lt;MagerValp@cling.gu.se&gt;.
+
+Thanks to Ruud Baltissen, Pasi Ojala and Spiro Trikaliotis for help and
+suggestions.  The latest version of this project may be found at
+http://www.cling.gu.se/~cl3polof/64.html.
+
+   
+I tried to keep the expansion as simple as possible, requiring no chips
+besides the two memory chips, and a minimum of soldering. It uses two 6264
+SRAM chips (62256 also works) piggy-backed to the Kernal and Basic 2364
+ROMs. It's recommended that you do the expansion one chip at a time, as this
+greatly simplifies troubleshooting. After the first chip checks out OK, do the
+second one. I'll start out by explaining a few basic principles.
+   
+o Static Electricity
+
+We'll be using CMOS RAM chips, and they are very sensitive to static
+electricity. If you don't have an anti-static wrist strap, make sure you touch
+a grounded surface before you touch the chips. Do not work sitting on shag
+carpet in a mohair sweater while petting the cat :)
+   
+o Be Careful With ICs
+
+ICs are sensitive to heat, and keeping the soldering iron for too long on a
+pin can toast the chip. If you need to redo a solder joint on a pin, wait for
+it to cool down first.
+   
+o Up, Down, and Pin Numbering
+ 
+The top of a DIP IC (the kind used in Vic-20s) is marked with a small notch,
+looking something like this:
+
+       ___ ___
+  1  =|   V   |=  8
+  2  =|       |=  7
+  3  =|       |=  6
+  4  =|       |=  5
+      `-------'
+
+As you can see, the pin numbers start at 1, and the first pin is the top left,
+going down to the bottom left, then from the bottom right to the top right.
+
+Piggy-backing
+-------------
+
+Piggy-backing is a quick way of adding another IC on top of an existing
+one. Normally you would create a PCB with chip sockets, connect it to the
+expansion port and populate it with memory chips, but with piggy-backing you
+simply add chips on top of internal ones.  This works when the new chip's pins
+has signals that are identical to, or closely matches, the layout of the one
+it's being mounted on top of.
+
+                                                6264 RAM
+                                                ___ ___
+             2364 ROM                 NC   1  =|   V   |=  28  Vcc
+             ___ ___                 A12   2  =|       |=  27  /WE
+   A7   1  =|   V   |=  24  Vcc       A7   3  =|       |=  26  CS2
+   A6   2  =|       |=  23  A8        A6   4  =|       |=  25  A8
+   A5   3  =|       |=  22  A9        A5   5  =|       |=  24  A9
+   A4   4  =|       |=  21  A12       A4   6  =|       |=  23  A11
+   A3   5  =|       |=  20  /CS       A3   7  =|       |=  22  /OE
+   A2   6  =|       |=  19  A10       A2   8  =|       |=  21  A10
+   A1   7  =|       |=  18  A11       A1   9  =|       |=  20  /CS1
+   A0   8  =|       |=  17  D7        A0  10  =|       |=  19  D7
+   D0   9  =|       |=  16  D6        D0  11  =|       |=  18  D6
+   D1  10  =|       |=  15  D5        D1  12  =|       |=  17  D5
+   D2  11  =|       |=  14  D4        D2  13  =|       |=  16  D4
+  Vss  12  =|       |=  13  D3       Vss  14  =|       |=  15  D3
+            `-------'                          `-------'
+
+As you can see there are 8 that don't match. However, we don't have to rewire
+all of them. NC means &quot;No Connection&quot; so we can just ignore that pin. Note
+that if you're using 62256 chips you'll have to wire this one too, see
+below. We want to connect CS2 to Vcc, and we'll also swap A11 and A12, leaving
+5 pins to solder on each chip. Swapping address bus pins works on RAM chips,
+as it only affects how bits are stored internally -- when you read them out
+again, they're swapped back. This also works for the databus.
+   
+We'll mount one 6264 on top of the Kernal ROM, and one 6264 on top of the
+Basic ROM. The ROMs are marked UE11 and UE12 and can be found in the bottom
+right of the motherboard. The wiring is identical for the two chips, except
+for the /OE and /CS1 pins. The pins that we want to rewire we carefully bend
+up so that they don't connect to the ROM. You want to bend them almost all the
+way up (about 150 degrees) so that you can reach them with the soldering
+iron. The pins are very sensitive, so make sure you bend the right pins --
+bending a pin back again could easily break it.
+   
+Sometimes the pins on the RAM are too wide apart to make a good connection
+when you piggy-back it. In this case, bend all the pins on the RAM slightly
+inwards. You can do this by putting it on the side on a flat, hard surface and
+press gently.
+   
+o Soldering A11/A12 and Vcc
+
+You could get A11, A12, and Vcc from several places on the motherboard, but as
+they're available on the ROMs we'll just solder small wires from the ROM to
+the RAM. Remember that we're swapping A11 and A12, so connect pin 18 on the
+ROM to pin 2 on the RAM. Connect pins 26 and 28 on the RAM to eachother.
+   
+o Soldering /WE
+
+Pin 27 on the RAMs should be connected to pin 34 on the 6502 CPU. The CPU is
+the 40-pin chip in socket UE10 on the motherboard, right next to the ROM
+chips. Pin 34 is the 7th pin if you count from the top right pin on the CPU.
+   
+o /OE and /CS1
+
+In the Vic-20 memory is divided into 8 blocks of 8K each. Block 0 is further
+divided into 8 1K blocks, of which 5 are populated with RAM.  Block 4 is used
+by the VIC and the VIA chips, block 6 is the Basic ROM, and block 7 is the
+kernal ROM. This leaves four blocks (1, 2, 3 and 5) available for cartridges
+and RAM expansions. For RAM to be visible to the basic interpreter, you must
+start by adding ram in block 1, then 2 and then 3. RAM in block 5 is never
+detected by the basic. 8K cartridges use block 5, and 16K cartridges use block
+5 together with another one, usually 3. To be as compatible as possible with
+existing cartridges and to expand basic memory I'll use block 1 and 2 for this
+expansion, but you could use any two of the available blocks you want. I've
+added instructions for making the blocks selectable by switches below.
+   
+The block signals are available on the 74LS138 decoder chip marked UC5 on the
+left side of the motherboard. Block 1 is on pin 14, block 2 is on pin 13,
+block 3 is on pin 12 and block 5 is on pin 10. If you look closely you'll see
+that the signals for block 1 and 2 go out from the chip a few mm to a small
+pad. It's much easier to connect your wires to these pads than the pins on the
+decoder chip. Solder a wire from block 1 to pin 20 and 22 on the first RAM
+chip, and a wire from block 2 to pin 20 and 22 on the second RAM chip.
+   
+You're done!
+
+That's all. When you power up the Vic-20, you should be greeted with a 19967
+BYTES FREE message. If you've only done one chip so far, you'll get 11775
+BYTES FREE, provided you connected it to block 1. If you've connected memory
+to other blocks but not block 1, you'll just get the normal 3583 BYTES FREE
+message. To test your memory, try this program:
+
+  10 input &quot;test which block&quot;;b
+  20 s = b*8192 : t = s+8191 : e = 0
+  30 print &quot;testing databus&quot;
+  40 for a = s to t : poke a, 85 : if peek(a)  85 then gosub 1000
+  50 poke a, 170 : if peek(a)  170 then gosub 1000
+  60 next : de = e
+  70 e=0 : print &quot;testing high address bus&quot;
+  80 for a = s to t : poke a, int(a/256) : next
+  90 for a = s to t : if peek(a)  int(a/256) then gosub 1000
+  100 next : he = e
+  110 e=0 : print &quot;testing low address bus&quot;
+  120 for a = s to t : poke a, a and 255 : next
+  130 for a = s to t : if peek(a)  a and 255 then gosub 1000
+  140 next : print
+  150 print de;&quot;errors found in databus test&quot;
+  160 print he;&quot;errors found in high address bus test&quot;
+  170 print e;&quot;errors found in low address bus test&quot;
+  999 end
+  1000 e = e+1 : print &quot;error at&quot;;a : return
+
+The program takes a couple of minutes to run.
+   
+Troubleshooting
+---------------
+
+  The computer doesn't start at all, or all you get is a black screen
+  
+   You've probably shorted or toasted something. Not good, this could
+   have damaged the computer. Recheck all your soldering and make sure
+   that you haven't accidentally connected something wrong.
+   
+  The computer powers up with 3583 bytes free
+  
+   Memory in block 1 is either not connected or not working. Check the
+   connections between block 1, /CS1 and /OE, between R/W and /WE, and
+   between Vcc, CS2 and Vcc.
+   
+  The computer powers up with something other than 3583, 11775 or 19967 bytes
+  free
+  
+   Memory is functioning partially, check A11 and A12. This could also
+   indicate that a RAM chip is faulty.
+   
+  The computer powers up with the correct number of bytes free, but the memory
+  test program fails
+  
+   Memory is functioning partially. If the databus test fails, check the
+   connections between block 1, /CS1 and /OE, between R/W and /WE,
+   between Vcc, CS2 and Vcc, and D0 through D7. If the address bus test
+   fails, check A0 through A12.
+     
+Using 62256 chips instead of 6264
+---------------------------------
+                                       
+You can freely substitute 62256 chips for the 6264. Only two pins differ:
+
+             6264 RAM                          62256 RAM
+             ___ ___                           ___ ___
+   NC   1  =|   V   |=  28  Vcc     A14   1  =|   V   |=  28  Vcc
+  A12   2  =|       |=  27  /WE     A12   2  =|       |=  27  /WE
+   A7   3  =|       |=  26  CS2      A7   3  =|       |=  26  A13
+   A6   4  =|       |=  25  A8       A6   4  =|       |=  25  A8
+   A5   5  =|       |=  24  A9       A5   5  =|       |=  24  A9
+   A4   6  =|       |=  23  A11      A4   6  =|       |=  23  A11
+   A3   7  =|       |=  22  /OE      A3   7  =|       |=  22  /OE
+   A2   8  =|       |=  21  A10      A2   8  =|       |=  21  A10
+   A1   9  =|       |=  20  /CS1     A1   9  =|       |=  20  /CS1
+   A0  10  =|       |=  19  D7       A0  10  =|       |=  19  D7
+   D0  11  =|       |=  18  D6       D0  11  =|       |=  18  D6
+   D1  12  =|       |=  17  D5       D1  12  =|       |=  17  D5
+   D2  13  =|       |=  16  D4       D2  13  =|       |=  16  D4
+  Vss  14  =|       |=  15  D3      Vss  14  =|       |=  15  D3
+            `-------'                         `-------'
+
+Pin 26 (A13) can be connected to Vcc just like on the 6264, but we need to
+wire pin 1 (A14) to either Vcc, Vss or another address bus pin. It's probably
+easiest to wire it to pin 2 (A12). We won't be using the greater capacity of
+the 62256 using this method (doing so would require some kind of decoder
+logic) but sometimes 62256 chips are cheaper than 6264, or maybe you just have
+some lying around.
+   
+Adding Block Select and Write Protect Switches
+----------------------------------------------
+
+Adding block select switches allows you to chose which blocks should be
+populated on the fly. This allows you to chose between a basic expansion and a
+&quot;cartridge emulator&quot; that allows you to load cartridge images into ram and run
+them. I added one switch for each chip, giving the first chip the option
+between block 1 and 3, and the second between 2 and 5.
+
+  block 1 -----o
+                \
+                 o----- to /CS1 and /WE on chip 1
+
+  block 3 -----o
+
+
+  block 2 -----o
+                \
+                 o----- to /CS1 and /WE on chip 2
+
+  block 5 -----o
+
+As a kind of copy protection, some cartridge images try to modify themselves
+to detect if they're running from RAM. If we add write protect switches we'll
+be able to run those as well. Switch to write enabled while loading, then
+switch to write protected and reset.
+
+      R/W -----o
+                \
+                 o----- to /WE on chip 1
+
+     +5 V -----o
+
+
+      R/W -----o
+                \
+                 o----- to /WE on chip 2
+
+     +5 V -----o
+
++5 V is the same as Vcc.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Quick Quadratic Splines
+----------------------- S. Judd &lt;sjudd@ffd2.com&gt;
+
+Splines are neat.
+
+Splines are a way of drawing curves -- specifically, drawing a curve through
+any set of _points_ that you choose; for example, a curve that starts at (0,0),
+goes over to (100,50), then loops back to (50,0), and continues on through
+any number of points can be drawn just by specifying the points.
+
+This is a very useful thing!  One place splines are used is in drawing fonts.
+With a relatively small list of points, it becomes possible to draw letters
+in arbitrary shapes (and scale those shapes easily).  Another application
+is animation -- it is possible to specify a long motion path using just
+a few points along the path.  Furthermore, an animated object might have
+different parts that move differently -- arms, legs, head, etc.  By just
+specifying a few frames of the animation, splines can be used to generate
+the in-between frames.
+
+Chances are good that by now you are thinking about some of your own
+applications for splines, so let's see how they work.
+
+Most articles/books/etc. that talk about splines talk about &quot;cubic splines&quot;.
+This article is going to talk about &quot;quadratic splines&quot;, which never seem
+to be mentioned.  Which is a pity, since quadratic splines are perfectly
+adequate for many (if not most) spline applications and are far more
+computationally efficient.
+
+Graphically, a two-dimensional quadratic spline looks something like:
+
+              * P1
+             / \
+            /   \
+           /     \
+          /  . .  \
+         / .     . \
+        /.         .\
+       /.            .
+      /.              * P2
+     . 
+    . 
+P0 *
+
+(Another brilliant display of ASCII art).  The curve starts at P0, moves
+towards P1, and then turns around and heads towards P2, where it ends.  If
+we draw lines from P0 to P1 and from P1 to P2, these lines are tangent to
+the curve at the endpoints P0 and P2; that is, these lines say what
+&quot;direction&quot; the curve is going at the endpoints.  Using the above diagram,
+it should be very easy to visualize how changing P1 changes the shape of
+the curve.
+
+So here, for your computing pleasure, is a quadratic spline:
+
+P(t) = P0*(1-t)^2 + 2*P1*t*(1-t) + P2*t^2
+
+where P0, P1, P2 are constant values, and t ranges from zero to one.  If
+you don't like equations, then how about a computer program to compute
+the above:
+
+10 P0=10:P1=100:P2=37
+20 FOR T=0 TO 1 STEP 1/16
+30 PRINT T,P0*(1-T)*(1-T) + 2*P1*T*(1-T) + P2*T*T
+40 NEXT
+
+This is actually very easy to understand.  When t=0, P(t) = P0.  As t starts
+to increase, (1-t) starts to decrease and P(t) starts moving towards P1.  As
+t gets even larger P(t) starts moving towards P2, until finally, at t=1,
+P(t) = P2.
+
+You may be wondering why there is that 2*P1 in the equation, instead of
+just P1, but that will become apparent shortly.
+
+At this point there is an important thing to notice about the above
+equations: adding _any_ constant to P0 P1 and P2 is just like adding the
+constant to the entire spline P.  Let P0=P0+C, P1=P1+C, P2=P2+C; the
+spline is then
+
+P'(t) = (P0+C)*(1-t)^2 + 2*(P1+C)*t*(1-t) + (P2+C)*t^2
+      = [ P0*(1-t)^2 + 2*P2*t*(1-t) + P2*t^2 ] + C*[(1-t)^2 + 2*t*(1-t) + t^2]
+      = P(t) + C
+
+This is one reason that factor of 2 multiplying P1 is important -- it makes
+the expression multiplying C add up to 1.  This property means that splines
+can be _translated_ easily.  Note that one value you can translate everything
+by is P0 -- subtract P0 from each point and the spline becomes
+
+P(t) - P0 = 2*(P1-P0)*t*(1-t) + (P2-P1)*t^2
+
+and hence
+
+P(t) = 2*(P1-P0)*t*(1-t) + (P2-P1)*t^2 + P0
+
+which gets rid of the P0*(1-t)^2 term.  Depending on how the spline algorithm
+works, this can save some computation time.
+
+Now, the points P0, P1 etc. are called &quot;control points&quot;.  If you're on the ball
+(or if you've tried the BASIC program above) you've noticed that while the
+spline starts at P0 and ends at P2, it never actually reaches P1 -- it just
+heads towards it but then heads away towards P2.  If a different P1 is
+chosen, the spline still starts at P0 and ends at P2 but takes a different
+path between the endpoints.  P1 controls the shape of the curve.
+So now let's say we want a curve that passes through three points, s0, s1,
+and s2, using a quadratic spline.  P0 and P2 are easy to choose:
+
+	P0 = s0
+	P2 = s2
+
+P1 can actually be chosen at this point to be any number of points.  All we
+do is choose a value for t -- call it t1 -- when the spline should hit s1:
+
+P(t1) = s1 =&gt; P1 = (s1 - P0*(1-t1)^2 - P2*t1^2) / (2*(t1*(1-t1))
+
+(just substitute t=t1 into the equation for P(t) and solve for P1).  So if
+t1=1/2, say, then
+
+P1 = (s1 - P0/4 - P2/4) / (2 * 1/4)
+   = 2*s1 - (P0 + P2)/2
+
+and the spline will hit s1 halfway through the iteration at t=1/2.
+
+In a typical application, of course, the curve will need to go through tens,
+hundreds, even thousands of points.  Naturally, the way to do this is by
+joining a bunch of splines together.
+
+If we just choose a spline for every three points, using the above equation
+for P1, there will typically be sharp corners where the splines join
+together.  Sometimes this is a good thing -- for example, when drawing
+something like a valentine we might want sharp corners.  But usually
+what is needed is a nice smooth curve through all the points.
+
+With quadratic splines this is a piece of cake.  Each spline has three
+control points: the two endpoints, and the middle control point P1.  The
+endpoints are simply chosen to be the points we want to pass through,
+and P1 can then be chosen to make all the connections smooth.
+
+That is, given a list of points s0, s1, s2, ... to put a curve through,
+choose s0 and s1 to be the endpoints of the first spline, s1 and s2 to
+be the endpoints of the second spline, and so on, and choose the middle
+control points to make everything smooth.
+
+&quot;Smooth&quot; here means a continuous first derivative -- if you don't know what
+a derivative is then don't worry about it, it just means that the &quot;slope&quot; of
+each spline is the same where they join together.  Given a spline
+
+S1(t) = P0*(1-t)^2 + 2*P1*t*(1-t) + P2*t^2
+
+the derivative at t=1 is given by
+
+S1' = 2*(P2 - P1)
+
+P2-P1 is simply the line segment running from P1 to P2, which verifies what
+was said earlier: at P2 the curve is tangent to a line drawn from P1 to P2.
+
+              * P1
+             / \
+            /   \
+           /     \
+          /  . .  \
+         / .     . \
+        /.         .\
+       /.            .
+      /.              * P2
+     . 
+    . 
+P0 *
+
+P2-P1 is the direction the curve is headed in.  So to join another spline
+smoothly to the first one, simply extend this line segment and make sure
+the second middle control point lies somewhere on that line:
+
+              * P1
+             / \
+            /   \
+           /     \
+          /  . .  \
+         / .     . \
+        /.         .\
+       /.            .
+      /.              * P2
+     .                 .       * P5
+    .                   \.   ./
+P0 *                     \ ../
+                          \ /
+                           * P4
+
+Since the first spline is tangent to P2-P1, and the second spline is tangent
+to P4-P2, the two splines have the same slope at P2, and join smoothly.
+Note that P4 can be _anywhere_ along the P2-P1 line, and choosing different
+values for P4 will change the curve.
+
+To make this more precise, let the two splines be given by
+
+S1(t) = P0*(1-t)^2 + 2*P1*t*(1-t) + P2*t^2
+S2(t) = P3*(1-t)^2 + 2*P4*t*(1-t) + P5*t^2
+
+To join them smoothly, the slope of the first spline must be proportional
+to the slope of the second spline at the joint:
+
+P4-P3 = c*(P2-P1)
+
+where c is some constant (the _direction_ of the two slopes need to be the
+same, but not the magnitude).  So, to make the second spline fit smoothly
+to the first we simply choose the middle control point P4 as
+
+P4 = P3 + c*(P2-P1)
+
+or, in plain English, starting from P3 (the joining point) move some
+distance c in the direction P2-P1.  To see why the factor c is important
+just scroll up a page or two to the diagram, and imagine how the curve
+changes as P4 slides back and forth along the line.
+
+We now have the tools to construct a smooth curve that passes through any
+points s0, s1, s2, s3, ...  Let the first spline pass through s0, s1,
+and s2, using the t=1/2 formula given earlier:
+
+P0 = s0
+P1 = 2*s1 - (s0 + s2)/2
+P2 = s2
+
+P1 could be chosen in other ways, of course, but the above usually works
+pretty well.  Then choose each succeeding spline to match up smoothly with
+the previous spline:
+
+P3 = s2			;start at spline 1 endpoint
+P4 = P3 + c1*(P2-P1)	;smooth joint
+P5 = s3			;next point
+
+P6 = s3
+P7 = P6 + c2*(P5-P4)
+P8 = s4
+
+and so on.  (When drawing smooth curves, it is of course really only
+necessary to store the middle control points P4 P7 etc. for each spline).
+The choice of the constants c1 c2 etc. really depends on how you want the
+curve to look.
+
+As you can see above, each extra point requires another spline.  One spline
+per point may sound like a lot, but there are a lot of pixels in-between each
+pair of points, and more importantly these are quadratic splines and hence
+can be made to go very, very fast.
+
+Computing the spline
+--------------------
+
+Note that the control points are one-time calculations; those three constant
+values completely determine the spline.  One way of drawing the spline is
+to use some lookup tables for t^2, 2*t*(t-1), and (1-t)^2 and do a little
+fast multiply magic.  This is fast and straightforward, so I won't talk
+about it much except to mention that signed multiplies may be required,
+and each curve is limited to 256 points (t can go from 0 to 255 in the
+lookup tables).  Note also that it would be nice to have an &quot;incremental&quot;
+plot routine, i.e. one that just updates pointers when necessary, instead
+of recomputing all the bitmap pointers at every iteration.
+
+Which of course brings us to a second way of drawing the spline: to ask
+&quot;how does the spline change when I increment t?&quot;
+
+Let's say that t is incremented by dt at each step (t -&gt; t+dt).  At each
+step, then, the spline changes by
+
+S(t+dt) = P0*(1-t-dt)^2 + P1*2*(t+dt)*(1-t-dt) + P2*(t+dt)^2
+
+	= S(t) + k1*dt^2 + k1*2*t*dt + k2
+
+where k1 = P0 - 2*P1 + P2 and k2 = 2*dt*(P1 - P0).  That is, to advance one
+step, we add
+
+	k1*dt^2 + 2*k1*t*dt + k2
+
+to the current value.  Take a look at how the above value changes as t
+changes:
+
+t	k1*dt^2 + 2*k1*t*dt + k2
+--	------------------------
+0	k1*dt^2		    + k2 =   k1*dt^2 + k2
+dt	k1*dt^2 + 2*k1*dt^2 + k2 = 3*k1*dt^2 + k2
+2*dt	k1*dt^2 + 4*k1*dt^2 + k2 = 5*k1*dt^2 + k2
+3*dt	k1*dt^2 + 6*k1*dt^2 + k2 = 7*k1*dt^2 + k2
+
+and so on.  This means that all we have to do to advance the spline is
+something like
+
+	c0 = k1*dt^2
+	C = c0 + k2
+	S = P0
+:loop
+	S = S + C
+	plot S
+	C = C + 2*c0
+	loop
+
+Which is really, really fast.  Instead of specifying the spline with the
+three values P0, P1, and P2 we can specify it by the three values P0, k1,
+and k2.
+
+It is possible to understand this iterative method somewhat.  The update 
+constant k1 can be written as
+
+	k1 = (P0-P1) + (P2-P1)
+
+whereas k2 goes like
+
+	k2 ~= (P1-P0).
+
+P1-P0 is the &quot;direction&quot; line segment towards P1, so the curve starts moving
+towards P1.  But k1 starts to balance that out with the P0-P1 term (the line
+segment pointing in the opposite direction), while moving towards P2 with the
+P2-P1 term, which is the direction line segment from P1 to P2.  Now, isn't
+that all nice and clear now?
+
+The Program
+-----------
+
+At the end of this article I've included a sort of &quot;spline laboratory&quot; --
+it's a little BASIC program that lets you experiment with different aspects
+of splines and see what they look like.  It uses BLARG for the graphics, so
+I've included that as well.
+
+When you run it, it plots three points on the screen to draw a curve through.
+You can move these points around, as well as add new points, draw the splines,
+draw the control point &quot;a-frames&quot;, and so on.  It has a ton of commands,
+basically because I just added them as I got curious about different things:
+
++/-		Move to next/previous point
+cursor keys	Move current point
+return		Draw spline
+space		Clear screen
+*		Toggle point display
+&lt; &gt;		Decrease/increase accuracy (number of bits in iteration)
+1 &lt;-		Increase/decrease time step (number of points in spline)
+=		List control points (numerical values)
+.		Draw control point a-frame
+S		Toggle smooth splines (see below)
+A		Add more points
+Q		Quit
+
+Pressing &quot;A&quot; adds three points at a time, starting at the last point in
+the curve.  The reason for adding three points, instead of just one, is
+because of the &quot;S&quot;mooth spline feature.  When smooth splines are selected,
+the program will draw a smooth curve through all the points.  When toggled
+off, the program will draw a spline through every three points, using the
+&quot;t=1/2 method&quot; to select the middle control point.
+
+The program uses the fast iteration method described earlier, using fixed
+precision arithmetic (since this is what an assembly program would do).
+The &lt; and &gt; keys are used to change this precision, since certain splines
+need more precision than others.
+
+Finally, the value CC=0.4 is set in line 10.  This is the &quot;smoothing&quot;
+constant, i.e. c1 in the equation for P4 below:
+
+P3 = s2			;start at spline 1 endpoint
+P4 = P3 + c1*(P2-P1)	;smooth joint
+P5 = s3			;next point
+
+You might want to experiment with different values, to see what happens
+(or else let each spline have their own value).
+
+Anyways, the program is not meant to be terribly profound -- just a starting
+point and something to play with to work out your own ideas on!
+
+Cubic Splines
+-------------
+
+Just for completeness, here is a cubic spline:
+
+P(t) = P0*(1-t)^3 + 3*P1*t*(1-t)^2 + 3*P2*(1-t)*t^2 + P3*t^3
+
+As you can see, it has four terms instead of three, and is cubic in t.  But
+the idea is the same -- at t=0 it starts at P0, as t increases moves
+towards P1, then towards P2, and finally ends at P3.
+
+You can also see that it is significantly more computationally involved than
+the quadratic spline.  Moreover, computing the middle control points P1 and P2
+is also fairly involved -- much more involved than with the quadratic spline.
+
+So, why use a cubic spline?  Two reasons: first, you can specify the derivative
+at _both_ endpoints -- the direction line P1-P0 will be the slope at the
+starting point, and the direction P3-P2 will be the slope at the end point.
+This gives some flexibility needed for certain applications.
+
+Second, you can alternatively match _second_ derivatives at the connection
+points, which again can be useful for certain applications.
+
+For more information about cubic splines, just check out any decent graphics
+book.
+
+The Program
+-----------
+
+begin 644 slab.zip
+M4$L#! H    &amp; $]LQQJSS3&gt;D,0&lt;  /0(   *    8FQA&lt;F&lt;N;6TN;P\  0(4
+M!18%!@T(+0=]_OY^&quot;1$3%A,&amp;!??W]U&lt;#(FR(L/E!SS)AVIRI4]2S4P,LW#]U
+MPL+^4\_'F4[Y_:DAIF.&gt;?VK@A0&gt;&quot;!DA88.S^D04BAY[?O'_S XWSAQZ?]#YH
+M1@S\/_3[H@OV)CBP&lt;T?@RB'&gt;9PH0^-2G+$%F?5H5Y-6@3JF&quot;# IR:M&amp;A4HL@
+MW[3HU*E!CQ;1OBC2GR&quot;=!I7J-&amp;E0%L&gt; @\R_M*A+D$R?6BDV5:1)G2XQ?BK4
+MHD&amp;,+;0(E)DND?X(=D\Q%8U3B88I'W0J%6F4:%(KT:TSU:)2HJN^*%2D19U$
+MM;W2JD2)6%]5*XCG_@&lt;9\P5MO\QY(W=;!-Z)]W(W&gt;L=;@SOF&amp;ISIWN,%[P(_
+M#[Q&amp;&lt;B,7A=+X5,$SF7+XH4FE#F5:5/Q1J9''#?_4J%'R39\2+5H&gt;=M(CW)O#
+MUF&quot;?%UJENJ[13^D;:OJA3YG&quot;5@^P:W#XP?T/_VL\O7&amp;2Q\4?GVU\]G'IQR4&gt;
+M!\D1..B&quot;A/^#_ P&lt;]D*0PH%#IY^Y?\#4_\&amp;:_M]Y?T#TN88S-OSSR&quot;'2FW32
+M_WN/! X?8W+PL&quot;MFHQXZ0&gt;3HH;M')RWH(&gt;-3/CQ&amp;,. C@S=\CLD?0X?@J_&lt;U
+MXPZ+[X=N'[[YY&quot;#ABT\N$KYZ,.V&gt;F7P][)&lt;D'\)&lt;D&lt;G?51-. LG*X2]8#PFI
+M9'G)AFD0I#2FH==/#AL^A#&lt;?))TTY7^V'X$9AW _G?K)ME-+ &lt;&gt;I@YP+$(&amp;]
+M-439(@J'$\K=]&gt;FDX!6J[BT6.-+&gt;889GXCU*IN=/=;Q!KK]=FB+.=A?GPA1A
+M%S1&gt;$:9%G(K;A9PA/U0-'CEL!=DG!UJZ8OJ D .&quot;59P2W\VO5*G2MGR-[;P!
+M&amp;NRO0A@M6[&amp;L/^BZ/XB*/?$QENU7/F0!/Q^S#ZINE7$,LK2_KN8SK&lt;/'FYIF
+MX0 0ZTW!!^\9/G@4C#6#Y1O/8P7['S!0D! 1$A08\/_?GQ\?'AP@.1LF '1A
+M 7I5+(/L[^J9&quot;Y86B+,\1=6E!Y:O&quot;%MC:8*D&quot;Q;:M'&amp;3%DCHG &gt;22K\BX8&amp;0
+MM1=&amp;:?BD:&amp;3?K5\0ML&amp;D_],&amp;%(VXL$G'Z(4[QCRL-+#').@5$1;^![W1_VJ$
+MT&lt;*C44(NF&amp;SXAF!NI_%(=&lt;72HTL7Q*%PA;9J!+&gt;Y&lt;&quot;GO5*8S0J:8$)!RKCDA
+M&lt;-4P$28$MXRK&gt;K^1:H,T'-Q=\;W3Q3] \E;#39LD?Q)R'/RAMX'R@,&quot;LM*@ 
+M[15#^]DK\?.HR8:YP.'B)04T7$8.'&quot;$DU^Z%^O]ZSWZ*RJ%OXP92N6A9DT8%
+M0C=OANA]_&lt;-TF/PD;/2E^Z=%$'-0&lt;Z^_;_[3\)4#-'U&quot;[L8PAXU=0.V!SI +
+M;8'P+Y8W&quot;?F&amp;]_6&lt;#1'&gt;\R!/#XM&quot;#D^9_U7&gt;YY)&quot;STD!_)^IT&gt;'&amp;&quot;T(L7O9$
+M[$:9!OT&quot;[R[5SO]&gt;YU;_BIV9*AWV&amp;/Y =KR@P)(#B]B.@]'IAI_A8+E4=B[K
+M&amp;#:6M Q$JXC=I&lt;GLS9&lt;&amp;&quot;_H ]O UPJR8_ _-?&amp;H,&quot;B?O&lt;):^\73?-O8]6K1,
+MKP[KA4OQ&quot;A_E*YP4(%8&quot;MQI+1PG;H:I9H8H@]&gt;G&quot;IMC$Z@RL.2$.;#%=H&gt;#9
+MT]%N#;^1N!&lt;T79J)JJ6LE_*9^X1.]F&quot;*&lt;=7)D4-&amp;B!%5)CBF+!=&amp;50D8RD&lt;)
+MIRU$7&lt;1?&gt;&amp;UA-J;W&lt;Z)YV2SS,[@N-83(NEL,,C?B$:I:V9S*\C8VI]K8!,0%
+MY$T!WA4L-E[:K1*:?L-MS;&lt;UFN;302(O;G&quot;-L&gt;$7$[HM[/5EW&lt;&quot;OT3C();WU
+MYE)L5FS&lt;K7&amp;&quot;$+YO6VQF&amp;1E2(QOOM'Q;XFXA^S:JU@#COZE&lt;\W!%Z7#S!4FA
+M@YMV&quot;S^$:@G5_K:WR\4Q ?:9%\OWFF2FQS=;V,$4-F9R:\U@:$OA=#&amp;-&amp;K[(
+MY!E.)@MXE#PF/:K4WL=,.#\_9O/';!Q5IRRV&amp;,F5Q+YT:I@&gt;/!F^NY@SAD\D
+MJC[1SWQ_#*Q ,9M/#89T2GE=QJ=,NIS&amp;8/+&gt;1_KF^6.(&gt;:AB\Z?.O&gt;2&lt;4 Z;
+M.B2;OL+)&gt;X&amp;P(I('X@A+62CM E#:5ML4R_BI;ZM(N1=5P[%J\!O45LR,_M-Y
+M(BS!)#W!V/NDT?V1]X.!PN!?6Y0-/&quot;B%;I1B9 KPH *D40$Y\6#! _P/L'5$
+MZ&quot;E!0F_96F#WA ,;$=\:8'&gt;D*9#W:QQM2OX-^QIOY'QKC- ;]&gt;2GQMGHN'4G
+M!-F(&gt;)!Y &lt;*'$?-B&quot;;E53Q-@4QBI=3 OFH#)8.C[3BMAW'XKA(I%@\04#063
+MAKU:&amp;G!*O@W]B&amp;%?=:$IOW493)8R'[Y!&lt;&quot;S9!47_=]3Z8&quot;-$LT#(ZL%#A#[3
+M44%R:M&quot;-NH)$GMO/PJ%/GIGZ&lt;*&amp;%&gt;9JI2:1ND/&amp;F1]P8L8#M;I^.[GH:O 2,
+M-'N#G'ELFN],(V?74&amp;)P2@Q R:D',$$_,&gt;$4F. $F&amp;#XR./DN%OMG\QJBJ!!
+MQ4P?9&quot;8T= &amp;/KT2408-GM#R8;10!:$X:H#.Y4T8@DA'Y&quot; P&amp;4$L#! H    &amp;
+M %1LQQJZ:;&lt;U#@8  %P)   )    &lt;W!L:6YE;&amp;%B%!$2! ($!08%#@8.!PD(
+M/@&lt;&gt;!W[__PT1$P&lt;&amp;! ,&amp;!006]_?W)P,B3(BP(,#R,6T&quot;#(E0(4&quot;B5&amp;7'U#DU
+MJ=8BQK&gt;I&lt;^A0V3!=T@0X%.%#@(9!8AV*TB;-E&quot;RS&amp;.-0L1CC68P=H%:$% $^
+M!NFT9TR9-W4&gt;?3JUJE&quot;0,F'&quot;A D0,$(&gt;_'LJ%*/K\&quot;_,%,=XC./1#]EE(!]'
+M^2\C# K0* SS!'UJTZ=/J2(%:91IT*, &gt;R,T&quot;M!)_F7JS)*O,9Z6[#'D#=GV
+M$_KXGQSA4H#C8]Q=I_JA ,\CA HP&lt;)*QD[*_3G&amp;O&gt;Q+7I3C&gt;%PSP/T*R -6#
+MA)&amp;-0\F6XLH$J#&amp;A6X&quot;A@Y+4N1@$\64? _O,E&quot;!/@VP&lt; [ &quot;O)D0+P!K%=E9
+M!'7N55:QKHX)D&amp;I&quot;0=S&lt;@1NX*N['3&lt;B(FR-QVYK*SI+/CA-:XN8(W,#R^SGA
+M)NYM.XAMOUD3(.^$G=I9I&lt;A3#?&gt;K45&quot;R*5RKSD0[&lt;ZDG!$59AU &amp;\/N$H^C9
+MAY%!*L3.2OL*%9;29A[:H*VT'U+A*6V.H6T+)\*3O#@5IK+F+]8PPWI5H2IK
+M7F%MJCR4]17&lt;0XW5&lt;W\*U@*TJY&quot;6-[?PYE7&gt;/AM&amp;=\0/,+'&quot;6][&lt;P]MGN-QR
+M5IA+FJ-(&gt;\Z&lt;. %N5[A+FEV*L*08'!N5G!H&gt;Q&quot;&amp;:Q!&quot;:9!*:1/ U8\&gt;9M?(5
+M]O+G*?Y6\KZ*^  ++O1EK;-CBPQR;0BW2Q&lt;B:WD3ONH97]95&amp;09O!&quot;^5&amp;G0P
+MSE7C9.7\5&gt;/A^&gt;O &gt;*FE9&lt;O:'+E5ENI&quot;D0$3T=+%+F09D+S.S#I@EX/UA38#
+M8 +-##(I&quot;TU 2*_GA3NZ&gt;4JW2 ;I;NR%0 -X0@HS@/,9EUC&amp;^D*E &lt;&gt;]'&lt;16
+M 19?:'X V@$#E+[P_(&quot;?=7&quot;.'FKXJ0&quot;[+T0_L#$(/4V_4/Y )3932,Y@^?L+
+M^0\,#&quot;*M($FMC &gt;HDJ%!@EAEHZ0:XZRLYJK$LU.5L8SXS&amp;G^C&amp;;8:T.^DX_S
+MK@PA$LPB#\\B#\TB#YI%'CPM0XT$*C\6UJ98 S,D26#Q*PFYX;E7.FMA7LZ-
+MZ'NLAQFZ).@8(&amp;F&amp;2PD$]J%/FT*M2K7(&lt;9U2E?J4R:=_F@1YD9TU0R;Z4;]S
+MAE8)K&quot;Z3M.+K(%P*:&lt;O1,M*NL2&amp;8&lt;);):EQ7&quot;32O8&lt;LI^ZK0&lt;VRI)Q\9?Y9Q
+M\&quot;SCG&amp;6&lt; ?)LJ 9V&quot;6@R!T3FO.%;@HLNWF$PYC%KY'JS#&gt;G,$VE@J'2Y#?T2
+M '487QVJ'6_#OP1U K3&lt;$# !F0;VFJ7VJD^K3E%^5:E6BS&quot;L-PPTWMH-!Q. 
+MY94L6=1CRW)B&amp;DZ_WA&quot;1Y@!.HCED^0 [.FQ,0%&amp;6Y2GF4&amp;RT)&gt;NJ8E\MHV F
+M&lt;,T&quot;#L\&quot;KEG &lt;8!%'4H&quot;/ Y3/*[*: -\U&gt;$EA+E)8$,RRHIUR DV5_):T3I\
+MM5@#.X3U6HD694HU:,NF16;[4R*ML%GLUSN,Y5W)#FL3H 6W=JB; &quot;U89],@
+MI+B-B_N9-EN1M+92W&quot;&amp;QR@X#,@SPQY05&amp;BE?IJQ4T,PTALY0LG&quot;?B/^Q7)](
+M(9[QH;-ZS5*/9JD'SU(/FJ5&gt;L]3KTH?80E;4\&quot;S\3 5Z4BN&gt;\\2OD\CR.F\K
+MY&amp;9!Q@&amp;&quot;?2B&gt;0,B$RJ#](%.QU 6H]B$[@84#O',0O0!]A(&gt;RCL5F^,.&quot;!6+F
+M+3_6OEE4ANVKEJM#+&quot;\W'T-EXGCX&quot;W^HP%QGPQA'58WSJG$\Q\O\YP\I%A@\
+MPKL:V&gt;T_] #O6:Y@V'8EM.&lt;*G_&amp;(:H2(PERN,'X9IRL,I7.8$%L6@&quot;W&quot;LUF/
+M,9L);V,M9#I/B#(+N#2+#*&lt;*D6&lt;!B0$ZA5&gt;7D5^M$(T6N/5K(3X_$.LL]I-H
+M[ =ETDMG#!'Z 8I^!.5;U=3CZ)\&quot;H:&quot;L??R&amp;1WRGJY/4[$/4?L&quot;CD[53926\
+MA'.(Y ^(=)(R!EIW0W1_H*136&lt;X%.!PB_H.&quot;0+[;(&gt;)&gt;L-.#3AGYV?2^'Z+P
+MA41&gt;XBGR-E&lt;A\CJ#;)KZ(9NG4=D3/D&quot;*$9E]KWK8NXB7LPLC9F^G?4Q5%&amp;&lt;.
+M^S,C6L-&gt;&gt;5*_3)&quot;J&quot;,VW[.03'T4SI@*&lt;&amp;A'&lt;O==&amp; 1Y+F&amp;)C3W-E-., LT94
+MO]#1AA502P$&quot;&quot;@,*    !@!/;,&lt;:L\TWI#$'  #T&quot;   &quot;@              
+MI($     8FQA&lt;F&lt;N;6TN;U!+ 0(* PH    &amp; %1LQQJZ:;&lt;U#@8  %P)   )
+M              &quot;D@5D'  !S&lt;&amp;QI;F5L86)02P4&amp;      (  @!O    C@T 
+#    
+ 
+end
+
+.......
+....
+..
+.                                    C=H #20
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Main Articles:
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+VIC KERNAL Disassembly Project - Part IV
+Richard Cini
+February, 2001
+
+Introduction
+============
+
+	In the last installment of this series, we examined the six remaining
+routines that are called from the IRQ and NMI vectors. The routines examined
+are responsible for updating the jiffy clock, determining the location of
+color RAM, scanning the keyboard, and reading and setting the cursor position.
+	Having fully completed the main processor vectors, we'll continue this
+series by examining other Kernal routines.
+
+More Subroutines
+================
+	Much of the last three articles dealt with routines that were used in
+the VIC's startup process, configuring the screen and I/O devices, and polling
+the keyboard for user input.
+
+	Although the entire Kernal ROM consists of probably over 100
+individual subroutines -- all indirectly callable in some way - the VIC's
+developers really intended the user to only call the 39 routines accessible
+through the jump table at the end of the ROM. When looking at this table,
+we've so far only discussed only 10 of the routines contained therein.
+
+	It was designed in this fashion for multiple reasons. The functions
+selected for the jump table were clearly the ones Commodore found to be most
+useful for software programmers. The other routines were &quot;internal&quot; routines
+used by the &quot;public&quot; routines and the BASIC ROM.
+
+The jump table also hid code changes from the software programmer, although I
+don't believe that there were ever any significant updates to the Kernel after
+its initial release. The calling routine and parameters remained consistent
+even if the underlying code changed. It also facilitated sharing programs
+between machines with common lineage. For example, certain programs could be
+shared between the PET, VIC and the C64. Of course, minor modifications of
+these programs were required to account for different I/O locations.
+ 
+This structure is no different than a modern operating system such as Windows,
+or even the Macintosh, which had the concept of a ROM &quot;toolbox.&quot;
+
+Anyway, I digress...
+
+When examining the functions available in the jump table, the following
+distribution becomes apparent:
+
+User I/O (screen/keyboard):	 3 functions
+Timekeeping:			 3 functions
+Memory management:		 3 functions
+Processor control:		 4 functions
+Device I/O:			26 functions
+
+Commodore appeared to be giving greatest support for interfacing the VIC to
+various devices. Many of these routines were used by the built-in BASIC
+interpreter to support file I/O through the tape deck and the serial IEEE
+port, as well as printer and RS232 support. Unfortunately, the only devices
+that made it onto the IEEE bus were floppy drive and printer devices. If there
+are others, I appreciate knowing about them.
+ 
+	Anyway, this provides a nice segue into looking at the device I/O
+routines in some detail.
+
+	The first step is opening a device. All devices are eligible to be
+opened in this manner. The OPEN function requires that the program call two
+preparatory routines first. The first one, SETNAM sets the filename parameter
+required by OPEN. Clearly only certain devices make use of a filename (such as
+the cassette or disk drive devices). For devices not requiring a filename
+pointer, just set the pointer to &quot;null&quot;.
+
+
+FE49  ;===================================================
+FE49  ; ISETNM - Set filename (internal)
+FE49  ; Call with .A = filename length, .X = LSB of filename
+FE49  ; string, .Y = MSB of filename string
+FE49
+FE49  ISETNM				
+FE49 85 B7	STA FNMLEN		; set length
+FE4B 86 BB  	STX FNPTR		; ptr L
+FE4D 84 BC  	STY FNPTR+1		; ptr H
+FE4F 60    	RTS			
+
+	Calling SETNAM sets three Zpage variables that tell the OPEN routine
+where in memory to find a string containing the filename. Setting the length
+parameter to zero yields a null string.
+
+	When opening an RS232 channel, the filename string would contain two
+ASCII characters representing the configuration values for the command
+register and the control register.
+
+	The next call that is required is to set the underlying device
+parameters for the OPEN call.
+
+FE50	;===================================================
+FE50    ; ISETLF - Set logical file parameters (internal)
+FE50    ; Call with .A = file number, .X = device # (0-30),
+FE50	; .Y = command
+FE50	ISETLF				
+FE50 85 B8  	STA LOGFIL		; file #
+FE52 86 BA  	STX CHANNL		; device
+FE54 84 B9  	STY SECADR		; secondary address
+FE56 60     	RTS	
+
+	The SETLFS parameters are fairly common: the file handle number, the
+device to access, and any secondary address to send to the device. The
+combination of SETNAM and SETLFS is analogous to this BASIC statement:
+
+	OPEN 2,8,1, &quot;mydat&quot;
+
+where &quot;2&quot; corresponds to the file handle number, &quot;8&quot; is the device, and &quot;1&quot;
+is the secondary address. These numbers are ultimately stored in their
+respective data tables at location IOPEN_S3 in the OPEN routine.
+
+	Opening the RS232 channel does not require the use of a secondary
+address.
+
+	During file I/O, it's helpful to check the status of the current
+device by using the READST function. READST retrieves the value of the CSTAT
+variable. CSTAT is set through a call to ISETMS1 (at $FE6A) by various I/O
+routines based on device response.
+
+            
+FE57	;===================================================
+FE57    ; IRDST - Get I/O status word (internal)
+FE57	;
+FE57	IRDST
+FE57 A5 BA  	LDA CHANNL		; get current device
+FE59 C9 02  	CMP #$02		; RS232?
+FE5B D0 0B  	BNE ISETMS+2		; no...branch to OS messages
+FE5D AD 97 02   LDA RSSTAT		; get RS232 status
+FE60 A9 00      LDA #$00
+FE62 8D 97 02   STA RSSTAT
+FE65 60         RTS
+FE66
+FE66
+FE66	;===================================================
+FE66    ; ISETMS - Control OS messages (internal)
+FE66	; On entry, .A is message number. Bit7=1 for KERNEL messages, and
+FE66	; Bit6=1 for control messages. Bit0-Bit5 is message number.
+FE66    ;				
+FE66    ; set flag for OS messages				
+FE66    ;				
+FE66    ISETMS				
+FE66 85 9D       	STA CMDMOD		;save message #
+FE68 A5 90       	LDA CSTAT		;get status
+FE6A
+FE6A    ; set ST bits				
+FE6A    ISETMS1				
+FE6A 05 90       	ORA CSTAT		;twiddle bits based on .A
+FE6C 85 90       	STA CSTAT		;save status
+FE6E 60          	RTS			
+
+	The return values of the READST call have different meanings depending
+on what device is being accessed:
+
+	BIT	Cassette	  Serial R/W	Tape L/V
+	===	========	  ==========	========
+	0	Write timeout	
+	1	Read timeout
+	2	Short block	  Short block
+	3	Long block	  Long block
+	4	Unrecoverable	  Any mismatch
+			  	  read error
+	5 	Checksum error			Checksum error
+	6 	End of file	  EOI line
+	7 	End of tape	  Device not	End of tape
+				  present
+
+	So, after having set the file name information and setting the device
+access parameters, we're ready to actually OPEN the file. The following code
+is heavily commented, so I'll only expand where necessary.
+
+	The Kernal keeps track of the open files using a series of file handle
+tables. A maximum of 10 logical files can be open at one time. FILTBL keeps
+track of the logical file handle established in the call to SETLFS. SECATB
+keeps track of the secondary address associated with a given logical file
+number. Finally, the DEVTBL variable tracks which device number relates to the
+file handle. These three tables mirror the variables in the SETLFS call.
+
+F40A	;======================================================
+F40A    ; IOPEN - Open file (internal)
+F40A    ; Required prior calls:  FFBA/SETLFS and FFBD/SETNAM
+F40A	; No arguments
+F40A	IOPEN				
+F40A A6 B8       	LDX LOGFIL	;get file number
+F40C D0 03       	BNE IOPEN_S1	;F411 read from output file?
+F40E 4C 8D F7    	JMP IOERMS6	;Yes, emit &quot;NOT INPUT FILE&quot; error
+F411             
+F411        IOPEN_S1				
+F411 20 CF F3    	JSR FIND	;locate file # in table
+F414 D0 03       	BNE IOPEN_S2	;file number not found, so move on
+F416 4C 81 F7    	JMP IOERMS2	;found, so emit &quot;FILE OPEN&quot; error
+F419             
+F419        IOPEN_S2				
+F419 A6 98       	LDX COPNFL	;get # of open files
+F41B E0 0A       	CPX #$0A	;are there 10 files open already?
+F41D 90 03       	BCC IOPEN_S3	;no, OK to open new file
+F41F 4C 7E F7    	JMP IOERMS1	;more than 10, &quot;TOO MANY FILES&quot; error
+F422             
+F422        IOPEN_S3			; allocate file slot in table
+F422 E6 98       	INC COPNFL	;add 1 to count of open files
+F424 A5 B8       	LDA LOGFIL	;get file number from call
+F426 9D 59 02    	STA FILTBL,X	;save file # in table
+F429 A5 B9       	LDA SECADR	; get secondary address
+F42B 09 60       	ORA #%01100000	;$60 make it a device command
+F42D 85 B9       	STA SECADR	;save it as secondary and add it to the
+F42F 9D 6D 02    	STA SECATB,X	; SA table for that open file
+F432 A5 BA       	LDA CHANNL	;save device number to the
+F434 9D 63 02    	STA DEVTBL,X	;  device table
+F437
+F437					;Special handling for certain devices
+F437 F0 5A       	BEQ IOPENRC	; keyboard device? Yes, return 
+F439             
+F439 C9 03       	CMP #$03	;Is the device the screen?
+F43B F0 56       	BEQ IOPENRC	; yes, then return clear
+F43D 90 05       	BCC IOPEN_S4	;must then be the tape or RS232-branch
+F43F
+F43F					; Start IEEE stuff
+F43F 20 95 F4    	JSR SENDSA	;send secondary to IEEE bus and
+F442 90 4F       	BCC IOPENRC	; return clear
+F444             
+F444         IOPEN_S4				
+F444 C9 02       	CMP #$02	;RS232 (2)?
+F446 D0 03       	BNE IOPEN_S5	;not RS232, so process tape device
+F448 4C C7 F4    	JMP SEROPN	;open RS232 device
+F44B            
+F44B         IOPEN_S5			;Tape device (1)
+F44B 20 4D F8    	JSR GETBFA	;Get tape buffer address
+F44E B0 03       	BCS IOPEN_S6	;MSB&gt;2? No, continue with open
+F450 4C 96 F7    	JMP IOERMS9	;Bad tape buffer, emit &quot;ILLEGAL DEVICE
+F453					; NUMBER&quot; error
+F453             
+F453         IOPEN_S6			;Continue with tape processing	
+F453 A5 B9       	LDA SECADR	;get SA
+F455 29 0F       	AND #%00001111	;Are we in write/save mode?
+F457 D0 1F       	BNE IOPEN2	;yes, prompt for Play + Record
+F459             
+F459 20 94 F8    	JSR PLAYMS	;wait for &quot;PLAY&quot; key
+F45C B0 36       	BCS IOPENRC+1	;$F494 return CY=1
+F45E             
+F45E 20 47 F6    	JSR SRCHMS	;print &quot;Searching for [name]&quot; message
+F461 A5 B7       	LDA FNMLEN	;get length of filename
+F463 F0 0A       	BEQ IOPEN1	;no name specified, so search for
+F465					;  next header
+F465             
+F465 20 67 F8    	JSR LOCSPH	;search for specific tape header
+F468 90 18       	BCC IOPEN3	;$F482 go get header
+F46A F0 28       	BEQ IOPENRC+1	;$F494 return found CY=1
+F46C             
+F46C         IOPENA			; done searching and file was not found
+F46C 4C 87 F7    	JMP IOERMS4	;F787 &quot;FILE NOT FOUND&quot; error
+F46F             
+F46F         IOPEN1			; Get next tape header
+F46F 20 AF F7    	JSR LOCTPH	;search for next header
+F472 F0 20       	BEQ IOPENRC+1	;$F494 return found CY=1
+F474 90 0C       	BCC IOPEN3	;$F482 go get header 
+F476 B0 F4       	BCS IOPENA	;$F46C not found
+F478             
+F478         IOPEN2			; write tape header
+F478 20 B7 F8    	JSR RECDMS	;wait for REC &amp; PLAY keys
+F47B B0 17       	BCS IOPENRC+1	;$F494 return CY=1
+F47D             
+F47D A9 04       	LDA #$04	;control byte ID for data header
+F47F 20 E7 F7    	JSR WRTPHD	;write tape header
+F482             
+F482         IOPEN3				
+F482 A9 BF       	LDA #$BF	;pointer to tape buffer head
+F484 A4 B9       	LDY SECADR	; get secondary address
+F486 C0 60       	CPY #$60	;SA=0 (read) mode?
+F488 F0 07       	BEQ IOPENRC-2	;$F491 Yes, skip write
+F48A             
+F48A A0 00       	LDY #$00	; write mode
+F48C A9 02       	LDA #$02	;control byte ID for data block
+F48E 91 B2       	STA (TAPE1),Y	;write it to buffer
+F490 98          	TYA			
+F491 85 A6       	STA BUFPNT	;save pointer
+F493             
+F493         IOPENRC				
+F493 18          	CLC			
+F494 60          	RTS
+
+	The OPEN function spends most of its time saving parameter information
+into variable tables and figuring out which device to open. If the OPEN call
+is for the tape device, the code either reads or writes the respective tape
+header.
+
+	OPEN calls nine other routines, six of which deal with tape input and
+output. The three non-tape routines are FIND (find file number in table),
+SENDSA (send secondary address), and SEROPN (open RS232 device). Since the
+OPEN code spiders out so, I'm going to leave the tape-related routines to
+another article.
+
+	FIND is a very easy routine. It searches through the file handle table
+to see if the handle of the file we're trying to open is already being used as
+a result of a previous call to OPEN. Clearly each file handle number has to be
+unique to prevent confusion at the system level. If a file is already in use
+with the same handle number, .X returns non-zero, enabling the calling routine
+to drop into an error handler (&quot;FILE OPEN&quot; error).
+
+F3CF	;==========================================================
+F3CF	; FIND - Look for logical file number in open-file table
+F3CF    ; On entry to FIND1, .A=file#. On exit, .X=offset in file table
+F3FC	; to matching file number.
+F3CF
+F3CF             FIND
+F3CF A9 00       	LDA #$00
+F3D1 85 90       	STA CSTAT	;clear Status variable
+F3D3 8A          	TXA		; .X is logical file number copied to
+F3D4					; .A for use in FIND1
+F3D4             FIND1
+F3D4 A6 98       	LDX COPNFL	;get #of open files to count through
+F3D6             
+F3D6             FINDLOOP		; loop
+F3D6 CA          	DEX
+F3D7 30 15       	BMI FLATRBX	;$F3EE reached 0, then exit
+F3D9 DD 59 02    	CMP FILTBL,X	;is this the one?
+F3DC D0 F8       	BNE FINDLOOP	;$F3D6 no, try again
+F3DE 60          	RTS		;return with .X= offset into table
+
+	The FLATRB routine is not used in OPEN, but the FIND subroutine exits
+through it. I don't know why this is since the FIND routine has a return path
+of its own. Anyway, FLATRB takes an index number into the open file table and
+sets the Zpage file variables according to the values pointed to by the
+index. For example, if I call FLATRB with .X=0, the file variables will be set
+with the information stored in location [0] of each of the file handle table,
+the device table, and the secondary address table. So, one could select an
+open file handle, use FIND to get the index number, and then use FLATRB to set
+the Zpage variables to the right values for subsequent use.
+
+F3DF	;==========================================================
+F3DF	; FLATRB - Set file values				
+F3DF	; On entry, .X = offset in the file tables. Returns with
+F3DF	; Zpage file variables set.
+F3DF
+F3DF		 FLATRB				
+F3DF BD 59 02    	LDA FILTBL,X			
+F3E2 85 B8       	STA LOGFIL		;get file handle number
+F3E4 BD 63 02    	LDA DEVTBL,X			
+F3E7 85 BA       	STA CHANNL		;get device
+F3E9 BD 6D 02    	LDA SECATB,X			
+F3EC 85 B9       	STA SECADR		;get SA
+F3EE             
+F3EE             FLATRBX				
+F3EE 60          	RTS
+
+	After the OPEN routine determines that the file handle to be opened is
+unique, assigns the file variables to the various data tables, and determines
+which device is being opened, the code forks. If the device is the keyboard
+(device 0) or screen (device 3), OPEN returns. If it's the tape deck (device
+1), the code continues by searching for or writing a tape header using the
+information supplied in the OPEN call. If it's for the RS232 adapter (device
+2), execution jumps to SEROPN to continue the opening process. Finally, if
+it's an IEEE device (device &gt;=4), then OPEN calls SENDSA to shift out the
+secondary address. When SENDSA returns, OPEN returns to the original
+caller. If SENDSA returns with the carry flag set (indicating an error
+condition) and then returns, execution will ultimately fall through to an
+&quot;ILLEGAL DEVICE ERROR&quot; error.
+
+F495	;==========================================================	
+F495	; SENDSA - Send secondary address				
+F495				
+F495             SENDSA				
+F495 A5 B9       	LDA SECADR	;get SA
+F497 30 2C       	BMI SNDSARC	;$F4C5 less than 0, exit
+F499
+F499 A4 B7       	LDY FNMLEN	;get filename length
+F49B F0 28       	BEQ SNDSARC	;$F4C5 no filename, just exit	
+F49D
+F49D	             			; prepare to send filename string
+F49D A5 BA       	LDA CHANNL	;get device	number and...
+F49F 20 18 EE    	JSR ILISTN+1	;  command it to listen
+F4A2 A5 B9       	LDA SECADR	;get SA
+F4A4 09 F0       	ORA #%11110000	;$F0 make it into listen command
+F4A6 20 C0 EE    	JSR ISECND	;sent it to IEEE bus
+F4A9 A5 90       	LDA CSTAT	;check status variable
+F4AB 10 05       	BPL SENDSA1	;$F4B2 OK, then continue
+F4AD             
+F4AD 68          	PLA		;error, set stack for caller's caller
+F4AE 68          	PLA				
+F4AF 4C 8A F7    	JMP IOERMS5	;emit &quot;DEVICE NOT PRESENT&quot; error
+F4B2             
+F4B2             SENDSA1		; continue processing-send filename
+F4B2 A5 B7       	LDA FNMLEN	;get filename length	
+F4B4 F0 0C       	BEQ SNDSARU	;length is 0, so send unlisten command
+F4B6             		; There is a filename, so send it to IEEE
+F4B6 A0 00       	LDY #$00	; set loop counter
+F4B8             
+F4B8             SENDSALP		; output filename to IEEE bus
+F4B8 B1 BB       	LDA (FNPTR),Y	;get character 
+F4BA 20 E4 EE    	JSR ICIOUT	;send it
+F4BD C8          	INY		;get next one
+F4BE C4 B7       	CPY FNMLEN	; at the end?
+F4C0 D0 F6       	BNE SENDSALP	;no, then loop
+F4C2             
+F4C2             SNDSARU		;done sending filename, so send
+F4C2 20 04 EF    	JSR IUNLSN	; unlisten command to IEEE bus
+F4C5             
+F4C5             SNDSARC				
+F4C5 18          	CLC			
+F4C6 60          	RTS			
+
+	SENDSA is a simple routine that checks for a valid secondary address
+and whether the OPEN command involves a filename. Then, the routine commands
+the specified device to &quot;listen&quot; and sends the secondary address and the
+filename to it. When completed, the code sends the &quot;unlisten&quot; command to the
+device and returns success. If there is a problem sending data to the device,
+a &quot;device not present&quot; error is generated.
+
+	The next routine is SEROPN. SEROPN is called by OPEN when it
+determines that the device that's being opened is the RS232 port. Here's a
+quick story about RS232 support in the VIC.
+
+Based on some information that I've seen on the Web and what's available in
+&quot;Inside VIC&quot; and the &quot;VIC20 Programmer's Reference Guide&quot;, I've concluded that
+the VIC hardware was originally designed to include a MOS 6551 ACIA
+communications chip. The 6551, with appropriate level shifters, would have
+provided true hardware support for RS232. But for cost reasons, board space
+reasons, or both, the 6551 was dropped and emulated in software and in
+hardware by using a spare port on one of the existing 6522 VIAs.
+
+The Kernal includes a lot of code to manage RS232 FIFO buffers and to perform
+the bit shifting through the User Port (port B of VIA 1). The User Port only
+provides TTL-level RS232; Commodore and others sold an adapter that provided
+the level-shifting hardware (typically TI 1488/1489 chips) and a DB25F
+connector. The circuit is very simple and could have been built by any
+resourceful hobbyist.
+
+Without further delay, here's the code that completes the opening process for
+the RS232 serial device:
+
+F4C7	;==========================================================
+F4C7    ; SEROPN - Open RS-232
+F4C7	;  &quot;filename&quot; contains the initialization data for the
+F4C7	;  command and control registers
+F4C7	
+F4C7             SEROPN
+F4C7 A9 06       	LDA #%00000110	;set VIA DDR. PB[2:1] are DTR and RTS
+F4C9 8D 12 91    	STA D1DDRB	; signals, respectively
+F4CC 8D 10 91    	STA D1ORB
+F4CF A9 EE       	LDA #%11101110	;$EE. Set PCR for CB2/CA2 manual high
+F4D1 8D 1C 91    	STA D1PCR	; and CB1/CA1 for H-&gt;L IRQ trigger
+F4D4					; CB2 is RS232-TX and CB1 is RS232-RX
+F4D4 A0 00       	LDY #$00
+F4D6 8C 97 02    	STY RSSTAT	; clear status byte
+F4D9             
+F4D9             SEROPLP				
+F4D9 C4 B7       	CPY FNMLEN	;is the filename length = 0?
+F4DB F0 0A       	BEQ SEROPN1	;$F4E7 yes, go straight to open
+F4DD             
+F4DD B1 BB       	LDA (FNPTR),Y	;copy first 4 chars of filename...
+F4DF 99 93 02    	STA M51CTR,Y	; to buffer and loop
+F4E2 C8          	INY			
+F4E3 C0 04       	CPY #$04			
+F4E5 D0 F2       	BNE SEROPLP	;$F4D9 loop
+F4E7             
+F4E7             SEROPN1		;done copying init_data
+F4E7 20 27 F0    	JSR BITCNT	;get number of data bits
+F4EA 8E 98 02    	STX BITNUM	;save data bits count
+F4ED AD 93 02    	LDA M51CTR	;get control register
+F4F0 29 0F       	AND #%00001111	;$0F isolate baud rate bits
+F4F2 D0 00       	BNE $+2		;F4F4
+F4F4
+F4F4					;convert baud rate bitmap to clock
+F4F4					; divisor
+F4F4 0A          	ASL A		;*2
+F4F5 AA          	TAX			
+F4F6 BD 5A FF    	LDA R232TB-2,X	;$FF5A,X baud rate H
+F4F9 0A          	ASL A			
+F4FA A8          	TAY			
+F4FB BD 5B FF    	LDA R232TB-1,X	;$FF5B,X baud rate L
+F4FE 2A          	ROL A			
+F4FF 48          	PHA			
+F500 98          	TYA			
+F501 69 C8       	ADC #$C8			
+F503 8D 99 02    	STA BAUDOF	;save baud rate divisor
+F506 68          	PLA			
+F507 69 00       	ADC #$00			
+F509 8D 9A 02    	STA BAUDOF+1
+F50C
+F50C AD 94 02    	LDA M51CDR	; command register
+F50F 4A          	LSR A			
+F510 90 09       	BCC SEROPN2	;$F51B
+F512             
+F512 AD 20 91    	LDA D2ORB	;check DSR (data set ready)
+F515 0A          	ASL A		
+F516 B0 03       	BCS SEROPN2	;$F51B ready, continue
+F518 4C 16 F0    	JMP DSRERR	;not ready, DSR error
+F51B             
+F51B             SEROPN2		; device ready
+F51B AD 9B 02    	LDA RIDBE	;set RS232 buffer pointer
+F51E 8D 9C 02    	STA RIDBS	; -- RX --
+F521 AD 9E 02    	LDA RODBE		
+F524 8D 9D 02    	STA RODBS	; -- TX --
+F527
+F527					; prepare to &quot;hide&quot; buffer in memory
+F527 20 75 FE    	JSR IMEMTP+2	; get MEMTOP
+F52A A5 F8       	LDA RIBUF+1	;has RX buffer been created?
+F52C D0 05       	BNE SEROPN3	;$F533 yes, check on TX buffer 
+F52E 88          	DEY		; else create input buffer
+F52F 84 F8       	STY RIBUF+1 
+F531 86 F7       	STX RIBUF			
+F533             
+F533             SEROPN3				
+F533 A5 FA       	LDA ROBUF+1	;TX buffer created?
+F535 D0 05       	BNE SEROPN4	;$F53C yes, skip create
+F537 88          	DEY			
+F538 84 FA       	STY ROBUF+1	;else create TX buffer
+F53A 86 F9       	STX ROBUF			
+F53C             
+F53C             SEROPN4		; set MEMTOP to hide buffers from BASIC
+F53C 38          	SEC			
+F53D A9 F0       	LDA #$F0			
+F53F 4C 7B FE    	JMP STOTOP	;$FE7B set new MEMTOP
+
+SEROPN begins by extracting the values of the command and control registers
+from the &quot;filename&quot; string passed to it from the OPEN routine. SEROPN then
+saves the number of data bits contained in a serial data frame and then
+calculates the proper clock divisors for the selected baud rates. The 6551
+transmit and receive clocks are emulated by using one of the timers in VIA1 to
+shift out the data at the specific bit rate. Receiving bits is accomplished
+through the NMI routine discussed in Part 2 of this series.
+
+In a nifty trick, SEROPN allocates transmit and receive buffer memory at the
+top of BASIC RAM and lowers the top of RAM variable to fake BASIC into
+thinking that there's 512 bytes less of memory.
+
+The SEROPN routine finally exits and returns to OPEN by a JMP to STOTOP, the
+routine used to set the top of system memory.
+
+Well, that's all that we have time for. Next time, we'll tackle some of the
+tape routines related to the OPEN command.
+.......
+....
+..    
+.                                    C=H #20
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Mods and digital mixing
+----------------------- by Jolse Maginnis
+			   jmaginni@postoffice.utas.edu.au
+
+As most of you know, MOD playing on the C64 is nothing new, Nate/DAC wrote
+modplay64 quite a while ago now, but there has never been any in depth look at
+how a mod is played. So in this article I will discuss everything you need to
+know about MODs and digital sound mixing (well the main bits anyway!)
+
+Very recently I got sick of working on OS stuff and started working on my own
+modplayer for JOS, called, wait for it... Josmod! I was really quite surprised
+at the quality of sound it produced, particularly as it was only playing with
+4 Bit Mono SID digis.
+
+At that stage Josmod only played 4-channel Amiga format MOD's which have been
+around for a long time but are now being outdated by newer formats such as
+S3M, XM and IT. These new formats are in the same style as the old Amiga MOD
+formats, except they allow for more channels, more instruments/samples and
+different effects. Since the SCPU is a fast enough machine to mix and play
+more than 4 channels at once, and I was sick of seeing so many MOD's that it
+couldn't play because they were done in the newer formats, I added support for
+S3M's and more recently, XM mods.
+
+Josmod didn't take very much time to write at all, for one reason in
+particular: it's written in C. Compared to writing an application in assembly,
+C is so much easier to debug and test. That's one of the great things about
+the 65816, you can write in a high level language and get away with it. One
+part of Josmod had to be written in 65816, and that's the mixer, which has to
+be optimized as it's where 90% of Josmod's time is spent.
+
+Enough propaganda! On with the show..
+
+-------------------------------------------
+
+There are 3 main parts to any modplayer: the loader, the player routine &amp; the
+mixer.
+
+First of all I will start by talking about the mixer as it's the simplest part
+and also the part that deals with the actual sounds themselves.
+
+The Mixer
+---------
+
+First of all, I'd like to point out that I'm no expert on digital sound, and I
+only learned all this stuff myself when I started writing Josmod.  Here's an
+ASCII drawing of a digitally sampled sound:
+
+127
+
+     --                            --
+    /  \               --        /    \
+   /    \             /  \      /      \
+0------------------------------------------
+          \         /      \  /
+           \       /        --
+            \     /        
+              ---
+-128
+
+
+Yes I know it looks crap, but you get the idea. You'll note that it's a SIGNED
+sample, which is very important when it comes to mixing.
+
+The Amiga has 4 digital sound channels, each capable of playing its own set of
+sampled data, so it can effective play four different sounds at the same time.
+But what about the C64? SID's only capable of playing one digi at a time. How
+on earth can we get it to play 2 samples at once, or 4? 8 or 16? C64's aren't
+alone in their single channel output problem, most PC sound cards only have 1
+channel for output (2 if you count Stereo). So how is it done? It's extremely
+simple actually. You just add them together! But remember it's signed
+addition!
+
+The one thing that you have to worry about when adding though, is that you
+don't overflow your result. For example, if you're adding two 8 bit numbers
+together you could easily go higher than 127 or lower than -128, just by
+having two loud samples. So it's best to use a 16 bit result, and handily the
+65816 has 16-bit registers. :) On a side note, if a sample is mixed with an
+exact opposite of itself, it turns to silence! I believe this is actually used
+in some new cars to cut down on noise inside the car!  [Editor's note: it is
+also used in things like aviation headsets, and goes under terms like &quot;Active
+Noise Reduction&quot; and &quot;Active Noise Cancellation&quot;]
+
+Not only does the mixer have to mix samples together, it also has to control a
+couple of other things, namely volume and pitch.  The player reads the notes
+and effects, and tells the mixer which samples to play, at what speed and how
+loud they are supposed to be.
+
+I'll start with volume, as it's quite an easy transformation. In Amiga MODs
+volumes range from 0 (Silence) to 64 (Full volume). So a volume of 32 would be
+half volume, and effectively divide the samples by 2. e.g. A sample of -40
+would become -20 at volume 32, and a sample of 100 would become 50. The best
+and fastest way to perform volume calculations in real time is of course
+using a lookup table. So you end up with mixer code that looks like this:
+(65816 remember!)
+
+
+        lda [Samp]      ; Get the current sample
+        and #$ff        ; It's 8 bits only
+        asl             ; Multiply by 2 since the volume 
+        tay             ; table is 16 bit values
+        lda [VolTab],y  ; Get the value!
+
+
+VolTab contains a pointer to the appropriate volume table, which is calculated
+with:
+
+Sample*Volume/64
+
+Volume was easy but what about pitch? Ordinarily if we were dealing with
+normal 1 channel digis we'd simply change our CIA timer rate so data would
+be fetched at a different speed, which is ideal. This is basically what the
+Amiga does, except it's done in hardware, so doesn't steal valuable CPU
+cycles. However, we can't do this as we're mixing various samples into one! So
+instead we have to simulate different pitches by altering the sample position
+at varying rates, rather than just going straight to the next sample.
+
+So for example, if a sample needs to be played at twice its normal speed, we
+add 2 to the sample pointer rather than 1, and it will sound twice as
+fast. It's all very well adding values like 1 and 2, but what if the sample
+needs to be 1.5 times the normal speed? It's easy solved with some fixed point
+math (16 bits for the fraction, 16 bits for the integer part), and you end up
+with something like this (remember that Samp is a pointer into the sample
+data):
+
+        txa             ; Add the fraction part 
+        adc Low         ; X is used to hold the low part
+        tax
+        lda Samp        ; Now add the integer with carry
+        adc Hi
+        sta Samp
+        bcc noinc       ; Crossed a bank boundary?
+        inc Samp+2
+noinc   ....
+
+Very simple really isn't it?
+
+Note that the tradeoff here is between playback rate and sample rate; that is,
+if we have a sound sampled at 10000 samples per second, and take every other
+sample, that's like taking 5000 samples per second.  So instead of changing
+the _playback_ rate -- which is what e.g. changing the CIA timers does -- we
+instead effectively change the original _sample_ rate. Another thing worth
+mentioning is that when the playback rate is greater than the sample rate, you
+can improve output by &quot;interpolating&quot; the sample. Interpolating is basically
+guessing what the sample would have sounded like if it were sampled at the
+playback rate. I won't go into it any more than that, as adding it will slow
+the mixer down. I believe Nate's latest modplay64 does interpolation.
+
+That's basically all that the mixer does, but I've left out one part, which is
+the part that adds the samples together. Rather than adding 4 values together
+at a time the Josmod mixer uses a buffer to add all the values for 1 channel
+in one go, and then adds all the samples for the next channel to that buffer,
+etc. This means that the mixer can handle as many channels as it wants, rather
+than being fixed to 4 channels. Here is the code for mixing 2 samples: (Assume
+16 bit registers!)
+
+        lda [Samp]
+        and #$ff
+        asl
+        tay
+        lda [VolTab],y
+        adc (OutBuf)            ; Add it to the buffer
+        sta (OutBuf)
+        txa
+        adc Low
+        tax
+        lda Samp
+        adc Hi
+        sta Samp
+        bcc ninc
+        inc Samp+2
+ninc    lda [Samp]
+        and #$ff
+        asl
+        tay
+        lda [VolTab],y
+        ldy #2                  ; Next buffer position
+        adc (OutBuf),y
+        sta (OutBuf),y
+        txa
+        adc Low
+        tax
+        lda Samp
+        adc Hi
+        sta Samp
+        bcc ninc2
+        inc Samp+2
+ninc2   ...
+
+By changing Samp (and Low/Hi) the same code can add different samples to the
+buffer.  Josmod uses an unrolled mixing loop which does 16 samples before
+looping, otherwise there'd be too much loop overhead.
+
+You will note that at the end of mixing all the channels what we're left with
+is a buffer that is full of 16 bit samples. Well, I believe the IDE64 team
+have a made a 16 bit sound card... but generally this buffer is not going to
+be of any use to us, until we convert it to 8 bit unsigned data. The SID uses
+4 bit unsigned samples, and the DigiMax and other user port sound cards, use 8
+bit unsigned, so it's the best format to convert it to.
+
+Not only does it need to be converted to 8 bit unsigned, but remember the
+overflow problem? Values that are too loud need to be clipped to their maximum
+volume (127 or -128). So we can kill two birds with one stone here, and create
+a post processing lookup table that converts the data and also clips loud
+samples.  If it were graphed the table would look something like this:
+
+$ff -------
+     ^     \
+ Clipped    \
+             \
+              \
+$80 ------------------------
+                \
+                 \  
+                  \ 
+                   \
+0                   --------
+                       ^
+                    Clipped
+                        
+So after all channels are mixed together, the buffer is postprocessed with
+that table to prepare it for output on the sound device! Which incidentally
+could be any device, as Josmod is device independent, it's up to the device
+driver to deal with getting a CIA interrupt and what to do with the
+samples. In the case of 4-bit SID this would be:
+
+        lda [Samp]
+        lsr
+        lsr
+        lsr
+        lsr
+        sta @$d418      ; @ means long addressing - $00d418 SID Volume register!
+
+That's about all for the mixer, the only other thing that it needs to do is to
+check if a sample has ended, and either stop it, or loop it back to some
+point.
+
+Bear in mind that the mixer I've described is a mono one, as all channels get
+mixed into the one output buffer. A stereo one would mix channels into two
+different output buffers.
+
+I should mention that since I wrote this article, I've made some improvements
+to the mixer. Namely pre-calculating the sample pointer offset, so that the
+mixer loop doesn't need to calculate the next sample position for every
+sample. So now the sample mixing code is much quicker:
+
+
+        lda [Samp]
+        and #$ff
+        asl
+        tay
+        lda [VolTab],y
+        adc (OutBuf)            ; Add it to the buffer
+        sta (OutBuf)
+	
+	ldy #1			; The offset to the next sample
+	lda [Samp],y		; (precalculated)
+        and #$ff
+        asl
+        tay
+        lda [VolTab],y
+        ldy #2                  ; Next buffer position
+        adc (OutBuf),y
+        sta (OutBuf),y
+	
+	.... 
+	
+        txa			; Add sample speed * 16
+        adc Low			; This code now only gets
+        tax			; executed once per 16
+        lda Samp		; samples rather than every
+        adc Hi			; sample.
+        sta Samp
+        bcc ninc2
+        inc Samp+2
+ninc2   ...
+
+These changes provide, at a guess, a dramatic increase of about 30 percent in
+playback speed. The only drawback to this method is very slight loss of
+accuracy, but I don't think you will be able to tell the difference.
+
+The Loader
+----------
+
+You've now seen how to mix samples, so what you need to know next is how to
+load in the samples from the modfile and also load the data that tells you how
+to play them. Ok let's check out the .mod file format. Sizes are all in bytes.
+
+Offs : Size
+------------
+0    : 20   : Module name
+20   : 930  : Sample headers for 31 Samples
+950  : 1    : Number of orders
+951  : 1    : Unused?
+952  : 128  : The orders
+1080 : 4    : Identification string
+1084 : ?    : The patterns
+?    : ?    : The 8 bit sample data for all samples
+
+Ok first of all you need to know exactly what orders &amp; patterns are. 
+
+Patterns contain all the information about what pitch and sample to play and
+also contain information about effects which change the volume and pitch of
+samples. Every pattern contains 64 rows of data. Each row holds note
+information for the number of channels contained in the tune (normally 4 in
+Mods). A pattern can be visualised as something like this:
+
+        1       2       3       4
+------------------------------------
+1:  | 1 c-1 | 2 d-2 | 2 f#5 | 3 e-4 |
+2:  | 5 d-1 | - --- | - --- | 3 f-4 |
+......
+64: | 4 e-1 | 3 d-1 | - --- | - --- |
+------------------------------------
+
+That's a simplified version of what a pattern is like, as it doesn't include
+any effect information.
+
+So what does &quot;1 c-1&quot; mean?
+
+Well the first 1 refers to the sample number, while &quot;c-1&quot; refers to the note
+and octave to play (C natural, octave 1).
+
+Orders will be familiar to anyone who's had any experience with some of the
+SID editors/players. Rather than playing pattern 0, pattern 1, etc.. through
+to the last pattern, orders allow you to choose the order in which patterns
+are played, thus allowing you to repeat patterns easily.  E.g. The order table
+may look something like this: 0 1 2 3 2 2 4 3 5 6
+
+You will notice that nowhere in the mod format does it mention how many
+patterns are contained in the file.. To calculate this you look through the
+order table and find the highest value, and use that as the number of patterns
+in the file (+1).
+
+Ok now let's have a look at the sample header format:
+
+0    : 22   : Name
+22   : 2    : Length (divided by 2)
+24   : 1    : Finetune
+25   : 1    : Default Volume (0-64)
+26   : 2    : Loop position (divided by 2)
+28   : 2    : Loop length (divided by 2)
+30 
+
+One thing to be warey of here is the fact that the 16 bit values stored in
+this structure are in big endian format, because Amigas use the 680x0 line of
+processors. So to convert it for use with C64 it needs the high and low bytes
+swapped around. Also I have no idea why the 16 bit values are stored divided
+by 2... I guess this is something to do with playing the mod on the Amiga too,
+or perhaps to allow larger than 64k samples?
+
+Ok now we know what the format of a .mod file is, it's time to get it loaded
+so our player can play it!
+
+You will notice that the first 1084 bytes of the file are fixed, so one
+approach to loading would be to load those first 1084 bytes and go on from
+there, but the approach I use is to load each part of the header seperately,
+which makes it easier to put the data in a format easier for the player. Ok
+let's take a look at the C source for Josmod's .mod loader..
+
+First a couple of declaration for identifying which mod format it is:
+
+typedef struct IdentStruct {
+	char *String;
+	int channels;
+} Ident;
+
+static Ident idents[] = {
+        {&quot;2CHN&quot;, 2},
+        {&quot;M.K.&quot;, 4},
+        {&quot;M!K!&quot;, 4},
+        {&quot;FLT4&quot;, 4},
+        {&quot;4CHN&quot;, 4},
+        {&quot;6CHN&quot;, 6},
+        {&quot;8CHN&quot;, 8},
+        {&quot;CD81&quot;, 8}
+};
+
+int loadMod(char *name, ModHead *mp) {
+
+	/* Variable declarations */
+
+	FILE *fp;
+	S3MSamp *samp;
+	unsigned char *patp;
+	unsigned int i,j,temp,numpat,temp2;
+	long patsize;
+	char *samdata;
+	Ident *idp;
+	
+	/* Open the mod */
+	
+	fp = fopen(name, &quot;rb&quot;);
+	if (!fp) {
+		perror(&quot;josmod&quot;); 
+		exit(1);
+	}
+	
+	/* Read the name of the mod */
+	
+	fread(mp-&gt;Name,1,20,fp);
+	mp-&gt;Name[20]=0;		// C strings are null terminated!
+
+	/* Read 31 sample headers */
+	
+	samp = &amp;mp-&gt;Samples[0];
+	for (i=0;i&lt;31;i++) {
+		
+		/* Read name and null terminate */
+		
+		fread(samp-&gt;Name,1,22,fp);
+		samp-&gt;Name[22]=0;
+		
+		
+		/* Read length
+		Note: readWord() converts the 16 bit value
+		into C64 format
+		*/
+		
+		samp-&gt;Length = readWord(fp) &lt;&lt; 1;	
+		
+		/* Read and calculate finetune 
+		Finetune is a 4 bit signed value
+		Values over 8 are negative values
+		*/
+		
+		samp-&gt;Finetune = fgetc(fp);
+		if (samp-&gt;Finetune&gt;=8)
+			samp-&gt;Finetune -= 16;
+			
+		/* Read volume */
+		
+		samp-&gt;Volume = fgetc(fp);
+		
+		/* Read and calculate ending/looping positions */
+		
+		temp = readWord(fp) &lt;&lt; 1;
+		samp-&gt;Replen = readWord(fp) &lt;&lt; 1;
+		
+		/* If the loop length is higher than 2, this
+		is a looping sample, otherwise it's a standard
+		non looping sample that stops at the end */
+		
+		if (samp-&gt;Replen &gt; 2) {
+			samp-&gt;Looped = 1;
+			samp-&gt;End = (char *) temp + samp-&gt;Replen;
+			if ((unsigned int) samp-&gt;End &gt; samp-&gt;Length)
+				samp-&gt;End = (char *) samp-&gt;Length;
+		} else {
+			samp-&gt;End = (char *) samp-&gt;Length;
+			samp-&gt;Looped = 0;
+		}
+		
+		/* Go to next sample structure */
+		samp++;
+	}
+	
+	/* Read orders and calculate number of patterns */
+	
+	mp-&gt;NumOrders = fgetc(fp); fgetc(fp);
+	numpat=0;
+	for (i=0;i&lt;128;i++) {
+		 temp = fgetc(fp);
+		 if (temp &gt; numpat)
+		 	numpat = temp;
+		 mp-&gt;Orders[i] = temp;
+	}
+	numpat++;
+	mp-&gt;NumPatterns = numpat;
+
+	/* Identify type of mod */
+	
+	fread(mp-&gt;Type,1,4,fp);
+	mp-&gt;Type[4]=0;
+
+	mp-&gt;Channels=0;
+	idp = &amp;idents[0];
+	for (i=0;i&lt;8;i++) {
+		if (!strncmp(idp-&gt;String,mp-&gt;Type,4)) {
+			mp-&gt;Channels=idp-&gt;channels;
+			continue;
+		}
+		idp++;
+	}
+	
+	/* If we couldn't identify it, this isn't a mod file! 
+	close the file and return. Otherwise print number of
+	channels. */
+	
+	if (!mp-&gt;Channels) {
+		fclose(fp);
+		return 0;
+	} else {
+		printf(&quot;Channels %d\n&quot;,mp-&gt;Channels);
+	}
+
+
+	/* Calculate pattern sizes and allocate memory for patterns */
+	
+	mp-&gt;LineSize = 4 * mp-&gt;Channels;
+	mp-&gt;PatSize = 64 * mp-&gt;LineSize;
+	patsize = mp-&gt;PatSize * numpat;
+	patp = xmalloc(patsize);
+	mp-&gt;Patterns = patp;
+	
+	/* Load patterns */
+
+	for (i=0;i&lt;numpat;i++) {
+		for (j=mp-&gt;PatSize/4;j;j--) {
+			/* Each note is stored in 4 bytes. 
+			Contained in the 4 bytes is:
+			
+			Sample number.
+			Note
+			Effect
+			Effect Parameter
+			
+			conv2Note() converts the mod format note format
+			into a format easier for Josmod.
+			
+			*/
+		
+			* (unsigned int *) (patp+2) = readWord(fp);
+			* (unsigned int *) patp = readWord(fp);
+			conv2Note(patp);
+			patp += 4;
+		}
+	}	
+
+	/* Load Samples */
+
+	samp = &amp;mp-&gt;Samples[0];
+	for (i=0;i&lt;31;i++) {
+		printf(&quot;Sample %d: %s\n&quot;,i,samp-&gt;Name);
+		if (samp-&gt;Length) {
+		
+			/* If the sample exists, allocate memory
+			for it, and read it in. Then fix up it's end 
+			pointer, then call fixSamp() to prepare it for
+			mixer output. */
+			
+			samdata = xmalloc((long) samp-&gt;Length + 128);
+			fread(samdata,1,samp-&gt;Length,fp);
+			samp-&gt;Samp = samdata;
+			samp-&gt;End = (unsigned long) samp-&gt;End + samdata;
+			fixSamp(samp-&gt;Looped, samp-&gt;End, samp-&gt;Replen, 128);
+			
+		} else samp-&gt;Samp = NULL; 
+		samp++;
+	}
+   	
+	/* Close the file and return successfully */
+	
+	fclose(fp);
+	return  1;
+}
+
+That's all for the loader! Now that patterns, orders, and samples are all
+loaded and in a suitable format, the player is ready to play it!
+
+Unfortunately that's all for now, as the player is quite a complicated topic,
+I'll save it for a later article. But before I finish, I do want to give you a
+basic outline of what happens in the player, so you can see where the mixer
+fits into all this.
+
+The Player
+----------
+
+Mods have two speed variables which control the way a mod is played. One is
+BPM, or Beats Per Minute. BPM specifies the speed at which the mod player
+routine is called, the default value is 125 BPM, or 50 times a second. As we
+all know, 50hz is the speed of PAL TV's, so it's no coincidence that this is
+the default, as it allowed Amiga players to setup their play routines on an
+interrupt synchronised with the screen, the same as with SID players.
+
+BUT since we don't have the luxury of having hardware to play the samples for
+us, it's not a good idea to hook our player to a raster interrupt, instead we
+calculate how many output samples need to mixed before we update our mod. We
+calculate that with the following:
+
+playbackrate / (BPM*2 / 5)
+
+This value is what I call the &quot;TickSize&quot;. Everytime the player is updated, it
+will mix TickSize bytes of samples, then loop and update the mod again, mix
+TickSize bytes again, etc..
+
+The other speed variable is the number of Ticks per beat, and defaults to 6.
+This means that the mod player only fetches the next row of pattern data every
+6 Ticks. E.g. After 6*TickSize samples have been mixed.
+
+Each channel in the Mod has assocatied with it, a mixer structure, which looks
+like this:
+
+typedef struct {
+	char *Samp;		// Current sample position
+	char *End;		// End or loop position
+	unsigned long Replen;	// How far to loop back
+	unsigned long Speed;	// Speed/pitch of sample
+	int Low;		// Fractional part of sample position
+	int Repeats;		// Whether or not it repeats
+	int *VolTab;		// Pointer to volume table
+	int Active;		// Whether to mix this channel 
+				// or not
+} MixChan;
+
+The player has to prepare these structures for each channel and on every tick
+update the appropriate fields depending on the data contained in the patterns.
+
+I'll leave you with psuedo code for what the player looks like:
+
+tickbeat = 6
+row = 64
+tickcount = 0
+orderup = 0
+make all channels inactive
+while (orderup &lt; numorders) {
+	if (row == 64) {
+		get next pattern from orders
+		orderup++
+	}
+	if (tickcount == 0) {
+		get row data from pattern
+		process note - set sample speed
+		process sample number - set sample position volume
+		process effect - speed, volume and position effects
+	} else {
+		process effect
+	}
+	mix ticksize samples
+	if (mixing buffer full) {
+		play buffer
+	}
+	tickcount++
+	if (tickcount &gt;= tickbeat) {
+		tickcount = 0
+		move to next row
+		row++
+	}
+}
+
+That's basically what the mixer does. The majority of the player code deals
+with effects processing, most of which are easy to process. Effects include:
+
+Portamento - sliding a note's pitch up or down.
+Volume setting/sliding
+BPM and Tick Beat changes
+Pattern looping
+Vibrato and Tremolo - Slight alterations in pitch and volume.
+
+Some effects are only processed on Tick 0, and some are processed on other
+ticks.
+
+Anyway that's all for now, the player code will be examined in a later
+article.  In the meantime you can view the source code in HTML form at:
+http://jos64.com/src/josmod.c.html
+.......
+....
+..    
+.                                    C=H #20
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+&lt;=============
+  The C64 Digi
+  =============&gt; Robin Harbron &lt;macbeth@psw.ca&gt;
+		   Levente Harsfalvi &lt;levente@terrasoft.hu&gt;
+		     Stephen Judd &lt;sjudd@ffd2.com&gt;
+
+Introduction
+------------
+
+Digis -- digitally sampled audio -- are fairly common on the 64.  This is
+meant to be a comprehensive article on digis: how they work, examples,
+different playback methods on the 64 (volume register and Pulse Width
+Modulation), and some tricks.  We'll even show you how to play 6-bit and
+even 8-bit digis in high quality on a 64, which is really pretty neat to
+hear.
+
+The first part discusses digis from a fundamental point of view -- just
+what a digi is, acoustic signals, and things like that.  The most common
+method of playing digis is via the volume register at $d418, and the next
+two sections are devoted to this technique.  Section two discusses some
+SID fundamentals, and the reason why $d418 may be used for digis (and why
+later-model SIDs don't play digis correctly); Section three discusses
+$d418-digis from a software perspective: how to play them, tricks for
+improving them, how to boost digis on 8580 SIDs, and how to detect what
+kind of SID (6581 or 8580) is in the machine.  The fourth and final part
+of this article discusses pulse width modulation, and includes example source
+code and a binary that plays a true 7-bit digi at around 16KHz -- something
+which, we think, has never been done before.
+
+Without further ado...
+
+===============
+Digis: Overview
+===============
+
+	The whole point of playing a digi on a 64 is to provide something
+for your ear to hear.  So let's begin by discussing just what an acoustic
+signal is and how that relates to digis.
+
+	Probably everyone knows that &quot;sound&quot; is how your ear responds to
+changes in air pressure -- that is, when you clap your hands together,
+it compresses the air between your hands in a special way, and that
+higher pressure moves outwards into the surrounding air (since it's at
+lower pressure).  That pressure change propagates along and when it
+encounters your ear it causes the ear drums to move, causing three little
+bones to move, causing some fluid to move, causing tiny, exquisitely
+sensitive hairs to move, transmitting a signal that your brain converts
+to &quot;sound&quot;.
+
+	An audio speaker also changes the air pressure in response to a
+signal.  If you take a coil of wire and change the voltage on it, it
+generates a magnetic field; if a magnet is placed inside the coil, the
+changing magnetic field will place a force on the magnet, causing it to
+move, causing some air to be pushed along, causing a change in pressure,
+causing a signal to propagate to your ear which your brain interprets as
+Van Halen.  All a stereo (CD player, etc.) does is send a varying voltage
+signal to the speaker.  As that voltage level goes up and down the magnet
+moves back and forth, and so the speaker converts that electrical energy
+into an accoustic wave.
+
+	For us, the trick is to coax SID into sending a specific voltage
+signal to the speaker, the way a stereo or CD player might.  And a CD player
+is of course a very apt comparison, since it is itself a digi player.
+
+	Just for reference, a really good pair of ears can hear signals from
+around 20Hz to 22KHz, with the sensitivity dropping considerably outside
+of around 100Hz to 10KHz.  A CD player has a playback rate of 44KHz, and
+the highest frequency SID can generate from the frequency registers is
+around 4KHz.  If you've ever set SID to maximum frequency and heard just
+how high 4KHz is, you can appreciate that even 10KHz is _really_ high, and
+actually quite difficult to hear.  In human speech, most of the information
+content of vowel sounds is contained in the range 300Hz - 3KHz, and above
+around 1KHz for consonant sounds; most information in musical sounds is in
+the range 100Hz - 3KHz.
+
+Discrete Sampling
+
+	To understand digis a little better, consider the more general
+case of a discretely sampled signal -- a continuous signal sampled at
+discrete time intervals.  Let's say we had some device producing a
+_continuous_ sinusoidal signal in time:
+
+                     
+         *  *
+      *        *
+    *            *
+   *              *
+  *                *
+ *                  *                      *
+*                    *                    *                
+                      *                  *
+                       *                *
+                        *              *
+                         *            *
+                           *        *
+                              *  *
+-----------------------------------------------&gt; time
+
+(yes, I did miss my calling as an ASCII artist)
+
+To turn the signal into a _discrete_ signal, we simply sample the
+signal at discrete intervals of time.  For example, let's say the above
+signal lasts one second, and is input into a device which measures the
+value every 1/4-second.  The device will spit out four numbers: 0, 1, 0,
+and -1:
+
+          *
+
+
+*                   *
+
+
+                              *
+
+The sampling frequency here is four samples per second -- 4 Hz.  If we were
+to then play back this signal at the sampling frequency, we'd get a signal
+like
+
+          **********
+
+
+**********          **********
+
+
+                              **********
+
+So one thing sampling does is to &quot;staircase&quot; a signal -- the sample becomes
+some sort of &quot;average&quot; value over the sample period.  Increasing the sample
+rate -- taking more samples per second -- will smooth things out, and the
+sampled signal will look (and sound!) more like the original signal.
+
+Now let's say we just took two samples in that one second -- 2 Hz sampling
+rate -- and just happened to catch the signal at its maximum and minimum
+values (the peak and trough).  Upon playback, the signal would look like
+
+*********************
+                    *
+                    *
+                    *
+                    *
+                    *
+                    *
+  		    *********************
+
+That is, a square (pulse) wave.  If you're on the ball, you've noticed
+that the frequency of the new signal is 1 Hz -- exactly half the sampling
+frequency.  This is also called the Nyquist frequency.  In general, the
+_maximum_ frequency that can be captured in a discrete sample (called the
+Nyquist critical frequency) is half the sampling frequency -- as you can
+see above, it takes two data points to get a single (nonzero) frequency.
+So, for example, the highest frequency a CD player -- which has a sampling/
+playback rate of 44KHz -- can capture is 22KHz, well above the range of
+normal human hearing.
+
+Thus, increasing the sample rate increases the frequency range captured
+in the discrete signal.  This is why a digi at a high sample rate in general
+sounds better than a digi sampled at a low sample rate.
+
+BUT -- there is more to life than sample rate: there is also sample
+resolution.  The sample resolution -- 4-bit samples, 8-bit samples, etc. --
+determines how accurately the sample measures the actual signal.  For
+example, let's say we sample sin(x) when x=0.5:
+
+	sin(0.5) = 0.4794255...
+
+No matter what sample resolution we use, there will always be some error
+in the measurement, and the _true_ value of the sample will be the
+_measured_ value plus some error.
+
+In general the sampling errors are random and uniformly distributed, so
+the sampled signal corresponds to the original signal plus some noise (the
+random errors).  That is why you almost always hear some sort of hiss on
+a normal C64 digi, which uses a resolution of 4 bits per sample.
+
+So, increasing the sample _resolution_ decreases the amount of noise introduced
+into the sampled signal (and increases the dynamic range), and increasing the
+sample _rate_ increases the frequency range.
+
+
+If you're _really_ on the ball, you've noticed that the 1-Hz square pulse
+above actually contains frequencies higher than 1Hz, simply because a
+square pulse contains higher harmonics in addition to the 1Hz fundamental
+frequency.  And you've also no doubt realized that the sampled pulse wave
+would sound different than the original sine wave (due, of course, to the
+added harmonics) -- it's at the right frequency, but it will sound like a
+pulse wave instead of a sinusoid.
+
+Have we somehow broken the Nyquist limit?
+
+The answer is no, because of a nifty thing called the Discrete Sampling
+Theorem, which says that, given the samples h_n of a bandwidth-limited
+function h(t), the original function h(t) is given by
+
+	h(t) = dt * Sum{ h_n * sin(2*pi*f_c*(t-n*dt)) / (pi*(t-n*dt)) }
+
+where dt is the sampling period and f_c is the cutoff/critical frequency.
+
+What this means is that the original signal can be _reconstructed_ from the
+discrete samples, not that it is _equivalent_ to the discrete samples.
+The Nyquist limit is the highest frequency that can be _reconstructed_ from
+the discrete samples, not the highest frequency that will be produced if you
+&quot;staircase&quot; the discrete samples through a speaker.  If the original
+signal is bandwidth-limited, and there are at least two samples for the
+highest frequency, then the signal can be completely reconstructed.
+
+Since a &quot;normal&quot; digi contains all these extra frequencies, shouldn't a digi
+sound &quot;different&quot; than a &quot;true&quot; analog signal?  Sure.  On the other hand, many
+of the extra frequencies are beyond the range of human hearing, and the rest
+can often be removed using a filter -- all CD players filter the output, for
+example.  So sometimes it is worthwhile to turn on a low/band pass filter
+when playing a C64 digi, especially at lower sample rates.
+
+And that more or less summarizes basic discrete sampling theory.
+
+
+=============
+D418 Playback -- Hardware
+=============
+
+The SID contains both analog and digital subparts on one silicon plate -- in
+other words, it is a mixed signal device.
+
+At the time, the SID was certainly the best of the microcomputer sound chips.
+This may be mostly due to its mixed signal design, which the designers used
+to solve certain problems.
+
+The hard thing in a sound generator design is to implement waveforms, volume
+control, and mixing. Things like that don't really fit into the digital
+'either 0 or 1' philosophy, unless lot of data bits and arithmetic functions
+are involved. In a fully digital sound chip, the waveforms could be generated
+by ROM lookup tables. The mixing function could be derived from binary
+addition, while the volume control from division or multiplication. Unless the
+sound functionality is greatly simplified, the arithmetic functions must be
+present and they must be implemented in hardware. Finally, the D/A conversion
+could be done by (fast) pulse width modulation just at the output stage.
+(Most of today's wavetable sound cards operate like this).
+
+This method implies heavy arithmetic hardware, which was not an option for
+designers back then. Still, most sound chips were fully digital, and all
+suffer from the required compromises (i.e. generating square waves only,
+no dedicated channel volume control, etc. - both TED and the VIC-I are obvious
+examples).
+
+The solution that one finds in the SID design is very straightforward: mixing
+and variable volume level is problematic in a digital circuit when dealing
+with waveforms, so simply avoid doing it. In the SID, only the microcomputer
+interface, the registers, the oscillators (phase accumulating oscillators),
+and other controller logic are digital; the mixing and volume control parts
+are fully analog. There are digital to analog converters providing analog
+voltage levels from the digital state variables. The SID D/As are in fact
+'multiplying' D/As, having an analog input (AIN), an input base voltage
+(IBASE), and a digital input. They operate by amplifying the input voltage
+offset (AIN-IBASE) by a factor proportional to the number on the digital input
+and adding this offset back to the base level.
+
+This mixed signal design also allowed some other features to be implemented. 
+The most important one is the analog filter (that is, a two integrator loop,
+bi-quadratic filter, according to Yannes). With that, the SID points beyond a
+home computer sound chip - it is a true analog subtractive synth (marketing as
+such was cancelled because of manufacturing capacity reasons).
+
+Here is a detailed map on the SID inners (analog path; probably my most
+beautiful ASCII ever :-D). Info can be found in the SID patents (US 4,677,890;
+1986), the MOS 6581 technical document (can be found somewhere on the Net), or
+the back of the Programmer's Reference Guide (PRG).
+
+
+                -----------------  11bit  ------------
+                |Cutoff freq reg|--------&gt;|Cutoff D/A|---------o
+                -----------------         ------------         |
+                    $d415-16                                   |
+                                                               |
+                -----------------  4bit   ------------         |
+                |Resonance reg. |--------&gt;|Reson. D/A |-o      |
+                -----------------         ------------- |      |
+                    $d417.[4-7]                         |      |
+                                                        |      |
+                                 =0                     v      v
+-----------    -----------     &gt;o------------&gt;|    ------------------
+|wave D/A |---&gt;|env. D/A |--&gt;o/               |    |                |
+-----------    -----------      o---&gt;|        |    |                |
+     ^              ^          ^ =1  o--------|---&gt;|                |
+     |12bit         |8bit      |     |        |    |                |
+     |              |          |     |        |    |                |
+-----------    -----------     |     |        |    |                |
+|OSC1 +   |    |ADSR cnt+|     |     |        |    |                |
+|wave sel.|    |env. log.|     |     |        |    |                |
+-----------    -----------     |     |        |    |                |
+$d400-03,      $d405-06,    $d417.0  |        |    |                |
+$d404.[1-7]    $d404.0               |        |    |     FILTER     |
+                                     |        |    |                |
+                                 =0  |        |    |                |
+-----------    -----------     &gt;o----|-------&gt;|    |                |
+|wave D/A |---&gt;|env. D/A |--&gt;o/      |        |    |                |
+-----------    -----------      o---&gt;|        |    |                |
+     ^              ^          ^ =1  |        |    |                |
+     |12bit         |8bit      |     |        |    |                |
+     |              |          |     |        |    |                |
+-----------    -----------     |     |        |    |                |
+|OSC2 +   |    |ADSR cnt+|     |     |        |    |                |
+|wave sel.|    |env. log.|     |     |        |    |                |
+-----------    -----------     |     |        |    |                |
+$d407-0a,      $d40c-0d,    $d417.1  |        |    |                |
+$d40b.[1-7]    $d40b.0               |        |    | LP   BP   HP   |
+                                     |     =0 |    ------------------
+                                 =0  |    &gt;o-&gt;|       |    |    |
+-----------    -----------     &gt;o----|--o/    |   *** o    o    o  
+|wave D/A |---&gt;|env. D/A |--&gt;o/      |     o- |      /    /    /
+-----------    -----------      o---&gt;|  ^  =1 |   =0 V    V    V   =1
+     ^              ^          ^ =1  |  |     |      o o  o o  o o
+     |12bit         |8bit      |     |  |     |      | |  | |  | |
+     |              |          |     |$d418.7 |&lt;-------o    |    |
+-----------    -----------     |     |        |&lt;------------o    |
+|OSC3 +   |    |ADSR cnt+|     |     |        |&lt;-----------------o
+|wave sel.|    |env. log.|     |     |        |
+-----------    -----------     |     |        |
+$d40e-11,      $d413-14,    $d417.2  |        |
+$d412.[1-7]    $d412.0               |        |    -----------------
+                                     |        |    | Master volume |AUDIO
+                                 =0  |        o---&gt;|     D/A       |-----&gt;
+                               &gt;o----|-------&gt;|    ----------------- OUT
+EXT IN ---------------------&gt;o/      |                     ^
+                                o---&gt;|                     |4bit
+                               ^ =1           ^            |
+                               |              |       $d418.[0-3]
+                            $d417.3  ^        |
+                                     |        |
+                    Analog mixing ---|--------|
+
+***: Filter type select switches, $d418.[4-6] respectively
+
+
+$d418 digis
+-----------
+
+The most common method of playing a digi is to use the register at $d418.
+When someone plays a digi using the master volume register, the situation is
+similar to the waveform D/A converters. Both D/As are multiplying D/As --
+signal amplifiers whose amplification is proportional to the input digital
+number. If there is a nonzero signal offset on the D/A input it will be
+multiplied proportionally by this number.
+
+Playing digis with $d418 is possible because there is indeed a relatively
+large DC voltage offset on the master volume D/A. This offset is present
+right from the moment when the SID is powered up.
+
+Where can this DC offset come from?
+
+There is a mixer before the master volume D/A (see figure). If there's a DC
+offset on the D/A input, it must come from there. ...And going further,
+the DC offset on the mixer must also come from somewhere.  But where?
+
+Signals come from the three ADSR volume D/As, the EXTIN line, and the three
+outputs of the filter. Fortunately, all paths that go to the mixer have analog
+switches (all paths can be disconnected from the mixer individually, if that's
+needed).
+
+The above analog switches are driven by the filter selection bits ($d417 bits
+0-3), the voice 3 off bit ($d418 bit 7) and the filter type selection bits
+($d418 bits 4-6).
+
+After a reset, the filter selector bits are all 0 (all signals are routed
+towards the master mixer), the 'voice 3 off' switch is on, and the filter type
+selector bits are 0 (filter outputs are unconnected). In this state, only
+EXTIN and the three SID voice signals are present on the mixer. EXTIN can
+be eliminated as the source since it has no DC offset (as long as the computer
+was not hacked, see notes on the 8580).
+
+The ADSR volume D/A is similar to the previously mentioned multiplying D/As.
+If the digital number on the input is 0, the input analog signal offset can't
+pass through (as measurements verify). This is the case when SID is reset,
+setting the envelope counters to zero.  Therefore, nothing behind the ADSR
+multiplying D/As can have any effect on the DC offset of the mixer.
+
+So, the DC offset must come from the ADSR multiplying D/As. Another
+measurement shows that even the mixer itself has a small DC offset.
+
+
+Tests and results
+-----------------
+
+I did some tests that support this theory. They were done 'by hand', by simply
+using a digital voltmeter + the FC3 monitor.
+
+The chip was a 6581(R1), 0883, Hong Kong (an early 6581).
+
+When turned on the voltage on the AUDIO OUT was about 5.5 volts (slowly
+decreasing as it warmed up, stopping at about 5.43 after some 10 mins - all
+subsequent tests were done after this time period).
+
+Writing $0f to $d418 raised the output voltage to 6.15 volts. Therefore, the
+maximum output amplitude that can be achieved when playing digis is 0.72 volts
+in this 'mode' (without wiggling any other SID settings to achieve higher
+voltage levels) -- remember that what counts is the maximum voltage
+_difference_, not the maximum absolute voltage.
+
+The next test is to determine if the mixer has its own DC offset (with all
+possible paths are disconnected). It's possible to do. With the volume at
+maximum (to maximize any effect), all voices are routed towards the filter
+($d417 = $0f), while making sure that the filter outputs are not routed to the
+mixer ($d418 = $0f). In this state no paths can drive the mixer. The result
+is 5.39 volts. When the volume changes, the output also changes towards the
+previous 5.43 volts --&gt; there is a (very small) DC offset from just the mixer.
+
+What could be the DC offset value of each individual SID voice (i.e. the base
+level difference of the multiplying D/As)?  Doing the above, but leaving one
+voice routed to the mixer ($d417 = $0e, $0d or $0b) gives 5.69 volts.
+5.69-5.43 = 0.26 volts, and 5.43 + 3*0.26 = 6.21, almost 6.15 volts.
+
+To determine if the ADSR multiplying D/As act as expected, I used pulse
+waves with zero frequency and 0 or $fff pulse width (two cases), to make the
+input signal of the ADSR multiplying D/A the minimum and maximum possible
+level. After careful checking, the output changed a few hundredth volts
+(about 0.01 volt per voice).  So the D/A doesn't close up completely, but
+it's still O.K.
+
+To prove that these offsets are equal for all voices, I did another test. Some
+people know that the filter inverts phase (multiplies the input signal by -1).
+Machine is reset, $d417 = $01, $d418 = $9f. (Voice 1 is routed through the
+filter, voice 3 is cut off from the mixer completely ($d418.7), low pass
+filter is selected, volume = $0f). The output voltage was 5.41 volts, just
+very slightly below the &quot;default&quot; output level. This means that the DC of
+voice2 + (-1*) DC of voice 1 resulted in about 0 relative offset. Doing
+similar tests proved that the DC offsets for the voices match each other
+almost exactly (within a few hundredths of a volt).
+
+These measurements all support the idea that the DC offset comes from the
+ADSR multiplying D/As, that the offset is mostly independent from the waveform
+D/A converters (as long as sustain levels are 0), and that the offsets are
+equal for all voices. In addition, a small DC offset is supplied by the master
+signal mixer itself.
+
+What if we try different sustain settings? For this test, set the volume to
+maximum, as usual. Set the sustain level to $0f for all voices ($d406, $d40d,
+$d414 = $f0). Start the attack, but with no waveform selected ($d404, $d40b,
+$d412 = 01). The output level is now 5.21 volts, a little bit below the '0'
+offset of the audio output! (Doing the test with just one voice (all 
+others disconnected), the output is 5.29 volts).
+
+Finally, we can do some experiments with the pulse waveform.  The pulse
+waveform is useful for these tests, since at zero frequency we can set both
+the minimum and the maximum constant DC levels at the voice D/A just by using
+the pulse width registers. Reset the computer. Set voice 1 to zero frequency,
+pulse level $0fff, sustain level 15, and $d404=$41 (pulse waveform + gate on).
+Route only voice 1 through the mixer ($d417 = $0e). The output voltage is
+similar to the test when no waveform was selected -- 5.29 volts! This seems to
+show that &quot;waveform accu = $0fff&quot; is the same as when no waveform is selected
+(i.e. the waveform D/A digital input pins are pulled high when they're not
+driven, as seen in most other NMOS chips).
+
+When the pulse width is 0 in the above test the output changes to 6.34 volts.
+This seems to be strange (a multiplying D/A giving higher signal level for
+multiplying something by 0).
+
+Now, when the ADSR multiplying D/A is closed, the output is 5.70 volts. When
+it's fully open, the output changes from 5.29 volts (wave acc= $fff) to 6.34
+volts (wave acc = 0). One reasonable answer is that the base voltage of the
+waveform D/A is higher, and the analog input is tied lower than the base
+voltage of the ADSR D/A -- the effect is that the SID waveforms will lie
+'around' the ADSR multiplying D/A base voltage, more or less symmetrically.
+
+This was surely done intentionally, to reduce absolute voltage levels (for
+linearity).  In the 6581, the big DC offset is probably a result of having the
+ADSR D/As and the master volume D/A at different base levels (the difference
+appears as true DC offset on the master volume D/A). If both were the same
+(presumably at VDD/2), and the waveform D/A parameters were selected similarly
+(operation is symmetric to VDD/2), there would be no final DC offset at all.
+Rather like the 8580...
+
+
+Other issues
+------------
+
+So now we know why $d418 digis are possible - but still, there are some things
+to note.
+
+The DC offset on the master volume D/A changes with different SID settings,
+and whatever affects the DC offset on the mixer will affect the digi
+volume. For example, even the filter output signals have a small DC offset.
+Just do a test - set the volume to 0f, then simply turn one filter route on
+(for example, $d418 = $1f). You'll hear a small click (i.e. a small DC offset
+change on the mixer), even if the filter has no input.
+
+Moreover, as seen above, the DC offset can be eliminated completely (just by
+SID register settings), leading to no audible digi sound at the output.  In
+other words, whatever affects the DC offset on the mixer _will_ affect the
+digi volume.
+
+One place where this is important is playing a digi with a tune: there's a
+constantly changing signal going to the mixer instead of a constant DC offset,
+so playing a digi on the master volume also causes distortion for both the SID
+voices and the digi sound (since they're cross modulated). To reduce this
+effect most 3+1 like SID + digi players play samples by writing 8-offset sample
+values to $d418 (ie. adding 8 to 3-bit sample values and writing this to $d418
+- see players used by Jeroen Tel and other famous composers using digi). This
+trick reduces the modulating effect while still maintaining good digi volume.
+
+The DC offsets used to create awful clicking sometimes. For example, the
+filter inverts phase. If the filter is currently routed to the mixer, there'll
+be a large 'click' (2 times the DC offset) when a voice is on and its routing
+is changed to or from the filter.
+
+
+The 8580
+--------
+
+This is a completely redesigned chip. I don't know details, but it was
+probably redesigned by the time all other chips in the C64 were done for CSGs
+new manufacturing technology and the C64c. It is a 'better' chip from the
+technical side (but in my opinion it sounds crude in comparison to the 6581,
+at least the R4 series). The 6581 was designed in months. Bob Yannes had to do
+everything from scratch and use the manufacturing technology MOS currently had
+(NMOS). And it shows.  First, it has high background noise. The DC offsets are
+really also a misfeature. The D/A converters are sometimes non-monotonic (at
+least, the waveform D/As and the filter cutoff D/A have some drops at the
+change of the most significant bits). The op-amps in the active (resonant)
+filter are simple, linearized NMOS inverters ;-) (loopbacked, they act like
+more or less linear op-amplifiers around VDD/2). And I still haven't mentioned
+bugs in the digital side (ADSR envelope bugs). Because of the above, one
+probably won't find two identical 6581 chips -- each sounds a little bit
+different (mostly due to the filter). Since the active components of the
+filter are far from ideal, the filter is strongly nonlinear (the cutoff curve
+changes with signal amplitude). On the other hand, these things are what make
+the SID sound so unique.
+
+Most of the problems were fixed in the 8580. It has much less background
+noise. The chips sound the same (there are hardly any differences between
+different 8580s). Most of the DC offset issues (the clicks) were elminated. It
+needs less power, and lower VDD level. Something was changed also in the
+digital logic, but the ADSR part was not touched. The 'combined' waveforms are
+a bit different (and more useable from the musician's point of view).
+
+The clicks were reduced, which means that there is no (or no significant) DC
+offset on the master volume D/A in the 8580.
+
+(I have not done any measurements, but after listening to a lot of 3+1 channel
+type musics, I have a strong suspicion that even if sounds are turned on, the
+average DC offset on the master volume D/A is still minimal).
+
+To fix this in software, you'll have to wait until the next section of this
+article.
+
+To fix this in hardware, people use a simple hack: take a resistor of about
+330k and tie the SID EXTIN line to GND through that (directly, beside the
+chip, on the mainboard).
+
+The EXTIN line goes directly to the mixer, and thus the master volume D/A, or
+can also be routed through the filter. In either case, unless the filter is
+disconnected, the above hack will give a pretty large DC offset, similar to
+the original 6581s. So, digi sounds can be played :-) (even with SID music
+playing simultaneously, similar to the 6581).
+
+This solution is good as a work around, but there's one thing to note: this is
+not completely the same as the 6581 ADSR D/A offset voltage. At least, this
+offset is negative (should that pin rather be tied to VDD?). Programs that
+depend on the 6581s way of DC offsets will not work correctly (but I know of
+very few such programs, so at worst you'll experience slightly different digi
+sound only occasionally -- but hey, the 8580 sounds different anyway). Another
+problem is that when EXTIN is routed through the filter the DC offset may
+cause strong distortion since the DC operating point of the filter is changed
+-- bad news if the 'semi-linear' amplifiers in the filter are picky about
+absolute DC level.  Some music (not neccessarily involved with digis) indeed
+do route EXTIN through the filter, for noise reduction on older C64s (with the
+earlier C64 mainboards that pick up lots of 'digital' background noise from
+EXTIN). DC distortion can also occur occasionally for the same reason but on
+the master volume D/A (the higher the difference from VDD/2, the greater the
+risk of experiencing nonlinearity and clipping distortion).
+
+
+Some final words
+----------------
+
+A lot of this information comes from Dag Lem, who is certainly the No. 1 SID
+hacker for me ;-). Take a look at reSID, his SID emulator library (the sources
+can be downloaded from somewhere). reSID contains so much reverse engineered
+information of the real SID that you won't believe it -- check it out if
+you're interested.
+
+
+=============
+D418 Playback -- Software
+=============
+
+$D418 digis are by far the most common playback method.  The volume register
+gives 16 different amplitudes (0-15), and so can provide 4-bit digi playback.
+
+In its most basic form, this is an extremely easy routine to code.  Simply
+load each 4-bit sample, and store it in the volume register ($d418).
+Assuming $fd/$fe are pointing to the beginning of a series of samples, the
+following code will play it back:
+
+	 ldy #0
+
+:loop	 lda ($fd),y
+	 sta $d418
+
+	 ldx #5 ;some delay value
+:delay	 dex
+	 bne :delay
+
+	 iny
+	 bne :loop
+
+	 inc $fe
+	 jmp :loop
+
+The ldx #5 would have to be adjusted depending on the speed of the
+sample - the lower this number (not including zero) the faster the
+sample will play back.
+
+There are a number of improvements we could make to this code - first
+of all, this method takes twice as much RAM to store the sample as is
+necessary.  Because we're dealing with 4-bit samples, we can store 2
+samples in each byte.  This can be handled simply by alternately
+masking out the high bits (with AND #15) to play the sample stored in
+the low nybble, and by shifting the high nybble down to the low nybble
+to play the high nybble (LSR : LSR : LSR : LSR).  A lookup table may also
+be used to save processor cycles (but use more RAM).
+
+Another improvement is to move the routine to zero-page, and use self-
+modifying code.  In general, this results in the fastest digi players.
+
+We should of course have the routine check for the end of the sample --
+typically just checking the high byte of the zero-page pointer is enough
+(in this case, checking $fe).  Typically digis are page aligned anyway, so
+just zeroing out the unused part (if any) of the last page is fine.
+
+Finally, it is often important that each sample of a digi is played back
+at regular intervals.  If the samples aren't played at a steady speed,
+extra distortion is audible.  In the example above, playback is steady
+for a full page (256) of samples - but several extra cycles are added
+by incrementing the zero-page pointer to the digi.  The situation
+worsens when we start adding extra code to check for the end of the
+digi, and even the main loop starts getting irregular when we add the
+code for the simple form of packing discussed earlier (2 4-bit samples
+per byte). 
+
+These problems can be solved by careful cycle counting and adding NOP
+and harmless BIT instructions in strategic places to make each
+iteration the same number of cycles, regardless of which branch is
+taken - people who have written a stable raster routine, or done some
+Atari 2600 coding have likely done this sort of painstaking work
+before.
+
+
+NMI-driven digis
+----------------
+
+More commonly, however, we enlist the help of CIA #2 and have it
+generate regular Non-Maskable Interrupts which we use to call our digi
+player.  This has two important advantages - first, it makes timing
+much more simple.  Second, it frees your main program to do other
+things while the digi is playing &quot;in the background&quot;.
+
+To experiment, I pulled a 4-bit packed digi from the extras disk
+included with Super Snapshot 5.22.  It's the beginning seconds of the
+introduction to Classic Star Trek (Space, the Final Frontier).
+
+Here's the source for a fairly &quot;frills-free&quot; NMI based digi player,
+with my comments after blocks of code:
+
+start    = $1400
+end      = $7cff
+freq     = 141
+ptr      = $fd
+
+Labels start and end simply point to the beginning and end of the
+digi.  Freq isn't actually the frequency - it's the number of
+processor cycles between interrupts necessary to play the digi at the
+desired speed/pitch.  If you know the frequency (in hz) of the digi,
+simply divide your CIA clock speed (approximately 1000000 hz) by the
+digi frequency.  In this case, the digi runs at approximately 7100 hz.
+
+We use two zero page locations to form a 16-bit pointer to the current
+sample in the digi to play.
+
+         *= $1000
+
+         ;disable interrupts
+         lda #$7f
+         sta $dc0d
+         sta $dd0d
+         lda $dc0d
+         lda $dd0d
+         sei
+
+This code simply disables interrupts and initializes both CIA timers.
+
+         ;blank screen
+         lda $d011
+         and #255-16
+         sta $d011
+
+Just like erratically timed code can introduce distortion when a digi is
+played back, the VIC steals cycles from the processor that can cause
+interrupts to not occur precisely when you'd like them to.  This routine will
+work without the screen blanked, but the extra noise introduced when the
+screen is on is noticeable when the time between samples is less than around
+2.5-3 times the time the processor is stopped.  Another option is to use some
+multiple of the raster timing as the sampling rate, and start the routine on a
+non-badline, to ensure that the interrupts never occur on a badline.  (A final
+option is to use a raster-driven interrupt for the digi; with the SCPU, it is
+actually possible to drive an IFLI display and play a digi at the same time,
+badlines and all -- email Robin for more info, or maybe wait for a future
+article!).  But the simplest thing to do is to blank the screen :).
+
+         ;switch out roms
+         lda #$35
+         sta 1
+
+         ;point to our player routine
+         lda #&lt;nmi
+         sta $fffa
+         lda #&gt;nmi
+         sta $fffb
+
+Unless using the KERNAL routines is necessary in my program, I always
+switch out the ROMs.  One of the biggest benefits is that our NMI
+routine will be immediately called, rather than using $0318/$0319 and
+waiting for the KERNAL to indirectly call your routine.
+
+         ;initialize player
+         lda #&lt;start
+         sta ptr
+         lda #&gt;start
+         sta ptr+1
+
+         ldy #0
+         sty flag
+         lda (ptr),y
+         sta sample
+
+This section simply initializes the various memory locations that the
+player uses - sets ptr/ptr+1 to point to the beginning of the digi,
+loads the first sample, and clears the flag that handles the
+alternating between the lower and upper nybble of the packed samples.
+
+         ;setup CIA #2
+         lda #&lt;freq
+         sta $dd04
+         lda #&gt;freq
+         sta $dd05
+
+Sets Timer A on CIA #2 to freq.  
+
+         lda #%10000001
+         sta $dd0d
+
+Enables Timer A interrupts on CIA #2.
+
+         lda #%00010001
+         sta $dd0e
+
+Sets Timer A to run in continuous mode.  As soon as Timer A counts
+down to zero, it will automatically be reloaded to the last writes to
+$dd04/$dd05 and begin counting down again.
+
+endless  jmp endless
+
+For this example, we just put the computer in an endless loop.
+
+nmi
+         pha
+         txa
+         pha
+         tya
+         pha
+
+         ;play 4-bit sample
+         lda sample
+         and #15
+         sta $d418
+
+We play the sample while all the code is still linear - before any
+branches have occurred.  This is to minimize the distorting effects I
+mentioned earlier.  The AND #15 is used so we don't inadvertently
+enable the filter bits in $d418 with the high nybble packed into
+sample.
+
+         ;clear NMI source
+         lda $dd0d
+
+By reading $dd0d, we are acknowledging the source of the interrupt,
+and the CIA will now generate another interrupt next time Timer A
+counts down to zero.
+
+         ;just something to look at
+         inc $d020
+
+         ;every other NMI do 1) or 2):
+         lda flag
+         bne lower
+
+Now we deal with &quot;unpacking&quot; the samples.
+
+         ;1) shift upper nybble down
+upper    lda sample
+         lsr a
+         lsr a
+         lsr a
+         lsr a
+         sta sample
+         jmp exit
+
+When flag is set to zero, we shift the high nybble of sample down to
+the low nybble so it's ready to be played next NMI.
+
+         ;2) get a new packed sample
+         ;   then point to next
+lower    ldy #0
+         lda (ptr),y
+         sta sample
+         inc ptr
+         bne checkend
+         inc ptr+1
+
+When flag is set to one, we load a new packed sample into sample, and
+point ptr at the next packed sample.
+
+         ;if end of sample, point to
+         ;beginning again
+checkend lda ptr
+         cmp #&lt;end
+         bne exit
+         lda ptr+1
+         cmp #&gt;end
+         bne exit
+
+         lda #&lt;start
+         sta ptr
+         lda #&gt;start
+         sta ptr+1
+
+Simply check for the end of the digi, and if we've reached it, loop
+back to the beginning of the digi.
+
+         ;toggle flag and exit NMI
+exit     lda flag
+         eor #1
+         sta flag
+
+         pla
+         tay
+         pla
+         tax
+         pla
+         rti
+
+         ;sample's lower nybble holds
+         ;the 4-bit sample to played
+         ;next NMI - the upper nybble
+         ;holds the next nybble to be
+         ;played on &quot;odd&quot; NMIs, and is
+         ;undefined on &quot;even&quot; NMIs.
+sample   .byte 0
+
+         ;flag simply toggles between 0
+         ;and 1 - used to decide whether
+         ;to play upper or lower nybble
+flag     .byte 0
+
+
+Improving D418 Digis
+--------------------
+
+D418 digis tend to generate a lot of noise, because, of course, the 4-bit
+sample resolution.  Over the years people have come up with numerous tricks to
+improve the sound of a d418 digi; here are some that we know of and have tried.
+
+The first, and most obvious, thing to do is to use the low-pass filter, since
+a lot of the noise is at higher frequencies.  Unfortunately this won't work,
+since the filters occur in SID before the volume amplifier -- all the filters
+can do is change the DC offset that makes the digi possible.  This trick
+will work for methods that use SID voices, however (such as Pulse Width
+Modulation, discussed in the next section).
+
+Another trick is to &quot;dither&quot; the sound, as discussed in C=Hacking #11.  The
+idea here is to generate an intermediate &quot;average&quot; value by toggling between
+two values.  For example, if d418 is set to '8' half of the time, and '9' the
+other half, its 'average' value will be 8.5.  So this is somewhat like adding
+an extra bit of resolution.  In principle, you can extend this further: if it
+is '8' one-third of the time and '9' for the remaining two-thirds, the average
+value will be 8.66.  And so on.
+
+Now, we aren't _really_ increasing the sample resolution here, but are instead
+increasing the sample playback rate -- we're playing two samples ('8' and '9'
+for example) where before we played just one.  Don't get too carried away
+thinking about &quot;average&quot; voltage levels (after all, there is an average
+voltage for the entire digi but that's not what you hear!) -- what's important
+is how well the sampled signal represents the original signal.  If the
+original signal is rising from 8 to 9 during the sample interval, this type
+of trick will work well.
+
+Which leads us to another trick: interpolation.  This is really a compression
+trick, more than a 'resolution' trick.  Let's say that one sample value is 5,
+and the next value is 9.  It might be reasonable to expect an 'intermediate'
+value of 7, to play right after the 5.  Once again, the idea is to increase
+the playback rate to better-represent the original signal.  This type of trick
+increases the playback rate without increasing the amount of data -- and as
+always, your mileage may vary.  Many modern soundcards and CD-players use
+interpolation.
+
+Another curious trick is to add noise to the signal -- that is, the 4-bit
+sample corresponds to the original signal plus noise.  Sometimes, by adding
+noise to the signal playback the noise can actually cancel!  The 'dithering'
+trick above can be viewed in this way.
+
+
+Boosting 8580 Digis
+-------------------
+
+As most people know, there are 'old' SIDs (6581) and 'new' SIDs (8580), and
+$d418 digis do not work right on 8580 SIDs, (such as in the 128D, most 128s,
+and the 64C) for the reasons discussed earlier -- the 8580 does not have a
+residual voltage leading into the amplitude modulator.
+
+The software fix for this is pretty simple: have SID generate a signal, and
+hence a voltage, for the volume register to modify.  You can actually use
+pretty much any waveform to do this, but a pulse is the simplest, since a
+pulse wave just toggles between two voltage levels.  Moreover, page 463 of 
+the PRG says, &quot;The TEST bit, when set to a one, resets and locks Oscillator 1
+at zero until the TEST bit is cleared.  The Noise waveform output of
+Oscillator 1 is also reset and the Pulse waveform output is held at a DC
+level.&quot;  So it's not really necessary to worry about the frequency or pulse
+width, by using the test bit.
+
+BUT -- it is very important to set the sustain level to $f.  The ASDR envelope
+generators generate the voltage.  A sustain level of 0 gives no improvement.
+
+So, to 'boost' a digi on a later-model SID, you can just turn on a pulse with
+the test bit set:
+
+	LDA #$FF
+	STA $D406
+	LDA #$49
+	STA $D404
+
+Setting more voices gives the digi a substantial extra boost:
+
+	LDA #$FF
+	STA $D406
+	STA $D406+7
+	STA $D406+14
+	LDA #$49
+	STA $D404
+	STA $D404+7
+	STA $D404+14
+
+The moral is: if you're writing a digi routine, and want it to work on all
+computers, be sure to boost the digi.
+
+And for completeness, using more channels is a commonly used trick to enhance
+digi resolution on the Plus/4. The TED digi resolution (the volume register)
+is 3 bits.  Fortunately, all channel on/off bits + the volume level are in the
+same register ($ff11). If one source is on, the output DC is about half of the
+level when both are turned on. This trick can be extended further to results
+in a 'semi 4-bit' or 5-bit digi table (the dynamic range is enhanced, but
+there are larger steps at the table end than at the start).  This trick could
+also be used in SID if the sound sources were accurately preset, but runs into
+problems due to the non-matching SID-versions and having the control bits in
+multiple registers.
+
+
+SID Type Auto-Detect
+--------------------
+
+The following routine will detect what type of SID is in use.  I've
+tested it on a fair cross-section of my collection of computers - my
+NTSC 128D, two 64Cs, two &quot;breadbox&quot; C-64s, and my PAL breadbox 64.  In
+all cases the code performed 100% accurately - but still, there may be
+cases where it fails.  I'd be interested to know if anyone finds any
+faults in the routine, so I can improve it!
+
+How does the routine work?  I was told that the old SID (6581) and the
+new SID (8580) behave differently when set to play combined
+waveforms.  I coded a fairly simple routine to use the REU to sample
+$d41b (the upper 8 bits of Oscillator 3's waveform output) for a full
+64k bank.  Then I experimented with various frequencies and
+combinations of waveforms on Oscillator 3 until I found consistently
+different results with the two different SIDs.
+
+When I combined the triangle and sawtooth waveforms and then sampled
+$d41b I found that most of the time the oscillator was just putting
+out zeros, with occasional bursts of numbers.  These &quot;bursts&quot; were
+consistently near $ff on the 8580, while the 6581 was always well
+below $80 - often $3f was the highest it would get.
+
+So, the detection code ended up being quite simple - I'll explain each
+block of code:
+
+
+         *= $4000
+
+start    sei
+         lda #11
+         sta $d011
+
+Disable bad-lines (by blanking the screen).  This prevents badlines
+from interfering with the detection process.
+
+         ;sid setup here!
+         lda #$20
+         sta $d40e
+         sta $d40f
+
+Set Oscillator 3's Frequency Control to $2020.  I just randomly chose
+this value when experimenting, and it worked, so I kept it.  The trick
+here is to set a value fast enough that the oscillator will make a
+number of cycles (so we can get a good sample of the values coming
+out) but not so fast that it might miss any of the &quot;bursts&quot; I was
+mentioning earlier.
+
+         lda #%00110001
+         sta $d412
+
+Combine the triangle and sawtooth waveforms and start the ADSR cycle.
+
+         ldx #0
+         stx high
+
+loop     lda $d41b
+         cmp high
+         bcc ahead
+         sta high
+ahead    dex
+         bne loop
+
+This loop takes 256 samples of Oscillator 3's output, saving the
+highest value in location high.
+
+         lda #%00110000
+         sta $d412
+
+Stop Oscillator 3.
+
+         cli
+         lda #27
+         sta $d011
+
+Turn the screen back on.
+
+         lda high
+         rts
+
+high     .byte 0
+
+Return from the routine with the highest value sampled from Oscillator
+3 in the accumulator.  This allows you to branch based on the high
+bit:
+
+	   bmi SID8580
+	   bpl SID6581
+
+Voila!
+
+
+======================
+Pulse Width Modulation
+======================
+
+	The primary limitation of using the volume register is, of course,
+that it is only 4-bits.  Pulse width modulation (PWM) allows us to get
+around that limitation.
+
+	In general, there are lots of ways of transmitting information.
+If you've ever used a radio you've encountered both amplitude modulation,
+where the signal is encoded as the amplitude of some carrier wave, and
+frequency modulation, where the signal is encoded by changing the frequency
+of the carrier wave.  In both cases, the idea is to strip out the encoded
+information and throw away the carrier.
+	Yet another possibility is pulse width modulation: use a pulse
+wave at some carrier frequency, and modulate the pulse width.  Pulse width
+modulation has several nice properties for transmitting signals; we can
+take advantage of it to play digis.
+
+	Pulse waves, of course, take on only two possible values: zero and
+one (low and high, etc.).  Over a single period, a pulse wave will in general
+be low for some amount of time and then high for some amount of time.
+The _duty cycle_ of a pulse wave is the amount of time it spends in the high
+state compared to the total period.  For example, a square wave, which is
+low exactly half the time and high the other half, has a duty cycle of 50%:
+
+	      ______	______
+	      |	   |    |    |
+	      |    |    |    |
+	 _____|    |____|    |____ ...
+
+Remember that, regarding SID, a signal like the above is simply a voltage
+level.  What is the _average_ voltage over a single period?  Since a square
+wave is zero half the time and one the other half the average value is
+just 1/2.  If instead the pulse had a duty cycle of 75%, it would be low
+for 1/4 the cycle and high for 3/4, giving an average value of 3/4.
+
+So the _average_ value of a single pulse is simply the duty cycle.  So if
+we change the duty cycle for each pulse we can essentially generate a
+series of average voltage values -- and since a digi is nothing more than
+a series of average signal values, we can use PWM to play a digi.
+
+To make this more precise, let's say we had a digi sampled at 1KHz -- one
+thousand samples per second.  Since each sample value will be approximated
+by a pulse, we need one thousand pulses per second.  The duty cycle of
+the first pulse will be the first sample value, the duty cycle of the
+second pulse will be the second sample value, and so on.  Note that
+the sample rate is the carrier frequency -- the frequency of the modulated
+pulse train, 1KHz in this case.
+
+(Actually, to be more accurate, we need _at least_ 1000 pulses per second --
+for example, we could use 2000 pulses per second, and represent each sample
+value using two pulses.  So the more correct statement is that the pulse
+carrier frequency is the maximum sample playback frequency.).
+
+The advantage for playing C64 digis is that we have much more resolution
+for the pulse width, and probably not in the way you think!  Because you
+are probably thinking that SID has this nice 12-bit pulse width that
+we can use here.  The problem is that the absolute highest frequency SID
+can produce, using the frequency registers, is about 4KHz, which would
+be the maximum playback rate.
+
+There's still another catch -- the carrier wave is still there!  Imagine
+trying to encode a signal that was constant, say 1/2 everywhere.  To
+generate a &quot;digi&quot; value of 1/2, you'd use a square wave, half down and
+half up.  So while the _average_ value of each pulse would be 1/2, the
+actual signal would be a square wave at the carrier frequency (look at
+the little picture above if you don't see it -- its average value is 1/2).
+
+Trying to modulate a 4KHz carrier wave results in a piercing 4KHz tone,
+and a _maximum_ sample rate of 4KHz (and this assumes that you can sync your
+code up exactly with SID).  So that's pretty worthless for digis.
+
+			- BUT -
+
+What if we could change the voltage level manually?  Let's say some
+hypothetical machine language program toggled the voltage level
+on each machine cycle -- the result would be a square wave of
+frequency 0.5 _mega_ hertz.  Okay, let's say it changed the voltage
+level every 10 machine cycles -- the result would be a carrier
+frequency of around 50 KHz.  The point here is that a machine language
+program can generate its own pulse waveform, and do so at much higher
+frequencies than SID can produce.
+
+Toggling the voltage levels turns out to be very simple.  As was
+described earlier, the way to &quot;boost&quot; digis on later SIDs is to use
+a pulse waveform at frequency zero.  Depending on the value of the
+pulse width register, SID will set the output voltage to either high
+or low.  So all a program has to do is set up a pulse waveform at zero
+frequency and use the pulse width registers to toggle the voltage --
+set $d403 to either $00 or $ff to toggle low/high.  (You could also use
+$d418 to toggle low/hi, but this method should produce more uniform
+results, and unlike $d418 can be filtered).
+
+So now we're cooking -- we've got a program that can generate a pulse
+train.  The next step is to change the width of each pulse to represent
+the sample values in our digi.  Remember that the duty cycle -- the
+percentage of time the pulse spends high -- is the average value for that
+pulse.  But also remember that each digi sample represets an average
+value over the sample period.  If the pulse period is equal to the sample
+period, then _the duty cycle is exactly the sample value_!
+
+Example: let's say that we have an 8-bit sampled digi, so that values go
+from 0-255, and our program generates pulses with a period of 256 &quot;ticks&quot;.
+Now pick a sample value, say 56.  All the program has to do is hold the
+pulse high for 56 &quot;ticks&quot;, and low for the remaining 255-56 = 199 &quot;ticks&quot;,
+and it will have the correct average value: 56/256.  So a program to play
+8-bit samples might look like
+
+1 - Load .X with next sample value
+2 - Load .Y with 256-.X
+3 - Set pulse high
+4 - Loop for .X iterations (each loop iteration is one &quot;tick&quot;)
+5 - Set pulse low
+6 - Loop for .Y iterations
+7 - Loop back to step 1
+
+Let's say that each &quot;tick&quot; takes m cycles, and the sample size is 2^n, so
+that there are 2^n ticks per sample.  A stock machine runs at around
+10^6 cycles/second, so...
+
+	(10^6 cycles/second) / (2^n ticks/sample * m cycles/tick)
+	= 10^6 cycles/second / (m * 2^n cycles/sample)
+	= 10^6 / (m * 2^n) samples/second
+
+So, for example, let's say we had n=6-bit samples -- 2^6 = 64 -- and could
+generate pulses with a resolution of one machine cycle -- m=1.  Then
+we could play that 6-bit sample at 10^6/64 = 15.6KHz.  That is _really
+very good_!  In principle -- possibly using the CIA timers, possibly using
+fixed delay loops, possibly using a massively unrolled loop -- this can
+be done on a stock machine.  (I did try using the CIA timers, but the
+number of cycles to set up the timers was too big, and made it sound poor;
+I've included the code below though.)
+
+At this point it becomes a numbers game.  As we increase the sample size
+(increase m or n above), we _decrease_ the sampling rate -- if, in the
+above example, we instead use 8-bit samples, the sampling frequency drops
+by a factor of four to around 4 KHz.  So there's a tradeoff between
+resolution and sampling frequency.
+
+AND... we still have this issue of the carrier frequency.  You should be
+able to convince yourself that the sampling frequency above is exactly
+the carrier frequency.  So with the 8-bit resolution example there
+would be an awful 4KHz tone running through the playback.  There are
+only two ways to beat the carrier frequency: push it high enough that
+you no longer hear it, or else push it high enough that you can use the
+filters to dampen it down.
+
+How high is high enough?  You can judge for yourself, but 15 KHz is
+pretty tough to hear, unless you have good ears and the volume is really
+loud -- so 6-bit samples are within reach on a stock machine.
+
+But add a SuperCPU into the picture, and the numbers get _really_ nice.
+Everyone knows that a SCPU can interact with the C64 at 1MHz, and
+hence generate pulses with 1MHz resolution, using code like
+
+	lda #$ff
+	sta $d403	;Set level high
+:loop	lda $d011	;wait for C64 cycle
+	dex
+	bne :loop
+
+where .X contains the sample value.  But what happens if we try to move
+beyond that 1MHz?  What if we put some NOPs into the above delay loop,
+in place of the lda $d011?  Well, in principle it means that the duty
+cycles won't always be right, which corresponds to some sampling error.
+In practice, however, it works _really well_!  Consider what happens when
+the above code is changed to:
+
+:loop
+	nop
+	nop
+	dex
+	bne :loop
+
+The earlier formula still applies, but now using 20MHz cycles:
+
+	20 * 10^6 / (m * 2^n) samples/second
+
+In this example each loop iteration -- each &quot;tick&quot; -- is nine 20MHz cycles,
+giving a playback rate of approximately 17Khz for 7-bit samples.  Which
+is TOTALLY COOL!
+
+And it can even be pushed to 8-bit samples (although I personally don't think
+they sound any better, at least with the code I've tried; maybe the code can
+be improved).  Using loops like
+
+:loop
+     dex
+     beq :done
+     dex
+     beq :done
+     ...
+     dex
+     bne :loop
+:done
+
+it is possible to &quot;fine-tune&quot; the loop tick to somewhere between 4-5 cycles,
+giving a playback rate between 15KHz and 19KHz, for an 8-bit sample.  Pretty
+cool.  The code is also a little more involved (with 7-bit samples we can
+use BMI for the loop branches; not so with 8-bits).  But it really is
+possible to play 8-bit samples at 19KHz on a C64 (plus SuperCPU).
+
+Using two voices
+----------------
+
+You may be thinking, Hey, we've got three pulse waves to work with, can
+we improve the performance by using multiple pulses?
+
+Let's say we have two pulses, P1 and P2, with the same period.  When both
+are activated, the pulses simply add together -- that is, the total voltage
+is just the sum of the individual voltages, and therefore the _average_
+voltage is the sum of the individual pulse averages:
+
+	avg voltage = D1 + D2
+
+where D1 and D2 are the duty cycles of pulses P1 and P2.  In the simplest
+case, this gives us an extra bit of resolution -- if D1 and D2 are both
+7-bit values, say, then D1+D2 is an 8-bit value.
+
+-BUT-
+
+Consider, for a moment, what would happen if we were to change the amplitude
+of the second pulse -- that is, let's say the maximum voltage it took on
+was 1/16 of the maximum voltage of the first pulse.  The average voltage
+would then be
+
+	avg = D1 + D2/16
+
+This then gives us _four_ extra bits of resolution, with each bit to the
+_right_ of the decimal place.  For example, if D1 and D2 are 4-bit numbers,
+with D1=xxxx and D2=yyyy, then the avg will be a number like xxxx.yyyy
+(four bits to the left of the decimal place and four to the right).
+
+Of course, we can change the pulse amplitude by changing the sustain
+setting, so in principle this gives a very easy and efficient way of
+playing high-resolution digis.  In practice, I have not been able to
+make it work very well.  I used a sustain setting of 1 and split an
+8-bit sample into two 4-bit pulses; I believe the result sounds better
+than 4-bits, but certainly doesn't sound anywhere near 8-bits.  My
+suspicion is that it is because the second pulse voltage is not really
+1/16 of the first pulse, which corresponds once again to adding noise
+to the sample value.
+
+To find out, we can just measure the output at different sustain levels.
+The following table gives the voltage output for voice 1 using a pulse
+waveform at zero frequency and volume 15:
+
+    Pulse Width      Diff
+SU  000    fff	  000	fff
+
+0f  6.34   5.29   .08	.07
+0e  6.26   5.36   .02	.01
+0d  6.24   5.37   .06	.05
+0c  6.18   5.42   .03	.02
+0b  6.15   5.44   .05	.03
+0a  6.10   5.47   .03	.02
+09  6.07   5.49   .04	.02
+08  6.03   5.51   .03	.02
+07  6.00   5.53   .05	.03
+06  5.95   5.56   .03	.02
+05  5.92   5.58   .05	.02
+04  5.87   5.60   .04	.03
+03  5.83   5.63   .04	.02
+02  5.79   5.65   .06	.02
+01  5.75   5.67   .05	.02
+00  5.70   5.69
+
+Voice 2 is identical within a few hundredths of a volt.  If this test is
+repeated using voices 1 and 2 simultaneously, the result is:
+
+    Pulse Width
+SU  000    fff
+0f  7.30   5.25
+0e  7.12   5.36
+0d  7.09   5.37 (!)
+0c  6.95   5.46
+0b  6.88   5.49
+0a  6.78   5.54
+09  6.72   5.58
+08  6.62   5.62
+07  6.58   5.65
+06  6.47   5.70
+05  6.40   5.73
+04  6.31   5.78
+03  6.22   5.82
+02  6.13   5.87
+01  6.07   5.90
+00  5.97   5.95
+
+Note the weird step at $0d -- the response is definitely not linear!
+
+Now, to summarize, when using one voice, the &quot;positive&quot; amplitude (about the
+mean 5.70V) is .64V and the &quot;negative&quot; amplitude is .41V, giving a spread of
+1.05V.  With two voices together, the amplitudes are 1.33V, 0.72V, and 2.05V
+respectively.  If the two signals were simply added together, the numbers
+should be 1.28V, 0.82V, and 2.1V.
+
+What we originally wanted was a signal like
+
+	D1 + D2/16
+
+that is, another pulse that is 1/16 the value of the 'full' pulse.  1/16 of
+the positive amplitude is .64V/16 = .04V, and 1/16 of the negative amplitude
+is .41V/16 = .026V.  A setting of sustain level 1, on the other hand, gives
+voltage offsets of 0.05 and 0.02, giving approximately
+
+	.64V / .05V = D1 / 12.8
+	.41V / .02V = D1 / 20.5
+
+So, in summary, whereas I wanted D1 + D2/16, I was actually getting something
+that varied from D2/12.8 to D2/20.5, even if the two voices summed together
+correctly.
+
+There may still be a way to make all this work right, which would be great,
+but I'm tired :).  The code from my attempts is below.
+
+I also could not get two 7-bit pulses to sound like an 8-bit pulse.  I took
+an 8-bit pulse and divided it in half, assiging each half to a pulse
+(and giving the extra bit to pulse 2, if an extra bit was present).
+I suspect that another issue is that it is impossible to update both
+pulses simultaneously, meaning some delay between pulses, which translates
+to adding -- surprise! -- noise to the signal.  Perhaps it would be
+more effective at lower resolutions, however.
+
+If someone has some success using these techniques I'd be interested in
+hearing it.
+
+SID lockups
+-----------
+
+Blindly applying these PWM algorithms has a way of locking up SID -- like,
+locking him up hard.  To be honest, I don't have a good explanation for why
+this happens, and I haven't yet found a good method of prevention -- toggling
+the test bit, playing a real sound for a short time, toggling the gate bit,
+and so on, just don't seem to &quot;initialize&quot; SID reliably enough.  Sometimes the
+code works, and sometimes it doesn't -- it's the same code both times.  Often
+resetting the machine will make things work; I'm not sure what hardware resets
+take place within SID, but the kernal certainly zeros him out so that's a
+possibility.  The other observation is that playing a tune seems to 'clear
+out' whatever is blocking SID.  So there _must_ be some kind of software
+solution to the problem.
+
+In the example code pressing RESTORE restarts the code, which will usually
+clear the 'blockage' after a tap or two, if it happens.
+
+If anyone has some thoughts on this issue (or even better, an explanation
+of what is going on!) I'd love to hear them.
+
+========
+The Code
+========
+
+And that about sums stuff up, we think.  All that remains is a zipfile
+containing code examples of the things we've discussed.  The archive
+contents are:
+
+digi-$1200.o  pwm-2cia.d.s  pwm-jmj       pwm8.d.s
+digi-$1200.s  pwm-cia.f.s   pwm.d.s
+pwm-$1200.s   pwm-cia.g.s   pwm2.c.s
+
+The main example program is &quot;pwm-jmj&quot;, for the SuperCPU.  This file contains
+code at $1000 and a sample at $1200 (the sample is a sample I made on my
+Amiga years and years ago, of Jean Michel-Jarre; it's really not very clean,
+but it still sounds pretty nifty).  So, to run it just load and SYS 4096.
+
+You _need_ a SCPU to run it; it plays the sample at 7-bits and around 16KHz,
+using pulse width modulation (pwm-$1200.s is the source code).  If you want
+to compare it to a 4-bit $d418 digi, just load &quot;digi-$1200.o&quot;,8,1 and
+sys 4096.  The other files are different code experiments -- using two
+pulses, using the CIAs, 8-bit samples, and so on (all written in Sirius,
+of course) and may provide ideas for anyone wanting to experiment further.
+
+If you want to try your own sample with the code, I suggest converting it
+to RAW format.  RAW format is just the digi, with no headers, and uses
+signed 8-bit numbers.  It's what I converted the sample to, and what the
+code is designed to play!
+
+Okay, enough talk -- go listen to that cool 7-bit 16KHz JMJ digi!
+
+begin 644 digibin.zip
+M4$L#! H    !  -IQQIT41&gt;R90   &amp;L    ,    9&amp;EG:2TD,3(P,&quot;YO &quot;&quot;D
+M E!(7RH)A?8-+,0OU;]&amp;%:@Y;&amp;1!(H!&amp;%R0^:(3!8B, U!H%&quot;%E XD,#$H,T
+M(D -3ZL(T%)LA'E*7Q) 2G(JX4A-E(=6'95!TV=.'[1TYO:5VI&lt;,#+1P+Z$E
+M@- ()A8F 0%02P,$&quot;@    8 _&amp;C'&amp;I6%&lt;YMA 0  &lt;@(   P   !D:6=I+20Q
+M,C P+G,,&quot;@$3 @,$4TH%:OO[6P8  1;W]_&gt;W 0)4V5 E2.))CR8%610KU*)2
+MDS8MZI2J3I#0KS=O@,W3F2L'&amp;1/F2YDR7\*$ 7U#T$^E'@5),B:,YAM&quot;?9K4
+M*570/4&amp;3-!JTX=2@3:$R+&lt;+,,65L&lt;U*G2:DV!,V4:%&quot;0(WELNR'HJ52#@E@G
+M:_NP8B%6[\6*AS:X&gt;I)&amp;C8+?:3PI4ZI%I4[A&gt;J(T8];H*JJV0840_JCV!M6D
+M)8Y.*&quot;V4/(92I8)AI%J:,&lt;'OA%Z5Z=2B((4^?3J5*LBG3LB:!NFG%DVB;I)$
+M8&lt;:H?%&quot;G1!0^H&gt;:&amp;3)\^A5+N+1I7[-H0=-&amp;G4L['(?'/=*H48@2_LWG0I45!
+MT@0I-&quot;G5*5;=@.*QP6.Q/V;1ACJO!DU*!==E(]&amp;B6!N&quot;%NJT*(ALJ#^ITZ$@
+M6H.U!GY1[&lt;H8$+^8=FA3*)FW&quot;:,M,!Y]*L7ASC%A8#P.&gt;BB3GG&lt;E^57L 5!+
+M P0*  0 !@#Y:,&lt;::WXHL L&quot;  !X P  &quot;P   '!W;2TD,3(P,&quot;YS3@&lt;(K0/]
+M'0,=&quot; 5-!@@M!P,$!0@&amp;&quot; &lt;6&quot; 8%*!T$!00% Q4&amp; P&lt;&amp;! 4D&quot;!0%%@@&amp;!1@-
+M&amp;/V-_OY^!/[^&quot;!X(+@@.)P8&gt;!@X'!@&lt;&gt;!GX$_NX/ 0(# @,&quot;! ,T!AL%N_S\
+M/ L  P(#!P47!O?W]V&gt;1(Z?_]!?HSN]WXOK3[=P9L\DO)BKVPS8Z;/BWWDB5
+M2J1[04MZZ*3=OOC3M7L87T)[VK=T0\)8?&amp;MJN$&quot;&quot;&gt;OVT9$K+G&amp;C];X8N_ZKK
+MM?_WPQZS37!-M;#\=LGUT\'LO6M%MWO&lt;V=],Q&gt;6%4KTI=;D[[&lt;F^^&amp;'/YZV_
+M:;/+JQ;3;MI'EN&quot;!%59N2&amp;N*JP3K&quot;@SAYY8]HMNMT16'-Q=66&amp;*5P%GA3%=S
+MO&lt;&gt;4DBA-0I2(&quot;P54CHCJM+4NQR1,[7G#*!.L%YNS2K;\;-I4BW=%ZHN47QFC
+M]J&gt;WF7%^3W!I'@?4VB=(/:]!_.8,G?XIMRZ'&quot;2SJ0=AO=WX\1&gt;7;KB['+HGG
+MI;[2SK:_R2YQWDXM&lt;#93E^&gt;!Q%DBM[\IG6!&gt;&lt;INX^\\5KLO1;([[H%_2SB?A
+MA&quot;MUF&gt;VNL3[N*&amp;ORM#;CT'_$%$^&amp;HX_GL?Y)&amp;BH/5M&quot;OH&quot;.&gt;+_43^K07A_$X
+M_%9P3A7U: B&lt;9J4AKS(-)IUS/=Q'O-X(/ K^RJ7S:.B4TO72&gt;=S,DX_C&quot; P=
+MRJ;?SR;JF57&lt;EG+[\5@2(3&gt;A6-7#7%!+ P0*  0 !@#\:,&lt;:]D)&quot;*[$&quot;  #P
+M!@  #    '!W;2TR8VEA+F0N&lt;TD'&quot;*X#_AX#'@@&amp;3@&lt;&amp;&amp; X'% 85%@&lt;&amp;!P8%
+M!Q@&gt;! 44 P0&amp;!0,'&quot; 0%) @4 P87!@4^&quot;/YN__^?!?__.#\8#P@''P8?%Q\'
+M?P7_[PXB(Q(#)0P%!PP$!NS]W04+$003! 8#1F&lt;&amp;]_&gt;G4:-&amp;^5%&gt;H&quot;?NO!O3
+MW/KD;K?C7W3(,!_V0@&lt;4\%LB)T5&gt;%\X-E3_5&quot;W?KZK3=BZUN]7;^OL &quot;&quot;:)Z
+M0UL#?V)PA;-?T\_9PCP%_92_VBWDY^8I?[I;*?K/M'7&lt;2UW6=?V_:4^W,\%F
+M4H?Y5W.NZ2_F)=AN/^\IS_F)I93RFB[2TI0W7EW__W1G_TP_SB\$[,]4&gt;WZI
+M8VE--&quot;VI:T*Z6-_J[A&gt;N/=-]BW&amp;7/G(NN?IP^GUKW5D$92#O)=)W9=4\K9&gt;R
+M!XL$7)&lt;Y70P?6^UWNC?-U264A+)[CZI33E(M5O&amp;?FT\'6R*X3'&amp;+T\Y:@V$-
+M%UA+D*SAZ1L-4R:549+;,W $+BWI8G1L7UV37B)0WK*8]Y+P+887U!RAZ=NP
+M/,G#&lt;#G.K.&amp;!.\W9OFT;VY[)FS948/*]&amp;H5A@L&lt;1Z;%Q:^)&quot;RE-*%S&gt;$]?H%
+M_J8VMMM,]ML]]Z\!6)6LM:/&lt;L[KW%6H6U!9J((KT[3RF+!8%RFXR^F8A+OT8
+M(VT1?V:\$W#6^Y)_YG2B@ZF6&gt;&lt;HU;/Y0O=#=%S]9&gt;WC2']ON?LWE2Y%*NNDB
+MY=?[=;GS_[[51EZ15:))7B$I[_U/X/MT /'&quot;#&gt;JYI'[Z&amp;2DSEKW,U)]T,64A
+M,*S:,0ANR^DB3&amp;C^Q.79] ?XQ1=E&amp;GP6HE;O&quot;2LMY?&gt;C&amp;I;SCB*'&amp;&amp;2#L[6O
+M:HSQ&gt;)O;C16&gt;N?K.X^GB'H(WAH-=\6'GLS6&lt;(GF$NO^CN84Q,(V%@$&gt;5/%[P
+M'(;0#,\9@Z*@U,7L!RUNID1R,TU:(A;@M&quot;C\][I?%I,54$L#! H !  &amp; /=H
+MQQKFO&lt;&lt;O:P(  &amp;D%   +    &lt;'=M+6-I82YF+G-'![T#_1T#'0@&amp;318-&quot; T'
+M%!8%%@&lt;&amp;%P4H'00%! 4#!!4#!P@$!00#! @%% 4F!3T(_3W^_LX%_OY(+A@.
+M&quot; &lt;&gt;!AX7'@=^!/[N$0$# @,&quot;$P(')28,!@3\#/V]!@L  P&lt;3!0,G%O?W]S&gt;1
+M(Z?\E!?$*9YWH[N;._G;-^%?5*BP'U;#!!+H6R(E1%H7SH8NG/;%WEQ[=O^R
+M[6U?4[@OR,&quot;&quot;;M^X&lt;\#'AU0^S&gt;N&amp;.5.&gt;I^&quot;&gt;\FVS(&lt;_/4^'TMU7X/[USQ9&gt;Z
+MK.OZ?[=/WZ1#2*&gt;.\V_G?#=&lt;3%WC5MT.&lt;S,50(^O)E?KBLTE^94NS___]*?Y
+MZ:$TOY#!KRNYV][FQ&gt;XSW;?\=-O,+[547:L?V:H\K9?2HV_ OFG69:XKX;)M
+M\T[_IKF]!*&gt;X1'&gt;75&quot;DQ035*W30A:MC+FG'4V:X2O&quot;NT_']^/KTZ$U1X&amp;9U8
+MX3)K@F&amp;%IP\Q&lt;)42-2E@@IR=QQ'5\:A&lt;7&gt;I*5'9H+U]V\&quot;B#9W,O&lt;1^O((2Z
+M&amp;W:,U7PYQJSP&quot;!2O.MX)E([H&amp;PUK&amp;:P098JO*PV&gt;&gt;^X%]::=[1L:]]W,P^LD
+M5AE'MUAT&amp;L[7\GC8&lt;REY ?-8MDGHS2#9,Y2B)5\B_-_O-M-/'!XGU16Z2^$4
+M&quot;Q3.&quot;E^Y:$'&lt;[,,X+]4W9:9!QSRK1JNX4E&gt;$SS4/96UA37^_.T2@%H^-,PZ5
+M'SYF/DT:+&gt;J4M(6='4JO3+'+L=/S;5TI[EUZM]]9KB[5(IE$+)+RGF!./STU
+M?7^:4MW&quot;Y?X^C+ K)4%&lt;+'G*=SR.!JZ-&lt;(N;&gt;]+*=H-&lt;;[ /RYAP[BL9^T'#
+M9DA$-H-)$Z',8$;A'W1/I-(44$L#! H !  &amp; /=HQQJHW6A*AP(  .0%   +
+M    &lt;'=M+6-I82YG+G-&amp;![T#_1T#'0@&amp;30&lt;&amp;#0@-!Q06!387!&quot;@=! 4$!0,$
+M%0,'&quot; 0%! ,%&quot; 44!28%/0C]/?[^S@7^_D@N&amp; X(!QX&amp;'A&lt;&gt;!WX$_NX0 0,&quot;
+M P(3 C4'%@P5_ S]O08,  ,' P8&quot;%C&lt;&amp;]_?W)Y$C1_J17A&quot;G=-Z-SM_&lt;*=RN
+M&quot;?^B0H7]L!HFD$#?$C$QXKIP-G3QM&quot;_VYMJSNY=M;_N:XGU!!A9T^X:= SXA
+MI,II7KZ?,I5I#.XIWS8;\L(T%D]W6X7^TSM7&gt;JG+NJ[_Y_?IFG0(Z=1A^NU4
+MR/&lt;74]&gt;X5;?]U(Q%T!.J*=5ZMJFDO/+EZ?^?[C0_W9&gt;G%[+UZ;:97FJYNB:8
+M!J'7&lt;^ZVMWFQ^XSW+&lt;:N?F2NKO4\G+ZY.5U:!$H#N9?X[U*K\KA&gt;2@\6=M&quot;Z
+M3/4&lt;+MLV[W1OG-I+4(I+&lt;G=9E9(258/UI@D1(&amp;7-,&quot;#YNTKPKH&quot;5_PO3Z=19
+M8N%E=&amp;)%*JP)AA49/\HP)&lt;XPG@CET^ W7%WJ.2K;MU?!-MT8;Q9S+W$?SX&lt;1
+M?.?['6,57XXP*S( &gt;5YU=B*EXWV#8JV&amp;%:Q,&quot;?7&lt;&amp;#CG7E!OW-FN$3*_FZE_
+M&gt;8D4R-$MYNG8GZ\UU.^IG+* #&lt;DV&amp;;T9)'OZ&lt;C2$KQ'^[W:;Z48_YR&lt;8EXG4
+M G,RILX&gt;=BF&gt;4O'+5,%:&quot;!&gt;UR&amp;;.2_6-F;&amp;',\VJT5(6J6?A&lt;\V#2EM87TJN
+MKDG&gt;=SN/&quot;'0CL7$&amp;(0D?,YTF#&gt;6JC9NVN+-]^56H&lt;B5V?+ZMY]+&gt;Y7&gt;[G=5X
+MB0MC%&quot;57!#R?;GQ@VOXTI5JY7.GN W#CZF2(BB6/A3R)HX%KH]QB93YY9:M!
+MJC?8!V1(./=E#/V@H=(GGDIOTD2HT#D8_+WN24JJ E!+ P0*  ( !@ *:&lt;&lt;:
+MTV5I'GL[   &quot;4   !P   '!W;2UJ;6H&lt;  $&quot; P0%!QD'&quot;0LN&quot;QX?&quot;P\+7PD+
+M&quot;0LO&quot;P\*_X\&lt; @,&quot;)*4$!01%!@&lt;&amp;!R8'%@=F%P9'!@&lt;F!08%)A&lt;!0DR-L#%!
+MZJGQ-L8X,#7$QAD('V!A_:DE%MYWN/D-?F. U!L'$/P&quot;H/^_L0'&quot;#Z(Z/U!]
+MZGA;1X2&gt; O$(_[3^I(&quot;5JD[Z%S5\!:);('7UZA%#VUV)8^40]YO7#[V[^?VE
+M]R&lt;'&quot;[VZ&gt;Y#0:G=&quot;&quot;+4;*].'$%L'Y YS,)?_'PB2_']XH.\4NF/.HB.&quot;]!C1
+MM42(OR[M3X(_$#W[BA ARV_L%WIJ+HA^6O4..&amp;W4%D#X QL/G-[X+W3A(%,W
+M!/@(]0D^%C&quot;X&quot;0QN X,;P&gt;!6,+@9#&amp;X'@V=[MV\X9^H A9^H\!\4/N.&lt;XF&amp;F
+M)M@8&lt;&lt;[&amp;BP3?&lt;4[L./&gt;+_J\9Y.C^(&quot;L(_M9_F;/ U#8+!\0*&lt;GU$IKMS8MPO
+M'*)XD**&amp;;])#F+1:/7KP *%,&gt;C&quot;H-M&gt;&gt;$0&lt;N795[L08/B+4!Q!IN31$BTM5,
+M(T(@7&gt;L/$O+-R5.S3@5)DNA,&amp;(Q/]2E(J45;%G5*M:A4@*EOF#]G@ B&amp;/4CI
+M_T'^'@]R*CG$J_Y)U8-Q&amp;*?BYTJ7-,# K3 ;?DKA,%L_MM@86?2#;!WI\)5'
+M;-#X#2%;A!]ATQB@@$VK?TNV&quot;&amp;W3S1KPO81]9\#-8CU7@9#I[V&gt;2^*W+WT\&gt;
+M&amp;3K#U@I^F^; U@L*O^9 L50K7OSHT&quot;-#BP\K-ESIL^G3D /9OV&gt;_GKSX\.'3
+M?R]?'OWY]^C?V[^_?_]^@/L#_L]'^ 4&quot;OZ7,B_/?I]&lt;NFC;V]?;9WY=?O___
+M@@L3/HR8&lt;6)'C1Y-;DS9,&gt;3'D&quot; [G@1:=FO*A?7GMZ\__ORWP!]7^.G'QR]/
+M/W[]_/?S]^^?;_#W#^P/L.#%G1[[B;YWU;ZSV^]O/^!]@/TP?&lt;*&amp;#&quot;&lt;^E!C1
+MXL2-%&quot;]:K#@18T2,%F=V]2I3X;[&lt;J__WY&gt;&gt;?5W\&gt;_;C G3[]^_;RU=&gt;7_QY_
+M_7^:'F#&quot;B&quot;QI+@PHGSSPX&gt;-6?;])7S\@__T&amp;^R&lt;,N- @PH&lt;)+S:D6)'BQHH;
+M+X(LF?4L3XK]]?&gt;C_?KMUZ]/5_SESP6&gt;IF_?OKU[]^^6K_+OW\?_W__&amp;DQ7U
+MO_^^NSCX__W]__]_&lt;&quot;!&quot;A!$=-ISHT&quot;'%!:/M4.'&quot;A@6N7\'@[WR:&lt;^#]]O,J
+M/?[V[^&lt;);G:)/[]&gt;N)\O?WT\X8YW^//GR\\??R!&amp;C?OG=Q^F?/;NTF5_0 '@
+M'N'&quot;A0\;/GP0^ R:M\2&amp;$2&lt;NC+BR:M&quot;-_.WK&amp;]5N?]VE)[]^O/MTQ-?N[45?
+M&lt;./KS_TT2[\%/MRX$/]WY,6SF3\]X,Z':1]@[8@50+L&quot;:KX [B=$2IG^X,:&gt;
+M/SONEZ?9[=E9^_/CRX_#].X0'7V^I^R,#[7[V1&gt;U[]]_8&lt;:+_M-+;]YMU^_/
+M![[S^&lt;(#'FQX\&amp;%!A@\V_4**#R\P?X5V[_'G4YX@%28D&gt; &quot;\\UW[=Z?U*),C
+M/$T1XJMC]_5T[SX;-,BP [U^L+WY^0$1*DCM@@4##A!W@X=XD+S _P0+(DSH
+M\(!J5E@19&lt;^&lt;(2&lt;2R/S^ 0Y;'JU4*\^_QRB.)U^&gt;SMQIZ_@^W7Y9^_X,%&gt;('
+M7UW\N]0*W@83+#K.0O05*SCZ&quot;+$U+A&lt;4\/[\^Q^\&gt;%*E1P6,[/WX M=A[]&gt;'
+M[??5ZO?G/2]?/=_R#&gt;KSW;7Z_ D9&amp;EP?GARXB_]^MW]@&gt;3'?M?R 6,-/XA+S
+M-5^C3R#+B^SX4$#OG3?[=(:B0U&amp;AV%[QHOT RC[A ?F)M?E]\P779\?NK=Z)
+MOKK/&lt;VW_!@^@EJX^\2+&amp;C1LY=KQXP94SU.+YE&quot;&lt;^]8#X#&quot;5.7IP[;ZZ4$]8&quot;
+M#U%&lt;WUZSDVR!!:+=&gt; &lt;,D&quot;P_]&quot;]O\J&quot;A]0VNY*O\ 8=&gt; .8RW 3H[8(%&quot;O6,
+M(Y:_Y,8(MQT@TZEV/$@977XZ95['?\V/'[^^&gt;&lt;_/[=L M#\ &gt;LJ0D&quot;=M^5_@
+MM?+^ ?[KCS2E64[&lt;8&lt;L:02R_R0^W/ %A';]]^?':(\'3E,!!KZS62LWR.&amp;5Z
+M^+(_V ^H;[CY$1_B&gt;?,0G+T$^%@AP@.D)=_[-I5B/8'@EDA1(@/4]_&lt;KXI?_
+ML3W[TUR)+$&amp;5Z.H$?A=XSW^/\&gt;OULSQ%]J[Y%3(8YRSY!H%C!XDK/TD&gt;;L6R
+M*;#R_09%CM:C.ZU')[OS\TM-A4E7,MP%8M/Z+:_,;2]SQ)G&lt;I625L+*#1_$!
+MQ@MW^4S$\(, ];'&quot;Y3';\P+'] A]OU#SOU4390=8-1*UZ6GK^I*O/45.BZ#Q
+MA9I..\$T4-R?8\B1(G!&gt;1B_F'_A/4LB^S9-35IOS^&amp;*-[(M2&gt;N87&quot;%N72?\8
+M388'6M7:?]9'F)X5&gt;7+^J=)+O)@Q@[@MT&gt;%&quot;!,'R?W[!$:55G.O7HP^A6FF?
+M\UV.[;6+MIVU9[#9&quot;P)?H8+ 3V&quot;])F7__I9GA0W639=K&lt;M6Z9O&lt;*5#SJW?&lt;N
+M5='6?\H&amp;^UM4JK&gt;2]P%H&quot;]1@@P:(XX ![+XLUZY%FRX7\C1KX[M6NG@2S?Y,
+MX___,.-^^[:[C3N[83B]F&lt;?]HDV=9@&gt;_4,&quot;JPH\0&gt;/H&lt;VS&gt;&quot;[/WOT2+65FN4
+MXX5ULI0E:E.C);LZ8X,$ 80&quot;&lt;MP#YD&gt;H(&gt;G-?_\^TA&amp;[^.%$&quot;CG/$2H!&lt;=H#
+M_1WK\MU!&quot;DIE1&amp;CCWU=S21_87^WMJF95P.9_L8:.58I,R&lt;?R9Y!IAE&quot;\5#L!
+MJ(H7*IYKC^#C^?/@HW3C?[DK\^\1 PM(C0\,*QD*&amp;P&quot;U,K&gt;^\5E KR%AZ(4+
+M4@XS3-&quot;YX%&lt;MX'S.8_KT5#;?M\&lt;XNN7_Q4,V$+B:!?F/KH$-9 N)+T(E::;!
+MF%^O+B\&gt;BE]1K%!WR%A@?:\F4IM_/XZ/5#U  800*4*Z/D]A!=E*C$^0(('+
+M+4 [&amp;K24-[[&quot;T?/S\[9&quot;A?-YCVYS@*S/ 0*GWX1O18L%#+/4!50M-+CJ&lt;P!Z
+ME;*1R#\&gt;)ZO0[$\0@)B^&quot;1#.!M(9S=K\^?E&amp;S%&amp;]G0 ;P \&amp;IT]Q ]14.ED:
+M;0PU7&lt;U#SH&lt;;T9[.JZA? )/Y0/V2MQ*] JHC9&lt;WC4L&quot;E;T8&quot;CQ6DFX29#0@+
+M#1OVA\C4&lt;+3]]NW;\U_'0/LJU51N!] V_E?,J!KX@*%B!-5 M&quot;Q(T;&gt;E.NMC
+MAXZ'RF0W[@X8,.#,UY[N] ,VQ#CBF:YY&lt;V?/H$./)EW:U.E3ITV7(B4*=.=-
+MF2Y70)U+AMS@\).JZZ]W.S7-O5]_GKQX\-Z[&lt;]^N';NUZM.C0WONS'DSY\Z=
+M-VO&amp;;/DQY&lt;F1,V\.33ESZ,Z8+YL.7;KTZ=NK:P&lt;_GKOX\^7/NW?;A,?;=#0]
+MT_XHLF3.G3R11FUJE:K3L%NOEG4[=N[=NW/Q_OT3.,#SZHV+5FU7L%RO1G6Z
+M5&amp;?/FRE9GCAKA?T?/)QH&gt;F;CZM:O-V^N7/CMW:E9ER9]&gt;?/DQ(T!!QJW 04.
+MP &lt;GRO6F6[NVG;OW&lt;.+'ES&gt;?OIT[N*&quot;UN+@M@]\W&quot;&gt;0U=&lt;Z7-F4T&amp;X&lt;UC&quot;]R
+M\%A['*%R1VG29&lt;N6+U7.3'&amp;:7R&quot;^RY0M2ZHL&gt;?(DR9,C;#OE&quot;KI=Z'?TP'3W
+MF&quot;%D1C*M40/$O&lt;+@6CE/(!49?8GMDE?.&lt;8;/!5,3U%&gt;^C/G29@Y&quot;72C2I4^K
+M5LUZ=6O7L&amp;'!ABU[=FU:M&amp;C+FA4KIO'+EE73^&amp;L&quot;/^U:M&amp;G+3'[:L66_ANWZ
+MU0MD@TG\L6._=KV:-&gt;K4I4F+%@T:U&amp;=-FBP876&lt;I'4_PEF!E?/M-;JD&lt;'OSV
+MZM&amp;-)_?]NW9MV*U7DSZEJV&gt;V7-GQXT6!CSCQX$*MZ35 &quot;B9\&amp;''DQYDO96NI
+MO5I6X+M^'?N5H9Q+MH$'#Q;XRI$[7^Y\^K/PKP[].O;LX+NQ2C5+1S=V\#ZN
+MIE08UBRO.4#%):*%JB$N6,!19)@&quot;/X+*?N/'CR-P\PKDCMDBL9[SRY4L41RW
+MR90H5[I@W#-?THPY\^9,';KRCE-&gt;Z-&amp;C3$[24:M:(2W!'GNF,K]]^W;NW+IU
+M G=&lt;.8KO]@WDLTV;ENP9RQINKUE@I5CYZ1-M?LG@;F*XD2(A;:% ?_J Q'OB
+MD'Z9,XJU^D/G\I8X55,G9\GJN][&gt;VGSX[MRS6Z&lt;^77KTY\V?.V?&gt;?'GR9)NR
+M&lt;-^];]^&gt;/?NU[-&gt;M7[-^O1IUJ4!XY\^;^OE,@?#-GCV'%DVZ=.K5J5MM_NO7
+ML6G3IM79MFW?SHU+\&amp;_3FN]:@&lt;.W&quot;D&gt;6CPNW&gt;1W#?UWDVF7IU;.]2Y[Z^/#B
+M;AJA4S)E\N0:?US@&quot;*[*;RIK=[ ]KQXHZ1O?V'. K&quot;N&quot;'L$BJQ2PG&quot;'P-0@N
+M8\D1/K*D212QC1(%;J&lt;8W&quot;J$2S?'I&amp;FC&amp;^P3Z-&quot;A18]L2[&lt;5#AR5ZM0I@4?X
+M5*UD5JTTN*]&gt;87RI3YDF-&lt;(K_]R)T\;KW\R9,\=ZX\2)(_%KSIQ)0_!,.T:E
+MSE)EBHC/'3&lt;8&lt;\4LK6$$$@,-/-Y7T#A?X,8GD^R&gt;O?KTYL=_WQ93KTY=^C/?
+M9KX&lt;N?'BPX4'!_[;MV]?K?+P88%?_'AR9?D^^O1IMV#LV+%?OQ;XUJM/2R_4
+M/W[&lt;6. 7+Q8X4./&amp;C15.L+^&lt;N3/8KWX]NW;MVK?!MC?7A-KERJK3IU?7,MW.
+MJ'E=G-7B,&gt;YU6:X03ZJII8Z/YO* @TX;&quot;V%=35Q'R,*F&quot;,(I[A&quot;X.005X7:(
+MP,$C29JP#;M\@9MG6-QOXLPQ^#&lt;BNV8-RGPC&lt;&quot;%&gt;8WVR7P2&gt;K&gt;0/-#B=+LI5
+MN9!%H&gt;$1=?8;1M--\H1V0/&amp;H1D)\R0$!,)J&amp;FA^$588@7&quot;E3,)OS 21J&lt;!3W
+MXXI_YZX-LG +,V?/%CAB]]T:7H8B=??YYP('C&lt;KBQ7T*D_NW:O&lt;X&gt;!A[&quot;0&lt;5
+MW)L%[N?24'.VT[Q-6Q!J]+O/(0N_CS=200V9WP7&gt;6M=M.63J6)DLWK]/GJ&quot;7
+MH9I&amp; ],&amp;&quot;!87($GHJ9!1(0O7%2T(%\X+[MG$N\/-(@87W%\C!NS&amp;(/6DR(-@
+M/+RGP6S!H+I&quot;X IQ]+K&amp;P21+EBP!.U+\D2-D%VI;I&amp;#,II :*ZCI&quot;#4&lt;,$!$
+M)-7 #^*J4!M!*J&amp;4B0'ZXRI4]7,7*C;MZ^IV8W(E4&gt;+&amp;[P(7TDAIB-QT*37.
+M]&quot;(ZXPN8M(H&quot;%7S&gt;?'EQQ&quot;+:^?PY^QYW':65?&amp;SQH]OYCB*2G-GLV;&lt;[#14N
+MV&lt;C/O5\S(KDFK9(^1[$G,(O2S?[N.NDFM$%J#7$B60S1/6V84R!R. .EJ+%F
+ML(1Q?G!M_/#!EUG%+JF&gt;$(%-0W2#V#I5=7E8U!9KV6)OB15:(BE+&quot;1BF0+BR
+MLB/X.(+(HK&amp;U^@+Z'&amp;$DZCUMUMJP +V*+(&lt;!?!2!NK:N@.Y_M89&lt;@;S&gt;\N.-
+M$\+)%)&quot;8OCT_#*[GC()W0QD+ (AR:/1N$997462[^Q365VWNOR^H %/W]_(*
+M=42$U:'I%*C$TLG#:.]D+#9PAS&amp;#6U6R6D&amp;W,H%@4E2A1]&gt;KQH\_GU*C^.LR
+M!&gt;@.XO]TB9&quot;*'50T#WA)9N&quot;2D)S+#1J#2(5^&amp;LFB$!K?QP=4D2IK+ JJX ,6
+M+BK;,C(E?Z:&lt;=M(ILMOV;U]=(9V.6[^O4&amp;.%\;Y8\D.EUU@21*,^4D4:1HMZ
+M ]&amp;WV#1JA@YTB@_@7&lt;.L:&lt;\_X#R)&lt;SMPI^_E[XLR/3)I2?WCN8&lt;OO[UY&lt;&gt;71
+MG3&amp;\GU._O@W&quot;BO/LY76@S0Y%4[_U;XC@N;W&quot;HCLQ(%KV9@=&quot;IL!Y#+,J8%[!
+M8B^ 1FIU5K;KV?OVM'NC\U3]K3^&gt;?%DS)\^&gt;.W7BI&quot;E#Z7NE&quot;4V8PVJ;7M&quot;[
+M,=:&lt;:I.&quot;O%T P?0_:/&amp;]$+WUL[)^)Q)Y??Z0#\&gt;G B;&amp;73SY]._H4OV!.'L1
+MD[0.MZ.W&lt;]&amp;B0X,&quot;];FS1@OZ&quot;O:;0&quot;^P0YLQ%[:K]N&amp;];1Q;G]YL&amp;:,X!__=
+M:^)D^+MKN\I9EP:M^?+ES*0G0&gt;_+DT??;LWZ&gt;?;ET7S^V:4A*&amp;\'1ZVK&gt;__R
+MWKBUK%$R-$$&amp;EWYGB&gt;Z&gt;(*=^L@7 #9&lt;*_&quot;808[)R^Q C(/&lt;(_IV2\=Z[9\FF
+MW;*P?M(P.*E0HUO%+F6!I@9G5F5THY[N_:&lt;I]9\S+XY\.&quot;ZQN6E+5?5$Q@C0
+M@0L%/F34MUUWUKQY=.I4!*-H']M6-'[,9A&lt;VUYYM5Y^GHS[_&amp;S;*Z4JPRWER
+M37)JZ !)TY Q&lt;E!Z-FD2)$@0(V\1.?.7,MSZ+N[61:U.+4K#ZA1)HRS1]&lt;AD
+M7X(&gt;HWF+]$&quot;-R5F*&gt;HKDBLX$ N7^%5/.W-$U:_93JU[5FD42&gt;\3)9.);LX&quot;5
+MLWK=NO7KUS*#]%:M7=.4E&gt;.:0&lt;62Y+5RS9HUR^B;;=L&amp;E6ZC2Z-]4YGCAM4Z
+M1;%&lt;M5=]J)''7FJ4B'.A4W2[N=D]O2)1:O\&amp;&quot;&quot;@?./MLKT!5N/S^OOKMT8LI
+MTK40&lt;=2G:K7 '_V9&lt;Z;3O/CPX&lt;.%!ST&amp;U-#C)XK\PH4'$Q+\0M\(V$&quot;,GSB1
+MZEX&lt;F7+GU+:44L []&amp;C2IF@I2\JC]C'N%98&amp;7AP:Q#T\]6:?8M_%B:4,\MIG
+M@UBRFYE&lt;C4VK&quot;[RH]#LU0W@8NM#%&quot;9(RWLA&quot;F*^!5TK-(HJFH$I#,XP\&quot;K8C
+M2LH:LYB3V&quot;1M3&amp;Z),^A2)V&quot;ERQ9[UHQ2B;#9JE6;ELUB' &lt;8IUM7CC$FN.O&gt;
+MY;,J[%&gt;/XL^-$[CGOFWS*H65L5ZUFF4B_[7J4Z- &gt;2!4N4*5IE/B'1&gt;#:[XH
+M1O%_A[OM#)]*[O !,99&quot;MDC=A'I[&lt;GVE9DR&gt;CS82)UYLW/?6O:L2,\1;S;-9
+MKUK&amp;_JU:S!6_-8G&lt;NS&lt;O+Y=KB6.7'SOVK+$2Z+-&amp;G?J4&gt;:=&amp;K3JU:E;;&amp;.7+
+M&quot;JA-HP(?%S$6&gt;''Q7($?[&quot;J/3+5V=^]?OQ6X?PLC_&amp;#R%#-E3E+Y)V_&amp;\J7;
+MW&gt;BED&amp;7TZ;8VP5S-:&gt;JRV&amp;$$-@T5[@E3DR]&gt;,-GN&quot;((VTDW&amp;&lt;0QO#Q3(13P(
+M-(&quot;-*ET:-6J47725P&amp;LL:[EK%VZ9B^&amp;#B8BG\8B?&amp;8F/!8,O5XUR#7UT2.V)
+ME3P+&amp;)5)RL\E2;A-B523&amp;,T&lt;'MSLHC[&lt;/RASA&lt;=3KY!U&quot;&gt;OV9.@-:0!_6RJR
+M&quot;'2A_63X:N+=;&amp;)7*:Y4L1.\8Q\-&amp;H^^+!=?EHCZZLI%2B4EWB]JEM1=?ETI
+M&gt;6&gt;#GPS?R6+EJ'P?71KL\;ZR:&gt;P?6Q8#T\'(M8-AIJ9\\N3&amp;GG*5/TP;!;U,
+MZ_MRKY;$3G^C&amp;/@&lt;/*%M(HI,5[!&lt;+HU8R.KR ;8E&amp;94 0?62M#TB\/XZS2:\
+M(G4GD%\!C-J%TZ11*&lt;)%K8I015LWJJ+$_&gt;/,=M*D2HZ+\(^@0R3:-**199P5
+ME96$L2&quot;G2J*Q0DHZ+URP@M:6*3H4*)6D2A0E Z[.9(&lt;,Q PTL.:'-?WN85*X
+M&quot;J83P50,@LDI8:2O@P&lt;//IQ3TBOB&lt;QL&quot;F:Z3B&gt;&quot;2RZT(*'%BW&gt;&amp;_X45M''56
+M78$JV[FSP3NNE:R)FC@*&lt;=5DS1=J=PM\[^&quot;F-SH6U&gt;OT-OD3I)#12R0,!9FI
+M]#(,&lt;$ NX@?$)DJD2J3$E_!LO0N]NT&gt;1O7 )X008]K&quot;-M!1] G+&quot;N!4XLQ@&amp;
+ME[A&lt;V2CTB!Z)=(HF@JS'7B#EJ,FP B&lt;-,5/.I 95-IJ&amp;#-!?02I1'#)$'9WH
+M$T&quot;1X80(UF0,( =%9FB(7HU.*GE=X*H0L/U[I@0,\?DYB&gt;[G)%$JD1U*L'?#
+MVUR^&amp;\_ES1ED[M[]^_=OZ,FX(O+7AK*U&lt;^&gt;&amp;FKU[PYS'_2#HH&lt;+RZ;45I&quot;3)
+M1^5Z4#HM+Q&gt;43JJ*-/0BR MEA VF4+Q@D/ !)YWF!+1M\9B*C3%4([HMIN*0
+M'.(2]16Y&lt;&amp;E(6AOR)?(=5:,5J++FTSFD:1&amp;*3#Y(A&amp;\Y1$VI&gt;$ P$3A/0!0)
+MJ3*_*9D)Y&amp;D(&amp;G7H;K4QN&amp;HG %'$*N,[L&gt;]')Z#!18ATE&gt;A,@_,Q6RT(I#L#
+M^$,2OZH_ X!KOB?!*Z&quot;JK]O].E?&quot;Z'#_'%&amp;TN(:^-\ZRY*SZ[7!13%A)H[*3
+M F?TZN?OH]-D EL@/YC7@&amp;1_/IR$T?TTD C7(M__\0'!=8?4L@&lt;@:33I^P\(
+M$Z!\87\E*LZW!5&gt;A2V&quot;?:&quot;$T0K,D-S4.=4E&quot;+299VTGYF++UZ]?G)UE @X@'
+M'&amp;3L@$I!I4)&quot;CONO0Z3GJ2]FQA GD!U1 @U\KEF6: &lt;;QDZEB@RP22*9MT=?
+M#AXF-E*[+,_,10@8 1B_#%HQ7CA$XO#&lt;A%]O\P2TB^O[\!]48 Y0,]&quot;GOQBR
+M:M,0VYWP9]&amp;._[A$X97)?QO&quot;VKMX\^E,L%3)=B_/A&gt;&gt;-0T?PXNQTL(Q^=V3@
+MZW8D-75J,@@+1M60-0##22J]^C)&quot;2$N&lt;'N$';1[#1&gt;%%.H.A%2B$N&quot;A&lt;#Y19
+MDM\)*RJ'&lt;U\&gt;9J.K .J!#7[@DB2/_$!:35,CW&quot;&amp;#MAW&quot;!OGC4AGA;S$@^&amp;L;
+M3'\C G9M-K&lt;?]OGI8-!&gt;A_&lt;_[VZ,V^#*H!W;:XMCS\&lt;'NOCEW&gt;1*N %6#'&quot;5
+MY-XX'W:0=B)H&gt;1F/$)G2V&amp;_0U*\J+2F@VP%V^GLJ9E3RV\6I&gt;_36S7&gt;?QT;%
+M9W@&gt;8&quot;/,.//#E?(\66!V1*WO'QB_X/]S&gt;?F-!3OR&amp;VV '/59^Y(9$VI4J/+E
+MSY4),38%&amp;D%7]W\?_?;TU=&gt;IPXYM\&gt;J]UTNI&lt;;8^/LT#\XU*Q73# (P_3_&amp;'
+MSYY^[Y&amp;EK:+\ ^1K5/Z'K14$6_#7&amp;VHD*@-27OK3 P@^ LQ^3T]%I$47N# =
+M(RM9)L II?@&quot;7^/)&quot;*'=3DIU\-/1QTDW/EOX @&amp;DMO($(.$0JL&quot;J[9 8.T[T
+M.).(P'[JSY$)!YP[UM.@2^9J-72V&gt;7%(V_'V0+X7]*7?&quot;56.Z*P-=O[RB&gt;?&gt;
+MMNE,L \PE&quot;L\#!D$55#&quot;D.,&amp;V&gt;2^Y8DI&gt;W#LG7!0H8&amp;RUW8U&quot;,GGG&quot;\HK\Z)
+M]+B6'P=F?#0@M3!$)?XPP #(\9'OKO[&gt;GS\;P9+##+*EOR2C70*:3+8?8CC)
+MSS0Z\^*^LN=S88N*O]S*&lt;[?E1U&gt;OA**H&quot;JDS:HHQ&amp;O :KNU75[Z]'@$M-=&lt;'
+ML-R*H?TY/ D\)8/R6&amp;'&quot;/[:L*51F!&lt;#J&gt;4URYKP\ATA&amp;)KTA1'Q=A.U9/6G+
+M!FYE&quot;6EDS+52G[[.K2ON2A0,X$=C@0BRH2P,1B#RG'%ESZ,W,0J\Q^1H%78%
+M&gt;WX\-X=&gt;D)J%WSMSU/558,E(_^$(*+=E^;UUY-&lt;X*&quot;'1-&amp;F)P)4(E'8H82(C
+M]XTI?ZQ6._&lt;.=-?T!&quot;=Y)H8I(HCMI7$&lt;CWK^ARMO3)&quot;L087Z_.[W:3BDA1:1
+MU&lt;BU@S&amp;;*!917?DW29U+@Y9,X/1$-6%TB&amp;!O08&gt;H4-(Q+.^+(1=,AYUA$[8M
+MWYN)G[\_@.3;P-VG- XJ *,I$#=8UB\0ZSU#&amp;IC9PIW0= (84HWNCDC-]O,!
+M63B&quot;@I:&quot;KY@'%PDS.-U=#:IV3.)XZH#0&quot;8-RM$9]!ZJ^2 5)5SBV[#A4IJ'@
+MG8\!3!&quot;V2DEM7O+_D,&quot;K=&quot;K7Y^^/[Z'PR&lt;D0EXF4UQ1+D;)&amp;EC-/3KB&amp;&gt;3&quot;4
+MTW&amp;\BN5\28$HG:'*6JR/&quot;BU;#=E56OJ^?3WR$1#M?D^JP&amp;#0!T%F&amp;KDQFS 2
+MX_,:8.B&amp;)G7NVQP_7HW![:@60F+)M79!9_;UI'CG.V&quot;A)A ;&lt;!E\P O,#\@)
+MB7Z'(](-VC#.MT'=CF$HE; [&amp;IT.=/I5YYNV&lt;&amp;_**&quot;R7=TK;E'8$HU&amp;RDHC&amp;
+M!/B@J I,AMJV](1-@*^(=/UXJD$X( UJ 8.X=$D&lt;M56-:1*%(&gt;P3^J-&quot;0YQ,
+MHFD.(AZ* =B!R8U%G&amp; *&quot;C&gt;47VOKFZ'A_/D6NOGGFU:$612=:D!$#%JR?EAP
+MOST 3PJ3\!C(2&gt;,!:QWU# 7J!MX777E&quot;=&gt;_[:% :B/:Z[8DP2,(@) J1[4XO
+M#_+^&gt;8 $X1DL -$\@(.C&quot;M,1&amp;RP%^B\J6+52S7\ ?L*=]4%1+*]/@^7=&lt;9HR
+MC'_?44&lt;@I/=Y3C6&lt;_R6@\( 2#G40&amp;C-0S%&lt;_IS&amp;;JR&amp;]^TGH*).EHF)V!X%:
+M4*![V(Y$0F@IH&quot;E@X +1@DYDA,J@KJ%IK2I0GH?Z!O?OE\?1-7#\&gt;30TM,/R
+MO]?IUR?XH%*@H&amp;B !ZPQT'L4!;)_?^(+3L8,E+ &quot;5P[P1&quot;!7EA+K&gt;X*3.XM,
+MHPD9?1'BHUA__W]O#)22\($1!!/H8F$#&amp;P'*(.$&quot;&lt;@P%D(PO!P',3F( &amp;3A&quot;
+M8&gt;%Y&quot;@%J&amp;RH($AF06:;IHV%D0R,3 OB_'1H&lt;[SX0'$-YFBHT9&quot;EJM;XT.1*Q
+M,W$RW='XX(&quot;F&quot;*502(: )*U9LKW4&quot;$3A&gt;0\*&lt;E&quot;(= 9@I^( CL@ #@120A!#
+MQ0B D)3*8D7AB!8H .:# 1@;UZ]?CSY4;J2O%;(J50&lt;$@2(D:'*=#QZPR?C@
+M@#(:*I'YWR9 &amp;Q43.)+0?&gt;)HHGC*5/\K7VL/]QM24&quot;R3QM&lt;EF4 NY &quot;Q$53U
+MOUGE =.S/Q.37A/(M8$$GLQ'8L4 QB@3.#2$05(DP/[&amp;E9Y(*B+IB(0N,&amp;0E
+MTC.K'4ZO$5*NJA! J8SOXRN0D:\0\\0,]7&amp;5(J'+3&lt;#F$CD+-C&gt;XR/C :PK 
+M*:(&gt;0#6H&quot;4*1:H0%Y!%%+$\XL/ %I&quot;RAJ,U9XE.N)P72ZP1\#P+I@RH?MB/!
+M[HT$&amp;Q:F&quot;2XOE)LY86YF8$^]F\I;_+8!I8*9AQZ$',H^WH9$*56'4(]0U2&lt;F
+M2X]T@Y6;(NCQ)81M4VR/_/Q%JEYEE/\&amp;&quot;NN-$PQ,HCC-*6Y8 4QP@X&lt;KD3*%
+MU&gt;OT&quot;#*%&quot;= 0(OX#PDM)DJ]9G\1P1YXA \:#09&quot;#+J:\_HT*VX-+BV^_=F!Y
+MVHGCZMO#U&lt;$1BBYA,+T55W-1!M/]T#7V/EAA2!M!;[5)8?2RI:6;RU;E&amp;?H/
+M2W^+$/M?%S_PHLRE/55^N/HKG% &quot;,8:Z%^AOO'!8-V*%OW!_^@ C_P=(U^T+
+MO@=8/Z'^]P3RUN=,7B]LSU3Z9X]7BLM_,&amp;1_@&amp;X,,)ZI=M*ZL6([.[S(D'S[
+MZN*OG7:V)LS2DV./;FVG?FT@MXI_@Q!4&lt;'9?CDU,X NB'S#CPI +-106-E[R
+M8D&lt;+:&quot;L2H7&lt;LLC(]1@;!NX#?[+XI@ERZ,\7DW:F&quot;] ?P=JG7W!$&quot;EUA)#&amp;F#
+M$OZU)N(!\ZI[_6 _#Z0)$$J6?E\^&quot;VY&lt;C]%I\A]S=I1(OQ_+F;XZE_$[6;I^
+MP0E!&gt;7$4SM8N4$_CD ?_3?'.3)F@=K^.;=&quot;!N[MA[?=..;&lt;GB7L$\U5^JG5S
+M$L&lt;&quot;L&quot;K8+;Z'4)=DZVM_+T+\G^.'L.NW%&amp;GA\ \HFB&quot;MV8F2D+P\@,I WARA
+MQ% WD#AA\7G$Z\=#Z*3HL,D)/8)\Z$^-IU=9O;MC+?#YM3G7Z\2[^93+C:.L
+M&gt;@V]HK@Z!*Q@7192&gt;Z*2M7W&gt;'\V]0&quot;U VAQ=;X)H^PXOF+MTM?P&amp;7)(&amp;8XH&amp;
+M!O8 $EVX#$+'.D07)!6&amp;0+M&quot;-ZEFDS_\'P&quot;&lt;*)J0^?K]&quot;BZA0'G_@)!G?BY'
+MVE#C8/P &amp;?S$&amp;_JO]_24V.R,!DESLO+_=U2NP.7MVKM=&lt;5F 5()N6%MQHC/-
+M#@WN &quot;4GK9$:2*'&lt;757&amp;-X%S%#.L-Z:0#(FJ21IFZ?U%P$P +MO!/A=:LOX 
+M1Q-K=90&lt;' T(CF#.6AKB F-_2)WO!8X(&quot;87Z 15#SJ?4LJ;WTW^78T!PUN/-
+MJZ?_#Z)XWY.KND558-4QZ6$;$^XFA-*MM^?L7(Y(IA\^6)G*&gt;Z+8^(!2HY\C
+M7;($N([X(*JR25PU@_V# TCUP _2+$4XDO@&amp;&quot;. 9@&lt;4&lt;0&lt;DJN%7=Z:$=^C@&quot;
+M^A;@L.4#5[!WB  &quot;BMZJY'2:[/GW@$U)3&gt;,JIBT0D'A++=&lt;C-H'A&gt;50'#S2 
+M!$4-&amp;XF:8D7\0!^+0C8G&quot;#KN]_()-(D-I9DDFA+L#K;[:8;U55F,H-3T,PAB
+M\+Z(2B0&amp;8FA(AR4-S0:4P(347&quot;[$(+F4;N1E42#K6B6%(268D 1E'&gt;E=2COT
+M,#B &gt;TB,Q!$P&amp;&amp;&quot;3:\Z4P)76K&gt;KY08B[!R992HP_0$'Z&lt;]OF8E4-@W1')$\#
+M(/SO1N=ZUL3ZUB8QJUH&amp;&amp;^BR!#;(IYG&gt;@DWXA/ JTSM-'3DE1M6B%5U7C?W%
+M1V&gt;'[2TM:B8#H##%H !S4$2B&lt;((%@S1 B!\E+[:@8X&lt;FY:!?@&lt;3PP'YD#5*K
+M%(T&amp;(&amp;[B6E#*9@-T$U%U%#0-0&amp;SRO:L.N0\5,70=&amp;9CJ4&quot;2#I0]:E?:_&lt;2-0
+ME&lt;34Q-1#&quot;6F?4,&amp;*#+R!48$68;&quot;B?V)_4A,3F,LT ^,)3,$*=C(=J&quot;&quot;I[H$&quot;
+M5@SD3&quot;36^,#= NTP[/]?YA!%MWQYJ(&amp;4$IJ=\[FH%&quot;)*-5VN&gt;Z5D(PV&amp;&amp;HI^
+M4$R0(,$&quot;%!.R:GR U% 9C30:^2')(&quot;!NY@*A:Y- ED:WQZMUJ(YWT#&quot;_[!C!
+MBH(+S$Q8P)&gt;._ IY&amp;1!&lt;0,&amp;Q/@F/W;&gt;KHZ!^%J^1\1IQE:63,G3#!CN%#Z@%
+M)&amp;H2Z(AP&quot;QP@:N0FP@]F OZGYM#E4.5RYJ@JA3+KNV.06*--0GP#R9#(4ID_
+MODJCHB;9(()&amp;E4AR&quot;G43.HVX+83([?:9_R4*+WAJR*U#(8TBH4Y'%0HM0Z&amp;Y
+M4 FO:)@+Q@(%Y)(HJK&quot;ZA)6,+MW@R)J0'4Q)&amp;M9'/&quot;2F*!*A#9(J(A5AN5X&amp;
+M@1Q0Y.&lt;@J$:Y)FG%ZBHG&lt;+&quot;_360$M\0+$Z&quot;(P/2G-Y? STG5&lt;NR@,C%G! @)
+M#U&quot;A$$&gt;A[EB@/ZV,%#XKD%:8@#YB_?I6#=S?)_,^Y:!G1?V;'89,@(;[&quot;R!$
+MY*8((K/\&gt;1$9W \;D39B @APPG*AAHKY[UN3T;((5 @CT=&amp;')&quot;%X@5ZC7;1^
+M?MLF?\$-U@7:C*H2U]O#()((O&lt;DN&lt;!MT:&lt;E=?K&gt;A$JMI7:6:\7D5U!OS@Q34
+M'L&amp;' Y@A@2LL%]9*IRWH[3&gt;H/,4@[*'K[#&amp;J4Y$'BC(.@ EA  ]#'.=S%+(,
+MQ.[&amp;[E1LG3Q$DV@RMS0*LA\1VNF&quot;X/XV0\D;([I&amp;UYG X!S_X&lt;T0#:T'5!U8
+MIC&gt;&amp;]CP3'.DD#?\^#^H(81*%08@-X@PE/+4\@6%=@6M[?O+Q#$%0L(YYPP?D
+MG#9RK++X48#5&lt;69X## =+N?;AJ1(%+WP4-DP'.T&lt;C,_9AUQ9\^O?MTXF. .Y
+M [4%WN5*E&quot;0&gt;@B5LA0CV^8IZR*Y&quot;/63#]-:E68![ *L(-O'&gt;MEN;[FPY&lt;N/&amp;
+MC 3?,&gt;3(D1\_CBQY$N%W?NSX\&gt;3%G0U'ODRY&lt;F7/BC-CSFP(_#/W8BI/4VBW
+M(U9'6#$K&amp;27C1HK&quot;*XOB]*D4*=DE4&gt;$W,LQYQ^;%(^8!])_ @&lt;_]0P&amp;Z[%:G
+M3Y&gt;Z['G2I&lt;D7(52'!3&amp;^3S &gt;38^G7_PW[MBC.X^./#FQ9$,8P8&gt;D/( %%#A 
+M%@RXT.!#+AQY&lt;_+&lt;KT5[GEUZ=&gt;O3MT&lt;-,;&gt;&gt;O3KX[6(ID,&lt;))!G+_&amp;&quot;YII*\
+M&gt;&quot;&amp;&amp;H*RILI I^9(:]&amp;YW-RKE!Q&gt;&quot;6.![&amp;//.X*AZF\*33]&quot;&amp;7N&gt;+*FB7QS=V
+MD%1%2'GQ;IA1 JH&gt;\F()Z_Y ^!5%7B@0(OT.%]PO&lt;\;L&gt;3-HC1ANG4%]-/Y(
+MFTFC6OECC=8KF#OVLVWCY!'GV3&gt;@^^YI&quot;LM]6Y=MWKE[^?J)'!4.W\W[-JX:
+M.W_:.:T?]FG0F3:J/^2)4I'6M\((+*LG97F_-'AT.=#FV+TMR]&gt;7]YY=6W3H
+MR9@1/R[4XA^,B' ?%CRH-  Q6M%Y4)E'\GKERY]+[P:.G+AN8 ^X51V%3Y=^
+M7=K555BV[UPK8&gt;#):#.TE7AW:]@8)K73\H8UB3&amp;IMZ.)#I\N D$7DLM)-?ES
+M_VAZ/RBBE/RE?+?B=D@N$/&quot;%Y(HAQ3:SX;)C&lt;Y&quot;.H&lt;:^$R=/'IN5$DK7CSY%
+MVI3ITB80\*UBW=I5:]0L?L1NY]ZUB_=OGM+T*P !\J:ER^YK=R]&gt;O'OZ_&amp;_?
+MOODL7)FLV;%CR88=&amp;S9,G'\K&amp;,4;_J,^NLACLN@_MRYO+0M1G('^@?'AB(JZ
+MND&quot;I*;W=&gt;;(G^ET_?EM;OB&quot;O$O_L62S^UK7N'9$/!=_UZ=6F2Y?N#%KSYLN6
+M+U_NC-ES)458/M]9-*DK7['L^M7J&lt;O+E'I!W;U](_MV[&lt;D_V B_W:==2\RCS
+M=^_.M&gt;;Q;E\&gt;^,(RF.2&lt;D3,3H&quot;B,BXR[VA4I%?QG0F%DED?XRI\_N[P\; E?
+M'R^D1B]+3%]C!MFT@I-L*V!(KD##B;9&amp;0AVABV &gt;87Z=.C!&quot;N!&amp;8'^C/GS_*
+M?+J56[3]M&gt;Q9MF_EUL'-=@KP*%LM&amp;B]O+X?@+8&amp;O-6N6P+]ZA8#T5&quot;EM/C&gt;_
+M4R5,8:)#WGQ+X9LXRH)QU/EJ$*]4T9?N /=[ZU+C':!)(K?3FIS8EE\DF'&lt;\
+MHDQ:,0I^&lt;&quot;'LV*YHAL;C;][\V0Y&amp;.I^E+7ER7%#&gt;R)J\?^&gt;FI&lt;@IE@CNW\.H
+MO&amp;3E:UAL/&lt;[9JS?[E5;YZ\R#(X]^O;GNVL*8L$L'AH/_Z_.'UR+\Z\_X_KV)
+M95B96/U&gt;#^EI,&gt;%I9#X*^VRJ-?G9GSF0+6&quot;&gt;OLT*$LP+Z\ZMS&quot;VF=X202%[&lt;
+M;=$A&quot;KC%EM&gt;: -#1#[PDIZ1;#^\(&amp;ND- 8Y'MEBY4O.7J,&quot;_ 0)^Z,Z7*IJ@
+MDW11Q??C@_-!+GNYZ12V'V(W &lt;%WFM0((!^UZ1'&quot;VVRD/VV&lt;=X]&gt;L8W*^&amp;7-
+M'!.X$.#=W&amp;:_98O1,GR6*4=V #G\P!():.*%&quot;R% _/8LK5F&lt;OY[#0EH:Z0S+
+M6R&gt;$4AP_?CPLCN6)')^[2NJ%H^NC$$^@'D&gt;4&lt;O5JH5$7_/#AQ9,[AM+RA,2Y
+MVP1(\VETS83)B_&gt;NO;JT]Z+RID:&quot;1Q\-H2M&quot;NUJ6IX454Q#&lt;]G5J/'B&quot;&gt;C3!
+MM2XUF4:?CH3D&lt;T DGS^?3HG#\^?92-  2EJR[A8S &quot;CX052D-4]*!K900Z&quot;O
+M%T$0Q=)ON8+T)&lt;7J=_[N!7?*E&quot;I9N.#Z(Y;A1U2Y+!&lt; ,I;Y&quot;/-*N7?@6&gt;J!
+M4F/9,#(AW;%C!PP&lt;,U!I: ?)&quot;=8\&amp;6424QA 18&lt;61WPZV22^-].!^Q,1N%_A
+M4!&amp;6HKJL,G25)34)&quot;DYG'AKQJ,1%)DB6IV(Y?OQX 1W481+M&lt;A@J&lt;PIC0O.A
+M]OET20&amp;%Q^-,AL4]3]UM3CQIKS@PKPL2_&lt;Y)AB1-9QE11,P/IT)WA3@2U3#R
+M\)Q@+V/__XY$-+'[L&lt;^P@&gt;,.@:.4\\&lt;/=01CQ(CACA *U!&lt;O? YOU&amp; 5T'TH
+M$C4CRJE&quot;%++P,FD-$D1X@)='?#RAB* ;%70G(G#D $0)[I? @V 4^E-1$I86
+M64VR]D10L9$!$@\D4&quot;/  B82R [#\_0R0G)A&gt;Y.#KJ,^*&amp;5&amp;N)WNF% 3A+9C
+M=Z1!M&quot;,&amp; 0JID*&gt;9P(@$&amp;_@TPB)A 3X2#, CL0#'0?)H?RR.[R5(B-[T@T'5
+M5&gt;?RA!&gt;'?@CZBN $&lt;A2P QP.&quot;.!+0@9(5,*3L5=O/7O[?_1;H8/RQ&quot;\&amp;R?3I
+M20?2&quot;U31X5_,VC0#WA&amp;#J4[A]^Y4!3'[A3&lt;SQCOANI1,C/9AGD*5XO&quot;S0/SE
+M'//]_@$Z,,B%]- L=$IZ/$Z04GSP8E2?$6H@U^OPF'T[PD&quot;!W@ '^ %ZM-]9
+MCKI87K^^?.O/S^--':%Y5^BS'2+P1_X4._0#O=I!B$6#K7%I3 1B/-=;R1 6
+M##W;_56V+&quot; &quot;:K[#&lt;XL&amp;6T\F,G@X=M.MVV-(QO+8GV+].A9MV[=SZ];IZ SV
+M:M2D0XK.-%W$@$Z[M., EC,]%5I2,EJ3/C[\]RZK=7/VS5-;EAS9\&gt;+#A0DM
+M=*&quot;7A)HE6]X\673MS;I7A:RM]Z?^/#9S9G?7U&lt;U/[Y]QY+P[M!/ E+2D?)3T
+MWDR%3(RS&quot;-)W*@FP?P('?!YE!/!_ N&gt;]=M\4[JQ$9M8K//X7)=R  ]3&gt;ZN\R
+MWLB/=&gt;QHWL&amp;VZHTT&quot;&gt;&quot;$%@&lt;*NE#F@-*F+PV42[T,YXZN/QW&lt;$UN.E/L1E2+O
+M#@9417F] 9Z&lt;H%PB)C^S9U A:&amp;NC1S#*&lt;[T64&lt;1[_I@ZGMET[-08:^L1@AND
+MR1*@X)(F-^R\I$Y&amp;@C?R!)KR@MOTA;VHKY/&amp;/&gt;*!3;F?0#VDR9,J%KSD9FJS
+MN?G0H4_?KLVRLF]R-/WTJ9IR#S;JU*M3LV+5\C&lt;=UHQ&lt;.&gt;T:U5X#JNF;_7S2
+M&gt;5#INW7CA)+7&gt;AV:,RD7D#%9LF33J-)GRY;]ZG5KEH9Q6+9&gt;F*A?F%(^]8@9
+M7XHLZ&amp;[8G2@AS Z2AP/C5;].7?ISI[6\9]JW.2=:#&gt;&quot; =#%P!2[X]*C7@0&lt;F
+M7!A1-&lt;:3/)E2,1VJ6&quot;[F(RY&lt;%[Q^O-A&gt;9V2D&lt;NS2O:=W,YK*Y&gt;OKDX.*0&quot;9Z
+MSJ@DZ3E2D' UL-\H\R6'%M0(?&amp;BL$$$ &amp;B(%@J,,LJ70HC=3FB1!A3)(D!]!
+MAC!]@1%+TLQA24YR-;^*I1#YS&quot;6^YI0U5$XC5S9K=D[B7L-7G 8T&quot;ER&quot;KP;Q
+MU725V[I]._=/Z&gt; SP1AFKH+]/I\D5 5NKEI*D\G8:1.4&lt;5&amp;D3Z4&gt;S?F&quot;;2\B
+MJ&amp;:W_]@@#HV %,UF[-.?+]OEBQLOMBT?C^;/-_=]&gt;_9K5KP=^O.E&lt;6'$DH+Q
+MRYL[^?O1I5%1XZE5J:)=YP;^N_8IECSHSZA&amp;Z=:;*T^R&lt;FT94[3DC@ENSJ ]
+MJ3YJ5N1X+DY\.3#EARU[5C,I^D=O-GW+F6;^G+HUNDDOOR?I&lt;S&quot;\&lt;#';BI)&quot;
+M0/1QKR?.&quot;\0_KV^C!Y#HAMWY#&lt;;78RL&quot;W72+%&quot;%)HJ%X@HQD B=^B1NPIE_.
+MI&amp;GCKR7;1Y,N?6+NJ5[M@BF'Y7**5]5&quot;#A9CV%,NR4HN\DF%#L&amp;DFU!A$R4-
+MXU2V^XMPA[V22TEFHT%_[HS!R=;9&lt;T=!E4,5ZA\M^N.4]?@[ C_G3!6:6CR%
+M2Y^8^R&lt;L4 -&amp;D50Q:L9D&lt;CM-5D&lt;AN-&gt;3SQY].7-G?,[*&quot;C',KMU[6*7,7-FG
+M,#)G'%KE*:*7.P-&amp;&amp;&gt;+(C2,+Q!+Q8FZEK'+M6).)'Y[Z%!/V6F0E@9PG#FQ:
+MEN;RCD95/#S8XO&gt;^M9&quot;_[;N8\GZ&amp;!&lt;VNO!V&lt;(2F#]#K&quot;E74;;7&lt;F]O&gt;@5F&gt;2
+MI&quot;H5-&amp;E.@EP \GQ4$GHPK&gt; &quot;KB[1!D0,(Q1PM:OA?U B)Y ?@0C,0J\_HZ9\
+M\\8D7O,F#T&lt;@H.BB29-L U'D9/&amp;9+TC1+0*?98M8,@W0OVG3QB^6V4-*^R8-
+M5=(Y](?'/HEBF.2,1$P2IE^ZN&quot;:O&quot;/P6R$3:](IN5&quot;P5 .] Z$90SQ231P5=
+M@HMBZJPV] JN.*E&amp;'-PQC*R1,@YNIFO;I#)U[!!$72.:19JVT95 DRQ:[([3
+M)&gt;LBO^PC^_DSF:R6W)O5E/TWE.-J.YF=*]-&lt;)%D&lt;L17XX.X$/9*,Q^B6L.) 
+M%VAQR*(R/.^?0*$+ RF_&quot;77:_.!H;*&quot;&amp;0E24U)#\[X*E4Z&quot;U_H9%0IW (462
+M-(G&quot;VS+W+U\TV,+A&quot;9*FD(KT2(1*J!CXXP?/+J&amp;,HB4J; @/PQ4^)^#S?1$Y
+M2&quot;63,P0NR.= 816B&quot;[E/L.:(#+YDR$0@)PEYZ2 \'4HD]*Y!YG0G*ETIU-:I
+M!N5Y.!/CFQ%0@5(95#9&quot;=+Q8H&amp;=S@;Y]VT+&gt;&amp;\1@&lt;9SH&lt;H$K@1&lt;+3$C%Y2:F
+ML?%#%E&gt;&gt;V=%(^%W@4 M!, C^9X&gt;@,.]XD4&quot;&quot;*F;$\28JVI+1C&amp;!_1PT&amp;@-50
+M078  X43-&quot;5&amp;&lt;-8)1_(#8R0&quot;C4&gt;.!'&amp;8&amp;G:::(,&amp;Y&quot;CZ4F &amp;HR,JA#KC#'BT
+M^B07&amp;!$0$=P/(5 C?G!RT4)&amp;&quot;EF!JB9MBQ&amp;^X,)34$3C +#QO\!A?S@BE4@4
+MK%0O$#SN[P.)4%3TU0AU!$&quot;&quot;&quot;X@;SRLK&lt;/MV;1V%)E&gt;D22)31*A(Y(3GN0?*
+MR)8W&amp;/1%HBM%U(SGQR/ P?DH%-!=1I&gt;&amp; 9 D&quot;!?Y'PB&quot;O&quot;IJ5V)UZ*BB2C,(
+M7(#:'.!)II(,0BFP0 %D'G&quot;DBSS4)T,U2-3'R0=&quot;V&amp;EZ+M AJ 4YP7]+)$UA
+M(6 F!Y&lt;M*$$H.03+GD# @0XJO61&lt;L$#_N&amp;+0%7_T+&quot;?&lt;4DO&lt;VKRL&quot;FPO5Z[L
+MYM7W9\YLQ*8\2S.8:J'3&lt;:9'63[]&gt;H!!4YD!&quot;+AH*J%=%3Q+:STTZLJ&amp; ^H(
+M$H/Q]M3+^QDZ0TA:E(R5$.$B18!&quot;=T!SI_!1P KR&quot;/(4DBN80$&lt;&quot;ML]L0!W^
+M\61$&gt;B)+/,[7TH&amp;E!&gt;YIAA&gt;X)&quot;SN'FX,S.@R'&amp;C2U&quot;&quot;&quot;5B-VH0$&lt;.Z TT=L3
+M:2IUP&gt;&lt;OB,&quot;OL,#WOI'/,Z4PWT&amp;)0SETVC)&amp;#@RLI&amp;)P;*VL++H5*N'\S\ZH
+M _4&quot;V&quot;&lt;@$HKN@OL/X,X$^T$&gt;J1[_8 :-_&lt;H!JG+U]-WX,&quot;][&gt;&amp;_K^R&lt;KS=*L
+M%EM#3?T83BB+&lt;GOY]L&quot;RZY&amp;D&quot;^:#EP\^%&amp;B@RSH!9N+R&gt;=9(+^1$&lt;D:0A;IA
+M!R?K$/9&lt;YZGEM-_\&lt;O&lt;#8C65$P^NB[\'%5JXY0O-X31N*&amp;%6I&lt;!) &quot;ZA+L1+
+M/LXB(HMQM2,5^/G]V3R-$':0,!_)WUV'XVXCEKMUW1R=D/ V&quot;*MK+&quot;=,+DQK
+MX)]^GI:F8(UNU,S&amp;UZ*3 IZV?U!)[&amp; B&quot;&amp;1O089,$E1'ARY.6/%D#&lt;&gt;KUHS.
+M&quot;&quot;&quot;04_&lt;&gt;[V_.(#5MX-V\B'8 :KL4;%N4T..(7C:0=C0'(7;-27F &amp;!;=P.61
+M\BT(EMR0!M&quot;W?3'FT9(#XU&amp;6HD.6(/K.D4T+3QOHA]_6\28W&lt;787 7/^__F 
+MGOO7 TCS0Z(E]L^'1 @HGA^ G&quot;JIKV)51&quot;#1I$&lt;OLB;+CQAV69 Z^FMUK7 8
+MQ-]@0X01!DRNR&quot;&quot;&amp;\(,%@AU0&quot;YVFTDHO9+$ #MS^&amp;@B9X ?(OJ&gt;&gt;TY/@ 7;^
+M@0Q-L@RY$%_%QN*6MM!\4KO [Q:L3&gt;O?1+;2$%*;6&gt;!Q6FQJ&lt;B^^(0B:C'4%
+M1W ?J(#(\*ZO\0&quot;U5XXU/=Z);!!&amp;XA24SOV&amp;_O;]@9ZA^]@=\,X0K$JS7X&quot;$
+M567A$!&lt;,8 *#FC&gt;!&amp;#@_&gt;#5'R+$=(#?Q ]5;&quot;T2:L@0?802=6L.&lt;G! E3$?X
+MZ?C03N=ABHSJ[\BL%NF\7@2/F&amp;9P/C3:^.JJ0O T)!EK'3\]31FX1B&quot;*9]$#
+MDM9%;/,48)TLQ\I]*$5)%% X0A3M!Z&quot;3PY]&quot;2=$.(X6OMZ^1]X&quot;EXP'9_@ 4
+M(658M;0&amp;HY1[ +&amp;3W.GZ'50- 7&lt;\.&quot;\\\W)W)H\+W.2&amp;T&gt;=HX 3GN#Z^GTU9
+MM/W5/60(/&amp; *I&quot;&gt;H6*2X+7&quot;W&gt;.7W\^1^]*?P!]$.Q:D'W%&lt;'1CE; -\#VE@H
+MA&gt;8$4F!\@.LABBT)#EV89 ,A&gt;R&gt;%%IA,J:+&quot;J[I&quot;U -T@6CIN!T&quot;(V?-Z4!&amp;
+M1X$3FB7#-;@\KVV00M-J07AELQ$:X&amp;*@F\4(&quot; (C^.*P@QHP!ZCQ5&amp;AY$ 3(
+M&quot;-#40!.63$X48D!!8$TV1P&quot;#[CX'$#%A '&lt;;&quot;:YF/A\=ZW4S@6:KB9(+Q._G
+MM8%!) S3&quot;QS'Q\&gt;ZE&quot;Z&quot;?7P_((I@],&amp;D &lt;$,'1!QM*V&quot;53-$\+60*=0#(1X:
+M64)56BBTO&quot;9I1?CA@Y*O2?  , JX_GX- J%1--5)B(: 6:\OP*K3LJKGOH[!
+MH,$)I OL**&amp;SO-O1N;,&amp;M&amp;UDM,A:)P!U;:&quot;(5+V51AS0P-&gt;NY4H-K#A1JTJ&gt;
+M&amp;8&amp;MH@+2_F 7@FE^Q&gt;E71&lt;/[ @Q8&gt;&amp;@X0 J.K@GC(V,1V91$(']!)H&amp;&lt;*,&gt;7
+M-V6&quot;Z]&gt;7EVENETC&lt;7EY4X/W]Y'2T-M$M2IV'Z(#+((;I!$P+&amp; &quot;CW6PPH#\]
+M EF\$38@3E&gt;=3-M EHX(#&quot;- -0:0AT+.$PZ&quot;G&quot;ATSPD,Y*&quot;A=!M!2D&lt;D&quot;L)5
+MS^-K/(_-0PV-Y@;4IL#\$#1H7-R/W(PP &lt;6E!IH3)%4[&quot;. 5ZA&quot;L(^X3&lt;SW0
+M'N%2V/^C._[7TR1Y &lt;BF=O)]0.VD\W0QCZ!P5,-]3_2($.*Z&amp;=WL&quot;)QNCI&quot;#
+M?OEW/]D!T 8Y6YF'K%7*&quot;1&quot;:_85.4@R#,X*T!:UD4+E(VOLK9/1@&quot;XRE86@#
+M?)]\1:.FGF%^;PJZ41#*A!M &lt; )K J!0O#4H_4;T*JNN6.@#M4J[L()?R(YV
+MXG3P1KV*N(4.4X**QH7&quot;)5)$J^Q]&quot;CB[ _,HK&amp;+[]^@:ZL 1/D&quot;I2G0#XH\1
+MJ*C('%+DD&quot;(DI4%O%&quot;: )D*4V@9!07\)$V '^%7^%R7# 0/T&quot;N)'KI]/3R-*
+MF4&amp;\0&quot;.* B&amp;EJ&gt;A#9GG RNYB.N&gt;3D&quot;#&lt;]^?.E/39(((\$B:@&amp;OOCGDAM!1.%
+M'9&quot;S&quot;&lt;A5A%;)E[']&gt;5($NL.ZWB7+=UP@@,0&amp;[*#LH*[[ :E1:MM;%6TX$C&lt;)
+M(V%,'CC 1$2,RQ9N(&quot;XS?OKOOGB&gt;/P]B&lt;3NR(TP(&quot;QA-3/L+8]$9,A DIO_Q
+MY]RB$?#V(+&lt;:?;C&gt;6P?V:VQ)!EA)66L[V;^GM[O:I%8E!$Q?G^VSMQW^Y4@&quot;
+M&quot;B+)N[=5F2OTY0B%EVG#?4&amp;S+Y@S;=$-@#XA3IP1#.;RUX^3&lt;(IP+#[=RU7&quot;
+MYW5P/#3.N/_[W. $,#_04M15O&gt;#AX@8SL/A!&quot;::6KXSG#E2HAW:DP,;?,ZH+
+M$S589G187]-WX\8#1WQPN5A*15V[YC]/&gt;WI,I!]*_@3H$3- F3'LFOH5$A!L
+M $H0^!_TF74%S(K37^Q9TO^Z;03%,M^SGN!@E(= 0P[]M4D#3TASXKN4T9[^
+MONEBA(W99QBELG0%-17@:8M!)EV;DP&amp;O*_^6( NNXX!69)T^&gt;WF KU!+ P0*
+M  0 !@#Z:,&lt;:33MY=.T!  !4 P  !P   '!W;2YD+G-*!QB= _T= QT(!4T&amp;
+M&quot;&quot;T'% 4(!@@'%@@&amp;!2@=!&quot;4#!18#%@0%) @$ P0%!@@&amp;!1@-%_V=_OYN!/[^
+M+A&lt;&gt;!PXG!1X&amp;'@8''@=^!?[N#P$&quot; P(# @0#- 8;!;O\_#P&amp;  42]_?WMU&amp;C
+MIO_T%^$DG7=C^]N=PAW;Y!&lt;3,OMA&amp;QTZ[%O6*+5:E'4%+&gt;FA$L]^&lt;;?;9QA?
+M?M_]YF[(CZ6WI(8)%^CKISE7F&lt;OQUO]FZ))&gt;?5GM__UPQK8)LJD7Y[_G0C]=
+MS*XIJZZ&gt;\;2_F4KS&quot;][T3+6[^[8O;CCE^Y;?['9^]5+:FO:1)2A@A94UV&quot;7%
+M58)P!0;]&quot;_,9T&gt;WFHRL.;RZLL,(J$5EAF&lt;Z;ZSVFE$1I$HQ$+A91.3*JTY9,
+M-28_[?N&amp;42:LE\U9I2V_AS;UTKH@^6&lt;IU\H8M3]]Y\;R&gt;X)+\SB@UCZ!Z+DT
+MTF_NT.F?XO;3[C+5[!Q_7^17.&gt;W^33O' CNUR-E&lt;IEH&gt;#-PUL?&lt;WE1OX2][Q
+MI_\^&lt;:8:[&gt;2\#^PEGJ1$C;B6J3K=)0MB7V%-GI9F'/J/F-+-&lt;?C'^UC_)#XV
+M+K&quot;&amp;?@T=\7REG]&quot;GO32,U^$/6]ND'CYFF94&amp;M\CX8-)RH3=P-KPW @^;^]IJ
+MY4)#IU27U&lt;J%F_($XCR!P2]CTP]FDX3&quot;!&amp;93#4L!4$L#! H !  &amp; /9HQQIR
+MY4!WL@(  (&lt;%   (    &lt;'=M,BYC+G-,!QB=!/T= QT(!BT7)@@6% 46&quot; 8(
+M!@@6*!T$!10#)@,&amp;&quot; 0&amp;) 8%! ,%%A08#1C]_3W^S@7^_@X(#A&lt;&gt;!PX'#@&lt;&amp;
+M'@8&gt;!@&lt;&gt;!WX&amp;_NX. 1)#! ,'%0P$/ :L_?T%#0 &quot; P8#!@&lt;&amp;%P;W]_='D2,7
+M[ 4_PDVY_S7=*]_$-YST'Q,J=H=M=)BP?]URJM6&lt;;0--Z.3;_OA7;F\__%+[
+MVG_B^M^51LKS?O(;YJ?\Z&lt;\R_KYTNM+YX$]K_E3]&lt;&lt;FO_&quot;S/FZK&amp;+Y:?Y.&gt;?
+MJ73J/]?S^-K&lt;_P.I?_O.N4,*Q25^2&gt;S&amp;&gt;TK3^WTJ:-HW]\/$MF,]\VO.FODC
+M+5U7[IN(QM$;\IWYF_MR?^)25]Z/&gt;W]&gt;AM^-2_TS0JC&lt;\UNG^UJ;]OSDFY+\
+M$TH+W-&gt;Y=/Y[L2^G_,)U@\A[U]_A%(,N%J8NN[IC=LO8=',:VKS]U)!)W?&lt;[
+MW+,7QVGY(3(?E59^0OX_OK_S^^M&gt;;,_R&quot;Z&gt;L+8N2*U%I\=7=W(+Q#JYMV6N&amp;
+MJP7E&quot;@6[)RYW0%&gt;9NJY)=7-CA2NL%B@K/-.M(/XF%4J,5AS\;LG!47(&amp;)6,L
+MA:D$XTQ4K:+BB5JRUJBT&amp;&quot; W_2 4(+5LJ:I&quot;DRU_E]8+IVV5ZHN5;65&quot;[5[0
+MUL/\O^#2//2HM?? D=P$MA=?7]8_ ZF?I&lt;:8SM)$I&gt;4V1-9*.%[%5JKU-,K7
+M&lt;E[;,B+2&gt;/YK?E[Y40T73HU*BR:SW&lt;7).&amp;'9*B_AI[=!WH[#CK.CTHC:-39&lt;
+M$%_##[&quot;&gt;1IRJXKSLHBKF:OKH_9S8_4@(25X3D1-,F9Z2=Z4;?_K,XI-.6Y.D
+MK)E&gt;@VSC*N$3\@V;%SY/*\,SSIX^]&lt;/S\+YJ[EC'ULE&lt;997\U2&amp;.*3PMAW-X
+M;T!P5[.-YY3*BONREKWK1F6EXCQZ.&quot;&lt;QO(XQ.YK1DA)'-&amp;/,] 502P,$&quot;@ $
+M  8 ^FC'&amp;LJ@5',0 @  _@,   @   !P=VTX+F0N&lt;T&lt;^!WX#_@X' QX'!DX&amp;
+M!RX&amp;) &lt;&amp;!P8'!@&lt;&amp;!2&lt;&gt; P85 R8#%@0&amp;) &lt;D%@&lt;%!A&lt;.%_Y^__^/!/__+Q&lt;?
+M!P\G!A\&amp;'Q8?!G\%_^\/ 2(3! ,$ R4,!WP&amp;7/W]'0H $@87!@&lt;&amp;]_?W9]&amp;B
+M%_R&quot;%VQG['=*_&gt;EVRAF;[!&lt;?D_!A&amp;Q&lt;P\%O6_'G.7U?0DAZ;OMN7=+IV#^-+
+M;D_[;C&lt;DC^6W1 P4)-3KIYN8=2NIUO]ZZ#)&gt;X;+:__MACTT=KB[,O+^]*?UT
+M,+OFK+K9XVY^/97OBVIZL=J=]C0O:=B5\Y9?M\U]A&gt;6\-&gt;\C:WC@P.H:&gt;&lt;EQ
+MU;&quot;N8(2?&lt;O&gt;(+FY;5QW:7%FA+%8-S@I5Z!:N]@A3(J50) E?,C-1.1=5\I9B
+M-3YY:L\;1AF?]'PQ9Q5_R\^F=6%Y79#^2CE6)M3^@C9QK+PGN#2/ VKM'5+/
+MD1&quot;_/D.G?XZ%?&gt;V(I^TL\:LFW-3S&lt;E_6;MI?-[=$+A1^FYM8K%8&amp;%6&gt;5W/XZ
+MZX1YV6WJ[K^8S\5JG)QW'_JE[XQT'Y_G8E6N+@E$[BZE('M:S/8X]!PAS=)&gt;
+MET\BT.09989E4Q;W&gt;![_7UW%/,&quot;9P;]T9=;R,!Z(.D,$G.&amp;^Q$V&gt;@0ATV!&quot;A
+M$D0R?US_&gt;@-Y*WBAM8XGK#C*HI4Q&lt;26EUW(;U!L&amp;-Y#]&gt;55QX:'3&lt;W1955RJ
+M*Q.=&gt;QK#&amp;YCS:&lt;R:EC+1F.-F*E!+ 0(* PH    !  -IQQIT41&gt;R90   &amp;L 
+M   ,              &quot;D@0    !D:6=I+20Q,C P+F]02P$&quot;&quot;@,*    !@#\
+M:,&lt;:E85SFV$!  !R @  #               I(&amp;/    9&amp;EG:2TD,3(P,&quot;YS
+M4$L! @H#&quot;@ $  8 ^6C'&amp;FM^*+ + @  &gt; ,   L              *2!&amp;@( 
+M '!W;2TD,3(P,&quot;YS4$L! @H#&quot;@ $  8 _&amp;C'&amp;O9&quot;0BNQ @  \ 8   P     
+M         *2!3@0  '!W;2TR8VEA+F0N&lt;U!+ 0(* PH !  &amp; /=HQQKFO&lt;&lt;O
+M:P(  &amp;D%   +              &quot;D@2D'  !P=VTM8VEA+F8N&lt;U!+ 0(* PH 
+M!  &amp; /=HQQJHW6A*AP(  .0%   +              &quot;D@;T)  !P=VTM8VEA
+M+F&lt;N&lt;U!+ 0(* PH  @ &amp;  IIQQK396D&gt;&gt;SL   )0   '              &quot;D
+M@6T,  !P=VTM:FUJ4$L! @H#&quot;@ $  8 ^FC'&amp;DT[&gt;73M 0  5 ,   &lt;     
+M         *2!#4@  '!W;2YD+G-02P$&quot;&quot;@,*  0 !@#V:,&lt;:&lt;N5 =[(&quot;  &quot;'
+M!0  &quot;               I($?2@  &lt;'=M,BYC+G-02P$&quot;&quot;@,*  0 !@#Z:,&lt;:
+MRJ!4&lt;Q &quot;  #^ P  &quot;               I('W3   &lt;'=M.&quot;YD+G-02P4&amp;    
+/  H &quot;@ O @  +4\     
+ 
+end
+
+.......
+....
+..    
+.                                    C=H #20
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+cu next time!
+
+-S
+.......
+....
+..
+.                                    - fin -
+
+</pre></td></tr></table></center>
+</body>
+
+</html>

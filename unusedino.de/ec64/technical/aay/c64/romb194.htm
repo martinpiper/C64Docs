@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B194/45460:   Allocate Array Pointer Space
+
+Jump from <a href="romb24d.htm">$B253</a>, <a href="romb261.htm">$B261</a>:
+
+B194: A5 0B     <a href="blda.htm">LDA</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B196: 0A        <a href="basl.htm">ASL</a>
+B197: 69 05     <a href="badc.htm">ADC</a> #$05
+B199: 65 5F     <a href="badc.htm">ADC</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B19B: A4 60     <a href="bldy.htm">LDY</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B19D: 90 01     <a href="bbcc.htm">BCC</a> $B1A0
+B19F: C8        <a href="biny.htm">INY</a>
+
+Jump from $B19D:
+
+B1A0: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B1A2: 84 59     <a href="bsty.htm">STY</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B1A4: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb128.htm">Previous Page</a> / <a href="romb1a5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

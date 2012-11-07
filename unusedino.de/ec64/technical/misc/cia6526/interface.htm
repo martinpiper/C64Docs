@@ -1,0 +1,439 @@
+<html>
+<head>
+<title>6526 CIA: INTERFACE SIGNALS</title>
+</head>
+<body bgcolor="#ffffff">
+<h1 align="center">6526 Interface Signals</h1>
+
+<h4>INPUT CLOCK (<img src="phi2b.gif">)</h4>
+
+<p align="justify">The <img src="phi2.gif"> clock is a TTL compatible input used
+for internal device operation and as a timing reference for
+communicating with the system data bus.</p>
+
+<h4>CHIP SELECT (<img src="csb.gif">)</h4>
+
+<p align="justify">The <img src="cs.gif"> input controls the activity of the 6526.
+A low level on <img src="cs.gif"> while <img src="phi2.gif"> is
+high causes the device to respond to signals on the <img src=
+"rw.gif"> and address (RS) lines. A high on <img src="cs.gif">
+prevents these lines from controlling the 6526. The <img src=
+"cs.gif"> line is normally activated (low) at <img src="phi2.gif">
+by the appropriate address combination.</p>
+
+<h4>READ/WRITE (<img src="rwb.gif">)</h4>
+
+<p align="justify">The <img src="rw.gif"> signal is normally supplied by the
+microprocessor and controls the direction of data transfers of the
+6526. A high on <img src="rw.gif"> indicates a read (data transfer
+out of the 6526), while a low indicates a write (data transfer into
+the 6526).</p>
+
+<h4>REGISTER SELECTS (RS3-RS0)</h4>
+
+<p align="justify">The address inputs select the internal registers as described by
+the Register Map:</p>
+
+<center>
+<table border width="96%">
+<tr>
+<th width="6%">RS3</th>
+<th width="6%">RS2</th>
+<th width="6%">RS1</th>
+<th width="6%">RS0</th>
+<th width="7%">REG</th>
+<th width="17%">
+<center>NAME</center>
+</th>
+<th width="48%">
+<center>DESCRIPTION</center>
+</th>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>PRA</center>
+</td>
+<td>&nbsp;PERIPHERAL DATA REGISTER A</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>PRB</center>
+</td>
+<td>&nbsp;PERIPHERAL DATA REGISTER B</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>2</center>
+</td>
+<td>
+<center>DDRA</center>
+</td>
+<td>&nbsp;DATA DIRECTION REGISTER A</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>3</center>
+</td>
+<td>
+<center>DDRB</center>
+</td>
+<td>&nbsp;DATA DIRECTION REGISTER B</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>4</center>
+</td>
+<td>
+<center>TA LO</center>
+</td>
+<td>&nbsp;TIMER A LOW REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>5</center>
+</td>
+<td>
+<center>TA HI</center>
+</td>
+<td>&nbsp;TIMER A HIGH REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>6</center>
+</td>
+<td>
+<center>TB LO</center>
+</td>
+<td>&nbsp;TIMER B LOW REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>7</center>
+</td>
+<td>
+<center>TB HI</center>
+</td>
+<td>&nbsp;TIMER B HIGH REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>8</center>
+</td>
+<td>
+<center>TOD 10THS</center>
+</td>
+<td>&nbsp;10THS OF SECONDS REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>9</center>
+</td>
+<td>
+<center>TOD SEC</center>
+</td>
+<td>&nbsp;SECONDS REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>A</center>
+</td>
+<td>
+<center>TOD MIN</center>
+</td>
+<td>&nbsp;MINUTES REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>B</center>
+</td>
+<td>
+<center>TOD HR</center>
+</td>
+<td>&nbsp;HOURS -- AM/PM REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>C</center>
+</td>
+<td>
+<center>SDR</center>
+</td>
+<td>&nbsp;SERIAL DATA REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>D</center>
+</td>
+<td>
+<center>ICR</center>
+</td>
+<td>&nbsp;INTERRUPT CONTROL REGISTER</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>E</center>
+</td>
+<td>
+<center>CRA</center>
+</td>
+<td>&nbsp;CONTROL REGISTER A</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>F</center>
+</td>
+<td>
+<center>CRB</center>
+</td>
+<td>&nbsp;CONTROL REGISTER B</td>
+</tr>
+</table>
+</center>
+
+<br>
+ 
+
+<h4>DATA BUS (DB0-DB7)</h4>
+
+<p align="justify">The eight data bus pins transfer information between the 6526
+and the system data bus. These pins are high impedance inputs
+unless <img src="cs.gif"> is low and <img src="rw.gif"> and <img
+src="phi2.gif">are high to read the device. During this read, the
+data bus output buffers are enabled, driving the data from the
+selected register onto the system data bus.</p>
+
+<h4>INTERRUPT REQUEST (<img src="irqb.gif">)</h4>
+
+<p align="justify"><img src="irq.gif"> is an open drain output normally connected
+to the processor interrupt input. An external pullup resistor holds
+the signal high, allowing multiple <img src="irq.gif"> outputs to
+be connected together. The <img src="irq.gif"> output is normally
+off (high impedance) and is activated low as indicated in the
+functional description.</p>
+
+<h4>RESET (<img src="resb.gif">)</h4>
+
+<p align="justify">A low on the <img src="res.gif"> pin resets all internal
+registers. The port pins are set as inputs and port registers to
+zero (although a read of the ports will return all highs because of
+passive pullups). The timer control registers are set to zero and
+the timer latches to all ones. All other registers are reset to
+zero.</p>
+
+</body>
+</html>
+

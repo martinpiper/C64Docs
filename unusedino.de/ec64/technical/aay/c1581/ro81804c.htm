@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Abschluss eines Befehls ($c194)
+
+Einsprung von <a href="ro81876e.htm">$87EB</a>, <a href="ro81876e.htm">$87F1</a>, <a href="ro8188c5.htm">$8900</a>, <a href="ro81898f.htm">$89BD</a>, <a href="ro81898f.htm">$89CF</a>, <a href="ro8189e4.htm">$8A5A</a>, <a href="ro818b85.htm">$8B8B</a>, <a href="ro818b9a.htm">$8BAB</a>, <a href="ro818bd7.htm">$8BE0</a>,
+              <a href="ro818be3.htm">$8BF4</a>, <a href="ro818bfa.htm">$8C0C</a>, <a href="ro818ec5.htm">$8ED9</a>, <a href="ro819678.htm">$96AD</a>, <a href="ro8197ed.htm">$984A</a>, <a href="ro81995c.htm">$9980</a>, <a href="ro819986.htm">$9999</a>, <a href="ro81a1a1.htm">$A20A</a>, <a href="ro81aaa8.htm">$AAFD</a>,
+              <a href="ro81b262.htm">$B283</a>, <a href="ro81b390.htm">$B432</a>, <a href="ro81b88d.htm">$B8CF</a>, <a href="ro81b8d2.htm">$B8D2</a>, <a href="ro81b8d2.htm">$B9D0</a>:
+
+804C: A9 00     LDA #$00         Flag: 'BAM auf Diskette schreiben' loeschen
+804E: 85 35     STA <a href="ra8135.htm">$35</a>
+
+Einsprung von <a href="ro818b23.htm">$8B2C</a>, <a href="ro818b2f.htm">$8B45</a>, <a href="ro819896.htm">$98A8</a>:
+
+8050: AD AB 02  LDA <a href="ra8102ab.htm">$02AB</a>        Fehlernummer holen
+8053: F0 03     BEQ $8058        kein Fehler, ==&gt;
+8055: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $8053:
+
+8058: A0 00     LDY #$00         00, Ok
+805A: 98        TYA
+805B: 85 4D     STA <a href="ra814d.htm">$4D</a>          ,00
+
+Einsprung von <a href="ro818688.htm">$8710</a>:
+
+805D: 84 4E     STY <a href="ra814e.htm">$4E</a>          ,00
+
+Einsprung von <a href="ro81b781.htm">$B80E</a>:
+
+805F: 84 CD     STY <a href="ra81cd.htm">$CD</a>          Zeiger in INPUT-Puffer loeschen
+8061: 20 6D A8  JSR <a href="ro81a862.htm">$A86D</a>        Errormeldung ausgeben
+8064: 20 E5 81  JSR <a href="ro8181e5.htm">$81E5</a>        LEDs ausschalten
+
+Einsprung von <a href="ro81995c.htm">$9983</a>, <a href="ro819986.htm">$999C</a>:
+
+8067: A9 00     LDA #$00         Drivestatus loeschen
+8069: 85 6E     STA <a href="ra816e.htm">$6E</a>
+806B: 20 71 80  JSR <a href="ro818071.htm">$8071</a>        INPUT-Puffer loeschen
+806E: 4C 34 94  JMP <a href="ro819434.htm">$9434</a>        interne Kanaele freigeben
+    <a href="ro818004.htm">Previous Page</a> / <a href="ro818071.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

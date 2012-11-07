@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D019/53273/VIC+25:  Interrupt Request Register (IRR)
+
+   1 = IRQ occured
+
+   +----------+-------------------------------------------------------+
+   | Bit 7    |   1 = IRQ has been generated                          |
+   | Bit 3    |   Light-Pen Triggered IRQ Flag                        |
+   | Bit 2    |   Sprite to Sprite Collision IRQ Flag     (see <a href="vic30.htm">$D01E</a>) |
+   | Bit 1    |   Sprite to Background Collision IRQ Flag (see <a href="vic31.htm">$D01F</a>) |
+   | Bit 0    |   Raster Compare IRQ Flag                 (see <a href="vic18.htm">$D012</a>) |
+   +----------+-------------------------------------------------------+
+
+   An IRQ will be initiated, if equal bits are set in IRR and IMR.
+
+   <b>Your VIC does NOT clear this register! You have to do this by
+   setting the bits you want to clear.
+   Note also that read-modify-write-instructions, like INC, ASL..., will
+   not work on 65816-CPUs in native mode!</b>
+
+Kernal-Reference:
+
+ LDA $D019   : <a href="romff5b.htm">$FF63</a>
+
+</pre></td></tr></table></center></body></html>

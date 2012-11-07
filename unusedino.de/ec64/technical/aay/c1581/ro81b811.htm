@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Pruefen, ob alle Blocks der Partition vor dem Anlegen noch frei sind
+
+Einsprung von <a href="ro81b88d.htm">$B88D</a>:
+
+B811: A5 35     LDA <a href="ra8135.htm">$35</a>          'BAM veraendert'-Flag merken
+B813: 48        PHA
+B814: AD A9 02  LDA <a href="ra8102a9.htm">$02A9</a>        Anzahl 'Blocks free' merken
+B817: 48        PHA
+B818: AD AA 02  LDA <a href="ra8102a9.htm">$02AA</a>
+B81B: 48        PHA
+B81C: 20 5F B8  JSR <a href="ro81b85f.htm">$B85F</a>        Partition-Parameter aus Kommandozeile holen
+
+Einsprung von $B833:
+
+B81F: 20 B5 94  JSR <a href="ro8194b5.htm">$94B5</a>        auf gueltigen Block testen
+B822: A5 4D     LDA <a href="ra814d.htm">$4D</a>          aktueller Track
+B824: C9 28     CMP #$28         = Haupt-Directory-Track ?
+B826: F0 19     BEQ $B841        ja, ==&gt;
+
+B828: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        Block in BAM belegen
+B82B: F0 14     BEQ $B841        Block war schon belegt, ==&gt;
+B82D: 20 46 B5  JSR <a href="ro81b546.htm">$B546</a>        Block wieder freigeben
+B830: 20 EF B2  JSR <a href="ro81b2ef.htm">$B2EF</a>        naechsten Block der Part. holen
+B833: D0 EA     BNE $B81F        noch nicht fertig, ==&gt;
+B835: 68        PLA
+B836: 8D AA 02  STA <a href="ra8102a9.htm">$02AA</a>        Anzahl 'Blocks free' zurueckholen
+B839: 68        PLA
+B83A: 8D A9 02  STA <a href="ra8102a9.htm">$02A9</a>
+B83D: 68        PLA
+B83E: 85 35     STA <a href="ra8135.htm">$35</a>          'BAM veraendert'-Flag zurueckholen
+B840: 60        RTS
+
+Einsprung von $B826, $B82B:
+
+B841: 68        PLA
+B842: 8D AA 02  STA <a href="ra8102a9.htm">$02AA</a>        Anzahl 'Blocks free' zurueckholen
+B845: 68        PLA
+B846: 8D A9 02  STA <a href="ra8102a9.htm">$02A9</a>
+B849: 68        PLA
+B84A: 85 35     STA <a href="ra8135.htm">$35</a>          'BAM veraendert'-Flag zurueckholen
+B84C: A9 67     LDA #$67         67, Illegal Track or Sector
+B84E: 4C 3F FF  JMP <a href="ro81ff00.htm">$FF3F</a>
+    <a href="ro81b781.htm">Previous Page</a> / <a href="ro81b851.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

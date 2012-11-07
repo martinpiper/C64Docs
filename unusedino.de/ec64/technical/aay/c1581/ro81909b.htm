@@ -1,0 +1,102 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte aus aktueller Datei holen ($d156)
+Es wird der Zwei-Puffer-Modus verwendet. Dieser bringt bei der 1581 keinen
+Vorteil (sondern nur den Nachteil, dass 2 Puffer gebraucht werden).
+E: $50     : Kanalnummer
+A: $0234+KN: Kanalstatus
+   a       : Byte aus der Datei
+
+Byte aus aktuellem Puffer holen
+
+Einsprung von <a href="ro818688.htm">$871E</a>, <a href="ro818688.htm">$8723</a>, <a href="ro819303.htm">$935C</a>, <a href="ro8193aa.htm">$93B9</a>, <a href="ro819b0d.htm">$9B8D</a>:
+
+909B: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        Byte holen
+909E: D0 66     BNE $9106        Blockende ? nein, ==&gt;
+90A0: 85 54     STA <a href="ra8154.htm">$54</a>          Datenbyte zwischenspeichern
+90A2: B9 42 02  LDA <a href="ra810242.htm">$0242</a>,Y      Dateiende ?
+90A5: F0 08     BEQ $90AF        nein, ==&gt;
+90A7: A9 80     LDA #$80         b7=1: Lesekanal; b3=0: EOI-Flag setzen
+90A9: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y      Kanalstatus setzen
+90AC: A5 54     LDA <a href="ra8154.htm">$54</a>
+90AE: 60        RTS
+
+T&amp;S des uebernaechsten Blocks holen
+
+Einsprung von $90A5:
+
+90AF: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer umschalten (er enthaelt bereits den
+90B2: A9 00     LDA #$00         Folgeblock)
+90B4: 85 40     STA <a href="ra8140.htm">$40</a>
+90B6: A6 50     LDX <a href="ra8150.htm">$50</a>
+90B8: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        Aktuellen Puffer holen
+90BA: 10 02     BPL $90BE
+90BC: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X
+
+Einsprung von $90BA:
+
+90BE: 29 BF     AND #$BF
+90C0: 0A        ASL
+90C1: AA        TAX
+90C2: B5 BC     LDA <a href="ra81bb.htm">$BC</a>,X        Pufferzeiger setzen
+90C4: 85 65     STA <a href="ra8164.htm">$65</a>
+90C6: A5 40     LDA <a href="ra8140.htm">$40</a>          = 0
+90C8: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X
+90CA: 85 64     STA <a href="ra8164.htm">$64</a>
+90CC: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        1. Byte aus Puffer holen
+90CF: C9 00     CMP #$00         Ist es der letzter Block der Datei ?
+90D1: F0 34     BEQ $9107        ja, ==&gt;
+90D3: 85 4D     STA <a href="ra814d.htm">$4D</a>          Folgetrack merken
+90D5: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        2. Byte holen
+90D8: 85 4E     STA <a href="ra814e.htm">$4E</a>          Folgesektor merken
+90DA: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wieder zurueckschalten
+
+oebernaechsten Block einlesen
+
+90DD: A6 50     LDX <a href="ra8150.htm">$50</a>          Was soll das ?
+90DF: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        Puffer holen, die erste
+90E1: 10 02     BPL $90E5
+90E3: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X
+
+Einsprung von $90E1:
+
+90E5: 29 BF     AND #$BF
+90E7: AA        TAX              [Hier ist eine Laufwerksnummernabfrage
+                                 entfallen]
+                                Puffer holen, die zweite
+90E8: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer holen
+90EA: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        Aktiven Puffer holen
+90EC: 10 02     BPL $90F0        (wenn erster nicht aktiv, dann zweiten
+90EE: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X        Puffer holen)
+
+Einsprung von $90EC:
+
+90F0: 29 BF     AND #$BF
+90F2: 0A        ASL              2-Byte-Tabelle
+90F3: A8        TAY
+90F4: A5 4D     LDA <a href="ra814d.htm">$4D</a>          T&amp;S des Folgeblocks in Jobpuffer schreiben
+90F6: 99 0B 00  STA <a href="ra810b.htm">$000B</a>,Y
+90F9: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+90FB: 99 0C 00  STA <a href="ra810b.htm">$000C</a>,Y
+90FE: 20 FE 8F  JSR <a href="ro818ffe.htm">$8FFE</a>        Block einlesen
+9101: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wieder umschalten
+9104: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte zurueckholen
+
+Einsprung von $909E:
+
+9106: 60        RTS
+
+Letzten Dateiblock behandeln
+
+Einsprung von $90D1:
+
+9107: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        Blocklaenge holen
+910A: A4 50     LDY <a href="ra8150.htm">$50</a>          und als Blocklaenge des aktuellen
+910C: 99 42 02  STA <a href="ra810242.htm">$0242</a>,Y      Kanals merken
+910F: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte zurueckholen
+9111: 60        RTS
+
+    <a href="ro819071.htm">Previous Page</a> / <a href="ro819112.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EA2E/59950:   Accept data from serial bus
+
+Jump from $EA4B, <a href="ro41e85b.htm">$E8E7</a>:
+
+EA2E: 78        SEI
+EA2F: 20 07 D1  JSR <a href="ro41d107.htm">$D107</a>       ; open channel for writing
+EA32: B0 05     BCS $EA39       ; channel not active?
+EA34: B5 F2     LDA <a href="ra41f2.htm">$F2</a>,X       ; WRITE flag
+EA36: 6A        ROR
+EA37: B0 0B     BCS $EA44       ; not set?
+
+Jump from $EA32:
+
+EA39: A5 84     LDA <a href="ra4184.htm">$84</a>         ; secondary address
+EA3B: 29 F0     AND #$F0
+EA3D: C9 F0     CMP #$F0        ; OPEN command?
+EA3F: F0 03     BEQ $EA44       ; yes
+EA41: 4C 4E EA  JMP $EA4E       ; to wait loop
+
+Jump from $EA37, $EA3F:
+
+EA44: 20 C9 E9  JSR <a href="ro41e9c9.htm">$E9C9</a>       ; get data byte from bus
+EA47: 58        CLI
+EA48: 20 B7 CF  JSR <a href="ro41cf9b.htm">$CFB7</a>       ; and write in buffer
+EA4B: 4C 2E EA  JMP $EA2E       ; to loop beginning
+
+Jump from $EA41, <a href="ro41e85b.htm">$E8FA</a>, <a href="ro41e909.htm">$E999</a>:
+
+EA4E: A9 00     LDA #$00
+EA50: 8D 00 18  STA <a href="via10.htm">$1800</a>       ; reset IEEE port
+EA53: 4C E7 EB  JMP <a href="ro41eaa0.htm">$EBE7</a>       ; to wait loop
+EA56: 4C 5B E8  JMP <a href="ro41e85b.htm">$E85B</a>       ; to serial bus main loop
+
+    <a href="ro41e9f2.htm">Previous Page</a> / <a href="ro41ea59.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

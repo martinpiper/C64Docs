@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDDD/60893:   Send Serial Deferred
+
+Jump from <a href="romf1ca.htm">$F1D8</a>, <a href="romf3d5.htm">$F3FE</a>, <a href="romf5fa.htm">$F61C</a>, <a href="romf5fa.htm">$F621</a>, <a href="romf5fa.htm">$F62B</a>, <a href="romffa8.htm">$FFA8</a>:
+
+EDDD: 24 94     <a href="bbit.htm">BIT</a> <a href="zp94.htm">$94</a>       ; Flag: Serial Bus - Output Character buffered
+EDDF: 30 05     <a href="bbmi.htm">BMI</a> $EDE6
+EDE1: 38        <a href="bsec.htm">SEC</a>
+EDE2: 66 94     <a href="bror.htm">ROR</a> <a href="zp94.htm">$94</a>       ; Flag: Serial Bus - Output Character buffered
+EDE4: D0 05     <a href="bbne.htm">BNE</a> $EDEB
+
+Jump from $EDDF:
+
+EDE6: 48        <a href="bpha.htm">PHA</a>
+EDE7: 20 40 ED  <a href="bjsr.htm">JSR</a> <a href="romed40.htm">$ED40</a>     ; Send Data On Serial Bus
+EDEA: 68        <a href="bpla.htm">PLA</a>
+
+Jump from $EDE4:
+
+EDEB: 85 95     <a href="bsta.htm">STA</a> <a href="zp95.htm">$95</a>       ; Buffered Character for Serial Bus
+EDED: 18        <a href="bclc.htm">CLC</a>
+EDEE: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romedcc.htm">Previous Page</a> / <a href="romedef.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

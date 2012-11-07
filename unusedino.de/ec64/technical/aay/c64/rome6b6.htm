@@ -1,0 +1,44 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E6B6/59062:   Advance Cursor
+
+Jump from <a href="rome691.htm">$E6A5</a>:
+
+E6B6: 20 B3 E8  <a href="bjsr.htm">JSR</a> <a href="rome8b3.htm">$E8B3</a>     ; Check Line Increment
+E6B9: E6 D3     <a href="binc.htm">INC</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E6BB: A5 D5     <a href="blda.htm">LDA</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E6BD: C5 D3     <a href="bcmp.htm">CMP</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E6BF: B0 3F     <a href="bbcs.htm">BCS</a> <a href="rome6ed.htm">$E700</a>     ; Retreat Cursor
+E6C1: C9 4F     <a href="bcmp.htm">CMP</a> #$4F
+E6C3: F0 32     <a href="bbeq.htm">BEQ</a> <a href="rome6ed.htm">$E6F7</a>     ; Retreat Cursor
+E6C5: AD 92 02  <a href="blda.htm">LDA</a> <a href="zp0292.htm">$0292</a>     ; Flag: Auto scroll down
+E6C8: F0 03     <a href="bbeq.htm">BEQ</a> $E6CD
+E6CA: 4C 67 E9  <a href="bjmp.htm">JMP</a> <a href="rome965.htm">$E967</a>     ; Open A Space On The Screen
+
+Jump from $E6C8:
+
+E6CD: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E6CF: E0 19     <a href="bcpx.htm">CPX</a> #$19
+E6D1: 90 07     <a href="bbcc.htm">BCC</a> $E6DA
+E6D3: 20 EA E8  <a href="bjsr.htm">JSR</a> <a href="rome8ea.htm">$E8EA</a>     ; Scroll Screen
+E6D6: C6 D6     <a href="bdec.htm">DEC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E6D8: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+
+Jump from $E6D1, <a href="rome965.htm">$E97E</a>, <a href="rome965.htm">$E9C2</a>:
+
+E6DA: 16 D9     <a href="basl.htm">ASL</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E6DC: 56 D9     <a href="blsr.htm">LSR</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E6DE: E8        <a href="binx.htm">INX</a>
+E6DF: B5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E6E1: 09 80     <a href="bora.htm">ORA</a> #$80
+E6E3: 95 D9     <a href="bsta.htm">STA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E6E5: CA        <a href="bdex.htm">DEX</a>
+E6E6: A5 D5     <a href="blda.htm">LDA</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E6E8: 18        <a href="bclc.htm">CLC</a>
+E6E9: 69 28     <a href="badc.htm">ADC</a> #$28
+E6EB: 85 D5     <a href="bsta.htm">STA</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+
+    <a href="rome691.htm">Previous Page</a> / <a href="rome6ed.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

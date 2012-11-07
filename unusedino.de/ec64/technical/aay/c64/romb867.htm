@@ -1,0 +1,180 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B867/47207:   Perform Addition
+
+Jump from <a href="romad1e.htm">$AD4F</a>, <a href="romb849.htm">$B84D</a>, <a href="romb9ea.htm">$BA01</a>, <a href="romb9ea.htm">$BA1D</a>, <a href="rome043.htm">$E081</a>, <a href="rome097.htm">$E0D0</a>, <a href="rome264.htm">$E268</a>, <a href="rome26b.htm">$E2A4</a>:
+
+B867: 20 8C BA  <a href="bjsr.htm">JSR</a> <a href="romba8c.htm">$BA8C</a>     ; Load FAC#2 From Memory
+
+Jump from <a href="romb850.htm">$B85F</a>, <a href="rombcf3.htm">$BD8E</a>:
+
+B86A: D0 03     <a href="bbne.htm">BNE</a> $B86F
+B86C: 4C FC BB  <a href="bjmp.htm">JMP</a> <a href="rombbfc.htm">$BBFC</a>     ; Copy FAC#2 into FAC#1
+
+Jump from $B86A:
+
+B86F: A6 70     <a href="bldx.htm">LDX</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B871: 86 56     <a href="bstx.htm">STX</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+B873: A2 69     <a href="bldx.htm">LDX</a> #$69
+B875: A5 69     <a href="blda.htm">LDA</a> <a href="zp69.htm">$69</a>       ; AFAC Exponent
+
+Jump from <a href="rombae2.htm">$BAF1</a>:
+
+B877: A8        <a href="btay.htm">TAY</a>
+B878: F0 CE     <a href="bbeq.htm">BEQ</a> <a href="romb82d.htm">$B848</a>     ; Perform [wait]
+B87A: 38        <a href="bsec.htm">SEC</a>
+B87B: E5 61     <a href="bsbc.htm">SBC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B87D: F0 24     <a href="bbeq.htm">BEQ</a> $B8A3
+B87F: 90 12     <a href="bbcc.htm">BCC</a> $B893
+B881: 84 61     <a href="bsty.htm">STY</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B883: A4 6E     <a href="bldy.htm">LDY</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+B885: 84 66     <a href="bsty.htm">STY</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B887: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B889: 69 00     <a href="badc.htm">ADC</a> #$00
+B88B: A0 00     <a href="bldy.htm">LDY</a> #$00
+B88D: 84 56     <a href="bsty.htm">STY</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+B88F: A2 61     <a href="bldx.htm">LDX</a> #$61
+B891: D0 04     <a href="bbne.htm">BNE</a> $B897
+
+Jump from $B87F:
+
+B893: A0 00     <a href="bldy.htm">LDY</a> #$00
+B895: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+
+Jump from $B891:
+
+B897: C9 F9     <a href="bcmp.htm">CMP</a> #$F9
+B899: 30 C7     <a href="bbmi.htm">BMI</a> <a href="romb862.htm">$B862</a>     ; Normalise Addition
+B89B: A8        <a href="btay.htm">TAY</a>
+B89C: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B89E: 56 01     <a href="blsr.htm">LSR</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B8A0: 20 B0 B9  <a href="bjsr.htm">JSR</a> <a href="romb983.htm">$B9B0</a>     ; Multiply by Zero Byte
+
+Jump from $B87D, <a href="romb862.htm">$B865</a>:
+
+B8A3: 24 6F     <a href="bbit.htm">BIT</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B8A5: 10 57     <a href="bbpl.htm">BPL</a> $B8FE
+B8A7: A0 61     <a href="bldy.htm">LDY</a> #$61
+B8A9: E0 69     <a href="bcpx.htm">CPX</a> #$69
+B8AB: F0 02     <a href="bbeq.htm">BEQ</a> $B8AF
+B8AD: A0 69     <a href="bldy.htm">LDY</a> #$69
+
+Jump from $B8AB:
+
+B8AF: 38        <a href="bsec.htm">SEC</a>
+B8B0: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B8B2: 65 56     <a href="badc.htm">ADC</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+B8B4: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B8B6: B9 04 00  <a href="blda.htm">LDA</a> <a href="zp03.htm">$0004</a>,Y   ; Jump Vector: Convert FAC to Integer
+B8B9: F5 04     <a href="bsbc.htm">SBC</a> <a href="zp03.htm">$04</a>,X     ; Jump Vector: Convert FAC to Integer
+B8BB: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B8BD: B9 03 00  <a href="blda.htm">LDA</a> <a href="zp03.htm">$0003</a>,Y   ; Jump Vector: Convert FAC to Integer
+B8C0: F5 03     <a href="bsbc.htm">SBC</a> <a href="zp03.htm">$03</a>,X     ; Jump Vector: Convert FAC to Integer
+B8C2: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B8C4: B9 02 00  <a href="blda.htm">LDA</a> <a href="zp02.htm">$0002</a>,Y   ; Unused
+B8C7: F5 02     <a href="bsbc.htm">SBC</a> <a href="zp02.htm">$02</a>,X     ; Unused
+B8C9: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B8CB: B9 01 00  <a href="blda.htm">LDA</a> <a href="zp01.htm">$0001</a>,Y   ; 6510 On-chip 8-bit Input/Output Register
+B8CE: F5 01     <a href="bsbc.htm">SBC</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B8D0: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+
+Jump from <a href="rombc39.htm">$BC55</a>, <a href="rombccc.htm">$BCE6</a>:
+
+B8D2: B0 03     <a href="bbcs.htm">BCS</a> $B8D7
+B8D4: 20 47 B9  <a href="bjsr.htm">JSR</a> <a href="romb947.htm">$B947</a>     ; 2's Complement FAC#1
+
+Jump from $B8D2, <a href="rombb0f.htm">$BB9F</a>, <a href="rome097.htm">$E0EF</a>:
+
+B8D7: A0 00     <a href="bldy.htm">LDY</a> #$00
+B8D9: 98        <a href="btya.htm">TYA</a>
+B8DA: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $B8F5:
+
+B8DB: A6 62     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B8DD: D0 4A     <a href="bbne.htm">BNE</a> $B929
+B8DF: A6 63     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B8E1: 86 62     <a href="bstx.htm">STX</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B8E3: A6 64     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B8E5: 86 63     <a href="bstx.htm">STX</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B8E7: A6 65     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B8E9: 86 64     <a href="bstx.htm">STX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B8EB: A6 70     <a href="bldx.htm">LDX</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B8ED: 86 65     <a href="bstx.htm">STX</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B8EF: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B8F1: 69 08     <a href="badc.htm">ADC</a> #$08
+B8F3: C9 20     <a href="bcmp.htm">CMP</a> #$20
+B8F5: D0 E4     <a href="bbne.htm">BNE</a> $B8DB
+
+Jump from $B92E, <a href="romb7ad.htm">$B7B2</a>, <a href="rombad4.htm">$BADC</a>:
+
+B8F7: A9 00     <a href="blda.htm">LDA</a> #$00
+
+Jump from <a href="rombf7b.htm">$BF81</a>:
+
+B8F9: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+
+Jump from <a href="rombab7.htm">$BACC</a>:
+
+B8FB: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B8FD: 60        <a href="brts.htm">RTS</a>
+
+Jump from $B8A5:
+
+B8FE: 65 56     <a href="badc.htm">ADC</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+B900: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B902: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B904: 65 6D     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+B906: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B908: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B90A: 65 6C     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+B90C: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B90E: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B910: 65 6B     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+B912: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B914: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B916: 65 6A     <a href="badc.htm">ADC</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+B918: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B91A: 4C 36 B9  <a href="bjmp.htm">JMP</a> $B936
+
+Jump from $B929:
+
+B91D: 69 01     <a href="badc.htm">ADC</a> #$01
+B91F: 06 70     <a href="basl.htm">ASL</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B921: 26 65     <a href="brol.htm">ROL</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B923: 26 64     <a href="brol.htm">ROL</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B925: 26 63     <a href="brol.htm">ROL</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B927: 26 62     <a href="brol.htm">ROL</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+
+Jump from $B8DD:
+
+B929: 10 F2     <a href="bbpl.htm">BPL</a> $B91D
+B92B: 38        <a href="bsec.htm">SEC</a>
+B92C: E5 61     <a href="bsbc.htm">SBC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B92E: B0 C7     <a href="bbcs.htm">BCS</a> $B8F7
+B930: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B932: 69 01     <a href="badc.htm">ADC</a> #$01
+B934: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+
+Jump from $B91A:
+
+B936: 90 0E     <a href="bbcc.htm">BCC</a> $B946
+
+Jump from <a href="rombc1b.htm">$BC28</a>:
+
+B938: E6 61     <a href="binc.htm">INC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B93A: F0 42     <a href="bbeq.htm">BEQ</a> <a href="romb97e.htm">$B97E</a>     ; Output ?OVERFLOW Error
+B93C: 66 62     <a href="bror.htm">ROR</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B93E: 66 63     <a href="bror.htm">ROR</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B940: 66 64     <a href="bror.htm">ROR</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B942: 66 65     <a href="bror.htm">ROR</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B944: 66 70     <a href="bror.htm">ROR</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+
+Jump from $B936:
+
+B946: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb862.htm">Previous Page</a> / <a href="romb947.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

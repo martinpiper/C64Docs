@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BBFC/48124:   Copy FAC#2 into FAC#1
+
+Jump from <a href="romafe6.htm">$AFFC</a>, <a href="romb867.htm">$B86C</a>:
+
+BBFC: A5 6E     <a href="blda.htm">LDA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+
+Jump from <a href="rombf7b.htm">$BF9E</a>:
+
+BBFE: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BC00: A2 05     <a href="bldx.htm">LDX</a> #$05
+
+Jump from $BC07:
+
+BC02: B5 68     <a href="blda.htm">LDA</a> <a href="zp68.htm">$68</a>,X     ; Bit Overflow Area during normalisation Routine
+BC04: 95 60     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$60</a>,X     ; Temporary storage for FLPT value
+BC06: CA        <a href="bdex.htm">DEX</a>
+BC07: D0 F9     <a href="bbne.htm">BNE</a> $BC02
+BC09: 86 70     <a href="bstx.htm">STX</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BC0B: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombbc7.htm">Previous Page</a> / <a href="rombc0c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

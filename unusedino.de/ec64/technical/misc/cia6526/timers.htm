@@ -1,0 +1,365 @@
+<html>
+<head>
+<title>6526 CIA: INTERVAL TIMERS</title>
+</head>
+<body bgcolor="#ffffff">
+<h1 align="center">Interval Timers (Timer A, Timer B)</h1>
+
+<p align="justify">Each interval timer consists of a 16-bit read-only Timer Counter
+and a 16-bit write-only Timer Latch. Data written to the timer are
+latched in the Timer Latch, while data read from the timer are the
+present contents of the Time Counter. The timers can be used
+independently or linked for extended operations. The various timer
+modes allow generation of long time delays, variable width pulses,
+pulse trains and variable frequency waveforms. Utilizing the CNT
+input, the timers can count external pulses or measure frequency,
+pulse width and delay times of external signals. Each timer has an
+associated control register, providing independent control of the
+following functions:</p>
+
+<h4>Start/Stop</h4>
+
+<p align="justify">A control bit allows the timer to be started or stopped by the
+microprocessor at any time.</p>
+
+<h4>PB On/Off:</h4>
+
+<p align="justify">A control bit allows the timer output to appear on a PORT B
+output line (PB6 for TIMER A and PB7 for TIMER B). This function
+overrides the DDRB control bit and forces the appropriate PB line
+to an output.</p>
+
+<h4>Toggle/Pulse</h4>
+
+<p align="justify">A control bit selects the output applied to PORT B. On every
+timer underflow the output can either toggle or generate a single
+positive pulse of one cycle duration. The Toggle output is set high
+whenever the timer is started and is set low by <img src="res.gif">
+.</p>
+
+<h4>One-Shot/Continuous</h4>
+
+<p align="justify">A control bit selects either timer mode. In one-shot mode, the
+timer will count down from the latched value to zero, generate an
+interrupt, reload the latched value, then stop. In continuous mode,
+the timer will count from the latched value to zero, generate an
+interrupt, reload the latched value and repeat the procedure
+continuously.</p>
+
+<h4>Force Load</h4>
+
+<p align="justify">A strobe bit allows the timer latch to be loaded into the timer
+counter at any time, whether the timer is running or not.</p>
+
+<h4>Input Mode:</h4>
+
+<p align="justify">Control bits allow selection of the clock used to decrement the
+timer. TIMER A can count <img src="phi2.gif"> clock pulses or
+external pulses applied to the CNT pin. TIMER B can count
+<img src="phi2.gif"> pulses, external CNT pulses, TIMER A underflow pulses
+or TIMER A underflow pulses while the CNT pin is held high.</p>
+
+<p align="justify">The timer latch is loaded into the timer on any timer underflow,
+on a force load or following a write to the high byte of the
+prescaler while the timer is stopped. If the timer is running, a
+write to the high byte will load the timer latch, but not reload
+the counter.</p>
+
+<br>
+<center>
+<h4>READ (TIMER)</h4>
+
+<table border="1">
+<tr>
+<th>
+<center>REG</center>
+</th>
+<th>
+<center>NAME</center>
+</th>
+<th colspan="8">&nbsp;</th>
+</tr>
+
+<tr>
+<td width="9%">
+<center>4</center>
+</td>
+<td width="9%">
+<center>TA LO</center>
+</td>
+<td width="9%">
+<center>TAL<sub>7</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>6</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>5</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>4</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>3</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>2</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>1</sub></center>
+</td>
+<td width="9%">
+<center>TAL<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+<td>
+<center>TA HI</center>
+</td>
+<td>
+<center>TAH<sub>7</sub></center>
+</td>
+<td>
+<center>TAH<sub>6</sub></center>
+</td>
+<td>
+<center>TAH<sub>5</sub></center>
+</td>
+<td>
+<center>TAH<sub>4</sub></center>
+</td>
+<td>
+<center>TAH<sub>3</sub></center>
+</td>
+<td>
+<center>TAH<sub>2</sub></center>
+</td>
+<td>
+<center>TAH<sub>1</sub></center>
+</td>
+<td>
+<center>TAH<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+<td>
+<center>TB LO</center>
+</td>
+<td>
+<center>TBL<sub>7</sub></center>
+</td>
+<td>
+<center>TBL<sub>6</sub></center>
+</td>
+<td>
+<center>TBL<sub>5</sub></center>
+</td>
+<td>
+<center>TBL<sub>4</sub></center>
+</td>
+<td>
+<center>TBL<sub>3</sub></center>
+</td>
+<td>
+<center>TBL<sub>2</sub></center>
+</td>
+<td>
+<center>TBL<sub>1</sub></center>
+</td>
+<td>
+<center>TBL<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+<td>
+<center>TB HI</center>
+</td>
+<td>
+<center>TBH<sub>7</sub></center>
+</td>
+<td>
+<center>TBH<sub>6</sub></center>
+</td>
+<td>
+<center>TBH<sub>5</sub></center>
+</td>
+<td>
+<center>TBH<sub>4</sub></center>
+</td>
+<td>
+<center>TBH<sub>3</sub></center>
+</td>
+<td>
+<center>TBH<sub>2</sub></center>
+</td>
+<td>
+<center>TBH<sub>1</sub></center>
+</td>
+<td>
+<center>TBH<sub>0</sub></center>
+</td>
+</tr>
+</table>
+
+<br>
+<h4>WRITE (PRESCALER)</h4>
+
+<table border="1">
+<tr>
+<th>
+<center>REG</center>
+</th>
+<th>
+<center>NAME</center>
+</th>
+<th colspan="8">&nbsp;</th>
+</tr>
+
+<tr>
+<td width="9%">
+<center>4</center>
+</td>
+<td width="9%">
+<center>TA LO</center>
+</td>
+<td width="9%">
+<center>PAL<sub>7</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>6</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>5</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>4</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>3</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>2</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>1</sub></center>
+</td>
+<td width="9%">
+<center>PAL<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+<td>
+<center>TA HI</center>
+</td>
+<td>
+<center>PAH<sub>7</sub></center>
+</td>
+<td>
+<center>PAH<sub>6</sub></center>
+</td>
+<td>
+<center>PAH<sub>5</sub></center>
+</td>
+<td>
+<center>PAH<sub>4</sub></center>
+</td>
+<td>
+<center>PAH<sub>3</sub></center>
+</td>
+<td>
+<center>PAH<sub>2</sub></center>
+</td>
+<td>
+<center>PAH<sub>1</sub></center>
+</td>
+<td>
+<center>PAH<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+<td>
+<center>TB LO</center>
+</td>
+<td>
+<center>PBL<sub>7</sub></center>
+</td>
+<td>
+<center>PBL<sub>6</sub></center>
+</td>
+<td>
+<center>PBL<sub>5</sub></center>
+</td>
+<td>
+<center>PBL<sub>4</sub></center>
+</td>
+<td>
+<center>PBL<sub>3</sub></center>
+</td>
+<td>
+<center>PBL<sub>2</sub></center>
+</td>
+<td>
+<center>PBL<sub>1</sub></center>
+</td>
+<td>
+<center>PBL<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+<td>
+<center>TB HI</center>
+</td>
+<td>
+<center>PBH<sub>7</sub></center>
+</td>
+<td>
+<center>PBH<sub>6</sub></center>
+</td>
+<td>
+<center>PBH<sub>5</sub></center>
+</td>
+<td>
+<center>PBH<sub>4</sub></center>
+</td>
+<td>
+<center>PBH<sub>3</sub></center>
+</td>
+<td>
+<center>PBH<sub>2</sub></center>
+</td>
+<td>
+<center>PBH<sub>1</sub></center>
+</td>
+<td>
+<center>PBH<sub>0</sub></center>
+</td>
+</tr>
+</table></center>
+
+</body>
+</html>
+

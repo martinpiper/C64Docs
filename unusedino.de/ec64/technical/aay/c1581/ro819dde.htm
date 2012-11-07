@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Pufferinhalte kopieren ($dea5)
+a: Anzahl der zu kopierenden Bytes (1-128)
+y: Quellpuffer
+x: Zielpuffer
+
+Einsprung von <a href="ro81a459.htm">$A47B</a>:
+
+9DDE: 48        PHA
+9DDF: A9 00     LDA #$00         Lo-Bytes der Pufferzeiger = 0
+9DE1: 85 40     STA <a href="ra8140.htm">$40</a>
+9DE3: 85 42     STA <a href="ra8140.htm">$42</a>
+9DE5: B9 F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,Y      Adresse des Quellpuffers holen
+9DE8: 85 41     STA <a href="ra8140.htm">$41</a>
+9DEA: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X      Adresse des Zielpuffers holen
+9DED: 85 43     STA <a href="ra8140.htm">$43</a>
+9DEF: 68        PLA              Anzahl zu kopierender Bytes
+9DF0: A8        TAY              nach y
+9DF1: 88        DEY
+
+Einsprung von $9DF7:
+
+9DF2: B1 40     LDA (<a href="ra8140.htm">$40</a>),Y      Bytes kopieren
+9DF4: 91 42     STA (<a href="ra8140.htm">$42</a>),Y
+9DF6: 88        DEY
+9DF7: 10 F9     BPL $9DF2
+9DF9: 60        RTS
+
+    <a href="ro819dce.htm">Previous Page</a> / <a href="ro819dfa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

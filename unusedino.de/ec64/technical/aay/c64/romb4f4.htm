@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B4F4/46324:   Allocate Space for String
+
+Jump from <a href="romb465.htm">$B47D</a>:
+
+B4F4: 46 0F     <a href="blsr.htm">LSR</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+
+Jump from $B524:
+
+B4F6: 48        <a href="bpha.htm">PHA</a>
+B4F7: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B4F9: 38        <a href="bsec.htm">SEC</a>
+B4FA: 65 33     <a href="badc.htm">ADC</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B4FC: A4 34     <a href="bldy.htm">LDY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B4FE: B0 01     <a href="bbcs.htm">BCS</a> $B501
+B500: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $B4FE:
+
+B501: C4 32     <a href="bcpy.htm">CPY</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+B503: 90 11     <a href="bbcc.htm">BCC</a> $B516
+B505: D0 04     <a href="bbne.htm">BNE</a> $B50B
+B507: C5 31     <a href="bcmp.htm">CMP</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B509: 90 0B     <a href="bbcc.htm">BCC</a> $B516
+
+Jump from $B505:
+
+B50B: 85 33     <a href="bsta.htm">STA</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B50D: 84 34     <a href="bsty.htm">STY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B50F: 85 35     <a href="bsta.htm">STA</a> <a href="zp35.htm">$35</a>       ; Utility String Pointer
+B511: 84 36     <a href="bsty.htm">STY</a> <a href="zp35.htm">$36</a>       ; Utility String Pointer
+B513: AA        <a href="btax.htm">TAX</a>
+B514: 68        <a href="bpla.htm">PLA</a>
+B515: 60        <a href="brts.htm">RTS</a>
+
+Jump from $B503, $B509:
+
+B516: A2 10     <a href="bldx.htm">LDX</a> #$10
+B518: A5 0F     <a href="blda.htm">LDA</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+B51A: 30 B6     <a href="bbmi.htm">BMI</a> <a href="romb487.htm">$B4D2</a>     ; Set Up String
+B51C: 20 26 B5  <a href="bjsr.htm">JSR</a> <a href="romb526.htm">$B526</a>     ; Garbage Collection
+B51F: A9 80     <a href="blda.htm">LDA</a> #$80
+B521: 85 0F     <a href="bsta.htm">STA</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+B523: 68        <a href="bpla.htm">PLA</a>
+B524: D0 D0     <a href="bbne.htm">BNE</a> $B4F6
+
+    <a href="romb4d5.htm">Previous Page</a> / <a href="romb526.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

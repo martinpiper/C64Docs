@@ -1,0 +1,52 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C7B7/51127:   Create header with disk name
+
+Jump from <a href="ro41c6de.htm">$C716</a>, <a href="ro41da55.htm">$DAA1</a>:
+
+C7B7: 20 19 F1  JSR <a href="ro41f119.htm">$F119</a>       ; initialize if needed
+C7BA: 20 DF F0  JSR <a href="ro41f0df.htm">$F0DF</a>       ; read disk name
+C7BD: 20 AC C7  JSR <a href="ro41c7ac.htm">$C7AC</a>       ; erase buffer
+C7C0: A9 FF     LDA #$FF
+C7C2: 85 6F     STA <a href="ra416f.htm">$6F</a>
+C7C4: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+C7C6: 8E 72 02  STX <a href="ra410272.htm">$0272</a>       ; as block number lo in buffer
+C7C9: A9 00     LDA #$00
+C7CB: 8D 73 02  STA <a href="ra410272.htm">$0273</a>       ; block number lo
+C7CE: A6 F9     LDX <a href="ra41f9.htm">$F9</a>         ; buffer number
+C7D0: BD E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,X     ; hi-byte of the buffer address
+C7D3: 85 95     STA <a href="ra4194.htm">$95</a>
+C7D5: AD 88 FE  LDA <a href="ro41fe88.htm">$FE88</a>       ; $90, position of disk name
+C7D8: 85 94     STA <a href="ra4194.htm">$94</a>         ; save
+C7DA: A0 16     LDY #$16
+C7DC: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; pad buffer with 'shift blank'
+C7DE: C9 A0     CMP #$A0
+C7E0: D0 0B     BNE $C7ED
+C7E2: A9 31     LDA #$31        ; '1'
+C7E4: 2C        .BYTE $2C
+
+Jump from $C7F1:
+
+C7E5: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; character from buffer
+C7E7: C9 A0     CMP #$A0        ; compare with 'shift blank'
+C7E9: D0 02     BNE $C7ED
+C7EB: A9 20     LDA #$20        ; ' ' blank
+
+Jump from $C7E0, $C7E9:
+
+C7ED: 99 B3 02  STA <a href="ra4102b1.htm">$02B3</a>,Y     ; in buffer
+C7F0: 88        DEY
+C7F1: 10 F2     BPL $C7E5
+C7F3: A9 12     LDA #$12        ; 'RVS ON'
+C7F5: 8D B1 02  STA <a href="ra4102b1.htm">$02B1</a>       ; in buffer
+C7F8: A9 22     LDA #$22        ; '&quot;'
+C7FA: 8D B2 02  STA <a href="ra4102b1.htm">$02B2</a>       ; write before
+C7FD: 8D C3 02  STA <a href="ra4102b1.htm">$02C3</a>       ; and after disk name
+C800: A9 20     LDA #$20        ; ' ' blank
+C802: 8D C4 02  STA <a href="ra4102b1.htm">$02C4</a>       ; behind it
+C805: 60        RTS
+
+    <a href="ro41c7ac.htm">Previous Page</a> / <a href="ro41c806.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,330 @@
+<html><head><title>Startup state of a Linux/i386 ELF binary</title>
+<meta name="description" content="Document describes startup state of ELF executable">
+<meta name="keywords" content="assembly, assembler, asm, asmutils, embedded, HOWTO, Assembly HOWTO, system, kernel, system call, syscall, ELF, i386, x86, Alpha, IA-32, IA-64, IA32, IA64, nasm, gas, NASM, GAS, as86, tasm, masm, UNIX, Linux, FreeBSD, NetBSD, OpenBSD, BeOS, fast, small, memory, RAM, mini, httpd, smallest web server, source, hacker, interrupt, irq, int, port, I/O, hacker">
+</head>
+<body text="#000000" bgcolor="#FFFFFF">
+<h2 align=center>Startup state of a Linux/i386 ELF binary</h2>
+<p align=center><font size=-2>Copyright (C) 1999-2000 by Konstantin Boldyshev</font></p>
+<!-- <p align=center><font size=-1><i>(the primary url for this document is <a href=http://linuxassembly.org/startup.html>http://linuxassembly.org/startup.html</a>)</i></font></p> -->
+
+<p align=center><i><small>
+All information provided here has derived from my own research.
+So, mistakes and deficiencies could exist.<br>
+If you find any -- please <a href="startup.htm#co">contact me</a>.</small></i></p>
+
+<hr><a name=#cs></a><h2><u>Contents</u></h2><ul><font size=+1>
+<a href="startup.htm#in">1. Introduction</a><br>
+<a href="startup.htm#ov">2. Overview</a><br>
+<a href="startup.htm#st">3. Stack layout</a><br>
+<a href="startup.htm#re">4. Registers</a><br>
+<ul><small>
+	<a href="startup.htm#re0">4.1 Linux 2.0</a><br>
+	<a href="startup.htm#re2">4.2 Linux 2.2</a>
+</small></ul>
+<a href="startup.htm#ot">5. Other info</a><br>
+<a href="startup.htm#co">6. Summary</a><br>
+<a href="startup.htm#co">7. Contact</a></font></ul><hr>
+
+<a name=#in></a><h2><u>1. Introduction</u></h2>
+<p align=justify>
+The objective of this document is to describe several startup process details
+and the initial state of the stack & registers of an ELF binary program,
+for Linux Kernel 2.2.x and 2.0.x on i386.
+<p align=justify>
+Portions of material represented here may be applicable
+to any ELF-based IA-32 OS (FreeBSD, NetBSD, BeOS, etc).
+<p align=justify>
+Please note that in general case you can apply this information
+only to plain assembly programs (gas/nasm);
+some things described here (stack/registers state) are not true
+for anything compiled/linked with gcc (C as well as assembly) --
+gcc inserts its own startup code which is executed before control
+is passed to main() function.
+<p>Main source and authority of information provided below
+is Linux Kernel's <b>fs/binfmt_elf.c</b> file.<br>
+If you want all details of the startup process -- go read it.
+<p>All assembly code examples use nasm syntax.
+<a name=#program></a>
+<p>You can download program suite that was used while writing this document
+at the <a href=http://linuxassembly.org>Linux Assembly</a> (<a href="http://unusedino.de/linuxassembly/articles/startup.tgz">binaries</a>, <a href="../asmutils.htm">source</a>).</p>
+
+<a name=#ov></a><h2><u>2. Overview</u></h2>
+<p align=justify>
+Every program is executed by means of sys_execve() system call;
+usually one just types program name at the shell prompt.
+In fact a lot of interesting things happen after you press enter.
+Shortly, startup process of an ELF binary can be represented
+with the following step-by-step figure:</p>
+
+<table align=center border=1 bordercolor=#000000 bordercolorlight=#FFFFFF bordercolordark=#000000 cellspacing=0 width=100%>
+<tr><td align=center bgcolor=#FFFFB7>Function</td><td align=center bgcolor=#FFFFB7>Kernel file</td><td align=center bgcolor=#FFFFB7>Comments</td></tr>
+<tr><td align=center><i>shell</i></td><td align=center>...</td><td align=center>on user side one types in program name and strikes enter</td></tr>
+<tr><td align=center><i>execve()</i></td><td align=center>...</td><td align=center>shell calls libc function</td></tr>
+<tr><td align=center><i>sys_execve()</i></td><td align=center>...</td><td align=center>libc calls kernel...</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><i>sys_execve()</i></td><td align=center>arch/i386/kernel/process.c</td><td align=center>arrive to kernel side</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><i>do_execve()</i></td><td align=center>fs/exec.c</td><td align=center>open file and do some preparation</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><i>search_binary_handler()</i></td><td align=center>fs/exec.c</td><td align=center>find out type of executable</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><i>load_elf_binary()</i></td><td align=center>fs/binfmt_elf.c</td><td align=center>load ELF (and needed libraries) and create user segment</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><i>start_thread()</i></td><td align=center>include/asm-i386/processor.h</b></td><td align=center>and finally pass control to program code</td></tr>
+</table><p align=center><font color=#004080 size=2><i>Figure 1. Startup process of an ELF binary.</i></font></p>
+
+<p>
+Layout of segment created for an ELF binary shortly can be represented
+with <font color=#004080><i>Figure 2</i></font>.
+Yellow parts represent correspondent program sections.
+Shared libraries are not shown here; their layout duplicates layout of program,
+except that they reside in earlier addresses.</p>
+
+<small><i>0x08048000</i></small>
+<table align=center border=1 bordercolor=#000000 bordercolorlight=#FFFFFF bordercolordark=#000000 cellspacing=0 width=100%>
+<tr><td align=center bgcolor=#909090>code</td><td align=center bgcolor=#FFFFB7>.text section</td></tr>
+<tr><td align=center bgcolor=#A0A0A0>data</td><td align=center bgcolor=#FFFFB7>.data section</td></tr>
+<tr><td align=center bgcolor=#B0B0B0>bss</td><td align=center bgcolor=#FFFFB7>.bss section</td></tr>
+<tr><td align=center bgcolor=#C0C0C0>...<br>...<br>...</td><td align=center>free space</td></tr>
+<tr><td align=center bgcolor=#D0D0D0>stack</td><td align=center>stack (described later)</td></tr>
+<tr><td align=center bgcolor=#E0E0E0>arguments</td><td align=center>program arguments</td></tr>
+<tr><td align=center bgcolor=#F0F0F0>environment</td><td align=center>program environment</td></tr>
+<tr><td align=center bgcolor=#F8F8F8>program name</td><td align=center>filename of program (duplicated in arguments section)</td></tr>
+<tr><td align=center>null (dword)</td><td align=center>final dword of zero</td></tr>
+</table><small><i>0xBFFFFFFF</i></small>
+<p align=center><font color=#004080 size=2><i>Figure 2. Segment layout of an ELF binary.</i></font></p>
+
+<p align=justify>
+Program takes at least two pages of memory (1 page == 4 KB),
+even if it consists of single sys_exit();
+at least one page for ELF data (yellow color),
+and one for stack, arguments, and environment.
+Stack is growing to meet .bss;
+also you can use memory beyond .bss section for dynamic data allocation.
+
+<p align=justify><i>Note: this information was gathered from
+<b>fs/binfmt_elf.c</b>, <b>include/linux/sched.h</b> (task_struct.addr_limit),
+and core dumps investigated with ultimate binary viewer
+<a href=http://biew.sourceforge.net>biew</a>).</i></p>
+
+<a name=#st></a><h2><u>3. Stack layout</u></h2>
+
+<p>Initial stack layout is very important, because it provides access
+to command line and environment of a program.
+<br>Here is a picture of what is on the stack when program is launched:</p>
+
+<table align=center border=1 cellspacing=0 bordercolor=#000000 bordercolorlight=#FFFFFF bordercolordark=#000000 width=50%>
+<tr><td align=center bgcolor=#C0C0C0><b>argc</b></td><td align=center>[dword] argument counter (integer)</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><b>argv[0]</b></td><td align=center>[dword] program name (pointer)</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><b>argv[1]<p>...<p>argv[argc-1]</b></p></td><td align=center>[dword] program args (pointers)</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><b>NULL</b></td><td align=center>[dword] end of args (integer)</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><b>env[0]<p>env[1]<p>...<p>env[n]</b></p></td><td align=center>[dword] environment variables (pointers)</td></tr>
+<tr><td align=center bgcolor=#C0C0C0><b>NULL</b></td><td align=center>[dword] end of environment (integer)</td></tr>
+</table><p align=center><font color=#004080 size=2><i>Figure 3. Stack layout of an ELF binary.</i></font></p>
+
+<p>Here is the piece of source from kernel that proves it:</p>
+<p><b>fs/binfmt_elf.c</b> <i>create_elf_tables()</i></p>
+<pre>
+	...
+
+	put_user((unsigned long) argc, --sp);
+	current->mm->arg_start = (unsigned long) p;
+	while (argc-- > 0) {
+		put_user(p, argv++);
+		while (get_user(p++))	/* nothing */
+			;
+	}
+	put_user(0, argv);
+	current->mm->arg_end = current->mm->env_start = (unsigned long) p;
+	while (envc-- > 0) {
+		put_user(p, envp++);
+		while (get_user(p++))	/* nothing */
+			;
+	}
+	put_user(0, envp);
+
+	...</pre>
+
+<p>So, if you want to get arguments and environment,
+you just need to pop them one by one;
+argc and argv[0] are always present.
+Here's sample code (quite useless, just shows how to do it):</p>
+
+<pre>
+	pop	eax	;get argument counter
+	pop	ebx	;get our name (argv[0])
+.arg:
+	pop	ecx	;pop all arguments
+	test	ecx,ecx
+	jnz	.arg
+.env:			;pop all environment vars
+	pop	edx
+	test	edx,edx
+	jnz	.env
+</pre>
+<p align=justify>In fact you can also access arguments and environment in a different way -- directly. This method is based on structure of the user segment of loaded ELF binary: arguments and environment lay consequently at the end of segment (<font color=#004080><i>Figure 2</i></font>). So, you can fetch address of first argument from the stack, and then just use it as start address. Arguments and environment variables are null-terminated strings; you need to know who is who, so you have to evaluate start and end of arguments and environment:</p>
+<pre>
+	pop	eax				;get argument counter
+	pop	esi				;start of arguments
+	mov	edi,[esp+eax*4]			;end of arguments
+	mov	ebp,[esp+(eax+1)*4]		;start of environment
+</pre>
+<p align=justify>
+Second way seems to be more complex,
+you have to distinguish arguments manually.
+However it can be more suitable in some cases.
+Program name also can be fetched by downstepping from 0xBFFFFFFB (0xBFFFFFF-4)
+address (<font color=#004080><i>Figure 2</i></font>).</p>
+
+<a name=#re></a><h2><u>4. Registers</u></h2>
+<p align=justify>
+Or better to say, general registers.
+Here things go different for Linux 2.0 and Linux 2.2.
+First I'll describe Linux Kernel 2.0.
+
+<a name=#re0></a><h3 align=center>4.1 Linux Kernel 2.0</h3>
+<p align=justify>
+Theoretically, all registers except EDX are undefined on program startup
+when using Linux 2.0. EDX is zeroed by ELF_PLAT_INIT in <b>fs/binfmt_elf.c</b>
+<i>create_elf_tables()</i>. Here is the definition of this macro:</p> 
+
+<p><b>include/asm-i386/elf.h</b>
+<pre>
+	...
+
+	/* SVR4/i386 ABI (pages 3-31, 3-32) says that when the program
+	   starts %edx contains a pointer to a function which might be
+	   registered using `atexit'.  This provides a mean for the
+	   dynamic linker to call DT_FINI functions for shared libraries
+	   that have been loaded before the code runs.
+
+	   A value of 0 tells we have no such handler.  */
+#define ELF_PLAT_INIT(_r)	_r->edx = 0
+
+	...
+</pre>
+
+<p align=justify>
+Practically, simple investigation shows that other registers
+have well-defined values. Here we go...
+
+<p align=justify>
+If you will be patient enough and follow the path shown
+on <font color=#004080><i>Figure 1</i></font>, you'll find out
+that pt_regs structure (that contains register values before system call)
+is downpassed to <i>load_elf_binary()</i> and <i>create_elf_tables()</i>
+in <b>fs/binfmt_elf.c</b> COMPLETELY UNCHANGED
+(I will not cover this chain and appropriate kernel sources here to save space,
+but do not take my words, go check it :).
+The only modification is done right before passing control to program code,
+and was shown above -- EDX is zeroed
+(note: final <i>start_thread()</i> sets only segment & stack registers. Also
+EAX is always zero too, though I haven't found corresponding kernel source).
+This means that values of most general registers (EBX, ECX, ESI, EDI, EBP)
+on program startup are the same as in caller program before sys_execve()!
+More to say: <b>one can pass to program any custom values he wants in ESI, EDI
+and EBP</b> (certainly by means of direct syscall, not libc execve() function),
+and called program will receive them (sys_execve() call needs only EBX
+(program name), ECX (arguments) and EDX (environment) to be set).
+Conclusion: program gets photo of registers state before sys_execve().
+You can use this to hack libc :)</p>
+
+<p align=justify>
+I wrote two simple programs to illustrate state of registers --
+<a href="startup.htm#program"><i>execve</i> and <i>regs</i></a>.
+<i>regs</i> shows registers state on startup, <i>execve</i> executes
+given program and shows registers before sys_execve() call.
+You can easily combine them - try running
+<p>$ <i>./execve ./regs</i>
+<p>on Linux 2.0 and you will get the picture of what I'm talking about.</p>
+<a name=#re2></a><h3 align=center>Linux Kernel 2.2</h3>
+
+<p align=justify>
+On Linux 2.2 things are much simpler and less interesting --
+all general register are zeroed by ELF_PLAT_INIT in <i>create_elf_tables()</i>,
+because ELF_PLAT_INIT is not the same as in Linux 2.0:
+<p><b>include/asm-i386/elf.h</b>
+<pre>
+#define ELF_PLAT_INIT(_r)	do { \
+	_r->ebx = 0; _r->ecx = 0; _r->edx = 0; \
+	_r->esi = 0; _r->edi = 0; _r->ebp = 0; \
+	_r->eax = 0; \
+} while (0)
+</pre>
+
+<p>
+Finally, as visual illustration of this difference, here is partial output
+of <i>regs</i> program both for Linux 2.0 and Linux 2.2:</p>
+
+<p><b>Linux 2.0</b> (kernel 2.0.37)</p>
+<pre>
+EAX	:	0x0
+EBX	:	0x80A1928
+ECX	:	0x80A1958
+EDX	:	0x0
+ESI	:	0x0
+EDI	:	0x8049E90
+EBP	:	0xBFFFFBC4
+ESP	:	0xBFFFFE14
+EFLAGS	:	0x282
+CS	:	0x23
+DS	:	0x2B
+ES	:	0x2B
+FS	:	0x2B
+GS	:	0x2B
+SS	:	0x2B
+</pre>
+<p><b>Linux 2.2</b> (kernel 2.2.10)</p>
+<pre>
+EAX	:	0x0
+EBX	:	0x0
+ECX	:	0x0
+EDX	:	0x0
+ESI	:	0x0
+EDI	:	0x0
+EBP	:	0x0
+ESP	:	0xBFFFFB40
+EFLAGS	:	0x292
+CS	:	0x23
+DS	:	0x2B
+ES	:	0x2B
+FS	:	0x0
+GS	:	0x0
+SS	:	0x2B
+</pre>
+
+<p>In fact you can use this difference to determine quickly
+what kernel you are running under --
+just check whether EBX or ECX are zeroes on startup:</p>
+<pre>
+	test	ebx,ebx
+	jz	.kernel22	;it is Linux 2.2
+.kernel20:			;otherwise it is Linux 2.0
+	...
+
+.kernel22:
+	...
+</pre>
+
+<p>Also, you probably noticed from <i>regs</i> output that FS and GS are not
+used in Linux 2.2; and they are no longer present in pt_regs structure..</p>
+
+<a name=#ot></a><h2><u>5. Other info</u></h2>
+
+<b>
+fs/binfmt_elf.c</b> also contains <i>padzero()</i> function that zeroes out
+.bss section of a program; so, every variable contained in .bss section
+will get value of 0. Once again, you can be sure that uninitialized data
+will not contain garbage. You can use this issue if you want to initialize any variable(s) with zero -- Linux will do it for you, just place them in .bss section.</p>
+
+<a name=#su></a><h2><u>6. Summary</u></h2>
+<p>Brief summary of things to know about ELF binary startup state:<p>
+<ul>
+<li>.bss section is zeroed out
+<li>on Linux 2.2 all general registers are zeroed out
+<li>on Linux 2.0 EAX and EDX are zeroed out, other contain values before sys_execve() call
+<li>stack contains argc,argv[0 -- (argc-1)] and envp[0 -- n], in that order
+</ul>
+<a name=#co></a><h2><u>7. Contact</u></h2>
+<p>Author: Konstantin Boldyshev &lt;<a href=mailto:konst@linuxassembly.org>konst@linuxassembly.org</a>&gt;</p>
+
+<center><hr><font size=-1 face="Tahoma, Helvetica">
+$Id: startup.html,v 1.13 2002/09/09 08:31:05 konst Exp $
+</font></center>
+
+</body></html>

@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Suchen eines freien oder inaktiven Puffers ($d28e)
+A: a,x: Puffernummer (&gt;$7f: kein Puffer gefunden)
+
+Einsprung von <a href="ro818d7d.htm">$8DAD</a>, <a href="ro818e37.htm">$8E44</a>, <a href="ro818edc.htm">$8EDC</a>, <a href="ro819157.htm">$9181</a>, <a href="ro819157.htm">$9195</a>, <a href="ro819b0d.htm">$9B3F</a>, <a href="ro819bc3.htm">$9BF7</a>:
+
+9204: 98        TYA
+9205: 48        PHA
+9206: 20 28 92  JSR <a href="ro819228.htm">$9228</a>        Puffer suchen
+9209: 10 06     BPL $9211        gefunden ? ja, ==&gt;
+920B: 20 91 92  JSR <a href="ro819291.htm">$9291</a>        Puffer 'stehlen'  [ganz legal...]
+920E: AA        TAX              erfolgreich ?
+920F: 30 13     BMI $9224        nein, ==&gt;
+
+Einsprung von $9209, $9213:
+
+9211: B5 02     LDA <a href="ra8102.htm">$02</a>,X        Jobausfuehrung abwarten
+9213: 30 FC     BMI $9211
+9215: A9 00     LDA #$00         Jobspeicher loeschen
+9217: 95 02     STA <a href="ra8102.htm">$02</a>,X
+9219: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X
+921C: 8A        TXA              Puffernummer * 2
+921D: 0A        ASL
+921E: A8        TAY
+921F: A9 02     LDA #$02         Pufferzeiger initialisieren
+9221: 99 BB 00  STA <a href="ra81bb.htm">$00BB</a>,Y
+
+Einsprung von $920F:
+
+9224: 68        PLA
+9225: A8        TAY
+9226: 8A        TXA              Puffernummer merken
+9227: 60        RTS
+
+    <a href="ro8191ce.htm">Previous Page</a> / <a href="ro819228.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

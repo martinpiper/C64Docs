@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Initialize ($d005)
+
+8EC5: 20 85 80  JSR <a href="ro818085.htm">$8085</a>        Drivenummer holen
+8EC8: 20 CF B0  JSR <a href="ro81b0cf.htm">$B0CF</a>        Phy. Format einer 1581-Disk einstellen
+8ECB: 20 B3 B0  JSR <a href="ro81b0b3.htm">$B0B3</a>        Ganze Diskette als Partition waehlen
+8ECE: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Partition initialisieren
+8ED1: 2C FB 01  BIT <a href="ra8101fb.htm">$01FB</a>        Ist Autoboot aktiv ?
+8ED4: 50 03     BVC $8ED9        Nein ==&gt;
+8ED6: 4C 38 A9  JMP <a href="ro81a938.htm">$A938</a>        JCBMBOOT aufrufen ==&gt;
+
+Einsprung von $8ED4:
+
+8ED9: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+    <a href="ro818eb1.htm">Previous Page</a> / <a href="ro818edc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

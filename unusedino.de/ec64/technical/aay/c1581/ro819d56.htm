@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Blocklaenge des letzten Datenblocks setzen ($de19)
+
+Einsprung von <a href="ro819bc3.htm">$9C73</a>, <a href="ro81a2d6.htm">$A3AF</a>:
+
+9D56: 20 69 9D  JSR <a href="ro819d69.htm">$9D69</a>        Zeiger auf Pufferanfang setzen
+9D59: A9 00     LDA #$00         0: letzter Datenblock
+9D5B: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      in der Blockverkettung eintragen
+9D5D: C8        INY
+9D5E: A6 50     LDX <a href="ra8150.htm">$50</a>
+9D60: BD 57 02  LDA <a href="ra810257.htm">$0257</a>,X      Zeiger auf naechsten Datensatz holen
+9D63: AA        TAX
+9D64: CA        DEX              -1 = letztes benutztes Byte
+9D65: 8A        TXA
+9D66: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      merken
+9D68: 60        RTS
+
+    <a href="ro819d49.htm">Previous Page</a> / <a href="ro819d69.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E9FF/59903:   Clear Screen Line
+
+Jump from <a href="rome544.htm">$E560</a>, <a href="rome8ea.htm">$E913</a>, <a href="rome965.htm">$E9A6</a>:
+
+E9FF: A0 27     <a href="bldy.htm">LDY</a> #$27
+EA01: 20 F0 E9  <a href="bjsr.htm">JSR</a> <a href="rome9f0.htm">$E9F0</a>     ; Set Start of Line
+EA04: 20 24 EA  <a href="bjsr.htm">JSR</a> <a href="romea24.htm">$EA24</a>     ; Syncronise Color Pointer
+
+Jump from $EA0F:
+
+EA07: 20 DA E4  <a href="bjsr.htm">JSR</a> <a href="rome4da.htm">$E4DA</a>     ; Reset Character Color
+EA0A: A9 20     <a href="blda.htm">LDA</a> #$20
+EA0C: 91 D1     <a href="bsta.htm">STA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+EA0E: 88        <a href="bdey.htm">DEY</a>
+EA0F: 10 F6     <a href="bbpl.htm">BPL</a> $EA07
+EA11: 60        <a href="brts.htm">RTS</a>
+EA12: EA        <a href="bnop.htm">NOP</a>
+
+<b>* Old KERNAL:
+Jump from $EA10:
+
+EA07: A9 20     <a href="blda.htm">LDA</a> #$20
+EA09: 91 D1     <a href="bsta.htm">STA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+EA0B: 20 DA E4  <a href="bjsr.htm">JSR</a> <a href="rome4da.htm">$E4DA</a>     ; Reset Character Color
+EA0E: EA        <a href="bnop.htm">NOP</a>
+EA0F: 88        <a href="bdey.htm">DEY</a>
+EA10: 10 F5     <a href="bbpl.htm">BPL</a> $EA07
+EA12: 60        <a href="brts.htm">RTS</a>
+</b>
+
+    <a href="rome9f0.htm">Previous Page</a> / <a href="romea13.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

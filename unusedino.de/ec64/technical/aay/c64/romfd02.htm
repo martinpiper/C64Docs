@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FD02/64770:   Check For 8-ROM
+
+Jump from <a href="romfce2.htm">$FCE7</a>, <a href="romfe43.htm">$FE56</a>:
+
+FD02: A2 05     <a href="bldx.htm">LDX</a> #$05
+
+Jump from $FD0D:
+
+FD04: BD 0F FD  <a href="blda.htm">LDA</a> $FD0F,X
+FD07: DD 03 80  <a href="bcmp.htm">CMP</a> $8003,X
+FD0A: D0 03     <a href="bbne.htm">BNE</a> $FD0F
+FD0C: CA        <a href="bdex.htm">DEX</a>
+FD0D: D0 F5     <a href="bbne.htm">BNE</a> $FD04
+
+Jump from $FD0A:
+
+FD0F: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfce2.htm">Previous Page</a> / <a href="romfd10.htm">Next Page</a>
+
+Kernal-Reference:
+
+ LDA $FD0F,X : <a href="romfd02.htm">$FD04</a>
+
+</pre></td></tr></table></center></body></html>

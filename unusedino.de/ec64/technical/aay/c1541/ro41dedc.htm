@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DEDC/57052:   Set buffer pointer to side-sector
+
+Jump from <a href="ro41ded2.htm">$DED4</a>, <a href="ro41dee9.htm">$DEEA</a>, <a href="ro41e31c.htm">$E41E</a>, <a href="ro41e44e.htm">$E46C</a>:
+
+DEDC: 85 94     STA <a href="ra4194.htm">$94</a>         ; printer lo
+DEDE: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DEE0: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number
+DEE2: AA        TAX
+DEE3: BD E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,X     ; buffer address hi
+DEE6: 85 95     STA <a href="ra4194.htm">$95</a>         ; set
+DEE8: 60        RTS
+
+    <a href="ro41ded2.htm">Previous Page</a> / <a href="ro41dee9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

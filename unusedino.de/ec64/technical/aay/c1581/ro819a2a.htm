@@ -1,0 +1,58 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+letzten Dateiblock abspeichern ($db62)
+
+Einsprung von <a href="ro81999f.htm">$99BC</a>:
+
+9A2A: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer holen
+9A2C: BD 49 02  LDA <a href="ra810249.htm">$0249</a>,X      aktuelle Programmlaenge &gt; 0 ?
+9A2F: 1D 50 02  ORA <a href="ra810250.htm">$0250</a>,X
+9A32: D0 0C     BNE $9A40        ja, ==&gt;
+9A34: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        aktuellen Pufferzeiger holen
+9A37: C9 02     CMP #$02         = Beginn des Datenbereichs (Block leer) ?
+9A39: D0 05     BNE $9A40        nein, ==&gt;
+
+[Die Datei ist absolut leer !!! Da die Mindest-Dateilaenge aber 1 Byte ist,
+ wird die Datei um ein CR 'erweitert'.]
+
+9A3B: A9 0D     LDA #$0D         ja: CR in Puffer schreiben
+9A3D: 20 B1 8E  JSR $8EB1        [Pufferzeiger = $03 !]
+
+Einsprung von $9A32, $9A39:
+
+9A40: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+9A43: C9 02     CMP #$02         Ist der Puffer noch leer ?
+9A45: D0 12     BNE $9A59        nein, ==&gt;
+
+[Der letzte Block wurde genau gefuellt. Deshalb muss der aktuelle Block
+ wieder von der Datei 'abgezogen' werden.]
+
+9A47: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+9A4A: A6 50     LDX <a href="ra8150.htm">$50</a>
+9A4C: BD 49 02  LDA <a href="ra810249.htm">$0249</a>,X      Dateilaenge -1
+9A4F: D0 03     BNE $9A54        [Eigentlich, so meint man, muesste der Block
+9A51: DE 50 02  DEC <a href="ra810250.htm">$0250</a>,X       in der BAM auch freigegeben werden !?]
+
+Einsprung von $9A4F:
+
+9A54: DE 49 02  DEC <a href="ra810249.htm">$0249</a>,X
+9A57: A9 00     LDA #$00         Pufferzeiger auf 256 setzen
+
+Einsprung von $9A45:
+
+9A59: 38        SEC              Pufferzeiger -1 (zeigt nun auf das letzte
+9A5A: E9 01     SBC #$01         Datenbyte)
+9A5C: 48        PHA              merken
+9A5D: A9 00     LDA #$00         Pufferzeiger auf die Blockverkettung setzen
+9A5F: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+9A62: 20 B1 8E  JSR $8EB1        $00: letzter Dateiblock in Puffer schreiben
+9A65: 68        PLA              Blocklaenge
+9A66: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        in Puffer schreiben
+9A69: 20 02 90  JSR <a href="ro818ffe.htm">$9002</a>        Block auf Diskette schreiben
+9A6C: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung ueberwachen
+9A6F: 4C 7D 8D  JMP <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+
+    <a href="ro81999f.htm">Previous Page</a> / <a href="ro819a72.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

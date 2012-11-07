@@ -1,0 +1,52 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte aus aktuellem Puffer holen ($d137)
+E: $50: Kanalnummer
+A: a  : aktuelles Byte
+   z  : 1: Blockende
+
+Einsprung von <a href="ro818fd6.htm">$8FDF</a>, <a href="ro818fd6.htm">$8FE4</a>, <a href="ro81909b.htm">$909B</a>, <a href="ro81909b.htm">$90CC</a>, <a href="ro81909b.htm">$90D5</a>, <a href="ro81909b.htm">$9107</a>, <a href="ro819370.htm">$938F</a>,
+              <a href="ro8198f7.htm">$994B</a>, <a href="ro819dce.htm">$9DD3</a>, <a href="ro819dce.htm">$9DD8</a>, <a href="ro81b245.htm">$B245</a>, <a href="ro81b2c7.htm">$B2D5</a>, <a href="ro81b2c7.htm">$B2DA</a>:
+
+9071: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanal- und Puffernummer holen
+9073: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        [Dies entspricht exakt der Routine $9069.
+9075: 10 02     BPL $9079         Bei der 1541 stand hier nur ein JSR
+9077: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X         dorthin. Diese Version spart
+
+Einsprung von $9075:
+
+9079: 29 BF     AND #$BF          2 x JSR, 2 x RTS (2x6 + 2x6 = 24 Takte)
+907B: 0A        ASL               fuer jedes gelesene Byte
+907C: AA        TAX               = 0.6 sec bei 202 Blocks.]
+907D: A4 50     LDY <a href="ra8150.htm">$50</a>
+
+907F: B9 42 02  LDA <a href="ra810242.htm">$0242</a>,Y      Zeiger auf Pufferende = 0 ?
+9082: F0 12     BEQ $9096        (nicht letzter Block) ja, ==&gt;
+
+Byte aus letztem Block einer Datei holen
+
+9084: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      Byte holen
+9086: 48        PHA
+9087: B5 BB     LDA <a href="ra81bb.htm">$BB</a>,X        Dateiende ?
+9089: D9 42 02  CMP <a href="ra810242.htm">$0242</a>,Y
+908C: D0 04     BNE $9092        nein, ==&gt;
+908E: A9 FF     LDA #$FF         Pufferzeiger auf 0 setzen
+9090: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        ($ff wegen inc bb,x (setzt das z-Flag))
+
+Einsprung von $908C:
+
+9092: 68        PLA
+9093: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen
+9095: 60        RTS
+Byte aus allen anderen Bloecken einer Datei holen
+
+Einsprung von $9082:
+
+9096: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      Byte holen
+9098: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen
+909A: 60        RTS
+
+    <a href="ro819069.htm">Previous Page</a> / <a href="ro81909b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D44D/54349:   Read next block
+
+Jump from <a href="ro41c5ac.htm">$C629</a>, <a href="ro41c87d.htm">$C8B0</a>, <a href="ro41ede5.htm">$EE07</a>:
+
+D44D: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+D450: 0A        ASL             ; times 2
+D451: AA        TAX
+D452: A9 00     LDA #$00
+D454: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer to zero
+D456: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; get first byte from buffer
+D458: F0 05     BEQ $D45F       ; no block following?
+D45A: D6 99     DEC <a href="ra4199.htm">$99</a>,X       ; buffer pointer to -1
+D45C: 4C 56 D1  JMP <a href="ro41d156.htm">$D156</a>       ; read next block
+
+Jump from $D458:
+
+D45F: 60        RTS
+
+    <a href="ro41d39b.htm">Previous Page</a> / <a href="ro41d460.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

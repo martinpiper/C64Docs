@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Blockheader lesen
+Spurnummer und Sektorgroesse anpassen
+
+Einsprung von <a href="ro81c0be.htm">$C116</a>, <a href="ro81c600.htm">$C600</a>, <a href="ro81c6d7.htm">$C6D7</a>, <a href="ro81c700.htm">$C700</a>, <a href="ro81c800.htm">$C800</a>, <a href="ro81c900.htm">$C900</a>, <a href="ro81ca00.htm">$CA00</a>, <a href="ro81cae4.htm">$CAE4</a>, <a href="ro81cae4.htm">$CAF1</a>,
+              <a href="ro81cae4.htm">$CB09</a>:
+
+CFA6: 20 00 CD  JSR <a href="ro81cd00.htm">$CD00</a>        Blockheader lesen
+CFA9: B0 09     BCS $CFB4        Fehler, ==&gt;
+CFAB: A5 1F     LDA <a href="ra811f.htm">$1F</a>          Spurnummer aus Blockheader
+CFAD: 85 27     STA <a href="ra8127.htm">$27</a>          als aktuelle Kopfposition merken
+CFAF: A5 22     LDA <a href="ra8122.htm">$22</a>          Sektorgroesse merken
+CFB1: 85 91     STA <a href="ra8191.htm">$91</a>
+CFB3: 60        RTS
+
+Einsprung von $CFA9:
+
+CFB4: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Fehler
+
+    <a href="ro81cf51.htm">Previous Page</a> / <a href="ro81cfb7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,41 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AC06/44038:   Perform [read]
+
+AC06: A6 41     <a href="bldx.htm">LDX</a> <a href="zp41.htm">$41</a>       ; Pointer: Used by READ - current DATA Item
+AC08: A4 42     <a href="bldy.htm">LDY</a> <a href="zp41.htm">$42</a>       ; Pointer: Used by READ - current DATA Item
+AC0A: A9 98     <a href="blda.htm">LDA</a> #$98
+AC0C: 2C        .BYTE $2C
+
+Jump from <a href="romabea.htm">$ABED</a>:
+
+AC0D: A9 00     <a href="blda.htm">LDA</a> #$00
+
+Jump from <a href="romab7b.htm">$AB9D</a>:
+
+AC0F: 85 11     <a href="bsta.htm">STA</a> <a href="zp11.htm">$11</a>       ; Input Flag
+AC11: 86 43     <a href="bstx.htm">STX</a> <a href="zp43.htm">$43</a>       ; Pointer: Temporary storage during INPUT
+AC13: 84 44     <a href="bsty.htm">STY</a> <a href="zp43.htm">$44</a>       ; Pointer: Temporary storage during INPUT
+
+Jump from <a href="romac35.htm">$ACB5</a>:
+
+AC15: 20 8B B0  <a href="bjsr.htm">JSR</a> <a href="romb08b.htm">$B08B</a>     ; Identify Variable
+AC18: 85 49     <a href="bsta.htm">STA</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+AC1A: 84 4A     <a href="bsty.htm">STY</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+AC1C: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC1E: A4 7B     <a href="bldy.htm">LDY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+AC20: 85 4B     <a href="bsta.htm">STA</a> <a href="zp4b.htm">$4B</a>       ; Temporary storage for TXTPTR
+AC22: 84 4C     <a href="bsty.htm">STY</a> <a href="zp4b.htm">$4C</a>       ; Temporary storage for TXTPTR
+AC24: A6 43     <a href="bldx.htm">LDX</a> <a href="zp43.htm">$43</a>       ; Pointer: Temporary storage during INPUT
+AC26: A4 44     <a href="bldy.htm">LDY</a> <a href="zp43.htm">$44</a>       ; Pointer: Temporary storage during INPUT
+AC28: 86 7A     <a href="bstx.htm">STX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AC2A: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+AC2C: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+AC2F: D0 20     <a href="bbne.htm">BNE</a> <a href="romac35.htm">$AC51</a>     ; General Purpose Read Routine
+AC31: 24 11     <a href="bbit.htm">BIT</a> <a href="zp11.htm">$11</a>       ; Input Flag
+AC33: 50 0C     <a href="bbvc.htm">BVC</a> <a href="romac35.htm">$AC41</a>     ; General Purpose Read Routine
+
+    <a href="romabf9.htm">Previous Page</a> / <a href="romac35.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

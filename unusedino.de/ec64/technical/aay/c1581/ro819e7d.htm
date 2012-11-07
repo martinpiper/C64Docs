@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Anzahl der benoetigten Blocks einer REL-Datei berechnen ($df4c)
+(alte Version: Anzahl der Blocks innerhalb einer Gruppe)
+E: x  : Anzahl der gefuellten Side-Sektoren
+   $43: Anzahl Datenbloecke im letzten Side-Sektor *2
+   $44: Anzahl Side-Sektoren
+A: $41-$42: Anzahl der belegten Blocks
+
+Einsprung von $9E83:
+
+9E7D: A9 78     LDA #$78         120 Datenbloecke pro gefuelltem Side-Sektor
+9E7F: 20 8D 9E  JSR $9E8D        addieren
+
+Einsprung von <a href="ro81999f.htm">$99E9</a>, <a href="ro81a2d6.htm">$A336</a>:
+
+9E82: CA        DEX              &lt;-- (Einsprung)
+9E83: 10 F8     BPL $9E7D
+9E85: A5 43     LDA <a href="ra8140.htm">$43</a>          Anzahl Datenbloecke im letzten Side-Sektor*2
+9E87: 4A        LSR              /2
+9E88: 20 8D 9E  JSR $9E8D        addieren
+9E8B: A5 44     LDA <a href="ra8140.htm">$44</a>          Anzahl Side-Sektoren addieren
+
+Einsprung von $9E7F, $9E88:
+
+9E8D: 18        CLC              Addition
+9E8E: 65 41     ADC <a href="ra8140.htm">$41</a>
+9E90: 85 41     STA <a href="ra8140.htm">$41</a>
+9E92: 90 02     BCC $9E96
+9E94: E6 42     INC <a href="ra8140.htm">$42</a>
+
+Einsprung von $9E92:
+
+9E96: 60        RTS
+
+    <a href="ro819e75.htm">Previous Page</a> / <a href="ro819e97.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

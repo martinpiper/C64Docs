@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Controller-Status pruefen
+
+Einsprung von <a href="ro81c3bb.htm">$C3C3</a>, <a href="ro81c600.htm">$C685</a>, <a href="ro81c600.htm">$C6CC</a>, <a href="ro81c700.htm">$C75F</a>, <a href="ro81c800.htm">$C85F</a>, <a href="ro81c900.htm">$C987</a>, <a href="ro81c900.htm">$C9CE</a>, <a href="ro81ca00.htm">$CA8F</a>, <a href="ro81ca00.htm">$CAD6</a>,
+              <a href="ro81cb35.htm">$CB44</a>, <a href="ro81cb8d.htm">$CB99</a>, <a href="ro81cd00.htm">$CD2A</a>:
+
+CD3F: 20 EC CB  JSR <a href="ro81cbec.htm">$CBEC</a>        auf 'Controller ready' warten
+CD42: 08        PHP
+CD43: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Auf 'Lost Data' testen
+CD46: 4A        LSR
+CD47: 4A        LSR
+CD48: 4A        LSR              Fehler ? ja, ==&gt;
+CD49: B0 08     BCS $CD53        ---&gt; Was passiert mit PHP ???
+CD4B: 29 0B     AND #$0B         b0=1: CRC-Fehler
+CD4D: AA        TAX              b1=1: Header nicht gefunden
+CD4E: 28        PLP              b3=1: Diskette schreibgeschuetzt
+CD4F: BD 5A CD  LDA $CD5A,X      Job-Fehlercode holen
+CD52: 2C         B $2C
+
+Einsprung von $CD49:
+
+CD53: A9 09     LDA #$09         $09: CRC-Error
+CD55: 85 7D     STA <a href="ra817d.htm">$7D</a>
+CD57: A5 7D     LDA <a href="ra817d.htm">$7D</a>
+CD59: 60        RTS
+
+CD5A: 00 05 02 00 00 00 00 00  Tabelle zur Umrechnung des Controller-
+CD62: 08                       Status in die entsprechende Job-Meldung
+
+    <a href="ro81cd00.htm">Previous Page</a> / <a href="ro81cd63.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

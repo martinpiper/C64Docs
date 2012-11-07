@@ -1,0 +1,64 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $a6: SP_WRITE
+
+C700: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen
+C703: A5 88     LDA <a href="ra8188.htm">$88</a>          Solltrack
+C705: C5 1F     CMP <a href="ra811f.htm">$1F</a>          = aktueller Track ?
+C707: F0 03     BEQ $C70C        ja, ==&gt;
+C709: 4C 88 CB  JMP $CB88        Error $02 (Header nicht gefunden)
+
+Einsprung von $C707:
+
+C70C: A6 83     LDX <a href="ra8183.htm">$83</a>          Jobnummer holen und als Index in eine
+C70E: B5 0B     LDA <a href="ra810b.htm">$0B</a>,X        2 (!) Byte Tabelle verwenden
+C710: 8D 01 60  STA <a href="wd811.htm">$6001</a>        physikalische T&amp;S des Sektors holen
+C713: B5 0C     LDA <a href="ra810b.htm">$0C</a>,X        [Das funktioniert nur bei Job 0 !
+C715: 8D 02 60  STA <a href="wd812.htm">$6002</a>         Da aber der verwendete Puffer immer $0300
+C718: A9 00     LDA #$00          ist, besteht kein Grund, einen anderen
+C71A: 85 4A     STA <a href="ra814a.htm">$4A</a>           Jobpuffer zu verwenden.]
+C71C: A9 03     LDA #$03         Zeiger auf Pufferanfang ($0300) setzen
+C71E: 85 4B     STA <a href="ra814a.htm">$4B</a>
+C720: EA  ....  NOP            [19 NOPS]
+C732: ....  EA  NOP
+
+C733: AD E0 01  LDA <a href="ra8101e0.htm">$01E0</a>        Controller-Befehl 'Write Sector'
+C736: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        an Controller uebergeben
+C739: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+C73B: C0 03     CPY #$03         Anzahl der zu schreibenden Seiten berechnen
+C73D: D0 02     BNE $C741
+C73F: C8        INY              128-Byte-Sektoren werden nicht
+C740: EA        NOP              unterstuetzt)
+
+Einsprung von $C73D, $C749, $C758, $C75D:
+
+C741: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Controller-Status holen
+C744: 29 03     AND #$03
+C746: 4A        LSR
+C747: 90 16     BCC $C75F        'Controller ready', ==&gt;
+C749: F0 F6     BEQ $C741        noch nicht 'Byte ready', ==&gt;
+C74B: 84 82     STY <a href="ra8182.htm">$82</a>
+C74D: A0 00     LDY #$00
+C74F: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y      Byte auf Diskette schreiben
+C751: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C754: A4 82     LDY <a href="ra8182.htm">$82</a>
+C756: E6 4A     INC <a href="ra814a.htm">$4A</a>          Pufferzeiger erhoehen
+C758: D0 E7     BNE $C741
+C75A: E6 4B     INC <a href="ra814a.htm">$4B</a>
+C75C: 88        DEY              noch eine Speicherseite zu schreiben ?
+C75D: D0 E2     BNE $C741        ja, ==&gt;
+
+Einsprung von $C747:
+
+C75F: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+C762: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Jobauftrag beenden
+
+C765: FF  ....
+C7FF: ....  FF
+
+Controller-Programm 2
+
+    <a href="ro81c6d7.htm">Previous Page</a> / <a href="ro81c800.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

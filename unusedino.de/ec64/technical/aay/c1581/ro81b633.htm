@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Verzeichnis-Header in aktuellen Puffer lesen, ggf. BAM lesen
+
+Einsprung von <a href="ro81854d.htm">$862A</a>:
+
+B633: 20 15 B5  JSR <a href="ro81b515.htm">$B515</a>        Bam ggf. abspeichern
+B636: A2 00     LDX #$00         Verzeichnis-Header (x: Sektornummer)
+B638: A5 6C     LDA <a href="ra816c.htm">$6C</a>          in aktuellen Puffer lesen
+B63A: 20 43 B6  JSR <a href="ro81b643.htm">$B643</a>        T&amp;S an DC uebergeben
+B63D: 20 DE 94  JSR <a href="ro8194de.htm">$94DE</a>        Job ausfuehren und ueberwachen
+B640: 4C F2 B5  JMP <a href="ro81b5f2.htm">$B5F2</a>        Wenn Bam-Puffer leer, Bam lesen
+
+    <a href="ro81b612.htm">Previous Page</a> / <a href="ro81b643.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

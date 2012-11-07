@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F0A4/61604:   Serial Bus Idle
+
+Jump from <a href="romed0c.htm">$ED0E</a>, <a href="romf875.htm">$F88A</a>:
+
+F0A4: 48        <a href="bpha.htm">PHA</a>
+F0A5: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F0A8: F0 11     <a href="bbeq.htm">BEQ</a> $F0BB
+
+Jump from $F0AF:
+
+F0AA: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F0AD: 29 03     <a href="band.htm">AND</a> #$03
+F0AF: D0 F9     <a href="bbne.htm">BNE</a> $F0AA
+F0B1: A9 10     <a href="blda.htm">LDA</a> #$10
+F0B3: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+F0B6: A9 00     <a href="blda.htm">LDA</a> #$00
+F0B8: 8D A1 02  <a href="bsta.htm">STA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+
+Jump from $F0A8:
+
+F0BB: 68        <a href="bpla.htm">PLA</a>
+F0BC: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf086.htm">Previous Page</a> / <a href="romf0bd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

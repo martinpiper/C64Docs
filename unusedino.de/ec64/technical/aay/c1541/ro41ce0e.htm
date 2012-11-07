@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CE0E/52750:   Set pointer for REL file
+
+Jump from <a href="ro41e207.htm">$E255</a>, <a href="ro41e31c.htm">$E338</a>, <a href="ro41e31c.htm">$E436</a>:
+
+CE0E: 20 2C CE  JSR <a href="ro41ce2c.htm">$CE2C</a>       ; record number * record length
+CE11: 20 6E CE  JSR <a href="ro41ce6e.htm">$CE6E</a>       ; divide by 254
+CE14: A5 90     LDA <a href="ra418f.htm">$90</a>         ; remainder = pointer in data block
+CE16: 85 D7     STA <a href="ra41d7.htm">$D7</a>         ; data pointer
+CE18: 20 71 CE  JSR <a href="ro41ce71.htm">$CE71</a>       ; divide by 120 = side-sector number
+CE1B: E6 D7     INC <a href="ra41d7.htm">$D7</a>
+CE1D: E6 D7     INC <a href="ra41d7.htm">$D7</a>         ; data pointer + 2 (track/sector pointer!)
+CE1F: A5 8B     LDA <a href="ra418b.htm">$8B</a>         ; result of division
+CE21: 85 D5     STA <a href="ra41d5.htm">$D5</a>         ; equals side-sector number
+CE23: A5 90     LDA <a href="ra418f.htm">$90</a>         ; remainder
+CE25: 0A        ASL             ; times 2
+CE26: 18        CLC
+CE27: 69 10     ADC #$10        ; plus 16
+CE29: 85 D6     STA <a href="ra41d6.htm">$D6</a>         ; =pointer in side-sector to data block
+CE2B: 60        RTS
+
+    <a href="ro41cdf2.htm">Previous Page</a> / <a href="ro41ce2c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

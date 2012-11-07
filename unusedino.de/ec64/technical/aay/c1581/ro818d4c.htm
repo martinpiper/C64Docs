@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Rechenregister addieren ($ceed)
+
+Einsprung von <a href="ro818ce6.htm">$8CEC</a>, <a href="ro819e97.htm">$9ED0</a>:
+
+8D4C: 18        CLC              24-Bit Addition
+8D4D: A2 FD     LDX #$FD         $5b=$5b+$60
+
+Einsprung von $8D56:
+
+8D4F: B5 5E     LDA <a href="ra815e.htm">$5E</a>,X        Wrap-Around-Effekt beachten !!!
+8D51: 75 63     ADC <a href="ra8163.htm">$63</a>,X        (Wert im x-Register als negative Zahl
+8D53: 95 5E     STA <a href="ra815e.htm">$5E</a>,X        betrachten)
+8D55: E8        INX
+8D56: D0 F7     BNE $8D4F
+8D58: 60        RTS
+
+    <a href="ro818d41.htm">Previous Page</a> / <a href="ro818d59.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

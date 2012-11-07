@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Anlaufvorgang ueberwachen
+
+Einsprung von <a href="ro81c0be.htm">$C10F</a>:
+
+CD7B: A5 26     LDA <a href="ra8126.htm">$26</a>          Ist Anlaufvorgang beendet ?
+CD7D: 10 04     BPL $CD83        ja, ==&gt;
+CD7F: A5 2A     LDA <a href="ra812a.htm">$2A</a>          Anlaufzeit des Motors vorbei ?
+CD81: D0 34     BNE $CDB7        nein, ==&gt;
+
+Einsprung von $CD7D:
+
+CD83: AD 00 40  LDA <a href="cia810.htm">$4000</a>        b7=0: Diskettenwechsel ?
+CD86: 29 80     AND #$80
+CD88: D0 23     BNE $CDAD        nein, ==&gt;
+Schreib-/Lesekopf positionieren, damit er genau auf der Spur liegt
+und damit das Diskettenwechsel-Flag geloescht wird.
+
+CD8A: AD DD 01  LDA <a href="ra8101dd.htm">$01DD</a>        Controller-Befehl: 'Step-in'
+CD8D: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Kommando an Controller uebergeben
+CD90: 20 EC CB  JSR <a href="ro81cbec.htm">$CBEC</a>        auf Controller-Ready warten
+CD93: AD DE 01  LDA <a href="ra8101de.htm">$01DE</a>        Controller-Befehl: 'Step-out'
+CD96: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Kommando an Controller uebergeben
+CD99: 20 EC CB  JSR <a href="ro81cbec.htm">$CBEC</a>        auf Controller-Ready warten
+CD9C: A4 98     LDY <a href="ra8198.htm">$98</a>          Kopfberuhigungszeit
+CD9E: 20 D5 CB  JSR <a href="ro81cbd5.htm">$CBD5</a>        18 ms Warten
+CDA1: AD 00 40  LDA <a href="cia810.htm">$4000</a>        immer noch Diskettenwechsel ?
+CDA4: 29 80     AND #$80
+CDA6: D0 05     BNE $CDAD        nein, ==&gt;
+
+Einsprung von $CDB0:
+
+CDA8: A9 03     LDA #$03         keine Adressmarke gefunden
+CDAA: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>
+
+Einsprung von $CD88, $CDA6:
+
+CDAD: 20 BC CD  JSR <a href="ro81cdbc.htm">$CDBC</a>        Ist eine Diskette eingelegt ?
+CDB0: B0 F6     BCS $CDA8        Nein, ==&gt;
+CDB2: A9 20     LDA #$20         Ja: b7=0: Laufwerk ist bereit
+CDB4: 85 26     STA <a href="ra8126.htm">$26</a>          b5=1: Motor laeuft
+CDB6: 60        RTS
+
+Einsprung von $CD81:
+
+CDB7: 68        PLA              Motor ist noch nicht hochgelaufen
+CDB8: 68        PLA
+CDB9: 4C 00 CE  JMP <a href="ro81ce00.htm">$CE00</a>        zur Hauptsteuer-Routine ==&gt;
+
+    <a href="ro81cd63.htm">Previous Page</a> / <a href="ro81cdbc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehl: Read mit logischen Blockangaben (bei der 1571: $83a4)
+
+Einsprung von $BAB5:
+
+BAAE: A9 8D     LDA #$8D         b0-3: kein logisches Diskettenformat
+BAB0: 4C FC BA  JMP <a href="ro81bafc.htm">$BAFC</a>        b7: Fremdformat; Burststatus ausgeben
+
+Einsprung von $BAF1, <a href="ro81bb11.htm">$BB1A</a>:
+
+BAB3: A5 8A     LDA <a href="ra818a.htm">$8A</a>          &lt;--  Burst-Status OR-Maske holen
+BAB5: 30 F7     BMI $BAAE        b7=1: Fremdformat ? ja, ==&gt;
+BAB7: A2 00     LDX #$00
+BAB9: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Tracknummer in Jobspeicher schreiben
+BABC: 95 0B     STA <a href="ra810b.htm">$0B</a>,X
+BABE: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        Sektornummer in Jobspeicher schreiben
+BAC1: 95 0C     STA <a href="ra810b.htm">$0C</a>,X
+BAC3: A9 80     LDA #$80         Job $80: READ_DV: Block einlesen
+BAC5: 20 B0 BF  JSR <a href="ro81bfb0.htm">$BFB0</a>        Job ausfuehren
+BAC8: 20 66 BF  JSR <a href="ro81bf66.htm">$BF66</a>        Burst-Status setzen
+BACB: 24 7C     BIT <a href="ra817c.htm">$7C</a>          E-Flag (b6)=1: Lesefehler ignorieren ?
+BACD: 70 07     BVS $BAD6        ja, ==&gt;
+BACF: C9 02     CMP #$02         ist ein Fehler aufgetreten ?
+BAD1: 90 03     BCC $BAD6        nein, ==&gt;
+BAD3: 4C FC BA  JMP <a href="ro81bafc.htm">$BAFC</a>        Burst-Status setzen und ausgeben ==&gt;
+
+Einsprung von $BACD, $BAD1:
+
+BAD6: 20 AB BF  JSR <a href="ro81bfab.htm">$BFAB</a>        Burst-Status ausgeben
+BAD9: A0 00     LDY #$00         Pufferzeiger auf $0300 setzen
+BADB: 84 7E     STY <a href="ra817e.htm">$7E</a>
+BADD: A9 03     LDA #$03
+BADF: 85 7F     STA <a href="ra817e.htm">$7F</a>
+
+Einsprung von $BAE7:
+
+BAE1: B1 7E     LDA (<a href="ra817e.htm">$7E</a>),Y      Datenbyte holen
+BAE3: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        und an Computer senden
+BAE6: C8        INY
+BAE7: D0 F8     BNE $BAE1        ganzen Datenblock senden, ==&gt;
+BAE9: CE 05 02  DEC <a href="ra810200.htm">$0205</a>        Anzahl zu sendender Bloecke -1
+BAEC: F0 06     BEQ $BAF4        =0 ? ja, ==&gt;
+BAEE: 20 7A C0  JSR <a href="ro81c07a.htm">$C07A</a>        naechsten logischen Sektor holen
+BAF1: 4C B3 BA  JMP $BAB3        Block laden und ausgeben ==&gt;
+
+Einsprung von $BAEC:
+
+BAF4: 4C 44 BF  JMP <a href="ro81bf44.htm">$BF44</a>        ggf. die angegebene Spur anfahren
+
+    <a href="ro81ba95.htm">Previous Page</a> / <a href="ro81baf7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

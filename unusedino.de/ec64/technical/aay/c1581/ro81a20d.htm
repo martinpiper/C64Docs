@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+gesuchten Record zur Ausgabe bereitstellen ($e275)
+
+Einsprung von <a href="ro81a1a1.htm">$A1FD</a>, <a href="ro81a2d6.htm">$A42B</a>:
+
+A20D: 20 35 A2  JSR <a href="ro81a235.htm">$A235</a>        ggf. richtige Datenbloecke lesen
+A210: A5 6B     LDA <a href="ra816b.htm">$6B</a>          Pufferzeiger auf gewuenschte Startposition
+A212: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        setzen
+A215: A6 50     LDX <a href="ra8150.htm">$50</a>
+A217: BD 5E 02  LDA <a href="ra81025e.htm">$025E</a>,X      Recordlaenge
+A21A: 38        SEC              -
+A21B: E5 68     SBC <a href="ra8168.htm">$68</a>          Position im Record
+A21D: B0 03     BCS $A222        &gt;= 0 ? ja, ==&gt;
+                                nein: Zeiger steht hinter dem Recordende
+A21F: 4C 9C A1  JMP <a href="ro81a15c.htm">$A19C</a>        67, Illegal Track or Sector
+
+Zeiger auf naechsten Record berechnen
+
+Einsprung von $A21D:
+
+A222: 18        CLC              a = Anzahl Zeichen bis Recordende
+A223: 65 6B     ADC <a href="ra816b.htm">$6B</a>          + Startposition im Datenblock
+A225: 90 03     BCC $A22A        geht Record ueber Blockgrenze ? nein, ==&gt;
+A227: 69 01     ADC #$01         +2 (SEC) (Blockverkettung ueberspringen)
+A229: 38        SEC              Flag fuer Blockwechsel
+
+Einsprung von $A225:
+
+A22A: 20 8A 9F  JSR <a href="ro819f4c.htm">$9F8A</a>        'Zeiger auf naechsten Record' setzen
+                                und auf Dateiende pruefen
+A22D: 4C C6 A0  JMP <a href="ro81a0a6.htm">$A0C6</a>        Byte fuer Ausgabe bereitstellen
+
+A230: A9 51     LDA #$51         51, Overflow in record
+A232: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>
+    <a href="ro81a1a1.htm">Previous Page</a> / <a href="ro81a235.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

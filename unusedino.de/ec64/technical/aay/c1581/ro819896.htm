@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+T&amp;S eines Files holen und fuer 'LOAD &quot;*&quot;,8' merken ($d9ef)
+
+Einsprung von <a href="ro8197a2.htm">$97EA</a>, <a href="ro8197ed.htm">$9845</a>:
+
+9896: A5 52     LDA <a href="ra8152.htm">$52</a>          Aktuelle SA &gt;= 2 ?
+9898: C9 02     CMP #$02
+989A: B0 0C     BCS $98A8        ja, (T&amp;S nicht merken) ==&gt;
+989C: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S holen
+989F: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Track
+98A1: 85 4C     STA <a href="ra814c.htm">$4C</a>
+98A3: A5 4E     LDA <a href="ra814e.htm">$4E</a>          &amp; Sektor
+98A5: 8D 8B 02  STA <a href="ra81028b.htm">$028B</a>        als letztes benutztes File merken
+
+Einsprung von $989A:
+
+98A8: 4C 50 80  JMP <a href="ro81804c.htm">$8050</a>        Status bereitstellen
+
+    <a href="ro819890.htm">Previous Page</a> / <a href="ro8198ab.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

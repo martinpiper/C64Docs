@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D599/54681:   Verify execution
+
+Jump from $D59C, <a href="ro41c8b6.htm">$C8BE</a>, <a href="ro41ca88.htm">$CAAC</a>, <a href="ro41ca88.htm">$CAC6</a>, <a href="ro41cf1e.htm">$CF73</a>, <a href="ro41d09b.htm">$D0A1</a>, <a href="ro41d48d.htm">$D4B3</a>, <a href="ro41db62.htm">$DB9F</a>, <a href="ro41dc46.htm">$DC95</a>,
+          <a href="ro41dcda.htm">$DD6A</a>, <a href="ro41dcda.htm">$DD84</a>, <a href="ro41ddf1.htm">$DDF9</a>, <a href="ro41e03c.htm">$E05A</a>, <a href="ro41e03c.htm">$E068</a>, <a href="ro41e31c.htm">$E430</a>, <a href="ro41e44e.htm">$E4A9</a>, <a href="ro41e44e.htm">$E4F0</a>:
+
+D599: 20 A6 D5  JSR $D5A6       ; verify execution
+D59C: B0 FB     BCS $D599       ; wait for end
+D59E: 48        PHA
+D59F: A9 00     LDA #$00
+D5A1: 8D 98 02  STA <a href="ra410298.htm">$0298</a>       ; erase error flag
+D5A4: 68        PLA
+D5A5: 60        RTS
+
+Jump from $D599:
+
+D5A6: B5 00     LDA <a href="ra4100.htm">$00</a>,X       ; command code (bit 7) still in register?
+D5A8: 30 1A     BMI $D5C4       ; yes
+D5AA: C9 02     CMP #$02
+D5AC: 90 14     BCC $D5C2       ; error-free execution
+D5AE: C9 08     CMP #$08        ; 8
+D5B0: F0 08     BEQ $D5BA       ; write protect
+D5B2: C9 0B     CMP #$0B        ; 11
+D5B4: F0 04     BEQ $D5BA       ; ID mismatch
+D5B6: C9 0F     CMP #$0F        ; 15
+D5B8: D0 0C     BNE <a href="ro41d5c6.htm">$D5C6</a>
+
+Jump from $D5B0, $D5B4:
+
+D5BA: 2C 98 02  BIT <a href="ra410298.htm">$0298</a>
+D5BD: 30 03     BMI $D5C2
+D5BF: 4C 3F D6  JMP <a href="ro41d5c6.htm">$D63F</a>       ; create error message
+
+Jump from $D5AC, $D5BD:
+
+D5C2: 18        CLC             ; execution ended
+D5C3: 60        RTS
+
+Jump from $D5A8:
+
+D5C4: 38        SEC             ; execution not yet ended
+D5C5: 60        RTS
+
+    <a href="ro41d58a.htm">Previous Page</a> / <a href="ro41d5c6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C3BD/50109:   Check given drive number
+
+Jump from <a href="ro41c368.htm">$C372</a>, <a href="ro41da55.htm">$DA68</a>:
+
+C3BD: C9 30     CMP #$30        ; '0'
+C3BF: F0 06     BEQ $C3C7
+C3C1: C9 31     CMP #$31        ; '1'
+C3C3: F0 02     BEQ $C3C7
+C3C5: 09 80     ORA #$80        ; no zero or one, then set bit 7
+
+Jump from $C3BF, $C3C3:
+
+C3C7: 29 81     AND #$81
+C3C9: 60        RTS
+
+    <a href="ro41c398.htm">Previous Page</a> / <a href="ro41c3ca.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

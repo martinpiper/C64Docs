@@ -1,0 +1,53 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block-Befehle ($cc1b)
+
+8A5D: A0 00     LDY #$00         Am Zeilenanfang beginnen
+8A5F: A2 00     LDX #$00         Anzahl gefundener ',' =0
+8A61: A9 2D     LDA #$2D
+8A63: 20 1C 81  JSR <a href="ro81811c.htm">$811C</a>        '-' suchen
+8A66: D0 0A     BNE $8A72        gefunden, ==&gt;
+
+Einsprung von $8A82:
+
+8A68: A9 31     LDA #$31          31, SYNTAX ERROR
+8A6A: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $8A73, <a href="ro818a9f.htm">$8ACE</a>:
+
+8A6D: A9 30     LDA #$30          30, SYNTAX ERROR
+8A6F: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $8A66:
+
+8A72: 8A        TXA              ',' gefunden ?
+8A73: D0 F8     BNE $8A6D        ja, ==&gt;
+8A75: A2 09     LDX #$09         'b&lt;lock&gt;-x'
+8A77: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      mit 'afrwepRW?*' vergleichen
+
+Einsprung von $8A80:
+
+8A7A: DD 61 8C  CMP <a href="ro818c61.htm">$8C61</a>,X
+8A7D: F0 05     BEQ $8A84        gefunden, ==&gt;
+8A7F: CA        DEX
+8A80: 10 F8     BPL $8A7A        noch nicht gefunden, ==&gt;
+8A82: 30 E4     BMI $8A68        gar nicht gefunden, ==&gt;
+
+Einsprung von $8A7D:
+
+8A84: 8A        TXA              Block-Befehlsnummer
+8A85: 09 80     ORA #$80         +$80 (Kennzeichen fuer Block-Befehl)
+8A87: 8D 2A 02  STA <a href="ra81022a.htm">$022A</a>        Befehlsnummer speichern
+8A8A: 20 9F A8  JSR <a href="ro818a9f.htm">$8A9F</a>        Blockparamerter holen
+8A8D: AD 2A 02  LDA <a href="ra81022a.htm">$022A</a>        aktuelle Befefehlsnummer holen
+8A90: 0A        ASL
+8A91: AA        TAX
+8A92: BD 6C 8C  LDA <a href="ro818c61.htm">$8C6C</a>,X      Befehlsadresse holen
+8A95: 85 41     STA <a href="ra8140.htm">$41</a>
+8A97: BD 6B 8C  LDA <a href="ro818c61.htm">$8C6B</a>,X
+8A9A: 85 40     STA <a href="ra8140.htm">$40</a>
+8A9C: 6C 40 00  JMP (<a href="ra8140.htm">$0040</a>)      Block-Befehl aufrufen ==&gt;
+    <a href="ro8189e4.htm">Previous Page</a> / <a href="ro818a9f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

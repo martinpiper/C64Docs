@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FF48/65352:   IRQ Entry
+
+FF48: 48        <a href="bpha.htm">PHA</a>
+FF49: 8A        <a href="btxa.htm">TXA</a>
+FF4A: 48        <a href="bpha.htm">PHA</a>
+FF4B: 98        <a href="btya.htm">TYA</a>
+FF4C: 48        <a href="bpha.htm">PHA</a>
+FF4D: BA        <a href="btsx.htm">TSX</a>
+FF4E: BD 04 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0104</a>,X   ; 6510 Hardware Stack Area
+FF51: 29 10     <a href="band.htm">AND</a> #$10
+FF53: F0 03     <a href="bbeq.htm">BEQ</a> $FF58
+FF55: 6C 16 03  <a href="bjmp.htm">JMP</a> (<a href="zp0316.htm">$0316</a>)   ; Vector: BRK Instruction Interrupt Address
+
+Jump from $FF53:
+
+FF58: 6C 14 03  <a href="bjmp.htm">JMP</a> (<a href="zp0314.htm">$0314</a>)   ; Vector: Hardware IRQ Interrupt Address
+
+    <a href="romff43.htm">Previous Page</a> / <a href="romff5b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

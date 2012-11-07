@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 keyboard functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 keyboard functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$E5B4<TD WIDTH="85%"><P ALIGN="JUSTIFY">Read byte from
+  keyboard buffer; shift keyboard buffer; decrease buffer pointer.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$EA87<TD><P ALIGN="JUSTIFY">Query keyboard; put current matrix code
+  into memory address $00CB, current status of shift keys into memory address
+  $028D and PETSCII code into keyboard buffer; handle Commodore-Shift; repeat
+  keys.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F142<TD><P ALIGN="JUSTIFY">Read byte from keyboard buffer; shift
+  keyboard buffer; decrease buffer pointer.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read; 0 = No key press available.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F6BC<TD><P ALIGN="JUSTIFY">Update Stop key indicator, at memory
+  address $0091.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$F6ED<TD><P ALIGN="JUSTIFY">Query Stop key indicator, at memory
+  address $0091; if pressed, call CLRCHN and clear keyboard buffer.<BR>
+  Input: &ndash;<BR>
+  Output: Zero: 0 = Not pressed, 1 = Pressed; Carry: 1 = Pressed.<BR>
+  Used registers: A, X.</P>
+
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>Standard KERNAL functions</B>
+
+<TR VALIGN=TOP><TD>$FF9F<TD><P ALIGN="JUSTIFY">SCNKEY. Query keyboard; put current matrix
+  code into memory address $00CB, current status of shift keys into memory
+  address $028D and PETSCII code into keyboard buffer; handle Commodore-Shift;
+  repeat keys.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $EA87.</P>
+<TR VALIGN=TOP><TD>$FFE1<TD><P ALIGN="JUSTIFY">STOP. Query Stop key indicator, at memory
+  address $0091; if pressed, call CLRCHN and clear keyboard buffer.<BR>
+  Input: &ndash;<BR>
+  Output: Zero: 0 = Not pressed, 1 = Pressed; Carry: 1 = Pressed.<BR>
+  Used registers: A, X.<BR>
+  Real address: ($0328), $F6ED.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

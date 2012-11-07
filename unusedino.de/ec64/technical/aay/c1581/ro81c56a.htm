@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $9c: SIDE_DV
+
+C56A: A4 83     LDY <a href="ra8183.htm">$83</a>          Jobpuffernummer
+C56C: B9 CE 01  LDA <a href="ra8101ce.htm">$01CE</a>,Y      Seite holen
+C56F: 29 01     AND #$01
+C571: 85 97     STA <a href="ra8197.htm">$97</a>          als aktuelle Seite
+C573: D0 03     BNE $C578
+C575: A9 00     LDA #$00         wenn a=0, dann a=0
+C577: 2C         B $2C
+
+Einsprung von $C573:
+
+C578: A9 01     LDA #$01         wenn a=1, dann a=1
+C57A: 85 36     STA <a href="ra8136.htm">$36</a>
+C57C: AD 00 40  LDA <a href="cia810.htm">$4000</a>        Schreib-/Leseelektronik
+C57F: 29 FE     AND #$FE         umschalten
+C581: 05 36     ORA <a href="ra8136.htm">$36</a>          b0=0: Seite 0
+C583: 8D 00 40  STA <a href="cia810.htm">$4000</a>        b0=1: Seite 1
+C586: 4C 99 C3  JMP <a href="ro81c396.htm">$C399</a>        Jobbehandlung neustarten
+
+    <a href="ro81c546.htm">Previous Page</a> / <a href="ro81c589.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

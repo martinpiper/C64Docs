@@ -1,0 +1,41 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F9D9/63961:   ?
+
+Jump from <a href="ro41f9cb.htm">$F9D4</a>:
+
+F9D9: C6 48     DEC <a href="ra4148.htm">$48</a>
+F9DB: D0 1D     BNE $F9FA
+F9DD: 98        TYA
+F9DE: 10 04     BPL $F9E4
+F9E0: 29 7F     AND #$7F
+F9E2: 85 20     STA <a href="ra4120.htm">$20</a>
+
+Jump from $F9DE:
+
+F9E4: 29 10     AND #$10
+F9E6: F0 12     BEQ $F9FA
+F9E8: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+F9EB: 29 FB     AND #$FB        ; drive motor off
+F9ED: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+F9F0: A9 FF     LDA #$FF
+F9F2: 85 3E     STA <a href="ra413e.htm">$3E</a>
+F9F4: A9 00     LDA #$00
+F9F6: 85 20     STA <a href="ra4120.htm">$20</a>
+F9F8: F0 DC     BEQ <a href="ro41f9cb.htm">$F9D6</a>
+
+Jump from $F9DB, $F9E6:
+
+F9FA: 98        TYA
+F9FB: 29 40     AND #$40
+F9FD: D0 03     BNE $FA02
+F9FF: 4C BE FA  JMP <a href="ro41faa5.htm">$FABE</a>
+
+Jump from $F9FD:
+
+FA02: 6C 62 00  JMP (<a href="ra4162.htm">$0062</a>)
+
+    <a href="ro41f9cb.htm">Previous Page</a> / <a href="ro41fa05.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

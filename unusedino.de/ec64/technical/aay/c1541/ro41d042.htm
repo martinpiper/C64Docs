@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D042/53314:   Load BAM
+
+Jump from <a href="ro41c63d.htm">$C666</a>, <a href="ro41d005.htm">$D008</a>, <a href="ro41d815.htm">$D828</a>, <a href="ro41e60a.htm">$E63E</a>, <a href="ro41ed84.htm">$ED87</a>, <a href="ro41ee0d.htm">$EE46</a>:
+
+D042: 20 D1 F0  JSR <a href="ro41f0d1.htm">$F0D1</a>
+D045: 20 13 D3  JSR <a href="ro41d313.htm">$D313</a>
+D048: 20 0E D0  JSR <a href="ro41d00e.htm">$D00E</a>       ; read block
+D04B: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+D04D: A9 00     LDA #$00
+D04F: 9D 51 02  STA <a href="ra410251.htm">$0251</a>,X     ; reset flag for &quot;BAM changed'
+D052: 8A        TXA
+D053: 0A        ASL
+D054: AA        TAX
+D055: A5 16     LDA <a href="ra4116.htm">$16</a>
+D057: 95 12     STA <a href="ra4112.htm">$12</a>,X
+D059: A5 17     LDA <a href="ra4116.htm">$17</a>         ; save ID
+D05B: 95 13     STA <a href="ra4112.htm">$13</a>,X
+D05D: 20 86 D5  JSR <a href="ro41d586.htm">$D586</a>
+D060: A5 F9     LDA <a href="ra41f9.htm">$F9</a>         ; buffer number
+D062: 0A        ASL
+D063: AA        TAX
+D064: A9 02     LDA #$02        ; buffer pointer to $200
+D066: 95 99     STA <a href="ra4199.htm">$99</a>,X
+D068: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; get character from buffer
+D06A: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+D06C: 9D 01 01  STA <a href="ra410101.htm">$0101</a>,X
+D06F: A9 00     LDA #$00
+D071: 95 1C     STA <a href="ra411c.htm">$1C</a>,X       ; flag for write protect
+D073: 95 FF     STA <a href="ra41ff.htm">$FF</a>,X       ; flag for read error
+
+    <a href="ro41d00e.htm">Previous Page</a> / <a href="ro41d075.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

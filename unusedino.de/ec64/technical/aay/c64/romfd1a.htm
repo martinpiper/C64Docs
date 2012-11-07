@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FD1A/64794:   Change Vectors For User
+
+Jump from <a href="romff8d.htm">$FF8D</a>:
+
+FD1A: 86 C3     <a href="bstx.htm">STX</a> <a href="zpc3.htm">$C3</a>       ; Pointer: Type 3 Tape LOAD and general use
+FD1C: 84 C4     <a href="bsty.htm">STY</a> <a href="zpc3.htm">$C4</a>       ; Pointer: Type 3 Tape LOAD and general use
+FD1E: A0 1F     <a href="bldy.htm">LDY</a> #$1F
+
+Jump from $FD2D:
+
+FD20: B9 14 03  <a href="blda.htm">LDA</a> <a href="zp0314.htm">$0314</a>,Y   ; Vector: Hardware IRQ Interrupt Address
+FD23: B0 02     <a href="bbcs.htm">BCS</a> $FD27
+FD25: B1 C3     <a href="blda.htm">LDA</a> (<a href="zpc3.htm">$C3</a>),Y   ; Pointer: Type 3 Tape LOAD and general use
+
+Jump from $FD23:
+
+FD27: 91 C3     <a href="bsta.htm">STA</a> (<a href="zpc3.htm">$C3</a>),Y   ; Pointer: Type 3 Tape LOAD and general use
+FD29: 99 14 03  <a href="bsta.htm">STA</a> <a href="zp0314.htm">$0314</a>,Y   ; Vector: Hardware IRQ Interrupt Address
+FD2C: 88        <a href="bdey.htm">DEY</a>
+FD2D: 10 F1     <a href="bbpl.htm">BPL</a> $FD20
+FD2F: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfd15.htm">Previous Page</a> / <a href="romfd30.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

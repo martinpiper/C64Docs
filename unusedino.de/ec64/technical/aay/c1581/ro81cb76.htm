@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $b6: DETWP_DV
+
+CB76: A9 40     LDA #$40         Schreibschutz Bit abfragen
+CB78: 2C 01 40  BIT <a href="cia811.htm">$4001</a>
+CB7B: D0 03     BNE $CB80        b6=1: kein Schreibschutz, ==&gt;
+CB7D: A9 08     LDA #$08         WRTPR_DV_ER
+CB7F: 2C         B $2C
+
+Einsprung von $CB7B:
+
+CB80: A9 00     LDA #$00         OK_DV
+CB82: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>
+    <a href="ro81cb35.htm">Previous Page</a> / <a href="ro81cb85.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

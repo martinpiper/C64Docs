@@ -1,0 +1,79 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF90/61328:   Process RS232 Byte
+
+Jump from <a href="romef59.htm">$EF5B</a>:
+
+EF90: A5 A7     <a href="blda.htm">LDA</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+EF92: D0 EA     <a href="bbne.htm">BNE</a> <a href="romef7e.htm">$EF7E</a>     ; Set Up To Receive
+EF94: 4C D3 E4  <a href="bjmp.htm">JMP</a> <a href="rome4b7.htm">$E4D3</a>     ; Unused Bytes For Future Patches
+
+<b>* Old KERNAL:
+EF94: 85 A9     <a href="bsta.htm">STA</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+EF96: 60        <a href="brts.htm">RTS</a>
+</b>
+Jump from <a href="romef59.htm">$EF5F</a>:
+
+EF97: AC 9B 02  <a href="bldy.htm">LDY</a> <a href="zp029b.htm">$029B</a>     ; RS232 Index to End of Input Buffer
+EF9A: C8        <a href="biny.htm">INY</a>
+EF9B: CC 9C 02  <a href="bcpy.htm">CPY</a> <a href="zp029c.htm">$029C</a>     ; RS232 Pointer: High Byte of Input Buffer
+EF9E: F0 2A     <a href="bbeq.htm">BEQ</a> $EFCA
+EFA0: 8C 9B 02  <a href="bsty.htm">STY</a> <a href="zp029b.htm">$029B</a>     ; RS232 Index to End of Input Buffer
+EFA3: 88        <a href="bdey.htm">DEY</a>
+EFA4: A5 AA     <a href="blda.htm">LDA</a> <a href="zpaa.htm">$AA</a>       ; RS232 Input Byte Buffer/Tape temporary
+EFA6: AE 98 02  <a href="bldx.htm">LDX</a> <a href="zp0298.htm">$0298</a>     ; RS232 Number of Bits left to send
+
+Jump from $EFAF:
+
+EFA9: E0 09     <a href="bcpx.htm">CPX</a> #$09
+EFAB: F0 04     <a href="bbeq.htm">BEQ</a> $EFB1
+EFAD: 4A        <a href="blsr.htm">LSR</a>
+EFAE: E8        <a href="binx.htm">INX</a>
+EFAF: D0 F8     <a href="bbne.htm">BNE</a> $EFA9
+
+Jump from $EFAB:
+
+EFB1: 91 F7     <a href="bsta.htm">STA</a> (<a href="zpf7.htm">$F7</a>),Y   ; RS232 Input Buffer Pointer
+EFB3: A9 20     <a href="blda.htm">LDA</a> #$20
+EFB5: 2C 94 02  <a href="bbit.htm">BIT</a> <a href="zp0294.htm">$0294</a>     ; RS232 Pseudo 6551 command Register Image
+EFB8: F0 B4     <a href="bbeq.htm">BEQ</a> <a href="romef59.htm">$EF6E</a>     ; RS232 Receive
+EFBA: 30 B1     <a href="bbmi.htm">BMI</a> <a href="romef59.htm">$EF6D</a>     ; RS232 Receive
+EFBC: A5 A7     <a href="blda.htm">LDA</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+EFBE: 45 AB     <a href="beor.htm">EOR</a> <a href="zpab.htm">$AB</a>       ; RS232 Input parity/Tape temporary
+EFC0: F0 03     <a href="bbeq.htm">BEQ</a> $EFC5
+EFC2: 70 A9     <a href="bbvs.htm">BVS</a> <a href="romef59.htm">$EF6D</a>     ; RS232 Receive
+EFC4: 2C        .BYTE $2C
+
+Jump from $EFC0:
+
+EFC5: 50 A6     <a href="bbvc.htm">BVC</a> <a href="romef59.htm">$EF6D</a>     ; RS232 Receive
+EFC7: A9 01     <a href="blda.htm">LDA</a> #$01
+EFC9: 2C        .BYTE $2C
+
+Jump from $EF9E:
+
+EFCA: A9 04     <a href="blda.htm">LDA</a> #$04
+EFCC: 2C        .BYTE $2C
+
+Jump from $EFDF:
+
+EFCD: A9 80     <a href="blda.htm">LDA</a> #$80
+EFCF: 2C        .BYTE $2C
+
+Jump from $EFDD:
+
+EFD0: A9 02     <a href="blda.htm">LDA</a> #$02
+EFD2: 0D 97 02  <a href="bora.htm">ORA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+EFD5: 8D 97 02  <a href="bsta.htm">STA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+EFD8: 4C 7E EF  <a href="bjmp.htm">JMP</a> <a href="romef7e.htm">$EF7E</a>     ; Set Up To Receive
+
+Jump from <a href="romef59.htm">$EF72</a>:
+
+EFDB: A5 AA     <a href="blda.htm">LDA</a> <a href="zpaa.htm">$AA</a>       ; RS232 Input Byte Buffer/Tape temporary
+EFDD: D0 F1     <a href="bbne.htm">BNE</a> $EFD0
+EFDF: F0 EC     <a href="bbeq.htm">BEQ</a> $EFCD
+
+    <a href="romef7e.htm">Previous Page</a> / <a href="romefe1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

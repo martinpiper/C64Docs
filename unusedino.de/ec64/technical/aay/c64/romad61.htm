@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AD61/44385:   Check Valid Loop
+
+AD61: BD 0F 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$010F</a>,X   ; 6510 Hardware Stack Area
+AD64: 85 39     <a href="bsta.htm">STA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+AD66: BD 10 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0110</a>,X   ; 6510 Hardware Stack Area
+AD69: 85 3A     <a href="bsta.htm">STA</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+AD6B: BD 12 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0112</a>,X   ; 6510 Hardware Stack Area
+AD6E: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AD70: BD 11 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0111</a>,X   ; 6510 Hardware Stack Area
+AD73: 85 7B     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+Jump from $AD82:
+
+AD75: 4C AE A7  <a href="bjmp.htm">JMP</a> <a href="roma7ae.htm">$A7AE</a>     ; BASIC Warm Start
+
+Jump from <a href="romad1e.htm">$AD5F</a>:
+
+AD78: 8A        <a href="btxa.htm">TXA</a>
+AD79: 69 11     <a href="badc.htm">ADC</a> #$11
+AD7B: AA        <a href="btax.htm">TAX</a>
+AD7C: 9A        <a href="btxs.htm">TXS</a>
+AD7D: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+AD80: C9 2C     <a href="bcmp.htm">CMP</a> #$2C
+AD82: D0 F1     <a href="bbne.htm">BNE</a> $AD75
+AD84: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+AD87: 20 24 AD  <a href="bjsr.htm">JSR</a> <a href="romad1e.htm">$AD24</a>     ; Perform [next]
+
+    <a href="romad1e.htm">Previous Page</a> / <a href="romad8a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

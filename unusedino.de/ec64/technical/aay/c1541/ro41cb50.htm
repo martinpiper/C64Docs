@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CB50/52048:   M-W memory write
+
+Jump from $CB59, <a href="ro41caf8.htm">$CB17</a>:
+
+CB50: B9 06 02  LDA <a href="ra410200.htm">$0206</a>,Y     ; read character
+CB53: 91 6F     STA (<a href="ra416f.htm">$6F</a>),Y     ; and save
+CB55: C8        INY
+CB56: CC 05 02  CPY <a href="ra410200.htm">$0205</a>       ; number of characters
+CB59: 90 F5     BCC $CB50       ; all characters?
+CB5B: 60        RTS
+
+    <a href="ro41cb20.htm">Previous Page</a> / <a href="ro41cb5c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

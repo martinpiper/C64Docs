@@ -1,0 +1,114 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E909/59657:   Send data
+
+Jump from <a href="ro41e85b.htm">$E8F7</a>:
+
+E909: 78        SEI
+E90A: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open channel for read
+E90D: B0 06     BCS $E915       ; channel active
+
+Jump from $E996:
+
+E90F: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E911: B5 F2     LDA <a href="ra41f2.htm">$F2</a>,X       ; set READ flag?
+E913: 30 01     BMI $E916       ; yes
+
+Jump from $E90D:
+
+E915: 60        RTS
+
+Jump from $E913:
+
+E916: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E919: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E91C: 29 01     AND #$01        ; isolate data bit
+E91E: 08        PHP             ; and save
+E91F: 20 B7 E9  JSR <a href="ro41e9b7.htm">$E9B7</a>       ; CLOCK OUT lo
+E922: 28        PLP
+E923: F0 12     BEQ $E937
+
+Jump from $E92D:
+
+E925: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E928: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E92B: 29 01     AND #$01        ; isolate data bit
+E92D: D0 F6     BNE $E925
+E92F: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E931: B5 F2     LDA <a href="ra41f2.htm">$F2</a>,X
+E933: 29 08     AND #$08
+E935: D0 14     BNE $E94B
+
+Jump from $E923, $E93F:
+
+E937: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E93A: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E93D: 29 01     AND #$01        ; isolate data bit
+E93F: D0 F6     BNE $E937
+
+Jump from $E949:
+
+E941: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E944: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E947: 29 01     AND #$01        ; isolate data bit
+E949: F0 F6     BEQ $E941
+
+Jump from $E935, $E956:
+
+E94B: 20 AE E9  JSR <a href="ro41e9ae.htm">$E9AE</a>       ; CLOCK OUT hi
+E94E: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E951: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E954: 29 01     AND #$01        ; isolate data bit
+E956: D0 F3     BNE $E94B
+E958: A9 08     LDA #$08        ; counter to 8 bits for serial
+E95A: 85 98     STA <a href="ra4196.htm">$98</a>         ; transmission
+
+Jump from $E985:
+
+E95C: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E95F: 29 01     AND #$01        ; isolate data bit
+E961: D0 36     BNE $E999
+E963: A6 82     LDX <a href="ra4182.htm">$82</a>
+E965: BD 3E 02  LDA <a href="ra41022e.htm">$023E</a>,X
+E968: 6A        ROR             ; lowest data bit in carry
+E969: 9D 3E 02  STA <a href="ra41022e.htm">$023E</a>,X
+E96C: B0 05     BCS $E973       ; set bit
+E96E: 20 A5 E9  JSR <a href="ro41e9a5.htm">$E9A5</a>       ; DATA OUT, output bit '0'
+E971: D0 03     BNE $E976       ; absolute jump
+
+Jump from $E96C:
+
+E973: 20 9C E9  JSR <a href="ro41e99c.htm">$E99C</a>       ; DATA OUT, output bit '1'
+
+Jump from $E971:
+
+E976: 20 B7 E9  JSR <a href="ro41e9b7.htm">$E9B7</a>       ; set CLOCK OUT
+E979: A5 23     LDA <a href="ra4123.htm">$23</a>
+E97B: D0 03     BNE $E980
+E97D: 20 F3 FE  JSR <a href="ro41fef3.htm">$FEF3</a>       ; delay for serial bus
+
+Jump from $E97B:
+
+E980: 20 FB FE  JSR <a href="ro41fefb.htm">$FEFB</a>       ; set DATA OUT and CLOCK OUT
+E983: C6 98     DEC <a href="ra4196.htm">$98</a>         ; all bits output?
+E985: D0 D5     BNE $E95C       ; no
+
+Jump from $E98F:
+
+E987: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+E98A: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+E98D: 29 01     AND #$01        ; isolate data bit
+E98F: F0 F6     BEQ $E987
+E991: 58        CLI
+E992: 20 AA D3  JSR <a href="ro41d39b.htm">$D3AA</a>       ; get next data byte
+E995: 78        SEI
+E996: 4C 0F E9  JMP $E90F       ; and output
+
+Jump from $E961:
+
+E999: 4C 4E EA  JMP <a href="ro41ea2e.htm">$EA4E</a>       ; to delay loop
+
+    <a href="ro41e85b.htm">Previous Page</a> / <a href="ro41e99c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

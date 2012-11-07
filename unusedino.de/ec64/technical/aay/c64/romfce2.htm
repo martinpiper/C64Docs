@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FCE2/64738:   Power-Up RESET Entry
+
+FCE2: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+FCE4: 78        <a href="bsei.htm">SEI</a>
+FCE5: 9A        <a href="btxs.htm">TXS</a>
+FCE6: D8        <a href="bcld.htm">CLD</a>
+FCE7: 20 02 FD  <a href="bjsr.htm">JSR</a> <a href="romfd02.htm">$FD02</a>     ; Check For 8-ROM
+FCEA: D0 03     <a href="bbne.htm">BNE</a> $FCEF
+FCEC: 6C 00 80  <a href="bjmp.htm">JMP</a> ($8000)
+
+Jump from $FCEA:
+
+FCEF: 8E 16 D0  <a href="bstx.htm">STX</a> <a href="vic22.htm">$D016</a>     ; VIC: Control Register 2
+FCF2: 20 A3 FD  <a href="bjsr.htm">JSR</a> <a href="romfda3.htm">$FDA3</a>     ; Initialise I/O
+FCF5: 20 50 FD  <a href="bjsr.htm">JSR</a> <a href="romfd50.htm">$FD50</a>     ; Initialise System Constants
+FCF8: 20 15 FD  <a href="bjsr.htm">JSR</a> <a href="romfd15.htm">$FD15</a>     ; Restore Kernal Vectors
+FCFB: 20 5B FF  <a href="bjsr.htm">JSR</a> <a href="romff5b.htm">$FF5B</a>     ; Initialize screen editor
+FCFE: 58        <a href="bcli.htm">CLI</a>
+FCFF: 6C 00 A0  <a href="bjmp.htm">JMP</a> (<a href="roma000.htm">$A000</a>)   ; Restart Vectors
+
+    <a href="romfcdb.htm">Previous Page</a> / <a href="romfd02.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

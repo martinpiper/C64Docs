@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C66E/50798:   Name of file in directory buffer
+
+Jump from <a href="ro41ca88.htm">$CAC0</a>, <a href="ro41d6e4.htm">$D768</a>, <a href="ro41ee0d.htm">$EE68</a>:
+
+C66E: 48        PHA
+C66F: 20 A6 C6  JSR <a href="ro41c6a6.htm">$C6A6</a>       ; get end of the name
+C672: 20 88 C6  JSR <a href="ro41c688.htm">$C688</a>       ; write filename in buffer
+C675: 68        PLA
+C676: 38        SEC
+C677: ED 4B 02  SBC <a href="ra41024b.htm">$024B</a>       ; compare length with maximal length
+C67A: AA        TAX
+C67B: F0 0A     BEQ $C687
+C67D: 90 08     BCC $C687
+C67F: A9 A0     LDA #$A0        ; pad with 'shift blank'
+
+Jump from $C685:
+
+C681: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+C683: C8        INY
+C684: CA        DEX
+C685: D0 FA     BNE $C681
+
+Jump from $C67B, $C67D:
+
+C687: 60        RTS
+
+    <a href="ro41c63d.htm">Previous Page</a> / <a href="ro41c688.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

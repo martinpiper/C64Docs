@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDB3/60851:   ?
+
+Jump from $EDDD:
+
+EDB3: C8        INY
+EDB4: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; save track
+EDB6: 48        PHA
+EDB7: C8        INY
+EDB8: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; and sector
+EDBA: 48        PHA
+EDBB: A0 13     LDY #$13        ; pointer to side-sector block
+EDBD: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+EDBF: F0 0A     BEQ $EDCB       ; no track following?
+EDC1: 85 80     STA <a href="ra4180.htm">$80</a>         ; track and
+EDC3: C8        INY
+EDC4: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+EDC6: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector of 1st side-sector block
+EDC8: 20 E5 ED  JSR <a href="ro41ede5.htm">$EDE5</a>       ; mark side-sector block as
+
+Jump from $EDBF:
+
+EDCB: 68        PLA             ; allocated
+EDCC: 85 81     STA <a href="ra4181.htm">$81</a>
+EDCE: 68        PLA             ; get track and sector back
+EDCF: 85 80     STA <a href="ra4180.htm">$80</a>
+EDD1: 20 E5 ED  JSR <a href="ro41ede5.htm">$EDE5</a>       ; mark blocks of file as allocated
+
+Jump from $EDE2:
+
+EDD4: 20 04 C6  JSR <a href="ro41c5ac.htm">$C604</a>       ; read next entry in directory
+EDD7: F0 C3     BEQ <a href="ro41ed84.htm">$ED9C</a>       ; end of directory?
+
+Jump from <a href="ro41ed84.htm">$ED9A</a>:
+
+EDD9: A0 00     LDY #$00
+EDDB: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; file type
+EDDD: 30 D4     BMI $EDB3       ; bit 7 set, file closed?
+EDDF: 20 B6 C8  JSR <a href="ro41c8b6.htm">$C8B6</a>       ; file type to zero and write BAM
+EDE2: 4C D4 ED  JMP $EDD4
+
+    <a href="ro41ed84.htm">Previous Page</a> / <a href="ro41ede5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

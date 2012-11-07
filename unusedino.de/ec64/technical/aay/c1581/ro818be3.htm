@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block-Execute ($cda3)
+
+8BE3: 20 65 8B  JSR <a href="ro818b65.htm">$8B65</a>        Parameter testen, Block lesen
+8BE6: A9 00     LDA #$00         Lo-Byte der Startadresse merken
+8BE8: 85 40     STA <a href="ra8140.htm">$40</a>
+8BEA: A6 6C     LDX <a href="ra816c.htm">$6C</a>          Adresse des aktuellen Puffers holen
+8BEC: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X
+8BEF: 85 41     STA <a href="ra8140.htm">$41</a>          und als Hi-Byte der Startadresse merken
+8BF1: 20 F7 8B  JSR $8BF7        Ruecksprungadresse auf dem Stack merken
+8BF4: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+Einsprung von $8BF1:
+
+8BF7: 6C 40 00  JMP (<a href="ra8140.htm">$0040</a>)      Programm aufrufen
+
+    <a href="ro818bd7.htm">Previous Page</a> / <a href="ro818bfa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E07C/57468:   Write a byte in a record
+
+Jump from <a href="ro41e0ab.htm">$E0B4</a>, <a href="ro41e0f3.htm">$E0FE</a>:
+
+E07C: 20 05 E1  JSR <a href="ro41e105.htm">$E105</a>
+E07F: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+E082: 0A        ASL             ; times 2
+E083: AA        TAX
+E084: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E086: 81 99     STA (<a href="ra4199.htm">$99</a>,X)     ; write in buffer
+E088: B4 99     LDY <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+E08A: C8        INY             ; increment
+E08B: D0 09     BNE $E096       ; not equal zero?
+E08D: A4 82     LDY <a href="ra4182.htm">$82</a>         ; channel number
+E08F: B9 C1 00  LDA <a href="ra41c1.htm">$C1</a>,Y       ; write pointer
+E092: F0 0A     BEQ $E09E       ; equal zero?
+E094: A0 02     LDY #$02        ; buffer pointer to 2
+
+Jump from $E08B:
+
+E096: 98        TYA
+E097: A4 82     LDY <a href="ra4182.htm">$82</a>         ; channel number
+E099: D9 C1 00  CMP <a href="ra41c1.htm">$C1</a>,Y       ; buffer pointer = write pointer?
+E09C: D0 05     BNE $E0A3       ; no
+
+Jump from $E092:
+
+E09E: A9 20     LDA #$20
+E0A0: 4C 97 DD  JMP <a href="ro41dd95.htm">$DD97</a>       ; set bit 5
+
+Jump from $E09C:
+
+E0A3: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+E0A5: D0 03     BNE $E0AA       ; not zero?
+E0A7: 20 3C E0  JSR <a href="ro41e03c.htm">$E03C</a>       ; else write block, read next one
+
+Jump from $E0A5:
+
+E0AA: 60        RTS
+
+    <a href="ro41e03c.htm">Previous Page</a> / <a href="ro41e0ab.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

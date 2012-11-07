@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AB1E/43806:   Output String
+
+Jump from <a href="roma469.htm">$A469</a>, <a href="roma474.htm">$A478</a>, <a href="romab4d.htm">$AB6F</a>, <a href="romac35.htm">$ACF8</a>, <a href="rombdcd.htm">$BDDA</a>, <a href="rome165.htm">$E191</a>, <a href="rome165.htm">$E1AF</a>, <a href="rome422.htm">$E42D</a>, <a href="rome422.htm">$E441</a>:
+
+AB1E: 20 87 B4  <a href="bjsr.htm">JSR</a> <a href="romb487.htm">$B487</a>     ; Set Up String
+
+Jump from <a href="romaa9a.htm">$AA9A</a>, <a href="romaab8.htm">$AAC2</a>, <a href="romabbf.htm">$ABCB</a>:
+
+AB21: 20 A6 B6  <a href="bjsr.htm">JSR</a> <a href="romb6a3.htm">$B6A6</a>     ; Perform String Housekeeping
+AB24: AA        <a href="btax.htm">TAX</a>
+AB25: A0 00     <a href="bldy.htm">LDY</a> #$00
+AB27: E8        <a href="binx.htm">INX</a>
+
+Jump from $AB33, $AB38:
+
+AB28: CA        <a href="bdex.htm">DEX</a>
+AB29: F0 BC     <a href="bbeq.htm">BEQ</a> <a href="romaad7.htm">$AAE7</a>     ; Output CR/LF
+AB2B: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+AB2D: 20 47 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB47</a>     ; Output Format Character
+AB30: C8        <a href="biny.htm">INY</a>
+AB31: C9 0D     <a href="bcmp.htm">CMP</a> #$0D
+AB33: D0 F3     <a href="bbne.htm">BNE</a> $AB28
+AB35: 20 E5 AA  <a href="bjsr.htm">JSR</a> <a href="romaad7.htm">$AAE5</a>     ; Output CR/LF
+AB38: 4C 28 AB  <a href="bjmp.htm">JMP</a> $AB28
+
+    <a href="romaae8.htm">Previous Page</a> / <a href="romab3b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

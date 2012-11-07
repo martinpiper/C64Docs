@@ -1,0 +1,231 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Tabellen des Controller-Programms
+
+C163: FF 00 30 00 20 00 32 30  Steuerbits fuer die allgemeinen
+C16B: FF 30 00 00 00 00 00 00  Routinen der Jobbehandlung.
+C173: BB 3C 3B 3B 3F 30 BB 30
+C17B: 00 3A B2 FF FF 7F 7F 30
+C183: 00
+C184: 00 80 80 80 80 80 80 00
+C18C: 20 80 80 80 80 80 80 80
+C194: 00 00 40 60 00 00 00 00
+C19C: 00 00 00 40 60 40 60 80
+C1A4: 80
+        |------------  Befehl erwartet T&amp;S im logischen Format
+        ||-----------  zum Lesem/Schreiben Cachepuffer benutzen
+        |||----------  Motor einschalten
+        ||||---------  Motor-Anlaufzeit abwarten
+        |||| |-------  Diskettenformat abfragen
+        |||| ||------  Cache schreiben, wenn noetig
+        |||| |||-----  Schreib-/Lesekopf ggf. positionieren
+        |||| ||||----  Diskettenseite anwaehlen
+        |||| ||||
+        |||| ||||              |---- 0: T&amp;S sind im HDRS  (  $0b-  $1c)
+        |||| ||||              |     1: T&amp;S sind im HDRS2 ($01bc-$01cd)
+        |||| ||||              |        bzw. keine T&amp;S benoetigt
+        |||| ||||              ||--- keine Daten kopieren
+        |||| ||||              |||-- In den Cache schreiben
+        |||| ||||              |||
+        VVVV VVVV              VVV
+C163: %1111.1111      ,C184  %0000.0000   READ_DV
+C164: %0000.0000      ,C185  %1000.0000   RESET_DV
+C165: %0011.0000      ,C186  %1000.0000   MOTON_DV
+C166: %0000.0000      ,C187  %1000.0000   MOTOFF_DV
+C167: %0010.0000      ,C188  %1000.0000   MOTONI_DV
+C168: %0000.0000      ,C189  %1000.0000   MOTOFFI_DV
+C169: %0011.0010      ,C18A  %1000.0000   SEEK_DV
+C16A: %0011.0000      ,C18B  %0000.0000   FORMAT_DV
+C16B: %1111.1111      ,C18C  %0010.0000   WRITE_DV
+C16C: %0011.0000      ,C18D  %1000.0000   DISKIN_DV
+C16D: %0000.0000      ,C18E  %1000.0000   LEDACTON_DV
+C16E: %0000.0000      ,C18F  %1000.0000   LEDACTOFF_DV
+C16F: %0000.0000      ,C190  %1000.0000   ERRLEDON_DV
+C170: %0000.0000      ,C191  %1000.0000   ERRLEDOFF_DV
+C171: %0000.0000      ,C192  %1000.0000   SIDE_DV
+C172: %0000.0000      ,C193  %1000.0000   BUFMOV_DV
+C173: %1011.1011      ,C194  %0000.0000   WRTVER_DV
+C174: %0011.1100      ,C195  %0000.0000   TRKWRT_DV
+C175: %0011.1011      ,C196  %0100.0000   SP_READ
+C176: %0011.1011      ,C197  %0110.0000   SP_WRITE
+C177: %0011.1111      ,C198  %0000.0000   PSEEK_DV
+C178: %0011.0000      ,C199  %0000.0000   SEEKHD_DV
+C179: %1011.1011      ,C19A  %0000.0000   SEEKPHD_DV
+C17A: %0011.0000      ,C19B  %0000.0000   RESTORE_DV
+C17B: %0000.0000      ,C19C  %0000.0000   JUMPC_DV
+C17C: %0011.1010      ,C19D  %0000.0000   EXBUF_DV
+C17D: %1011.0010      ,C19E  %0000.0000   FORMATDK_DV
+C17E: %1111.1111      ,C19F  %0100.0000   TREAD_DV
+C17F: %1111.1111      ,C1A0  %0110.0000   TWRT_DV
+C180: %0111.1111      ,C1A1  %0100.0000   TPREAD_DV
+C181: %0111.1111      ,C1A2  %0110.0000   TPWRT_DV
+C182: %0011.0000      ,C1A3  %1000.0000   DETWP_DV
+C183: %0000.0000      ,C1A4  %1000.0000   ungueltiger Jobcode
+
+Adressen der Jobroutinen, Funktionsnummer, Jobcodes
+
+C1A5: 00 C9      W $C900       00 $80: READ_DV
+C1A7: E7 C2      W $C2E7       01 $82: RESET_DV
+C1A9: 90 C3      W $C390       02 $84: MOTON_DV
+C1AB: 93 C3      W $C393       03 $86: MOTOFF_DV
+C1AD: 96 C3      W $C396       04 $88: MOTONI_DV
+C1AF: A9 C3      W <a href="ro81c3a9.htm">$C3A9</a>       05 $8a: MOTOFFI_DV
+C1B1: AF C3      W <a href="ro81c3af.htm">$C3AF</a>       06 $8c: SEEK_DV
+C1B3: BB C3      W <a href="ro81c3bb.htm">$C3BB</a>       07 $8e: FORMAT_DV
+C1B5: 00 C9      W $C900       08 $90: WRITE_DV
+C1B7: D7 C6      W $C6D7       09 $92: DISKIN_DV
+C1B9: 46 C5      W $C546       0a $94: LEDACTON_DV
+C1BB: 4F C5      W $C54F       0b $96: LEDACTOFF_DV
+C1BD: 58 C5      W $C558       0c $98: ERRLEDON_DV
+C1BF: 61 C5      W <a href="ro81c546.htm">$C561</a>       0d $9a: ERRLEDOFF_DV
+C1C1: 6A C5      W <a href="ro81c56a.htm">$C56A</a>       0e $9c: SIDE_DV
+C1C3: 89 C5      W <a href="ro81c589.htm">$C589</a>       0f $9e: BUFMOV_DV
+C1C5: E1 C9      W <a href="ro81c9e1.htm">$C9E1</a>       10 $a0: WRTVER_DV
+C1C7: AC C5      W <a href="ro81c5ac.htm">$C5AC</a>       11 $a2: TRKWRT_DV
+C1C9: 00 C8      W <a href="ro81c800.htm">$C800</a>       12 $a4: SP_READ
+C1CB: 00 C7      W <a href="ro81c700.htm">$C700</a>       13 $a6: SP_WRITE
+C1CD: D7 C6      W <a href="ro81c6d7.htm">$C6D7</a>       14 $a8: PSEEK_DV
+C1CF: 09 CB      W <a href="ro81cae4.htm">$CB09</a>       15 $b0: SEEKHD_DV
+C1D1: E4 CA      W <a href="ro81cae4.htm">$CAE4</a>       16 $b8: SEEKPHD_DV
+C1D3: 0F CB      W <a href="ro81cb0f.htm">$CB0F</a>       17 $c0: RESTORE_DV
+C1D5: 26 CB      W <a href="ro81cb26.htm">$CB26</a>       18 $d0: JUMPC_DV
+C1D7: 26 CB      W <a href="ro81cb26.htm">$CB26</a>       19 $e0: EXBUF_DV
+C1D9: 35 CB      W <a href="ro81cb35.htm">$CB35</a>       1a $f0: FORMATDK_DV
+C1DB: 00 C9      W <a href="ro81c900.htm">$C900</a>       1b $aa: TREAD_DV
+C1DD: 00 C9      W <a href="ro81c900.htm">$C900</a>       1c $ac: TWRT_DV
+C1DF: 00 C9      W <a href="ro81c900.htm">$C900</a>       1d $b2: TPREAD_DV
+C1E1: 00 C9      W <a href="ro81c900.htm">$C900</a>       1e $b4: TPWRT_DV
+C1E3: 76 CB      W <a href="ro81cb76.htm">$CB76</a>       1f $b6: DETWP_DV
+
+C1E5: 85 CB      W <a href="ro81cb85.htm">$CB85</a>       20 ungueltiger Jobcode
+
+Jobcodes
+
+C1E7: 20 20 20 20 20 20 20 20  $00-$7f unbenutzt
+C1EF: 20 20 20 20 20 20 20 20  Der Jobcode wird als Index in
+C1F7: 20 20 20 20 20 20 20 20  diese Tabelle benutzt.
+C1FF: 20 20 20 20 20 20 20 20  Der Wert in der entsprechenden
+C207: 20 20 20 20 20 20 20 20  Zelle ergibt die Funktionsnummer.
+C20F: 20 20 20 20 20 20 20 20  Diese wird als Index( * 2) in die
+C217: 20 20 20 20 20 20 20 20  vorhergehende Tabelle benutzt,
+C21F: 20 20 20 20 20 20 20 20  in der die Adresse der
+C227: 20 20 20 20 20 20 20 20  aufzurufenden Routine steht.
+C22F: 20 20 20 20 20 20 20 20
+C237: 20 20 20 20 20 20 20 20
+C23F: 20 20 20 20 20 20 20 20
+C247: 20 20 20 20 20 20 20 20
+C24F: 20 20 20 20 20 20 20 20
+C257: 20 20 20 20 20 20 20 20
+C25F: 20 20 20 20 20 20 20 20
+
+C267: 00 20 01 20 02 20 03 20  Funktionen der vorhergehenden
+C26F: 04 20 05 20 06 20 07 20  Tabelle entnehmen
+C277: 08 20 09 20 0A 20 0B 20
+C27F: 0C 20 0D 20 0E 20 0F 20
+C287: 10 20 11 20 12 20 13 20
+C28F: 14 20 1B 20 1C 20 20 20
+C297: 15 20 1D 20 1E 20 1F 20
+C29F: 16 20 20 20 20 20 20 20
+C2A7: 17 20 20 20 20 20 20 20
+C2AF: 20 20 20 20 20 20 20 20
+C2B7: 18 20 20 20 20 20 20 20
+C2BF: 20 20 20 20 20 20 20 20
+C2C7: 19 20 20 20 20 20 20 20
+C2CF: 20 20 20 20 20 20 20 20
+C2D7: 1A 20 20 20 20 20 20 20
+C2DF: 20 20 20 20 20 20 20 20
+-----------------------------
+JOB $82: RESET_DV
+-----------------------------
+
+C2E7: A0 FF     LDY #$FF         Warten, Warten, Warten
+C2E9: 20 D5 CB  JSR <a href="ro81cbd5.htm">$CBD5</a>        (1/2 s insgesamt)
+C2EC: A0 FF     LDY #$FF
+C2EE: 20 D5 CB  JSR <a href="ro81cbd5.htm">$CBD5</a>
+C2F1: A9 80     LDA #$80         Track im Cache = $80 (kein Track)
+C2F3: 85 95     STA <a href="ra8195.htm">$95</a>
+C2F5: A9 00     LDA #$00         Cachepuffer nicht veraendert
+C2F7: 85 87     STA <a href="ra8187.htm">$87</a>
+C2F9: 20 CF B0  JSR <a href="ro81b0cf.htm">$B0CF</a>        physikalisches 1581-Format festlegen
+C2FC: 20 B3 B0  JSR <a href="ro81b0b3.htm">$B0B3</a>        ganze Diskette als Partition setzen
+C2FF: A9 4E     LDA #$4E         Wert $4e20 fuer Timer B
+C301: 8D D7 01  STA <a href="ra8101d7.htm">$01D7</a>        20000 Taktzyklen bei 2 Mhz
+C304: A9 20     LDA #$20         ergibt 100 Durchlaeufe / sec
+C306: 8D D8 01  STA <a href="ra8101d7.htm">$01D8</a>
+C309: 20 9F CB  JSR <a href="ro81cb9f.htm">$CB9F</a>        Timer B setzen
+
+Controllerbefehle
+
+C30C: A9 08     LDA #$08         Restore
+C30E: 8D DA 01  STA <a href="ra8101da.htm">$01DA</a>        Schrittmotor auf 6 ms / Schritt einstellen
+C311: A9 18     LDA #$18         Seek: Spur suchen
+C313: 8D DB 01  STA <a href="ra8101db.htm">$01DB</a>
+C316: A9 28     LDA #$28         Step
+C318: 8D DC 01  STA <a href="ra8101dc.htm">$01DC</a>
+C31B: A9 48     LDA #$48         Step-in
+C31D: 8D DD 01  STA <a href="ra8101dd.htm">$01DD</a>
+C320: A9 68     LDA #$68         Step-out
+C322: 8D DE 01  STA <a href="ra8101de.htm">$01DE</a>
+C325: A9 88     LDA #$88         Read Sector
+C327: 8D DF 01  STA <a href="ra8101df.htm">$01DF</a>
+C32A: A9 AA     LDA #$AA         Write Sector
+C32C: 8D E0 01  STA <a href="ra8101e0.htm">$01E0</a>
+C32F: A9 C8     LDA #$C8         Read Adress
+C331: 8D E1 01  STA <a href="ra8101e1.htm">$01E1</a>
+C334: A9 E8     LDA #$E8         Read Track
+C336: 8D E2 01  STA <a href="ra8101e2.htm">$01E2</a>
+C339: A9 FA     LDA #$FA         Write Track
+C33B: 8D E3 01  STA <a href="ra8101e3.htm">$01E3</a>
+C33E: A9 D0     LDA #$D0         Force Interrupt (Controller Init)
+C340: 8D E4 01  STA <a href="ra8101e4.htm">$01E4</a>
+C343: A9 12     LDA #$12         Zeit fuer Beruhigung des Schrittmotors
+C345: 85 98     STA <a href="ra8198.htm">$98</a>          ca. 18 ms
+
+Controller testen
+
+C347: A0 FF     LDY #$FF         Controller testen
+
+Einsprung von $C365:
+
+C349: 8C 01 60  STY <a href="wd811.htm">$6001</a>        Spur-, Sektor- und Datenregister mit allen
+C34C: 8C 02 60  STY <a href="wd812.htm">$6002</a>        Werten von $ff-$00 beschreiben,
+C34F: 8C 03 60  STY <a href="wd813.htm">$6003</a>
+C352: 20 34 AD  JSR <a href="ro81ad2f.htm">$AD34</a>        15 us warten,
+C355: CC 01 60  CPY <a href="wd811.htm">$6001</a>        alle Register testen.
+C358: D0 2E     BNE $C388        weichen die Werte ab, dann ist der
+C35A: CC 02 60  CPY <a href="wd812.htm">$6002</a>        Controller defekt
+C35D: D0 29     BNE $C388        (defekt, ==&gt;)
+C35F: CC 03 60  CPY <a href="wd813.htm">$6003</a>
+C362: D0 24     BNE $C388        (defekt, ==&gt;)
+C364: 88        DEY              alle Kombinationen testen
+C365: D0 E2     BNE $C349        noch nicht fertig, ==&gt;
+C367: 20 D1 CF  JSR <a href="ro81cfd1.htm">$CFD1</a>        Controller initialisieren
+C36A: A9 00     LDA #$00
+C36C: 8D 08 40  STA <a href="cia818.htm">$4008</a>        ???
+C36F: 20 2F AD  JSR <a href="ro81ad2f.htm">$AD2F</a>        35 us warten
+C372: AD 08 40  LDA <a href="cia818.htm">$4008</a>
+C375: D0 0F     BNE $C386
+C377: EE DA 01  INC <a href="ra8101da.htm">$01DA</a>        Kopftransport-Geschwindigkeit
+C37A: EE DB 01  INC <a href="ra8101db.htm">$01DB</a>        auf 12 ms pro Schritt einstellen
+C37D: EE DC 01  INC <a href="ra8101dc.htm">$01DC</a>        [passiert bei mir immer]
+C380: EE DD 01  INC <a href="ra8101dd.htm">$01DD</a>
+C383: EE DE 01  INC <a href="ra8101de.htm">$01DE</a>
+
+Einsprung von $C375:
+
+C386: D0 03     BNE $C38B
+
+Einsprung von $C358, $C35D, $C362:
+
+C388: A9 0D     LDA #$0D         CONTROLLER_ER
+C38A: 2C         B $2C
+
+Einsprung von $C386, <a href="ro81c393.htm">$C393</a>, <a href="ro81c3af.htm">$C3B8</a>, <a href="ro81c589.htm">$C5A3</a>, <a href="ro81c589.htm">$C5A9</a>, <a href="ro81c5ac.htm">$C5AC</a>, <a href="ro81c6d7.htm">$C6DA</a>, <a href="ro81cae4.htm">$CB0C</a>, <a href="ro81cb0f.htm">$CB23</a>:
+
+C38B: A9 00     LDA #$00         Ok.
+C38D: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Rueckmeldung des Jobs
+
+    <a href="ro81c0be.htm">Previous Page</a> / <a href="ro81c390.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

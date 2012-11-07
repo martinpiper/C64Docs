@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+BAM auf Diskette schreiben
+
+Einsprung von <a href="ro81b390.htm">$B42C</a>, <a href="ro81b515.htm">$B53E</a>:
+
+B612: A5 6C     LDA <a href="ra816c.htm">$6C</a>          aktuellen Puffer merken
+B614: 85 3F     STA <a href="ra813f.htm">$3F</a>
+B616: A9 07     LDA #$07         Puffer 7
+B618: A2 01     LDX #$01         in den Directory-Sektor 1 schreiben
+B61A: 20 43 B6  JSR <a href="ro81b643.htm">$B643</a>        T&amp;S und Puffernummer uebergeben
+B61D: 20 E2 94  JSR <a href="ro8194de.htm">$94E2</a>        Dir-Sektor schreiben
+B620: A9 08     LDA #$08         Puffer 8
+B622: A2 02     LDX #$02         in den Directory-Sektor 2 schreiben
+B624: 20 43 B6  JSR <a href="ro81b643.htm">$B643</a>        T&amp;S und Puffernummer uebergeben
+B627: 20 E2 94  JSR <a href="ro8194de.htm">$94E2</a>        Dir-Sektor schreiben
+
+Einsprung von <a href="ro81b5f2.htm">$B5F9</a>, <a href="ro81b5f2.htm">$B60F</a>:
+
+B62A: A5 3F     LDA <a href="ra813f.htm">$3F</a>          Puffernummer wieder herstellen
+B62C: 85 6C     STA <a href="ra816c.htm">$6C</a>
+B62E: A9 00     LDA #$00         Flag fuer 'Bam nicht veraendert'
+B630: 85 35     STA <a href="ra8135.htm">$35</a>
+B632: 60        RTS
+
+    <a href="ro81b5f2.htm">Previous Page</a> / <a href="ro81b633.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

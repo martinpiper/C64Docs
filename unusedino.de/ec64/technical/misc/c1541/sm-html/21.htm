@@ -1,0 +1,136 @@
+<html>
+<head>
+<title>Commodore 1540/1541 Service Manual: Model Identification and Device Number Change</title>
+</head>
+<body bgcolor="#ffffff">
+<center>
+<table border="1">
+<tr>
+<td><b>NOTE:</b> All 1540 Disk Drives were manufactured prior to any changes to the board and used the Alps drive exclusively.</td>
+</tr>
+</table>
+</center>
+
+<center>
+<h2>1541 MODEL IDENTIFICATION</h2>
+</center>
+
+<table>
+<tr>
+<td valign="top"><a href="22.htm">PCB Assy # 1540008-01</a></td>
+<td>
+<ul>
+<li>Schematic # 1540001</li>
+
+<li>Original "Long" Board</li>
+
+<li>Has 4 discreet 2114 RAMs</li>
+
+<li>ALPS Drive only</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td valign="top"><a href="26.htm">PCB Assy # 1540048</a></td>
+<td>
+<ul>
+<li>Schematic # 1540049</li>
+
+<li>Referred to as the CR board</li>
+
+<li>Changed to 2048 x 8 bit RAM pkg.</li>
+
+<li>A 40 pin Gate Array is used</li>
+
+<li>Alps Drive (-01)</li>
+
+<li>Newtronics Drive (-03)</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td valign="top"><a href="30.htm">PCB Assy # 250442-01</a></td>
+<td>
+<ul>
+<li>Schematic # 251748</li>
+
+<li>Termed the 1541 A</li>
+
+<li>Just one jumper change to accommodate both types of drive</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td valign="top"><a href="30.htm">PCB Assy # 250446-01</a></td>
+<td>
+<ul>
+<li>Schematic # 251748 (See Notes)</li>
+
+<li>Termed the 1541 A-2</li>
+
+<li>Just one jumper change to accommodate both types of drive</li>
+</ul>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<th valign="top">NOTE:</th>
+<td>The simplest way to identify which drive you have is by door assembly. Alps is made with a "push down" door and Newtronics has a "flipper" type door.</td>
+</tr>
+</table>
+
+<center>
+<h2><a name="devnum">DEVICE NUMBER CHANGE</a></h2>
+</center>
+
+The 1540 and 1541 drives are shipped from the factory se for device # 8. The channel can be hardware altered to # 9, 10, or 11 by two methods: 
+
+<p> 1) Refer to appropriate board layout drawing for the location of the pads provided for this purpose. The device change pads must be CUT to alter the channel number and re-soldered if another change is needed later.</p>
+
+<p> 2) The preferred method to alter the device number is to lift certain pins of the 6522 chip. The I.C. should always be socketed, so removal of the chip is simple. Once removed, the proper pin can be carefully bent to eliminate it from the circuit. If
+another change is needed, simply remove the I.C. and re-install with the pin back in place.</p>
+
+<center>
+<table border="1">
+<tr>
+<th>PCB ASSY #</th>
+<th>LOCATION</th>
+<th></th>
+<th>DEVICE #</th>
+<th>LIFT PIN</th>
+</tr>
+
+<tr>
+<td><a href="22.htm">1540008</a></td>
+<td align="center">UAB1</td>
+<td></td>
+<td align="center">9</td>
+<td align="center">15</td>
+</tr>
+
+<tr>
+<td><a href="26.htm">1540048</a>,<a href="30.htm">251748</a></td>
+<td align="center">UC3</td>
+<td></td>
+<td align="center">10</td>
+<td align="center">16</td>
+</tr>
+
+<tr>
+<td>and <a href="30.htm">251834</a></td>
+<td align="center">UC3</td>
+<td></td>
+<td align="center">11</td>
+<td align="center">15 and 16</td>
+</tr>
+</table>
+</center>
+
+</body>
+</html>
+

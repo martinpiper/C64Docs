@@ -1,0 +1,78 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Eingabezeile bis zu einem bestimmten Zeichen auswerten ($c268)
+Die Anzahl der ',' bis zur Fundstelle werden gezaehlt und Joker registriert.
+x sollte vor dem ersten Aufruf auf 0 gesetzt werden.
+
+E: a: Ende-Zeichen
+   x: Alte Anzahl gefundener Kommas
+   y: Startposition
+
+A: a: Position des Zeichens + 1 (0 = Zeichen nicht gefunden)
+   x: Anzahl der gefundenen Kommas
+   y: (= a)
+   n: 1: Zeichen nicht gefunden
+
+Einsprung von <a href="ro818085.htm">$808C</a>, <a href="ro818099.htm">$809F</a>, <a href="ro8180a2.htm">$80B6</a>, <a href="ro8180a2.htm">$80EA</a>, <a href="ro818a5d.htm">$8A63</a>, <a href="ro818a9f.htm">$8AA5</a>, <a href="ro819678.htm">$96F8</a>:
+
+811C: 8D 8F 02  STA <a href="ra81028f.htm">$028F</a>        Suchzeichen
+
+Einsprung von $8138, $814F:
+
+811F: C4 29     CPY <a href="ra8129.htm">$29</a>          Ende der Befehlszeile erreicht ?
+8121: B0 2E     BCS $8151        ja, ==&gt;
+8123: B1 CD     LDA (<a href="ra81cd.htm">$CD</a>),Y      Zeichen aus der Kommandozeile holen
+8125: C8        INY
+8126: CD 8F 02  CMP <a href="ra81028f.htm">$028F</a>        = Suchzeichen ?
+8129: F0 28     BEQ $8153        ja
+812B: C9 2A     CMP #$2A         Joker ?
+812D: F0 04     BEQ $8133        ja, ==&gt;
+812F: C9 3F     CMP #$3F
+8131: D0 03     BNE $8136        nein, ==&gt;
+
+Einsprung von $812D:
+
+8133: EE A1 02  INC <a href="ra8102a1.htm">$02A1</a>        Jokerflag setzen
+
+Einsprung von $8131:
+
+8136: C9 2C     CMP #$2C
+8138: D0 E5     BNE $811F        ',' gefunden
+813A: 98        TYA              ja, Position des naechsten Parameters
+813B: 9D 92 02  STA <a href="ra810291.htm">$0292</a>,X      merken
+813E: AD A1 02  LDA <a href="ra8102a1.htm">$02A1</a>        War Joker im Parameter ?
+8141: 29 7F     AND #$7F
+8143: F0 07     BEQ $814C
+8145: A9 80     LDA #$80         ja, Jokerflag setzen
+8147: 95 F4     STA <a href="ra81f4.htm">$F4</a>,X
+8149: 8D A1 02  STA <a href="ra8102a1.htm">$02A1</a>        Jokerflag fuer neue Suche loeschen
+
+Einsprung von $8143:
+
+814C: E8        INX              b7=1: Es wurden Joker gefunden
+814D: E0 04     CPX #$04         wurden zu viele Parameter angegeben ?
+814F: 90 CE     BCC $811F        nein, ==&gt;
+
+Einsprung von $8121:
+
+8151: A0 00     LDY #$00         ja, Ende der Suche
+
+Einsprung von $8129:
+
+8153: A5 29     LDA <a href="ra8129.htm">$29</a>          Zeilenlaenge bzw. Position des gesuchten
+8155: 9D 92 02  STA <a href="ra810291.htm">$0292</a>,X      Zeichens merken
+8158: AD A1 02  LDA <a href="ra8102a1.htm">$02A1</a>        War im letzten Parameter ein Joker (b7=1) ?
+815B: 29 7F     AND #$7F
+815D: F0 04     BEQ $8163        nein, ==&gt;
+815F: A9 80     LDA #$80         Jokerflag setzen
+8161: 95 F4     STA <a href="ra81f4.htm">$F4</a>,X
+
+Einsprung von $815D:
+
+8163: 98        TYA
+8164: 60        RTS
+
+    <a href="ro8180a2.htm">Previous Page</a> / <a href="ro818165.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

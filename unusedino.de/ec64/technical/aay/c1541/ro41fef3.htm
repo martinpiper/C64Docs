@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FEF3/65267:   Delay loop for serial bus in 1541 mode, from $E97D
+
+Jump from <a href="ro41e909.htm">$E97D</a>:
+
+FEF3: 8A        TXA
+FEF4: A2 05     LDX #$05
+
+Jump from $FEF7:
+
+FEF6: CA        DEX             ; about 40 microseconds
+FEF7: D0 FD     BNE $FEF6
+FEF9: AA        TAX
+FEFA: 60        RTS
+
+    <a href="ro41feea.htm">Previous Page</a> / <a href="ro41fefb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

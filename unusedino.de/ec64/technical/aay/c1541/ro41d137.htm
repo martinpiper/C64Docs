@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D137/53559:   Get a byte from buffer
+
+Jump from <a href="ro41d09b.htm">$D0A4</a>, <a href="ro41d09b.htm">$D0A9</a>, <a href="ro41d156.htm">$D156</a>, <a href="ro41d156.htm">$D172</a>, <a href="ro41d156.htm">$D17B</a>, <a href="ro41d156.htm">$D192</a>, <a href="ro41d39b.htm">$D433</a>, <a href="ro41da55.htm">$DAAA</a>, <a href="ro41de95.htm">$DE9A</a>,
+          <a href="ro41de95.htm">$DE9F</a>, <a href="ro41ed67.htm">$ED67</a>, <a href="ro41ede5.htm">$EDF3</a>, <a href="ro41ede5.htm">$EDF8</a>:
+
+D137: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get buffer and channel number
+D13A: B9 44 02  LDA <a href="ra410244.htm">$0244</a>,Y     ; end pointer
+D13D: F0 12     BEQ $D151
+D13F: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; get byte from buffer
+D141: 48        PHA
+D142: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+D144: D9 44 02  CMP <a href="ra410244.htm">$0244</a>,Y     ; equal end pointer?
+D147: D0 04     BNE $D14D       ; no
+D149: A9 FF     LDA #$FF
+D14B: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer to -1
+
+Jump from $D147:
+
+D14D: 68        PLA             ; data byte
+D14E: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+D150: 60        RTS
+
+Jump from $D13D:
+
+D151: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; get character from buffer
+D153: F6 99     INC <a href="ra4199.htm">$99</a>,X       ; increment buffer pointer
+D155: 60        RTS
+
+    <a href="ro41d12f.htm">Previous Page</a> / <a href="ro41d156.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

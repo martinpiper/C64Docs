@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Parameter fuer die Partitionerstellung holen
+
+Einsprung von <a href="ro81b811.htm">$B81C</a>, <a href="ro81b88d.htm">$B899</a>, <a href="ro81b88d.htm">$B8A2</a>, <a href="ro81b88d.htm">$B8B2</a>:
+
+B85F: AC 90 02  LDY <a href="ra810290.htm">$0290</a>        Ende des Partitionnamens
+B862: C8        INY              +1 = Position des 1. Parameters
+B863: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Starttrack
+B866: 85 4D     STA <a href="ra814d.htm">$4D</a>          merken
+B868: C8        INY
+B869: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Startsektor
+B86C: 85 4E     STA <a href="ra814e.htm">$4E</a>          merken
+B86E: C8        INY
+B86F: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Laenge des Bereiches
+B872: 8D EE 01  STA <a href="ra8101ed.htm">$01EE</a>        Lo
+B875: C8        INY
+B876: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y
+B879: 8D ED 01  STA <a href="ra8101ed.htm">$01ED</a>        Hi
+B87C: 18        CLC
+B87D: AD EE 01  LDA <a href="ra8101ed.htm">$01EE</a>        Laenge = 0 ?
+B880: 6D ED 01  ADC <a href="ra8101ed.htm">$01ED</a>
+B883: F0 03     BEQ $B888        Ja, ==&gt;
+B885: 4C B5 94  JMP <a href="ro8194b5.htm">$94B5</a>        T&amp;S auf gueltigen Bereich testen
+
+Einsprung von $B883:
+
+B888: A9 77     LDA #$77         77, Selected Partition illegal
+B88A: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>
+
+    <a href="ro81b851.htm">Previous Page</a> / <a href="ro81b88d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

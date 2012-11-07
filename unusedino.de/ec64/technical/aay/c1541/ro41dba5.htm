@@ -1,0 +1,100 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DBA5/56229:   Directory entry
+
+Jump from <a href="ro41db02.htm">$DB23</a>, <a href="ro41db02.htm">$DB5C</a>:
+
+DBA5: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DBA7: 8E 70 02  STX <a href="ra410270.htm">$0270</a>       ; save
+DBAA: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+DBAC: 48        PHA             ; save
+DBAD: BD 60 02  LDA <a href="ra410260.htm">$0260</a>,X     ; sector number in directory
+DBB0: 85 81     STA <a href="ra4181.htm">$81</a>         ; set
+DBB2: BD 66 02  LDA <a href="ra410266.htm">$0266</a>,X     ; pointer in directory
+DBB5: 8D 94 02  STA <a href="ra410294.htm">$0294</a>
+DBB8: B5 EC     LDA <a href="ra41ec.htm">$EC</a>,X
+DBBA: 29 01     AND #$01
+DBBC: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+DBBE: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+DBC1: 85 80     STA <a href="ra4180.htm">$80</a>         ; set
+DBC3: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; increment buffer number
+DBC6: 48        PHA
+DBC7: 85 F9     STA <a href="ra41f9.htm">$F9</a>
+DBC9: 20 60 D4  JSR <a href="ro41d460.htm">$D460</a>       ; read directory block
+DBCC: A0 00     LDY #$00
+DBCE: BD E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,X     ; buffer address
+DBD1: 85 87     STA <a href="ra4186.htm">$87</a>
+DBD3: AD 94 02  LDA <a href="ra410294.htm">$0294</a>       ; buffer pointer
+DBD6: 85 86     STA <a href="ra4186.htm">$86</a>
+DBD8: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y     ; file type
+DBDA: 29 20     AND #$20        ; file closed?
+DBDC: F0 43     BEQ $DC21       ; yes
+DBDE: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+DBE1: C9 04     CMP #$04        ; rel-file?
+DBE3: F0 44     BEQ $DC29       ; yes
+DBE5: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y
+DBE7: 29 8F     AND #$8F        ; erase bits 4,5, and 6
+DBE9: 91 86     STA (<a href="ra4186.htm">$86</a>),Y     ; in file type
+DBEB: C8        INY
+DBEC: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y     ; track number
+DBEE: 85 80     STA <a href="ra4180.htm">$80</a>
+DBF0: 84 71     STY <a href="ra4171.htm">$71</a>
+DBF2: A0 1B     LDY #$1B
+DBF4: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y     ; sector number of the file for
+DBF6: 48        PHA             ; overwriting
+DBF7: 88        DEY
+DBF8: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y     ; track number for overwriting
+DBFA: D0 0A     BNE $DC06       ; set?
+DBFC: 85 80     STA <a href="ra4180.htm">$80</a>         ; set track number
+DBFE: 68        PLA
+DBFF: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector number
+DC01: A9 67     LDA #$67
+DC03: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 67, 'illegal track or sector'
+
+Jump from $DBFA:
+
+DC06: 48        PHA
+DC07: A9 00     LDA #$00
+DC09: 91 86     STA (<a href="ra4186.htm">$86</a>),Y     ; erase track number
+DC0B: C8        INY
+DC0C: 91 86     STA (<a href="ra4186.htm">$86</a>),Y     ; and sector number of the
+DC0E: 68        PLA             ; substitute file
+DC0F: A4 71     LDY <a href="ra4171.htm">$71</a>
+DC11: 91 86     STA (<a href="ra4186.htm">$86</a>),Y
+DC13: C8        INY             ; set track &amp; sector number of the new file
+DC14: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y
+DC16: 85 81     STA <a href="ra4181.htm">$81</a>
+DC18: 68        PLA
+DC19: 91 86     STA (<a href="ra4186.htm">$86</a>),Y
+DC1B: 20 7D C8  JSR <a href="ro41c87d.htm">$C87D</a>       ; erase all files
+DC1E: 4C 29 DC  JMP $DC29
+
+Jump from $DBDC:
+
+DC21: B1 86     LDA (<a href="ra4186.htm">$86</a>),Y     ; get file type
+DC23: 29 0F     AND #$0F        ; isolate bits 0-3
+DC25: 09 80     ORA #$80        ; set bit 7 for closed file
+DC27: 91 86     STA (<a href="ra4186.htm">$86</a>),Y
+
+Jump from $DBE3, $DC1E:
+
+DC29: AE 70 02  LDX <a href="ra410270.htm">$0270</a>       ; channel number
+DC2C: A0 1C     LDY #$1C
+DC2E: B5 B5     LDA <a href="ra41b5.htm">$B5</a>,X       ; block number lo
+DC30: 91 86     STA (<a href="ra4186.htm">$86</a>),Y     ; in directory entry
+DC32: C8        INY
+DC33: B5 BB     LDA <a href="ra41bb.htm">$BB</a>,X       ; and block number hi
+DC35: 91 86     STA (<a href="ra4186.htm">$86</a>),Y     ; write
+DC37: 68        PLA             ; buffer number
+DC38: AA        TAX
+DC39: A9 90     LDA #$90        ; code for 'writing'
+DC3B: 05 7F     ORA <a href="ra417f.htm">$7F</a>
+DC3D: 20 90 D5  JSR <a href="ro41d58a.htm">$D590</a>       ; write block
+DC40: 68        PLA
+DC41: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+DC43: 4C 07 D1  JMP <a href="ro41d107.htm">$D107</a>       ; open channel for writing
+
+    <a href="ro41db62.htm">Previous Page</a> / <a href="ro41dc46.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

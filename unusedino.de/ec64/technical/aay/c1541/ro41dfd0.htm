@@ -1,0 +1,85 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DFD0/57296:   Get next record iin REL file
+
+Jump from <a href="ro41e120.htm">$E153</a>:
+
+DFD0: A9 20     LDA #$20
+DFD2: 20 9D DD  JSR <a href="ro41dd95.htm">$DD9D</a>       ; erase bit 5
+DFD5: A9 80     LDA #$80
+DFD7: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 7
+DFDA: D0 41     BNE $E01D       ; set?
+DFDC: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DFDE: F6 B5     INC <a href="ra41b5.htm">$B5</a>,X       ; increment record number
+DFE0: D0 02     BNE $DFE4
+DFE2: F6 BB     INC <a href="ra41bb.htm">$BB</a>,X       ; record number hi
+
+Jump from $DFE0:
+
+DFE4: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DFE6: B5 C1     LDA <a href="ra41c1.htm">$C1</a>,X       ; write pointer
+DFE8: F0 2E     BEQ $E018       ; zero?
+DFEA: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+DFED: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DFEF: D5 C1     CMP <a href="ra41c1.htm">$C1</a>,X       ; buffer pointer smaller than write pointer
+DFF1: 90 03     BCC $DFF6       ; yes
+DFF3: 20 3C E0  JSR <a href="ro41e03c.htm">$E03C</a>       ; write block, read next block
+
+Jump from $DFF1:
+
+DFF6: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DFF8: B5 C1     LDA <a href="ra41c1.htm">$C1</a>,X       ; write pointer
+DFFA: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer = write pointer
+DFFD: A1 99     LDA (<a href="ra4199.htm">$99</a>,X)     ; byte from buffer
+DFFF: 85 85     STA <a href="ra4185.htm">$85</a>         ; put in output register
+E001: A9 20     LDA #$20
+E003: 20 9D DD  JSR <a href="ro41dd95.htm">$DD9D</a>       ; erase bit 5
+E006: 20 04 E3  JSR <a href="ro41e304.htm">$E304</a>       ; add record length to write pointer
+
+Jump from <a href="ro41e207.htm">$E291</a>:
+
+E009: 48        PHA             ; and save
+E00A: 90 28     BCC $E034       ; not yet in last block?
+E00C: A9 00     LDA #$00
+E00E: 20 F6 D4  JSR <a href="ro41d4f6.htm">$D4F6</a>       ; get track number
+E011: D0 21     BNE $E034       ; does block exist?
+E013: 68        PLA             ; pointer
+E014: C9 02     CMP #$02        ; = 2
+E016: F0 12     BEQ $E02A       ; yes
+
+Jump from $DFE8:
+
+E018: A9 80     LDA #$80
+E01A: 20 97 DD  JSR <a href="ro41dd95.htm">$DD97</a>       ; set bit 7
+
+Jump from $DFDA:
+
+E01D: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; get byte from buffer
+E020: B5 99     LDA <a href="ra4199.htm">$99</a>,X       ; buffer pointer
+E022: 99 44 02  STA <a href="ra410244.htm">$0244</a>,Y     ; as end pointer
+E025: A9 0D     LDA #$0D        ; CR
+E027: 85 85     STA <a href="ra4185.htm">$85</a>         ; in output register
+E029: 60        RTS
+
+Jump from $E016:
+
+E02A: 20 35 E0  JSR $E035
+E02D: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E02F: A9 00     LDA #$00
+E031: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X       ; write pointer to zero
+E033: 60        RTS
+
+Jump from $E00A, $E011:
+
+E034: 68        PLA
+
+Jump from $E02A:
+
+E035: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E037: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X       ; set write pointer
+E039: 4C 6E E1  JMP <a href="ro41e120.htm">$E16E</a>
+
+    <a href="ro41dfc2.htm">Previous Page</a> / <a href="ro41e03c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

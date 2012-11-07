@@ -1,0 +1,80 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+'#', oeffnen eines Direktzugriffkanals ($cb84)
+
+Einsprung von <a href="ro819678.htm">$96D3</a>:
+
+89E4: A5 52     LDA <a href="ra8152.htm">$52</a>          aktuelle SA merken
+89E6: 48        PHA
+89E7: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        ggf. Drive initialisieren
+89EA: 68        PLA
+89EB: 85 52     STA <a href="ra8152.htm">$52</a>          SA zurueckholen
+89ED: A6 29     LDX <a href="ra8129.htm">$29</a>
+89EF: CA        DEX              nur '#' ?
+89F0: D0 0D     BNE $89FF        '#x' ==&gt;
+89F2: A9 01     LDA #$01
+89F4: 20 5A 91  JSR <a href="ro819157.htm">$915A</a>        Kanal oeffnen und 1 Puffer belegen
+89F7: 4C 35 8A  JMP $8A35
+
+Einsprung von $8A09, $8A19:
+
+89FA: A9 70     LDA #$70          70, no Channel
+89FC: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $89F0:
+
+89FF: A0 01     LDY #$01         Zeiger auf 2. Zeichen im INPUT-Puffer
+8A01: 20 AC 8A  JSR <a href="ro818a9f.htm">$8AAC</a>        setzen und Zahl holen
+8A04: AE 9C 02  LDX <a href="ra81029c.htm">$029C</a>        Puffernummer &gt;= 8 ?
+8A07: E0 08     CPX #$08
+8A09: B0 EF     BCS $89FA        ja, ==&gt;
+8A0B: A9 00     LDA #$00         Pruefen, ob Puffer frei ist
+8A0D: 85 40     STA <a href="ra8140.htm">$40</a>
+8A0F: 38        SEC              1-Bit x-mal shiften
+
+Einsprung von $8A13:
+
+8A10: 26 40     ROL <a href="ra8140.htm">$40</a>
+8A12: CA        DEX              bis gewuenschte Position erreicht ist
+8A13: 10 FB     BPL $8A10
+8A15: A5 40     LDA <a href="ra8140.htm">$40</a>          und entsprechendes Bit der Pufferbelegung
+8A17: 25 6D     AND <a href="ra816d.htm">$6D</a>          testen; ist das Bit=1, dann ist der
+8A19: D0 DF     BNE $89FA        Puffer belegt: 70, no Channel ==&gt;
+8A1B: A5 40     LDA <a href="ra8140.htm">$40</a>
+8A1D: 05 6D     ORA <a href="ra816d.htm">$6D</a>          Bit setzen und dadurch Puffer belegen
+8A1F: 85 6D     STA <a href="ra816d.htm">$6D</a>
+8A21: A9 00     LDA #$00
+8A23: 20 5A 91  JSR <a href="ro819157.htm">$915A</a>        Lesekanal oeffnen und keinen Puffer belegen
+8A26: A6 50     LDX <a href="ra8150.htm">$50</a>
+8A28: AD 9C 02  LDA <a href="ra81029c.htm">$029C</a>        Puffernummer holen
+8A2B: 95 D1     STA <a href="ra81d1.htm">$D1</a>,X        Puffer dem Kanal zuordnen
+8A2D: AA        TAX
+8A2E: A9 00     LDA #$00         Jobcodes des Puffers loeschen
+8A30: 95 02     STA <a href="ra8102.htm">$02</a>,X
+8A32: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X
+
+Einsprung von $89F7:
+
+8A35: A6 52     LDX <a href="ra8152.htm">$52</a>
+8A37: B5 A8     LDA <a href="ra81a8.htm">$A8</a>,X        b76=01: Kanal zum Lesen/Schreiben oeffnen
+8A39: 09 40     ORA #$40
+8A3B: 95 A8     STA <a href="ra81a8.htm">$A8</a>,X        in Sekundaeradressentabelle setzen
+8A3D: A4 50     LDY <a href="ra8150.htm">$50</a>
+8A3F: A9 FF     LDA #$FF         Anzahl gueltige Bytes = 256
+8A41: 99 42 02  STA <a href="ra810242.htm">$0242</a>,Y      (der ganze Puffer)
+8A44: A9 89     LDA #$89         Kanalstatus: Schreiben, Lesen, kein EOI
+8A46: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y
+8A49: B9 D1 00  LDA <a href="ra81d1.htm">$00D1</a>,Y      Puffernummer fuer Ausgabe
+8A4C: 99 3B 02  STA <a href="ra81023b.htm">$023B</a>,Y      bereitstellen
+8A4F: 0A        ASL              16-Bit Index
+8A50: AA        TAX
+8A51: A9 01     LDA #$01         Pufferzeiger auf 2. Byte setzen
+8A53: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        (wegen Blocklaenge bei B-R, B-W)
+8A55: A9 0E     LDA #$0E         b1-3: Dateityp $07: Direktzugriff
+8A57: 99 F9 00  STA <a href="ra81f9.htm">$00F9</a>,Y
+8A5A: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+    <a href="ro81898f.htm">Previous Page</a> / <a href="ro818a5d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

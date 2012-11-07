@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Ganze Diskette als Partition setzen
+
+Einsprung von <a href="ro8184ae.htm">$84BB</a>, <a href="ro818ec5.htm">$8ECB</a>, <a href="ro819460.htm">$946D</a>, <a href="ro81b781.htm">$B7F7</a>, <a href="ro81c163.htm">$C2FC</a>:
+
+B0B3: A9 00     LDA #$00         0: erste physikalische Spur
+B0B5: 85 8E     STA <a href="ra818e.htm">$8E</a>
+B0B7: A9 01     LDA #$01         1: logischer Starttrack der Partition
+B0B9: 85 90     STA <a href="ra8190.htm">$90</a>
+B0BB: A9 03     LDA #$03         3: 1. Sektor des Verzeichnisses
+B0BD: 8D E5 01  STA <a href="ra8101e5.htm">$01E5</a>
+B0C0: A9 51     LDA #$51         81: letzter Track der Partition +1
+B0C2: 8D 2C 02  STA <a href="ra81022c.htm">$022C</a>
+B0C5: A9 4F     LDA #$4F         79: letzte physikalische Spur
+B0C7: 85 8F     STA <a href="ra818f.htm">$8F</a>
+B0C9: A9 28     LDA #$28         40: Track des Directory setzen
+B0CB: 8D 2B 02  STA <a href="ra81022b.htm">$022B</a>
+B0CE: 60        RTS
+
+    <a href="ro81afe9.htm">Previous Page</a> / <a href="ro81b0cf.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

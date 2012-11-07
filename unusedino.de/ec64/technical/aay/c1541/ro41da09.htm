@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DA09/55817:   Check file type and control mode
+
+Jump from <a href="ro41d815.htm">$D866</a>, <a href="ro41d815.htm">$D873</a>:
+
+DA09: BC 7A 02  LDY <a href="ra41027a.htm">$027A</a>,X     ; pointer in command line
+DA0C: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; get characters from line
+DA0F: A0 04     LDY #$04
+
+Jump from $DA17:
+
+DA11: 88        DEY
+DA12: 30 08     BMI $DA1C
+DA14: D9 B2 FE  CMP <a href="ro41feb2.htm">$FEB2</a>,Y     ; control modes 'R', 'W', 'A', 'M'
+DA17: D0 F8     BNE $DA11
+DA19: 8C 97 02  STY <a href="ra410297.htm">$0297</a>       ; save
+
+Jump from $DA12:
+
+DA1C: A0 05     LDY #$05
+
+Jump from $DA24:
+
+DA1E: 88        DEY
+DA1F: 30 08     BMI $DA29
+DA21: D9 B6 FE  CMP <a href="ro41feb6.htm">$FEB6</a>,Y     ; file types 'D','S','P','U','L'
+DA24: D0 F8     BNE $DA1E
+DA26: 8C 4A 02  STY <a href="ra41024a.htm">$024A</a>       ; save
+
+Jump from $DA1F:
+
+DA29: 60        RTS
+
+    <a href="ro41d9e3.htm">Previous Page</a> / <a href="ro41da2a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

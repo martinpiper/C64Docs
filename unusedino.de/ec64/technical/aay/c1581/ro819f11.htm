@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Nummer des aktiven Puffers holen ($df93)
+E: $50: Kanalnummer
+[Diese Routine wurde haeufig in den DOS-Routinen direkt eingesetzt
+ (als Macro), um 12-15 Systemtakte zu sparen.]
+
+Einsprung von <a href="ro8188c5.htm">$88EE</a>, <a href="ro818c0f.htm">$8C29</a>, <a href="ro818d7d.htm">$8E30</a>, <a href="ro818eb1.htm">$8EB2</a>, <a href="ro818ffe.htm">$9006</a>, <a href="ro819069.htm">$9069</a>, <a href="ro81926e.htm">$927E</a>,
+              <a href="ro8193aa.htm">$93AA</a>, <a href="ro819422.htm">$9424</a>, <a href="ro819434.htm">$9442</a>, <a href="ro819450.htm">$9452</a>, <a href="ro819585.htm">$9585</a>, <a href="ro8195ab.htm">$9624</a>, <a href="ro819a72.htm">$9A8A</a>,
+              <a href="ro819ce9.htm">$9CE9</a>, <a href="ro819d69.htm">$9D69</a>, <a href="ro819d79.htm">$9D7C</a>, <a href="ro819d8e.htm">$9DBB</a>, <a href="ro819d8e.htm">$9DC7</a>, <a href="ro819ffc.htm">$9FFF</a>, <a href="ro81a459.htm">$A462</a>,
+              <a href="ro81a459.htm">$A51C</a>, <a href="ro81b17c.htm">$B191</a>, <a href="ro81b17c.htm">$B1BA</a>, <a href="ro81b17c.htm">$B1EB</a>, <a href="ro81b17c.htm">$B210</a>, <a href="ro81b17c.htm">$B224</a>:
+
+9F11: A6 50     LDX <a href="ra8150.htm">$50</a>          aktuelle Kanalnummer
+9F13: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        1. Puffer testen
+9F15: 10 02     BPL $9F19        aktiv ? ja, ==&gt;
+9F17: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X        2. Puffer holen
+
+Einsprung von $9F15:
+
+9F19: 29 BF     AND #$BF         b6: Flag 'Puffer veraendert'
+9F1B: 60        RTS              ausblenden
+    <a href="ro819ed3.htm">Previous Page</a> / <a href="ro819f1c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

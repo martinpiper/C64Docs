@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Dateistatus setzen/loeschen ($dd95)
+
+9CD3: 90 06     BCC $9CDB        c=1: Status setzen
+
+Einsprung von <a href="ro818876.htm">$8891</a>, <a href="ro819f4c.htm">$9F9B</a>, <a href="ro819ffc.htm">$A020</a>, <a href="ro81a08d.htm">$A08F</a>, <a href="ro81a1a1.htm">$A1F7</a>, <a href="ro81a2d6.htm">$A430</a>:
+
+9CD5: A6 50     LDX <a href="ra8150.htm">$50</a>          &lt;-- Status setzen
+9CD7: 15 F9     ORA <a href="ra81f9.htm">$F9</a>,X        alle 1-Bits werden gesetzt
+9CD9: D0 06     BNE $9CE1
+
+Einsprung von $9CD3, <a href="ro818e5c.htm">$8E6D</a>, <a href="ro819f4c.htm">$9F4E</a>, <a href="ro819f4c.htm">$9F84</a>, <a href="ro81a033.htm">$A075</a>, <a href="ro81a1a1.htm">$A1B5</a>:
+
+9CDB: A6 50     LDX <a href="ra8150.htm">$50</a>          &lt;-- Status loeschen
+9CDD: 49 FF     EOR #$FF         alle 1-Bits werden geloescht
+9CDF: 35 F9     AND <a href="ra81f9.htm">$F9</a>,X
+
+Einsprung von $9CD9:
+
+9CE1: 95 F9     STA <a href="ra81f9.htm">$F9</a>,X
+9CE3: 60        RTS
+
+Status testen
+
+Einsprung von <a href="ro81876e.htm">$8824</a>, <a href="ro8198cc.htm">$98D1</a>, <a href="ro81999f.htm">$99FA</a>, <a href="ro819f4c.htm">$9F53</a>, <a href="ro81a033.htm">$A035</a>, <a href="ro81a033.htm">$A046</a>, <a href="ro81a07b.htm">$A07D</a>,
+              <a href="ro81a0a6.htm">$A0A8</a>, <a href="ro81a1a1.htm">$A202</a>:
+
+9CE4: A6 50     LDX <a href="ra8150.htm">$50</a>          alle 1-Bits in a werden getestet
+9CE6: 35 F9     AND <a href="ra81f9.htm">$F9</a>,X
+9CE8: 60        RTS
+
+    <a href="ro819cca.htm">Previous Page</a> / <a href="ro819ce9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

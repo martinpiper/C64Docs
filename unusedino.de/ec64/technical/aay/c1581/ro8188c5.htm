@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+RENAME ($ca88)
+
+88C5: 20 0B 82  JSR <a href="ro81820b.htm">$820B</a>        Drivenummer(n) testen
+88C8: A5 F0     LDA <a href="ra81ef.htm">$F0</a>          Drivenummer des 2. Files
+88CA: 29 01     AND #$01
+88CC: 85 F0     STA <a href="ra81ef.htm">$F0</a>
+88CE: C5 EF     CMP <a href="ra81ef.htm">$EF</a>          = Drivenummer des 1. Files ?
+88D0: F0 02     BEQ $88D4        ja, ==&gt;
+88D2: 09 80     ORA #$80         Flag fuer unbestimmte Drivenummer setzen
+
+Einsprung von $88D0:
+
+88D4: 85 EF     STA <a href="ra81ef.htm">$EF</a>
+88D6: 20 B9 82  JSR <a href="ro8182b9.htm">$82B9</a>        alle angegebenen Dateien suchen
+88D9: 20 1E 89  JSR <a href="ro81891e.htm">$891E</a>        Existiert nur der 2. Name schon ?
+88DC: A5 E6     LDA <a href="ra81e5.htm">$E6</a>          (Rueckkehr nur bei Ja)
+88DE: 85 4E     STA <a href="ra814e.htm">$4E</a>
+88E0: 20 94 9D  JSR <a href="ro819d8e.htm">$9D94</a>        Dir-Block mitdem gesuchten Eintrag einlesen
+88E3: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Job abwarten
+88E6: A5 EB     LDA <a href="ra81ea.htm">$EB</a>          Zeiger auf Dateieintrag
+88E8: 18        CLC
+88E9: 69 03     ADC #$03         +3 (Typ,T&amp;S beruecksichtigen)
+88EB: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger setzen
+88EE: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+88F1: A8        TAY
+88F2: AE 91 02  LDX <a href="ra810291.htm">$0291</a>        Position des neuen Dateinamens
+88F5: A9 10     LDA #$10         und Maximallaenge holen
+88F7: 20 EE 84  JSR <a href="ro8184ee.htm">$84EE</a>        Namen kopieren und mit $a0 auffuellen
+88FA: 20 9A 9D  JSR <a href="ro819d8e.htm">$9D9A</a>        Puffer schreiben
+88FD: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Job abwarten
+8900: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+    <a href="ro818895.htm">Previous Page</a> / <a href="ro818903.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

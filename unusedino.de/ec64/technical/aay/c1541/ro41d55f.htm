@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D55F/54623:   Check for vaild track and sector numbers
+
+Jump from <a href="ro41cdf2.htm">$CE08</a>, <a href="ro41ede5.htm">$EDE5</a>:
+
+D55F: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+D561: F0 EA     BEQ <a href="ro41d506.htm">$D54D</a>       ; zero, then error
+D563: CD D7 FE  CMP <a href="ro41fed7.htm">$FED7</a>       ; 36, maximum track number + 1
+D566: B0 E5     BCS <a href="ro41d506.htm">$D54D</a>       ; 66, 'illegal track and sector number'
+D568: 20 4B F2  JSR <a href="ro41f24b.htm">$F24B</a>       ; get maximum sector number
+D56B: C5 81     CMP <a href="ra4181.htm">$81</a>         ; sector
+D56D: F0 DE     BEQ <a href="ro41d506.htm">$D54D</a>
+D56F: 90 DC     BCC <a href="ro41d506.htm">$D54D</a>       ; error
+D571: 60        RTS
+
+    <a href="ro41d552.htm">Previous Page</a> / <a href="ro41d572.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

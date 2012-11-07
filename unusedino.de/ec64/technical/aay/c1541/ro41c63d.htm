@@ -1,0 +1,41 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C63D/50749:   Test and initalise drive
+
+Jump from <a href="ro41c3ca.htm">$C409</a>, <a href="ro41c3ca.htm">$C416</a>, <a href="ro41c3ca.htm">$C423</a>, <a href="ro41c3ca.htm">$C434</a>, <a href="ro41cb84.htm">$CB8C</a>:
+
+C63D: A5 68     LDA <a href="ra4168.htm">$68</a>
+C63F: D0 28     BNE $C669
+C641: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+C643: 56 1C     LSR <a href="ra411c.htm">$1C</a>,X       ; disk changed?
+C645: 90 22     BCC $C669       ; no, then done
+C647: A9 FF     LDA #$FF
+C649: 8D 98 02  STA <a href="ra410298.htm">$0298</a>       ; set error flag
+C64C: 20 0E D0  JSR <a href="ro41d00e.htm">$D00E</a>       ; read directory track
+C64F: A0 FF     LDY #$FF
+C651: C9 02     CMP #$02        ; 20, 'read error'?
+C653: F0 0A     BEQ $C65F       ; yes
+C655: C9 03     CMP #$03        ; 21, 'read error'?
+C657: F0 06     BEQ $C65F       ; yes
+C659: C9 0F     CMP #$0F        ; 74, 'drive not ready'?
+C65B: F0 02     BEQ $C65F       ; yes
+C65D: A0 00     LDY #$00
+
+Jump from $C653, $C657, $C65B:
+
+C65F: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+C661: 98        TYA
+C662: 95 FF     STA <a href="ra41ff.htm">$FF</a>,X       ; save error flag
+C664: D0 03     BNE $C669       ; error?
+C666: 20 42 D0  JSR <a href="ro41d042.htm">$D042</a>       ; load BAM
+
+Jump from $C63F, $C645, $C664:
+
+C669: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+C66B: B5 FF     LDA <a href="ra41ff.htm">$FF</a>,X       ; transmit error code
+C66D: 60        RTS
+
+    <a href="ro41c5ac.htm">Previous Page</a> / <a href="ro41c66e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

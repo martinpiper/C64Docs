@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F259/62041:   Initialise disk controller
+
+Jump from <a href="ro41eaa0.htm">$EBC2</a>:
+
+F259: A9 6F     LDA #$6F        ; bit 4 (write prot) &amp; 7 (SYNC)
+F25B: 8D 02 1C  STA <a href="via22.htm">$1C02</a>       ; data direction register port B
+F25E: 29 F0     AND #$F0
+F260: 8D 00 1C  STA <a href="via20.htm">$1C00</a>       ; port B, control port
+F263: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>       ; PCR, control register
+F266: 29 FE     AND #$FE
+F268: 09 0E     ORA #$0E
+F26A: 09 E0     ORA #$E0
+F26C: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+F26F: A9 41     LDA #$41
+F271: 8D 0B 1C  STA <a href="via2b.htm">$1C0B</a>       ; timer 1 free running, enable
+F274: A9 00     LDA #$00        ; port A latch
+F276: 8D 06 1C  STA <a href="via26.htm">$1C06</a>       ; timer 1 lo latch
+F279: A9 3A     LDA #$3A
+F27B: 8D 07 1C  STA <a href="via27.htm">$1C07</a>       ; timer 1 hi latch
+F27E: 8D 05 1C  STA <a href="via25.htm">$1C05</a>       ; timer 1 hi
+F281: A9 7F     LDA #$7F
+F283: 8D 0E 1C  STA <a href="via2e.htm">$1C0E</a>       ; erase IRQs
+F286: A9 C0     LDA #$C0
+F288: 8D 0D 1C  STA <a href="via2d.htm">$1C0D</a>
+F28B: 8D 0E 1C  STA <a href="via2e.htm">$1C0E</a>       ; IER, allow interrupts
+F28E: A9 FF     LDA #$FF
+F290: 85 3E     STA <a href="ra413e.htm">$3E</a>
+F292: 85 51     STA <a href="ra4151.htm">$51</a>         ; track counter for formatting
+F294: A9 08     LDA #$08        ; 8
+F296: 85 39     STA <a href="ra4139.htm">$39</a>         ; constants for block header
+F298: A9 07     LDA #$07        ; 7
+F29A: 85 47     STA <a href="ra4147.htm">$47</a>         ; constants for data block
+F29C: A9 05     LDA #$05
+F29E: 85 62     STA <a href="ra4162.htm">$62</a>
+F2A0: A9 FA     LDA #$FA        ; pointer $62/$63 to $FA05
+F2A2: 85 63     STA <a href="ra4162.htm">$63</a>
+F2A4: A9 C8     LDA #$C8        ; 200
+F2A6: 85 64     STA <a href="ra4164.htm">$64</a>
+F2A8: A9 04     LDA #$04
+F2AA: 85 5E     STA <a href="ra415e.htm">$5E</a>
+F2AC: A9 04     LDA #$04
+F2AE: 85 5F     STA <a href="ra415f.htm">$5F</a>
+
+    <a href="ro41f258.htm">Previous Page</a> / <a href="ro41f2b0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

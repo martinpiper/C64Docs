@@ -1,0 +1,19 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FB97/64407:   New Character Setup
+
+Jump from <a href="romf875.htm">$F8A8</a>, <a href="romfa60.htm">$FA60</a>, <a href="romfbcd.htm">$FC16</a>, <a href="romfc57.htm">$FC75</a>:
+
+FB97: A9 08     <a href="blda.htm">LDA</a> #$08
+FB99: 85 A3     <a href="bsta.htm">STA</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+FB9B: A9 00     <a href="blda.htm">LDA</a> #$00
+FB9D: 85 A4     <a href="bsta.htm">STA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+FB9F: 85 A8     <a href="bsta.htm">STA</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FBA1: 85 9B     <a href="bsta.htm">STA</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+FBA3: 85 A9     <a href="bsta.htm">STA</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+FBA5: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfb8e.htm">Previous Page</a> / <a href="romfba6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

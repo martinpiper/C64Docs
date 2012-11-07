@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Neuen Bereich anlegen
+
+Einsprung von <a href="ro81b781.htm">$B7BC</a>:
+
+B88D: 20 11 B8  JSR <a href="ro81b811.htm">$B811</a>        Sind Blocks fuer die Partition noch frei ?
+B890: A9 05     LDA #$05         ja:
+B892: 8D 2D 02  STA <a href="ra81022d.htm">$022D</a>
+B895: A9 12     LDA #$12         internen Schreibkanal anwaehlen
+B897: 85 52     STA <a href="ra8152.htm">$52</a>
+B899: 20 5F B8  JSR <a href="ro81b85f.htm">$B85F</a>        Parameter aus der Kommandozeile holen
+B89C: 20 C6 9B  JSR <a href="ro819bc3.htm">$9BC6</a>        File zum Schreiben oeffnen
+B89F: 20 AB 95  JSR <a href="ro8195ab.htm">$95AB</a>        Neue Partition im Directory eintragen
+B8A2: 20 5F B8  JSR <a href="ro81b85f.htm">$B85F</a>        Parameter aus der Kommandozeile holen
+
+Einsprung von $B8B0:
+
+B8A5: 20 B5 94  JSR <a href="ro8194b5.htm">$94B5</a>        T&amp;S auf gueltigen Bereich testen
+B8A8: A5 4D     LDA <a href="ra814d.htm">$4D</a>          [wird nicht gebraucht]
+B8AA: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        Block in BAM belegen
+B8AD: 20 EF B2  JSR <a href="ro81b2ef.htm">$B2EF</a>        naechsten Block der Partition holen
+B8B0: D0 F3     BNE $B8A5        noch nicht Partition-Ende, ==&gt;
+B8B2: 20 5F B8  JSR <a href="ro81b85f.htm">$B85F</a>        Parameter aus der Kommandozeile holen
+B8B5: A6 50     LDX <a href="ra8150.htm">$50</a>
+B8B7: AD EE 01  LDA <a href="ra8101ed.htm">$01EE</a>        Dateilaenge setzen
+B8BA: 9D 49 02  STA <a href="ra810249.htm">$0249</a>,X
+B8BD: AD ED 01  LDA <a href="ra8101ed.htm">$01ED</a>
+B8C0: 9D 50 02  STA <a href="ra810250.htm">$0250</a>,X
+B8C3: A9 00     LDA #$00         ein Byte in Puffer schreiben [sonst wuerde
+B8C5: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>         der Block von der Datei wieder abgezogen.
+B8C8: A9 12     LDA #$12          (s. $9a47)]
+B8CA: 85 52     STA <a href="ra8152.htm">$52</a>          internen Schreibkanal anwaehlen
+B8CC: 20 9F 99  JSR <a href="ro81999f.htm">$999F</a>        Datei schliessen
+B8CF: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+DOS 8
+
+    <a href="ro81b85f.htm">Previous Page</a> / <a href="ro81b8d2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

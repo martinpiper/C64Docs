@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A437/42039:   Error Routine
+
+Jump from <a href="roma560.htm">$A573</a>, <a href="roma857.htm">$A85F</a>, <a href="roma8d2.htm">$A8E5</a>, <a href="romab4d.htm">$AB68</a>, <a href="romad1e.htm">$AD32</a>, <a href="romad8a.htm">$AD9B</a>, <a href="romaf08.htm">$AF0A</a>, <a href="romb248.htm">$B24A</a>, <a href="romb3ae.htm">$B3B0</a>,
+          <a href="romb487.htm">$B4D2</a>, <a href="romb63d.htm">$B65A</a>, <a href="romb97e.htm">$B980</a>, <a href="rombb0f.htm">$BB8C</a>, <a href="rome0f9.htm">$E109</a>, <a href="rome165.htm">$E19E</a>:
+
+A437: 6C 00 03  <a href="bjmp.htm">JMP</a> (<a href="zp0300.htm">$0300</a>)   ; Vector: BASIC Error Message
+
+Jump from <a href="rome37b.htm">$E38E</a>:
+
+A43A: 8A        <a href="btxa.htm">TXA</a>
+A43B: 0A        <a href="basl.htm">ASL</a>
+A43C: AA        <a href="btax.htm">TAX</a>
+A43D: BD 26 A3  <a href="blda.htm">LDA</a> <a href="roma19e.htm">$A326</a>,X   ; Error Message Table
+A440: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A442: BD 27 A3  <a href="blda.htm">LDA</a> <a href="roma19e.htm">$A327</a>,X   ; Error Message Table
+A445: 85 23     <a href="bsta.htm">STA</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A447: 20 CC FF  <a href="bjsr.htm">JSR</a> <a href="romffcc.htm">$FFCC</a>     ; Restore I/O Vector
+A44A: A9 00     <a href="blda.htm">LDA</a> #$00
+A44C: 85 13     <a href="bsta.htm">STA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+A44E: 20 D7 AA  <a href="bjsr.htm">JSR</a> <a href="romaad7.htm">$AAD7</a>     ; Output CR/LF
+A451: 20 45 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB45</a>     ; Output Format Character
+A454: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $A460:
+
+A456: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A458: 48        <a href="bpha.htm">PHA</a>
+A459: 29 7F     <a href="band.htm">AND</a> #$7F
+A45B: 20 47 AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB47</a>     ; Output Format Character
+A45E: C8        <a href="biny.htm">INY</a>
+A45F: 68        <a href="bpla.htm">PLA</a>
+A460: 10 F4     <a href="bbpl.htm">BPL</a> $A456
+A462: 20 7A A6  <a href="bjsr.htm">JSR</a> <a href="roma65e.htm">$A67A</a>     ; Perform [clr]
+A465: A9 69     <a href="blda.htm">LDA</a> #$69
+A467: A0 A3     <a href="bldy.htm">LDY</a> #$A3
+
+    <a href="roma435.htm">Previous Page</a> / <a href="roma469.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

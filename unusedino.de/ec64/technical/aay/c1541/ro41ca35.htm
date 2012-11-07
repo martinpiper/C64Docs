@@ -1,0 +1,59 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CA35/51765:   ?
+
+Jump from <a href="ro41c9d5.htm">$C9D8</a>, <a href="ro41e7a3.htm">$E81B</a>, <a href="ro41e7a3.htm">$E839</a>:
+
+CA35: A9 11     LDA #$11        ; 11
+CA37: 85 83     STA <a href="ra4183.htm">$83</a>
+
+Jump from <a href="ro41da2a.htm">$DA2A</a>:
+
+CA39: 20 9B D3  JSR <a href="ro41d39b.htm">$D39B</a>       ; open channel and get byte
+CA3C: 85 85     STA <a href="ra4185.htm">$85</a>
+CA3E: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+CA40: B5 F2     LDA <a href="ra41f2.htm">$F2</a>,X
+CA42: 29 08     AND #$08        ; isolate end marker
+CA44: 85 F8     STA <a href="ra41f8.htm">$F8</a>
+CA46: D0 0A     BNE $CA52       ; not set?
+CA48: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; get data type
+CA4B: F0 05     BEQ $CA52       ; rel-file?
+CA4D: A9 80     LDA #$80
+CA4F: 20 97 DD  JSR <a href="ro41dd95.htm">$DD97</a>       ; set bit 7
+
+Jump from $CA46, $CA4B:
+
+CA52: 60        RTS
+
+Jump from <a href="ro41c9a7.htm">$C9CB</a>:
+
+CA53: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; set drive number
+CA56: 20 CB E1  JSR <a href="ro41e1cb.htm">$E1CB</a>
+CA59: A5 D6     LDA <a href="ra41d6.htm">$D6</a>
+CA5B: 48        PHA
+CA5C: A5 D5     LDA <a href="ra41d5.htm">$D5</a>
+CA5E: 48        PHA
+CA5F: A9 12     LDA #$12        ; 18
+CA61: 85 83     STA <a href="ra4183.htm">$83</a>
+CA63: 20 07 D1  JSR <a href="ro41d107.htm">$D107</a>       ; open write channel
+CA66: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; set drive number
+CA69: 20 CB E1  JSR <a href="ro41e1cb.htm">$E1CB</a>
+CA6C: 20 9C E2  JSR <a href="ro41e207.htm">$E29C</a>
+CA6F: A5 D6     LDA <a href="ra41d6.htm">$D6</a>
+CA71: 85 87     STA <a href="ra4186.htm">$87</a>
+CA73: A5 D5     LDA <a href="ra41d5.htm">$D5</a>
+CA75: 85 86     STA <a href="ra4186.htm">$86</a>
+CA77: A9 00     LDA #$00
+CA79: 85 88     STA <a href="ra4186.htm">$88</a>
+CA7B: 85 D4     STA <a href="ra41d4.htm">$D4</a>
+CA7D: 85 D7     STA <a href="ra41d7.htm">$D7</a>
+CA7F: 68        PLA
+CA80: 85 D5     STA <a href="ra41d5.htm">$D5</a>
+CA82: 68        PLA
+CA83: 85 D6     STA <a href="ra41d6.htm">$D6</a>
+CA85: 4C 3B E3  JMP <a href="ro41e31c.htm">$E33B</a>
+
+    <a href="ro41c9fa.htm">Previous Page</a> / <a href="ro41ca88.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

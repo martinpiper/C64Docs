@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B737/46903:   Evaluate &lt;mid$&gt;
+
+B737: A9 FF     <a href="blda.htm">LDA</a> #$FF
+B739: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B73B: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+B73E: C9 29     <a href="bcmp.htm">CMP</a> #$29
+B740: F0 06     <a href="bbeq.htm">BEQ</a> $B748
+B742: 20 FD AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFD</a>     ; Test ','
+B745: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+
+Jump from $B740:
+
+B748: 20 61 B7  <a href="bjsr.htm">JSR</a> <a href="romb761.htm">$B761</a>     ; Pull String Parameters
+B74B: F0 4B     <a href="bbeq.htm">BEQ</a> <a href="romb78b.htm">$B798</a>     ; Evaluate &lt;asc&gt;
+B74D: CA        <a href="bdex.htm">DEX</a>
+B74E: 8A        <a href="btxa.htm">TXA</a>
+B74F: 48        <a href="bpha.htm">PHA</a>
+B750: 18        <a href="bclc.htm">CLC</a>
+B751: A2 00     <a href="bldx.htm">LDX</a> #$00
+B753: F1 50     <a href="bsbc.htm">SBC</a> (<a href="zp4e.htm">$50</a>),Y   ; Temporary storage for FLPT value
+B755: B0 B6     <a href="bbcs.htm">BCS</a> <a href="romb700.htm">$B70D</a>     ; Evaluate &lt;left$&gt;
+B757: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B759: C5 65     <a href="bcmp.htm">CMP</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B75B: 90 B1     <a href="bbcc.htm">BCC</a> <a href="romb700.htm">$B70E</a>     ; Evaluate &lt;left$&gt;
+B75D: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B75F: B0 AD     <a href="bbcs.htm">BCS</a> <a href="romb700.htm">$B70E</a>     ; Evaluate &lt;left$&gt;
+
+    <a href="romb72c.htm">Previous Page</a> / <a href="romb761.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

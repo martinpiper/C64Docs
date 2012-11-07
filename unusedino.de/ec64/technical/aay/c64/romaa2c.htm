@@ -1,0 +1,65 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AA2C/43564:   Add Digit to FAC#1
+
+Jump from <a href="roma9d9.htm">$A9DE</a>:
+
+AA2C: A0 02     <a href="bldy.htm">LDY</a> #$02
+AA2E: B1 64     <a href="blda.htm">LDA</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+AA30: C5 34     <a href="bcmp.htm">CMP</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+AA32: 90 17     <a href="bbcc.htm">BCC</a> $AA4B
+AA34: D0 07     <a href="bbne.htm">BNE</a> $AA3D
+AA36: 88        <a href="bdey.htm">DEY</a>
+AA37: B1 64     <a href="blda.htm">LDA</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+AA39: C5 33     <a href="bcmp.htm">CMP</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+AA3B: 90 0E     <a href="bbcc.htm">BCC</a> $AA4B
+
+Jump from $AA34:
+
+AA3D: A4 65     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AA3F: C4 2E     <a href="bcpy.htm">CPY</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+AA41: 90 08     <a href="bbcc.htm">BCC</a> $AA4B
+AA43: D0 0D     <a href="bbne.htm">BNE</a> $AA52
+AA45: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AA47: C5 2D     <a href="bcmp.htm">CMP</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+AA49: B0 07     <a href="bbcs.htm">BCS</a> $AA52
+
+Jump from $AA32, $AA3B, $AA41:
+
+AA4B: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AA4D: A4 65     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AA4F: 4C 68 AA  <a href="bjmp.htm">JMP</a> $AA68
+
+Jump from $AA43, $AA49:
+
+AA52: A0 00     <a href="bldy.htm">LDY</a> #$00
+AA54: B1 64     <a href="blda.htm">LDA</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+AA56: 20 75 B4  <a href="bjsr.htm">JSR</a> <a href="romb465.htm">$B475</a>     ; Evaluate &lt;str$&gt;
+AA59: A5 50     <a href="blda.htm">LDA</a> <a href="zp4e.htm">$50</a>       ; Temporary storage for FLPT value
+AA5B: A4 51     <a href="bldy.htm">LDY</a> <a href="zp4e.htm">$51</a>       ; Temporary storage for FLPT value
+AA5D: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+AA5F: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+AA61: 20 7A B6  <a href="bjsr.htm">JSR</a> <a href="romb67a.htm">$B67A</a>     ; Store String in High RAM
+AA64: A9 61     <a href="blda.htm">LDA</a> #$61
+AA66: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $AA4F:
+
+AA68: 85 50     <a href="bsta.htm">STA</a> <a href="zp4e.htm">$50</a>       ; Temporary storage for FLPT value
+AA6A: 84 51     <a href="bsty.htm">STY</a> <a href="zp4e.htm">$51</a>       ; Temporary storage for FLPT value
+AA6C: 20 DB B6  <a href="bjsr.htm">JSR</a> <a href="romb6db.htm">$B6DB</a>     ; Clean Descriptor Stack
+AA6F: A0 00     <a href="bldy.htm">LDY</a> #$00
+AA71: B1 50     <a href="blda.htm">LDA</a> (<a href="zp4e.htm">$50</a>),Y   ; Temporary storage for FLPT value
+AA73: 91 49     <a href="bsta.htm">STA</a> (<a href="zp49.htm">$49</a>),Y   ; Pointer: Index Variable for FOR/NEXT loop
+AA75: C8        <a href="biny.htm">INY</a>
+AA76: B1 50     <a href="blda.htm">LDA</a> (<a href="zp4e.htm">$50</a>),Y   ; Temporary storage for FLPT value
+AA78: 91 49     <a href="bsta.htm">STA</a> (<a href="zp49.htm">$49</a>),Y   ; Pointer: Index Variable for FOR/NEXT loop
+AA7A: C8        <a href="biny.htm">INY</a>
+AA7B: B1 50     <a href="blda.htm">LDA</a> (<a href="zp4e.htm">$50</a>),Y   ; Temporary storage for FLPT value
+AA7D: 91 49     <a href="bsta.htm">STA</a> (<a href="zp49.htm">$49</a>),Y   ; Pointer: Index Variable for FOR/NEXT loop
+AA7F: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma9e3.htm">Previous Page</a> / <a href="romaa80.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

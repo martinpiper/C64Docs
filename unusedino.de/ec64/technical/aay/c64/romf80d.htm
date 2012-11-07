@@ -1,0 +1,16 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F80D/63501:   Bump Tape Pointer
+
+Jump from <a href="romf199.htm">$F199</a>, <a href="romf1ca.htm">$F1E5</a>:
+
+F80D: 20 D0 F7  <a href="bjsr.htm">JSR</a> <a href="romf7d0.htm">$F7D0</a>     ; Get Buffer Address
+F810: E6 A6     <a href="binc.htm">INC</a> <a href="zpa6.htm">$A6</a>       ; Pointer: Tape I/O buffer
+F812: A4 A6     <a href="bldy.htm">LDY</a> <a href="zpa6.htm">$A6</a>       ; Pointer: Tape I/O buffer
+F814: C0 C0     <a href="bcpy.htm">CPY</a> #$C0
+F816: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf7ea.htm">Previous Page</a> / <a href="romf817.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

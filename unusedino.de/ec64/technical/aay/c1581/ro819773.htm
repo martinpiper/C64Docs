@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+File zum Schreiben oeffnen ($d8c6)
+
+Einsprung von <a href="ro819678.htm">$9759</a>:
+
+9773: A5 F4     LDA <a href="ra81f4.htm">$F4</a>          b7=1: Jokerflag gesetzt ?
+9775: 29 80     AND #$80         (z.B.: SAVE&quot;@:BEISP*&quot;,ga)
+9777: AA        TAX
+9778: D0 14     BNE $978E        ja, ==&gt;
+977A: A9 20     LDA #$20         b5=1: File nicht geschlossen ?
+977C: 24 F4     BIT <a href="ra81f4.htm">$F4</a>
+977E: F0 06     BEQ $9786        nein ==&gt;
+
+[Ja: In diesem Fall existiert bereits ein File mit dem geforderten Namen,
+ das aber nicht ordnungsgemaess geschlosen worden ist. Dieses muss erst
+ geloescht werden, bevor das neue File angelegt wird.]
+
+9780: 20 3B 87  JSR <a href="ro818688.htm">$873B</a>        altes File als geloescht kennzeichnen
+9783: 4C 90 98  JMP <a href="ro819890.htm">$9890</a>        neues File anlegen
+
+Einsprung von $977E:
+
+9786: AD 97 02  LDA <a href="ra810297.htm">$0297</a>        File bereits vorhanden (Tracknummer &gt;0) ?
+9789: D0 03     BNE $978E        ja, ==&gt;
+978B: 4C 90 98  JMP <a href="ro819890.htm">$9890</a>        neues File anlegen
+
+Einsprung von $9778, $9789:
+
+978E: AD 00 02  LDA <a href="ra810200.htm">$0200</a>        1. Zeichen aus Befehlszeile holen
+9791: C9 40     CMP #$40         SAVE &amp; REPLACE ?
+9793: F0 0D     BEQ <a href="ro8197a2.htm">$97A2</a>        ja, ==&gt;
+9795: 8A        TXA              Jokerflag gesetzt (SAVE&quot;BEISP*&quot;,ga) ?
+9796: D0 05     BNE $979D        ja, (Fehler) ==&gt;
+
+9798: A9 63     LDA #$63         63, FILE EXISTS
+979A: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $9796:
+
+979D: A9 33     LDA #$33         33, SYNTAX ERROR
+979F: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+DOS 4
+
+    <a href="ro819678.htm">Previous Page</a> / <a href="ro8197a2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

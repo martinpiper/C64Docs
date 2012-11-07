@@ -1,0 +1,439 @@
+<html>
+<head>
+<title>All you ever wanted to know about the colors of the commodore 64</title>
+</head>
+<body bgcolor="#ffffff">
+<h1 align=center>Commodore VIC-II Color Analysis (Preview)</h1>
+
+<p align="justify">Why "Preview" you might ask... ;-)</p>
+
+<p align="justify">Well... I'm really busy currently with other
+stuff, but I wanted to get the main-information released, so this
+is kind of a preview of what is to come. I will update this page in
+the "not-so-distant" future with more detailed descriptions, better
+illustrations, coverage of other members of the VIC-family (like the one
+in the VIC-20 and the C=16 / Plus 4 -- John 'Graham' Selck will probably
+help a lot with this as he owns all of those machines) and oh so much
+else... everything you ever wanted to know about the colors those great
+old Commodore-machines spit out.</p>
+
+<p align="justify">The update-process will most probably launch
+shortly after the Mekka Symposium 2001 Party (I hope to meet some of
+you there).</p>
+
+<p align="justify">I do know that the whole issue isn't described here
+in the most streamlined and optimized way. What I wanted to do first,
+is get all the information together and release it in order to beautify,
+optimize, streamline and make everything more complete later (You don't
+need as much numbers after the Komma as I use here currently -- this
+will also be changed later to tidy everything up). I will begin doing
+this in the near future for sure, but right now I really don't have any
+more time to work on this for the next couple of weeks.</p>
+
+<p align="justify">The whole issue of VIC-II color-emulation is
+so mis-guiding and irritating, because every c64-emulator uses
+different palettes and these have been created by using cheap
+frame-grabbers/digitizers with strange color-behaviour or by moving
+around some rgb-sliders until it looks quite right. Many people have
+forgotten how the colors on a real C64 look, because they use emulators
+for a long time. Some people like DeeKay/Crest or Cyclone/Haujobb (he's
+also a member of Crest nowadays if I remember correctly) were able to
+create pretty good palettes by moving around rgb-sliders and comparing
+to a real C64, but the system described on this page gets even closer
+than this. Most probably you won't come much closer to the real thing,
+than this at all.</p>
+
+<p align="justify">But let's come to the C=64 colors which will be
+featured here first...</p>
+
+<p align="justify">The C=64 (with its VIC-II chip) features a palette
+of 16 colors.</p>
+
+<center><table border=1>
+<tr bgcolor=#0044FF><th><tt><font color=#FFFFFF>#</font></tt></th><th><tt><font color=#FFFFFF>name</font></tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;0</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;black</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;1</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;white</tt></td></tr>
+<tr><td><tt>&nbsp;2</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red</tt></td></tr>
+<tr><td><tt>&nbsp;3</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cyan</tt></td></tr>
+<tr><td><tt>&nbsp;4&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple&nbsp;</tt></td></tr>
+<tr><td><tt>&nbsp;5</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green</tt></td></tr>
+<tr><td><tt>&nbsp;6</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue</tt></td></tr>
+<tr><td><tt>&nbsp;7</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yellow</tt></td></tr>
+<tr><td><tt>&nbsp;8</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td></tr>
+<tr><td><tt>&nbsp;9</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;A</tt></td><td><tt>&nbsp;light red</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;B</tt></td><td><tt>&nbsp;&nbsp;dark grey</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;C</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grey</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;D</tt></td><td><tt>&nbsp;light green</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;E</tt></td><td><tt>&nbsp;light blue</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;F</tt></td><td><tt>&nbsp;light grey</tt></td></tr>
+</table></center>
+
+<p align="justify">Black, White and the three Greys are no colors and the
+"light"-versions of Red, Green and Blue are just brighter versions of Red,
+Green and Blue. That leaves us with eight unique colors.</p>
+
+<p align="justify">Since the color-palette of the VIC-II has been made
+for the TV-system, we aren't talking a RGB-color-space, but a YUV-one
+(for PAL-TV that is), that we can convert to RGB later.</p>
+
+<p align="justify">"Y" in the YUV-color-space is the Luma-signal which
+is just the "black&amp;white-part" (the brightness) of the colors. "U" and
+"V" are color-difference signals, which together describe the hue and
+the saturation of the colors.</p>
+
+<p align="justify">If you just measure the "Y" signal with an
+oscilloscope, you'll notice, that few of the very early VIC's just had 4
+different luma-levels (excluding black) and the majority of VIC's (called
+the "late" ones here) have 8 different luma-levels (excluding black). They
+doubled them, because quite some people still had black&amp;white TV-sets,
+where many colors looked exactly the same. With the "late" version,
+only two colors share the same brightness.</p>
+
+<p align="justify">Here's a table of both of those luma-versions,
+ordered from darkest to brightest color (top to bottom):</p>
+
+<center><table border=1>
+<tr bgcolor=#0044FF><th><tt>&nbsp;<font color=#FFFFFF>early VIC-II luma</font>&nbsp;</tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;0</tt></td></tr>
+<tr><td><tt>&nbsp;2, 6, 9, B</tt></td></tr>
+<tr><td><tt>&nbsp;4, 5, 8, A, C, E</tt></td></tr>
+<tr><td><tt>&nbsp;3, 7, D, F</tt></td></tr>
+<tr><td><tt>&nbsp;1</tt></td></tr>
+</table></center>
+<br>
+<center><table border=1>
+<tr bgcolor=#0044FF><th><tt>&nbsp;<font color=#FFFFFF>late VIC-II luma</font>&nbsp;</tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6, 9</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2, B</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4, 8</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C, E</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5, A</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3, F</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7, D</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1</tt></td></tr>
+</table></center>
+
+<p align="justify">You can of course also verify this by minimizing
+color-saturation on your monitor, or just plugging "Y" in, or using a
+black&amp;white monitor/tv.</p>
+
+<p align="justify">However if you measure the luma-levels with an oscilloscope (Marko
+M&auml;kel&auml; did so in 1996), you are able to see, that all of
+those levels are perfectly dividable by 32. I made a little Illustration
+here:</p>
+
+<p align="center"><img src="luma-sys.gif" alt="Commodore VIC-II Luma Illustration"></p>
+
+<p align="justify">As we need to stuff the luma-values
+into 8 bits (0 to 255) for later calculation, we just divide 255 by 32 and
+get 7,96875. Now we just need to multiply the values in the Illustration
+with 7,96875 and round the results. Of course you may just use 8 instead
+of 7,96875, but as I'm quite a perfectionist I'll use 7,96875 for now
+and maybe change it later. ;-)</p>
+
+<center><table border=1>
+<tr><td><tt>&nbsp;&nbsp;8 * 7,96875 = &nbsp;63,75&nbsp;&nbsp;&nbsp;&nbsp;= &nbsp;64&nbsp;</tt></td></tr>
+<tr><td><tt>&nbsp;10 * 7,96875 = &nbsp;79,6875&nbsp;&nbsp;= &nbsp;80</tt></td></tr>
+<tr><td><tt>&nbsp;12 * 7,96875 = &nbsp;95,625&nbsp;&nbsp;&nbsp;= &nbsp;96</tt></td></tr>
+<tr><td><tt>&nbsp;15 * 7,96875 = 119,53125 = 120</tt></td></tr>
+<tr><td><tt>&nbsp;16 * 7,96875 = 127,5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 128</tt></td></tr>
+<tr><td><tt>&nbsp;20 * 7,96875 = 159,375&nbsp;&nbsp;&nbsp;= 159</tt></td></tr>
+<tr><td><tt>&nbsp;24 * 7,96875 = 191,25&nbsp;&nbsp;&nbsp;&nbsp;= 191</tt></td></tr>
+<tr><td><tt>&nbsp;32 * 7,96875 = 255,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 255</tt></td></tr>
+</table></center>
+
+<p align="justify">So... That's it for the brightness of the colors,
+let's come to the hue...</p>
+
+<p align="justify">If you measure the chroma-signal ("u" &amp; "v") with
+a vectorscope (I did so in 1999), you'll recognize, that all of the
+colors are on a perfect circle around the crossing-point of the "U" and
+"V" axis and so have exactly the same saturation (at least speaking in
+terms of video-language). That's why you don't need to note down the
+color-difference-signals by "U" and "V" coordinates, but you can use one
+value (degrees). All these angles are perfectly dividable by 22,5&deg;
+(which is a quarter of 90&deg;). The VIC-II creates all angles just with
+4 voltage-levels being send positive and negative on "U" and "V". You
+can see those voltage-levels clearly in the next Illustration.</p>
+
+<center><table border=1>
+<tr><td><tt>&nbsp;(light) blue&nbsp;&nbsp;&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;0,0&deg;&nbsp;</tt></td><td><tt>&nbsp;22,5&deg; * &nbsp;0&nbsp;</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple</tt></td><td><tt>&nbsp;&nbsp;45,0&deg;</tt></td><td><tt>&nbsp;22,5&deg; * &nbsp;2</tt></td></tr>
+<tr><td><tt>&nbsp;(light) red</tt></td><td><tt>&nbsp;112,5&deg;</tt></td><td><tt>&nbsp;22,5&deg; * &nbsp;5</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td><td><tt>&nbsp;135,0&deg;</tt></td><td><tt>&nbsp;22,5&deg; * &nbsp;6</tt></td></tr>
+<tr><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td><td><tt>&nbsp;157,5&deg;</tt></td><td><tt>&nbsp;22,5&deg; * &nbsp;7</tt></td></tr>
+</table></center>
+
+<p align="justify">The missing three angles are on the opposite side of the color-wheel
+from above mentioned angles. Yellow is "blue + 180&deg;", (light) green
+is "purple + 180&deg;" and cyan is "(light) red + 180&deg;". This is
+also clearly visible in the next Illustration. You can of course also
+take (light) red, (light) green, (light) blue, orange and brown as the
+base-colors and say that the missing ones are on opposite sides of them,
+but for now I have it written down the above mentioned way. This will
+be maybe changed later (no time to change it right now). Thanks again
+to John 'Graham' Selck's Test-Program, which helped to find the angles
+a bit more exact than the vectorscope was able to do.</p>
+
+<p align="justify">If you want to calculate "U" and "V" coordinates from
+these angles in percent, you just use this formula:</p>
+
+<tt>U = 100 * cos(angle)</tt><br>
+<tt>V = 100 * sin(angle)</tt><br>
+
+<p align="justify">In order to calculate the 4 voltage-levels in percent,
+calculate "V" from Brown, Purple and Red and "U" from Blue:</p>
+
+<tt>100 * sin(157,5&deg;) = &nbsp;38,26834323650897719%</tt><br>
+<tt>100 * sin(&nbsp;45,0&deg;) = &nbsp;70,71067811865475244%</tt><br>
+<tt>100 * sin(112,5&deg;) = &nbsp;92,38795325112867561%</tt><br>
+<tt>100 * cos(&nbsp;&nbsp;0,0&deg;) = 100,00000000000000000%</tt><br>
+
+<p align="center"><img src="uv-scope.gif" alt="Commodore VIC-II Chroma Illustration"></p>
+
+<p align="justify">Now "Y", "U" and "V" are known and in order to convert
+to the RGB-color-space, you just have to find out how much saturation
+is possible without getting "out of gamut"/"invalid" rgb-values. Brown
+is the peak-color of the VIC-II color-palette. It is the first color to
+produce a negative blue-value when converting from YUV to RGB with too
+much saturation.</p>
+
+<p align="justify">I found out the desired value with the brute force
+method by calculating around with different values in order to more and
+more close up to the needed value which produces Brown's Blue-Channel
+to be very little above 0 when converting from YUV to RGB. The value I
+came up with is 34,0081334493.</p>
+
+<p align="justify">Please note however, that monitors/tv's also do
+clipping (out of gamut colors), when saturation, brightness or contrast
+is set too high. Really every C64-User has set-up his monitor/tv
+in a different way. Most people I personally know have set up their
+equipment to show a normalized palette though, because I think that
+this looks the best to the eye. This is a matter of taste. If you want
+a more saturated palette or higher brightness/contrast, you'll have to
+calculate with greater values (before gamma-correction -- more on this
+later). The palette I'm calculating here is normalized in every aspect
+(brightness, contrast and saturation) and this is also the way I have
+set up my original C64 with its 1084-monitor.</p>
+
+<p align="justify">What is maybe interesting for you to know is, that
+John 'Graham' Selck is currently coding a routine for the new CCS64-Beta
+(it will probably be included in other emulators later) which lets
+you modify contrast, brightness saturation and gamma in realtime while
+emulating, based on the color-logic described on this page. This is the
+most cool way to emulate your equipment, as you'll be able to modify
+the settings on the fly, as you do with real equipment. Additionally
+Graham emulates the short-comings of the PAL-TV-system (for example by
+using only half the resolution of the Y-layer for the U and V-layer --
+like in a real PAL-system) which will also come closer to the look of
+a real C64 connected to a real 1084 monitor. Make sure to watch out for
+the new CCS64-Beta.</p>
+
+<p align="justify">But let's continue with the calculation... ;-)</p>
+
+<center><table border=1 nowrap>
+<tr bgcolor=#0044FF><th><tt><font color=#FFFFFF>#</font></tt></th><th><tt><font color=#FFFFFF>name</font></tt></th><th><tt><font color=#FFFFFF>angle</font></tt></th><th><tt><font color=#FFFFFF>y ("late" luma)</font></tt></th><th><tt><font color=#FFFFFF>u</font></tt></th><th><tt><font color=#FFFFFF>v</font></tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;0</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;black</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;&nbsp;0 * ( 255 : 32 )</tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;1</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;white</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;32 * ( 255 : 32 )</tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr><td><tt>&nbsp;2</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red</tt></td><td nowrap><tt>&nbsp;5 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;<font color=#800000>10</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)&nbsp;</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;3&nbsp;</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cyan&nbsp;&nbsp;&nbsp;</tt></td><td nowrap><tt>&nbsp;5 * ( 360&deg; : 16 ) <font color=#800000>+ 180&deg;</font>&nbsp;</tt></td><td nowrap><tt>&nbsp;<font color=#008000>20</font> * ( 255 : 32 )&nbsp;</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)&nbsp;</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)&nbsp;</tt></td></tr>
+<tr><td><tt>&nbsp;4</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple</tt></td><td nowrap><tt>&nbsp;2 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;<font color=#000080>12</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;5</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green</tt></td><td nowrap><tt>&nbsp;2 * ( 360&deg; : 16 ) <font color=#800000>+ 180&deg;</font></tt></td><td nowrap><tt>&nbsp;<font color=#008080>16</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;6</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue</tt></td><td nowrap><tt>&nbsp;0 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;&nbsp;<font color=#800080>8</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;7</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yellow</tt></td><td nowrap><tt>&nbsp;0 * ( 360&deg; : 16 ) <font color=#800000>+ 180&deg;</font></tt></td><td nowrap><tt>&nbsp;<font color=#808000>24</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;8</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td><td nowrap><tt>&nbsp;6 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;<font color=#000080>12</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr><td><tt>&nbsp;9</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td><td nowrap><tt>&nbsp;7 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;&nbsp;<font color=#800080>8</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;A</tt></td><td nowrap><tt>&nbsp;light red</tt></td><td nowrap><tt>&nbsp;5 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;<font color=#008080>16</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;B</tt></td><td nowrap><tt>&nbsp;&nbsp;dark grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#800000>10</font> * ( 255 : 32 )</tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;C</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#808080>15</font> * ( 255 : 32 )</tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;D</tt></td><td nowrap><tt>&nbsp;light green</tt></td><td nowrap><tt>&nbsp;2 * ( 360&deg; : 16 ) <font color=#800000>+ 180&deg;</font></tt></td><td nowrap><tt>&nbsp;<font color=#808000>24</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;E</tt></td><td nowrap><tt>&nbsp;light blue</tt></td><td nowrap><tt>&nbsp;0 * ( 360&deg; : 16 )</tt></td><td nowrap><tt>&nbsp;<font color=#808080>15</font> * ( 255 : 32 )</tt></td><td nowrap><tt>&nbsp;peak * cos(angle)</tt></td><td nowrap><tt>&nbsp;peak * sin(angle)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;F</tt></td><td nowrap><tt>&nbsp;light grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#008000>20</font> * ( 255 : 32 )</tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+</table></center>
+
+<p align="justify">...and the result of this calculation is:</p>
+
+<center><table border=1>
+<tr bgcolor=#0044FF><th><tt><font color=#FFFFFF>#</font></tt></th><th><tt><font color=#FFFFFF>name</font></tt></th><th><tt><font color=#FFFFFF>angle</font></tt></th><th><tt><font color=#FFFFFF>y (late)</font></tt></th><th><tt><font color=#FFFFFF>u</font></tt></th><th><tt><font color=#FFFFFF>v</font></tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;0</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;black</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0</tt></td><td nowrap align=center><tt>&nbsp;0</tt></td><td nowrap align=center><tt>&nbsp;0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;1</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;white</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;255,0</tt></td><td nowrap align=center><tt>&nbsp;0</tt></td><td nowrap align=center><tt>&nbsp;0</tt></td></tr>
+<tr><td><tt>&nbsp;2</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red</tt></td><td nowrap><tt>&nbsp;112,5&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#800000>&nbsp;79,6875</font></tt></td><td nowrap><tt>&nbsp;-<font color=#800000>13,01434923670814368&nbsp;</font></tt></td><td nowrap><tt>&nbsp;+<font color=#000080>31,41941843272073796</font></tt></td></tr>
+<tr><td><tt>&nbsp;3&nbsp;</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cyan&nbsp;&nbsp;&nbsp;</tt></td><td nowrap><tt>&nbsp;292,5&deg;&nbsp;</tt></td><td nowrap><tt>&nbsp;<font color=#008000>159,375</font>&nbsp;</tt></td><td nowrap><tt>&nbsp;+<font color=#800000>13,01434923670814368&nbsp;</font></tt></td><td nowrap><tt>&nbsp;-<font color=#000080>31,41941843272073796</font>&nbsp;</tt></td></tr>
+<tr><td><tt>&nbsp;4</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple</tt></td><td nowrap><tt>&nbsp;&nbsp;45,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#000080>&nbsp;95,625</font></tt></td><td nowrap><tt>&nbsp;+<font color=#008000>24,04738177749708281</font></tt></td><td nowrap><tt>&nbsp;+<font color=#008000>24,04738177749708281</font></tt></td></tr>
+<tr><td><tt>&nbsp;5</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green</tt></td><td nowrap><tt>&nbsp;225,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#008080>127,5</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008000>24,04738177749708281</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008000>24,04738177749708281</font></tt></td></tr>
+<tr><td><tt>&nbsp;6</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0&deg;</tt></td><td nowrap><tt>&nbsp;&nbsp;<font color=#800080>63,75</font></tt></td><td nowrap><tt>&nbsp;+<font color=#008080>34,0081334493</font></tt></td><td nowrap align=center><tt>&nbsp;0</tt></td></tr>
+<tr><td><tt>&nbsp;7</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yellow</tt></td><td nowrap><tt>&nbsp;180,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#808000>191,25</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008080>34,0081334493</font></tt></td><td nowrap align=center><tt>&nbsp;0</tt></td></tr>
+<tr><td><tt>&nbsp;8</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td><td nowrap><tt>&nbsp;135,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#000080>&nbsp;95,625</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008000>24,04738177749708281</font></tt></td><td nowrap><tt>&nbsp;+<font color=#008000>24,04738177749708281</font></tt></td></tr>
+<tr><td><tt>&nbsp;9</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td><td nowrap><tt>&nbsp;157,5&deg;</tt></td><td nowrap><tt>&nbsp;&nbsp;<font color=#800080>63,75</font></tt></td><td nowrap><tt>&nbsp;-<font color=#000080>31,41941843272073796</font></tt></td><td nowrap><tt>&nbsp;+<font color=#800000>13,01434923670814368</font></tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;A</tt></td><td nowrap><tt>&nbsp;light red</tt></td><td nowrap><tt>&nbsp;112,5&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#008080>127,5</font></tt></td><td nowrap><tt>&nbsp;-<font color=#800000>13,01434923670814368</font></tt></td><td nowrap><tt>&nbsp;+<font color=#000080>31,41941843272073796</font></tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;B</tt></td><td nowrap><tt>&nbsp;&nbsp;dark grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#800000>&nbsp;79,6875</font></tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;C</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#808080>119,53125</font></tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;D</tt></td><td nowrap><tt>&nbsp;light green</tt></td><td nowrap><tt>&nbsp;225,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#808000>191,25</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008000>24,04738177749708281</font></tt></td><td nowrap><tt>&nbsp;-<font color=#008000>24,04738177749708281</font></tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;E</tt></td><td nowrap><tt>&nbsp;light blue</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0&deg;</tt></td><td nowrap><tt>&nbsp;<font color=#808080>119,53125</font></tt></td><td nowrap><tt>&nbsp;+<font color=#008080>34,0081334493</font></tt></td><td nowrap align=center><tt>0</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;F</tt></td><td nowrap><tt>&nbsp;light grey</tt></td><td nowrap align=center><tt>n/a</tt></td><td nowrap><tt>&nbsp;<font color=#008000>159,375</font></tt></td><td nowrap align=center><tt>0</tt></td><td nowrap align=center><tt>0</tt></td></tr>
+</table></center>
+
+<p align="justify">Now we need to convert YUV to RGB. Here's the formula:</p>
+
+<tt>R = Y &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 1,140 * V</tt><br>
+<tt>G = Y - 0,396 * U - 0,581 * V</tt><br>
+<tt>B = Y + 2,029 * U</tt><br>
+
+<p align="justify">...and here's the result:</p>
+
+<center><table border=1>
+<tr bgcolor=#0044FF><th nowrap><tt><font color=#FFFFFF>#</font></tt></th nowrap><th><tt><font color=#FFFFFF>name</font></tt></th><th nowrap><tt><font color=#FFFFFF>r</font></tt></th><th nowrap><tt><font color=#FFFFFF>g</font></tt></th><th nowrap><tt><font color=#FFFFFF>b</font></tt></th></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;0</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;black</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;0)</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;0)</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;0)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;1</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;white</tt></td><td nowrap><tt>&nbsp;255,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (255)</tt></td><td nowrap><tt>&nbsp;255,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (255)</tt></td><td nowrap><tt>&nbsp;255,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (255)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;2</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red</tt></td><td nowrap><tt>&nbsp;115,5056370133016413&nbsp; (116)</tt></td><td nowrap><tt>&nbsp;&nbsp;66,58650018832567614 (&nbsp;67)</tt></td><td nowrap><tt>&nbsp;&nbsp;53,28138539871917648 (&nbsp;53)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;3</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cyan</tt></td><td nowrap><tt>&nbsp;123,5568629866983587&nbsp; (124)</tt></td><td nowrap><tt>&nbsp;172,4759998116743239&nbsp; (172)</tt></td><td nowrap><tt>&nbsp;185,7811146012808235&nbsp; (186)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;4&nbsp;</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple&nbsp;</tt></td><td nowrap><tt>&nbsp;123,0390152263466744&nbsp; (123)&nbsp;</tt></td><td nowrap><tt>&nbsp;&nbsp;72,13070800338535009 (&nbsp;72)&nbsp;</tt></td><td nowrap><tt>&nbsp;144,417137626541581&nbsp;&nbsp; (144)&nbsp;</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;5</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green</tt></td><td nowrap><tt>&nbsp;100,0859847736533256&nbsp; (100)</tt></td><td nowrap><tt>&nbsp;150,9942919966146499&nbsp; (151)</tt></td><td nowrap><tt>&nbsp;&nbsp;78,70786237345841898 (&nbsp;79)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;6</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue</tt></td><td nowrap><tt>&nbsp;&nbsp;63,75&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;64)</tt></td><td nowrap><tt>&nbsp;&nbsp;50,2827791540772&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;50)</tt></td><td nowrap><tt>&nbsp;132,7525027686297&nbsp;&nbsp;&nbsp;&nbsp; (133)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;7</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yellow</tt></td><td nowrap><tt>&nbsp;191,25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (191)</tt></td><td nowrap><tt>&nbsp;204,7172208459228&nbsp;&nbsp;&nbsp;&nbsp; (205)</tt></td><td nowrap><tt>&nbsp;122,2474972313703&nbsp;&nbsp;&nbsp;&nbsp; (122)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;8</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td><td nowrap><tt>&nbsp;123,0390152263466744&nbsp; (123)</tt></td><td nowrap><tt>&nbsp;&nbsp;91,17623437116303968 (&nbsp;91)</tt></td><td nowrap><tt>&nbsp;&nbsp;46,83286237345841898 (&nbsp;47)</tt></td></tr>
+<tr><td nowrap><tt>&nbsp;9</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td><td nowrap><tt>&nbsp;&nbsp;78,5863581298472838&nbsp; (&nbsp;79)</tt></td><td nowrap><tt>&nbsp;&nbsp;68,63075279282998076 (&nbsp;69)</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;<font color=#800000>0,00000000000962268</font> (&nbsp;&nbsp;<font color=#800000>0</font>)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;A</tt></td><td nowrap><tt>&nbsp;light red</tt></td><td nowrap><tt>&nbsp;163,3181370133016413&nbsp; (163)</tt></td><td nowrap><tt>&nbsp;114,3990001883256761&nbsp; (114)</tt></td><td nowrap><tt>&nbsp;101,0938853987191765&nbsp; (101)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;B</tt></td><td nowrap><tt>&nbsp;&nbsp;dark grey</tt></td><td nowrap><tt>&nbsp;&nbsp;79,6875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;80)</tt></td><td nowrap><tt>&nbsp;&nbsp;79,6875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;80)</tt></td><td nowrap><tt>&nbsp;&nbsp;79,6875&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;80)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;C</tt></td><td nowrap><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grey</tt></td><td nowrap><tt>&nbsp;119,53125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (120)</tt></td><td nowrap><tt>&nbsp;119,53125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (120)</tt></td><td nowrap><tt>&nbsp;119,53125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (120)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;D</tt></td><td nowrap><tt>&nbsp;light green</tt></td><td nowrap><tt>&nbsp;163,8359847736533256&nbsp; (164)</tt></td><td nowrap><tt>&nbsp;214,7442919966146499&nbsp; (215)</tt></td><td nowrap><tt>&nbsp;142,457862373458419&nbsp;&nbsp; (142)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;E</tt></td><td nowrap><tt>&nbsp;light blue</tt></td><td nowrap><tt>&nbsp;119,53125&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (120)</tt></td><td nowrap><tt>&nbsp;106,0640291540772&nbsp;&nbsp;&nbsp;&nbsp; (106)</tt></td><td nowrap><tt>&nbsp;188,5337527686297&nbsp;&nbsp;&nbsp;&nbsp; (189)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td nowrap><tt>&nbsp;F</tt></td><td nowrap><tt>&nbsp;light grey</tt></td><td nowrap><tt>&nbsp;159,375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (159)</tt></td><td nowrap><tt>&nbsp;159,375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (159)</tt></td><td nowrap><tt>&nbsp;159,375&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (159)</tt></td></tr>
+</table></center>
+
+<p align="justify">Now you need to gamma-correct the rgb-colors. Please
+note, that the gamma-correction is always the last thing you do to
+the palette. If you want to change brightness, contrast, saturation,
+mix-colors for interlace-emu, rotate hue or anything else, you have to
+do this before the gamma-correction.</p>
+
+<p align="justify">I'm not 100% sure about the used gamma-values in the
+following calculation, but I'm working on it and it's probably right. This
+page will be updated in the future with the right values in case the
+one I'm using now are wrong. If you feel like a gamma-expert, please
+get in touch with me at pepto@pepto.de, while I keep on investigating
+the matter. ;-)</p>
+
+<p align="justify">In order to correct the PAL-Gamma for VGA-Output you
+need to calculate each r, g and b value with an exponent of "2,5 : 2,2"
+(which is 1,136) and stretch the results back proportionaly to 8 bit
+valid values (between 0 and 255). There's a lot of false and irritating
+information about gamma around, but I'll fix the right value in the
+future. Maybe 1,136 is even right and because it should theoretically
+and it does look correct, I'll use it for the moment (Thanks to John
+'Graham' Selck for a little help with the gamma-values by just deciding
+which ones to use, while I was still thinking about which one to choose
+from the ones talked about in the gamma-faq's.). Theoretically Gamma
+is 2,5, but most people use 2,2 and PAL is officially noted with a
+gamma of 2,8. PeeCee's use a gamma of 2,2. Macintosh-computers have
+a gamma of 1,8 by default, but you're able to change it system-wide
+with the control-pannel "adobe-gamma" or "monitors" to the more common
+2,2. Programs like Adobe Photoshop are also able to emulate the gamma for
+you in the "color-preferences". More Information about this will be added
+here later. I also don't know much about the gamma of Amiga-computers
+(ECS and AGA), even if I would love to as they are my computers of
+choice. Please get in touch with me if you know more about this.</p>
+
+<p align="justify">Here are the results, after the gamma-correction:</p>
+
+<center><table border=1>
+<tr bgcolor=#0044FF><th><tt><font color=#FFFFFF>#</font></tt></th><th><tt><font color=#FFFFFF>name</font></tt></th><th><tt><font color=#FFFFFF>r</font></tt></th><th><tt><font color=#FFFFFF>g</font></tt></th><th><tt><font color=#FFFFFF>b</font></tt></th></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;0&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;black</tt></td><td><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( &nbsp;0)&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp; 0)&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( &nbsp;0)&nbsp;</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;1&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;white</tt></td><td><tt>&nbsp;254,999999878 (255)</tt></td><td><tt>&nbsp;254,999999878 (255)</tt></td><td><tt>&nbsp;254,999999878 (255)</tt></td></tr>
+<tr><td><tt>&nbsp;2&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;red</tt></td><td><tt>&nbsp;103,681836072 (104)</tt></td><td><tt>&nbsp;&nbsp;55,445357742 ( 55)</tt></td><td><tt>&nbsp;&nbsp;43,038096345 ( 43)</tt></td></tr>
+<tr><td><tt>&nbsp;3&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cyan</tt></td><td><tt>&nbsp;111,932673473 (112)</tt></td><td><tt>&nbsp;163,520631667 (164)</tt></td><td><tt>&nbsp;177,928819803 (178)</tt></td></tr>
+<tr><td><tt>&nbsp;4&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;purple&nbsp;</tt></td><td><tt>&nbsp;111,399725075 (111)</tt></td><td><tt>&nbsp;&nbsp;60,720543693 ( 61)</tt></td><td><tt>&nbsp;133,643433983 (134)</tt></td></tr>
+<tr><td><tt>&nbsp;5&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;green</tt></td><td><tt>&nbsp;&nbsp;88,102223525 ( 88)</tt></td><td><tt>&nbsp;140,581101312 (141)</tt></td><td><tt>&nbsp;&nbsp;67,050415368 ( 67)</tt></td></tr>
+<tr><td><tt>&nbsp;6&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blue</tt></td><td><tt>&nbsp;&nbsp;52,769271594 ( 53)</tt></td><td><tt>&nbsp;&nbsp;40,296416104 ( 40)</tt></td><td><tt>&nbsp;121,446211753 (121)</tt></td></tr>
+<tr><td><tt>&nbsp;7&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yellow</tt></td><td><tt>&nbsp;183,892638117 (184)</tt></td><td><tt>&nbsp;198,676829993 (199)</tt></td><td><tt>&nbsp;110,585717385 (111)</tt></td></tr>
+<tr><td><tt>&nbsp;8&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orange</tt></td><td><tt>&nbsp;111,399725075 (111)</tt></td><td><tt>&nbsp;&nbsp;79,245328562 ( 79)</tt></td><td><tt>&nbsp;&nbsp;37,169652483 ( 37)</tt></td></tr>
+<tr><td><tt>&nbsp;9&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;brown</tt></td><td><tt>&nbsp;&nbsp;66,932804788 ( 67)</tt></td><td><tt>&nbsp;&nbsp;57,383702891 ( 57)</tt></td><td><tt>  &nbsp;&nbsp;&nbsp;<font color=#800000>0,0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( &nbsp;0)</font></tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;A&nbsp;</tt></td><td><tt>&nbsp;light red</tt></td><td><tt>&nbsp;153,690586380 (154)</tt></td><td><tt>&nbsp;102,553762644 (103)</tt></td><td><tt>&nbsp;&nbsp;89,111118307 ( 89)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;B&nbsp;</tt></td><td><tt>&nbsp;&nbsp;dark grey</tt></td><td><tt>&nbsp;&nbsp;67,999561813 ( 68)</tt></td><td><tt>&nbsp;&nbsp;67,999561813 ( 68)</tt></td><td><tt>&nbsp;&nbsp;67,999561813 ( 68)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;C&nbsp;</tt></td><td><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grey</tt></td><td><tt>&nbsp;107,797780127 (108)</tt></td><td><tt>&nbsp;107,797780127 (108)</tt></td><td><tt>&nbsp;107,797780127 (108)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;D&nbsp;</tt></td><td><tt>&nbsp;light green</tt></td><td><tt>&nbsp;154,244479632 (154)</tt></td><td><tt>&nbsp;209,771445903 (210)</tt></td><td><tt>&nbsp;131,584994128 (132)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;E&nbsp;</tt></td><td><tt>&nbsp;light blue</tt></td><td><tt>&nbsp;107,797780127 (108)</tt></td><td><tt>&nbsp;&nbsp;94,106015515 ( 94)</tt></td><td><tt>&nbsp;180,927622164 (181)</tt></td></tr>
+<tr bgcolor=#EEEEEE><td><tt>&nbsp;F&nbsp;</tt></td><td><tt>&nbsp;light grey</tt></td><td><tt>&nbsp;149,480882981 (149)</tt></td><td><tt>&nbsp;149,480882981 (149)</tt></td><td><tt>&nbsp;149,480882981 (149)</tt></td></tr>
+</table></center>
+
+<p align="justify">Finished... Now here's a comparison of how some
+c64-pics look with the palette which is included in ccs64 v2.0 beta
+(this is just an example) and with the palette we just calculated...</p>
+
+<center><table border=0 cellspacing=0 cellpadding=0 bgcolor="#000000">
+<tr align="center" bgcolor="#ffffff"><td><tt>ccs64 v2.0b</tt></td><td><tt>my palette</tt></td></tr>
+<tr align="center"><td><img src="dk-ccs64.gif"></td><td><img src="dk-pepto.gif"></td></tr>
+<tr align="center"><td><img src="jo-ccs64.gif"></td><td><img src="jo-pepto.gif"></td></tr>
+<tr align="center"><td><img src="vs-ccs64.gif"></td><td><img src="vs-pepto.gif"></td></tr>
+</table></center>
+
+<p align="justify">And here's the palette in hex-format for easier usage
+in certain emulators:</p>
+
+<tt>00 00 00</tt><br>
+<tt>FF FF FF</tt><br>
+<tt>68 37 2B</tt><br>
+<tt>70 A4 B2</tt><br>
+<tt>6F 3D 86</tt><br>
+<tt>58 8D 43</tt><br>
+<tt>35 28 79</tt><br>
+<tt>B8 C7 6F</tt><br>
+<tt>6F 4F 25</tt><br>
+<tt>43 39 00</tt><br>
+<tt>9A 67 59</tt><br>
+<tt>44 44 44</tt><br>
+<tt>6C 6C 6C</tt><br>
+<tt>9A D2 84</tt><br>
+<tt>6C 5E B5</tt><br>
+<tt>95 95 95</tt><br>
+
+<br>
+Have fun using it... ;-) (watch out -- work in progress -- more to come...)<br> Sorry again for poor documentation and maybe typos,
+but remember that this is a preview...<br>
+<br>
+--<br>
+Philip "Pepto" Timmermann, &lt;<a href="mailto:pepto@pepto.de">pepto@pepto.de</a>&gt;<br>
+
+<p align="justify">P.S.: Here's an interesting eMail which Bob Yannes
+(co-developer of the VIC-II) sent to me. Please note that I can't disclose
+Bob's eMail address to you, as he's very concerned about his privacy and
+the only way to get in touch with him myself, was through a third person,
+who forwarded our mails to eachother. In other words, I don't have his
+eMail-address myself, so don't ask. Additionally please note that Bob
+talks about the NTSC color wheel. NTSC uses YIQ instead of PAL's YUV, but
+in order to convert from YIQ to YUV you just have to rotate everything
+by 33&deg; and exchange the color-difference axis. This is what they
+probably did in hardware in order to make the VIC-II work with PAL and
+so NTSC and PAL-VIC's probably have the same colors.</p>
+
+-///----------------------------- --- &nbsp;-- &nbsp;&nbsp;-<br>
+<br>
+<br>
+<tt>
+Subject: "Re: VIC-II colors"<br>
+&nbsp;&nbsp;&nbsp;From: Robert 'Bob' Yannes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To: Philip 'Pepto' Timmermann<br>
+&nbsp;&nbsp;&nbsp;Date: 27.09.1999<br>
+<br>
+I was involved with the development of the VIC-II, however the actual implementation of the design, including the Color Palette, was done by someone else. I have forwarded your message to him, but it is up to him if he wants to respond.<br>
+<br>
+I can tell you that the design was based on the principle that adding a sine wave of a particular frequency and amplitude to an inverted version of the same sine wave at a different amplitude produces a phase-shifted sine wave of the same frequency. The amount of phase shift is directly proportional to the amplitudes of the two sine waves.<br>
+<br>
+The VIC-II used the 14.31818 MHz master clock input (4 times the NTSC color burst frequency of 3.579545 MHz) to produce quadrature square-wave clocks. These clock signals were then integrated into triangle waves using analog integrators. The triangle waves were then integrated again into sine waves (actually rounded triangle waves, but good enough for this application). This produced a 3.579545 MHz sine wave, inverse sine wave, cosine wave and inverse cosine wave.<br>
+<br>
+An analog summer was used to create the phase-shifts in the Chroma signal by adding together the appropiate two waveforms at the appropiate amplitudes. The Color Palette data went to a look-up table that specified the amplitude of the waves by selecting different resistors in the gain path of the summer. The end result was that we could create any hue we wanted by looking at the NTSC color wheel to determine the phase-shift and then picking the appropiate resistor values to produce that phase-shift.<br>
+<br>
+Color Saturation was controlled by scaling the gain of the summer. When we picked the resistor values to determine the output phase-shift, we also scaled them to produce the desired output amplitude. Luminance was controlled using a simple voltage divider which switched different pull-down resistors into the open-drain output. We could create any Luminance we wanted by choosing the desired resistor value.<br>
+<br>
+I'm afraid that not nearly as much effort went into the color selection as you think. Since we had total control over hue, saturation and luminance, we picked colors that we liked. In order to save space on the chip, though, many of the colors were simply the opposite side of the color wheel from ones that we picked. This allowed us to reuse the existing resistor values, rather than having a completely unique set for each color.<br>
+<br>
+I believe that Commodore actually got a patent on this technique. It was certainly superior to the Apple or Atari approach at the time, as they ended up with whatever colors that came out--ours allowed the designer to freely select Hue, Saturation and Luminance.<br>
+<br>
+Since all of this was based on selecting different resistor values and resistance varied from chip lot to chip lot, there was variation from one Commodore 64 to another. It wasn't as bad as it could have been though, since all of the Chrominance selection was based on resistor ratios, which could be kept constant even if the actual resistor values varied. Luminance was more of a problem. A trimmer resistor should really have been used to pull up the output. This would have allowed the Luminance to be adjusted for consistency from unit to unit, however Commodore didn't care enough about consistency to bother with adjusting each unit.<br>
+<br>
+--<br>
+Robert 'Bob' Yannes<br></tt>
+</body>
+</html>

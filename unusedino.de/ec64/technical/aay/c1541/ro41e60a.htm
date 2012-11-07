@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E60A/58890:   Prepare error number and message
+
+Jump from <a href="ro41c8c6.htm">$C8EC</a>, <a href="ro41d5c6.htm">$D641</a>:
+
+E60A: 48        PHA             ; save error code
+E60B: 86 F9     STX <a href="ra41f9.htm">$F9</a>         ; drive number
+E60D: 8A        TXA
+E60E: 0A        ASL             ; times 2
+E60F: AA        TAX             ; as pointer
+E610: B5 06     LDA <a href="ra4106.htm">$06</a>,X
+E612: 85 80     STA <a href="ra4180.htm">$80</a>         ; get track
+E614: B5 07     LDA <a href="ra4106.htm">$07</a>,X
+E616: 85 81     STA <a href="ra4181.htm">$81</a>         ; and sector number
+E618: 68        PLA             ; get error code back
+E619: 29 0F     AND #$0F        ; isolate bits 0-3
+E61B: F0 08     BEQ $E625       ; zero, then 24, 'read error'
+E61D: C9 0F     CMP #$0F        ; 15?
+E61F: D0 06     BNE $E627
+E621: A9 74     LDA #$74        ; 74, 'drive not ready'
+E623: D0 08     BNE $E62D       ; 6
+
+Jump from $E61B:
+
+E625: A9 06     LDA #$06        ; add $20
+
+Jump from $E61F:
+
+E627: 09 20     ORA #$20
+E629: AA        TAX
+E62A: CA        DEX
+E62B: CA        DEX             ; subtract two
+E62C: 8A        TXA
+
+Jump from $E623:
+
+E62D: 48        PHA             ; save error number
+E62E: AD 2A 02  LDA <a href="ra41022a.htm">$022A</a>       ; number of the disk command
+E631: C9 00     CMP #$00        ; OPEN or VALIDATE?
+E633: D0 0F     BNE $E644       ; no
+E635: A9 FF     LDA #$FF
+E637: 8D 2A 02  STA <a href="ra41022a.htm">$022A</a>
+E63A: 68        PLA             ; get error number back
+E63B: 20 C7 E6  JSR <a href="ro41e6c7.htm">$E6C7</a>       ; generate error message
+E63E: 20 42 D0  JSR <a href="ro41d042.htm">$D042</a>       ; load BAM
+E641: 4C 48 E6  JMP <a href="ro41e645.htm">$E648</a>       ; set error message
+
+Jump from $E633:
+
+E644: 68        PLA
+
+    <a href="ro41e603.htm">Previous Page</a> / <a href="ro41e645.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

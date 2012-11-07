@@ -1,0 +1,500 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FAC7/64199:   Formatting
+
+FAC7: A5 51     LDA <a href="ra4151.htm">$51</a>         ; track number
+FAC9: 10 2A     BPL $FAF5       ; formatting already in progress
+FACB: A6 3D     LDX <a href="ra413d.htm">$3D</a>         ; drive number
+FACD: A9 60     LDA #$60        ; flag for head transport
+FACF: 95 20     STA <a href="ra4120.htm">$20</a>,X       ; set
+FAD1: A9 01     LDA #$01
+FAD3: 95 22     STA <a href="ra4122.htm">$22</a>,X       ; set destination track
+FAD5: 85 51     STA <a href="ra4151.htm">$51</a>         ; running track number for format
+FAD7: A9 A4     LDA #$A4        ; 164
+FAD9: 85 4A     STA <a href="ra414a.htm">$4A</a>         ; step counter for head transport
+FADB: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+FADE: 29 FC     AND #$FC        ; stepper motor on
+FAE0: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+FAE3: A9 0A     LDA #$0A        ; 10
+FAE5: 8D 20 06  STA <a href="ra410620.htm">$0620</a>       ; error counter
+FAE8: A9 A0     LDA #$A0        ; $621/$622 = 4000
+FAEA: 8D 21 06  STA <a href="ra410621.htm">$0621</a>       ; initialize track capacity
+FAED: A9 0F     LDA #$0F        ; 4000 &lt; capacity &lt; 2*4000 bytes
+FAEF: 8D 22 06  STA <a href="ra410621.htm">$0622</a>
+FAF2: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; back in job loop
+
+Jump from $FAC9:
+
+FAF5: A0 00     LDY #$00
+FAF7: D1 32     CMP (<a href="ra4132.htm">$32</a>),Y
+FAF9: F0 05     BEQ $FB00
+FAFB: 91 32     STA (<a href="ra4132.htm">$32</a>),Y
+FAFD: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+Jump from $FAF9:
+
+FB00: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+FB03: 29 10     AND #$10        ; write protect?
+FB05: D0 05     BNE $FB0C       ; no
+FB07: A9 08     LDA #$08
+FB09: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 26, 'write protect on'
+
+Jump from $FB05, $FBB3:
+
+FB0C: 20 A3 FD  JSR <a href="ro41fda3.htm">$FDA3</a>       ; write $FF to disk 10240 times
+FB0F: 20 C3 FD  JSR <a href="ro41fdc3.htm">$FDC3</a>       ; code ($621/$622) times to disk
+FB12: A9 55     LDA #$55        ; $55
+FB14: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; to write head
+FB17: 20 C3 FD  JSR <a href="ro41fdc3.htm">$FDC3</a>       ; and ($621/$622) times to disk
+FB1A: 20 00 FE  JSR <a href="ro41fe00.htm">$FE00</a>       ; switch to read
+FB1D: 20 56 F5  JSR <a href="ro41f556.htm">$F556</a>       ; set timer, find $FF (SYNC)
+FB20: A9 40     LDA #$40
+FB22: 0D 0B 18  ORA <a href="via1b.htm">$180B</a>       ; timer 1 free running
+FB25: 8D 0B 18  STA <a href="via1b.htm">$180B</a>
+FB28: A9 62     LDA #$62        ; 98 cycles, about 0.1 ms
+FB2A: 8D 06 18  STA <a href="via16.htm">$1806</a>
+FB2D: A9 00     LDA #$00
+FB2F: 8D 07 18  STA <a href="via17.htm">$1807</a>
+FB32: 8D 05 18  STA <a href="via15.htm">$1805</a>       ; start timer
+FB35: A0 00     LDY #$00        ; counter to zero
+FB37: A2 00     LDX #$00
+
+Jump from $FB3C:
+
+FB39: 2C 00 1C  BIT <a href="via20.htm">$1C00</a>       ; SYNC found?
+FB3C: 30 FB     BMI $FB39       ; no, wait
+
+Jump from $FB41:
+
+FB3E: 2C 00 1C  BIT <a href="via20.htm">$1C00</a>       ; SYNC found?
+FB41: 10 FB     BPL $FB3E       ; wait for SYNC
+
+Jump from $FB52, $FB55:
+
+FB43: AD 04 18  LDA <a href="via14.htm">$1804</a>       ; reset interrupt flag timer
+
+Jump from $FB4F:
+
+FB46: 2C 00 1C  BIT <a href="via20.htm">$1C00</a>       ; SYNC found?
+FB49: 10 11     BPL $FB5C       ; not SYNC ($55)?
+FB4B: AD 0D 18  LDA <a href="via1d.htm">$180D</a>       ; interrupt flag register
+FB4E: 0A        ASL             ; shift timer flag
+FB4F: 10 F5     BPL $FB46       ; timer not run down yet?
+FB51: E8        INX             ; increment counter
+FB52: D0 EF     BNE $FB43
+FB54: C8        INY             ; increment hi-byte of counter
+FB55: D0 EC     BNE $FB43
+FB57: A9 02     LDA #$02        ; overflow, then error
+FB59: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 20, 'read error'
+
+Jump from $FB49:
+
+FB5C: 86 71     STX <a href="ra4171.htm">$71</a>
+FB5E: 84 72     STY <a href="ra4172.htm">$72</a>
+FB60: A2 00     LDX #$00
+FB62: A0 00     LDY #$00        ; counter to zero again
+
+Jump from $FB73, $FB76:
+
+FB64: AD 04 18  LDA <a href="via14.htm">$1804</a>       ; reset timer 1 interrupt flag
+
+Jump from $FB70:
+
+FB67: 2C 00 1C  BIT <a href="via20.htm">$1C00</a>       ; SYNC found?
+FB6A: 30 11     BMI $FB7D       ; yes
+FB6C: AD 0D 18  LDA <a href="via1d.htm">$180D</a>       ; interrupt-flag register
+FB6F: 0A        ASL             ; timer flag to bit 7
+FB70: 10 F5     BPL $FB67       ; no, wait until timer run down
+FB72: E8        INX
+FB73: D0 EF     BNE $FB64       ; increment counter
+FB75: C8        INY
+FB76: D0 EC     BNE $FB64
+FB78: A9 02     LDA #$02        ; overflow, then error
+FB7A: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 20, 'read error'
+
+Jump from $FB6A:
+
+FB7D: 38        SEC
+FB7E: 8A        TXA
+FB7F: E5 71     SBC <a href="ra4171.htm">$71</a>         ; difference between counter
+FB81: AA        TAX
+FB82: 85 70     STA <a href="ra416f.htm">$70</a>
+FB84: 98        TYA             ; and value for $FF-storage
+FB85: E5 72     SBC <a href="ra4172.htm">$72</a>
+FB87: A8        TAY             ; bring to $70/$71
+FB88: 85 71     STA <a href="ra4171.htm">$71</a>
+FB8A: 10 0B     BPL $FB97       ; difference positive?
+FB8C: 49 FF     EOR #$FF
+FB8E: A8        TAY
+FB8F: 8A        TXA
+FB90: 49 FF     EOR #$FF        ; calculate absolute value of difference
+FB92: AA        TAX
+FB93: E8        INX
+FB94: D0 01     BNE $FB97
+FB96: C8        INY
+
+Jump from $FB8A, $FB94:
+
+FB97: 98        TYA
+FB98: D0 04     BNE $FB9E
+FB9A: E0 04     CPX #$04        ; difference less than 4 * 0.1 ms
+FB9C: 90 18     BCC $FBB6       ; yes
+
+Jump from $FB98:
+
+FB9E: 06 70     ASL <a href="ra416f.htm">$70</a>
+FBA0: 26 71     ROL <a href="ra4171.htm">$71</a>         ; double difference
+FBA2: 18        CLC
+FBA3: A5 70     LDA <a href="ra416f.htm">$70</a>
+FBA5: 6D 21 06  ADC <a href="ra410621.htm">$0621</a>
+FBA8: 8D 21 06  STA <a href="ra410621.htm">$0621</a>       ; add to 4000
+FBAB: A5 71     LDA <a href="ra4171.htm">$71</a>
+FBAD: 6D 22 06  ADC <a href="ra410621.htm">$0622</a>
+FBB0: 8D 22 06  STA <a href="ra410621.htm">$0622</a>
+FBB3: 4C 0C FB  JMP $FB0C       ; repeat until difference &lt; 4 * 0.1 ms
+
+Jump from $FB9C:
+
+FBB6: A2 00     LDX #$00
+FBB8: A0 00     LDY #$00        ; counter to zero
+FBBA: B8        CLV
+
+Jump from $FBC0, $FBC4, $FBC7:
+
+FBBB: AD 00 1C  LDA <a href="via20.htm">$1C00</a>       ; SYNC?
+FBBE: 10 0E     BPL $FBCE       ; no
+FBC0: 50 F9     BVC $FBBB       ; byte ready?
+FBC2: B8        CLV
+FBC3: E8        INX
+FBC4: D0 F5     BNE $FBBB       ; increment counter
+FBC6: C8        INY
+FBC7: D0 F2     BNE $FBBB
+FBC9: A9 03     LDA #$03        ; overflow, then error
+FBCB: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 21, 'read error'
+
+Jump from $FBBE:
+
+FBCE: 8A        TXA
+FBCF: 0A        ASL             ; double counter
+FBD0: 8D 25 06  STA <a href="ra410624.htm">$0625</a>
+FBD3: 98        TYA
+FBD4: 2A        ROL
+FBD5: 8D 24 06  STA <a href="ra410624.htm">$0624</a>       ; and to $624/$625 as track capacity
+FBD8: A9 BF     LDA #$BF
+FBDA: 2D 0B 18  AND <a href="via1b.htm">$180B</a>
+FBDD: 8D 0B 18  STA <a href="via1b.htm">$180B</a>
+FBE0: A9 66     LDA #$66        ; 102
+FBE2: 8D 26 06  STA <a href="ra410626.htm">$0626</a>
+FBE5: A6 43     LDX <a href="ra4143.htm">$43</a>         ; number of sectors in this track
+FBE7: A0 00     LDY #$00
+FBE9: 98        TYA
+
+Jump from $FBF3:
+
+FBEA: 18        CLC
+FBEB: 6D 26 06  ADC <a href="ra410626.htm">$0626</a>
+FBEE: 90 01     BCC $FBF1
+FBF0: C8        INY
+
+Jump from $FBEE:
+
+FBF1: C8        INY
+FBF2: CA        DEX
+FBF3: D0 F5     BNE $FBEA       ; calculate number of bytes
+FBF5: 49 FF     EOR #$FF
+FBF7: 38        SEC
+FBF8: 69 00     ADC #$00
+FBFA: 18        CLC
+FBFB: 6D 25 06  ADC <a href="ra410624.htm">$0625</a>
+FBFE: B0 03     BCS $FC03
+FC00: CE 24 06  DEC <a href="ra410624.htm">$0624</a>
+
+Jump from $FBFE:
+
+FC03: AA        TAX
+FC04: 98        TYA
+FC05: 49 FF     EOR #$FF
+FC07: 38        SEC
+FC08: 69 00     ADC #$00
+FC0A: 18        CLC
+FC0B: 6D 24 06  ADC <a href="ra410624.htm">$0624</a>       ; result in A/X
+FC0E: 10 05     BPL $FC15
+FC10: A9 04     LDA #$04
+FC12: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 22, 'read error'
+
+Jump from $FC0E:
+
+FC15: A8        TAY
+FC16: 8A        TXA
+FC17: A2 00     LDX #$00
+
+Jump from $FC22:
+
+FC19: 38        SEC             ; total divided by number
+FC1A: E5 43     SBC <a href="ra4143.htm">$43</a>         ; of sectors ($43)
+FC1C: B0 03     BCS $FC21
+FC1E: 88        DEY
+FC1F: 30 03     BMI $FC24
+
+Jump from $FC1C:
+
+FC21: E8        INX
+FC22: D0 F5     BNE $FC19
+
+Jump from $FC1F:
+
+FC24: 8E 26 06  STX <a href="ra410626.htm">$0626</a>       ; compare number of bytes per interval
+FC27: E0 04     CPX #$04        ; with minimum value
+FC29: B0 05     BCS $FC30       ; ok
+FC2B: A9 05     LDA #$05
+FC2D: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 23, 'read error'
+
+Jump from $FC29:
+
+FC30: 18        CLC             ; remainder of division
+FC31: 65 43     ADC <a href="ra4143.htm">$43</a>         ; plus number of sectors
+FC33: 8D 27 06  STA <a href="ra410627.htm">$0627</a>       ; save
+FC36: A9 00     LDA #$00
+FC38: 8D 28 06  STA <a href="ra410628.htm">$0628</a>       ; counter for sectors
+FC3B: A0 00     LDY #$00        ; counter lo
+FC3D: A6 3D     LDX <a href="ra413d.htm">$3D</a>         ; drive number
+
+Jump from $FC82:
+
+FC3F: A5 39     LDA <a href="ra4139.htm">$39</a>         ; constant 8, marker for header
+FC41: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC44: C8        INY
+FC45: C8        INY
+FC46: AD 28 06  LDA <a href="ra410628.htm">$0628</a>       ; sector number
+FC49: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC4C: C8        INY
+FC4D: A5 51     LDA <a href="ra4151.htm">$51</a>         ; track number
+FC4F: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC52: C8        INY
+FC53: B5 13     LDA <a href="ra4112.htm">$13</a>,X       ; ID 2
+FC55: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC58: C8        INY
+FC59: B5 12     LDA <a href="ra4112.htm">$12</a>,X       ; ID 1
+FC5B: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC5E: C8        INY
+FC5F: A9 0F     LDA #$0F        ; 15
+FC61: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; in buffer
+FC64: C8        INY
+FC65: 99 00 03  STA <a href="ra410300.htm">$0300</a>,Y     ; 15 in buffer
+FC68: C8        INY
+FC69: A9 00     LDA #$00
+FC6B: 59 FA 02  EOR <a href="ra4102fa.htm">$02FA</a>,Y
+FC6E: 59 FB 02  EOR <a href="ra4102fa.htm">$02FB</a>,Y
+FC71: 59 FC 02  EOR <a href="ra4102fc.htm">$02FC</a>,Y     ; generate checksum
+FC74: 59 FD 02  EOR <a href="ra4102fc.htm">$02FD</a>,Y
+FC77: 99 F9 02  STA <a href="ra4102f9.htm">$02F9</a>,Y
+FC7A: EE 28 06  INC <a href="ra410628.htm">$0628</a>       ; increment counter
+FC7D: AD 28 06  LDA <a href="ra410628.htm">$0628</a>       ; counter
+FC80: C5 43     CMP <a href="ra4143.htm">$43</a>         ; compare with number of sectors
+FC82: 90 BB     BCC $FC3F       ; smaller, then continue
+FC84: 98        TYA
+FC85: 48        PHA
+FC86: E8        INX
+FC87: 8A        TXA
+
+Jump from $FC8C:
+
+FC88: 9D 00 05  STA <a href="ra410500.htm">$0500</a>,X
+FC8B: E8        INX
+FC8C: D0 FA     BNE $FC88
+FC8E: A9 03     LDA #$03        ; buffer pointer to $300
+FC90: 85 31     STA <a href="ra4130.htm">$31</a>
+FC92: 20 30 FE  JSR <a href="ro41fe30.htm">$FE30</a>
+FC95: 68        PLA
+FC96: A8        TAY
+FC97: 88        DEY
+FC98: 20 E5 FD  JSR <a href="ro41fde5.htm">$FDE5</a>       ; copy buffer data
+FC9B: 20 F5 FD  JSR <a href="ro41fdf5.htm">$FDF5</a>       ; copy data in buffer
+FC9E: A9 05     LDA #$05
+FCA0: 85 31     STA <a href="ra4130.htm">$31</a>         ; buffer pointer to $500
+FCA2: 20 E9 F5  JSR <a href="ro41f5e9.htm">$F5E9</a>       ; calculate parity for data buffer
+FCA5: 85 3A     STA <a href="ra413a.htm">$3A</a>         ; and save
+FCA7: 20 8F F7  JSR <a href="ro41f78f.htm">$F78F</a>
+FCAA: A9 00     LDA #$00
+FCAC: 85 32     STA <a href="ra4132.htm">$32</a>
+FCAE: 20 0E FE  JSR <a href="ro41fe0e.htm">$FE0E</a>
+
+Jump from $FD1C:
+
+FCB1: A9 FF     LDA #$FF
+FCB3: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; to write head
+FCB6: A2 05     LDX #$05        ; write $FF 5 times
+
+Jump from $FCB8, $FCBC:
+
+FCB8: 50 FE     BVC $FCB8       ; byte ready
+FCBA: B8        CLV
+FCBB: CA        DEX
+FCBC: D0 FA     BNE $FCB8
+FCBE: A2 0A     LDX #$0A        ; 10 times
+FCC0: A4 32     LDY <a href="ra4132.htm">$32</a>         ; buffer pointer
+
+Jump from $FCC2, $FCCD:
+
+FCC2: 50 FE     BVC $FCC2       ; byte ready?
+FCC4: B8        CLV
+FCC5: B9 00 03  LDA <a href="ra410300.htm">$0300</a>,Y     ; data from buffer
+FCC8: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write
+FCCB: C8        INY
+FCCC: CA        DEX             ; 10 data written?
+FCCD: D0 F3     BNE $FCC2
+FCCF: A2 09     LDX #$09        ; 9 times
+
+Jump from $FCD1, $FCDA:
+
+FCD1: 50 FE     BVC $FCD1       ; byte ready?
+FCD3: B8        CLV
+FCD4: A9 55     LDA #$55        ; $55
+FCD6: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write
+FCD9: CA        DEX
+FCDA: D0 F5     BNE $FCD1       ; 9 times?
+FCDC: A9 FF     LDA #$FF        ; $FF
+FCDE: A2 05     LDX #$05        ; 5 times
+
+Jump from $FCE0, $FCE7:
+
+FCE0: 50 FE     BVC $FCE0       ; byte ready?
+FCE2: B8        CLV
+FCE3: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; to write head
+FCE6: CA        DEX
+FCE7: D0 F7     BNE $FCE0
+FCE9: A2 BB     LDX #$BB
+
+Jump from $FCEB, $FCF5:
+
+FCEB: 50 FE     BVC $FCEB
+FCED: B8        CLV
+FCEE: BD 00 01  LDA <a href="ra410100.htm">$0100</a>,X     ; area $1BB to $1FF
+FCF1: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; save
+FCF4: E8        INX
+FCF5: D0 F4     BNE $FCEB
+FCF7: A0 00     LDY #$00
+
+Jump from $FCF9, $FD02:
+
+FCF9: 50 FE     BVC $FCF9       ; byte ready?
+FCFB: B8        CLV
+FCFC: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y     ; 256 bytes of data
+FCFE: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write byte to disk
+FD01: C8        INY
+FD02: D0 F5     BNE $FCF9
+FD04: A9 55     LDA #$55        ; $55
+FD06: AE 26 06  LDX <a href="ra410626.htm">$0626</a>       ; ($626) times
+
+Jump from $FD09, $FD10:
+
+FD09: 50 FE     BVC $FD09
+FD0B: B8        CLV
+FD0C: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write
+FD0F: CA        DEX
+FD10: D0 F7     BNE $FD09
+FD12: A5 32     LDA <a href="ra4132.htm">$32</a>
+FD14: 18        CLC
+FD15: 69 0A     ADC #$0A        ; plus 10
+FD17: 85 32     STA <a href="ra4132.htm">$32</a>
+FD19: CE 28 06  DEC <a href="ra410628.htm">$0628</a>       ; decrement sector number
+FD1C: D0 93     BNE $FCB1
+
+Jump from $FD1E:
+
+FD1E: 50 FE     BVC $FD1E       ; byte ready?
+FD20: B8        CLV
+
+Jump from $FD21:
+
+FD21: 50 FE     BVC $FD21       ; byte ready?
+FD23: B8        CLV
+FD24: 20 00 FE  JSR <a href="ro41fe00.htm">$FE00</a>       ; switch to reading
+FD27: A9 C8     LDA #$C8        ; 200
+FD29: 8D 23 06  STA <a href="ra410623.htm">$0623</a>
+
+Jump from $FD5B:
+
+FD2C: A9 00     LDA #$00
+FD2E: 85 30     STA <a href="ra4130.htm">$30</a>
+FD30: A9 03     LDA #$03        ; buffer pointer to $300
+FD32: 85 31     STA <a href="ra4130.htm">$31</a>
+FD34: A5 43     LDA <a href="ra4143.htm">$43</a>         ; number of sectors per track
+FD36: 8D 28 06  STA <a href="ra410628.htm">$0628</a>
+
+Jump from $FD89:
+
+FD39: 20 56 F5  JSR <a href="ro41f556.htm">$F556</a>       ; wait for SYNC
+FD3C: A2 0A     LDX #$0A        ; 10 data
+FD3E: A0 00     LDY #$00
+
+Jump from $FD40, $FD4C:
+
+FD40: 50 FE     BVC $FD40       ; byte ready?
+FD42: B8        CLV
+FD43: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; read byte
+FD46: D1 30     CMP (<a href="ra4130.htm">$30</a>),Y     ; compare with data in buffer
+FD48: D0 0E     BNE $FD58       ; not equal, error
+FD4A: C8        INY
+FD4B: CA        DEX
+FD4C: D0 F2     BNE $FD40
+FD4E: 18        CLC
+FD4F: A5 30     LDA <a href="ra4130.htm">$30</a>
+FD51: 69 0A     ADC #$0A        ; increment pointer by 10
+FD53: 85 30     STA <a href="ra4130.htm">$30</a>
+FD55: 4C 62 FD  JMP $FD62
+
+Jump from $FD48, $FD70, $FD80:
+
+FD58: CE 23 06  DEC <a href="ra410623.htm">$0623</a>       ; decrement counter for attempts
+FD5B: D0 CF     BNE $FD2C       ; not yet zero?
+FD5D: A9 06     LDA #$06        ; else error
+FD5F: 4C D3 FD  JMP <a href="ro41fdd3.htm">$FDD3</a>       ; 24, 'read error'
+
+Jump from $FD55:
+
+FD62: 20 56 F5  JSR <a href="ro41f556.htm">$F556</a>       ; wait for SYNC
+FD65: A0 BB     LDY #$BB
+
+Jump from $FD67, $FD73:
+
+FD67: 50 FE     BVC $FD67       ; byte ready?
+FD69: B8        CLV
+FD6A: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; read byte
+FD6D: D9 00 01  CMP <a href="ra410100.htm">$0100</a>,Y     ; compare with buffer contents
+FD70: D0 E6     BNE $FD58       ; not equal, error
+FD72: C8        INY
+FD73: D0 F2     BNE $FD67       ; next byte
+FD75: A2 FC     LDX #$FC
+
+Jump from $FD77, $FD84:
+
+FD77: 50 FE     BVC $FD77       ; byte ready?
+FD79: B8        CLV
+FD7A: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; read byte
+FD7D: D9 00 05  CMP <a href="ra410500.htm">$0500</a>,Y     ; compare with buffer contents
+FD80: D0 D6     BNE $FD58       ; not equal, then error
+FD82: C8        INY
+FD83: CA        DEX             ; next byte
+FD84: D0 F1     BNE $FD77
+FD86: CE 28 06  DEC <a href="ra410628.htm">$0628</a>       ; decrement sector counter
+FD89: D0 AE     BNE $FD39       ; not yet zero?
+FD8B: E6 51     INC <a href="ra4151.htm">$51</a>         ; increment track number
+FD8D: A5 51     LDA <a href="ra4151.htm">$51</a>
+FD8F: C9 24     CMP #$24        ; compare with 36, highest track number + 1
+FD91: B0 03     BCS $FD96       ; greater, then formatting done
+FD93: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; continue
+
+Jump from $FD91:
+
+FD96: A9 FF     LDA #$FF
+FD98: 85 51     STA <a href="ra4151.htm">$51</a>         ; track number to $FF
+FD9A: A9 00     LDA #$00
+FD9C: 85 50     STA <a href="ra4150.htm">$50</a>
+FD9E: A9 01     LDA #$01
+FDA0: 4C 69 F9  JMP <a href="ro41f969.htm">$F969</a>       ; ok
+
+    <a href="ro41faa5.htm">Previous Page</a> / <a href="ro41fda3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

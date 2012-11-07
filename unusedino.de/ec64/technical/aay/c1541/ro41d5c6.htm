@@ -1,0 +1,126 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D5C6/54726:   Additional attempts for read errors
+
+Jump from <a href="ro41d599.htm">$D5B8</a>:
+
+D5C6: 98        TYA
+D5C7: 48        PHA
+D5C8: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+D5CA: 48        PHA
+D5CB: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X
+D5CE: 29 01     AND #$01        ; drive number
+D5D0: 85 7F     STA <a href="ra417f.htm">$7F</a>
+D5D2: A8        TAY
+D5D3: B9 CA FE  LDA <a href="ro41feca.htm">$FECA</a>,Y     ; bit model for drive
+D5D6: 8D 6D 02  STA <a href="ra41026d.htm">$026D</a>
+D5D9: 20 A6 D6  JSR <a href="ro41d6a6.htm">$D6A6</a>       ; read attempt
+D5DC: C9 02     CMP #$02
+D5DE: B0 03     BCS $D5E3       ; not ok?
+D5E0: 4C 6D D6  JMP $D66D       ; done
+
+Jump from $D5DE:
+
+D5E3: BD 5B 02  LDA <a href="ra41025b.htm">$025B</a>,X     ; command code
+D5E6: 29 F0     AND #$F0        ; isolate
+D5E8: 48        PHA
+D5E9: C9 90     CMP #$90        ; code for write
+D5EB: D0 07     BNE $D5F4       ; no
+D5ED: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+D5EF: 09 B8     ORA #$B8
+D5F1: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X
+
+Jump from $D5EB:
+
+D5F4: 24 6A     BIT <a href="ra416a.htm">$6A</a>
+D5F6: 70 39     BVS $D631
+D5F8: A9 00     LDA #$00
+D5FA: 8D 99 02  STA <a href="ra410299.htm">$0299</a>       ; counter for searches next to track
+D5FD: 8D 9A 02  STA <a href="ra41029a.htm">$029A</a>
+
+Jump from $D623:
+
+D600: AC 99 02  LDY <a href="ra410299.htm">$0299</a>       ; counter
+D603: AD 9A 02  LDA <a href="ra41029a.htm">$029A</a>
+D606: 38        SEC
+D607: F9 DB FE  SBC <a href="ro41fedb.htm">$FEDB</a>,Y     ; constants for read attempts
+D60A: 8D 9A 02  STA <a href="ra41029a.htm">$029A</a>
+D60D: B9 DB FE  LDA <a href="ro41fedb.htm">$FEDB</a>,Y
+D610: 20 76 D6  JSR <a href="ro41d676.htm">$D676</a>       ; position head next to track
+D613: EE 99 02  INC <a href="ra410299.htm">$0299</a>       ; increment counter
+D616: 20 A6 D6  JSR <a href="ro41d6a6.htm">$D6A6</a>       ; read attempt
+D619: C9 02     CMP #$02        ; return message
+D61B: 90 08     BCC $D625       ; smaller than 2, ok?
+D61D: AC 99 02  LDY <a href="ra410299.htm">$0299</a>       ; load counter
+D620: B9 DB FE  LDA <a href="ro41fedb.htm">$FEDB</a>,Y     ; get constants
+D623: D0 DB     BNE $D600       ; not yet zero (table end)?
+
+Jump from $D61B:
+
+D625: AD 9A 02  LDA <a href="ra41029a.htm">$029A</a>
+D628: 20 76 D6  JSR <a href="ro41d676.htm">$D676</a>       ; position head
+D62B: B5 00     LDA <a href="ra4100.htm">$00</a>,X
+D62D: C9 02     CMP #$02        ; return message
+D62F: 90 2B     BCC $D65C       ; ok?
+
+Jump from $D5F6:
+
+D631: 24 6A     BIT <a href="ra416a.htm">$6A</a>
+D633: 10 0F     BPL $D644
+
+Jump from $D65A:
+
+D635: 68        PLA             ; command code
+D636: C9 90     CMP #$90        ; for writing?
+D638: D0 05     BNE $D63F       ; no
+D63A: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+D63C: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X     ; command code in table
+
+Jump from $D638, $D66B, <a href="ro41d599.htm">$D5BF</a>:
+
+D63F: B5 00     LDA <a href="ra4100.htm">$00</a>,X       ; return message
+D641: 20 0A E6  JSR <a href="ro41e60a.htm">$E60A</a>       ; set error message
+
+Jump from $D633:
+
+D644: 68        PLA
+D645: 2C 98 02  BIT <a href="ra410298.htm">$0298</a>
+D648: 30 23     BMI $D66D
+D64A: 48        PHA
+D64B: A9 C0     LDA #$C0        ; command code for head positioning
+D64D: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+D64F: 95 00     STA <a href="ra4100.htm">$00</a>,X       ; in command register
+
+Jump from $D653:
+
+D651: B5 00     LDA <a href="ra4100.htm">$00</a>,X
+D653: 30 FC     BMI $D651       ; wait for execution
+D655: 20 A6 D6  JSR <a href="ro41d6a6.htm">$D6A6</a>       ; attempt command execution again
+D658: C9 02     CMP #$02        ; return message
+D65A: B0 D9     BCS $D635       ; incorrect?
+
+Jump from $D62F:
+
+D65C: 68        PLA
+D65D: C9 90     CMP #$90        ; command code for writing
+D65F: D0 0C     BNE $D66D       ; no
+D661: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+D663: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X     ; in table
+D666: 20 A6 D6  JSR <a href="ro41d6a6.htm">$D6A6</a>       ; attempt execution again
+D669: C9 02     CMP #$02        ; return message
+D66B: B0 D2     BCS $D63F       ; error?
+
+Jump from $D5E0, $D648, $D65F:
+
+D66D: 68        PLA
+D66E: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; get drive number back
+D670: 68        PLA
+D671: A8        TAY
+D672: B5 00     LDA <a href="ra4100.htm">$00</a>,X       ; error code
+D674: 18        CLC             ; end-of-execution flag
+D675: 60        RTS
+
+    <a href="ro41d599.htm">Previous Page</a> / <a href="ro41d676.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

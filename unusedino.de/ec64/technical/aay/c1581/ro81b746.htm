@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+naechsten freien Block im aktuellen Track suchen ($f1fa)
+
+Einsprung von <a href="ro818b2f.htm">$8B38</a>, <a href="ro818b2f.htm">$8B56</a>, <a href="ro81b668.htm">$B6D9</a>, <a href="ro81b668.htm">$B6E5</a>, <a href="ro81b6ed.htm">$B739</a>:
+
+B746: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        aktuellen BAM-Eintrag holen
+B749: 20 5E B7  JSR <a href="ro81b75e.htm">$B75E</a>        und auf Fehler pruefen
+
+Einsprung von $B759:
+
+B74C: A5 4E     LDA <a href="ra814e.htm">$4E</a>          existiert angegebener Sektor ?
+B74E: C5 75     CMP <a href="ra8175.htm">$75</a>          (groesste Sektornummer +1)
+B750: B0 09     BCS $B75B        nein, ==&gt;
+B752: 20 D8 B5  JSR <a href="ro81b5d8.htm">$B5D8</a>        ist der Block frei ?
+B755: D0 06     BNE $B75D        ja, ==&gt;
+B757: E6 4E     INC <a href="ra814e.htm">$4E</a>          naechsten Block probieren
+B759: D0 F1     BNE $B74C        immer ==&gt;
+
+Einsprung von $B750:
+
+B75B: A9 00     LDA #$00         z=1: alle Sektoren belegt
+
+Einsprung von $B755:
+
+B75D: 60        RTS
+
+    <a href="ro81b6ed.htm">Previous Page</a> / <a href="ro81b75e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

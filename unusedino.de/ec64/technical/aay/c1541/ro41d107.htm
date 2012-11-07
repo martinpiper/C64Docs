@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D107/53511:   Open channel for writing
+
+Jump from <a href="ro41ca35.htm">$CA63</a>, <a href="ro41cf9b.htm">$CF9F</a>, <a href="ro41db02.htm">$DB1B</a>, <a href="ro41dba5.htm">$DC43</a>, <a href="ro41e688.htm">$E688</a>, <a href="ro41ea2e.htm">$EA2F</a>:
+
+D107: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+D109: C9 13     CMP #$13        ; 19
+D10B: 90 02     BCC $D10F       ; smaller?
+D10D: 29 0F     AND #$0F
+
+Jump from $D10B:
+
+D10F: AA        TAX
+D110: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X     ; channel number
+D113: A8        TAY
+D114: 0A        ASL
+D115: 90 0A     BCC $D121
+D117: 30 0A     BMI $D123
+
+Jump from $D121:
+
+D119: 98        TYA
+D11A: 29 0F     AND #$0F
+D11C: 85 82     STA <a href="ra4182.htm">$82</a>
+D11E: AA        TAX
+D11F: 18        CLC             ; flag for ok
+D120: 60        RTS
+
+Jump from $D115:
+
+D121: 30 F6     BMI $D119
+
+Jump from $D117:
+
+D123: 38        SEC             ; flag for channel allocated
+D124: 60        RTS
+
+    <a href="ro41d0eb.htm">Previous Page</a> / <a href="ro41d125.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

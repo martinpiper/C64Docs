@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E5CA/58826:   Input From Keyboard
+
+Jump from $E600:
+
+E5CA: 20 16 E7  <a href="bjsr.htm">JSR</a> <a href="rome716.htm">$E716</a>     ; Output to Screen
+
+Jump from $E5D4, $E5FC, <a href="rome632.htm">$E638</a>:
+
+E5CD: A5 C6     <a href="blda.htm">LDA</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+E5CF: 85 CC     <a href="bsta.htm">STA</a> <a href="zpcc.htm">$CC</a>       ; Flag: Cursor blink
+E5D1: 8D 92 02  <a href="bsta.htm">STA</a> <a href="zp0292.htm">$0292</a>     ; Flag: Auto scroll down
+E5D4: F0 F7     <a href="bbeq.htm">BEQ</a> $E5CD
+E5D6: 78        <a href="bsei.htm">SEI</a>
+E5D7: A5 CF     <a href="blda.htm">LDA</a> <a href="zpcf.htm">$CF</a>       ; Flag: Cursor Status
+E5D9: F0 0C     <a href="bbeq.htm">BEQ</a> $E5E7
+E5DB: A5 CE     <a href="blda.htm">LDA</a> <a href="zpce.htm">$CE</a>       ; Character under Cursor while Cursor Inverted
+E5DD: AE 87 02  <a href="bldx.htm">LDX</a> <a href="zp0287.htm">$0287</a>     ; Background Color under Cursor
+E5E0: A0 00     <a href="bldy.htm">LDY</a> #$00
+E5E2: 84 CF     <a href="bsty.htm">STY</a> <a href="zpcf.htm">$CF</a>       ; Flag: Cursor Status
+E5E4: 20 13 EA  <a href="bjsr.htm">JSR</a> <a href="romea13.htm">$EA13</a>     ; Print To Screen
+
+Jump from $E5D9:
+
+E5E7: 20 B4 E5  <a href="bjsr.htm">JSR</a> <a href="rome5b4.htm">$E5B4</a>     ; Get Character From Keyboard Buffer
+E5EA: C9 83     <a href="bcmp.htm">CMP</a> #$83
+E5EC: D0 10     <a href="bbne.htm">BNE</a> $E5FE
+E5EE: A2 09     <a href="bldx.htm">LDX</a> #$09
+<b>* SX64:
+E5EE: A2 09     <a href="bldx.htm">LDX</a> #$0F
+</b>
+E5F0: 78        <a href="bsei.htm">SEI</a>
+E5F1: 86 C6     <a href="bstx.htm">STX</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+
+Jump from $E5FA:
+
+E5F3: BD E6 EC  <a href="blda.htm">LDA</a> <a href="romecb9.htm">$ECE6</a>,X   ; Video Chip Setup Table
+<b>* SX64:
+E5F3: BD D7 F0  <a href="blda.htm">LDA</a> <a href="romf0bd.htm">$F0D7</a>,X   ; Table of Kernal I/O Messages
+</b>
+E5F6: 9D 76 02  <a href="bsta.htm">STA</a> <a href="zp026d.htm">$0276</a>,X   ; Active File Secondary Addresses
+E5F9: CA        <a href="bdex.htm">DEX</a>
+E5FA: D0 F7     <a href="bbne.htm">BNE</a> $E5F3
+E5FC: F0 CF     <a href="bbeq.htm">BEQ</a> $E5CD
+
+Jump from $E5EC:
+
+E5FE: C9 0D     <a href="bcmp.htm">CMP</a> #$0D
+E600: D0 C8     <a href="bbne.htm">BNE</a> $E5CA
+E602: A4 D5     <a href="bldy.htm">LDY</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E604: 84 D0     <a href="bsty.htm">STY</a> <a href="zpd0.htm">$D0</a>       ; Flag: Input from ...
+
+Jump from $E60D:
+
+E606: B1 D1     <a href="blda.htm">LDA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+E608: C9 20     <a href="bcmp.htm">CMP</a> #$20
+E60A: D0 03     <a href="bbne.htm">BNE</a> $E60F
+E60C: 88        <a href="bdey.htm">DEY</a>
+E60D: D0 F7     <a href="bbne.htm">BNE</a> $E606
+
+Jump from $E60A:
+
+E60F: C8        <a href="biny.htm">INY</a>
+E610: 84 C8     <a href="bsty.htm">STY</a> <a href="zpc8.htm">$C8</a>       ; Pointer: End of Line for Input
+E612: A0 00     <a href="bldy.htm">LDY</a> #$00
+E614: 8C 92 02  <a href="bsty.htm">STY</a> <a href="zp0292.htm">$0292</a>     ; Flag: Auto scroll down
+E617: 84 D3     <a href="bsty.htm">STY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E619: 84 D4     <a href="bsty.htm">STY</a> <a href="zpd4.htm">$D4</a>       ; Flag: Editor in Quote Mode
+E61B: A5 C9     <a href="blda.htm">LDA</a> <a href="zpc9.htm">$C9</a>       ; Cursor X/Y position at start of Input
+E61D: 30 1B     <a href="bbmi.htm">BMI</a> <a href="rome632.htm">$E63A</a>     ; Input From Screen or Keyboard
+E61F: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E621: 20 91 E5  <a href="bjsr.htm">JSR</a> <a href="rome56c.htm">$E591</a>     ; Set Screen Pointers
+<b>* Old KERNAL:
+E621: 20 ED E6  <a href="bjsr.htm">JSR</a> <a href="rome6ed.htm">$E6ED</a>     ; Retreat Cursor
+</b>
+E624: E4 C9     <a href="bcpx.htm">CPX</a> <a href="zpc9.htm">$C9</a>       ; Cursor X/Y position at start of Input
+E626: D0 12     <a href="bbne.htm">BNE</a> <a href="rome632.htm">$E63A</a>     ; Input From Screen or Keyboard
+E628: A5 CA     <a href="blda.htm">LDA</a> <a href="zpc9.htm">$CA</a>       ; Cursor X/Y position at start of Input
+E62A: 85 D3     <a href="bsta.htm">STA</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E62C: C5 C8     <a href="bcmp.htm">CMP</a> <a href="zpc8.htm">$C8</a>       ; Pointer: End of Line for Input
+E62E: 90 0A     <a href="bbcc.htm">BCC</a> <a href="rome632.htm">$E63A</a>     ; Input From Screen or Keyboard
+E630: B0 2B     <a href="bbcs.htm">BCS</a> <a href="rome632.htm">$E65D</a>     ; Input From Screen or Keyboard
+
+    <a href="rome5b4.htm">Previous Page</a> / <a href="rome632.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Status setzen
+
+Einsprung von <a href="ro81baae.htm">$BAC8</a>, <a href="ro81bafc.htm">$BAFC</a>, <a href="ro81bb11.htm">$BB34</a>, <a href="ro81bb74.htm">$BBD4</a>, <a href="ro81bc01.htm">$BC24</a>, <a href="ro81bd0a.htm">$BD0C</a>, <a href="ro81bd12.htm">$BDE9</a>, <a href="ro81bdfc.htm">$BDFE</a>, <a href="ro81be06.htm">$BE6F</a>,
+              <a href="ro81bef8.htm">$BEFA</a>:
+
+BF66: 8D EA 01  STA <a href="ra8101ea.htm">$01EA</a>        Fehlercode
+BF69: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorengroesse
+BF6B: A5 80     LDA <a href="ra8180.htm">$80</a>          b7: Fremdformat
+BF6D: 29 80     AND #$80
+BF6F: 0D EA 01  ORA <a href="ra8101ea.htm">$01EA</a>        + Fehlercode
+BF72: 1D 7F BF  ORA $BF7F,X      + Sektorengroesse
+BF75: 25 89     AND <a href="ra8189.htm">$89</a>          Burst-AND-Maske
+BF77: 05 8A     ORA <a href="ra818a.htm">$8A</a>          Burst-OR-Maske
+BF79: 85 80     STA <a href="ra8180.htm">$80</a>          = Neuer Burst-Status
+BF7B: AD EA 01  LDA <a href="ra8101ea.htm">$01EA</a>        Fehlercode zurueckholen
+BF7E: 60        RTS
+
+BF7F: 00 10 20 30              Sektorengroesse-Codes
+
+    <a href="ro81bf5a.htm">Previous Page</a> / <a href="ro81bf83.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

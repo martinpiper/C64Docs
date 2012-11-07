@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D0C7/53447:   Write block
+
+Jump from <a href="ro41d19d.htm">$D1B8</a>, <a href="ro41d48d.htm">$D4B0</a>, <a href="ro41db62.htm">$DB9C</a>:
+
+D0C7: A9 90     LDA #$90        ; code for 'write'
+
+Jump from <a href="ro41d0c3.htm">$D0C5</a>:
+
+D0C9: 8D 4D 02  STA <a href="ra41024d.htm">$024D</a>       ; save
+D0CC: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+D0CF: AA        TAX
+D0D0: 20 06 D5  JSR <a href="ro41d506.htm">$D506</a>       ; get track/sector, read/write block
+D0D3: 8A        TXA
+D0D4: 48        PHA
+D0D5: 0A        ASL             ; buffer pointer times 2
+D0D6: AA        TAX
+D0D7: A9 00     LDA #$00
+D0D9: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; pointer in buffer to zero
+D0DB: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; get file type
+D0DE: C9 04     CMP #$04        ; rel-file or direct access?
+D0E0: B0 06     BCS $D0E8       ; yes
+D0E2: F6 B5     INC <a href="ra41b5.htm">$B5</a>,X
+D0E4: D0 02     BNE $D0E8       ; increment block counter
+D0E6: F6 BB     INC <a href="ra41bb.htm">$BB</a>,X
+
+Jump from $D0E0, $D0E4:
+
+D0E8: 68        PLA
+D0E9: AA        TAX
+D0EA: 60        RTS
+
+    <a href="ro41d0c3.htm">Previous Page</a> / <a href="ro41d0eb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

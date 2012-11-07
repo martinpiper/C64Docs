@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F575/62837:   Write data block to disk
+
+Jump from <a href="ro41f56e.htm">$F570</a>:
+
+F575: 20 E9 F5  JSR <a href="ro41f5e9.htm">$F5E9</a>       ; calculate parity for buffer
+F578: 85 3A     STA <a href="ra413a.htm">$3A</a>         ; and save
+F57A: AD 00 1C  LDA <a href="via20.htm">$1C00</a>       ; read port B
+F57D: 29 10     AND #$10        ; isolate bit for 'write protect'
+F57F: D0 05     BNE $F586       ; not set, ok
+F581: A9 08     LDA #$08
+F583: 4C 69 F9  JMP <a href="ro41f969.htm">$F969</a>       ; 26, 'write protect'
+
+Jump from $F57F:
+
+F586: 20 8F F7  JSR <a href="ro41f78f.htm">$F78F</a>
+F589: 20 10 F5  JSR <a href="ro41f510.htm">$F510</a>       ; find block header
+F58C: A2 09     LDX #$09
+
+Jump from $F58E, $F592:
+
+F58E: 50 FE     BVC $F58E       ; byte ready?
+F590: B8        CLV
+F591: CA        DEX
+F592: D0 FA     BNE $F58E
+F594: A9 FF     LDA #$FF
+F596: 8D 03 1C  STA <a href="via23.htm">$1C03</a>       ; port A (read/write head) to output
+F599: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>
+F59C: 29 1F     AND #$1F
+F59E: 09 C0     ORA #$C0        ; change PCR to output
+F5A0: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+F5A3: A9 FF     LDA #$FF
+F5A5: A2 05     LDX #$05
+F5A7: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write $FF to disk 5 times
+F5AA: B8        CLV
+
+Jump from $F5AB, $F5AF:
+
+F5AB: 50 FE     BVC $F5AB       ; as SYNC characters
+F5AD: B8        CLV
+F5AE: CA        DEX
+F5AF: D0 FA     BNE $F5AB
+F5B1: A0 BB     LDY #$BB
+
+Jump from $F5BD:
+
+F5B3: B9 00 01  LDA <a href="ra410100.htm">$0100</a>,Y     ; bytes $1BB to $1FF to disk
+
+Jump from $F5B6:
+
+F5B6: 50 FE     BVC $F5B6
+F5B8: B8        CLV
+F5B9: 8D 01 1C  STA <a href="via21.htm">$1C01</a>
+F5BC: C8        INY
+F5BD: D0 F4     BNE $F5B3
+
+Jump from $F5C8:
+
+F5BF: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y     ; write data buffer (256 bytes)
+
+Jump from $F5C1:
+
+F5C1: 50 FE     BVC $F5C1
+F5C3: B8        CLV
+F5C4: 8D 01 1C  STA <a href="via21.htm">$1C01</a>
+F5C7: C8        INY
+F5C8: D0 F5     BNE $F5BF
+
+Jump from $F5CA:
+
+F5CA: 50 FE     BVC $F5CA       ; byte ready?
+F5CC: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>
+F5CF: 09 E0     ORA #$E0        ; PCR to input again
+F5D1: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+F5D4: A9 00     LDA #$00
+F5D6: 8D 03 1C  STA <a href="via23.htm">$1C03</a>       ; port A (read/write head) to input
+F5D9: 20 F2 F5  JSR <a href="ro41f5f2.htm">$F5F2</a>
+F5DC: A4 3F     LDY <a href="ra413f.htm">$3F</a>
+F5DE: B9 00 00  LDA <a href="ra4100.htm">$00</a>,Y
+F5E1: 49 30     EOR #$30        ; convert command code 'write' to 'verify'
+F5E3: 99 00 00  STA <a href="ra4100.htm">$00</a>,Y
+F5E6: 4C B1 F3  JMP <a href="ro41f3b1.htm">$F3B1</a>
+
+    <a href="ro41f56e.htm">Previous Page</a> / <a href="ro41f5e9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

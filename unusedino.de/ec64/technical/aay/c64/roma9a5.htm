@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A9A5/43429:   Perform [let]
+
+Jump from <a href="roma742.htm">$A746</a>, <a href="roma7ed.htm">$A804</a>:
+
+A9A5: 20 8B B0  <a href="bjsr.htm">JSR</a> <a href="romb08b.htm">$B08B</a>     ; Identify Variable
+A9A8: 85 49     <a href="bsta.htm">STA</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A9AA: 84 4A     <a href="bsty.htm">STY</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A9AC: A9 B2     <a href="blda.htm">LDA</a> #$B2
+A9AE: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+A9B1: A5 0E     <a href="blda.htm">LDA</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+A9B3: 48        <a href="bpha.htm">PHA</a>
+A9B4: A5 0D     <a href="blda.htm">LDA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+A9B6: 48        <a href="bpha.htm">PHA</a>
+A9B7: 20 9E AD  <a href="bjsr.htm">JSR</a> <a href="romad9e.htm">$AD9E</a>     ; Evaluate Expression in Text
+A9BA: 68        <a href="bpla.htm">PLA</a>
+A9BB: 2A        <a href="brol.htm">ROL</a>
+A9BC: 20 90 AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD90</a>     ; Confirm Result
+A9BF: D0 18     <a href="bbne.htm">BNE</a> <a href="roma9d9.htm">$A9D9</a>     ; Assign String
+A9C1: 68        <a href="bpla.htm">PLA</a>
+
+Jump from <a href="romac35.htm">$AC8E</a>:
+
+A9C2: 10 12     <a href="bbpl.htm">BPL</a> <a href="roma9d6.htm">$A9D6</a>     ; Assign Floating Point
+
+    <a href="roma96b.htm">Previous Page</a> / <a href="roma9c4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

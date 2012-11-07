@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FDA3/64931:   Write SYNC 10240 times, erase track
+
+Jump from <a href="ro41fac7.htm">$FB0C</a>:
+
+FDA3: AD 0C 1C  LDA <a href="via2c.htm">$1C0C</a>
+FDA6: 29 1F     AND #$1F        ; switch PCR to writing
+FDA8: 09 C0     ORA #$C0
+FDAA: 8D 0C 1C  STA <a href="via2c.htm">$1C0C</a>
+FDAD: A9 FF     LDA #$FF
+FDAF: 8D 03 1C  STA <a href="via23.htm">$1C03</a>       ; port A (read/write head) to output
+FDB2: 8D 01 1C  STA <a href="via21.htm">$1C01</a>       ; write $FF to disk
+FDB5: A2 28     LDX #$28        ; 40
+FDB7: A0 00     LDY #$00
+
+Jump from $FDB9, $FDBD, $FDC0:
+
+FDB9: 50 FE     BVC $FDB9       ; byte ready?
+FDBB: B8        CLV
+FDBC: 88        DEY
+FDBD: D0 FA     BNE $FDB9
+FDBF: CA        DEX
+FDC0: D0 F7     BNE $FDB9
+FDC2: 60        RTS
+
+    <a href="ro41fac7.htm">Previous Page</a> / <a href="ro41fdc3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

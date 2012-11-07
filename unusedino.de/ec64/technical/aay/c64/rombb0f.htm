@@ -1,0 +1,118 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BB0F/47887:   Divide FAC#2 by FAC#1
+
+Jump from <a href="romb9ea.htm">$BA08</a>, <a href="rome2b4.htm">$E2D9</a>, <a href="rome30e.htm">$E321</a>:
+
+BB0F: 20 8C BA  <a href="bjsr.htm">JSR</a> <a href="romba8c.htm">$BA8C</a>     ; Load FAC#2 From Memory
+
+Jump from <a href="rombb07.htm">$BB0C</a>:
+
+BB12: F0 76     <a href="bbeq.htm">BEQ</a> $BB8A
+BB14: 20 1B BC  <a href="bjsr.htm">JSR</a> <a href="rombc1b.htm">$BC1B</a>     ; Round FAC#1
+BB17: A9 00     <a href="blda.htm">LDA</a> #$00
+BB19: 38        <a href="bsec.htm">SEC</a>
+BB1A: E5 61     <a href="bsbc.htm">SBC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BB1C: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BB1E: 20 B7 BA  <a href="bjsr.htm">JSR</a> <a href="rombab7.htm">$BAB7</a>     ; Test Both Accumulators
+BB21: E6 61     <a href="binc.htm">INC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BB23: F0 BA     <a href="bbeq.htm">BEQ</a> <a href="rombad4.htm">$BADF</a>     ; Overflow / Underflow
+BB25: A2 FC     <a href="bldx.htm">LDX</a> #$FC
+BB27: A9 01     <a href="blda.htm">LDA</a> #$01
+
+Jump from $BB59:
+
+BB29: A4 6A     <a href="bldy.htm">LDY</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BB2B: C4 62     <a href="bcpy.htm">CPY</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BB2D: D0 10     <a href="bbne.htm">BNE</a> $BB3F
+BB2F: A4 6B     <a href="bldy.htm">LDY</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BB31: C4 63     <a href="bcpy.htm">CPY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BB33: D0 0A     <a href="bbne.htm">BNE</a> $BB3F
+BB35: A4 6C     <a href="bldy.htm">LDY</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BB37: C4 64     <a href="bcpy.htm">CPY</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BB39: D0 04     <a href="bbne.htm">BNE</a> $BB3F
+BB3B: A4 6D     <a href="bldy.htm">LDY</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BB3D: C4 65     <a href="bcpy.htm">CPY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+
+Jump from $BB2D, $BB33, $BB39, $BB57, $BB5B:
+
+BB3F: 08        <a href="bphp.htm">PHP</a>
+BB40: 2A        <a href="brol.htm">ROL</a>
+BB41: 90 09     <a href="bbcc.htm">BCC</a> $BB4C
+BB43: E8        <a href="binx.htm">INX</a>
+BB44: 95 29     <a href="bsta.htm">STA</a> <a href="zp26.htm">$29</a>,X     ; Floating point product of Multiply and Divide
+BB46: F0 32     <a href="bbeq.htm">BEQ</a> $BB7A
+BB48: 10 34     <a href="bbpl.htm">BPL</a> $BB7E
+BB4A: A9 01     <a href="blda.htm">LDA</a> #$01
+
+Jump from $BB41, $BB7C:
+
+BB4C: 28        <a href="bplp.htm">PLP</a>
+BB4D: B0 0E     <a href="bbcs.htm">BCS</a> $BB5D
+
+Jump from $BB77:
+
+BB4F: 06 6D     <a href="basl.htm">ASL</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BB51: 26 6C     <a href="brol.htm">ROL</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BB53: 26 6B     <a href="brol.htm">ROL</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BB55: 26 6A     <a href="brol.htm">ROL</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BB57: B0 E6     <a href="bbcs.htm">BCS</a> $BB3F
+BB59: 30 CE     <a href="bbmi.htm">BMI</a> $BB29
+BB5B: 10 E2     <a href="bbpl.htm">BPL</a> $BB3F
+
+Jump from $BB4D:
+
+BB5D: A8        <a href="btay.htm">TAY</a>
+BB5E: A5 6D     <a href="blda.htm">LDA</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BB60: E5 65     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BB62: 85 6D     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BB64: A5 6C     <a href="blda.htm">LDA</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BB66: E5 64     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BB68: 85 6C     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BB6A: A5 6B     <a href="blda.htm">LDA</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BB6C: E5 63     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BB6E: 85 6B     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BB70: A5 6A     <a href="blda.htm">LDA</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BB72: E5 62     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BB74: 85 6A     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BB76: 98        <a href="btya.htm">TYA</a>
+BB77: 4C 4F BB  <a href="bjmp.htm">JMP</a> $BB4F
+
+Jump from $BB46:
+
+BB7A: A9 40     <a href="blda.htm">LDA</a> #$40
+BB7C: D0 CE     <a href="bbne.htm">BNE</a> $BB4C
+
+Jump from $BB48:
+
+BB7E: 0A        <a href="basl.htm">ASL</a>
+BB7F: 0A        <a href="basl.htm">ASL</a>
+BB80: 0A        <a href="basl.htm">ASL</a>
+BB81: 0A        <a href="basl.htm">ASL</a>
+BB82: 0A        <a href="basl.htm">ASL</a>
+BB83: 0A        <a href="basl.htm">ASL</a>
+BB84: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BB86: 28        <a href="bplp.htm">PLP</a>
+BB87: 4C 8F BB  <a href="bjmp.htm">JMP</a> $BB8F
+
+Jump from $BB12:
+
+BB8A: A2 14     <a href="bldx.htm">LDX</a> #$14
+BB8C: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $BB87, <a href="romba28.htm">$BA56</a>:
+
+BB8F: A5 26     <a href="blda.htm">LDA</a> <a href="zp26.htm">$26</a>       ; Floating point product of Multiply and Divide
+BB91: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BB93: A5 27     <a href="blda.htm">LDA</a> <a href="zp26.htm">$27</a>       ; Floating point product of Multiply and Divide
+BB95: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BB97: A5 28     <a href="blda.htm">LDA</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+BB99: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BB9B: A5 29     <a href="blda.htm">LDA</a> <a href="zp26.htm">$29</a>       ; Floating point product of Multiply and Divide
+BB9D: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BB9F: 4C D7 B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B8D7</a>     ; Perform Addition
+
+    <a href="rombb07.htm">Previous Page</a> / <a href="rombba2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

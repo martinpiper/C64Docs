@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kopf ggf. auf die angegebene Spur setzen (bei der 1571: $891b)
+
+Einsprung von <a href="ro81baae.htm">$BAF4</a>, <a href="ro81bb74.htm">$BBF3</a>:
+
+BF44: CE 06 02  DEC <a href="ra810200.htm">$0206</a>        Tracknummer in phy. Format umwandeln
+
+Einsprung von <a href="ro81bb11.htm">$BB71</a>, <a href="ro81bc01.htm">$BC96</a>:
+
+BF47: A5 29     LDA <a href="ra8129.htm">$29</a>          Laenge der Befehlszeile holen
+BF49: C9 07     CMP #$07         ist eine Folgespur angegeben ?
+BF4B: 90 0C     BCC $BF59        nein, ==&gt;
+BF4D: A2 00     LDX #$00         Jobnummer 0 setzen
+BF4F: AD 06 02  LDA <a href="ra810200.htm">$0206</a>        neue Tracknummer holen
+BF52: 95 0B     STA <a href="ra810b.htm">$0B</a>,X        und in Jobspeicher schreiben
+BF54: A9 A8     LDA #$A8         PSEEK_DV: Sucht den angegebenen phy. Sektor
+BF56: 4C 9D 95  JMP <a href="ro819598.htm">$959D</a>        Job aufrufen
+
+Einsprung von $BF4B:
+
+BF59: 60        RTS
+    <a href="ro81bf02.htm">Previous Page</a> / <a href="ro81bf5a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

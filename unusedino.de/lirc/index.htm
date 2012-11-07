@@ -1,0 +1,798 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+  
+  <HEAD>
+    <TITLE>LIRC - Linux Infrared Remote Control</TITLE>
+    <LINK REL=stylesheet TYPE="text/css" HREF="http://www.unusedino.de/lirc/lirc.css">
+    <LINK REL="shortcut icon" HREF="favicon.ico">
+    <META NAME="description"
+	  CONTENT="LIRC - linux infrared remote control">
+    <META NAME="keywords" 
+	  CONTENT="linux,kernel module,remote control,multimedia,rc5,recs-80">
+  </HEAD>
+  
+  <BODY BACKGROUND="images/marb18.jpg"
+	BGCOLOR="#FFFFFF" TEXT="#000000" ALINK="#9090FF">
+    
+    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0"
+	   SUMMARY=""> 
+      
+      <!-- Logo -->
+	<TR>
+	  <TD CLASS="menu" COLSPAN="6" WIDTH="100%" HEIGHT="150"
+	      ALIGN="LEFT" VALIGN="TOP">
+	    <IMG SRC="http://www.unusedino.de/lirc/images/diode.gif" ALT="" WIDTH="300"
+		 HEIGHT="150" BORDER="0" HSPACE="20" VSPACE="0"
+		 ALIGN="LEFT"> 
+	    <IMG SRC="http://www.unusedino.de/lirc/images/lirc.gif" ALT="" WIDTH="300"
+		 HEIGHT="150" BORDER="0" HSPACE="20"
+		 VSPACE="0" ALIGN="RIGHT">
+	  </TD>
+	</TR>
+	
+	<TR>
+	  <!-- Space -->
+	  <TD CLASS="menu" WIDTH="1%" ALIGN="LEFT" VALIGN="TOP">
+	    &#160;
+	  </TD>
+	  
+	  <!-- Menu -->
+	  <TD CLASS="menu" WIDTH="28%" ALIGN="LEFT" VALIGN="TOP">
+	    &#160;<BR>
+	    <!-- LIRC -->            
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    LIRC
+		  </TD>
+		</TR>
+	    </TABLE>
+	    
+	    <UL CLASS="menu">
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/index.html#top">Main page</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/mirrors.html">Mirrors</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/developers.html">Developers</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software.html">Software</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/cvs.html">CVS repository</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software/snapshots/">CVS snapshots</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://lists.sourceforge.net/mailman/listinfo/lirc-list">
+		  Mailing list</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/faq.html">FAQ</A> / <A HREF="http://www.unusedino.de/lirc/faq.html#howtos">HOWTOs</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/html/index.html">Documentation</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://sourceforge.net/projects/lirc/">
+		  SourceForge page</A>
+	      </LI>
+	    </UL>
+	    
+	    <!-- Download -->
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    Download
+		  </TD>
+		</TR>
+	    </TABLE>
+	    
+	    <P>
+	      <SMALL CLASS="menu">
+		Irman support is broken in 0.8.2. Please use 0.8.4 if
+		you have this receiver.
+	      </SMALL>
+	    </P>
+	    <UL CLASS="menu">
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lirc-0.8.4a.tar.bz2" TYPE="application/zip">
+		  lirc-0.8.4a.tar.bz2</A>&nbsp;-&nbsp;680&nbsp;kB<BR>released: 12-Oct-2008<BR><A HREF="http://www.unusedino.de/lirc/faq.html#compilation">supported kernels</A>: 2.6.27
+	      </LI>
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lirc-0.8.4a.tar.gz" TYPE="application/zip">
+		  lirc-0.8.4a.tar.gz</A>&nbsp;-&nbsp;931&nbsp;kB<BR>released: 12-Oct-2008
+	      </LI>
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lirc-0.8.3.tar.bz2" TYPE="application/zip">
+		  lirc-0.8.3.tar.bz2</A>&nbsp;-&nbsp;653&nbsp;kB<BR>released: 04-May-2008<BR><A HREF="http://www.unusedino.de/lirc/faq.html#compilation">supported kernels</A>: 2.6.25
+	      </LI>
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lirc-0.8.3.tar.gz" TYPE="application/zip">
+		  lirc-0.8.3.tar.gz</A>&nbsp;-&nbsp;939&nbsp;kB<BR>released: 04-May-2008
+	      </LI>
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lirc-0.8.2.tar.bz2" TYPE="application/zip">
+		  lirc-0.8.2.tar.bz2</A>&nbsp;-&nbsp;620&nbsp;kB<BR>released: 09-Jun-2007<BR><A HREF="http://www.unusedino.de/lirc/faq.html#compilation">supported kernels</A>: 2.6.20, 2.4.28
+	      </LI>
+	      <LI><A HREF="http://www.unusedino.de/lirc/software/lircrc_config-0.1.1.tar.gz" TYPE="application/zip">
+		  lircrc_config-0.1.1.tar.gz</A> -&nbsp;238&nbsp;kB<BR>released: 09-Mar-2002
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software/xrc-0.6.5.tar.bz2" TYPE="application/zip">
+		  xrc-0.6.5.tar.gz</A>&nbsp;-&nbsp;232&nbsp;kB<BR>released:
+		17-May-2007
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software/xrc-0.6.4.tar.bz2" TYPE="application/zip">
+		  xrc-0.6.4.tar.bz2</A>&nbsp;-&nbsp;188&nbsp;kB<BR>released:
+		29-Jan-2003
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software/xirw-0.4.2.tar.bz2" TYPE="application/zip">
+		  xirw-0.4.2.tar.bz2</A>&nbsp;-&nbsp;46&nbsp;kB<BR>released:
+		26-Jan-2003
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/software/xirw-0.4.1.tar.gz" TYPE="application/zip">
+		  xirw-0.4.1.tar.gz</A>&nbsp;-&nbsp;38&nbsp;kB<BR>released:
+		04-Mar-2001
+	      </LI>
+	      <LI>
+		<A HREF="http://www.unusedino.de/lirc/remotes.tar.bz2" TYPE="application/zip">
+		  remotes.tar.bz2</A><BR>
+		all supported config files
+	      </LI>
+	    </UL>
+	    <SMALL CLASS="menu">
+	      The files are tared and gzipped. If you have problems to
+	      download, try shift + left mouse button.
+	    </SMALL><BR>
+	    <BR>
+	    
+	    <!-- Hardware -->
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    Supported Hardware
+		  </TD>
+		</TR>
+	    </TABLE>
+	    
+	    <DIV CLASS="menu">
+	      <BR>
+	      Home-brew:
+	      <UL>
+		<LI><A HREF="http://www.unusedino.de/lirc/receivers.html">Serial Port Receivers</A></LI> 
+		<LI><A HREF="http://www.unusedino.de/lirc/transmitters.html">Serial Port Transmitters</A></LI>
+		<LI><A HREF="http://www.unusedino.de/lirc/parallel.html">Parallel Port Hardware</A></LI>
+		<!-- LI><A HREF="http://www.geocities.com/SiliconValley/Sector/3863/uir/index.html">
+		Universal Remote Control</A> (aka Irman)</LI -->
+		<!-- LI><A HREF="http://people.a2000.nl/rwvgesse/FixFrame.htm?pic_atmel.htm">
+		Universal Infrared Receiver</A> (aka Irman)</LI -->
+		<LI><A HREF="http://www.huitsing.nl/irftdi/">FTDI
+		    based USB IR receiver</A></LI>
+		<LI><A HREF="http://usbirboy.sourceforge.net">USB-IR-Boy</A></LI>
+		<LI><A HREF="http://www.xs4all.nl/~dicks/avr/usbtiny/">USBtiny</A></LI>
+		<LI><A HREF="http://fly.cc.fer.hr/~mozgic/UIR/">
+		    Universal Infrared Receiver</A> (aka Irman)</LI>
+		<LI><A HREF="http://users.skynet.be/sky50985/">UIRT2</A></LI>
+		<LI>Igor Cesko's USB IR Receiver</LI>
+		<LI><A HREF="http://home.arcor.de/borkenhagen/IgorplugUDP/index.html">Igorplug-UDP</A></LI>
+		<LI><A HREF="http://caraca.sourceforge.net">CARACA</A></LI>
+		<LI><A HREF="http://www.inf.ethz.ch/~mringwal/lirc/">Sound card input</A></LI>
+		<LI><A HREF="http://www.unusedino.de/lirc/ir-audio.html">Sound card input (ALSA)</A></LI>
+		<LI><A HREF="http://www.nslu2-linux.org/wiki/HowTo/AddAnInfraredReceiverAndTransmitterWithLIRC">Linksys NSLU2</A></LI>
+		<LI><A HREF="http://www.foxharp.boston.ma.us/avrlirc/">avrlirc</A></LI>
+	      </UL>
+	      <SMALL>These are explanations of how to build LIRC compatible
+		hardware.</SMALL><BR>
+	      <BR>
+	      Commercially available:
+	      <UL>
+		<LI>Anir Multimedia Magic</LI>
+		<LI>ATI/NVidia/X10 I &amp; II RF Remote</LI>
+		<LI><!-- A HREF="http://svadim.no-ip.org/sw/lirc/" -->Bluetooth mobile phones<!-- /A --></LI>
+		<LI>Creative iNFRA CDROM</LI>
+		<LI>Creative Infra Receiver/CIMR100</LI>
+		<LI><A HREF="http://sourceforge.net/mailarchive/forum.php?thread_id=1663220&amp;forum_id=5339">Creative LiveDrive</A></LI>
+		<LI>Iguanaworks serial port transceiver</LI>
+		<LI>Iguanaworks USB transceiver</LI>
+		<LI>InnovationOne's COMMANDIR USB Transceiver</LI>
+		<LI>Ira (InfraRed Adapter)</LI>
+		<LI>IRdeo</LI>
+		<LI>Irman</LI>
+		<LI>
+		    IR Trans
+		</LI>
+		<LI>Logitech/AST</LI>
+		<LI>X10 MP3 Anywhere RF receiver</LI>
+		<LI>Packard Bell receiver</LI>
+		<LI>PCMAK</LI>
+		<LI>PixelView&nbsp;RemoteMaster</LI>
+		<LI>Pinnacle Systems PCTV (pro) receiver</LI>
+		<LI>REALmagic by Sigma Designs</LI>
+		<LI>Remotec Multimedia PC Remote BW6130</LI>
+		<LI>Sasem OnAir Remocon-V</LI>
+		<LI>Silitek SM-1000</LI>
+		<!-- LI>Slink-e by Nirvis&nbsp;Systems (receive only)</LI -->
+		<LI>Sound Blaster Extigy/Audigy 2 NX</LI>
+		<LI>Soundgraph iMON</LI>
+		<LI>Streamzap PC Remote</LI>
+		<LI>Tira</LI>
+		<LI>Windows Media Center Remote (<!-- A HREF="http://sourceforge.net/mailarchive/forum.php?thread_id=6130396&amp;forum_id=5339" --><A HREF="http://sourceforge.net/mailarchive/message.php?msg_name=41B93BDA.8030207%40acm.wwu.edu">new and old</A> version)</LI>
+		<LI>X10 MouseRemote</LI>
+	      </UL>
+	      <UL>
+		<LI><A HREF="http://www.unusedino.de/lirc/tv_cards.html">Remote controls bundled with TV
+		    cards</A></LI>
+		<LI>Miro PCTV receiver</LI>
+		<LI><A HREF="http://freenet-homepage.de/mediafocus/">Technisat
+		    MediaFocus I</A></LI>
+	      </UL>
+	      <UL>
+		<LI><A HREF="http://www.unusedino.de/lirc/irda.html">IrDA compatible hardware</A></LI>
+		<LI>Built-in IrDA ports (SIR mode, available in notebooks)</LI>
+		<LI>Actisys Act200L</LI>
+		<LI>Actisys Act220L(+)</LI>
+		<LI>Tekram Irmate 210</LI>
+	      </UL>
+	      PDAs:
+	      <UL>
+		<LI><A HREF="http://agendawiki.com/cgi-bin/aw.pl?CIRinfraRedHowTo">Agenda
+		    VR3</A></LI>
+		<LI>HP iPAQ</LI>
+		<LI>Sharp Zaurus</LI>
+	      </UL>
+	      <A HREF="http://www.unusedino.de/lirc/remotes/">
+		Supported remote controls</A><BR>
+	      <BR>
+	      Planned (check CVS):
+	      <UL>
+		<LI>-</LI>
+	      </UL>
+	      <BR>
+	      Currently not supported:
+	      <UL>
+		<LI>Redrat2</LI>
+		<LI>Slink-e</LI>
+		<LI>Zoltix GenieTV</LI>
+		<LI>Keyspan Presentation Remote</LI>
+		<LI>Keyspan Digital Media Remote</LI>
+		<LI>Ruwido Cyberclick</LI>
+	      </UL>
+	      <SMALL>Contributions for the latter are welcome.</SMALL><BR>
+	      <BR>
+	    </DIV>
+	    
+	    <!-- LIRC Links -->
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    LIRC Links
+		  </TD>
+		</TR>
+	    </TABLE>
+	    
+	    <UL CLASS="menu">
+	      <LI>
+		<A HREF="http://grad.icmc.usp.br/~rva/doc/lirc/index.html">
+		  Portuguese LIRC page</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.metzlerbros.org/lirc/index.html">
+		  LIRC homepage</A> - by Ralph Metzler<BR>
+		The original.
+	      </LI>
+	      <!-- LI>
+	    <A HREF="http://www.mindwell.com/lirc/">
+	      LIRC homepage</A> - by Jason S. Kohles<BR> 
+	      The old page about lirc 0.3.x. Contains some pictures
+	      and schematics of the hardware.
+	    </LI -->
+	      <LI>
+		<A HREF="http://wurm.wohnheim.uni-ulm.de/~redman/lirc/index.html">
+		  Jukebox patch</A> - a patch for jukebox 1.08
+		made by Pablo d´Angelo
+	      </LI>
+	      <LI>
+		<A HREF="http://www.wh9.tu-dresden.de/~heinrich/lirc/">
+		  LIRC homepage</A> - by Heinrich Langos<BR>
+		You will find the old LIRC mailing list archive and the most
+		up-to-date versions of irxevent and xmode2 there.
+	      </LI>
+	      <LI>
+		<A HREF="http://irda.sourceforge.net/">
+		  The Linux-IrDA Project</A>
+	      </LI>
+	      <LI>
+		<A HREF="http://www.wh9.tu-dresden.de/~heinrich/lirc/list-archive/">
+		  old LIRC mailing list archive</A>
+	      </LI>
+	    </UL>
+	    
+	    <!-- Linux related Links -->
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    Linux Related Links
+		  </TD>
+		</TR>
+	    </TABLE>
+	    <DIV CLASS="menu">
+	      <BR>
+	      <FONT SIZE="+1" COLOR="#FFFFFF">Documentation:</FONT>
+	      <UL TYPE="SQUARE">
+		<LI><A HREF="http://www.tldp.org/">Linux Documentation Project</A></LI>
+		<LI><A HREF="http://www.fokus.gmd.de/linux/">Woven Goods for Linux</A> - also with German documents</LI>
+		<LI><A HREF="http://www.linux-tutorial.info/">Linux Knowledge Base and Tutorial</A></LI>
+		<LI><A HREF="http://www.patoche.org/LTT/">Linux Tips &amp; Tricks</A></LI>
+	      </UL>
+	      <FONT SIZE="+1" COLOR="#FFFFFF">Linux Distributors:</FONT>
+	      <UL TYPE="SQUARE">
+		<LI><A HREF="http://www.slackware.com/">Slackware</A> - the mother of all Distributions</LI>
+		<LI><A HREF="http://www.redhat.com/">RedHat</A></LI>
+		<LI><A HREF="http://www.debian.org/">Debian</A></LI>
+		<LI><A HREF="http://www.calderasystems.com/products/openlinux/">Caldera OpenLinux</A></LI>
+		<LI><A HREF="http://www.stampede.org/">Stampede</A> - 586 optimized, under development</LI>
+		<LI><A HREF="http://www.suse.de/">S.u.S.E.</A> - German</LI>
+		<LI><A HREF="http://www.mandrivalinux.com">Mandriva(Previously Mandrake)</A></LI>
+	      </UL>
+	      <FONT SIZE="+1" COLOR="#FFFFFF">Miscellaneous:</FONT>
+	      <UL TYPE="SQUARE">
+		<LI><A HREF="http://siliconpenguin.com/">siliconpenguin.com</A> - The Embedded Linux Authority</LI>
+		<LI><A HREF="http://kernelnotes.org/">kernelnotes.org</A> - The Linux Headquarter</LI>
+		<LI><A HREF="http://www.freshmeat.net/">www.freshmeat.net</A> - A great place for searching for Linux Applications</LI>
+		<LI><A HREF="http://www.linuxberg.com/">www.linuxberg.com</A> - A Newcomer, have a look at it</LI>
+		<LI><A HREF="http://www.linuxos.org/">www.linuxos.org</A> - Linux OS</LI>
+		<LI><A HREF="http://www.linux.org/">www.linux.org</A></LI>
+		<LI><A HREF="http://www.kernel.org/">www.kernel.org</A> - Linux Kernel Website</LI>
+		<LI><A HREF="http://www.linux.de/">www.linux.de</A> - German Linux Site</LI>
+		<LI><A HREF="http://www.gnu.org/">www.gnu.org</A> - GNU Webpage</LI>
+		<LI><A HREF="http://www.gimp.org/">www.gimp.org</A> - The Pictureeditor under Linux</LI>
+		<LI><A HREF="http://www.xfree86.org/">www.xfree86.org</A> - XFree86</LI>
+		<LI><A HREF="http://www.kde.org/">www.kde.org</A> - KDE</LI>
+		<LI><A HREF="http://www.gnome.org/">www.gnome.org</A> - GNOME</LI>
+		<LI><A HREF="http://www.linuxbazis.hu/?nyelv=en">LinuxBazis</A> - Linux search engine</LI>
+	      </UL>
+	    </DIV>
+
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD CLASS="menuhead">
+		    &copy; 1999 Karsten Scheibler &amp; Christoph
+		    Bartelmus
+		  </TD>
+		</TR>
+	    </TABLE>
+	  </TD>
+	  
+	  <!-- Space -->
+	  <TD CLASS="menu" WIDTH="1%" ALIGN="LEFT" VALIGN="TOP">
+	    &#160;
+	  </TD>
+	  
+	  <!-- Space -->
+	  <TD WIDTH="5%" ALIGN="LEFT" VALIGN="TOP">
+	    &#160;
+	  </TD>
+
+	  <!-- Text -->
+	  <TD WIDTH="60%" ALIGN="LEFT" VALIGN="TOP">
+	    <BR>
+	    <center><a href="http://www.NoSoftwarePatents.com"><img border="2" width="468" height="60" src="http://www.unusedino.de/lirc/images/banner_en_1.gif" alt="No software pantents!"></a></center>
+	    
+	    &#160;<BR>
+	    <BR>
+	    
+	    <!-- What is LIRC -->
+	    <A NAME="top"></A>
+	    <HR WIDTH="70%">
+	    <H1 ALIGN="CENTER">What is LIRC ?</H1>
+	    <HR WIDTH="50%"><BR>
+	    <P>
+	      LIRC is a package that allows you to decode and send
+	      infra-red signals of many (but not all) commonly used
+	      remote controls.
+	    </P>
+
+	    <P>
+	      Former versions focussed on home-brew hardware connected
+	      to the serial or parallel port. Descriptions how to build
+	      this hardware can be found here. Current versions of LIRC
+	      also support a variety of other hardware. An up-to-date
+	      list of all supported devices and the status of the
+	      according drivers is available on the left.
+	    </P>
+
+	    <P>
+	      The most important part of LIRC is the lircd daemon that
+	      will decode IR signals received by the device drivers and
+	      provide the information on a socket. It will also accept
+	      commands for IR signals to be sent if the hardware
+	      supports this. The second daemon program called lircmd
+	      will connect to lircd and translate the decoded IR signals
+	      to mouse movements. You can e.g. configure X to use your
+	      remote control as an input device.
+	    </P>
+
+	    <P>
+	      The user space applications will allow you to control your
+	      computer with your remote control. You can send X events
+	      to applications, start programs and much more on just one
+	      button press. The possible applications are obvious:
+	      Infra-red mouse, remote control for your TV tuner card or
+	      CD-ROM, shutdown by remote, program your VCR and/or
+	      satellite tuner with your computer, etc. I've heard that
+	      MP3 players are also quite popular these days.
+	    </P>
+
+	    <!-- Supported remote controls -->
+	    <HR WIDTH="70%">
+	    <H1 ALIGN="CENTER">Supported remote controls</H1>
+	    <HR WIDTH="50%"><BR>
+	    <P>
+	      Here are some config files for <A HREF="http://www.unusedino.de/lirc/remotes/">supported
+		remote controls</A>.  These config files will work with
+	      home-brew receivers (except the UIR/Irman), the Anir
+	      Multimedia Magic, the Packard Bell receiver, built-in IrDA
+	      ports and the Slink-e unless something else is indicated
+	      within the file. Files ending in &quot;.irman&quot; will
+	      only work with the UIR and Irman. Any other receivers will
+	      only work with the remotes they are bundled with.
+	    </P>
+	    <P>
+	      If you can't find your remote control here it does not
+	      mean that your remote control is not supported but there
+	      is no config file for it yet. All remote controls that are
+	      supported by learning remote controls, i.e. almost any,
+	      should also work with LIRC.<br>
+
+	      Please send me your config file if you add a new remote
+	      control.
+	    </P>
+	    <script type="text/javascript"><!--
+	      google_ad_client = "pub-3628312733106047";
+	      google_ad_width = 468;
+	      google_ad_height = 60;
+	      google_ad_format = "468x60_as";
+	      google_color_bg = "ffffff";
+	      google_color_url = "666666";
+	      google_color_border = "6060c0";
+	      google_color_text = "333333";
+	      google_color_link = "7070e0";
+	      //--></script>
+	    <BR>
+	    <!-- News -->
+	    <HR WIDTH="70%">
+	    <H1 ALIGN="CENTER">News</H1>
+	    <HR WIDTH="50%"><BR>
+	    <UL TYPE="SQUARE">
+	      <LI>
+		[12-Oct-2008]
+		<P>
+		  lirc-0.8.4 released.
+		</P>
+	      </LI>
+	      <LI>
+		[04-May-2008]
+		<P>
+		  lirc-0.8.3 released.
+		</P>
+	      </LI>
+	      <LI>
+		[09-Jun-2007]
+		<P>
+		  lirc-0.8.2 released.
+		</P>
+	      </LI>
+	      <LI>
+		[07-Jan-2007]
+		<P>
+		  lirc-0.8.1 released.
+		</P>
+	      </LI>
+	      <LI>
+		[25-Feb-2006]
+		<P>
+		  A new 0.4.4 maintenance <A HREF="http://www.unusedino.de/lirc/software/snapshots/">
+		    release</A> of libirman fixes incompatibilities
+		  with gcc 4.0.
+		</P>
+	      </LI>
+	      <LI>
+		[21-Jan-2006]
+		<P>
+		  lirc-0.8.0 released.
+		</P>
+	      </LI>
+	      <LI>
+		[14-Aug-2005]
+		<P>
+		  lirc-0.7.2 released.
+		</P>
+	      </LI>
+	      <LI>
+		[17-Apr-2005]
+		<P>
+		  lirc-0.7.1 released.
+		</P>
+	      </LI>
+	      <LI>
+		[07-Nov-2004]
+		<P>
+		  lirc-0.7.0 released. In memoriam Manuel Estrada Sainz.
+		</P>
+	      </LI>
+	      <LI>
+		[04-Apr-2004]
+		<P>
+		  I have made a 0.4.3 maintenance <A
+		  HREF="http://www.unusedino.de/lirc/software/snapshots/">release</A> of
+		  libirman. This should fix incompatibilities with 2.6
+		  kernels.
+		</P>
+	      </LI>
+	      <LI>
+		[12-Jul-2003]
+		<P>
+		  article in c't issue 15/03 features LIRC's UDP driver.
+		</P>
+	      </LI>
+	      <LI>
+		[03-May-2003] 
+		<P>
+		  New lirc-xmms-plugin released.
+		</P>
+	      </LI>
+	      <LI>
+		[01-Feb-2003] 
+		<P>
+		  New releases of xirw, xrc and the lirc-xmms-plugin
+		  are available.
+		</P>
+	      </LI>
+	      <LI>
+		[06-Oct-2002] 
+		<P>
+		  lirc-0.6.6 released.
+		</P>
+	      </LI>
+	      <LI>
+		[26-Jan-2002] 
+		<P>
+		  lirc-0.6.5 released.
+		</P>
+	      </LI>
+	      <LI>
+		[23-Jan-2002] 
+		<P>
+		  lircrc_config-0.1.0 released.
+		</P>
+	      </LI>
+	      <LI>
+		[11-Nov-2000] 
+		<P>
+		  <A HREF="http://www.unusedino.de/lirc/index.html">www.lirc.org</A> online.
+		</P>
+	      </LI>
+	      <LI>
+		[10-Nov-2000] 
+		<P>
+		  The REALmagic remote control that is bundled with
+		  Hollywood Plus DVD cards does work with the PixelView
+		  RemoteMaster driver. You will just need the proper
+		  config file from CVS.
+		</P>
+	      </LI>
+	      <LI>
+		[19-Oct-2000] 
+		<P>
+		  My LIRC article was published in the <A HREF="http://www.fnl.nl/ct-nl/archief2000/ct2000-11/abstracts_index.htm">c't netherlands</A>. 
+		</P>
+	      </LI>
+	      <LI>
+		[18-Sep-2000] 
+		<P>
+		  Tonu Raitviir has added support for Chronos Video
+		  Shuttle II TV card.
+		</P>
+	      </LI>
+	      <LI>
+		[26-Aug-2000] 
+		<P>
+		  There's a <A HREF="http://www.heise.de/ct/00/18/208/">c't
+		    article</A> about LIRC.
+		</P>
+	      </LI>
+	      <LI>
+		[23-Aug-2000] 
+		<P>
+		  Hans-Hermann Redenius has contributed a <A HREF="http://www.pofahl.de/irdeo.htm">IRdeo</A>
+		  device. Receiving of IR signals already works. I will
+		  add code for sending as soon as I find some free time.
+		</P>
+	      </LI>
+	      <LI>
+		[23-Aug-2000] 
+		<P>
+		  Konrad Riedel has added support for <A HREF="http://caraca.sourceforge.net">CARACA</A>
+		</P>
+	      </LI>
+	      <LI>
+		[10-Aug-2000] 
+		<P>
+		  An article about LIRC published in the <A HREF="http://www.linux-magazin.de/ausgabe/2000/09/index.html">Linux
+		    Magazin</A>.
+		</P>
+	      </LI>
+	      <LI>
+		[21-Jul-2000] 
+		<P>
+		  lirc-0.6.1 released.
+		</P>
+	      </LI>
+	      <LI>
+		[19-Jun-2000] 
+		<P>
+		  New <A HREF="http://www.unusedino.de/lirc/software.html">xmms plugin</A> released.
+		</P>
+	      </LI>
+	      <LI>
+		[02-Apr-2000] 
+		<P>
+		  lirc-0.6.0 released.
+		</P>
+	      </LI>
+	      <LI>
+		[03-Mar-2000] 
+		<P>
+		  Milan Pikula has provided a driver for the SIR (serial
+		  infrared) mode of IrDA ports available in many
+		  notebooks. It's available now through <A HREF="http://www.unusedino.de/lirc/cvs.html">CVS</A>.
+		</P>
+	      </LI>
+	      <LI>
+		[30-Apr-1999] 
+		<P>
+		  LIRC now has a <A HREF="http://www.unusedino.de/lirc/cvs.html">CVS tree</A> at <A HREF="http://gdev.net">gdev.net</A>! 
+		</P>
+	      </LI>
+	      <LI>
+		[29-Apr-1999] 
+		<P>
+		  First <A HREF="http://wolf.ifj.edu.pl/~jochym/FlyVideo98/">
+		    test code</A> for Fly Video 98 TV cards available.
+		</P>
+	      </LI>
+	      <LI>
+		[03-Apr-1999] 
+		<P>
+		  A patch to add <A HREF="http://ece.uwaterloo.ca:80/~rggammon/lirc-aver/">
+		    Avermedia TV98 support</A> to lirc-0.5.5pre8 has
+		  been provided by Ryan Gammon.
+		</P>
+	      </LI>
+	      <LI>
+		[23-Mar-1999] 
+		<P>
+		  <!-- A
+                  HREF="http://www.leg.uct.ac.za/~carl/x11amp-lirc/" -->
+                  LIRC X11AMP Plugin<!-- /A --> by <A HREF="mailto:carl@leg.uct.ac.za">Carl van Schaik</A>.
+		</P>
+	      </LI>
+	      <LI>
+		[07-Mar-1999] 
+		<P>
+		  First <A HREF="http://www.in.tum.de/~letsch/linux.eng.html">
+		    test code</A> for Hauppauge remote controls
+		  available.		
+		</P>
+	      </LI>
+	      <LI>
+		[03-Mar-1999] 
+		<P>
+		  lirc-0.5.4 released. Major homepage update.
+		</P>
+	      </LI>
+	      <LI>
+		[02-Mar-1999] 
+		<P>
+		  There is a Windows port of LIRC available at the
+		  <A HREF="http://winlirc.sourceforge.net/">WinLIRC
+		    Homepage</A>.
+		</P>
+	      </LI>
+	      <LI>
+		[03-Feb-1999] 
+		<P>
+		  <em>Got it!</em> I have the specs for the Hauppauge
+		  remote control. :-) Many thanks go to <A HREF="http://vulture.dmem.strath.ac.uk/bt848/">
+		    Roger&nbsp;Hardiman</A> for providing the necessary
+		  information and Peter Stevenson for finding Roger.
+		</P>
+	      </LI>
+	      <LI>
+		[31-Jan-1999] 
+		<P>
+		  Recently a Tekram IRMate IR-210 fell
+		  into my hands. I managed to send IR signals to my
+		  satellite receiver using my linux box within 1 hour!
+		  Receiving of IR signals was also possible but has some
+		  limitations.
+		  You can see this as a motivation for you to work on support
+		  for IrDA compliant hardware as I don't have the time
+		  to do it myself.
+		</P>
+	      </LI>
+	      <!-- LI>
+	    <P>
+	      TV tuner cards get more and more popular these days. There is
+	      already very good Linux support for cards with
+	    <A HREF="http://www.thp.uni-koeln.de/~rjkm/linux/bttv.html">
+	      bt848 chips</A>. Some of these cards come with a remote
+	      control. If you have some information how these remote
+	      controls are working, contact
+	    <A HREF="mailto:lirc@bartelmus.de">me</A>.
+	      I hope that there will be
+	      support for these devices in LIRC some day. (The remote
+	      controls from <A HREF="http://www.animax.no/">AnimaX</A> are
+	      already supported.)
+	    </P>
+	    </LI>
+	    <LI>
+	    <P>
+	      I plan to add support for 
+	    <A HREF="http://www.irda.org">IrDA</A> 
+	      compliant hardware with CIR support to LIRC in cooperation
+	      with the guys from
+	    <A HREF="http://www.cs.uit.no/linux-irda/">
+	      The Linux-IrDA Project</A>.
+	    <A HREF="http://www.pluto.dti.ne.jp/~thiguchi/irda/">
+	      Takahide Higuchi</A> has already agreed to write
+	      an appropriate device driver.
+	      But development will not start before spring 1999.
+	      So if you don't want to wait that long, have
+	      some experience in writing device drivers and also have
+	      the time to do it, contact <A
+	      HREF="mailto:lirc@bartelmus.de">me</A>!!! 
+	    </P>
+	    </LI -->
+	    </UL>
+
+	    <!-- Pengu -->
+	    <BR>
+	    <BR>
+	    <BR>
+	    
+	    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0"
+		   CELLPADDING="0" SUMMARY="">
+		<TR>
+		  <TD WIDTH="100%" ALIGN="RIGHT">
+		    <IMG SRC="http://www.unusedino.de/lirc/images/lirclogo.gif" ALT="" WIDTH="128"
+			 HEIGHT="151" BORDER="0" ALIGN="RIGHT">
+		  </TD>
+		</TR>
+	    </TABLE>
+	    
+	    <HR>
+	    <!--#config timefmt="%d-%b-%Y" -->
+	    <i>Last modified by <A HREF="mailto:lirc@bartelmus.de">
+		Christoph Bartelmus</A>: 31-Dec-2008<!--#echo var="LAST_MODIFIED" --></i>
+	  </TD>
+	  
+	  <!-- Space -->
+	  <TD WIDTH="5%" ALIGN="LEFT" VALIGN="TOP">
+	    &#160;
+	  </TD>
+	</TR>
+	<!-- End -->
+    </TABLE>
+  </BODY>
+</HTML>

@@ -1,0 +1,192 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E31C/58140:   Expand side-sector
+
+Jump from <a href="ro41e0ab.htm">$E0E5</a>:
+
+E31C: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; get drive number
+E31F: 20 CB E1  JSR <a href="ro41e1cb.htm">$E1CB</a>       ; get last side-sector
+E322: 20 9C E2  JSR <a href="ro41e207.htm">$E29C</a>
+E325: 20 7B CF  JSR <a href="ro41cf1e.htm">$CF7B</a>
+E328: A5 D6     LDA <a href="ra41d6.htm">$D6</a>
+E32A: 85 87     STA <a href="ra4186.htm">$87</a>
+E32C: A5 D5     LDA <a href="ra41d5.htm">$D5</a>         ; side-sector number
+E32E: 85 86     STA <a href="ra4186.htm">$86</a>
+E330: A9 00     LDA #$00
+E332: 85 88     STA <a href="ra4186.htm">$88</a>
+E334: A9 00     LDA #$00
+E336: 85 D4     STA <a href="ra41d4.htm">$D4</a>
+E338: 20 0E CE  JSR <a href="ro41ce0e.htm">$CE0E</a>       ; calculate side-sector number and pointer
+
+Jump from <a href="ro41ca35.htm">$CA85</a>:
+
+E33B: 20 4D EF  JSR <a href="ro41ef4d.htm">$EF4D</a>       ; number of free blocks
+E33E: A4 82     LDY <a href="ra4182.htm">$82</a>         ; channel number
+E340: B6 C7     LDX <a href="ra41c7.htm">$C7</a>,Y       ; record length
+E342: CA        DEX
+E343: 8A        TXA
+E344: 18        CLC
+E345: 65 D7     ADC <a href="ra41d7.htm">$D7</a>         ; plus pointer in data block
+E347: 90 0C     BCC $E355
+E349: E6 D6     INC <a href="ra41d6.htm">$D6</a>
+E34B: E6 D6     INC <a href="ra41d6.htm">$D6</a>         ; increment pointer to end by 2
+E34D: D0 06     BNE $E355
+E34F: E6 D5     INC <a href="ra41d5.htm">$D5</a>         ; increment side-sector number
+E351: A9 10     LDA #$10
+E353: 85 D6     STA <a href="ra41d6.htm">$D6</a>         ; set pointer to 16
+
+Jump from $E347, $E34D:
+
+E355: A5 87     LDA <a href="ra4186.htm">$87</a>
+E357: 18        CLC
+E358: 69 02     ADC #$02
+E35A: 20 E9 DE  JSR <a href="ro41dee9.htm">$DEE9</a>       ; set buffer pointer for side-sector
+E35D: A5 D5     LDA <a href="ra41d5.htm">$D5</a>         ; side-sector number
+E35F: C9 06     CMP #$06
+E361: 90 05     BCC $E368       ; smaller than 6?
+
+Jump from $E394, $E39B:
+
+E363: A9 52     LDA #$52
+E365: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 52, 'file too large'
+
+Jump from $E361:
+
+E368: A5 D6     LDA <a href="ra41d6.htm">$D6</a>         ; end pointer
+E36A: 38        SEC
+E36B: E5 87     SBC <a href="ra4186.htm">$87</a>         ; minus last end pointer
+E36D: B0 03     BCS $E372
+E36F: E9 0F     SBC #$0F        ; minus 16
+E371: 18        CLC
+
+Jump from $E36D:
+
+E372: 85 72     STA <a href="ra4172.htm">$72</a>
+E374: A5 D5     LDA <a href="ra41d5.htm">$D5</a>         ; side-sector number
+E376: E5 86     SBC <a href="ra4186.htm">$86</a>         ; minus last side-sector number
+E378: 85 73     STA <a href="ra4173.htm">$73</a>         ; save
+E37A: A2 00     LDX #$00
+E37C: 86 70     STX <a href="ra416f.htm">$70</a>         ; erase sum for calculation
+E37E: 86 71     STX <a href="ra4171.htm">$71</a>
+E380: AA        TAX
+E381: 20 51 DF  JSR <a href="ro41df4c.htm">$DF51</a>       ; calculate block # of rel-file
+E384: A5 71     LDA <a href="ra4171.htm">$71</a>
+E386: D0 07     BNE $E38F
+E388: A6 70     LDX <a href="ra416f.htm">$70</a>
+E38A: CA        DEX
+E38B: D0 02     BNE $E38F
+E38D: E6 88     INC <a href="ra4186.htm">$88</a>
+
+Jump from $E386, $E38B:
+
+E38F: CD 73 02  CMP <a href="ra410272.htm">$0273</a>       ; block number of rel-file
+E392: 90 09     BCC $E39D       ; greater than free blocks on disk?
+E394: D0 CD     BNE $E363       ; 52, 'file too large'
+E396: AD 72 02  LDA <a href="ra410272.htm">$0272</a>
+E399: C5 70     CMP <a href="ra416f.htm">$70</a>
+E39B: 90 C6     BCC $E363       ; 52, 'file too large'
+
+Jump from $E392:
+
+E39D: A9 01     LDA #$01
+E39F: 20 F6 D4  JSR <a href="ro41d4f6.htm">$D4F6</a>       ; get byte from buffer
+E3A2: 18        CLC
+E3A3: 69 01     ADC #$01        ; plus 1
+E3A5: A6 82     LDX <a href="ra4182.htm">$82</a>
+E3A7: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X       ; as write pointer
+E3A9: 20 1E F1  JSR <a href="ro41f11e.htm">$F11E</a>       ; find free block in BAM
+E3AC: 20 FD DD  JSR <a href="ro41ddfd.htm">$DDFD</a>       ; track and sector in buffer
+E3AF: A5 88     LDA <a href="ra4186.htm">$88</a>
+E3B1: D0 15     BNE $E3C8       ; only one block needed?
+E3B3: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+
+Jump from $E40D, $E414:
+
+E3B6: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E3B9: 20 D0 D6  JSR <a href="ro41d6d0.htm">$D6D0</a>       ; transmit parameter to disk controller
+E3BC: 20 1E F1  JSR <a href="ro41f11e.htm">$F11E</a>       ; find free block in BAM
+E3BF: 20 FD DD  JSR <a href="ro41ddfd.htm">$DDFD</a>       ; track and sector in buffer
+E3C2: 20 E2 E2  JSR <a href="ro41e2e2.htm">$E2E2</a>       ; erase buffer
+E3C5: 4C D4 E3  JMP $E3D4
+
+Jump from $E3B1, $E416:
+
+E3C8: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E3CB: 20 D0 D6  JSR <a href="ro41d6d0.htm">$D6D0</a>       ; transmit parameter to disk controller
+E3CE: 20 E2 E2  JSR <a href="ro41e2e2.htm">$E2E2</a>       ; erase buffer
+E3D1: 20 19 DE  JSR <a href="ro41de19.htm">$DE19</a>       ; zero byte and end pointer in buffer
+
+Jump from $E3C5:
+
+E3D4: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+E3D7: 20 0C DE  JSR <a href="ro41de0c.htm">$DE0C</a>       ; get track and sector
+E3DA: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+E3DC: 48        PHA
+E3DD: A5 81     LDA <a href="ra4181.htm">$81</a>         ; and sector
+E3DF: 48        PHA             ; save
+E3E0: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>       ; get track and sector from disk
+E3E3: A5 81     LDA <a href="ra4181.htm">$81</a>         ; controller
+E3E5: 48        PHA
+E3E6: A5 80     LDA <a href="ra4180.htm">$80</a>         ; save track and sector
+E3E8: 48        PHA
+E3E9: 20 45 DF  JSR <a href="ro41df45.htm">$DF45</a>       ; set buffer pointer for side-sector
+E3EC: AA        TAX
+E3ED: D0 0A     BNE $E3F9       ; pointer not zero?
+E3EF: 20 4E E4  JSR <a href="ro41e44e.htm">$E44E</a>       ; write side-sector
+E3F2: A9 10     LDA #$10
+E3F4: 20 E9 DE  JSR <a href="ro41dee9.htm">$DEE9</a>       ; buffer pointer to 16
+E3F7: E6 86     INC <a href="ra4186.htm">$86</a>         ; increment side-sector number
+
+Jump from $E3ED:
+
+E3F9: 68        PLA
+E3FA: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; track in side-sector
+E3FD: 68        PLA
+E3FE: 20 8D DD  JSR <a href="ro41dd8d.htm">$DD8D</a>       ; sector in side-sector
+E401: 68        PLA
+E402: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector
+E404: 68        PLA
+E405: 85 80     STA <a href="ra4180.htm">$80</a>         ; and get track back
+E407: F0 0F     BEQ $E418       ; no more blocks?
+E409: A5 86     LDA <a href="ra4186.htm">$86</a>         ; side-sector number
+E40B: C5 D5     CMP <a href="ra41d5.htm">$D5</a>         ; changed?
+E40D: D0 A7     BNE $E3B6       ; yes
+E40F: 20 45 DF  JSR <a href="ro41df45.htm">$DF45</a>       ; set buffer pointer in side-sector
+E412: C5 D6     CMP <a href="ra41d6.htm">$D6</a>         ; end pointer
+E414: 90 A0     BCC $E3B6       ; smaller?
+E416: F0 B0     BEQ $E3C8       ; same
+
+Jump from $E407:
+
+E418: 20 45 DF  JSR <a href="ro41df45.htm">$DF45</a>       ; set buffer pointer in side-sector
+E41B: 48        PHA
+E41C: A9 00     LDA #$00
+E41E: 20 DC DE  JSR <a href="ro41dedc.htm">$DEDC</a>       ; buffer pointer to zero
+E421: A9 00     LDA #$00
+E423: A8        TAY
+E424: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; zero as track number
+E426: C8        INY
+E427: 68        PLA             ; end pointer
+E428: 38        SEC
+E429: E9 01     SBC #$01        ; minus one
+E42B: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; as sector
+E42D: 20 6C DE  JSR <a href="ro41de6c.htm">$DE6C</a>       ; write block
+E430: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+E433: 20 F4 EE  JSR <a href="ro41eef4.htm">$EEF4</a>       ; update BAM
+E436: 20 0E CE  JSR <a href="ro41ce0e.htm">$CE0E</a>       ; update pointer for rel-file
+E439: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E43C: 20 F8 DE  JSR <a href="ro41def8.htm">$DEF8</a>       ; right side-sector?
+E43F: 70 03     BVS $E444       ; no
+E441: 4C 75 E2  JMP <a href="ro41e207.htm">$E275</a>
+
+Jump from $E43F:
+
+E444: A9 80     LDA #$80
+E446: 20 97 DD  JSR <a href="ro41dd95.htm">$DD97</a>       ; set bit 7
+E449: A9 50     LDA #$50
+E44B: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 50, 'record not present'
+
+    <a href="ro41e304.htm">Previous Page</a> / <a href="ro41e44e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

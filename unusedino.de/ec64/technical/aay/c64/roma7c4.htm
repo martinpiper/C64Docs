@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A7C4/42948:   Check End of Program
+
+A7C4: A0 02     <a href="bldy.htm">LDY</a> #$02
+A7C6: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+A7C8: 18        <a href="bclc.htm">CLC</a>
+A7C9: D0 03     <a href="bbne.htm">BNE</a> $A7CE
+A7CB: 4C 4B A8  <a href="bjmp.htm">JMP</a> <a href="roma831.htm">$A84B</a>     ; Perform Break
+
+Jump from $A7C9:
+
+A7CE: C8        <a href="biny.htm">INY</a>
+A7CF: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+A7D1: 85 39     <a href="bsta.htm">STA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+A7D3: C8        <a href="biny.htm">INY</a>
+A7D4: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+A7D6: 85 3A     <a href="bsta.htm">STA</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+A7D8: 98        <a href="btya.htm">TYA</a>
+A7D9: 65 7A     <a href="badc.htm">ADC</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A7DB: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A7DD: 90 02     <a href="bbcc.htm">BCC</a> <a href="roma7e1.htm">$A7E1</a>     ; Prepare to execute statement
+A7DF: E6 7B     <a href="binc.htm">INC</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+    <a href="roma7ae.htm">Previous Page</a> / <a href="roma7e1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

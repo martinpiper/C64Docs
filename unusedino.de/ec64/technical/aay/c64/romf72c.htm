@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F72C/63276:   Find Any Tape Header
+
+Jump from $F749, <a href="romf34a.htm">$F3AF</a>, <a href="romf533.htm">$F556</a>, <a href="romf7ea.htm">$F7EA</a>:
+
+F72C: A5 93     <a href="blda.htm">LDA</a> <a href="zp93.htm">$93</a>       ; Flag: 0 = Load, 1 = Verify
+F72E: 48        <a href="bpha.htm">PHA</a>
+F72F: 20 41 F8  <a href="bjsr.htm">JSR</a> <a href="romf841.htm">$F841</a>     ; Initiate Tape Read
+F732: 68        <a href="bpla.htm">PLA</a>
+F733: 85 93     <a href="bsta.htm">STA</a> <a href="zp93.htm">$93</a>       ; Flag: 0 = Load, 1 = Verify
+F735: B0 32     <a href="bbcs.htm">BCS</a> $F769
+F737: A0 00     <a href="bldy.htm">LDY</a> #$00
+F739: B1 B2     <a href="blda.htm">LDA</a> (<a href="zpb2.htm">$B2</a>),Y   ; Pointer: Start Address of Tape Buffer
+F73B: C9 05     <a href="bcmp.htm">CMP</a> #$05
+F73D: F0 2A     <a href="bbeq.htm">BEQ</a> $F769
+F73F: C9 01     <a href="bcmp.htm">CMP</a> #$01
+F741: F0 08     <a href="bbeq.htm">BEQ</a> $F74B
+F743: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F745: F0 04     <a href="bbeq.htm">BEQ</a> $F74B
+F747: C9 04     <a href="bcmp.htm">CMP</a> #$04
+F749: D0 E1     <a href="bbne.htm">BNE</a> $F72C
+
+Jump from $F741, $F745:
+
+F74B: AA        <a href="btax.htm">TAX</a>
+F74C: 24 9D     <a href="bbit.htm">BIT</a> <a href="zp9d.htm">$9D</a>       ; Error-Mode-Flag
+F74E: 10 17     <a href="bbpl.htm">BPL</a> $F767
+F750: A0 63     <a href="bldy.htm">LDY</a> #$63
+F752: 20 2F F1  <a href="bjsr.htm">JSR</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+F755: A0 05     <a href="bldy.htm">LDY</a> #$05
+
+Jump from $F75F:
+
+F757: B1 B2     <a href="blda.htm">LDA</a> (<a href="zpb2.htm">$B2</a>),Y   ; Pointer: Start Address of Tape Buffer
+F759: 20 D2 FF  <a href="bjsr.htm">JSR</a> <a href="romffd2.htm">$FFD2</a>     ; Output Vector, chrout
+F75C: C8        <a href="biny.htm">INY</a>
+F75D: C0 15     <a href="bcpy.htm">CPY</a> #$15
+F75F: D0 F6     <a href="bbne.htm">BNE</a> $F757
+F761: A5 A1     <a href="blda.htm">LDA</a> <a href="zpa0.htm">$A1</a>       ; Real-time jiffy Clock
+F763: 20 E0 E4  <a href="bjsr.htm">JSR</a> <a href="rome4e0.htm">$E4E0</a>     ; Pause After Finding Tape File
+F766: EA        <a href="bnop.htm">NOP</a>
+
+Jump from $F74E:
+
+F767: 18        <a href="bclc.htm">CLC</a>
+F768: 88        <a href="bdey.htm">DEY</a>
+
+Jump from $F735, $F73D:
+
+F769: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf713.htm">Previous Page</a> / <a href="romf76a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

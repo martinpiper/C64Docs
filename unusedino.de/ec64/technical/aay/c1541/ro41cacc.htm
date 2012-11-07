@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CACC/51916:   Check if file present
+
+Jump from $CAE7, <a href="ro41c8f0.htm">$C96E</a>:
+
+CACC: A5 E8     LDA <a href="ra41e7.htm">$E8</a>         ; file type
+CACE: 29 07     AND #$07
+CAD0: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; save
+CAD3: AE 78 02  LDX <a href="ra410278.htm">$0278</a>
+
+Jump from $CADF:
+
+CAD6: CA        DEX
+CAD7: EC 77 02  CPX <a href="ra410277.htm">$0277</a>
+CADA: 90 0A     BCC $CAE6
+CADC: BD 80 02  LDA <a href="ra410280.htm">$0280</a>,X     ; track number
+CADF: D0 F5     BNE $CAD6       ; not zero?
+CAE1: A9 62     LDA #$62
+CAE3: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 62, 'file not found'
+
+Jump from $CADA:
+
+CAE6: 60        RTS
+
+Jump from <a href="ro41c9a7.htm">$C9A7</a>, <a href="ro41ca88.htm">$CA9C</a>:
+
+CAE7: 20 CC CA  JSR $CACC       ; does file exist with old name?
+
+Jump from $CAF5:
+
+CAEA: BD 80 02  LDA <a href="ra410280.htm">$0280</a>,X     ; track number of new file
+CAED: F0 05     BEQ $CAF4       ; file erased?
+CAEF: A9 63     LDA #$63
+CAF1: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 63, 'file exists'
+
+Jump from $CAED:
+
+CAF4: CA        DEX
+CAF5: 10 F3     BPL $CAEA
+CAF7: 60        RTS
+
+    <a href="ro41ca88.htm">Previous Page</a> / <a href="ro41caf8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

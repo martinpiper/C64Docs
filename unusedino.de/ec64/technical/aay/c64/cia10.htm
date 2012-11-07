@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DC00/56320/CIA1+0:   Data Port A (Keyboard, Joystick, Paddles)
+
+   +----------+---------------------------------------------------+
+   | Bits 7-0 |   Write <a href="keybmatr.htm">Keyboard Column Values</a> for Keyboard Scan  |
+   | Bits 7-6 |   Paddles on: 01 = Port A, 10 = Port B            |
+   | Bit  4   |   Joystick A Fire Button: 0 = Pressed             |
+   | Bit  3   |   Joystick A Right: 0 = Pressed, or Paddle Button |
+   | Bit  2   |   Joystick A Left : 0 = Pressed, or Paddle Button |
+   | Bit  1   |   Joystick A Down : 0 = Pressed                   |
+   | Bit  0   |   Joystick A Up   : 0 = Pressed                   |
+   +----------+---------------------------------------------------+
+
+   <b>Do NOT use Paddles on both Ports at the same time!</b>
+
+   Joystick A is the one plugged into Port 2.
+
+   Default Value: $7F/127 (%01111111)
+
+Kernal-Reference:
+
+ STA $DC00   : <a href="rome8ea.htm">$E93A</a> <a href="rome8ea.htm">$E945</a> <a href="romea87.htm">$EA90</a> <a href="romea87.htm">$EAA5</a> <a href="romea87.htm">$EAD7</a> <a href="romeadd.htm">$EB44</a> <a href="romf69b.htm">$F6D4</a> <a href="romfda3.htm">$FDAB</a>
+ STX $DC00   : <a href="romf69b.htm">$F6C9</a>
+
+</pre></td></tr></table></center></body></html>

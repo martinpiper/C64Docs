@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF5C/61276:   Mark block as free
+
+EF5C: 20 F1 EF  JSR <a href="ro41eff1.htm">$EFF1</a>       ; set buffer pointer
+
+Jump from <a href="ro41c87d.htm">$C87D</a>, <a href="ro41c87d.htm">$C8AD</a>, <a href="ro41ccf5.htm">$CCF8</a>:
+
+EF5F: 20 CF EF  JSR <a href="ro41efcf.htm">$EFCF</a>       ; erase bit for sector in BAM
+EF62: 38        SEC
+EF63: D0 22     BNE $EF87       ; block already free, then done
+EF65: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y     ; bit model of BAM
+EF67: 1D E9 EF  ORA <a href="ro41efe9.htm">$EFE9</a>,X     ; set bit X, marker for free
+EF6A: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y
+EF6C: 20 88 EF  JSR <a href="ro41ef88.htm">$EF88</a>       ; set flag for BAM changed
+EF6F: A4 6F     LDY <a href="ra416f.htm">$6F</a>
+EF71: 18        CLC
+EF72: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y
+EF74: 69 01     ADC #$01        ; increment number of free blocks/track
+EF76: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y
+EF78: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+EF7A: CD 85 FE  CMP <a href="ro41fe85.htm">$FE85</a>       ; equal to 18?
+EF7D: F0 3B     BEQ <a href="ro41ef90.htm">$EFBA</a>       ; then skip
+EF7F: FE FA 02  INC <a href="ra4102fa.htm">$02FA</a>,X     ; increment number of free blocks in disk
+EF82: D0 03     BNE $EF87
+EF84: FE FC 02  INC <a href="ra4102fc.htm">$02FC</a>,X     ; increment number of blocks hi
+
+Jump from $EF63, $EF82:
+
+EF87: 60        RTS
+
+    <a href="ro41ef4d.htm">Previous Page</a> / <a href="ro41ef88.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

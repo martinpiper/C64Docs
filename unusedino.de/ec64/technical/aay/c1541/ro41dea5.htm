@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DEA5/56997:   Copy buffer contents
+
+Jump from <a href="ro41e44e.htm">$E467</a>:
+
+DEA5: 48        PHA
+DEA6: A9 00     LDA #$00
+DEA8: 85 6F     STA <a href="ra416f.htm">$6F</a>
+DEAA: 85 71     STA <a href="ra4171.htm">$71</a>
+DEAC: B9 E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,Y     ; buffer address Y, hi
+DEAF: 85 70     STA <a href="ra416f.htm">$70</a>
+DEB1: BD E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,X     ; buffer address X, lo
+DEB4: 85 72     STA <a href="ra4172.htm">$72</a>
+DEB6: 68        PLA
+DEB7: A8        TAY
+DEB8: 88        DEY
+
+Jump from $DEBE:
+
+DEB9: B1 6F     LDA (<a href="ra416f.htm">$6F</a>),Y
+DEBB: 91 71     STA (<a href="ra4171.htm">$71</a>),Y
+DEBD: 88        DEY
+DEBE: 10 F9     BPL $DEB9
+DEC0: 60        RTS
+
+    <a href="ro41de95.htm">Previous Page</a> / <a href="ro41dec1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

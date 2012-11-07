@@ -1,0 +1,41 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CA88/51848:   Perform [R] - Rename command
+
+CA88: 20 20 C3  JSR <a href="ro41c312.htm">$C320</a>       ; get drive number from command line
+CA8B: A5 E3     LDA <a href="ra41e2.htm">$E3</a>
+CA8D: 29 01     AND #$01
+CA8F: 85 E3     STA <a href="ra41e2.htm">$E3</a>         ; 2nd drive number
+CA91: C5 E2     CMP <a href="ra41e2.htm">$E2</a>         ; compare with 1st drive number
+CA93: F0 02     BEQ $CA97       ; same?
+CA95: 09 80     ORA #$80
+
+Jump from $CA93:
+
+CA97: 85 E2     STA <a href="ra41e2.htm">$E2</a>
+CA99: 20 4F C4  JSR <a href="ro41c44f.htm">$C44F</a>       ; search for file in directory
+CA9C: 20 E7 CA  JSR <a href="ro41cacc.htm">$CAE7</a>       ; does name exist?
+CA9F: A5 E3     LDA <a href="ra41e2.htm">$E3</a>
+CAA1: 29 01     AND #$01
+CAA3: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+CAA5: A5 D9     LDA <a href="ra41d8.htm">$D9</a>
+CAA7: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector number
+CAA9: 20 57 DE  JSR <a href="ro41de57.htm">$DE57</a>       ; read block from directory
+CAAC: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; ok?
+CAAF: A5 DE     LDA <a href="ra41dd.htm">$DE</a>         ; pointer to directory entry
+CAB1: 18        CLC
+CAB2: 69 03     ADC #$03        ; pointer plus 3 to file name
+CAB4: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer
+CAB7: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+CABA: A8        TAY
+CABB: AE 7A 02  LDX <a href="ra41027a.htm">$027A</a>
+CABE: A9 10     LDA #$10        ; 16 characters
+CAC0: 20 6E C6  JSR <a href="ro41c66e.htm">$C66E</a>       ; write name in buffer
+CAC3: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block to directory
+CAC6: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; ok?
+CAC9: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done, prepare disk status
+
+    <a href="ro41ca35.htm">Previous Page</a> / <a href="ro41cacc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

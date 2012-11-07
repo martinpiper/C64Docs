@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF59/61273:   RS232 Receive
+
+Jump from <a href="romfed6.htm">$FF04</a>:
+
+EF59: A6 A9     <a href="bldx.htm">LDX</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+EF5B: D0 33     <a href="bbne.htm">BNE</a> <a href="romef90.htm">$EF90</a>     ; Process RS232 Byte
+EF5D: C6 A8     <a href="bdec.htm">DEC</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+EF5F: F0 36     <a href="bbeq.htm">BEQ</a> <a href="romef90.htm">$EF97</a>     ; Process RS232 Byte
+EF61: 30 0D     <a href="bbmi.htm">BMI</a> $EF70
+EF63: A5 A7     <a href="blda.htm">LDA</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+EF65: 45 AB     <a href="beor.htm">EOR</a> <a href="zpab.htm">$AB</a>       ; RS232 Input parity/Tape temporary
+EF67: 85 AB     <a href="bsta.htm">STA</a> <a href="zpab.htm">$AB</a>       ; RS232 Input parity/Tape temporary
+EF69: 46 A7     <a href="blsr.htm">LSR</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+EF6B: 66 AA     <a href="bror.htm">ROR</a> <a href="zpaa.htm">$AA</a>       ; RS232 Input Byte Buffer/Tape temporary
+
+Jump from $EF7C, <a href="romef90.htm">$EFBA</a>, <a href="romef90.htm">$EFC2</a>, <a href="romef90.htm">$EFC5</a>:
+
+EF6D: 60        <a href="brts.htm">RTS</a>
+
+Jump from <a href="romef90.htm">$EFB8</a>:
+
+EF6E: C6 A8     <a href="bdec.htm">DEC</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+
+Jump from $EF61:
+
+EF70: A5 A7     <a href="blda.htm">LDA</a> <a href="zpa7.htm">$A7</a>       ; Tape temporary
+EF72: F0 67     <a href="bbeq.htm">BEQ</a> <a href="romef90.htm">$EFDB</a>     ; Process RS232 Byte
+EF74: AD 93 02  <a href="blda.htm">LDA</a> <a href="zp0293.htm">$0293</a>     ; RS232 Pseudo 6551 control Register Image
+EF77: 0A        <a href="basl.htm">ASL</a>
+EF78: A9 01     <a href="blda.htm">LDA</a> #$01
+EF7A: 65 A8     <a href="badc.htm">ADC</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+EF7C: D0 EF     <a href="bbne.htm">BNE</a> $EF6D
+
+    <a href="romef4a.htm">Previous Page</a> / <a href="romef7e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

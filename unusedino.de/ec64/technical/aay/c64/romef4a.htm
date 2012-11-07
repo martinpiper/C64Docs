@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EF4A/61258:   Compute Bit Count
+
+Jump from <a href="romf409.htm">$F41D</a>:
+
+EF4A: A2 09     <a href="bldx.htm">LDX</a> #$09
+EF4C: A9 20     <a href="blda.htm">LDA</a> #$20
+EF4E: 2C 93 02  <a href="bbit.htm">BIT</a> <a href="zp0293.htm">$0293</a>     ; RS232 Pseudo 6551 control Register Image
+EF51: F0 01     <a href="bbeq.htm">BEQ</a> $EF54
+EF53: CA        <a href="bdex.htm">DEX</a>
+
+Jump from $EF51:
+
+EF54: 50 02     <a href="bbvc.htm">BVC</a> $EF58
+EF56: CA        <a href="bdex.htm">DEX</a>
+EF57: CA        <a href="bdex.htm">DEX</a>
+
+Jump from $EF54:
+
+EF58: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romef39.htm">Previous Page</a> / <a href="romef59.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

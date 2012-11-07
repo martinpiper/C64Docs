@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $ABEA/44010:   Read Input Buffer
+
+Jump from <a href="romabbf.htm">$ABDB</a>, <a href="romabbf.htm">$ABE2</a>:
+
+ABEA: AD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>     ; BASIC Input Buffer (Input Line from Screen)
+ABED: D0 1E     <a href="bbne.htm">BNE</a> <a href="romac06.htm">$AC0D</a>     ; Perform [read]
+ABEF: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ABF1: D0 E3     <a href="bbne.htm">BNE</a> <a href="romabbf.htm">$ABD6</a>     ; Perform [input]
+ABF3: 20 06 A9  <a href="bjsr.htm">JSR</a> <a href="roma906.htm">$A906</a>     ; Search for Next Statement / Line
+ABF6: 4C FB A8  <a href="bjmp.htm">JMP</a> <a href="roma8f8.htm">$A8FB</a>     ; Perform [data]
+
+    <a href="romabbf.htm">Previous Page</a> / <a href="romabf9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

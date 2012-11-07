@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C1D1/49617:   Check input line
+
+Jump from <a href="ro41d005.htm">$D005</a>, <a href="ro41d7f3.htm">$D7FF</a>, <a href="ro41ed84.htm">$ED84</a>:
+
+C1D1: A2 00     LDX #$00
+C1D3: 8E 7A 02  STX <a href="ra41027a.htm">$027A</a>       ; pointer to drive number
+C1D6: A9 3A     LDA #$3A        ; ':'
+C1D8: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; test line to ':' or to end
+C1DB: F0 05     BEQ $C1E2       ; no colon found?
+C1DD: 88        DEY
+C1DE: 88        DEY
+C1DF: 8C 7A 02  STY <a href="ra41027a.htm">$027A</a>       ; point to drive number (before colon)
+
+Jump from $C1DB:
+
+C1E2: 4C 68 C3  JMP <a href="ro41c368.htm">$C368</a>       ; get drive number and turn LED on
+
+    <a href="ro41c1c8.htm">Previous Page</a> / <a href="ro41c1e5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

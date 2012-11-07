@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A7AE/42926:   BASIC Warm Start
+
+Jump from <a href="roma7e1.htm">$A7EA</a>, <a href="roma883.htm">$A89D</a>, <a href="romad61.htm">$AD75</a>:
+
+A7AE: 20 2C A8  <a href="bjsr.htm">JSR</a> <a href="roma82c.htm">$A82C</a>     ; Perform [stop]
+A7B1: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A7B3: A4 7B     <a href="bldy.htm">LDY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A7B5: C0 02     <a href="bcpy.htm">CPY</a> #$02
+A7B7: EA        <a href="bnop.htm">NOP</a>
+A7B8: F0 04     <a href="bbeq.htm">BEQ</a> $A7BE
+A7BA: 85 3D     <a href="bsta.htm">STA</a> <a href="zp3d.htm">$3D</a>       ; Pointer: BASIC Statement for CONT
+A7BC: 84 3E     <a href="bsty.htm">STY</a> <a href="zp3d.htm">$3E</a>       ; Pointer: BASIC Statement for CONT
+
+Jump from $A7B8:
+
+A7BE: A0 00     <a href="bldy.htm">LDY</a> #$00
+A7C0: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+A7C2: D0 43     <a href="bbne.htm">BNE</a> <a href="roma7ed.htm">$A807</a>     ; Perform BASIC Keyword
+
+    <a href="roma742.htm">Previous Page</a> / <a href="roma7c4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

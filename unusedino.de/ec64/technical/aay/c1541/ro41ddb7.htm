@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DDB7/56759:   ?
+
+Jump from <a href="ro41c823.htm">$C835</a>:
+
+DDB7: A2 00     LDX #$00
+
+Jump from $DDC7:
+
+DDB9: 86 71     STX <a href="ra4171.htm">$71</a>         ; counter for secondary address
+DDBB: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X     ; get channel number from table
+DDBE: C9 FF     CMP #$FF
+DDC0: D0 08     BNE $DDCA       ; file open?
+
+Jump from $DDDF, $DDE6, $DDED:
+
+DDC2: A6 71     LDX <a href="ra4171.htm">$71</a>
+DDC4: E8        INX             ; increment counter
+DDC5: E0 10     CPX #$10        ; smaller than 16?
+DDC7: 90 F0     BCC $DDB9
+DDC9: 60        RTS
+
+Jump from $DDC0:
+
+DDCA: 86 71     STX <a href="ra4171.htm">$71</a>
+DDCC: 29 3F     AND #$3F        ; isolate channel number
+DDCE: A8        TAY
+DDCF: B9 EC 00  LDA <a href="ra41ec.htm">$EC</a>,Y
+DDD2: 29 01     AND #$01        ; isolate drive number
+DDD4: 85 70     STA <a href="ra416f.htm">$70</a>
+DDD6: AE 53 02  LDX <a href="ra410253.htm">$0253</a>
+DDD9: B5 E2     LDA <a href="ra41e2.htm">$E2</a>,X
+DDDB: 29 01     AND #$01        ; isolate drive number
+DDDD: C5 70     CMP <a href="ra416f.htm">$70</a>         ; same drive?
+DDDF: D0 E1     BNE $DDC2       ; no
+DDE1: B9 60 02  LDA <a href="ra410260.htm">$0260</a>,Y     ; sector number in directory
+DDE4: D5 D8     CMP <a href="ra41d8.htm">$D8</a>,X       ; same as file?
+DDE6: D0 DA     BNE $DDC2       ; no
+DDE8: B9 66 02  LDA <a href="ra410266.htm">$0266</a>,Y
+DDEB: D5 DD     CMP <a href="ra41dd.htm">$DD</a>,X       ; pointer same?
+DDED: D0 D3     BNE $DDC2       ; no
+DDEF: 18        CLC
+DDF0: 60        RTS
+
+    <a href="ro41ddab.htm">Previous Page</a> / <a href="ro41ddf1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

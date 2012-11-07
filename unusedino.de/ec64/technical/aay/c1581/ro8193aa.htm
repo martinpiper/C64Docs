@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Lesen des naechsten Blocks ($d44d)
+
+Einsprung von <a href="ro818424.htm">$849B</a>, <a href="ro818688.htm">$8735</a>, <a href="ro81b2c7.htm">$B2E9</a>:
+
+93AA: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Puffernummer holen
+93AD: 0A        ASL
+93AE: AA        TAX
+93AF: A9 00     LDA #$00
+93B1: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger auf 0
+93B3: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      Folgetracknummer holen
+93B5: F0 05     BEQ $93BC        =0 (Fileende), ==&gt;
+93B7: D6 BB     DEC <a href="ra81bb.htm">$BB</a>,X        Zeiger auf letztes Byte im Block setzen
+93B9: 4C 9B 90  JMP <a href="ro81909b.htm">$909B</a>        naechstes Byte holen (und damit den
+
+Einsprung von $93B5:
+
+93BC: 60        RTS              den Folgeblock einlesen)
+
+    <a href="ro819370.htm">Previous Page</a> / <a href="ro8193bd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

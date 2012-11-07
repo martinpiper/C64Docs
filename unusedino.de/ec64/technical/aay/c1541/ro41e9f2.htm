@@ -1,0 +1,52 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E9F2/59890:   Accept byte with EOI
+
+Jump from <a href="ro41e9c9.htm">$E9E7</a>:
+
+E9F2: 20 A5 E9  JSR <a href="ro41e9a5.htm">$E9A5</a>       ; DATA OUT bit '0' hi
+E9F5: A2 0A     LDX #$0A        ; 10
+
+Jump from $E9F8:
+
+E9F7: CA        DEX             ; delay loop, approx 50 micro sec.
+E9F8: D0 FD     BNE $E9F7
+E9FA: 20 9C E9  JSR <a href="ro41e99c.htm">$E99C</a>       ; DATA OUT, bit '1', lo
+
+Jump from $EA05:
+
+E9FD: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+EA00: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE
+EA03: 29 04     AND #$04        ; CLOCK IN?
+EA05: F0 F6     BEQ $E9FD       ; no, wait
+EA07: A9 00     LDA #$00
+EA09: 85 F8     STA <a href="ra41f8.htm">$F8</a>         ; set EOI flag
+
+Jump from $EA13, $EA26, <a href="ro41e9c9.htm">$E9F0</a>:
+
+EA0B: AD 00 18  LDA <a href="via10.htm">$1800</a>       ; IEEE port
+EA0E: 49 01     EOR #$01        ; invert data byte
+EA10: 4A        LSR
+EA11: 29 02     AND #$02
+EA13: D0 F6     BNE $EA0B       ; CLOCK IN?
+EA15: EA        NOP
+EA16: EA        NOP
+EA17: EA        NOP
+EA18: 66 85     ROR <a href="ra4185.htm">$85</a>         ; prepare next bit
+
+Jump from $EA22:
+
+EA1A: 20 59 EA  JSR <a href="ro41ea59.htm">$EA59</a>       ; check EOI
+EA1D: 20 C0 E9  JSR <a href="ro41e9c0.htm">$E9C0</a>       ; read IEEE port
+EA20: 29 04     AND #$04        ; CLOCK IN?
+EA22: F0 F6     BEQ $EA1A       ; no
+EA24: C6 98     DEC <a href="ra4196.htm">$98</a>         ; decrement bit counter
+EA26: D0 E3     BNE $EA0B       ; all bits output?
+EA28: 20 A5 E9  JSR <a href="ro41e9a5.htm">$E9A5</a>       ; DATA OUT, bit '0', hi
+EA2B: A5 85     LDA <a href="ra4185.htm">$85</a>         ; load data byte again
+EA2D: 60        RTS
+
+    <a href="ro41e9c9.htm">Previous Page</a> / <a href="ro41ea2e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Puffer mit $00 fuellen ($dec1)
+E: a: Puffernummer
+
+Einsprung von <a href="ro819bc3.htm">$9C04</a>, <a href="ro819bc3.htm">$9C87</a>, <a href="ro81a459.htm">$A466</a>:
+
+9DFA: A8        TAY
+9DFB: B9 F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,Y      Adresse des Puffers (Hi) holen
+9DFE: 85 41     STA <a href="ra8140.htm">$41</a>
+9E00: A9 00     LDA #$00         (Lo) = 0
+9E02: 85 40     STA <a href="ra8140.htm">$40</a>
+9E04: A8        TAY
+
+Einsprung von $9E08:
+
+9E05: 91 40     STA ($40),Y      Puffer mit $00 fuellen
+9E07: C8        INY
+9E08: D0 FB     BNE $9E05
+9E0A: 60        RTS
+
+    <a href="ro819dde.htm">Previous Page</a> / <a href="ro819e0b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

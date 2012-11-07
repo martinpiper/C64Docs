@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Directoryzeile in Ausgabepuffer kopieren ($ed59)
+
+Einsprung von <a href="ro81b17c.htm">$B1B7</a>, <a href="ro81b17c.htm">$B1E1</a>, <a href="ro81b17c.htm">$B20D</a>:
+
+B237: A0 00     LDY #$00
+
+Einsprung von $B242:
+
+B239: B9 AC 02  LDA <a href="ra8102ac.htm">$02AC</a>,Y      Byte aus Dir-Zeilen-Puffer holen
+B23C: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        und in Puffer schreiben
+B23F: C8        INY
+B240: C0 1B     CPY #$1B         27 Zeichen kopieren
+B242: D0 F5     BNE $B239
+B244: 60        RTS
+    <a href="ro81b17c.htm">Previous Page</a> / <a href="ro81b245.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

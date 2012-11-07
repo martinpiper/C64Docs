@@ -1,0 +1,125 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehle $0a,$1a: Query Disk Format (bei der 1571: $8517)
+
+BE06: 20 B2 BC  JSR <a href="ro81bcb2.htm">$BCB2</a>        Burst-Befehl: INQUIRE-DISK
+
+(bei der 1571: $8f5f)
+
+BE09: A2 00     LDX #$00         Anzahl gefundener Sektoren = 0 setzen
+BE0B: 86 3D     STX <a href="ra813d.htm">$3D</a>
+BE0D: A9 C0     LDA #$C0         RESTORE_DV ('BUMP')
+BE0F: 20 F4 DB  JSR <a href="ro81dbc7.htm">$DBF4</a>        Nummer der ersten Spur ermitteln
+BE12: C9 02     CMP #$02         Fehler ?
+BE14: B0 59     BCS $BE6F        ja, ==&gt;
+BE16: A5 1F     LDA <a href="ra811f.htm">$1F</a>          gefundene Spurnummer aus Blockheader als
+BE18: 85 8E     STA <a href="ra818e.htm">$8E</a>          '1. physikalische Spurnummer' uebernehmen
+BE1A: 24 7C     BIT <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BE1C: 10 0F     BPL $BE2D        F-Flag (b7): bestimmte Spur abfragen ?
+BE1E: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        ja:
+BE21: 8D BC 01  STA <a href="ra8101bc.htm">$01BC</a>        Tracknummer in HDRS2 des Jobs0 schreiben
+BE24: A9 8C     LDA #$8C         SEEK_DV: sucht physikalischn Zylinder
+BE26: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BE29: C9 02     CMP #$02         Fehler ?
+BE2B: B0 42     BCS $BE6F        ja, ==&gt;
+
+Einsprung von $BE1C:
+
+BE2D: A5 7C     LDA <a href="ra817c.htm">$7C</a>          Burst-Kommandobyte holen
+BE2F: 29 10     AND #$10         S-Flag holen (Seitenauswahl)
+BE31: 4A        LSR              und nach b0 verschieben
+BE32: 4A        LSR
+BE33: 4A        LSR
+BE34: 4A        LSR              x=0
+BE35: 9D CE 01  STA <a href="ra8101ce.htm">$01CE</a>,X      in den Job-Seitenspeicher (SIDS) schreiben
+BE38: A9 9C     LDA #$9C         SIDE_DV: Seite auswaehlen
+BE3A: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BE3D: A9 B0     LDA #$B0         SEEKHD_DV: erstbesten Sektor suchen
+BE3F: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BE42: C9 02     CMP #$02         ist ein Fehler aufgetreten ?
+BE44: B0 29     BCS $BE6F        ja, ==&gt;
+BE46: A5 21     LDA <a href="ra8121.htm">$21</a>          gefundene Sektornummer
+BE48: 85 3E     STA <a href="ra813e.htm">$3E</a>          merken
+
+[Jetzt werden so lange Blockheader gesucht und die Sektornummer gemerkt,
+ bis die zuerst gefundene Nummer wieder auftaucht.]
+
+Einsprung von $BE64:
+
+BE4A: A2 00     LDX #$00         Job0 benutzen
+BE4C: A9 B0     LDA #$B0         SEEKHD_DV: naechsten Sektor suchen
+BE4E: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job aufrufen
+BE51: C9 02     CMP #$02         Fehler ?
+BE53: B0 1A     BCS $BE6F        ja, ==&gt;
+BE55: A5 21     LDA <a href="ra8121.htm">$21</a>          Sektornummer aus dem Blockheader holen
+BE57: A4 3D     LDY <a href="ra813d.htm">$3D</a>          Anzahl gefundener Sektoren holen
+BE59: 99 0B 02  STA <a href="ra810200.htm">$020B</a>,Y      Sektor in die Sektorentabelle eintragen
+BE5C: E6 3D     INC <a href="ra813d.htm">$3D</a>          Sektorenzahl erhoehen
+BE5E: C0 1F     CPY #$1F         Ende des 'Kommandopuffers' erreicht ?
+BE60: B0 0B     BCS $BE6D        ja, ==&gt;
+BE62: C5 3E     CMP <a href="ra813e.htm">$3E</a>          erste Sektornummer wieder erreicht ?
+BE64: D0 E4     BNE $BE4A        nein, ==&gt;
+
+Daten auswerten
+
+BE66: A5 3D     LDA <a href="ra813d.htm">$3D</a>
+BE68: 85 92     STA <a href="ra8192.htm">$92</a>          Anzahl Sektoren merken
+BE6A: A9 00     LDA #$00         Ok.
+BE6C: 2C         B $2C
+
+Einsprung von $BE60:
+
+BE6D: A9 02     LDA #$02         Header nicht gefunden (meint, Tabelle voll)
+
+Einsprung von $BE14, $BE2B, $BE44, $BE53:
+
+BE6F: 20 66 BF  JSR <a href="ro81bf66.htm">$BF66</a>        Burst-Status setzen
+(bei der 1571: $8523)
+
+BE72: C9 02     CMP #$02         Fehler ?
+BE74: 90 03     BCC $BE79        nein, ==&gt;
+BE76: 4C FC BA  JMP <a href="ro81bafc.htm">$BAFC</a>        Status ausgeben ==&gt;
+
+Einsprung von $BE74:
+
+BE79: 20 97 C0  JSR <a href="ro81c097.htm">$C097</a>        groesste/kleinste Sektornummer suchen
+BE7C: 20 D4 AC  JSR <a href="ro81accf.htm">$ACD4</a>        FSM auf Ausgabe schalten
+BE7F: AD EF 01  LDA <a href="ra8101ef.htm">$01EF</a>        kleinste gefundene Sektornummer
+BE82: 85 94     STA <a href="ra8194.htm">$94</a>          als 1. Sektornummer der Spur merken
+BE84: AD F0 01  LDA <a href="ra8101f0.htm">$01F0</a>        groesste gefundene Sektornummer
+BE87: 85 93     STA <a href="ra8193.htm">$93</a>          als letzten Sektor der Spur merken
+
+Spurinformation an Computer senden
+
+BE89: 20 AB BF  JSR <a href="ro81bfab.htm">$BFAB</a>        Burst-Status ausgeben
+BE8C: A5 92     LDA <a href="ra8192.htm">$92</a>          Anzahl der Sektoren
+BE8E: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        ausgeben
+BE91: A5 1F     LDA <a href="ra811f.htm">$1F</a>          Tracknummer
+BE93: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        ausgeben
+BE96: AD EF 01  LDA <a href="ra8101ef.htm">$01EF</a>        kleinste Sektornummer
+BE99: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        ausgeben
+BE9C: AD F0 01  LDA <a href="ra8101f0.htm">$01F0</a>        groesste Sektornummer
+BE9F: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        ausgeben
+BEA2: A9 01     LDA #$01         1 (soll Sektorversatz sein)
+BEA4: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        ausgeben
+BEA7: A9 20     LDA #$20         Sektorentabelle senden (T-Flag (b5)=1) ?
+BEA9: 24 7C     BIT <a href="ra817c.htm">$7C</a>
+BEAB: F0 0D     BEQ $BEBA        nein, ==&gt;
+BEAD: A0 00     LDY #$00         Tabelle ausgeben
+
+Einsprung von $BEB8:
+
+BEAF: B9 0B 02  LDA <a href="ra810200.htm">$020B</a>,Y
+BEB2: 20 86 BF  JSR <a href="ro81bf83.htm">$BF86</a>        Byte an Computer senden
+BEB5: C8        INY
+BEB6: C4 92     CPY <a href="ra8192.htm">$92</a>          Anzahl Sektoren auf der Spur
+BEB8: D0 F5     BNE $BEAF
+
+Einsprung von $BEAB:
+
+BEBA: 60        RTS
+
+    <a href="ro81bdfc.htm">Previous Page</a> / <a href="ro81bebb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E4E0/58592:   Pause After Finding Tape File
+
+Jump from <a href="romf72c.htm">$F763</a>:
+
+E4E0: 69 02     <a href="badc.htm">ADC</a> #$02
+
+Jump from $E4E9:
+
+E4E2: A4 91     <a href="bldy.htm">LDY</a> <a href="zp91.htm">$91</a>       ; Flag: $7F = STOP key
+E4E4: C8        <a href="biny.htm">INY</a>
+E4E5: D0 04     <a href="bbne.htm">BNE</a> $E4EB
+E4E7: C5 A1     <a href="bcmp.htm">CMP</a> <a href="zpa0.htm">$A1</a>       ; Real-time jiffy Clock
+E4E9: D0 F7     <a href="bbne.htm">BNE</a> $E4E2
+
+Jump from $E4E5:
+
+E4EB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome4da.htm">Previous Page</a> / <a href="rome4ec.htm">Next Page</a>
+
+Kernal-Reference:
+
+ LDA $E4EA,X : <a href="romf409.htm">$F43D</a>
+
+ LDY $E4EB,X : <a href="romf409.htm">$F43A</a>
+
+</pre></td></tr></table></center></body></html>

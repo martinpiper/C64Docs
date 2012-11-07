@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A642/42562:   Perform [new]
+
+A642: D0 FD     <a href="bbne.htm">BNE</a> <a href="roma613.htm">$A641</a>     ; Search for Line Number
+
+Jump from <a href="rome422.htm">$E444</a>:
+
+A644: A9 00     <a href="blda.htm">LDA</a> #$00
+A646: A8        <a href="btay.htm">TAY</a>
+A647: 91 2B     <a href="bsta.htm">STA</a> (<a href="zp2b.htm">$2B</a>),Y   ; Pointer: Start of BASIC Text Area
+A649: C8        <a href="biny.htm">INY</a>
+A64A: 91 2B     <a href="bsta.htm">STA</a> (<a href="zp2b.htm">$2B</a>),Y   ; Pointer: Start of BASIC Text Area
+A64C: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+A64E: 18        <a href="bclc.htm">CLC</a>
+A64F: 69 02     <a href="badc.htm">ADC</a> #$02
+A651: 85 2D     <a href="bsta.htm">STA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A653: A5 2C     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+A655: 69 00     <a href="badc.htm">ADC</a> #$00
+A657: 85 2E     <a href="bsta.htm">STA</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+
+Jump from <a href="roma4a2.htm">$A4ED</a>, <a href="roma4a2.htm">$A52A</a>, <a href="roma871.htm">$A87A</a>:
+
+A659: 20 8E A6  <a href="bjsr.htm">JSR</a> <a href="roma68e.htm">$A68E</a>     ; Reset TXTPTR
+A65C: A9 00     <a href="blda.htm">LDA</a> #$00
+
+    <a href="roma613.htm">Previous Page</a> / <a href="roma65e.htm">Next Page</a>
+
+Kernal-Reference:
+
+ BIT $A650   : <a href="romef90.htm">$EFC4</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+logischen Folgesektor holen (bei der 1571: $886c)
+
+Einsprung von <a href="ro81baae.htm">$BAEE</a>, <a href="ro81bb74.htm">$BBED</a>:
+
+C07A: A5 75     LDA <a href="ra8175.htm">$75</a>          Anzahl Sektoren pro Spur
+C07C: 38        SEC
+C07D: E9 01     SBC #$01         -1
+C07F: 85 3D     STA <a href="ra813d.htm">$3D</a>          = letzte Sektornummer
+C081: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        aktuellen Sektor holen
+C084: C5 3D     CMP <a href="ra813d.htm">$3D</a>          ist der letzte Sektor des Tracks erreicht ?
+C086: F0 06     BEQ $C08E        ja, ==&gt;
+C088: 18        CLC              Sektornummer erhoehen
+C089: 69 01     ADC #$01
+C08B: 4C 93 C0  JMP $C093
+
+Einsprung von $C086:
+
+C08E: EE 03 02  INC <a href="ra810200.htm">$0203</a>        Tracknummer erhoehen
+C091: A9 00     LDA #$00         Sektornummer auf 0 setzen
+
+Einsprung von $C08B:
+
+C093: 8D 04 02  STA <a href="ra810200.htm">$0204</a>
+C096: 60        RTS
+
+    <a href="ro81c040.htm">Previous Page</a> / <a href="ro81c097.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

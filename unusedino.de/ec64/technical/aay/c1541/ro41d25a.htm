@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D25A/53850:   Free buffer
+
+Jump from <a href="ro41d1e2.htm">$D20F</a>, <a href="ro41d227.htm">$D246</a>:
+
+D25A: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D25C: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X       ; buffer number
+D25E: C9 FF     CMP #$FF
+D260: F0 09     BEQ $D26B       ; not associated?
+D262: 48        PHA
+D263: A9 FF     LDA #$FF
+D265: 95 A7     STA <a href="ra41a7.htm">$A7</a>,X       ; erase buffer association
+D267: 68        PLA
+D268: 20 F3 D2  JSR <a href="ro41d2da.htm">$D2F3</a>       ; erase buffer allocation register
+
+Jump from $D260:
+
+D26B: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D26D: B5 AE     LDA <a href="ra41ae.htm">$AE</a>,X
+D26F: C9 FF     CMP #$FF        ; associated in second table?
+D271: F0 09     BEQ $D27C       ; no
+D273: 48        PHA
+D274: A9 FF     LDA #$FF
+D276: 95 AE     STA <a href="ra41ae.htm">$AE</a>,X       ; erase association
+D278: 68        PLA
+D279: 20 F3 D2  JSR <a href="ro41d2da.htm">$D2F3</a>       ; erase buffer in allocation register
+
+Jump from $D271:
+
+D27C: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+D27E: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X
+D280: C9 FF     CMP #$FF        ; associated in 3rd table?
+D282: F0 09     BEQ $D28D       ; no
+D284: 48        PHA
+D285: A9 FF     LDA #$FF
+D287: 95 CD     STA <a href="ra41cd.htm">$CD</a>,X       ; erase association
+D289: 68        PLA
+D28A: 20 F3 D2  JSR <a href="ro41d2da.htm">$D2F3</a>       ; erase buffer in allocation register
+
+Jump from $D282:
+
+D28D: 60        RTS
+
+    <a href="ro41d227.htm">Previous Page</a> / <a href="ro41d28e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

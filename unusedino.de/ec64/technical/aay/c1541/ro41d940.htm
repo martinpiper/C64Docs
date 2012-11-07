@@ -1,0 +1,68 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D940/55616:   ?
+
+Jump from <a href="ro41d815.htm">$D8AE</a>:
+
+D940: AD 80 02  LDA <a href="ra410280.htm">$0280</a>       ; first track number
+D943: D0 05     BNE $D94A       ; file not erased?
+D945: A9 62     LDA #$62
+D947: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 62, 'file not found'
+
+Jump from $D943:
+
+D94A: AD 97 02  LDA <a href="ra410297.htm">$0297</a>       ; control mode
+D94D: C9 03     CMP #$03        ; 'M'
+D94F: F0 0B     BEQ $D95C       ; yes, then no test of unclosed file
+D951: A9 20     LDA #$20        ; bit 5
+D953: 24 E7     BIT <a href="ra41e7.htm">$E7</a>         ; test in file type
+D955: F0 05     BEQ $D95C       ; not set, ok
+D957: A9 60     LDA #$60
+D959: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>
+
+Jump from $D94F, $D955:
+
+D95C: A5 E7     LDA <a href="ra41e7.htm">$E7</a>
+D95E: 29 07     AND #$07        ; isolate file type
+D960: CD 4A 02  CMP <a href="ra41024a.htm">$024A</a>
+D963: F0 05     BEQ $D96A
+
+Jump from $D978, <a href="ro41d8f5.htm">$D8FC</a>, <a href="ro41d8f5.htm">$D900</a>:
+
+D965: A9 64     LDA #$64
+D967: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 64, 'file type mismatch'
+
+Jump from $D963:
+
+D96A: A0 00     LDY #$00
+D96C: 8C 79 02  STY <a href="ra410279.htm">$0279</a>
+D96F: AE 97 02  LDX <a href="ra410297.htm">$0297</a>       ; control mode
+D972: E0 02     CPX #$02        ; 'A', append
+D974: D0 1A     BNE $D990       ; no
+D976: C9 04     CMP #$04        ; rel-file?
+D978: F0 EB     BEQ $D965
+D97A: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+D97C: 29 4F     AND #$4F
+D97E: 91 94     STA (<a href="ra4194.htm">$94</a>),Y
+D980: A5 83     LDA <a href="ra4183.htm">$83</a>
+D982: 48        PHA
+D983: A9 11     LDA #$11
+D985: 85 83     STA <a href="ra4183.htm">$83</a>         ; channel 17
+D987: 20 3B DE  JSR <a href="ro41de3b.htm">$DE3B</a>       ; get track and sector number
+D98A: 20 64 D4  JSR <a href="ro41d464.htm">$D464</a>       ; write block
+D98D: 68        PLA
+D98E: 85 83     STA <a href="ra4183.htm">$83</a>         ; get channel number back
+
+Jump from $D974:
+
+D990: 20 A0 D9  JSR <a href="ro41d9a0.htm">$D9A0</a>
+D993: AD 97 02  LDA <a href="ra410297.htm">$0297</a>       ; control mode
+D996: C9 02     CMP #$02
+D998: D0 55     BNE <a href="ro41d9e3.htm">$D9EF</a>
+D99A: 20 2A DA  JSR <a href="ro41da2a.htm">$DA2A</a>
+D99D: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done
+
+    <a href="ro41d8f5.htm">Previous Page</a> / <a href="ro41d9a0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

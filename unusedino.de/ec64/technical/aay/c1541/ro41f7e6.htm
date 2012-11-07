@@ -1,0 +1,124 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F7E6/63462:   Convert 5 GCR bytes to 4 binary bytes
+
+Jump from <a href="ro41f423.htm">$F4A9</a>, <a href="ro41f423.htm">$F4B8</a>, <a href="ro41f5f2.htm">$F60A</a>, <a href="ro41f5f2.htm">$F624</a>, <a href="ro41f5f2.htm">$F64F</a>, <a href="ro41f8e0.htm">$F8F4</a>, <a href="ro41f8e0.htm">$F90E</a>:
+
+F7E6: A4 34     LDY <a href="ra4134.htm">$34</a>
+F7E8: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F7EA: 29 F8     AND #$F8
+F7EC: 4A        LSR
+F7ED: 4A        LSR
+F7EE: 4A        LSR
+F7EF: 85 56     STA <a href="ra4156.htm">$56</a>
+F7F1: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F7F3: 29 07     AND #$07
+F7F5: 0A        ASL
+F7F6: 0A        ASL
+F7F7: 85 57     STA <a href="ra4156.htm">$57</a>
+F7F9: C8        INY
+F7FA: D0 06     BNE $F802
+F7FC: A5 4E     LDA <a href="ra414e.htm">$4E</a>
+F7FE: 85 31     STA <a href="ra4130.htm">$31</a>
+F800: A4 4F     LDY <a href="ra414e.htm">$4F</a>
+
+Jump from $F7FA:
+
+F802: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F804: 29 C0     AND #$C0
+F806: 2A        ROL
+F807: 2A        ROL
+F808: 2A        ROL
+F809: 05 57     ORA <a href="ra4156.htm">$57</a>
+F80B: 85 57     STA <a href="ra4156.htm">$57</a>
+F80D: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F80F: 29 3E     AND #$3E
+F811: 4A        LSR
+F812: 85 58     STA <a href="ra4156.htm">$58</a>
+F814: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F816: 29 01     AND #$01
+F818: 0A        ASL
+F819: 0A        ASL
+F81A: 0A        ASL
+F81B: 0A        ASL
+F81C: 85 59     STA <a href="ra4156.htm">$59</a>
+F81E: C8        INY
+F81F: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F821: 29 F0     AND #$F0
+F823: 4A        LSR
+F824: 4A        LSR
+F825: 4A        LSR
+F826: 4A        LSR
+F827: 05 59     ORA <a href="ra4156.htm">$59</a>
+F829: 85 59     STA <a href="ra4156.htm">$59</a>
+F82B: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F82D: 29 0F     AND #$0F
+F82F: 0A        ASL
+F830: 85 5A     STA <a href="ra4156.htm">$5A</a>
+F832: C8        INY
+F833: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F835: 29 80     AND #$80
+F837: 18        CLC
+F838: 2A        ROL
+F839: 2A        ROL
+F83A: 29 01     AND #$01
+F83C: 05 5A     ORA <a href="ra4156.htm">$5A</a>
+F83E: 85 5A     STA <a href="ra4156.htm">$5A</a>
+F840: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F842: 29 7C     AND #$7C
+F844: 4A        LSR
+F845: 4A        LSR
+F846: 85 5B     STA <a href="ra4156.htm">$5B</a>
+F848: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F84A: 29 03     AND #$03
+F84C: 0A        ASL
+F84D: 0A        ASL
+F84E: 0A        ASL
+F84F: 85 5C     STA <a href="ra4156.htm">$5C</a>
+F851: C8        INY
+F852: D0 06     BNE $F85A
+F854: A5 4E     LDA <a href="ra414e.htm">$4E</a>
+F856: 85 31     STA <a href="ra4130.htm">$31</a>
+F858: A4 4F     LDY <a href="ra414e.htm">$4F</a>
+
+Jump from $F852:
+
+F85A: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F85C: 29 E0     AND #$E0
+F85E: 2A        ROL
+F85F: 2A        ROL
+F860: 2A        ROL
+F861: 2A        ROL
+F862: 05 5C     ORA <a href="ra4156.htm">$5C</a>
+F864: 85 5C     STA <a href="ra4156.htm">$5C</a>
+F866: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F868: 29 1F     AND #$1F
+F86A: 85 5D     STA <a href="ra4156.htm">$5D</a>
+F86C: C8        INY
+F86D: 84 34     STY <a href="ra4134.htm">$34</a>
+F86F: A6 56     LDX <a href="ra4156.htm">$56</a>
+F871: BD A0 F8  LDA <a href="ro41f8a0.htm">$F8A0</a>,X
+F874: A6 57     LDX <a href="ra4156.htm">$57</a>
+F876: 1D C0 F8  ORA <a href="ro41f8c0.htm">$F8C0</a>,X
+F879: 85 52     STA <a href="ra4152.htm">$52</a>
+F87B: A6 58     LDX <a href="ra4156.htm">$58</a>
+F87D: BD A0 F8  LDA <a href="ro41f8a0.htm">$F8A0</a>,X
+F880: A6 59     LDX <a href="ra4156.htm">$59</a>
+F882: 1D C0 F8  ORA <a href="ro41f8c0.htm">$F8C0</a>,X
+F885: 85 53     STA <a href="ra4152.htm">$53</a>
+F887: A6 5A     LDX <a href="ra4156.htm">$5A</a>
+F889: BD A0 F8  LDA <a href="ro41f8a0.htm">$F8A0</a>,X
+F88C: A6 5B     LDX <a href="ra4156.htm">$5B</a>
+F88E: 1D C0 F8  ORA <a href="ro41f8c0.htm">$F8C0</a>,X
+F891: 85 54     STA <a href="ra4152.htm">$54</a>
+F893: A6 5C     LDX <a href="ra4156.htm">$5C</a>
+F895: BD A0 F8  LDA <a href="ro41f8a0.htm">$F8A0</a>,X
+F898: A6 5D     LDX <a href="ra4156.htm">$5D</a>
+F89A: 1D C0 F8  ORA <a href="ro41f8c0.htm">$F8C0</a>,X
+F89D: 85 55     STA <a href="ra4152.htm">$55</a>
+F89F: 60        RTS
+
+    <a href="ro41f78f.htm">Previous Page</a> / <a href="ro41f8a0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E518/58648:   Initialize I/O
+
+Jump from <a href="romfe66.htm">$FE6C</a>, <a href="romff5b.htm">$FF5B</a>:
+
+E518: 20 A0 E5  <a href="bjsr.htm">JSR</a> <a href="rome5a0.htm">$E5A0</a>     ; Set I/O Defaults
+E51B: A9 00     <a href="blda.htm">LDA</a> #$00
+E51D: 8D 91 02  <a href="bsta.htm">STA</a> <a href="zp0291.htm">$0291</a>     ; Flag: Upper/Lower Case change
+E520: 85 CF     <a href="bsta.htm">STA</a> <a href="zpcf.htm">$CF</a>       ; Flag: Cursor Status
+E522: A9 48     <a href="blda.htm">LDA</a> #$48
+E524: 8D 8F 02  <a href="bsta.htm">STA</a> <a href="zp028f.htm">$028F</a>     ; Vector: Routine to determine Keyboard table
+E527: A9 EB     <a href="blda.htm">LDA</a> #$EB
+E529: 8D 90 02  <a href="bsta.htm">STA</a> <a href="zp028f.htm">$0290</a>     ; Vector: Routine to determine Keyboard table
+E52C: A9 0A     <a href="blda.htm">LDA</a> #$0A
+E52E: 8D 89 02  <a href="bsta.htm">STA</a> <a href="zp0289.htm">$0289</a>     ; Maximum number of Bytes in Keyboard Buffer
+E531: 8D 8C 02  <a href="bsta.htm">STA</a> <a href="zp028c.htm">$028C</a>     ; Repeat Key: First repeat delay Counter
+E534: A9 0E     <a href="blda.htm">LDA</a> #$0E
+<b>* SX64:
+E534: A9 0E     <a href="blda.htm">LDA</a> #$06
+</b>
+E536: 8D 86 02  <a href="bsta.htm">STA</a> <a href="zp0286.htm">$0286</a>     ; Current Character Color code
+E539: A9 04     <a href="blda.htm">LDA</a> #$04
+E53B: 8D 8B 02  <a href="bsta.htm">STA</a> <a href="zp028b.htm">$028B</a>     ; Repeat Key: Speed Counter
+E53E: A9 0C     <a href="blda.htm">LDA</a> #$0C
+E540: 85 CD     <a href="bsta.htm">STA</a> <a href="zpcd.htm">$CD</a>       ; Timer: Count down for Cursor blink toggle
+E542: 85 CC     <a href="bsta.htm">STA</a> <a href="zpcc.htm">$CC</a>       ; Flag: Cursor blink
+
+    <a href="rome50a.htm">Previous Page</a> / <a href="rome544.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

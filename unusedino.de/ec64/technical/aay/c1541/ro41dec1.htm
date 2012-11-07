@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DEC1/57025:   Erase buffer Y
+
+Jump from <a href="ro41dcda.htm">$DD1A</a>, <a href="ro41e44e.htm">$E45B</a>:
+
+DEC1: A8        TAY             ; buffer number
+DEC2: B9 E0 FE  LDA <a href="ro41fee0.htm">$FEE0</a>,Y     ; get hi-address
+DEC5: 85 70     STA <a href="ra416f.htm">$70</a>
+DEC7: A9 00     LDA #$00        ; lo-address
+DEC9: 85 6F     STA <a href="ra416f.htm">$6F</a>
+DECB: A8        TAY
+
+Jump from $DECF:
+
+DECC: 91 6F     STA (<a href="ra416f.htm">$6F</a>),Y     ; erase buffer
+DECE: C8        INY
+DECF: D0 FB     BNE $DECC
+DED1: 60        RTS
+
+    <a href="ro41dea5.htm">Previous Page</a> / <a href="ro41ded2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

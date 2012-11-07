@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DAC0/56000:   Close routine
+
+Jump from <a href="ro41e85b.htm">$E8CE</a>:
+
+DAC0: A9 00     LDA #$00
+DAC2: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+DAC5: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+DAC7: D0 0B     BNE $DAD4       ; not zero?
+DAC9: A9 00     LDA #$00        ; secondary address 0, LOAD
+DACB: 8D 54 02  STA <a href="ra410254.htm">$0254</a>
+DACE: 20 27 D2  JSR <a href="ro41d227.htm">$D227</a>       ; close channel
+
+Jump from $DADF:
+
+DAD1: 4C DA D4  JMP <a href="ro41d4da.htm">$D4DA</a>       ; close internal channels 17 &amp; 18
+
+Jump from $DAC7:
+
+DAD4: C9 0F     CMP #$0F        ; 15
+DAD6: F0 14     BEQ $DAEC       ; yes, close all channels
+DAD8: 20 02 DB  JSR <a href="ro41db02.htm">$DB02</a>       ; close file
+DADB: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+DADD: C9 02     CMP #$02
+DADF: 90 F0     BCC $DAD1       ; smaller than 2?
+DAE1: AD 6C 02  LDA <a href="ra41026c.htm">$026C</a>
+DAE4: D0 03     BNE $DAE9
+DAE6: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; termination
+
+Jump from $DAE4:
+
+DAE9: 4C AD C1  JMP <a href="ro41c194.htm">$C1AD</a>
+
+Jump from $DAD6:
+
+DAEC: A9 0E     LDA #$0E        ; 14
+DAEE: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+
+Jump from $DAF5:
+
+DAF0: 20 02 DB  JSR <a href="ro41db02.htm">$DB02</a>       ; close file
+DAF3: C6 83     DEC <a href="ra4183.htm">$83</a>         ; next secondary address
+DAF5: 10 F9     BPL $DAF0
+DAF7: AD 6C 02  LDA <a href="ra41026c.htm">$026C</a>
+DAFA: D0 03     BNE $DAFF
+DAFC: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; termination
+
+Jump from $DAFA:
+
+DAFF: 4C AD C1  JMP <a href="ro41c194.htm">$C1AD</a>
+
+    <a href="ro41da55.htm">Previous Page</a> / <a href="ro41db02.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

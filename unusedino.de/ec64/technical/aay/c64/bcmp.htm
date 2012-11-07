@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  CMP                CMP Compare memory and accumulator                 CMP
+
+  Operation:  A - M                                     N V - B D I Z C
+                                                        / . . . . . / /
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>     |   CMP #$FF            |   $C9   |    2    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   CMP $FF             |   $C5   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   CMP $FF,X           |   $D5   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   CMP $FFFF           |   $CD   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   CMP $FFFF,X         |   $DD   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   CMP $FFFF,Y         |   $D9   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   CMP ($FF,X)         |   $C1   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   CMP ($FF),Y         |   $D1   |    2    |    5*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 if page boundary is crossed.
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3a.htm">AbsoluteLong</a>   |   CMP $FFFFFF         |   $CF   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr13.htm">AbsoluteLong,X</a> |   CMP $FFFFFF,X       |   $DF   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr18.htm">(Indirect)</a>     |   CMP ($FF)           |   $D2   |    2    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr19.htm">[Indirect Long]</a>|   CMP [$FF]           |   $C7   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr8.htm">[Ind.Long],Y</a>   |   CMP [$FF],Y         |   $D7   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr22.htm">Relative,S</a>     |   CMP $FF,S           |   $C3   |    2    |     4    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr23.htm">(Indirect,S),Y</a> |   CMP ($FF,S),Y       |   $D3   |    2    |     7    |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

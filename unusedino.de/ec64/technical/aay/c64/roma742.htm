@@ -1,0 +1,69 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A742/42818:   Perform [for]
+
+A742: A9 80     <a href="blda.htm">LDA</a> #$80
+A744: 85 10     <a href="bsta.htm">STA</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+A746: 20 A5 A9  <a href="bjsr.htm">JSR</a> <a href="roma9a5.htm">$A9A5</a>     ; Perform [let]
+A749: 20 8A A3  <a href="bjsr.htm">JSR</a> <a href="roma38a.htm">$A38A</a>     ; Find FOR/GOSUB Entry on Stack
+A74C: D0 05     <a href="bbne.htm">BNE</a> $A753
+A74E: 8A        <a href="btxa.htm">TXA</a>
+A74F: 69 0F     <a href="badc.htm">ADC</a> #$0F
+A751: AA        <a href="btax.htm">TAX</a>
+A752: 9A        <a href="btxs.htm">TXS</a>
+
+Jump from $A74C:
+
+A753: 68        <a href="bpla.htm">PLA</a>
+A754: 68        <a href="bpla.htm">PLA</a>
+A755: A9 09     <a href="blda.htm">LDA</a> #$09
+A757: 20 FB A3  <a href="bjsr.htm">JSR</a> <a href="roma3fb.htm">$A3FB</a>     ; Check Stack Depth
+A75A: 20 06 A9  <a href="bjsr.htm">JSR</a> <a href="roma906.htm">$A906</a>     ; Search for Next Statement / Line
+A75D: 18        <a href="bclc.htm">CLC</a>
+A75E: 98        <a href="btya.htm">TYA</a>
+A75F: 65 7A     <a href="badc.htm">ADC</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A761: 48        <a href="bpha.htm">PHA</a>
+A762: A5 7B     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A764: 69 00     <a href="badc.htm">ADC</a> #$00
+A766: 48        <a href="bpha.htm">PHA</a>
+A767: A5 3A     <a href="blda.htm">LDA</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+A769: 48        <a href="bpha.htm">PHA</a>
+A76A: A5 39     <a href="blda.htm">LDA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+A76C: 48        <a href="bpha.htm">PHA</a>
+A76D: A9 A4     <a href="blda.htm">LDA</a> #$A4
+A76F: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+A772: 20 8D AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8D</a>     ; Confirm Result
+A775: 20 8A AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8A</a>     ; Confirm Result
+A778: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+A77A: 09 7F     <a href="bora.htm">ORA</a> #$7F
+A77C: 25 62     <a href="band.htm">AND</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+A77E: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+A780: A9 8B     <a href="blda.htm">LDA</a> #$8B
+A782: A0 A7     <a href="bldy.htm">LDY</a> #$A7
+A784: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A786: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A788: 4C 43 AE  <a href="bjmp.htm">JMP</a> <a href="romad9e.htm">$AE43</a>     ; Evaluate Expression in Text
+A78B: A9 BC     <a href="blda.htm">LDA</a> #$BC
+A78D: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+A78F: 20 A2 BB  <a href="bjsr.htm">JSR</a> <a href="rombba2.htm">$BBA2</a>     ; Load FAC#1 From Memory
+A792: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+A795: C9 A9     <a href="bcmp.htm">CMP</a> #$A9
+A797: D0 06     <a href="bbne.htm">BNE</a> $A79F
+A799: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A79C: 20 8A AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8A</a>     ; Confirm Result
+
+Jump from $A797:
+
+A79F: 20 2B BC  <a href="bjsr.htm">JSR</a> <a href="rombc2b.htm">$BC2B</a>     ; Check Sign of FAC#1
+A7A2: 20 38 AE  <a href="bjsr.htm">JSR</a> <a href="romad9e.htm">$AE38</a>     ; Evaluate Expression in Text
+A7A5: A5 4A     <a href="blda.htm">LDA</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A7A7: 48        <a href="bpha.htm">PHA</a>
+A7A8: A5 49     <a href="blda.htm">LDA</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+A7AA: 48        <a href="bpha.htm">PHA</a>
+A7AB: A9 81     <a href="blda.htm">LDA</a> #$81
+A7AD: 48        <a href="bpha.htm">PHA</a>
+
+    <a href="roma717.htm">Previous Page</a> / <a href="roma7ae.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

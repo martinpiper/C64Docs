@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E12A/57642:   Perform [sys]
+
+E12A: 20 8A AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8A</a>     ; Confirm Result
+E12D: 20 F7 B7  <a href="bjsr.htm">JSR</a> <a href="romb7f7.htm">$B7F7</a>     ; Convert FAC#1 to Integer in LINNUM
+E130: A9 E1     <a href="blda.htm">LDA</a> #$E1
+E132: 48        <a href="bpha.htm">PHA</a>
+E133: A9 46     <a href="blda.htm">LDA</a> #$46
+E135: 48        <a href="bpha.htm">PHA</a>
+E136: AD 0F 03  <a href="blda.htm">LDA</a> <a href="zp030f.htm">$030F</a>     ; Storage for 6510 Status Register during SYS
+E139: 48        <a href="bpha.htm">PHA</a>
+E13A: AD 0C 03  <a href="blda.htm">LDA</a> <a href="zp030c.htm">$030C</a>     ; Storage for 6510 Accumulator during SYS
+E13D: AE 0D 03  <a href="bldx.htm">LDX</a> <a href="zp030d.htm">$030D</a>     ; Storage for 6510 X-Register during SYS
+E140: AC 0E 03  <a href="bldy.htm">LDY</a> <a href="zp030e.htm">$030E</a>     ; Storage for 6510 Y-Register during SYS
+E143: 28        <a href="bplp.htm">PLP</a>
+E144: 6C 14 00  <a href="bjmp.htm">JMP</a> (<a href="zp14.htm">$0014</a>)   ; Temporary: Integer value
+E147: 08        <a href="bphp.htm">PHP</a>
+E148: 8D 0C 03  <a href="bsta.htm">STA</a> <a href="zp030c.htm">$030C</a>     ; Storage for 6510 Accumulator during SYS
+E14B: 8E 0D 03  <a href="bstx.htm">STX</a> <a href="zp030d.htm">$030D</a>     ; Storage for 6510 X-Register during SYS
+E14E: 8C 0E 03  <a href="bsty.htm">STY</a> <a href="zp030e.htm">$030E</a>     ; Storage for 6510 Y-Register during SYS
+E151: 68        <a href="bpla.htm">PLA</a>
+E152: 8D 0F 03  <a href="bsta.htm">STA</a> <a href="zp030f.htm">$030F</a>     ; Storage for 6510 Status Register during SYS
+E155: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome124.htm">Previous Page</a> / <a href="rome156.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

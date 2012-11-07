@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B24D/45645:   ?REDIM'D ARRAY
+
+Jump from <a href="romb218.htm">$B235</a>:
+
+B24D: A2 13     <a href="bldx.htm">LDX</a> #$13
+B24F: A5 0C     <a href="blda.htm">LDA</a> <a href="zp0c.htm">$0C</a>       ; Flag: Default Array dimension
+B251: D0 F7     <a href="bbne.htm">BNE</a> <a href="romb248.htm">$B24A</a>     ; ?ILLEGAL QUANTITY
+B253: 20 94 B1  <a href="bjsr.htm">JSR</a> <a href="romb194.htm">$B194</a>     ; Allocate Array Pointer Space
+B256: A5 0B     <a href="blda.htm">LDA</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B258: A0 04     <a href="bldy.htm">LDY</a> #$04
+B25A: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B25C: D0 E7     <a href="bbne.htm">BNE</a> <a href="romb245.htm">$B245</a>     ; ?BAD SUBSCRIPT
+B25E: 4C EA B2  <a href="bjmp.htm">JMP</a> <a href="romb261.htm">$B2EA</a>     ; Create Array
+
+    <a href="romb248.htm">Previous Page</a> / <a href="romb261.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

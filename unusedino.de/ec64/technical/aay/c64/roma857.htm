@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A857/43095:   Perform [cont]
+
+A857: D0 17     <a href="bbne.htm">BNE</a> $A870
+A859: A2 1A     <a href="bldx.htm">LDX</a> #$1A
+A85B: A4 3E     <a href="bldy.htm">LDY</a> <a href="zp3d.htm">$3E</a>       ; Pointer: BASIC Statement for CONT
+A85D: D0 03     <a href="bbne.htm">BNE</a> $A862
+A85F: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $A85D:
+
+A862: A5 3D     <a href="blda.htm">LDA</a> <a href="zp3d.htm">$3D</a>       ; Pointer: BASIC Statement for CONT
+A864: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A866: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A868: A5 3B     <a href="blda.htm">LDA</a> <a href="zp3b.htm">$3B</a>       ; Previous BASIC Line number
+A86A: A4 3C     <a href="bldy.htm">LDY</a> <a href="zp3b.htm">$3C</a>       ; Previous BASIC Line number
+A86C: 85 39     <a href="bsta.htm">STA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+A86E: 84 3A     <a href="bsty.htm">STY</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+
+Jump from $A857, <a href="roma831.htm">$A832</a>:
+
+A870: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma831.htm">Previous Page</a> / <a href="roma871.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

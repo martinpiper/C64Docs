@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Commodore 1540/1541 Service Manual: Clock Circuits</title>
+</head>
+<body bgcolor="#ffffff">
+<h2 align="right">1541 CIRCUIT THEORY</h2>
+
+<center><a href="http://unusedino.de/ec64/technical/misc/c1541/sm-html/large/07.gif"><img src="small/07.gif" alt="[Clock Circuit schematic]"></a></center>
+
+<h3>The Clock Circuits</h3>
+
+Crystal Y1 outputs a 16Mhz clock signal. THis is input to UD5 on pin 8. UD5 is configured as a &divide; 16 frequency divider. The output of UD5 pin 12 is a 1 MHz clock signal used as the system clock (Phase 0) for the microprocessor. UE6 is a programmable
+counter ( &divide; 16, &divide; 15, &divide; 14, &divide; 13) that outputs a varying frequency clock used to compensate for the difference in recording area/sector for sectors on inner tracks (Trks 1,2,3) as compared to sectors on out most tracks (Trks
+33,34,35). The area/sector for inner tracks is less than the area/sector for out most tracks, so the recording clock frequency is increased when writing on inner tracks to keep the flux density constant. This clock output is on pin 12 of UE6. 
+
+<center>
+<table>
+<tr>
+<th>Tracks</th>
+<th colspan="2">Clock Frequency</th>
+<th>Divide By</th>
+</tr>
+
+<tr>
+<td>1-17</td>
+<td align="right">1.2307</td>
+<td>MHz</td>
+<td>13</td>
+</tr>
+
+<tr>
+<td>18-24</td>
+<td align="right">1.1428</td>
+<td>MHz</td>
+<td>14</td>
+</tr>
+
+<tr>
+<td>15-30</td>
+<td align="right">1.0666</td>
+<td>MHz</td>
+<td>15</td>
+</tr>
+
+<tr>
+<td>31-35</td>
+<td align="right">1</td>
+<td>MHz</td>
+<td>16</td>
+</tr>
+</table>
+</center>
+
+</body>
+</html>
+

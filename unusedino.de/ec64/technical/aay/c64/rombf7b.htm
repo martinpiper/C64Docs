@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BF7B/49019:   Evaluate &lt;power&gt;
+
+BF7B: F0 70     <a href="bbeq.htm">BEQ</a> <a href="rombfed.htm">$BFED</a>     ; Evaluate &lt;exp&gt;
+BF7D: A5 69     <a href="blda.htm">LDA</a> <a href="zp69.htm">$69</a>       ; AFAC Exponent
+BF7F: D0 03     <a href="bbne.htm">BNE</a> $BF84
+BF81: 4C F9 B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B8F9</a>     ; Perform Addition
+
+Jump from $BF7F:
+
+BF84: A2 4E     <a href="bldx.htm">LDX</a> #$4E
+BF86: A0 00     <a href="bldy.htm">LDY</a> #$00
+BF88: 20 D4 BB  <a href="bjsr.htm">JSR</a> <a href="rombbc7.htm">$BBD4</a>     ; Store FAC#1 in Memory
+BF8B: A5 6E     <a href="blda.htm">LDA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+BF8D: 10 0F     <a href="bbpl.htm">BPL</a> $BF9E
+BF8F: 20 CC BC  <a href="bjsr.htm">JSR</a> <a href="rombccc.htm">$BCCC</a>     ; Evaluate &lt;int&gt;
+BF92: A9 4E     <a href="blda.htm">LDA</a> #$4E
+BF94: A0 00     <a href="bldy.htm">LDY</a> #$00
+BF96: 20 5B BC  <a href="bjsr.htm">JSR</a> <a href="rombc5b.htm">$BC5B</a>     ; Compare FAC#1 With Memory
+BF99: D0 03     <a href="bbne.htm">BNE</a> $BF9E
+BF9B: 98        <a href="btya.htm">TYA</a>
+BF9C: A4 07     <a href="bldy.htm">LDY</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+
+Jump from $BF8D, $BF99:
+
+BF9E: 20 FE BB  <a href="bjsr.htm">JSR</a> <a href="rombbfc.htm">$BBFE</a>     ; Copy FAC#2 into FAC#1
+BFA1: 98        <a href="btya.htm">TYA</a>
+BFA2: 48        <a href="bpha.htm">PHA</a>
+BFA3: 20 EA B9  <a href="bjsr.htm">JSR</a> <a href="romb9ea.htm">$B9EA</a>     ; Evaluate &lt;log&gt;
+BFA6: A9 4E     <a href="blda.htm">LDA</a> #$4E
+BFA8: A0 00     <a href="bldy.htm">LDY</a> #$00
+BFAA: 20 28 BA  <a href="bjsr.htm">JSR</a> <a href="romba28.htm">$BA28</a>     ; Perform Multiply
+BFAD: 20 ED BF  <a href="bjsr.htm">JSR</a> <a href="rombfed.htm">$BFED</a>     ; Evaluate &lt;exp&gt;
+BFB0: 68        <a href="bpla.htm">PLA</a>
+BFB1: 4A        <a href="blsr.htm">LSR</a>
+BFB2: 90 0A     <a href="bbcc.htm">BCC</a> <a href="rombfb4.htm">$BFBE</a>     ; Negate FAC#1
+
+    <a href="rombf71.htm">Previous Page</a> / <a href="rombfb4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

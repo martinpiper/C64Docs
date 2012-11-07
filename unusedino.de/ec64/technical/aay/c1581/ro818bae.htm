@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block-Write ($cd73)
+
+8BAE: 20 2F 8C  JSR <a href="ro818c2f.htm">$8C2F</a>        Kanal oeffnen, Parameter holen
+8BB1: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+8BB4: A8        TAY
+8BB5: 88        DEY              auf letztes benutztes Byte setzen
+8BB6: C9 02     CMP #$02         Pufferzeiger &lt;=2 ?
+8BB8: B0 02     BCS $8BBC        nein, ==&gt;
+8BBA: A0 01     LDY #$01         Puffer muss mindestens 1 Datenbyte enthalten
+
+Einsprung von $8BB8:
+
+8BBC: A9 00     LDA #$00
+8BBE: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger auf 0 setzen
+8BC1: 98        TYA
+8BC2: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Byte in Puffer schreiben
+8BC5: 8A        TXA              Puffernummer merken
+8BC6: 48        PHA
+8BC7: 20 C1 93  JSR <a href="ro8193bd.htm">$93C1</a>        Puffer auf Disk schreiben
+8BCA: 68        PLA
+8BCB: AA        TAX              Puffernummer zurueckholen
+8BCC: A4 50     LDY <a href="ra8150.htm">$50</a>
+8BCE: 4C 09 8C  JMP <a href="ro818bfa.htm">$8C09</a>        Byte fuer Ausgabe bereitstellen
+    <a href="ro818b9a.htm">Previous Page</a> / <a href="ro818bd1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

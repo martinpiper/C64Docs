@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  ORA                 ORA &quot;OR&quot; memory with accumulator                  ORA
+
+  Operation: A V M -&gt; A                                 N V - B D I Z C
+                                                        / . . . . . / .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>     |   ORA #$FF            |   $09   |    2    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   ORA $FF             |   $05   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   ORA $FF,X           |   $15   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   ORA $FFFF           |   $0D   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   ORA $FFFF,X         |   $1D   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   ORA $FFFF,Y         |   $19   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   ORA ($FF,X)         |   $01   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   ORA ($FF),Y         |   $11   |    2    |    5*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 on page crossing
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3a.htm">AbsoluteLong</a>   |   ORA $FFFFFF         |   $0F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr13.htm">AbsoluteLong,X</a> |   ORA $FFFFFF,X       |   $1F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr18.htm">(Indirect)</a>     |   ORA ($FF)           |   $12   |    2    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr19.htm">[Indirect Long]</a>|   ORA [$FF]           |   $07   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr8.htm">[Ind.Long],Y</a>   |   ORA [$FF],Y         |   $17   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr22.htm">Relative,S</a>     |   ORA $FF,S           |   $03   |    2    |     4    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr23.htm">(Indirect,S),Y</a> |   ORA ($FF,S),Y       |   $13   |    2    |     7    |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B606/46598:   Collect a String
+
+Jump from <a href="romb526.htm">$B57A</a>:
+
+B606: A5 4F     <a href="blda.htm">LDA</a> <a href="zp4e.htm">$4F</a>       ; Temporary storage for FLPT value
+B608: 05 4E     <a href="bora.htm">ORA</a> <a href="zp4e.htm">$4E</a>       ; Temporary storage for FLPT value
+B60A: F0 F5     <a href="bbeq.htm">BEQ</a> <a href="romb5bd.htm">$B601</a>     ; Search for Next String
+B60C: A5 55     <a href="blda.htm">LDA</a> <a href="zp54.htm">$55</a>       ; Jump Vector used in Function Evaluation
+B60E: 29 04     <a href="band.htm">AND</a> #$04
+B610: 4A        <a href="blsr.htm">LSR</a>
+B611: A8        <a href="btay.htm">TAY</a>
+B612: 85 55     <a href="bsta.htm">STA</a> <a href="zp54.htm">$55</a>       ; Jump Vector used in Function Evaluation
+B614: B1 4E     <a href="blda.htm">LDA</a> (<a href="zp4e.htm">$4E</a>),Y   ; Temporary storage for FLPT value
+B616: 65 5F     <a href="badc.htm">ADC</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B618: 85 5A     <a href="bsta.htm">STA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+B61A: A5 60     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B61C: 69 00     <a href="badc.htm">ADC</a> #$00
+B61E: 85 5B     <a href="bsta.htm">STA</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+B620: A5 33     <a href="blda.htm">LDA</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B622: A6 34     <a href="bldx.htm">LDX</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B624: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B626: 86 59     <a href="bstx.htm">STX</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B628: 20 BF A3  <a href="bjsr.htm">JSR</a> <a href="roma3b8.htm">$A3BF</a>     ; Open Space in Memory
+B62B: A4 55     <a href="bldy.htm">LDY</a> <a href="zp54.htm">$55</a>       ; Jump Vector used in Function Evaluation
+B62D: C8        <a href="biny.htm">INY</a>
+B62E: A5 58     <a href="blda.htm">LDA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B630: 91 4E     <a href="bsta.htm">STA</a> (<a href="zp4e.htm">$4E</a>),Y   ; Temporary storage for FLPT value
+B632: AA        <a href="btax.htm">TAX</a>
+B633: E6 59     <a href="binc.htm">INC</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B635: A5 59     <a href="blda.htm">LDA</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B637: C8        <a href="biny.htm">INY</a>
+B638: 91 4E     <a href="bsta.htm">STA</a> (<a href="zp4e.htm">$4E</a>),Y   ; Temporary storage for FLPT value
+B63A: 4C 2A B5  <a href="bjmp.htm">JMP</a> <a href="romb526.htm">$B52A</a>     ; Garbage Collection
+
+    <a href="romb5bd.htm">Previous Page</a> / <a href="romb63d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

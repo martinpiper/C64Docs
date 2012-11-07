@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  JMP                     JMP Jump to new location                      JMP
+
+  Operation:  (PC + 1) -&gt; PCL                           N V - B D I Z C
+              (PC + 2) -&gt; PCH                           . . . . . . . .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2c.htm">Absolute</a>      |   JMP $FFFF           |   $4C   |    3    |    3     |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr17a.htm">(Abs.Indirect)</a> |   JMP ($FFFF)         |   $6C   |    3    |    5     |
+  +----------------+-----------------------+---------+---------+----------+
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr20a.htm">(Abs.Ind.,X)</a>   |   JMP ($FFFF,X)       |   $7C   |    3    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3b.htm">AbsoluteLong</a>   |   JMP $FFFFFF         |   $5C   |    4    |     4    |
+  +----------------+-----------------------+---------+---------+----------+
+   See also: <a href="bjml.htm">JML</a>
+
+</pre></td></tr></table></center></body></html>

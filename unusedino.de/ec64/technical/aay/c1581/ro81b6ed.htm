@@ -1,0 +1,78 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Startblock einer neuen Datei suchen ($f1a9)
+
+Einsprung von <a href="ro819bc3.htm">$9BC3</a>:
+
+B6ED: A9 01     LDA #$01         Flag 'Bam geaendert' setzen
+B6EF: 05 35     ORA <a href="ra8135.htm">$35</a>
+B6F1: 85 35     STA <a href="ra8135.htm">$35</a>
+B6F3: A5 55     LDA <a href="ra8155.htm">$55</a>          Wert (von Side-Sektoren) merken
+B6F5: 48        PHA
+B6F6: A9 01     LDA #$01         Distanz zum Directory-Track = 1
+B6F8: 85 55     STA <a href="ra8155.htm">$55</a>
+
+Tracks &lt; Directory-Track untersuchen
+
+Einsprung von $B730:
+
+B6FA: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory-Track
+B6FD: 38        SEC
+B6FE: E5 55     SBC <a href="ra8155.htm">$55</a>          - Distanz
+B700: 85 4D     STA <a href="ra814d.htm">$4D</a>          = zu testende Spur
+B702: 08        PHP
+B703: C5 90     CMP <a href="ra8190.htm">$90</a>          &gt;= Starttrack der Partition ?
+B705: B0 04     BCS $B70B        ja, ==&gt;
+B707: 28        PLP
+B708: 4C 17 B7  JMP $B717        Tracks &gt; Directory-Track ueberpruefen ==&gt;
+
+Einsprung von $B705:
+
+B70B: 28        PLP
+B70C: 90 09     BCC $B717        Tracknummer &lt;= 0 ? ja, ==&gt;
+B70E: F0 07     BEQ $B717        ja, ==&gt;
+B710: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        BAM-Zeiger auf aktuellen Track setzen
+B713: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Anzahl freier Blocks holen
+B715: D0 1B     BNE $B732        &gt;0, (Starttrack gefunden) ==&gt;
+
+Tracks &gt; Directory-Track untersuchen
+
+Einsprung von $B708, $B70C, $B70E:
+
+B717: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory-Track
+B71A: 18        CLC
+B71B: 65 55     ADC <a href="ra8155.htm">$55</a>          + Distanz
+B71D: 85 4D     STA <a href="ra814d.htm">$4D</a>          = zu testende Spur
+B71F: E6 55     INC <a href="ra8155.htm">$55</a>          Distanz erhoehen
+B721: CD 2C 02  CMP <a href="ra81022c.htm">$022C</a>        Spur &gt;= 'Letzter Track der Partition + 1' ?
+B724: 90 05     BCC $B72B        nein, ==&gt;
+B726: A9 67     LDA #$67         ja: 67, Illegal Track or Sector
+B728: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>
+
+Einsprung von $B724:
+
+B72B: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        BAM-Zeiger auf aktuellen Track setzen
+B72E: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Anzahl freier Blocks holen
+B730: F0 C8     BEQ $B6FA        =0, (weitersuchen) ==&gt;
+
+freien Block im Track suchen
+
+Einsprung von $B715:
+
+B732: 68        PLA
+B733: 85 55     STA <a href="ra8155.htm">$55</a>          geretteten Wert zurueckholen
+B735: A9 00     LDA #$00         mit 1. Sektor der Spur anfangen
+B737: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B739: 20 46 B7  JSR <a href="ro81b746.htm">$B746</a>        freien Block im Track suchen
+B73C: F0 03     BEQ $B741        keinen gefunden, ==&gt;
+B73E: 4C 72 B5  JMP <a href="ro81b572.htm">$B572</a>        Block in BAM belegen
+
+Einsprung von $B73C, <a href="ro81b668.htm">$B6EA</a>:
+
+B741: A9 71     LDA #$71         71, Dir Error
+B743: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>
+
+    <a href="ro81b668.htm">Previous Page</a> / <a href="ro81b746.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

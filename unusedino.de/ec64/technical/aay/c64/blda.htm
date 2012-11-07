@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  LDA                  LDA Load accumulator with memory                 LDA
+
+  Operation:  M -&gt; A                                    N V - B D I Z C
+                                                        / . . . . . / .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>     |   LDA #$FF            |   $A9   |    2    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   LDA $FF             |   $A5   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   LDA $FF,X           |   $B5   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   LDA $FFFF           |   $AD   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   LDA $FFFF,X         |   $BD   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   LDA $FFFF,Y         |   $B9   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   LDA ($FF,X)         |   $A1   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   LDA ($FF),Y         |   $B1   |    2    |    5*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 if page boundary is crossed.
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3a.htm">AbsoluteLong</a>   |   LDA $FFFFFF         |   $AF   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr13.htm">AbsoluteLong,X</a> |   LDA $FFFFFF,X       |   $BF   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr18.htm">(Indirect)</a>     |   LDA ($FF)           |   $B2   |    2    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr19.htm">[Indirect Long]</a>|   LDA [$FF]           |   $A7   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr8.htm">[Ind.Long],Y</a>   |   LDA [$FF],Y         |   $B7   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr22.htm">Relative,S</a>     |   LDA $FF,S           |   $A3   |    2    |     4    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr23.htm">(Indirect,S),Y</a> |   LDA ($FF,S),Y       |   $B3   |    2    |     7    |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

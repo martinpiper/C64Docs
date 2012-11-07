@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC1B/48155:   Round FAC#1
+
+Jump from <a href="roma9c4.htm">$A9C4</a>, <a href="romad9e.htm">$AE43</a>, <a href="rombb0f.htm">$BB14</a>, <a href="rombbc7.htm">$BBD4</a>, <a href="rombc0c.htm">$BC0C</a>:
+
+BC1B: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BC1D: F0 FB     <a href="bbeq.htm">BEQ</a> <a href="rombc0c.htm">$BC1A</a>     ; Copy FAC#1 into FAC#2
+BC1F: 06 70     <a href="basl.htm">ASL</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BC21: 90 F7     <a href="bbcc.htm">BCC</a> <a href="rombc0c.htm">$BC1A</a>     ; Copy FAC#1 into FAC#2
+
+Jump from <a href="rombfed.htm">$BFFA</a>:
+
+BC23: 20 6F B9  <a href="bjsr.htm">JSR</a> <a href="romb947.htm">$B96F</a>     ; 2's Complement FAC#1
+BC26: D0 F2     <a href="bbne.htm">BNE</a> <a href="rombc0c.htm">$BC1A</a>     ; Copy FAC#1 into FAC#2
+BC28: 4C 38 B9  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B938</a>     ; Perform Addition
+
+    <a href="rombc0c.htm">Previous Page</a> / <a href="rombc2b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

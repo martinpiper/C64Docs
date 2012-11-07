@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EEB7/61111:   Create BAM
+
+Jump from <a href="ro41ed84.htm">$ED8F</a>, <a href="ro41ee0d.htm">$EE56</a>:
+
+EEB7: 20 D1 F0  JSR <a href="ro41f0d1.htm">$F0D1</a>
+EEBA: A0 00     LDY #$00
+EEBC: A9 12     LDA #$12        ; 18
+EEBE: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; pointer to directory track
+EEC0: C8        INY
+EEC1: 98        TYA             ; 1
+EEC2: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; pointer to directory sector
+EEC4: C8        INY
+EEC5: C8        INY
+EEC6: C8        INY
+
+Jump from $EEEF:
+
+EEC7: A9 00     LDA #$00
+EEC9: 85 6F     STA <a href="ra416f.htm">$6F</a>
+EECB: 85 70     STA <a href="ra416f.htm">$70</a>         ; 3 bytes = 24 bits for sectors
+EECD: 85 71     STA <a href="ra4171.htm">$71</a>
+EECF: 98        TYA             ; byte position
+EED0: 4A        LSR
+EED1: 4A        LSR             ; divided by 4 = track number
+EED2: 20 4B F2  JSR <a href="ro41f24b.htm">$F24B</a>       ; get number of sectors
+EED5: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; and in BAM
+EED7: C8        INY
+EED8: AA        TAX
+
+Jump from $EEE1:
+
+EED9: 38        SEC
+EEDA: 26 6F     ROL <a href="ra416f.htm">$6F</a>
+EEDC: 26 70     ROL <a href="ra416f.htm">$70</a>         ; create bit model
+EEDE: 26 71     ROL <a href="ra4171.htm">$71</a>
+EEE0: CA        DEX
+EEE1: D0 F6     BNE $EED9
+
+Jump from $EEEB:
+
+EEE3: B5 6F     LDA <a href="ra416f.htm">$6F</a>,X       ; 3 bytes
+EEE5: 91 6D     STA (<a href="ra416d.htm">$6D</a>),Y     ; the BAM in buffer
+EEE7: C8        INY
+EEE8: E8        INX
+EEE9: E0 03     CPX #$03
+EEEB: 90 F6     BCC $EEE3
+EEED: C0 90     CPY #$90        ; position 144?
+EEEF: 90 D6     BCC $EEC7       ; no, next track
+EEF1: 4C 75 D0  JMP <a href="ro41d075.htm">$D075</a>       ; calculate number of free blocks
+
+    <a href="ro41ee0d.htm">Previous Page</a> / <a href="ro41eef4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

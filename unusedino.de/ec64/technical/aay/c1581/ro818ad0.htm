@@ -1,0 +1,74 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ASCII-Werte aus dem Input-Puffer in HEX-Werte umwandeln
+und in der Parameter-Tabelle ablegen ($cca1)
+
+Einsprung von <a href="ro818a9f.htm">$8AC1</a>:
+
+8AD0: A9 00     LDA #$00         Zwischenspeicher loeschen fuer 3 Ziffern
+8AD2: 85 40     STA <a href="ra8140.htm">$40</a>          (ASCII-Zahl)
+8AD4: 85 41     STA <a href="ra8140.htm">$41</a>          ($42 wird spaeter sowieso ueberschrieben)
+8AD6: 85 43     STA <a href="ra8140.htm">$43</a>          Hi-Byte des Ergebnisses =0
+8AD8: A2 FF     LDX #$FF         Zaehler fuer Wertigkeit der Ziffer
+
+Einsprung von $8AF6:
+
+8ADA: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      Zeichen aus Kommandozeile holen
+8ADD: C9 40     CMP #$40         ist Zeichen eine Ziffer ?
+8ADF: B0 17     BCS $8AF8        [' :;&lt;=&gt;? ' werden als Ziffern
+8AE1: C9 30     CMP #$30          10-15 gerechnet; '2&lt;' entspricht
+8AE3: 90 13     BCC $8AF8         dem Block 32 (2*10+12)]
+8AE5: 29 0F     AND #$0F         ja,
+8AE7: 48        PHA              Wert der Ziffer merken
+8AE8: A5 41     LDA <a href="ra8140.htm">$41</a>          Alte Zahl * 10
+8AEA: 85 42     STA <a href="ra8140.htm">$42</a>
+8AEC: A5 40     LDA <a href="ra8140.htm">$40</a>
+8AEE: 85 41     STA <a href="ra8140.htm">$41</a>
+8AF0: 68        PLA              + Ziffer
+8AF1: 85 40     STA <a href="ra8140.htm">$40</a>
+8AF3: C8        INY              Zeiger auf naechstes Zeichen
+8AF4: C4 29     CPY <a href="ra8129.htm">$29</a>          setzen; Zeilenende ?
+8AF6: 90 E2     BCC $8ADA        nein, ==&gt;
+
+Einsprung von $8ADF, $8AE3:
+
+8AF8: 8C 30 02  STY <a href="ra810230.htm">$0230</a>        Zeiger in Kommandozeile merken
+
+ungepackte BCD-Zahl (1 Ziffer / Byte) in Binaerzahl wandeln
+
+8AFB: 18        CLC
+8AFC: A9 00     LDA #$00         Ergebnis (Lo) =0
+
+Einsprung von $8B06:
+
+8AFE: E8        INX              naechste Ziffer nehmen
+8AFF: E0 03     CPX #$03         alle 3 Stellen fertig ?
+8B01: B0 0F     BCS $8B12        ja, ==&gt;
+8B03: B4 40     LDY <a href="ra8140.htm">$40</a>,X        Ziffer holen; y-mal den Wert der Ziffer
+
+Einsprung von $8B0B, $8B10:
+
+8B05: 88        DEY              zum Ergebnis addieren
+8B06: 30 F6     BMI $8AFE        &lt; 0, (naechste Ziffer holen) ==&gt;
+8B08: 7D 20 8B  ADC $8B20,X      Wertigkeit der Ziffer addieren
+8B0B: 90 F8     BCC $8B05        kein Uebertrag, ==&gt;
+8B0D: 18        CLC              Uebertrag addieren
+8B0E: E6 43     INC <a href="ra8140.htm">$43</a>
+8B10: D0 F3     BNE $8B05        immer ==&gt;
+
+Einsprung von $8B01:
+
+8B12: 48        PHA              Ergebnis in den Parameterspeicher
+8B13: AE 2E 02  LDX <a href="ra81022e.htm">$022E</a>        uebernehmen
+8B16: A5 43     LDA <a href="ra8140.htm">$43</a>
+8B18: 9D 97 02  STA <a href="ra810297.htm">$0297</a>,X      Hi-Byte
+8B1B: 68        PLA
+8B1C: 9D 9C 02  STA <a href="ra81029c.htm">$029C</a>,X      Lo-Byte
+8B1F: 60        RTS
+
+8B20: 01 0A 64                 1,10,100 Wertigkeit der Ziffern
+
+    <a href="ro818a9f.htm">Previous Page</a> / <a href="ro818b23.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

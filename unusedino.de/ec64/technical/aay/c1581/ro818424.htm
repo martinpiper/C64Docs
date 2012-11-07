@@ -1,0 +1,117 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+naechsten Eintrag im Directory suchen : ($c5ac)
+E: $73 = 0 oder
+   $73 &lt;&gt;1 und $72&lt;&gt;0 : belegten Eintrag suchen
+                        (bei der ersten Suche muss $73=0 gesetzt werden
+                         um den Rest muss man sich nicht kuemmern)
+   $73 = 1 und $72=0  : freien Eintrag suchen
+                        (findet immer nur den ersten Eintrag)
+
+A: $72: Sektor, in dem der 1. freie Eintrag gefunden wurde
+   $73: Position des freien Eintrages im Dir-Block
+   $71  : Sektor des naechsten belegten Eintrages
+   $0232: Position des Eintrages im Dir-Block
+   z: 1: (BEQ) keinen Eintrag gefunden; 0: Suche erfolgreich
+
+Suche vorbereiten (1. Eintrag suchen)
+
+Einsprung von <a href="ro8182b9.htm">$82C0</a>, <a href="ro8182e6.htm">$82F1</a>, <a href="ro8195ab.htm">$95D0</a>, <a href="ro81b262.htm">$B26F</a>:
+
+8424: A0 00     LDY #$00         Zeiger auf den 1. Block, in dem sich ein
+8426: 84 72     STY <a href="ra8172.htm">$72</a>          freier Eintrag befindet, loeschen
+8428: 88        DEY
+8429: 8C 6D 02  STY <a href="ra81026d.htm">$026D</a>        $ff: noch keinen Eintrag gefunden
+842C: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory Track merken
+842F: 85 4D     STA <a href="ra814d.htm">$4D</a>          als aktuelle Tracknummer und
+8431: AD E5 01  LDA <a href="ra8101e5.htm">$01E5</a>        1. Direktory-Sektor merken als
+8434: 85 4E     STA <a href="ra814e.htm">$4E</a>          aktuelle Sektornummer und als
+8436: 8D A6 02  STA <a href="ra8102a6.htm">$02A6</a>        naechster Verzeichnissektor
+8439: 20 CF 93  JSR <a href="ro8193cf.htm">$93CF</a>        fuer SA 17 Lesekanal suchen, 1. Block lesen
+
+Eintrag suchen
+
+Einsprung von $849E:
+
+843C: AD A6 02  LDA <a href="ra8102a6.htm">$02A6</a>        Ist noch ein Verzeichnisblock vorhanden
+843F: D0 01     BNE $8442        ja, ==&gt;
+8441: 60        RTS              nein, z=1, Ende ==&gt;
+
+Einsprung von $843F:
+
+8442: A9 07     LDA #$07         8 Direktory-Eintraege (0-7)
+8444: 8D 31 02  STA <a href="ra810231.htm">$0231</a>
+8447: A9 00     LDA #$00         1. Byte aus Dir-Puffer holen
+8449: 20 50 94  JSR <a href="ro819450.htm">$9450</a>        (&gt;0: Es folgt noch ein Block)
+844C: 8D A6 02  STA <a href="ra8102a6.htm">$02A6</a>        und merken
+
+Einsprung von $8498:
+
+844F: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+8452: CE 31 02  DEC <a href="ra810231.htm">$0231</a>        Anzahl der uebrigen Eintraege -1
+8455: A0 00     LDY #$00
+8457: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Filetyp &lt;&gt; 0 (nicht geloescht)
+8459: D0 14     BNE $846F        ja, ==&gt;
+
+845B: A5 72     LDA <a href="ra8172.htm">$72</a>          muss noch ein freier Eintrag gesucht werden?
+845D: D0 2A     BNE $8489        nein, (schon gefunden) ==&gt;
+845F: 20 79 9D  JSR <a href="ro819d79.htm">$9D79</a>        T&amp;S der aktuellen Datei holen
+8462: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer des Dir-Blocks merken
+8464: 85 72     STA <a href="ra8172.htm">$72</a>          (loescht gleichzeitig das Such-Flag)
+8466: A5 64     LDA <a href="ra8164.htm">$64</a>          Position des freien Eintrages merken
+8468: A6 73     LDX <a href="ra8173.htm">$73</a>          (z-Flag setzen, wenn ein belegter Eintrag
+846A: 85 73     STA <a href="ra8173.htm">$73</a>          gesucht wird)
+846C: F0 1B     BEQ $8489        ($73&lt;&gt;0): war freier Eintrag gesucht ?
+846E: 60        RTS              ja, z=0, Ende ==&gt;
+
+belegten Eintrag gefunden
+
+Einsprung von $8459:
+
+846F: A2 01     LDX #$01         $73=0: war ein belegter Eintrag gesucht ?
+8471: E4 73     CPX <a href="ra8173.htm">$73</a>
+8473: D0 2C     BNE $84A1        ja, ==&gt;
+8475: F0 12     BEQ $8489        nein, weitersuchen ==&gt;
+
+Suche bei der letzten gefundenen Datei fortsetzen
+
+Einsprung von <a href="ro8182e6.htm">$82E6</a>, <a href="ro81b262.htm">$B2A7</a>:
+
+8477: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        &lt;--  (Dir-Block neu lesen)
+847A: 85 4D     STA <a href="ra814d.htm">$4D</a>          Direktory-Track setzen
+847C: A5 71     LDA <a href="ra8171.htm">$71</a>          Block holen, in dem letzter Eintrag
+847E: 85 4E     STA <a href="ra814e.htm">$4E</a>          Eintrag gefunden wurde
+8480: 20 CF 93  JSR <a href="ro8193cf.htm">$93CF</a>        fuer SA 17 Lesekanal suchen und Block lesen
+8483: AD 32 02  LDA <a href="ra810232.htm">$0232</a>        Zeiger auf letzten Dir-Eintrag holen
+8486: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger setzen
+
+Einsprung von $845D, $846C, $8475, <a href="ro8182b9.htm">$82CB</a>, <a href="ro8182e6.htm">$8304</a>, <a href="ro8195ab.htm">$95F0</a>:
+
+8489: A9 FF     LDA #$FF         &lt;--  (Dir ist noch im Puffer)
+848B: 8D 6D 02  STA <a href="ra81026d.htm">$026D</a>        $ff: noch keinen Eintrag gefunden
+848E: AD 31 02  LDA <a href="ra810231.htm">$0231</a>        Ist noch ein Eintrag im aktuellen Block ?
+8491: 30 08     BMI $849B        nein, ==&gt;
+8493: A9 20     LDA #$20         $20: Laenge eines Dir-Eintrages
+8495: 20 38 91  JSR <a href="ro819138.htm">$9138</a>        Pufferzeiger auf naechsten Eintrag setzen
+8498: 4C 4F 84  JMP $844F        und pruefen
+
+Einsprung von $8491:
+
+849B: 20 AA 93  JSR <a href="ro8193aa.htm">$93AA</a>        naechsten Block lesen
+849E: 4C 3C 84  JMP $843C        Eintrag suchen
+
+Position der gefundenen Datei merken
+
+Einsprung von $8473:
+
+84A1: A5 64     LDA <a href="ra8164.htm">$64</a>          Zeiger auf den Eintrag merken
+84A3: 8D 32 02  STA <a href="ra810232.htm">$0232</a>
+84A6: 20 79 9D  JSR <a href="ro819d79.htm">$9D79</a>        T&amp;S der aktuellen Datei holen
+84A9: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Dir-Block merken, in dem der Eintrag
+84AB: 85 71     STA <a href="ra8171.htm">$71</a>          gefunden wurde
+84AD: 60        RTS              z=0, Ende ==&gt;
+
+    <a href="ro8183fa.htm">Previous Page</a> / <a href="ro8184ae.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

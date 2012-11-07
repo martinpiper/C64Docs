@@ -1,0 +1,74 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F5FA/62970:   Save to Serial Bus
+
+F5FA: A9 61     <a href="blda.htm">LDA</a> #$61
+F5FC: 85 B9     <a href="bsta.htm">STA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F5FE: A4 B7     <a href="bldy.htm">LDY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F600: D0 03     <a href="bbne.htm">BNE</a> $F605
+F602: 4C 10 F7  <a href="bjmp.htm">JMP</a> <a href="romf710.htm">$F710</a>     ; Output I/O Error Messages: 'MISSING FILENAME'
+
+Jump from $F600:
+
+F605: 20 D5 F3  <a href="bjsr.htm">JSR</a> <a href="romf3d5.htm">$F3D5</a>     ; Send Secondary Address
+F608: 20 8F F6  <a href="bjsr.htm">JSR</a> <a href="romf68f.htm">$F68F</a>     ; Print &quot;SAVING&quot;
+F60B: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F60D: 20 0C ED  <a href="bjsr.htm">JSR</a> <a href="romed0c.htm">$ED0C</a>     ; Send LISTEN Command on Serial Bus
+F610: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F612: 20 B9 ED  <a href="bjsr.htm">JSR</a> <a href="romedb9.htm">$EDB9</a>     ; Send LISTEN Secondary Address
+F615: A0 00     <a href="bldy.htm">LDY</a> #$00
+F617: 20 8E FB  <a href="bjsr.htm">JSR</a> <a href="romfb8e.htm">$FB8E</a>     ; Reset Tape Pointer
+F61A: A5 AC     <a href="blda.htm">LDA</a> <a href="zpac.htm">$AC</a>       ; Pointer: Tape Buffer/Screen scrolling
+F61C: 20 DD ED  <a href="bjsr.htm">JSR</a> <a href="romeddd.htm">$EDDD</a>     ; Send Serial Deferred
+F61F: A5 AD     <a href="blda.htm">LDA</a> <a href="zpac.htm">$AD</a>       ; Pointer: Tape Buffer/Screen scrolling
+F621: 20 DD ED  <a href="bjsr.htm">JSR</a> <a href="romeddd.htm">$EDDD</a>     ; Send Serial Deferred
+
+Jump from $F63D:
+
+F624: 20 D1 FC  <a href="bjsr.htm">JSR</a> <a href="romfcd1.htm">$FCD1</a>     ; Check Read / Write Pointer
+F627: B0 16     <a href="bbcs.htm">BCS</a> $F63F
+F629: B1 AC     <a href="blda.htm">LDA</a> (<a href="zpac.htm">$AC</a>),Y   ; Pointer: Tape Buffer/Screen scrolling
+F62B: 20 DD ED  <a href="bjsr.htm">JSR</a> <a href="romeddd.htm">$EDDD</a>     ; Send Serial Deferred
+F62E: 20 E1 FF  <a href="bjsr.htm">JSR</a> <a href="romffe1.htm">$FFE1</a>     ; Test-Stop Vector
+F631: D0 07     <a href="bbne.htm">BNE</a> $F63A
+
+Jump from <a href="romf4b8.htm">$F4FE</a>:
+
+F633: 20 42 F6  <a href="bjsr.htm">JSR</a> $F642
+F636: A9 00     <a href="blda.htm">LDA</a> #$00
+F638: 38        <a href="bsec.htm">SEC</a>
+F639: 60        <a href="brts.htm">RTS</a>
+
+Jump from $F631:
+
+F63A: 20 DB FC  <a href="bjsr.htm">JSR</a> <a href="romfcdb.htm">$FCDB</a>     ; Bump Read / Write Pointer
+F63D: D0 E5     <a href="bbne.htm">BNE</a> $F624
+
+Jump from $F627:
+
+F63F: 20 FE ED  <a href="bjsr.htm">JSR</a> <a href="romedfe.htm">$EDFE</a>     ; Send UNLISTEN
+
+Jump from $F633, <a href="romf291.htm">$F2EE</a>, <a href="romf4b8.htm">$F52B</a>:
+
+F642: 24 B9     <a href="bbit.htm">BIT</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F644: 30 11     <a href="bbmi.htm">BMI</a> $F657
+F646: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F648: 20 0C ED  <a href="bjsr.htm">JSR</a> <a href="romed0c.htm">$ED0C</a>     ; Send LISTEN Command on Serial Bus
+F64B: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F64D: 29 EF     <a href="band.htm">AND</a> #$EF
+F64F: 09 E0     <a href="bora.htm">ORA</a> #$E0
+F651: 20 B9 ED  <a href="bjsr.htm">JSR</a> <a href="romedb9.htm">$EDB9</a>     ; Send LISTEN Secondary Address
+
+Jump from <a href="romf3d5.htm">$F406</a>:
+
+F654: 20 FE ED  <a href="bjsr.htm">JSR</a> <a href="romedfe.htm">$EDFE</a>     ; Send UNLISTEN
+
+Jump from $F644:
+
+F657: 18        <a href="bclc.htm">CLC</a>
+F658: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf5dd.htm">Previous Page</a> / <a href="romf659.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

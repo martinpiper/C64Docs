@@ -1,0 +1,38 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A906/43270:   Search for Next Statement / Line
+
+Jump from <a href="roma742.htm">$A75A</a>, <a href="roma8f8.htm">$A8F8</a>, <a href="romabea.htm">$ABF3</a>, <a href="romac35.htm">$ACB8</a>:
+
+A906: A2 3A     <a href="bldx.htm">LDX</a> #$3A
+A908: 2C        .BYTE $2C
+
+Jump from <a href="roma8a0.htm">$A8A3</a>, <a href="roma93b.htm">$A93B</a>:
+
+A909: A2 00     <a href="bldx.htm">LDX</a> #$00
+A90B: 86 07     <a href="bstx.htm">STX</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+A90D: A0 00     <a href="bldy.htm">LDY</a> #$00
+A90F: 84 08     <a href="bsty.htm">STY</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+
+Jump from $A926:
+
+A911: A5 08     <a href="blda.htm">LDA</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+A913: A6 07     <a href="bldx.htm">LDX</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+A915: 85 07     <a href="bsta.htm">STA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+A917: 86 08     <a href="bstx.htm">STX</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+
+Jump from $A924:
+
+A919: B1 7A     <a href="blda.htm">LDA</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+A91B: F0 E8     <a href="bbeq.htm">BEQ</a> <a href="roma8f8.htm">$A905</a>     ; Perform [data]
+A91D: C5 08     <a href="bcmp.htm">CMP</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+A91F: F0 E4     <a href="bbeq.htm">BEQ</a> <a href="roma8f8.htm">$A905</a>     ; Perform [data]
+A921: C8        <a href="biny.htm">INY</a>
+A922: C9 22     <a href="bcmp.htm">CMP</a> #$22
+A924: D0 F3     <a href="bbne.htm">BNE</a> $A919
+A926: F0 E9     <a href="bbeq.htm">BEQ</a> $A911
+
+    <a href="roma8f8.htm">Previous Page</a> / <a href="roma928.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

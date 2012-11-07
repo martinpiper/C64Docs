@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Puffer freigeben                &lt;-- Einsprung
+E: a: Puffernummer
+
+Einsprung von <a href="ro8191ce.htm">$91DC</a>, <a href="ro8191ce.htm">$91ED</a>, <a href="ro8191ce.htm">$9200</a>:
+
+9252: 29 0F     AND #$0F         Puffernummer isolieren
+9254: A8        TAY              und Puffer freigeben
+9255: C8        INY              durch Loeschen des entsprechenden Bits
+9256: A2 08     LDX #$08
+
+Einsprung von $925F:
+
+9258: 66 6D     ROR <a href="ra816d.htm">$6D</a>          ROR, bis die Bits wieder an der alten
+925A: 88        DEY              Position sind
+925B: D0 01     BNE $925E        an der gesuchten Position durch
+925D: 18        CLC              CLC das entsprechende Bit loeschen
+
+Einsprung von $925B:
+
+925E: CA        DEX
+925F: 10 F7     BPL $9258        weiterschieben, ==&gt;
+
+Einsprung von <a href="ro81923e.htm">$9246</a>, <a href="ro81923e.htm">$924A</a>:
+
+9261: 60        RTS
+
+    <a href="ro81923e.htm">Previous Page</a> / <a href="ro819262.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

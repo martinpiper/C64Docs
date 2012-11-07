@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC9B/48283:   Convert FAC#1 to Integer
+
+Jump from <a href="roma9e3.htm">$AA11</a>, <a href="romb1bf.htm">$B1CE</a>, <a href="romb7f7.htm">$B801</a>, <a href="rombccc.htm">$BCD2</a>, <a href="rombddd.htm">$BE32</a>:
+
+BC9B: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BC9D: F0 4A     <a href="bbeq.htm">BEQ</a> <a href="rombccc.htm">$BCE9</a>     ; Evaluate &lt;int&gt;
+BC9F: 38        <a href="bsec.htm">SEC</a>
+BCA0: E9 A0     <a href="bsbc.htm">SBC</a> #$A0
+BCA2: 24 66     <a href="bbit.htm">BIT</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BCA4: 10 09     <a href="bbpl.htm">BPL</a> $BCAF
+BCA6: AA        <a href="btax.htm">TAX</a>
+BCA7: A9 FF     <a href="blda.htm">LDA</a> #$FF
+BCA9: 85 68     <a href="bsta.htm">STA</a> <a href="zp68.htm">$68</a>       ; Bit Overflow Area during normalisation Routine
+BCAB: 20 4D B9  <a href="bjsr.htm">JSR</a> <a href="romb947.htm">$B94D</a>     ; 2's Complement FAC#1
+BCAE: 8A        <a href="btxa.htm">TXA</a>
+
+Jump from $BCA4:
+
+BCAF: A2 61     <a href="bldx.htm">LDX</a> #$61
+BCB1: C9 F9     <a href="bcmp.htm">CMP</a> #$F9
+BCB3: 10 06     <a href="bbpl.htm">BPL</a> $BCBB
+BCB5: 20 99 B9  <a href="bjsr.htm">JSR</a> <a href="romb983.htm">$B999</a>     ; Multiply by Zero Byte
+BCB8: 84 68     <a href="bsty.htm">STY</a> <a href="zp68.htm">$68</a>       ; Bit Overflow Area during normalisation Routine
+
+Jump from <a href="rombc5b.htm">$BC90</a>:
+
+BCBA: 60        <a href="brts.htm">RTS</a>
+
+Jump from $BCB3:
+
+BCBB: A8        <a href="btay.htm">TAY</a>
+BCBC: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BCBE: 29 80     <a href="band.htm">AND</a> #$80
+BCC0: 46 62     <a href="blsr.htm">LSR</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BCC2: 05 62     <a href="bora.htm">ORA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BCC4: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BCC6: 20 B0 B9  <a href="bjsr.htm">JSR</a> <a href="romb983.htm">$B9B0</a>     ; Multiply by Zero Byte
+BCC9: 84 68     <a href="bsty.htm">STY</a> <a href="zp68.htm">$68</a>       ; Bit Overflow Area during normalisation Routine
+BCCB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombc5b.htm">Previous Page</a> / <a href="rombccc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

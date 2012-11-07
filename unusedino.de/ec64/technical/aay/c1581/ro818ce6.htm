@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+24*8-Bit-Multiplikationsroutine ($ce4e)
+Rechnung: Reg1 = Reg2 * a + ($68)
+
+8CE6: 85 40     STA <a href="ra8140.htm">$40</a>          [Die Bits in $40 werden der Reihe nach
+
+Einsprung von $8CF4:
+
+8CE8: 46 40     LSR <a href="ra8140.htm">$40</a>           getestet (Lo-Bit zuerst).
+8CEA: 90 03     BCC $8CEF         Ist das Bit gesetzt,
+8CEC: 20 4C 8D  JSR <a href="ro818d4c.htm">$8D4C</a>         dann wird Reg2 zu Reg1 addiert.
+
+Einsprung von $8CEA:
+
+8CEF: 20 44 8D  JSR <a href="ro818d41.htm">$8D44</a>         Danach wird Reg2 *2 genommen und der
+8CF2: A5 40     LDA <a href="ra8140.htm">$40</a>           Vorgang wiederholt, bis kein 1-Bit mehr in
+8CF4: D0 F2     BNE $8CE8         $40 ist. Reg2 wird also fuer Bit1 *1, fuer
+                                 Bit2 *2, ... und fuer Bit7 *128 genommen
+                                 (entsprechend der Wertigkeit der Bits).]
+8CF6: A5 68     LDA <a href="ra8168.htm">$68</a>          ($68) zu Reg1 addieren
+8CF8: 18        CLC              [In $68 steht normalerweise die aktuelle
+8CF9: 65 5B     ADC <a href="ra815b.htm">$5B</a>           Position im Record]
+8CFB: 85 5B     STA <a href="ra815b.htm">$5B</a>
+8CFD: 90 06     BCC $8D05        1. Uebertrag ? nein, ==&gt;
+8CFF: E6 5C     INC <a href="ra815b.htm">$5C</a>
+8D01: D0 02     BNE $8D05        2. Uebertrag ? nein, ==&gt;
+8D03: E6 5D     INC <a href="ra815b.htm">$5D</a>
+
+Einsprung von $8CFD, $8D01:
+
+8D05: 60        RTS
+
+    <a href="ro818cc1.htm">Previous Page</a> / <a href="ro818d06.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

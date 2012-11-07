@@ -1,0 +1,66 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B5BD/46525:   Search for Next String
+
+Jump from <a href="romb526.htm">$B561</a>:
+
+B5BD: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5BF: 30 35     <a href="bbmi.htm">BMI</a> $B5F6
+B5C1: C8        <a href="biny.htm">INY</a>
+B5C2: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5C4: 10 30     <a href="bbpl.htm">BPL</a> $B5F6
+B5C6: C8        <a href="biny.htm">INY</a>
+
+Jump from <a href="romb526.htm">$B548</a>, <a href="romb526.htm">$B5B8</a>:
+
+B5C7: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5C9: F0 2B     <a href="bbeq.htm">BEQ</a> $B5F6
+B5CB: C8        <a href="biny.htm">INY</a>
+B5CC: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5CE: AA        <a href="btax.htm">TAX</a>
+B5CF: C8        <a href="biny.htm">INY</a>
+B5D0: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5D2: C5 34     <a href="bcmp.htm">CMP</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B5D4: 90 06     <a href="bbcc.htm">BCC</a> $B5DC
+B5D6: D0 1E     <a href="bbne.htm">BNE</a> $B5F6
+B5D8: E4 33     <a href="bcpx.htm">CPX</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B5DA: B0 1A     <a href="bbcs.htm">BCS</a> $B5F6
+
+Jump from $B5D4:
+
+B5DC: C5 60     <a href="bcmp.htm">CMP</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B5DE: 90 16     <a href="bbcc.htm">BCC</a> $B5F6
+B5E0: D0 04     <a href="bbne.htm">BNE</a> $B5E6
+B5E2: E4 5F     <a href="bcpx.htm">CPX</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B5E4: 90 10     <a href="bbcc.htm">BCC</a> $B5F6
+
+Jump from $B5E0:
+
+B5E6: 86 5F     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B5E8: 85 60     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B5EA: A5 22     <a href="blda.htm">LDA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B5EC: A6 23     <a href="bldx.htm">LDX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+B5EE: 85 4E     <a href="bsta.htm">STA</a> <a href="zp4e.htm">$4E</a>       ; Temporary storage for FLPT value
+B5F0: 86 4F     <a href="bstx.htm">STX</a> <a href="zp4e.htm">$4F</a>       ; Temporary storage for FLPT value
+B5F2: A5 53     <a href="blda.htm">LDA</a> <a href="zp53.htm">$53</a>       ; Length of String during Garbage collection
+B5F4: 85 55     <a href="bsta.htm">STA</a> <a href="zp54.htm">$55</a>       ; Jump Vector used in Function Evaluation
+
+Jump from $B5BF, $B5C4, $B5C9, $B5D6, $B5DA, $B5DE, $B5E4:
+
+B5F6: A5 53     <a href="blda.htm">LDA</a> <a href="zp53.htm">$53</a>       ; Length of String during Garbage collection
+B5F8: 18        <a href="bclc.htm">CLC</a>
+B5F9: 65 22     <a href="badc.htm">ADC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B5FB: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B5FD: 90 02     <a href="bbcc.htm">BCC</a> $B601
+B5FF: E6 23     <a href="binc.htm">INC</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+
+Jump from $B5FD, <a href="romb606.htm">$B60A</a>:
+
+B601: A6 23     <a href="bldx.htm">LDX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+B603: A0 00     <a href="bldy.htm">LDY</a> #$00
+B605: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb526.htm">Previous Page</a> / <a href="romb606.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

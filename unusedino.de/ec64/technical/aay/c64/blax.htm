@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  LAX                        LAX LDA memory, TAX                        LAX
+
+                                                        N V - B D I Z C
+  Operation:  A &lt;- M, X &lt;- A                            / . . . . . / .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   LAX $FF             |   $A7   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,Y</a>    |   LAX $FF,Y           |   $B7   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   LAX $FFFF           |   $AF   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   LAX $FFFF,Y         |   $BF   |    3    |    4*    |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   LAX ($FF,X)         |   $A3   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   LAX ($FF),Y         |   $B3   |    2    |    5*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 if page boundary is crossed.
+
+</pre></td></tr></table></center></body></html>

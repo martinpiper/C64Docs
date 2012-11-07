@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Partition formatieren
+
+Einsprung von <a href="ro81b348.htm">$B377</a>:
+
+8746: A5 90     LDA <a href="ra8190.htm">$90</a>          Starttrack der Partition holen und merken
+8748: 85 4D     STA <a href="ra814d.htm">$4D</a>
+874A: A9 00     LDA #$00         und Sektor 0 merken (Partitionen muessen
+874C: 85 4E     STA <a href="ra814e.htm">$4E</a>          am 1. Sektor der Spur beginnen)
+874E: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+8751: 20 CF B0  JSR <a href="ro81b0cf.htm">$B0CF</a>        Physikalisches 1581-Format setzen
+8754: A9 C0     LDA #$C0         'RESTORE_DV': Kopf auf Spur 0 setzen
+8756: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Aufruf des Controllers
+8759: A4 9B     LDY <a href="ra819b.htm">$9B</a>          altes Fuellbyte merken
+875B: A9 00     LDA #$00         Blocks beim Formatieren mit $00 fuellen
+875D: 85 9B     STA <a href="ra819b.htm">$9B</a>
+875F: A9 F0     LDA #$F0         'FORMATDK_DV': Partition formatieren
+8761: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Controller aufrufen
+8764: 84 9B     STY <a href="ra819b.htm">$9B</a>          altes Fuellbyte zurueckholen
+8766: C9 02     CMP #$02         Fehler ?
+8768: 90 03     BCC $876D        nein, ==&gt;
+876A: 4C 2D FF  JMP <a href="ro81ff00.htm">$FF2D</a>        Job-Errorbehandlung ==&gt;
+
+Einsprung von $8768:
+
+876D: 60        RTS
+
+    <a href="ro818688.htm">Previous Page</a> / <a href="ro81876e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte in aktuelle Datei schreiben ($cfb7)
+[Diese Routine wird immer dann aufgerufen, wenn Daten ueber den seriellen
+ Bus an das Diskettenlaufwerk gesendet werden. Dabei ist es egal, ob es
+ sich um:
+ - Daten fuer eine Datei, oder
+ - den Filenamen der Datei, oder um
+ - Diskettenkommandos
+ handelt. In den beiden letzten Faellen wird das Befehlsmodus-Flag gesetzt.
+ Dadurch wird nach der Uebertragung der Befehl automatisch analysiert bzw.
+ die Datei geoeffnet (s.$8004).]
+
+Einsprung von <a href="ro81aeb8.htm">$AED3</a>:
+
+8E78: A5 53     LDA <a href="ra8153.htm">$53</a>          SA vom BUS
+8E7A: 29 8F     AND #$8F         b7=1: SA oeffnen ?  oder
+8E7C: C9 0F     CMP #$0F         Byte in Kommandokanal schreiben ?
+8E7E: B0 19     BCS $8E99        ja, ==&gt;
+
+Einsprung von <a href="ro818e5c.htm">$8E76</a>:
+
+8E80: 20 5F 90  JSR <a href="ro81905f.htm">$905F</a>        aktuellen Filetyp holen
+8E83: B0 05     BCS $8E8A        Rel-Datei oder Direktzugriff, ==&gt;
+8E85: A5 54     LDA <a href="ra8154.htm">$54</a>          empfangenes Byte holen
+8E87: 4C 12 91  JMP <a href="ro819112.htm">$9112</a>        Byte in die Datei schreiben
+
+Einsprung von $8E83:
+
+8E8A: D0 03     BNE $8E8F        REL-Datei ?
+8E8C: 4C 33 A0  JMP <a href="ro81a033.htm">$A033</a>        ja, Byte in Record schreiben
+
+Einsprung von $8E8A:
+
+8E8F: A5 54     LDA <a href="ra8154.htm">$54</a>          Byte holen
+8E91: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Byte in Puffer schreiben
+8E94: A4 50     LDY <a href="ra8150.htm">$50</a>
+8E96: 4C 4A 93  JMP <a href="ro819303.htm">$934A</a>        naechstes Byte zur Ausgabe bereitstellen
+
+Einsprung von $8E7E, <a href="ro818e5c.htm">$8E74</a>:
+
+8E99: A9 05     LDA #$05         Kommando-Kanalnumer setzen
+8E9B: 85 50     STA <a href="ra8150.htm">$50</a>
+8E9D: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+8EA0: C9 2A     CMP #$2A         Puffer voll ?
+8EA2: F0 05     BEQ $8EA9        ja, ==&gt;
+8EA4: A5 54     LDA <a href="ra8154.htm">$54</a>          empfangenes Byte holen und
+8EA6: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        in (Kommando-) Puffer schreiben
+
+Einsprung von $8EA2:
+
+8EA9: A5 51     LDA <a href="ra8151.htm">$51</a>          EOI-Flag testen
+8EAB: F0 01     BEQ $8EAE        Datenende, ==&gt;
+8EAD: 60        RTS
+
+Einsprung von $8EAB:
+
+8EAE: E6 7B     INC <a href="ra817b.htm">$7B</a>          Befehlsmodus-Flag setzen
+8EB0: 60        RTS
+    <a href="ro818e5c.htm">Previous Page</a> / <a href="ro818eb1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

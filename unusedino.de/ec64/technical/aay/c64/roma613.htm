@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A613/42515:   Search for Line Number
+
+Jump from <a href="roma4a2.htm">$A4A4</a>, <a href="roma69c.htm">$A6A7</a>:
+
+A613: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+A615: A6 2C     <a href="bldx.htm">LDX</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+
+Jump from $A63E, <a href="roma8a0.htm">$A8C0</a>:
+
+A617: A0 01     <a href="bldy.htm">LDY</a> #$01
+A619: 85 5F     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A61B: 86 60     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A61D: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A61F: F0 1F     <a href="bbeq.htm">BEQ</a> $A640
+A621: C8        <a href="biny.htm">INY</a>
+A622: C8        <a href="biny.htm">INY</a>
+A623: A5 15     <a href="blda.htm">LDA</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A625: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A627: 90 18     <a href="bbcc.htm">BCC</a> $A641
+A629: F0 03     <a href="bbeq.htm">BEQ</a> $A62E
+A62B: 88        <a href="bdey.htm">DEY</a>
+A62C: D0 09     <a href="bbne.htm">BNE</a> $A637
+
+Jump from $A629:
+
+A62E: A5 14     <a href="blda.htm">LDA</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A630: 88        <a href="bdey.htm">DEY</a>
+A631: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A633: 90 0C     <a href="bbcc.htm">BCC</a> $A641
+A635: F0 0A     <a href="bbeq.htm">BEQ</a> $A641
+
+Jump from $A62C:
+
+A637: 88        <a href="bdey.htm">DEY</a>
+A638: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A63A: AA        <a href="btax.htm">TAX</a>
+A63B: 88        <a href="bdey.htm">DEY</a>
+A63C: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+A63E: B0 D7     <a href="bbcs.htm">BCS</a> $A617
+
+Jump from $A61F:
+
+A640: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $A627, $A633, $A635, <a href="roma642.htm">$A642</a>, <a href="roma69c.htm">$A6B1</a>, <a href="roma69c.htm">$A6B9</a>:
+
+A641: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma579.htm">Previous Page</a> / <a href="roma642.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

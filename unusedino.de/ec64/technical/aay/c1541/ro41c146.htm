@@ -1,0 +1,55 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C146/49478:   Interpret command from computer
+
+Jump from <a href="ro41eaa0.htm">$EBFC</a>:
+
+C146: A9 00     LDA #$00
+C148: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+C14B: AD 8E 02  LDA <a href="ra41028e.htm">$028E</a>       ; last drive number
+C14E: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+C150: 20 BC E6  JSR <a href="ro41e6bc.htm">$E6BC</a>       ; prepare 'ok' message
+C153: A5 84     LDA <a href="ra4184.htm">$84</a>         ; secondary address
+C155: 10 09     BPL $C160
+C157: 29 0F     AND #$0F
+C159: C9 0F     CMP #$0F        ; 15, command channel
+C15B: F0 03     BEQ $C160       ; yes
+C15D: 4C B4 D7  JMP <a href="ro41d7b4.htm">$D7B4</a>       ; to OPEN command
+
+Jump from $C155, $C15B:
+
+C160: 20 B3 C2  JSR <a href="ro41c2b3.htm">$C2B3</a>       ; determine line length and erase flags
+C163: B1 A3     LDA (<a href="ra41a3.htm">$A3</a>),Y     ; get first character
+C165: 8D 75 02  STA <a href="ra410275.htm">$0275</a>       ; and store
+C168: A2 0B     LDX #$0B        ; 11
+
+Jump from $C173:
+
+C16A: BD 89 FE  LDA <a href="ro41fe89.htm">$FE89</a>,X     ; commands
+C16D: CD 75 02  CMP <a href="ra410275.htm">$0275</a>       ; compare to first character
+C170: F0 08     BEQ $C17A       ; found?
+C172: CA        DEX
+C173: 10 F5     BPL $C16A
+C175: A9 31     LDA #$31        ; not found
+C177: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 31, 'syntax error'
+
+Jump from $C170:
+
+C17A: 8E 2A 02  STX <a href="ra41022a.htm">$022A</a>       ; number of command words
+C17D: E0 09     CPX #$09
+C17F: 90 03     BCC $C184       ; command number &lt; 9?
+C181: 20 EE C1  JSR <a href="ro41c1ee.htm">$C1EE</a>       ; test for 'R', 'S', and 'N'
+
+Jump from $C17F:
+
+C184: AE 2A 02  LDX <a href="ra41022a.htm">$022A</a>       ; command number
+C187: BD 95 FE  LDA <a href="ro41fe95.htm">$FE95</a>,X     ; jump address lo
+C18A: 85 6F     STA <a href="ra416f.htm">$6F</a>
+C18C: BD A1 FE  LDA <a href="ro41fea1.htm">$FEA1</a>,X     ; jump address hi
+C18F: 85 70     STA <a href="ra416f.htm">$70</a>
+C191: 6C 6F 00  JMP (<a href="ra416f.htm">$006F</a>)     ; jump to command
+
+    <a href="ro41c12c.htm">Previous Page</a> / <a href="ro41c194.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

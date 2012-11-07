@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDCC/60876:   Wait For Clock
+
+Jump from <a href="romf20e.htm">$F23F</a>:
+
+EDCC: 78        <a href="bsei.htm">SEI</a>
+EDCD: 20 A0 EE  <a href="bjsr.htm">JSR</a> <a href="romeea0.htm">$EEA0</a>     ; Serial Output 0
+EDD0: 20 BE ED  <a href="bjsr.htm">JSR</a> <a href="romedbe.htm">$EDBE</a>     ; Clear ATN
+EDD3: 20 85 EE  <a href="bjsr.htm">JSR</a> <a href="romee85.htm">$EE85</a>     ; Serial Clock On
+
+Jump from $EDD9:
+
+EDD6: 20 A9 EE  <a href="bjsr.htm">JSR</a> <a href="romeea9.htm">$EEA9</a>     ; Get Serial Data And Clock In
+EDD9: 30 FB     <a href="bbmi.htm">BMI</a> $EDD6
+EDDB: 58        <a href="bcli.htm">CLI</a>
+EDDC: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romedc7.htm">Previous Page</a> / <a href="romeddd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

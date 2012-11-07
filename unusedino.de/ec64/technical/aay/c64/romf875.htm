@@ -1,0 +1,58 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F875/63605:   Common Tape Code
+
+Jump from <a href="romf841.htm">$F862</a>:
+
+F875: A0 7F     <a href="bldy.htm">LDY</a> #$7F
+F877: 8C 0D DC  <a href="bsty.htm">STY</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+F87A: 8D 0D DC  <a href="bsta.htm">STA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+F87D: AD 0E DC  <a href="blda.htm">LDA</a> <a href="cia114.htm">$DC0E</a>     ; CIA1: Control Register A
+F880: 09 19     <a href="bora.htm">ORA</a> #$19
+F882: 8D 0F DC  <a href="bsta.htm">STA</a> <a href="cia115.htm">$DC0F</a>     ; CIA1: Control Register B
+F885: 29 91     <a href="band.htm">AND</a> #$91
+F887: 8D A2 02  <a href="bsta.htm">STA</a> <a href="zp02a2.htm">$02A2</a>     ; TOD sense during Tape I/O
+F88A: 20 A4 F0  <a href="bjsr.htm">JSR</a> <a href="romf0a4.htm">$F0A4</a>     ; Serial Bus Idle
+F88D: AD 11 D0  <a href="blda.htm">LDA</a> <a href="vic17.htm">$D011</a>     ; VIC: Control Register 1
+F890: 29 EF     <a href="band.htm">AND</a> #$EF
+F892: 8D 11 D0  <a href="bsta.htm">STA</a> <a href="vic17.htm">$D011</a>     ; VIC: Control Register 1
+F895: AD 14 03  <a href="blda.htm">LDA</a> <a href="zp0314.htm">$0314</a>     ; Vector: Hardware IRQ Interrupt Address
+F898: 8D 9F 02  <a href="bsta.htm">STA</a> <a href="zp029f.htm">$029F</a>     ; Temp. store for IRQ Vector during Tape I/O
+F89B: AD 15 03  <a href="blda.htm">LDA</a> <a href="zp0314.htm">$0315</a>     ; Vector: Hardware IRQ Interrupt Address
+F89E: 8D A0 02  <a href="bsta.htm">STA</a> <a href="zp029f.htm">$02A0</a>     ; Temp. store for IRQ Vector during Tape I/O
+F8A1: 20 BD FC  <a href="bjsr.htm">JSR</a> <a href="romfcb8.htm">$FCBD</a>     ; Set IRQ Vector
+F8A4: A9 02     <a href="blda.htm">LDA</a> #$02
+F8A6: 85 BE     <a href="bsta.htm">STA</a> <a href="zpbe.htm">$BE</a>       ; Tape Input/Output Block count
+F8A8: 20 97 FB  <a href="bjsr.htm">JSR</a> <a href="romfb97.htm">$FB97</a>     ; New Character Setup
+F8AB: A5 01     <a href="blda.htm">LDA</a> <a href="zp01.htm">$01</a>       ; 6510 On-chip 8-bit Input/Output Register
+F8AD: 29 1F     <a href="band.htm">AND</a> #$1F
+F8AF: 85 01     <a href="bsta.htm">STA</a> <a href="zp01.htm">$01</a>       ; 6510 On-chip 8-bit Input/Output Register
+F8B1: 85 C0     <a href="bsta.htm">STA</a> <a href="zpc0.htm">$C0</a>       ; Tape Motor Switch
+F8B3: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+
+Jump from $F8BB:
+
+F8B5: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+
+Jump from $F8B8:
+
+F8B7: 88        <a href="bdey.htm">DEY</a>
+F8B8: D0 FD     <a href="bbne.htm">BNE</a> $F8B7
+F8BA: CA        <a href="bdex.htm">DEX</a>
+F8BB: D0 F8     <a href="bbne.htm">BNE</a> $F8B5
+F8BD: 58        <a href="bcli.htm">CLI</a>
+
+Jump from $F8CD:
+
+F8BE: AD A0 02  <a href="blda.htm">LDA</a> <a href="zp029f.htm">$02A0</a>     ; Temp. store for IRQ Vector during Tape I/O
+F8C1: CD 15 03  <a href="bcmp.htm">CMP</a> <a href="zp0314.htm">$0315</a>     ; Vector: Hardware IRQ Interrupt Address
+F8C4: 18        <a href="bclc.htm">CLC</a>
+F8C5: F0 15     <a href="bbeq.htm">BEQ</a> <a href="romf8d0.htm">$F8DC</a>     ; Check Tape Stop
+F8C7: 20 D0 F8  <a href="bjsr.htm">JSR</a> <a href="romf8d0.htm">$F8D0</a>     ; Check Tape Stop
+F8CA: 20 BC F6  <a href="bjsr.htm">JSR</a> <a href="romf69b.htm">$F6BC</a>     ; Bump Clock
+F8CD: 4C BE F8  <a href="bjmp.htm">JMP</a> $F8BE
+
+    <a href="romf864.htm">Previous Page</a> / <a href="romf8d0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

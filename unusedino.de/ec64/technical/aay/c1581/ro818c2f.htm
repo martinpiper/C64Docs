@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kanal oeffnen, Blockparameter holen und testen ($cdf2)
+
+Einsprung von <a href="ro818b65.htm">$8B65</a>, <a href="ro818bae.htm">$8BAE</a>, <a href="ro818bd7.htm">$8BDA</a>:
+
+8C2F: 20 0F 8C  JSR <a href="ro818c0f.htm">$8C0F</a>        Kanal oeffnen
+
+Einsprung von <a href="ro818b23.htm">$8B26</a>, <a href="ro818b2f.htm">$8B32</a>:
+
+8C32: A6 67     LDX <a href="ra8167.htm">$67</a>          Parameternummer holen
+8C34: BD 9E 02  LDA <a href="ra81029c.htm">$029E</a>,X      T&amp;S des angeforderten Blocks holen
+8C37: 85 4E     STA <a href="ra814e.htm">$4E</a>
+8C39: BD 9D 02  LDA <a href="ra81029c.htm">$029D</a>,X
+8C3C: 85 4D     STA <a href="ra814d.htm">$4D</a>
+8C3E: 20 B5 94  JSR <a href="ro8194b5.htm">$94B5</a>        auf gueltigen Block pruefen
+8C41: 4C F6 81  JMP <a href="ro8181e5.htm">$81F6</a>        Drive-LED einschalten
+
+    <a href="ro818c0f.htm">Previous Page</a> / <a href="ro818c44.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

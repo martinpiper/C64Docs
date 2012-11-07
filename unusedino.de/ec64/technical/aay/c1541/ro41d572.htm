@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D572/54642:   DOS mismatch error
+
+Jump from <a href="ro41d506.htm">$D53D</a>, <a href="ro41ee0d.htm">$EE53</a>:
+
+D572: 20 52 D5  JSR <a href="ro41d552.htm">$D552</a>       ; get track and sector number
+D575: A9 73     LDA #$73
+D577: 4C 45 E6  JMP <a href="ro41e645.htm">$E645</a>       ; 73, 'cbm dos v2.6 1541'
+
+Jump from <a href="ro41d506.htm">$D529</a>, <a href="ro41d506.htm">$D548</a>:
+
+D57A: A6 F9     LDX <a href="ra41f9.htm">$F9</a>         ; buffer number
+D57C: 68        PLA
+D57D: 8D 4D 02  STA <a href="ra41024d.htm">$024D</a>       ; command code for disk controller
+D580: 95 00     STA <a href="ra4100.htm">$00</a>,X       ; in command register
+D582: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X     ; and write in table
+D585: 60        RTS
+
+    <a href="ro41d55f.htm">Previous Page</a> / <a href="ro41d586.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

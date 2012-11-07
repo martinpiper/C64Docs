@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B128/45352:   Create Variable
+
+Jump from <a href="romb11d.htm">$B121</a>:
+
+B128: A5 45     <a href="blda.htm">LDA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B12A: A4 46     <a href="bldy.htm">LDY</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B12C: C9 54     <a href="bcmp.htm">CMP</a> #$54
+B12E: D0 0B     <a href="bbne.htm">BNE</a> $B13B
+B130: C0 C9     <a href="bcpy.htm">CPY</a> #$C9
+B132: F0 EF     <a href="bbeq.htm">BEQ</a> <a href="romb11d.htm">$B123</a>     ; Create New Variable
+B134: C0 49     <a href="bcpy.htm">CPY</a> #$49
+B136: D0 03     <a href="bbne.htm">BNE</a> $B13B
+
+Jump from $B141:
+
+B138: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $B12E, $B136:
+
+B13B: C9 53     <a href="bcmp.htm">CMP</a> #$53
+B13D: D0 04     <a href="bbne.htm">BNE</a> $B143
+B13F: C0 54     <a href="bcpy.htm">CPY</a> #$54
+B141: F0 F5     <a href="bbeq.htm">BEQ</a> $B138
+
+Jump from $B13D:
+
+B143: A5 2F     <a href="blda.htm">LDA</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+B145: A4 30     <a href="bldy.htm">LDY</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+B147: 85 5F     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B149: 84 60     <a href="bsty.htm">STY</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B14B: A5 31     <a href="blda.htm">LDA</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B14D: A4 32     <a href="bldy.htm">LDY</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+B14F: 85 5A     <a href="bsta.htm">STA</a> <a href="zp57.htm">$5A</a>       ; Temporary storage for FLPT value
+B151: 84 5B     <a href="bsty.htm">STY</a> <a href="zp57.htm">$5B</a>       ; Temporary storage for FLPT value
+B153: 18        <a href="bclc.htm">CLC</a>
+B154: 69 07     <a href="badc.htm">ADC</a> #$07
+B156: 90 01     <a href="bbcc.htm">BCC</a> $B159
+B158: C8        <a href="biny.htm">INY</a>
+
+Jump from $B156:
+
+B159: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B15B: 84 59     <a href="bsty.htm">STY</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B15D: 20 B8 A3  <a href="bjsr.htm">JSR</a> <a href="roma3b8.htm">$A3B8</a>     ; Open Space in Memory
+B160: A5 58     <a href="blda.htm">LDA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B162: A4 59     <a href="bldy.htm">LDY</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B164: C8        <a href="biny.htm">INY</a>
+B165: 85 2F     <a href="bsta.htm">STA</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+B167: 84 30     <a href="bsty.htm">STY</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+B169: A0 00     <a href="bldy.htm">LDY</a> #$00
+B16B: A5 45     <a href="blda.htm">LDA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B16D: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B16F: C8        <a href="biny.htm">INY</a>
+B170: A5 46     <a href="blda.htm">LDA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B172: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B174: A9 00     <a href="blda.htm">LDA</a> #$00
+B176: C8        <a href="biny.htm">INY</a>
+B177: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B179: C8        <a href="biny.htm">INY</a>
+B17A: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B17C: C8        <a href="biny.htm">INY</a>
+B17D: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B17F: C8        <a href="biny.htm">INY</a>
+B180: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B182: C8        <a href="biny.htm">INY</a>
+B183: 91 5F     <a href="bsta.htm">STA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+
+Jump from <a href="romb0e7.htm">$B106</a>:
+
+B185: A5 5F     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B187: 18        <a href="bclc.htm">CLC</a>
+B188: 69 02     <a href="badc.htm">ADC</a> #$02
+B18A: A4 60     <a href="bldy.htm">LDY</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B18C: 90 01     <a href="bbcc.htm">BCC</a> $B18F
+B18E: C8        <a href="biny.htm">INY</a>
+
+Jump from $B18C:
+
+B18F: 85 47     <a href="bsta.htm">STA</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+B191: 84 48     <a href="bsty.htm">STY</a> <a href="zp47.htm">$48</a>       ; Value/Descriptor-Pointer
+B193: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb11d.htm">Previous Page</a> / <a href="romb194.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

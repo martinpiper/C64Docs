@@ -1,0 +1,62 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Blockheader lesen
+
+Einsprung von <a href="ro81cfa6.htm">$CFA6</a>:
+
+CD00: A2 05     LDX #$05         Blockheaderpuffer loeschen
+
+Einsprung von $CD06:
+
+CD02: 8A        TXA
+CD03: 95 1F     STA <a href="ra811f.htm">$1F</a>,X        6 Bytes: Track,Seite,Sektor,Groesse,CRC1,CRC2
+CD05: CA        DEX
+CD06: 10 FA     BPL $CD02
+CD08: 20 BC CD  JSR <a href="ro81cdbc.htm">$CDBC</a>        Ist eine Diskette im Laufwerk ?
+CD0B: B0 2C     BCS $CD39        nein, Lesen unmoeglich ==&gt;
+CD0D: AD E1 01  LDA <a href="ra8101e1.htm">$01E1</a>        Controller-Befehl: Read Adress
+CD10: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Kommando in Controller schreiben
+CD13: A2 00     LDX #$00
+CD15: A0 06     LDY #$06         6 Bytes von Diskette einlesen
+
+Einsprung von $CD1F, $CD28:
+
+CD17: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Controller-Status holen
+CD1A: 29 03     AND #$03
+CD1C: 4A        LSR
+CD1D: 90 0B     BCC $CD2A        Controller ready, ==&gt;
+CD1F: F0 F6     BEQ $CD17        kein Byte ready, ==&gt;
+CD21: AD 03 60  LDA <a href="wd813.htm">$6003</a>        Byte einlesen und
+CD24: 95 1F     STA <a href="ra811f.htm">$1F</a>,X        im Blockheader-Puffer speichern
+CD26: E8        INX
+CD27: 88        DEY
+CD28: D0 ED     BNE $CD17        noch ein Byte einlesen, ==&gt;
+
+Einsprung von $CD1D:
+
+CD2A: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+CD2D: F0 02     BEQ $CD31        Kein Fehler, ==&gt;
+CD2F: 38        SEC
+CD30: 24         B $24
+
+Einsprung von $CD2D:
+
+CD31: 18        CLC
+CD32: 24 8D     BIT <a href="ra818d.htm">$8D</a>          E/A-Byte abfragen
+CD34: 50 08     BVC $CD3E        b6=0: keine Pruefsumme bilden, ==&gt;
+CD36: 4C 63 DA  JMP <a href="ro81da63.htm">$DA63</a>        Pruefsumme bilden ==&gt;
+
+Einsprung von $CD0B:
+
+CD39: A9 03     LDA #$03         Zwischenspeicher setzen
+CD3B: 85 7D     STA <a href="ra817d.htm">$7D</a>
+CD3D: 38        SEC
+
+Einsprung von $CD34:
+
+CD3E: 60        RTS
+
+    <a href="ro81cbf4.htm">Previous Page</a> / <a href="ro81cd3f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BA8C/47756:   Load FAC#2 From Memory
+
+Jump from <a href="romb850.htm">$B850</a>, <a href="romb867.htm">$B867</a>, <a href="romba28.htm">$BA28</a>, <a href="rombb0f.htm">$BB0F</a>:
+
+BA8C: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+BA8E: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+BA90: A0 04     <a href="bldy.htm">LDY</a> #$04
+BA92: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BA94: 85 6D     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6D</a>       ; AFAC Mantissa
+BA96: 88        <a href="bdey.htm">DEY</a>
+BA97: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BA99: 85 6C     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6C</a>       ; AFAC Mantissa
+BA9B: 88        <a href="bdey.htm">DEY</a>
+BA9C: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BA9E: 85 6B     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6B</a>       ; AFAC Mantissa
+BAA0: 88        <a href="bdey.htm">DEY</a>
+BAA1: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BAA3: 85 6E     <a href="bsta.htm">STA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+BAA5: 45 66     <a href="beor.htm">EOR</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BAA7: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+BAA9: A5 6E     <a href="blda.htm">LDA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+BAAB: 09 80     <a href="bora.htm">ORA</a> #$80
+BAAD: 85 6A     <a href="bsta.htm">STA</a> <a href="zp6a.htm">$6A</a>       ; AFAC Mantissa
+BAAF: 88        <a href="bdey.htm">DEY</a>
+BAB0: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+BAB2: 85 69     <a href="bsta.htm">STA</a> <a href="zp69.htm">$69</a>       ; AFAC Exponent
+BAB4: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BAB6: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romba59.htm">Previous Page</a> / <a href="rombab7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

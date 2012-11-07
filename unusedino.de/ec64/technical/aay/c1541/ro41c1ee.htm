@@ -1,0 +1,91 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C1EE/49646:   Check input line
+
+Jump from <a href="ro41c146.htm">$C181</a>:
+
+C1EE: 20 E5 C1  JSR <a href="ro41c1e5.htm">$C1E5</a>       ; test line to ':' or end
+C1F1: D0 05     BNE $C1F8       ; colon found?
+
+Jump from $C1FE:
+
+C1F3: A9 34     LDA #$34
+C1F5: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 34, 'syntax error'
+
+Jump from $C1F1, <a href="ro41c8f0.htm">$C90C</a>:
+
+C1F8: 88        DEY
+C1F9: 88        DEY             ; set pointer to colon
+C1FA: 8C 7A 02  STY <a href="ra41027a.htm">$027A</a>       ; position of the drive number
+C1FD: 8A        TXA             ; comma before the colon
+C1FE: D0 F3     BNE $C1F3       ; yes, then 'syntax error'
+
+Jump from <a href="ro41da55.htm">$DA95</a>:
+
+C200: A9 3D     LDA #$3D        ; '='
+C202: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; check input to '='
+C205: 8A        TXA             ; comma found?
+C206: F0 02     BEQ $C20A       ; no
+C208: A9 40     LDA #$40        ; bit 6
+
+Jump from $C206:
+
+C20A: 09 21     ORA #$21        ; and set bit 0 and 5
+C20C: 8D 8B 02  STA <a href="ra41028a.htm">$028B</a>       ; flag for syntax check
+C20F: E8        INX
+C210: 8E 77 02  STX <a href="ra410277.htm">$0277</a>
+C213: 8E 78 02  STX <a href="ra410278.htm">$0278</a>
+C216: AD 8A 02  LDA <a href="ra41028a.htm">$028A</a>       ; wildcard found?
+C219: F0 0D     BEQ $C228       ; no
+C21B: A9 80     LDA #$80
+C21D: 0D 8B 02  ORA <a href="ra41028a.htm">$028B</a>       ; set bit 7
+C220: 8D 8B 02  STA <a href="ra41028a.htm">$028B</a>
+C223: A9 00     LDA #$00
+C225: 8D 8A 02  STA <a href="ra41028a.htm">$028A</a>       ; reset wildcard flag
+
+Jump from $C219:
+
+C228: 98        TYA             ; '=' found?
+C229: F0 29     BEQ $C254       ; no
+C22B: 9D 7A 02  STA <a href="ra41027a.htm">$027A</a>,X
+C22E: AD 77 02  LDA <a href="ra410277.htm">$0277</a>       ; number of commas before '='
+C231: 8D 79 02  STA <a href="ra410279.htm">$0279</a>
+C234: A9 8D     LDA #$8D        ; shift CR
+C236: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; check line to end
+C239: E8        INX             ; increment comma counter
+C23A: 8E 78 02  STX <a href="ra410278.htm">$0278</a>       ; store number of commas
+C23D: CA        DEX
+C23E: AD 8A 02  LDA <a href="ra41028a.htm">$028A</a>       ; wildcard found?
+C241: F0 02     BEQ $C245       ; no
+C243: A9 08     LDA #$08        ; set bit 3
+
+Jump from $C241:
+
+C245: EC 77 02  CPX <a href="ra410277.htm">$0277</a>       ; comma after '='?
+C248: F0 02     BEQ $C24C       ; no
+C24A: 09 04     ORA #$04        ; set bit 2
+
+Jump from $C248:
+
+C24C: 09 03     ORA #$03        ; set bits 0 and 1
+C24E: 4D 8B 02  EOR <a href="ra41028a.htm">$028B</a>
+C251: 8D 8B 02  STA <a href="ra41028a.htm">$028B</a>       ; as flag for syntax check
+
+Jump from $C229:
+
+C254: AD 8B 02  LDA <a href="ra41028a.htm">$028B</a>       ; syntax flag
+C257: AE 2A 02  LDX <a href="ra41022a.htm">$022A</a>       ; command number
+C25A: 3D A5 FE  AND <a href="ro41fea1.htm">$FEA5</a>,X     ; combine with check byte
+C25D: D0 01     BNE $C260
+C25F: 60        RTS
+
+Jump from $C25D:
+
+C260: 8D 6C 02  STA <a href="ra41026c.htm">$026C</a>       ; set error flag
+C263: A9 30     LDA #$30
+C265: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 30, 'syntax error'
+
+    <a href="ro41c1e5.htm">Previous Page</a> / <a href="ro41c268.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

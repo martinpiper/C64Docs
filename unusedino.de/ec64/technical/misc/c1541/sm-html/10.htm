@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Commodore 1540/1541 Service Manual: Microprocessor R/W and Motor Control Logic</title>
+</head>
+<body bgcolor="#ffffff">
+<h2 align="right">1541 CIRCUIT THEORY</h2>
+
+<center><a href="http://unusedino.de/ec64/technical/misc/c1541/sm-html/large/10.gif"><img src="small/10.gif" alt="[Microprocessor control logic schematic]"></a></center>
+
+<h3>Microprocessor R/W and Motor Control Logic</h3>
+
+UC2 is a VIA also. During a write operation the microprocessor passes the data to be recorded to Port A of UC2. The data is then loaded into the PLA parallel port (YB0-YB7). The PLA contains a shift register which converts the parallel data into serial
+data. The PLA generates signals on pins 2, 3, 4, and 40 which control the write amplifier circuits on D-IN input on pin 24 of the PLA. The PLA shift register converts serial data into parallel data that is latched at the parallel port (YB0-YB7). The
+register converts serial data into parallel data that is latched at the parallel port (YB0-YB7). The microprocessor reads the parallel data that is latched at the parallel port (YB0-YB7). The microprocessor reads the parallel PLA output by reading Port A
+of UC2 when BYTE READY on pin 39 goes "low." 
+
+<p> The stepper motor is controlled by two outputs on port B of UC2 (STP0, and STP1). A binary four count is developed from these two lines, driving the four phases of the stepper motor. The PLA converts STP0 and STP1 into four outputs that represent one
+of the four states in the count (Y0,Y1,Y2,Y3). The Spindle motor is controlled by the output MTR of UC2. The PLA inverts this signal. It is then passed to the motor speed control pcb.</p>
+
+<p> UC2 pin 14 is an input that monitors the state of the write protect sensor, and pin 13 is an output that controls the activity light (RED LED). UC7 decodes the addresses output from the processor when selecting UC2. UC2 resides at memory locations
+$1800-$180F.</p>
+
+</body>
+</html>
+

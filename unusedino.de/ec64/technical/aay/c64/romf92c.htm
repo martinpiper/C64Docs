@@ -1,0 +1,221 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F92C/63788:   Read Tape Bits
+
+Jump from $F938:
+
+F92C: AE 07 DC  <a href="bldx.htm">LDX</a> <a href="cia17.htm">$DC07</a>     ; CIA1: Timer B High-Byte (Tape, Serial Port)
+F92F: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+F931: 98        <a href="btya.htm">TYA</a>
+F932: ED 06 DC  <a href="bsbc.htm">SBC</a> <a href="cia16.htm">$DC06</a>     ; CIA1: Timer B Low-Byte  (Tape, Serial Port)
+F935: EC 07 DC  <a href="bcpx.htm">CPX</a> <a href="cia17.htm">$DC07</a>     ; CIA1: Timer B High-Byte (Tape, Serial Port)
+F938: D0 F2     <a href="bbne.htm">BNE</a> $F92C
+F93A: 86 B1     <a href="bstx.htm">STX</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F93C: AA        <a href="btax.htm">TAX</a>
+F93D: 8C 06 DC  <a href="bsty.htm">STY</a> <a href="cia16.htm">$DC06</a>     ; CIA1: Timer B Low-Byte  (Tape, Serial Port)
+F940: 8C 07 DC  <a href="bsty.htm">STY</a> <a href="cia17.htm">$DC07</a>     ; CIA1: Timer B High-Byte (Tape, Serial Port)
+F943: A9 19     <a href="blda.htm">LDA</a> #$19
+F945: 8D 0F DC  <a href="bsta.htm">STA</a> <a href="cia115.htm">$DC0F</a>     ; CIA1: Control Register B
+F948: AD 0D DC  <a href="blda.htm">LDA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+F94B: 8D A3 02  <a href="bsta.htm">STA</a> <a href="zp02a3.htm">$02A3</a>     ; Temporary storage during Tape READ
+F94E: 98        <a href="btya.htm">TYA</a>
+F94F: E5 B1     <a href="bsbc.htm">SBC</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F951: 86 B1     <a href="bstx.htm">STX</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F953: 4A        <a href="blsr.htm">LSR</a>
+F954: 66 B1     <a href="bror.htm">ROR</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F956: 4A        <a href="blsr.htm">LSR</a>
+F957: 66 B1     <a href="bror.htm">ROR</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F959: A5 B0     <a href="blda.htm">LDA</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F95B: 18        <a href="bclc.htm">CLC</a>
+F95C: 69 3C     <a href="badc.htm">ADC</a> #$3C
+F95E: C5 B1     <a href="bcmp.htm">CMP</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F960: B0 4A     <a href="bbcs.htm">BCS</a> $F9AC
+F962: A6 9C     <a href="bldx.htm">LDX</a> <a href="zp9c.htm">$9C</a>       ; Flag: Byte received from Tape
+F964: F0 03     <a href="bbeq.htm">BEQ</a> $F969
+F966: 4C 60 FA  <a href="bjmp.htm">JMP</a> <a href="romfa60.htm">$FA60</a>     ; Store Tape Characters
+
+Jump from $F964:
+
+F969: A6 A3     <a href="bldx.htm">LDX</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+F96B: 30 1B     <a href="bbmi.htm">BMI</a> $F988
+F96D: A2 00     <a href="bldx.htm">LDX</a> #$00
+F96F: 69 30     <a href="badc.htm">ADC</a> #$30
+F971: 65 B0     <a href="badc.htm">ADC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F973: C5 B1     <a href="bcmp.htm">CMP</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F975: B0 1C     <a href="bbcs.htm">BCS</a> $F993
+F977: E8        <a href="binx.htm">INX</a>
+F978: 69 26     <a href="badc.htm">ADC</a> #$26
+F97A: 65 B0     <a href="badc.htm">ADC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F97C: C5 B1     <a href="bcmp.htm">CMP</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F97E: B0 17     <a href="bbcs.htm">BCS</a> $F997
+F980: 69 2C     <a href="badc.htm">ADC</a> #$2C
+F982: 65 B0     <a href="badc.htm">ADC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F984: C5 B1     <a href="bcmp.htm">CMP</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F986: 90 03     <a href="bbcc.htm">BCC</a> $F98B
+
+Jump from $F96B, $F9C7:
+
+F988: 4C 10 FA  <a href="bjmp.htm">JMP</a> $FA10
+
+Jump from $F986, $F9D0, $F9E9:
+
+F98B: A5 B4     <a href="blda.htm">LDA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+F98D: F0 1D     <a href="bbeq.htm">BEQ</a> $F9AC
+F98F: 85 A8     <a href="bsta.htm">STA</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+F991: D0 19     <a href="bbne.htm">BNE</a> $F9AC
+
+Jump from $F975:
+
+F993: E6 A9     <a href="binc.htm">INC</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+F995: B0 02     <a href="bbcs.htm">BCS</a> $F999
+
+Jump from $F97E, $FA1C:
+
+F997: C6 A9     <a href="bdec.htm">DEC</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+
+Jump from $F995:
+
+F999: 38        <a href="bsec.htm">SEC</a>
+F99A: E9 13     <a href="bsbc.htm">SBC</a> #$13
+F99C: E5 B1     <a href="bsbc.htm">SBC</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+F99E: 65 92     <a href="badc.htm">ADC</a> <a href="zp92.htm">$92</a>       ; Timing Constant for Tape
+F9A0: 85 92     <a href="bsta.htm">STA</a> <a href="zp92.htm">$92</a>       ; Timing Constant for Tape
+F9A2: A5 A4     <a href="blda.htm">LDA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+F9A4: 49 01     <a href="beor.htm">EOR</a> #$01
+F9A6: 85 A4     <a href="bsta.htm">STA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+F9A8: F0 2B     <a href="bbeq.htm">BEQ</a> $F9D5
+F9AA: 86 D7     <a href="bstx.htm">STX</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+
+Jump from $F960, $F98D, $F991, $F9ED, $F9F1, $F9F5:
+
+F9AC: A5 B4     <a href="blda.htm">LDA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+F9AE: F0 22     <a href="bbeq.htm">BEQ</a> $F9D2
+F9B0: AD A3 02  <a href="blda.htm">LDA</a> <a href="zp02a3.htm">$02A3</a>     ; Temporary storage during Tape READ
+F9B3: 29 01     <a href="band.htm">AND</a> #$01
+F9B5: D0 05     <a href="bbne.htm">BNE</a> $F9BC
+F9B7: AD A4 02  <a href="blda.htm">LDA</a> <a href="zp02a4.htm">$02A4</a>     ; Temporary D1IRQ Indicator during Tape READ
+F9BA: D0 16     <a href="bbne.htm">BNE</a> $F9D2
+
+Jump from $F9B5:
+
+F9BC: A9 00     <a href="blda.htm">LDA</a> #$00
+F9BE: 85 A4     <a href="bsta.htm">STA</a> <a href="zpa4.htm">$A4</a>       ; Serial Bus shift Counter
+F9C0: 8D A4 02  <a href="bsta.htm">STA</a> <a href="zp02a4.htm">$02A4</a>     ; Temporary D1IRQ Indicator during Tape READ
+F9C3: A5 A3     <a href="blda.htm">LDA</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+F9C5: 10 30     <a href="bbpl.htm">BPL</a> $F9F7
+F9C7: 30 BF     <a href="bbmi.htm">BMI</a> $F988
+
+Jump from $FA02:
+
+F9C9: A2 A6     <a href="bldx.htm">LDX</a> #$A6
+F9CB: 20 E2 F8  <a href="bjsr.htm">JSR</a> <a href="romf8e2.htm">$F8E2</a>     ; Set Read Timing
+F9CE: A5 9B     <a href="blda.htm">LDA</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+F9D0: D0 B9     <a href="bbne.htm">BNE</a> $F98B
+
+Jump from $F9AE, $F9BA, $F9FE:
+
+F9D2: 4C BC FE  <a href="bjmp.htm">JMP</a> <a href="romfebc.htm">$FEBC</a>     ; Exit Interrupt
+
+Jump from $F9A8:
+
+F9D5: A5 92     <a href="blda.htm">LDA</a> <a href="zp92.htm">$92</a>       ; Timing Constant for Tape
+F9D7: F0 07     <a href="bbeq.htm">BEQ</a> $F9E0
+F9D9: 30 03     <a href="bbmi.htm">BMI</a> $F9DE
+F9DB: C6 B0     <a href="bdec.htm">DEC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+F9DD: 2C        .BYTE $2C
+
+Jump from $F9D9:
+
+F9DE: E6 B0     <a href="binc.htm">INC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+
+Jump from $F9D7:
+
+F9E0: A9 00     <a href="blda.htm">LDA</a> #$00
+F9E2: 85 92     <a href="bsta.htm">STA</a> <a href="zp92.htm">$92</a>       ; Timing Constant for Tape
+F9E4: E4 D7     <a href="bcpx.htm">CPX</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+F9E6: D0 0F     <a href="bbne.htm">BNE</a> $F9F7
+F9E8: 8A        <a href="btxa.htm">TXA</a>
+F9E9: D0 A0     <a href="bbne.htm">BNE</a> $F98B
+F9EB: A5 A9     <a href="blda.htm">LDA</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+F9ED: 30 BD     <a href="bbmi.htm">BMI</a> $F9AC
+F9EF: C9 10     <a href="bcmp.htm">CMP</a> #$10
+F9F1: 90 B9     <a href="bbcc.htm">BCC</a> $F9AC
+F9F3: 85 96     <a href="bsta.htm">STA</a> <a href="zp96.htm">$96</a>       ; Cassette Sync number
+F9F5: B0 B5     <a href="bbcs.htm">BCS</a> $F9AC
+
+Jump from $F9C5, $F9E6:
+
+F9F7: 8A        <a href="btxa.htm">TXA</a>
+F9F8: 45 9B     <a href="beor.htm">EOR</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+F9FA: 85 9B     <a href="bsta.htm">STA</a> <a href="zp9b.htm">$9B</a>       ; Parity of Byte Output to Tape
+F9FC: A5 B4     <a href="blda.htm">LDA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+F9FE: F0 D2     <a href="bbeq.htm">BEQ</a> $F9D2
+FA00: C6 A3     <a href="bdec.htm">DEC</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+FA02: 30 C5     <a href="bbmi.htm">BMI</a> $F9C9
+FA04: 46 D7     <a href="blsr.htm">LSR</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+FA06: 66 BF     <a href="bror.htm">ROR</a> <a href="zpbf.htm">$BF</a>       ; Serial Word Buffer
+FA08: A2 DA     <a href="bldx.htm">LDX</a> #$DA
+FA0A: 20 E2 F8  <a href="bjsr.htm">JSR</a> <a href="romf8e2.htm">$F8E2</a>     ; Set Read Timing
+FA0D: 4C BC FE  <a href="bjmp.htm">JMP</a> <a href="romfebc.htm">$FEBC</a>     ; Exit Interrupt
+
+Jump from $F988:
+
+FA10: A5 96     <a href="blda.htm">LDA</a> <a href="zp96.htm">$96</a>       ; Cassette Sync number
+FA12: F0 04     <a href="bbeq.htm">BEQ</a> $FA18
+FA14: A5 B4     <a href="blda.htm">LDA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+FA16: F0 07     <a href="bbeq.htm">BEQ</a> $FA1F
+
+Jump from $FA12:
+
+FA18: A5 A3     <a href="blda.htm">LDA</a> <a href="zpa3.htm">$A3</a>       ; Serial Bus EOI (End Of Input) Flag
+FA1A: 30 03     <a href="bbmi.htm">BMI</a> $FA1F
+FA1C: 4C 97 F9  <a href="bjmp.htm">JMP</a> $F997
+
+Jump from $FA16, $FA1A:
+
+FA1F: 46 B1     <a href="blsr.htm">LSR</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+FA21: A9 93     <a href="blda.htm">LDA</a> #$93
+FA23: 38        <a href="bsec.htm">SEC</a>
+FA24: E5 B1     <a href="bsbc.htm">SBC</a> <a href="zpb0.htm">$B1</a>       ; Tape timing Constants
+FA26: 65 B0     <a href="badc.htm">ADC</a> <a href="zpb0.htm">$B0</a>       ; Tape timing Constants
+FA28: 0A        <a href="basl.htm">ASL</a>
+FA29: AA        <a href="btax.htm">TAX</a>
+FA2A: 20 E2 F8  <a href="bjsr.htm">JSR</a> <a href="romf8e2.htm">$F8E2</a>     ; Set Read Timing
+FA2D: E6 9C     <a href="binc.htm">INC</a> <a href="zp9c.htm">$9C</a>       ; Flag: Byte received from Tape
+FA2F: A5 B4     <a href="blda.htm">LDA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+FA31: D0 11     <a href="bbne.htm">BNE</a> $FA44
+FA33: A5 96     <a href="blda.htm">LDA</a> <a href="zp96.htm">$96</a>       ; Cassette Sync number
+FA35: F0 26     <a href="bbeq.htm">BEQ</a> $FA5D
+FA37: 85 A8     <a href="bsta.htm">STA</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FA39: A9 00     <a href="blda.htm">LDA</a> #$00
+FA3B: 85 96     <a href="bsta.htm">STA</a> <a href="zp96.htm">$96</a>       ; Cassette Sync number
+FA3D: A9 81     <a href="blda.htm">LDA</a> #$81
+FA3F: 8D 0D DC  <a href="bsta.htm">STA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+FA42: 85 B4     <a href="bsta.htm">STA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+
+Jump from $FA31:
+
+FA44: A5 96     <a href="blda.htm">LDA</a> <a href="zp96.htm">$96</a>       ; Cassette Sync number
+FA46: 85 B5     <a href="bsta.htm">STA</a> <a href="zpb5.htm">$B5</a>       ; RS232 Next Bit to send/Tape Read - End of Tape
+FA48: F0 09     <a href="bbeq.htm">BEQ</a> $FA53
+FA4A: A9 00     <a href="blda.htm">LDA</a> #$00
+FA4C: 85 B4     <a href="bsta.htm">STA</a> <a href="zpb4.htm">$B4</a>       ; RS232 Write bit count/Tape Read timing Flag
+FA4E: A9 01     <a href="blda.htm">LDA</a> #$01
+FA50: 8D 0D DC  <a href="bsta.htm">STA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+
+Jump from $FA48:
+
+FA53: A5 BF     <a href="blda.htm">LDA</a> <a href="zpbf.htm">$BF</a>       ; Serial Word Buffer
+FA55: 85 BD     <a href="bsta.htm">STA</a> <a href="zpbd.htm">$BD</a>       ; RS232 Output Parity/Tape Byte temporary
+FA57: A5 A8     <a href="blda.htm">LDA</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FA59: 05 A9     <a href="bora.htm">ORA</a> <a href="zpa9.htm">$A9</a>       ; RS232 Flag: Start Bit check/Tape temporary
+FA5B: 85 B6     <a href="bsta.htm">STA</a> <a href="zpb6.htm">$B6</a>       ; RS232 Output Byte Buffer/Tape Read Error Flag
+
+Jump from $FA35:
+
+FA5D: 4C BC FE  <a href="bjmp.htm">JMP</a> <a href="romfebc.htm">$FEBC</a>     ; Exit Interrupt
+
+    <a href="romf8e2.htm">Previous Page</a> / <a href="romfa60.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

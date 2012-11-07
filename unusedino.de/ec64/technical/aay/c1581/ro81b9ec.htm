@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Fehlermeldung ausgeben (bei der 1571: $91ad)
+E: x: Fehlernummer
+
+Einsprung von <a href="ro81b8d2.htm">$B93E</a>:
+
+B9EC: 20 FB B9  JSR $B9FB        $02: 'File not found' ausgeben
+                                Fehlernummer aus x nach a
+B9EF: C9 02     CMP #$02         x = 2 !
+B9F1: F0 03     BEQ $B9F6        ==&gt;
+B9F3: A9 74     LDA #$74         74, Drive not ready
+B9F5: 2C         B $2C
+
+Einsprung von $B9F1:
+
+B9F6: A9 62     LDA #$62         62, File not found
+B9F8: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        T&amp;S=0, CMDERR
+
+    <a href="ro81b9df.htm">Previous Page</a> / <a href="ro81b9fb.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

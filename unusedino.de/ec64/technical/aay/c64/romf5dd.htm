@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F5DD/62941:   Save RAM
+
+Jump from <a href="romffd8.htm">$FFD8</a>:
+
+F5DD: 86 AE     <a href="bstx.htm">STX</a> <a href="zpae.htm">$AE</a>       ; Tape End Address/End of Program
+F5DF: 84 AF     <a href="bsty.htm">STY</a> <a href="zpae.htm">$AF</a>       ; Tape End Address/End of Program
+F5E1: AA        <a href="btax.htm">TAX</a>
+F5E2: B5 00     <a href="blda.htm">LDA</a> <a href="zp00.htm">$00</a>,X     ; 6510 On-chip Data Direction Register
+F5E4: 85 C1     <a href="bsta.htm">STA</a> <a href="zpc1.htm">$C1</a>       ; Start Address for LOAD and Cassette Write
+F5E6: B5 01     <a href="blda.htm">LDA</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+F5E8: 85 C2     <a href="bsta.htm">STA</a> <a href="zpc1.htm">$C2</a>       ; Start Address for LOAD and Cassette Write
+F5EA: 6C 32 03  <a href="bjmp.htm">JMP</a> (<a href="zp0332.htm">$0332</a>)   ; Vector: Kernal SAVE Routine
+F5ED: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F5EF: D0 03     <a href="bbne.htm">BNE</a> $F5F4
+
+Jump from $F5F6, $F5F8 (SX64), <a href="romf659.htm">$F662</a>:
+
+F5F1: 4C 13 F7  <a href="bjmp.htm">JMP</a> <a href="romf713.htm">$F713</a>     ; Output I/O Error Messages: 'ILLEGAL DEVICE NUMBER'
+
+Jump from $F5EF:
+
+F5F4: C9 03     <a href="bcmp.htm">CMP</a> #$03
+F5F6: F0 F9     <a href="bbeq.htm">BEQ</a> $F5F1
+F5F8: 90 5F     <a href="bbcc.htm">BCC</a> <a href="romf659.htm">$F659</a>     ; Save to Tape
+<b>* SX64:
+F5F8: 90 F7     <a href="bbcc.htm">BCC</a> $F5F1
+</b>
+    <a href="romf5d2.htm">Previous Page</a> / <a href="romf5fa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

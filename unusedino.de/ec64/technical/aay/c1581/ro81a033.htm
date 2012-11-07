@@ -1,0 +1,67 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Empfangene Daten in Record schreiben ($e0ab)
+
+Einsprung von <a href="ro818e78.htm">$8E8C</a>:
+
+A033: A9 A0     LDA #$A0         Record voll/nicht vorhanden ?
+A035: 20 E4 9C  JSR <a href="ro819cd3.htm">$9CE4</a>        (b5,7 testen)
+A038: D0 27     BNE $A061        ja, ==&gt;
+
+Einsprung von $A078:
+
+A03A: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte holen
+A03C: 20 FC 9F  JSR <a href="ro819ffc.htm">$9FFC</a>        und in Record schreiben
+A03F: A5 51     LDA <a href="ra8151.htm">$51</a>          EOI empfangen ?
+A041: F0 0D     BEQ $A050        ja, ==&gt;
+A043: 60        RTS
+
+Teil der Error-Routine (Record uebergelaufen &amp; EOI vom Computer empfangen)
+
+Einsprung von $A067:
+
+A044: A9 20     LDA #$20         b5=1: Ist das Flag: 'Record voll' gesetzt ?
+A046: 20 E4 9C  JSR <a href="ro819cd3.htm">$9CE4</a>        [Deshalb sind wir ja hier !!!]
+A049: F0 05     BEQ $A050        nein, (wird nie ausgefuehrt) ==&gt;
+A04B: A9 51     LDA #$51         51, Overflow in Record
+A04D: 8D AB 02  STA <a href="ra8102ab.htm">$02AB</a>        Fehlernummer merken
+
+Arbeit mit dem aktuellen Record beenden
+
+Einsprung von $A041, $A049:
+
+A050: 20 7B A0  JSR $A07B        Rest des Records mit $00 auffuellen
+A053: 20 E1 A0  JSR <a href="ro81a0e1.htm">$A0E1</a>        naechsten Record lesen
+A056: AD AB 02  LDA <a href="ra8102ab.htm">$02AB</a>        Ist ein Fehler aufgetreten ?
+A059: F0 03     BEQ $A05E        nein, ==&gt;
+A05B: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>        Fehler ausgeben
+
+Einsprung von $A059:
+
+A05E: 4C 62 A8  JMP <a href="ro81a862.htm">$A862</a>        00, Ok,00,00
+
+Laut Dateistatus liegt ein Fehler vor
+
+Einsprung von $A038:
+
+A061: 29 80     AND #$80         Record nicht vorhanden ?
+A063: D0 05     BNE $A06A        ja, ==&gt;
+A065: A5 51     LDA <a href="ra8151.htm">$51</a>          (Record ist voll ) EOI empfangen ?
+A067: F0 DB     BEQ $A044        ja, ==&gt;
+A069: 60        RTS              ueberzaelige Daten vergessen
+
+Einsprung von $A063:
+
+A06A: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte zwischenspeichern
+A06C: 48        PHA
+A06D: 20 D6 A2  JSR <a href="ro81a2d6.htm">$A2D6</a>        neuen Block mit Records an die Datei haengen
+A070: 68        PLA
+A071: 85 54     STA <a href="ra8154.htm">$54</a>
+A073: A9 80     LDA #$80         b7=0: Record existiert
+A075: 20 DB 9C  JSR <a href="ro819cd3.htm">$9CDB</a>        Status loeschen
+A078: 4C 3A A0  JMP $A03A        Byte in den neuen Record schreiben
+
+    <a href="ro819ffc.htm">Previous Page</a> / <a href="ro81a07b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

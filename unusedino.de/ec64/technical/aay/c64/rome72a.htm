@@ -1,0 +1,150 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E72A/59178:   -unshifted characters-
+
+Jump from <a href="rome716.htm">$E725</a>:
+
+E72A: C9 0D     <a href="bcmp.htm">CMP</a> #$0D
+E72C: D0 03     <a href="bbne.htm">BNE</a> $E731
+E72E: 4C 91 E8  <a href="bjmp.htm">JMP</a> <a href="rome891.htm">$E891</a>     ; Output &lt;CR&gt;
+
+Jump from $E72C:
+
+E731: C9 20     <a href="bcmp.htm">CMP</a> #$20
+E733: 90 10     <a href="bbcc.htm">BCC</a> $E745
+E735: C9 60     <a href="bcmp.htm">CMP</a> #$60
+E737: 90 04     <a href="bbcc.htm">BCC</a> $E73D
+E739: 29 DF     <a href="band.htm">AND</a> #$DF
+E73B: D0 02     <a href="bbne.htm">BNE</a> $E73F
+
+Jump from $E737:
+
+E73D: 29 3F     <a href="band.htm">AND</a> #$3F
+
+Jump from $E73B:
+
+E73F: 20 84 E6  <a href="bjsr.htm">JSR</a> <a href="rome684.htm">$E684</a>     ; Quotes Test
+E742: 4C 93 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E693</a>     ; Set Up Screen Print
+
+Jump from $E733:
+
+E745: A6 D8     <a href="bldx.htm">LDX</a> <a href="zpd8.htm">$D8</a>       ; Count of number of inserts outstanding
+E747: F0 03     <a href="bbeq.htm">BEQ</a> $E74C
+E749: 4C 97 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E697</a>     ; Set Up Screen Print
+
+Jump from $E747:
+
+E74C: C9 14     <a href="bcmp.htm">CMP</a> #$14
+E74E: D0 2E     <a href="bbne.htm">BNE</a> $E77E
+E750: 98        <a href="btya.htm">TYA</a>
+E751: D0 06     <a href="bbne.htm">BNE</a> $E759
+E753: 20 01 E7  <a href="bjsr.htm">JSR</a> <a href="rome701.htm">$E701</a>     ; Back on to Previous Line
+E756: 4C 73 E7  <a href="bjmp.htm">JMP</a> $E773
+
+Jump from $E751:
+
+E759: 20 A1 E8  <a href="bjsr.htm">JSR</a> <a href="rome8a1.htm">$E8A1</a>     ; Check Line Decrement
+E75C: 88        <a href="bdey.htm">DEY</a>
+E75D: 84 D3     <a href="bsty.htm">STY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E75F: 20 24 EA  <a href="bjsr.htm">JSR</a> <a href="romea24.htm">$EA24</a>     ; Syncronise Color Pointer
+
+Jump from $E771:
+
+E762: C8        <a href="biny.htm">INY</a>
+E763: B1 D1     <a href="blda.htm">LDA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+E765: 88        <a href="bdey.htm">DEY</a>
+E766: 91 D1     <a href="bsta.htm">STA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+E768: C8        <a href="biny.htm">INY</a>
+E769: B1 F3     <a href="blda.htm">LDA</a> (<a href="zpf3.htm">$F3</a>),Y   ; Pointer: Current Color RAM Location
+E76B: 88        <a href="bdey.htm">DEY</a>
+E76C: 91 F3     <a href="bsta.htm">STA</a> (<a href="zpf3.htm">$F3</a>),Y   ; Pointer: Current Color RAM Location
+E76E: C8        <a href="biny.htm">INY</a>
+E76F: C4 D5     <a href="bcpy.htm">CPY</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E771: D0 EF     <a href="bbne.htm">BNE</a> $E762
+
+Jump from $E756:
+
+E773: A9 20     <a href="blda.htm">LDA</a> #$20
+E775: 91 D1     <a href="bsta.htm">STA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+E777: AD 86 02  <a href="blda.htm">LDA</a> <a href="zp0286.htm">$0286</a>     ; Current Character Color code
+E77A: 91 F3     <a href="bsta.htm">STA</a> (<a href="zpf3.htm">$F3</a>),Y   ; Pointer: Current Color RAM Location
+E77C: 10 4D     <a href="bbpl.htm">BPL</a> $E7CB
+
+Jump from $E74E:
+
+E77E: A6 D4     <a href="bldx.htm">LDX</a> <a href="zpd4.htm">$D4</a>       ; Flag: Editor in Quote Mode
+E780: F0 03     <a href="bbeq.htm">BEQ</a> $E785
+E782: 4C 97 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E697</a>     ; Set Up Screen Print
+
+Jump from $E780:
+
+E785: C9 12     <a href="bcmp.htm">CMP</a> #$12
+E787: D0 02     <a href="bbne.htm">BNE</a> $E78B
+E789: 85 C7     <a href="bsta.htm">STA</a> <a href="zpc7.htm">$C7</a>       ; Flag: Reverse On/Off
+
+Jump from $E787:
+
+E78B: C9 13     <a href="bcmp.htm">CMP</a> #$13
+E78D: D0 03     <a href="bbne.htm">BNE</a> $E792
+E78F: 20 66 E5  <a href="bjsr.htm">JSR</a> <a href="rome566.htm">$E566</a>     ; Home Cursor
+
+Jump from $E78D:
+
+E792: C9 1D     <a href="bcmp.htm">CMP</a> #$1D
+E794: D0 17     <a href="bbne.htm">BNE</a> $E7AD
+E796: C8        <a href="biny.htm">INY</a>
+E797: 20 B3 E8  <a href="bjsr.htm">JSR</a> <a href="rome8b3.htm">$E8B3</a>     ; Check Line Increment
+E79A: 84 D3     <a href="bsty.htm">STY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E79C: 88        <a href="bdey.htm">DEY</a>
+E79D: C4 D5     <a href="bcpy.htm">CPY</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E79F: 90 09     <a href="bbcc.htm">BCC</a> $E7AA
+E7A1: C6 D6     <a href="bdec.htm">DEC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E7A3: 20 7C E8  <a href="bjsr.htm">JSR</a> <a href="rome87c.htm">$E87C</a>     ; Go to Next Line
+E7A6: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $E7BA, $E7BC:
+
+E7A8: 84 D3     <a href="bsty.htm">STY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+
+Jump from $E79F:
+
+E7AA: 4C A8 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E6A8</a>     ; Set Up Screen Print
+
+Jump from $E794:
+
+E7AD: C9 11     <a href="bcmp.htm">CMP</a> #$11
+E7AF: D0 1D     <a href="bbne.htm">BNE</a> $E7CE
+E7B1: 18        <a href="bclc.htm">CLC</a>
+E7B2: 98        <a href="btya.htm">TYA</a>
+E7B3: 69 28     <a href="badc.htm">ADC</a> #$28
+E7B5: A8        <a href="btay.htm">TAY</a>
+E7B6: E6 D6     <a href="binc.htm">INC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E7B8: C5 D5     <a href="bcmp.htm">CMP</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E7BA: 90 EC     <a href="bbcc.htm">BCC</a> $E7A8
+E7BC: F0 EA     <a href="bbeq.htm">BEQ</a> $E7A8
+E7BE: C6 D6     <a href="bdec.htm">DEC</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+
+Jump from $E7C6:
+
+E7C0: E9 28     <a href="bsbc.htm">SBC</a> #$28
+E7C2: 90 04     <a href="bbcc.htm">BCC</a> $E7C8
+E7C4: 85 D3     <a href="bsta.htm">STA</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E7C6: D0 F8     <a href="bbne.htm">BNE</a> $E7C0
+
+Jump from $E7C2:
+
+E7C8: 20 7C E8  <a href="bjsr.htm">JSR</a> <a href="rome87c.htm">$E87C</a>     ; Go to Next Line
+
+Jump from $E77C:
+
+E7CB: 4C A8 E6  <a href="bjmp.htm">JMP</a> <a href="rome691.htm">$E6A8</a>     ; Set Up Screen Print
+
+Jump from $E7AF:
+
+E7CE: 20 CB E8  <a href="bjsr.htm">JSR</a> <a href="rome8cb.htm">$E8CB</a>     ; Set Color Code
+E7D1: 4C 44 EC  <a href="bjmp.htm">JMP</a> <a href="romec44.htm">$EC44</a>     ; Graphics/Text Control
+
+    <a href="rome716.htm">Previous Page</a> / <a href="rome7d4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

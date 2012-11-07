@@ -1,0 +1,277 @@
+<html>
+
+<head>
+	<title>linuxassembly.org - Using the audio device under Linux</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+	<h1 align="center">Using the audio device under Linux</h1>
+	<p align="center"><font size="-1">by <a href="mailto:linuxassembly@unusedino.de">Karsten Scheibler</a></font></p>
+
+	<dl><dt><b>Remark&nbsp;(a):</b></dt>
+	<dd>Save this page as <tt>audio.html</tt> and use the following command to extract the source code with a sample Makefile:<br>
+	<tt>sh&nbsp;-c&nbsp;&quot;( mkdir&nbsp;audio&nbsp;&amp;&amp; cd&nbsp;audio&nbsp;&amp;&amp; awk&nbsp;'/^&lt;!--eof/{d=0}{if(d)print&gt;f}/^&lt;!--sof/{f=\$2;d=1}' )&nbsp;&lt;&nbsp;audio.html&quot;</tt>
+	</dd><dt><b>Remark&nbsp;(b):</b></dt>
+	<dd>Some browsers try to be super smart and reformat the html code
+	so you may have trouble to extract the files. This is the right time to learn more
+	about wget, a tool to download files via http or ftp ;-)
+	</dd><dt><b>Remark&nbsp;(c):</b></dt>
+	<dd>Some versions of nasm are known to generate broken code.
+	I have used nasm-0.98 for this example which worked for me.
+	</dd>
+	</dl>
+
+	<p align="justify">This is a short explanation how you can use the OSS interface of the kernel
+	to output audio samples. If you find mistakes or have suggestions, mail
+	<a href="mailto:linuxassembly@unusedino.de">me</a>.</p>
+
+	<p align="justify">The example code below is very simple. It doesn't check if your soundcard
+	supports the options required (44.1 kHz mono/stereo 16 Bits signed). This
+	causes wrong output if your soundcard doesn't support this. Of course your kernel
+	has to have loaded the correct driver for your soundcard in order to get this work.</p>
+
+	<p>short procedure:<ol type="1">
+		<li>open the device via <b>sys_open</b> (usually <b>/dev/dsp</b>)</li>
+		<li>set your audio options via <b>sys_ioctl</b></li>
+		<li>use <b>sys_write</b> to output the audio samples</li>
+	</ol></p>
+
+	<p align="justify">Mostly all of the ioctl's used here are read/write this means the address
+	given in edx must be writable, because the kernel writes the real parameter
+	for your sound options back to this address (if you want to set 48 kHz but
+	your soundcard only supports 44.1 kHz you will find this value in your
+	variable addressed with edx). Therefore placing such a variable in
+	<b>section .text</b> is a bad idea. Notice: if you look at the kernel sources
+	(especially <b>/usr/src/linux/include/linux/soundcard.h</b>) you will find multiple
+	names for the same ioctl (example: <b>SNDCTL_DSP_CHANNELS</b> is equal to
+	<b>SOUND_PCM_WRITE_CHANNELS</b>).</p>
+
+	<p align="justify">If you want to use sound output in your program you should do something more
+	than this sample code. Here some more interesting ioctl's:<ul>
+		<li>check <b>SNDCTL_DSP_GETBLKSIZE</b>
+		how many data you have to write to your
+		soundcard, before playing starts (the value should be in bytes).
+		If you write less than this to the audio device no output
+		will be earable.
+		Remember: samples already in the buffer also count.</li>
+		<li>use <b>SNDCTL_DSP_GETODELAY</b> to check how many bytes (NOT SAMPLES!!) are
+		currently in the output buffer</li>
+		<li>perhaps you have to use <b>SNDCTL_DSP_NONBLOCK</b> to make writes (smaller than
+		the DMA buffer) nonblocking.</li>
+		<li>while using <b>SNDCTL_DSP_SETFMT</b>, <b>SNDCTL_DSP_CHANNELS</b> and
+		<b>SNDCTL_DSP_SPEED</b> don't forget to check the values the kernel
+		gives you back.</li>
+		<li>use <b>SNDCTL_DSP_SETFRAGMENT</b> to set the granularity of DMA buffer.
+		If i remember right, this influences also the amount of generated IRQs by the
+		soundcard. The higher the granularity the higher the latency and the lower the number
+		of generated IRQs.</li>
+	</ul></p>
+
+	<p align="justify">It is always a good idea to write as much data as possible at once, because
+	every syscall consumes extra cpu cycles.</p>
+
+	<p align="justify">The sample code below makes 2 outputs. First a simple <a href="audio.htm#sawtooth">sawtooth waveform</a> and
+	second it tries to open the file <a href="audio.htm#audio_raw">audio.raw</a> and if it exists it is played.
+	This file should be in the format 44.1 kHz, stereo, 16 Bit signed.</p>
+
+<center><table><tr><td><pre>
+<!--sof audio.n -->
+;****************************************************************************
+;****************************************************************************
+;*
+;* USING THE AUDIO DEVICE UNDER LINUX
+;*
+;* written by Karsten Scheibler, 2003-DEC-08
+;*
+;****************************************************************************
+;****************************************************************************
+
+
+
+
+
+global audio_start
+
+
+
+;****************************************************************************
+;* some assign's
+;****************************************************************************
+%assign SYS_READ			3
+%assign SYS_WRITE			4
+%assign SYS_OPEN			5
+%assign SYS_IOCTL			54
+
+%assign O_RDONLY			0
+%assign O_RDWR				2
+
+%assign SNDCTL_DSP_RESET		0x00005000
+%assign SNDCTL_DSP_SPEED		0xc0045002
+%assign SNDCTL_DSP_SETFMT		0xc0045005
+%assign		AFMT_S16_LE		0x00000010
+%assign SNDCTL_DSP_CHANNELS		0xc0045006
+
+%assign AUDIO_DATA_SIZE			0x100000	;1 MB
+
+
+
+;****************************************************************************
+;* data
+;****************************************************************************
+section .data
+					align	4
+audio_handle:				dd	0
+ioctl_table:				dd	SNDCTL_DSP_RESET, 0
+					dd	SNDCTL_DSP_SPEED, 44100
+					dd	SNDCTL_DSP_CHANNELS, 1
+					dd	SNDCTL_DSP_SETFMT, AFMT_S16_LE
+
+section .bss
+					alignb	4
+audio_data:				resb	AUDIO_DATA_SIZE
+
+
+
+;****************************************************************************
+;* audio_start
+;****************************************************************************
+section .text
+audio_start:
+	;open the device
+
+	mov	dword eax, SYS_OPEN
+	mov	dword ebx, .device
+	mov	dword ecx, O_RDWR
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  audio_error
+	mov	dword [audio_handle], eax
+
+	;set the options: 44.1 kHz, mono, 16 Bit signed
+
+	xor	dword ebp, ebp
+.do_ioctl:
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, [audio_handle]
+	mov	dword ecx, [ioctl_table + 8 * ebp]
+	lea	dword edx, [ioctl_table + 8 * ebp + 4]
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  audio_error
+	inc	dword ebp
+	cmp	dword ebp, byte 4
+	jb	short .do_ioctl
+
+	;<a name="sawtooth"></a>output something very simple (sawtooth waveform)
+	;not recommended: write every single sample like here
+
+	mov	dword esi, 0x40000
+	xor	dword ebp, ebp
+.loop:
+	mov	word  [audio_data], bp
+	mov	dword eax, SYS_WRITE
+	mov	dword ebx, [audio_handle]
+	mov	dword ecx, audio_data
+	mov	dword edx, 2
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  audio_error
+	add	dword ebp, 0x0100
+	dec	dword esi
+	jnz	short .loop
+
+	;<a name="audio_raw"></a>open a raw audio file
+	;format should be 44.1 kHz, stereo, 16 Bit signed
+
+	mov	dword eax, SYS_OPEN
+	mov	dword ebx, .file
+	mov	dword ecx, O_RDONLY
+	int	byte  0x80
+	mov	dword ebx, eax
+	test	dword eax, eax
+	js	short audio_error
+	mov	dword eax, SYS_READ
+	mov	dword ecx, audio_data
+	mov	dword edx, AUDIO_DATA_SIZE
+	int	byte  0x80
+	test	dword eax, eax
+	js	short audio_error
+
+	;set output to stereo
+
+	lea	dword ebp, [ioctl_table + 4 * 6]
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, [audio_handle]
+	mov	dword ecx, SNDCTL_DSP_CHANNELS
+	mov	dword [ebp], 2
+	mov	dword edx, ebp
+	int	byte  0x80
+	test	dword eax, eax
+	js	short audio_error
+
+	;dump it to the audio device
+
+	mov	dword eax, SYS_WRITE
+	mov	dword ebx, [audio_handle]
+	mov	dword ecx, audio_data
+	mov	dword edx, AUDIO_DATA_SIZE
+	int	byte  0x80
+	test	dword eax, eax
+	js	short audio_error
+
+	;exit nicely
+
+	jmp	short audio_end
+
+.device:				db	"/dev/dsp", 0
+.file:					db	"audio.raw", 0
+
+
+
+;****************************************************************************
+;* audio_error
+;****************************************************************************
+section .text
+audio_error:
+	xor	dword eax, eax
+	inc	dword eax
+	mov	dword ebx, eax
+	int	byte  0x80
+
+
+
+;****************************************************************************
+;* audio_end
+;****************************************************************************
+section .text
+audio_end:
+	xor	dword eax, eax
+	xor	dword ebx, ebx
+	inc	dword eax
+	int	byte  0x80
+;*********************************************** linuxassembly@unusedino.de *
+<!--eof-->
+</pre></td></tr></table></center>
+
+<!--sof Makefile
+NASM=nasm -w+orphan-labels -w+macro-params -w+number-overflow -f elf
+STRIP=strip -R .note -R .comment
+LD=ld -s
+RM=rm -f
+
+.PHONY: all clean
+
+all: audio
+
+audio: audio.n
+	${NASM} -o audio.o audio.n
+	${LD} -e audio_start -o audio audio.o
+	${STRIP} audio
+
+clean:
+	${RM} *.bak *~ audio audio.o core
+<!--eof-->
+
+</body>
+
+</html>

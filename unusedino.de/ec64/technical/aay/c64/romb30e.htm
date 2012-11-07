@@ -1,0 +1,62 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B30E/45838:   Locate Element in Array
+
+Jump from <a href="romb261.htm">$B2FE</a>:
+
+B30E: C8        <a href="biny.htm">INY</a>
+
+Jump from <a href="romb261.htm">$B306</a>:
+
+B30F: A5 72     <a href="blda.htm">LDA</a> <a href="zp71.htm">$72</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B311: 05 71     <a href="bora.htm">ORA</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B313: 18        <a href="bclc.htm">CLC</a>
+B314: F0 0A     <a href="bbeq.htm">BEQ</a> $B320
+B316: 20 4C B3  <a href="bjsr.htm">JSR</a> <a href="romb34c.htm">$B34C</a>     ; Number of Bytes in Subscript
+B319: 8A        <a href="btxa.htm">TXA</a>
+B31A: 65 64     <a href="badc.htm">ADC</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B31C: AA        <a href="btax.htm">TAX</a>
+B31D: 98        <a href="btya.htm">TYA</a>
+B31E: A4 22     <a href="bldy.htm">LDY</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+
+Jump from $B314:
+
+B320: 65 65     <a href="badc.htm">ADC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B322: 86 71     <a href="bstx.htm">STX</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B324: C6 0B     <a href="bdec.htm">DEC</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B326: D0 CA     <a href="bbne.htm">BNE</a> <a href="romb261.htm">$B2F2</a>     ; Create Array
+B328: 85 72     <a href="bsta.htm">STA</a> <a href="zp71.htm">$72</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B32A: A2 05     <a href="bldx.htm">LDX</a> #$05
+B32C: A5 45     <a href="blda.htm">LDA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B32E: 10 01     <a href="bbpl.htm">BPL</a> $B331
+B330: CA        <a href="bdex.htm">DEX</a>
+
+Jump from $B32E:
+
+B331: A5 46     <a href="blda.htm">LDA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B333: 10 02     <a href="bbpl.htm">BPL</a> $B337
+B335: CA        <a href="bdex.htm">DEX</a>
+B336: CA        <a href="bdex.htm">DEX</a>
+
+Jump from $B333:
+
+B337: 86 28     <a href="bstx.htm">STX</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+B339: A9 00     <a href="blda.htm">LDA</a> #$00
+B33B: 20 55 B3  <a href="bjsr.htm">JSR</a> <a href="romb34c.htm">$B355</a>     ; Number of Bytes in Subscript
+B33E: 8A        <a href="btxa.htm">TXA</a>
+B33F: 65 58     <a href="badc.htm">ADC</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B341: 85 47     <a href="bsta.htm">STA</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+B343: 98        <a href="btya.htm">TYA</a>
+B344: 65 59     <a href="badc.htm">ADC</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B346: 85 48     <a href="bsta.htm">STA</a> <a href="zp47.htm">$48</a>       ; Value/Descriptor-Pointer
+B348: A8        <a href="btay.htm">TAY</a>
+B349: A5 47     <a href="blda.htm">LDA</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+
+Jump from <a href="romb261.htm">$B2E7</a>, <a href="romb3a6.htm">$B3A9</a>:
+
+B34B: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb261.htm">Previous Page</a> / <a href="romb34c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

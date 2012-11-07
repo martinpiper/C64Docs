@@ -1,0 +1,75 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E706/59142:   Write error message string to buffer
+
+Jump from <a href="ro41e6c7.htm">$E6E0</a>, <a href="ro41e754.htm">$E75F</a>:
+
+E706: AA        TAX             ; error code to X
+E707: A5 86     LDA <a href="ra4186.htm">$86</a>
+E709: 48        PHA             ; preserve pointer $86/$87
+E70A: A5 87     LDA <a href="ra4186.htm">$87</a>
+E70C: 48        PHA
+E70D: A9 FC     LDA #$FC
+E70F: 85 86     STA <a href="ra4186.htm">$86</a>
+E711: A9 E4     LDA #$E4        ; start of the error messages
+E713: 85 87     STA <a href="ra4186.htm">$87</a>         ; E4FC
+E715: 8A        TXA             ; error number in accumulator
+E716: A2 00     LDX #$00
+
+Jump from $E736:
+
+E718: C1 86     CMP (<a href="ra4186.htm">$86</a>,X)     ; compare with error number in table
+E71A: F0 21     BEQ $E73D
+E71C: 48        PHA
+E71D: 20 75 E7  JSR <a href="ro41e775.htm">$E775</a>       ; bit 7 into carry and erase
+E720: 90 05     BCC $E727       ; not set?
+
+Jump from $E725:
+
+E722: 20 75 E7  JSR <a href="ro41e775.htm">$E775</a>       ; bit 7 into carry
+E725: 90 FB     BCC $E722       ; wait for character with bit 7 set
+
+Jump from $E720:
+
+E727: A5 87     LDA <a href="ra4186.htm">$87</a>
+E729: C9 E6     CMP #$E6
+E72B: 90 08     BCC $E735       ; $E60A, check to end of table
+E72D: D0 0A     BNE $E739
+E72F: A9 0A     LDA #$0A
+E731: C5 86     CMP <a href="ra4186.htm">$86</a>
+E733: 90 04     BCC $E739
+
+Jump from $E72B:
+
+E735: 68        PLA
+E736: 4C 18 E7  JMP $E718       ; no, continue
+
+Jump from $E72D, $E733:
+
+E739: 68        PLA
+E73A: 4C 4D E7  JMP $E74D       ; done
+
+Jump from $E71A, $E740:
+
+E73D: 20 67 E7  JSR <a href="ro41e767.htm">$E767</a>       ; get a character, bit 7 in carry
+E740: 90 FB     BCC $E73D       ; wait for character with bit 7 set
+
+Jump from $E748:
+
+E742: 20 54 E7  JSR <a href="ro41e754.htm">$E754</a>       ; and write in buffer
+E745: 20 67 E7  JSR <a href="ro41e767.htm">$E767</a>       ; get next character
+E748: 90 F8     BCC $E742       ; wait for character with bit 7 set
+E74A: 20 54 E7  JSR <a href="ro41e754.htm">$E754</a>       ; put character in buffer
+
+Jump from $E73A:
+
+E74D: 68        PLA
+E74E: 85 87     STA <a href="ra4186.htm">$87</a>
+E750: 68        PLA             ; get pointer $86/$87 back
+E751: 85 86     STA <a href="ra4186.htm">$86</a>
+E753: 60        RTS
+
+    <a href="ro41e6c7.htm">Previous Page</a> / <a href="ro41e754.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

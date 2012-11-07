@@ -1,0 +1,212 @@
+<html>
+<head>
+<title>6526 CIA: I/O PORTS &amp; HANDSHAKING</title>
+</head>
+<body bgcolor="#ffffff">
+<h1 align="center">I/O Ports &amp; Handshaking</h1>
+
+<b>I/O Ports (PRA, PRB, DDRA, DDRB)</b> 
+
+<p align="justify">Ports A and B each consist of an 8-bit Peripheral Data Register
+(PR) and an 8-bit Data Direction Register (DDR). If a bit in the
+DDR is set to a one, the corresponding bit in the PR is an output;
+if a DDR bit is set to a zero, the corresponding PR bit is defined
+as an input. On a READ, the PR reflects the information present on
+the actual port pins (PA0-PA7, PB0-PB7) for both input and output
+bits. Port A and Port B have passive pull-up devices as well as
+active pull-ups, providing both CMOS and TTL compatibility. Both
+ports have two TTL load drive capability. In addition to normal I/O
+operation, PB6 and PB7 also provide timer output functions.</p>
+
+<br>
+<center>
+<table border>
+<tr>
+<th width="9%">
+<center>REG</center>
+</th>
+<th width="9%">
+<center>NAME</center>
+</th>
+<th width="9%">
+<center>D<sub>7</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>6</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>5</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>4</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>3</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>2</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>1</sub></center>
+</th>
+<th width="9%">
+<center>D<sub>0</sub></center>
+</th>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+<td>
+<center>PRA</center>
+</td>
+<td>
+<center>PA<sub>7</sub></center>
+</td>
+<td>
+<center>PA<sub>6</sub></center>
+</td>
+<td>
+<center>PA<sub>5</sub></center>
+</td>
+<td>
+<center>PA<sub>4</sub></center>
+</td>
+<td>
+<center>PA<sub>3</sub></center>
+</td>
+<td>
+<center>PA<sub>2</sub></center>
+</td>
+<td>
+<center>PA<sub>1</sub></center>
+</td>
+<td>
+<center>PA<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+<td>
+<center>PRB</center>
+</td>
+<td>
+<center>PB<sub>7</sub></center>
+</td>
+<td>
+<center>PB<sub>6</sub></center>
+</td>
+<td>
+<center>PB<sub>5</sub></center>
+</td>
+<td>
+<center>PB<sub>4</sub></center>
+</td>
+<td>
+<center>PB<sub>3</sub></center>
+</td>
+<td>
+<center>PB<sub>2</sub></center>
+</td>
+<td>
+<center>PB<sub>1</sub></center>
+</td>
+<td>
+<center>PB<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2</center>
+</td>
+<td>
+<center>DDRA</center>
+</td>
+<td>
+<center>DPA<sub>7</sub></center>
+</td>
+<td>
+<center>DPA<sub>6</sub></center>
+</td>
+<td>
+<center>DPA<sub>5</sub></center>
+</td>
+<td>
+<center>DPA<sub>4</sub></center>
+</td>
+<td>
+<center>DPA<sub>3</sub></center>
+</td>
+<td>
+<center>DPA<sub>2</sub></center>
+</td>
+<td>
+<center>DPA<sub>1</sub></center>
+</td>
+<td>
+<center>DPA<sub>0</sub></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>
+<p>3</p>
+</center>
+</td>
+<td>
+<center>
+<p>DDRB</p>
+</center>
+</td>
+<td>
+<center>DPB<sub>7</sub></center>
+</td>
+<td>
+<center>DPB<sub>6</sub></center>
+</td>
+<td>
+<center>DPB<sub>5</sub></center>
+</td>
+<td>
+<center>DPB<sub>4</sub></center>
+</td>
+<td>
+<center>DPB<sub>3</sub></center>
+</td>
+<td>
+<center>DPB<sub>2</sub></center>
+</td>
+<td>
+<center>DPB<sub>1</sub></center>
+</td>
+<td>
+<center>DPB<sub>0</sub></center>
+</td>
+</tr>
+</table>
+</center>
+
+<br>
+ <b>Handshaking</b> 
+
+<p align="justify">Handshaking on data transfers can be accomplished using the
+<img src="pc.gif"> output pin and the <img src="flag.gif"> input pin. PC
+will go low for one cycle following a read or write of PORT B. This
+signal can be used to indicate "data ready" at PORT B or "data
+accepted" from PORT B. Handshaking on 16-bit data transfers (using
+both PORT A and PORT B) is possible by always reading or writing
+PORT A first. <img src="flag.gif"> is a negative edge sensitive
+input which can be used for receiving the <img src="pc.gif"> output
+from another 6526, or as a general purpose interrupt input. Any
+negative transition of <img src="flag.gif"> will set the
+<img src="flag.gif"> interrupt bit.</p>
+
+</body>
+</html>
+

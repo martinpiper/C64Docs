@@ -1,0 +1,238 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Directory-Zeile im Zwischenpuffer erzeugen ($c6ce)
+
+Einsprung von <a href="ro81b17c.htm">$B1D0</a>:
+
+854D: A5 52     LDA <a href="ra8152.htm">$52</a>          aktuelle SA retten
+854F: 48        PHA
+8550: A5 50     LDA <a href="ra8150.htm">$50</a>          aktuelle Kanalnummer retten
+8552: 48        PHA
+8553: 20 5D 85  JSR $855D        Zeile erzeugen
+8556: 68        PLA
+8557: 85 50     STA <a href="ra8150.htm">$50</a>          Kanalnummer und SA
+8559: 68        PLA
+855A: 85 52     STA <a href="ra8152.htm">$52</a>          zurueckholen
+855C: 60        RTS
+
+Einsprung von $8553:
+
+855D: A9 11     LDA #$11
+855F: 85 52     STA <a href="ra8152.htm">$52</a>          Fuer die SA 17 (lesen) den internen Kanal
+8561: 20 27 90  JSR <a href="ro819027.htm">$9027</a>        zum Lesen holen
+8564: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+8567: AD 6D 02  LDA <a href="ra81026d.htm">$026D</a>        Wurde ein Dateiname gefunden ?
+856A: 10 05     BPL $8571        ja, ==&gt;
+856C: 20 6B 86  JSR $866B        'Blocks Free' ausgeben
+856F: 18        CLC
+8570: 60        RTS
+
+Einsprung von $856A:
+
+8571: AD A4 02  LDA <a href="ra8102a4.htm">$02A4</a>        Drivenummer ? [Diese Speicherzelle wird bei
+                                 $82a6 auf 0 gesetzt, hier abgefragt und
+                                 sonst nicht veraendert]
+8574: F0 15     BEQ $858B        (normalerweise immer) ==&gt;
+
+Programm-Leiche
+
+8576: CE A4 02  DEC <a href="ra8102a4.htm">$02A4</a>        Drivenummer -1
+8579: D0 03     BNE $857E        =0 ? nein, ==&gt;
+857B: 4C 2D 80  JMP <a href="ro818004.htm">$802D</a>        31, Syntax Error
+
+Einsprung von $8579:
+
+857E: A9 00     LDA #$00
+8580: 8D 8E 02  STA <a href="ra81028e.htm">$028E</a>        Basic-Zeilennummer (Hi) =0
+8583: 8D A4 02  STA <a href="ra8102a4.htm">$02A4</a>        Drivenummer = 0
+8586: 20 27 86  JSR $8627        Dir-Titel erzeugen
+8589: 38        SEC
+858A: 60        RTS
+
+Filenamen und Dateityp an die richtige Stelle im Puffer schreiben
+
+Einsprung von $8574:
+
+858B: A2 18     LDX #$18         Endposition der Zeile (Position des '&lt;')
+858D: A0 1D     LDY #$1D         Position der Filelaenge (Hi) im Directory
+858F: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Laenge (Hi) holen
+8591: 8D 8E 02  STA <a href="ra81028e.htm">$028E</a>        und merken
+8594: F0 02     BEQ $8598        = 0 ? ja, ==&gt;
+8596: A2 16     LDX #$16         &gt;0: Die Dateilaenge ist also 3-stellig
+                                [Bei der 1581 koennen zwar auch 4-stellige
+                                 Dateilaengen vorkommen, der Filename wird
+                                 dann aber zu weit rechts ausgegeben.]
+
+Einsprung von $8594:
+
+8598: 88        DEY
+8599: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Filelaenge (Lo) holen
+859B: 8D 8D 02  STA <a href="ra81028d.htm">$028D</a>        und merken
+859E: E0 16     CPX #$16         Ist die Filelaenge &gt; 255 (3-stellig) ?
+85A0: F0 0A     BEQ $85AC        ja, ==&gt;
+85A2: C9 0A     CMP #$0A         &lt; 10 (1-stellig) ?
+85A4: 90 06     BCC $85AC        ja, ==&gt;
+85A6: CA        DEX
+85A7: C9 64     CMP #$64         &lt; 100 (2-stellig) ?
+85A9: 90 01     BCC $85AC        ja, ==&gt;
+85AB: CA        DEX              Dateilaenge: 100-255 Blocks (3-stellig)
+
+Einsprung von $85A0, $85A4, $85A9:
+
+85AC: 20 1C 86  JSR $861C        Dir-Zeilen-Puffer loeschen
+85AF: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      y=0: Filetyp holen
+85B1: 48        PHA
+85B2: 0A        ASL              b6=1 (Scratch-Schutz) ?
+85B3: 10 05     BPL $85BA        nein, ==&gt;
+85B5: A9 3C     LDA #$3C
+85B7: 9D AD 02  STA <a href="ra8102ac.htm">$02AD</a>,X      '&lt;' in Puffer schreiben
+
+Einsprung von $85B3:
+
+85BA: 68        PLA
+85BB: 29 0F     AND #$0F         Filetyp isolieren
+85BD: A8        TAY
+85BE: B9 B7 DB  LDA <a href="ro81dafd.htm">$DBB7</a>,Y      3. Buchstabe des Filetypes
+85C1: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X      in Puffer schreiben
+85C4: CA        DEX
+85C5: B9 B1 DB  LDA <a href="ro81dafd.htm">$DBB1</a>,Y      2. Buchstabe des Filetypes
+85C8: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X      in Puffer schreiben
+85CB: CA        DEX
+85CC: B9 AB DB  LDA <a href="ro81dafd.htm">$DBAB</a>,Y      1. Buchstabe des Filetypes
+85CF: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X      in Puffer schreiben
+85D2: CA        DEX
+85D3: CA        DEX              File ordnungsgemaess geschlossen ?
+85D4: B0 05     BCS $85DB        ja, ==&gt;
+85D6: A9 2A     LDA #$2A
+85D8: 9D AD 02  STA <a href="ra8102ac.htm">$02AD</a>,X      '*' in Puffer schreiben
+
+Einsprung von $85D4:
+
+85DB: A9 A0     LDA #$A0         ein Freiraum lassen
+85DD: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X      [Es wird 'Shift-Space' verwendet, damit
+                                 auch bei 16 Zeichen langen Filenamen das
+85E0: CA        DEX               zweite '&quot;' an die richtige Stelle kommt.]
+85E1: A0 12     LDY #$12         Filenamen kopieren
+
+Einsprung von $85EC:
+
+85E3: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+85E5: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X
+85E8: CA        DEX
+85E9: 88        DEY
+85EA: C0 03     CPY #$03         Anfang (T&amp;S des Files) erreicht ?
+85EC: B0 F5     BCS $85E3        nein, ==&gt;
+
+Filenamen in '&quot;' einschliessen
+
+85EE: A9 22     LDA #$22
+85F0: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X      '&quot;' am Namensanfang setzen
+
+Einsprung von $8601:
+
+85F3: E8        INX
+85F4: E0 20     CPX #$20         Zeilenende erreicht ?
+85F6: B0 0B     BCS $8603        ja, ==&gt;
+85F8: BD AC 02  LDA <a href="ra8102ac.htm">$02AC</a>,X      Zeichen aus Filenamen holen
+85FB: C9 22     CMP #$22'        = '&quot;' ?
+85FD: F0 04     BEQ $8603        ja, ==&gt;
+85FF: C9 A0     CMP #$A0         = 'Shift-Space' ?
+8601: D0 F0     BNE $85F3        nein, ==&gt;
+
+Einsprung von $85F6, $85FD:
+
+8603: A9 22     LDA #$22'        zweites '&quot;' setzen
+8605: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X
+vom '&quot;' bis zum Zeilenende alle Zeichen 'entshiften' (b7 loeschen)
+
+Einsprung von $8615:
+
+8608: E8        INX
+8609: E0 20     CPX #$20         Zeilenende erreicht ?
+860B: B0 0A     BCS $8617        ja, ==&gt;
+860D: A9 7F     LDA #$7F
+860F: 3D AC 02  AND <a href="ra8102ac.htm">$02AC</a>,X      b7=0
+8612: 9D AC 02  STA <a href="ra8102ac.htm">$02AC</a>,X
+8615: 10 F1     BPL $8608        immer ==&gt;
+
+Einsprung von $860B:
+
+8617: 20 04 83  JSR <a href="ro8182e6.htm">$8304</a>        naechsten Dir-Eintrag holen
+861A: 38        SEC
+861B: 60        RTS
+
+Directoryzeilen-Puffer loeschen ($c7ac)
+
+Einsprung von $85AC, $862D, $866B:
+
+861C: A0 1B     LDY #$1B
+861E: A9 20     LDA #$20         Puffer mit Spaces fuellen
+
+Einsprung von $8624:
+
+8620: 99 AB 02  STA <a href="ra8102ab.htm">$02AB</a>,Y
+8623: 88        DEY
+8624: D0 FA     BNE $8620
+8626: 60        RTS
+
+Directory-Titel erzeugen ($c7b7)
+
+Einsprung von $8586, <a href="ro8198f7.htm">$9942</a>:
+
+8627: 20 AE 84  JSR <a href="ro8184ae.htm">$84AE</a>        Laufwerk ggf. initialisieren
+862A: 20 33 B6  JSR <a href="ro81b633.htm">$B633</a>        Verzeichnis-Header lesen
+862D: 20 1C 86  JSR $861C        Dir-Zeilen-Puffer loeschen
+8630: A9 FF     LDA #$FF
+8632: 85 40     STA <a href="ra8140.htm">$40</a>
+8634: A9 00     LDA #$00         Basic-Zeilennummer (Drivenummer) = 0
+8636: 8D 8D 02  STA <a href="ra81028d.htm">$028D</a>
+8639: 8D 8E 02  STA <a href="ra81028e.htm">$028E</a>
+863C: A6 6C     LDX <a href="ra816c.htm">$6C</a>          aktuelle Puffernummer holen
+863E: BD F1 01  LDA <a href="ra8101f1.htm">$01F1</a>,X      Pufferadresse holen
+8641: 85 65     STA <a href="ra8164.htm">$65</a>
+8643: AD 77 DB  LDA <a href="ro81dafd.htm">$DB77</a>        Position des Disknamens holen
+8646: 85 64     STA <a href="ra8164.htm">$64</a>
+8648: A0 16     LDY #$16         22 Bytes Disknamen+ID
+
+Einsprung von $8656:
+
+864A: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      in Dir-Zeile kopieren
+864C: C9 A0     CMP #$A0
+864E: D0 02     BNE $8652        Shift-Spaces in Spaces umwandeln
+8650: A9 20     LDA #$20
+
+Einsprung von $864E:
+
+8652: 99 AE 02  STA <a href="ra8102ac.htm">$02AE</a>,Y
+8655: 88        DEY
+8656: 10 F2     BPL $864A
+8658: A9 12     LDA #$12         RVS-ON an Pufferanfang setzen
+865A: 8D AC 02  STA <a href="ra8102ac.htm">$02AC</a>
+865D: A9 22     LDA #$22         Filenamen in '&quot;' einschliessen
+865F: 8D AD 02  STA <a href="ra8102ac.htm">$02AD</a>
+8662: 8D BE 02  STA <a href="ra8102ac.htm">$02BE</a>
+8665: A9 20     LDA #$20         Zeichen vor der ID = 'Space'
+8667: 8D BF 02  STA <a href="ra8102ac.htm">$02BF</a>
+866A: 60        RTS
+
+'Blocks Free'-Meldung ausgeben ($c806)
+
+Einsprung von $856C:
+
+866B: 20 1C 86  JSR $861C        Ausgabepuffer loeschen
+866E: A0 0B     LDY #$0B
+
+Einsprung von $8677:
+
+8670: B9 7C 86  LDA $867C,Y      Meldung in Puffer kopieren
+8673: 99 AC 02  STA <a href="ra8102ac.htm">$02AC</a>,Y
+8676: 88        DEY
+8677: 10 F7     BPL $8670
+8679: 4C 5B B6  JMP <a href="ro81b65b.htm">$B65B</a>        Freie Blocks als Basic-Zeilennummer merken
+
+867C: 42 4C 4F 43 4B 53 20 46  blocks f
+8684: 52 45 45 2E              ree.
+    <a href="ro818526.htm">Previous Page</a> / <a href="ro818688.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

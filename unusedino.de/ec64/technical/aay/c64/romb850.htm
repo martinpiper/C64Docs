@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B850/47184:   Perform Subtraction
+
+Jump from <a href="romb9ea.htm">$BA0F</a>, <a href="rome26b.htm">$E288</a>, <a href="rome30e.htm">$E334</a>:
+
+B850: 20 8C BA  <a href="bjsr.htm">JSR</a> <a href="romba8c.htm">$BA8C</a>     ; Load FAC#2 From Memory
+
+Jump from <a href="rome000.htm">$E02D</a>, <a href="rome26b.htm">$E281</a>:
+
+B853: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B855: 49 FF     <a href="beor.htm">EOR</a> #$FF
+B857: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+B859: 45 6E     <a href="beor.htm">EOR</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+B85B: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B85D: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B85F: 4C 6A B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B86A</a>     ; Perform Addition
+
+    <a href="romb849.htm">Previous Page</a> / <a href="romb862.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

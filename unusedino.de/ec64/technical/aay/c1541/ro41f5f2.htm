@@ -1,0 +1,112 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F5F2/62962:   Convert buffer of GCR data into binary
+
+Jump from <a href="ro41f575.htm">$F5D9</a>, <a href="ro41f969.htm">$F972</a>:
+
+F5F2: A9 00     LDA #$00
+F5F4: 85 2E     STA <a href="ra412e.htm">$2E</a>
+F5F6: 85 30     STA <a href="ra4130.htm">$30</a>
+F5F8: 85 4F     STA <a href="ra414e.htm">$4F</a>
+F5FA: A5 31     LDA <a href="ra4130.htm">$31</a>
+F5FC: 85 4E     STA <a href="ra414e.htm">$4E</a>
+F5FE: A9 01     LDA #$01
+F600: 85 31     STA <a href="ra4130.htm">$31</a>
+F602: 85 2F     STA <a href="ra412e.htm">$2F</a>
+F604: A9 BB     LDA #$BB
+F606: 85 34     STA <a href="ra4134.htm">$34</a>
+F608: 85 36     STA <a href="ra4136.htm">$36</a>
+F60A: 20 E6 F7  JSR <a href="ro41f7e6.htm">$F7E6</a>
+F60D: A5 52     LDA <a href="ra4152.htm">$52</a>
+F60F: 85 38     STA <a href="ra4138.htm">$38</a>
+F611: A4 36     LDY <a href="ra4136.htm">$36</a>
+F613: A5 53     LDA <a href="ra4152.htm">$53</a>
+F615: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F617: C8        INY
+F618: A5 54     LDA <a href="ra4152.htm">$54</a>
+F61A: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F61C: C8        INY
+F61D: A5 55     LDA <a href="ra4152.htm">$55</a>
+F61F: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F621: C8        INY
+F622: 84 36     STY <a href="ra4136.htm">$36</a>
+
+Jump from $F641:
+
+F624: 20 E6 F7  JSR <a href="ro41f7e6.htm">$F7E6</a>
+F627: A4 36     LDY <a href="ra4136.htm">$36</a>
+F629: A5 52     LDA <a href="ra4152.htm">$52</a>
+F62B: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F62D: C8        INY
+F62E: A5 53     LDA <a href="ra4152.htm">$53</a>
+F630: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F632: C8        INY
+F633: F0 0E     BEQ $F643
+F635: A5 54     LDA <a href="ra4152.htm">$54</a>
+F637: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F639: C8        INY
+F63A: A5 55     LDA <a href="ra4152.htm">$55</a>
+F63C: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F63E: C8        INY
+F63F: 84 36     STY <a href="ra4136.htm">$36</a>
+F641: D0 E1     BNE $F624
+
+Jump from $F633:
+
+F643: A5 54     LDA <a href="ra4152.htm">$54</a>
+F645: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F647: C8        INY
+F648: A5 55     LDA <a href="ra4152.htm">$55</a>
+F64A: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F64C: C8        INY
+F64D: 84 36     STY <a href="ra4136.htm">$36</a>
+
+Jump from $F66C:
+
+F64F: 20 E6 F7  JSR <a href="ro41f7e6.htm">$F7E6</a>
+F652: A4 36     LDY <a href="ra4136.htm">$36</a>
+F654: A5 52     LDA <a href="ra4152.htm">$52</a>
+F656: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F658: C8        INY
+F659: A5 53     LDA <a href="ra4152.htm">$53</a>
+F65B: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F65D: C8        INY
+F65E: A5 54     LDA <a href="ra4152.htm">$54</a>
+F660: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F662: C8        INY
+F663: A5 55     LDA <a href="ra4152.htm">$55</a>
+F665: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F667: C8        INY
+F668: 84 36     STY <a href="ra4136.htm">$36</a>
+F66A: C0 BB     CPY #$BB
+F66C: 90 E1     BCC $F64F
+F66E: A9 45     LDA #$45
+F670: 85 2E     STA <a href="ra412e.htm">$2E</a>
+F672: A5 31     LDA <a href="ra4130.htm">$31</a>
+F674: 85 2F     STA <a href="ra412e.htm">$2F</a>
+F676: A0 BA     LDY #$BA
+
+Jump from $F67D:
+
+F678: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F67A: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F67C: 88        DEY
+F67D: D0 F9     BNE $F678
+F67F: B1 30     LDA (<a href="ra4130.htm">$30</a>),Y
+F681: 91 2E     STA (<a href="ra412e.htm">$2E</a>),Y
+F683: A2 BB     LDX #$BB
+
+Jump from $F68C:
+
+F685: BD 00 01  LDA <a href="ra410100.htm">$0100</a>,X
+F688: 91 30     STA (<a href="ra4130.htm">$30</a>),Y
+F68A: C8        INY
+F68B: E8        INX
+F68C: D0 F7     BNE $F685
+F68E: 86 50     STX <a href="ra4150.htm">$50</a>
+F690: 60        RTS
+
+    <a href="ro41f5e9.htm">Previous Page</a> / <a href="ro41f691.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

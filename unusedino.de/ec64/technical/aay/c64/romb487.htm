@@ -1,0 +1,78 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B487/46215:   Set Up String
+
+Jump from <a href="romaab8.htm">$AABF</a>, <a href="romab1e.htm">$AB1E</a>, <a href="romaead.htm">$AEC6</a>, <a href="romb465.htm">$B473</a>:
+
+B487: A2 22     <a href="bldx.htm">LDX</a> #$22
+B489: 86 07     <a href="bstx.htm">STX</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+B48B: 86 08     <a href="bstx.htm">STX</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+
+Jump from <a href="romac35.htm">$AC7D</a>:
+
+B48D: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B48F: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B491: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+B493: 84 63     <a href="bsty.htm">STY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+B495: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+
+Jump from $B4A2:
+
+B497: C8        <a href="biny.htm">INY</a>
+B498: B1 6F     <a href="blda.htm">LDA</a> (<a href="zp6f.htm">$6F</a>),Y   ; Sign of result of Arithmetic Evaluation
+B49A: F0 0C     <a href="bbeq.htm">BEQ</a> $B4A8
+B49C: C5 07     <a href="bcmp.htm">CMP</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+B49E: F0 04     <a href="bbeq.htm">BEQ</a> $B4A4
+B4A0: C5 08     <a href="bcmp.htm">CMP</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+B4A2: D0 F3     <a href="bbne.htm">BNE</a> $B497
+
+Jump from $B49E:
+
+B4A4: C9 22     <a href="bcmp.htm">CMP</a> #$22
+B4A6: F0 01     <a href="bbeq.htm">BEQ</a> $B4A9
+
+Jump from $B49A:
+
+B4A8: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $B4A6:
+
+B4A9: 84 61     <a href="bsty.htm">STY</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B4AB: 98        <a href="btya.htm">TYA</a>
+B4AC: 65 6F     <a href="badc.htm">ADC</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B4AE: 85 71     <a href="bsta.htm">STA</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B4B0: A6 70     <a href="bldx.htm">LDX</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B4B2: 90 01     <a href="bbcc.htm">BCC</a> $B4B5
+B4B4: E8        <a href="binx.htm">INX</a>
+
+Jump from $B4B2:
+
+B4B5: 86 72     <a href="bstx.htm">STX</a> <a href="zp71.htm">$72</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+B4B7: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B4B9: F0 04     <a href="bbeq.htm">BEQ</a> $B4BF
+B4BB: C9 02     <a href="bcmp.htm">CMP</a> #$02
+B4BD: D0 0B     <a href="bbne.htm">BNE</a> $B4CA
+
+Jump from $B4B9:
+
+B4BF: 98        <a href="btya.htm">TYA</a>
+B4C0: 20 75 B4  <a href="bjsr.htm">JSR</a> <a href="romb465.htm">$B475</a>     ; Evaluate &lt;str$&gt;
+B4C3: A6 6F     <a href="bldx.htm">LDX</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+B4C5: A4 70     <a href="bldy.htm">LDY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B4C7: 20 88 B6  <a href="bjsr.htm">JSR</a> <a href="romb67a.htm">$B688</a>     ; Store String in High RAM
+
+Jump from $B4BD, <a href="romb63d.htm">$B674</a>, <a href="romb6ec.htm">$B6FD</a>, <a href="romb700.htm">$B729</a>:
+
+B4CA: A6 16     <a href="bldx.htm">LDX</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+B4CC: E0 22     <a href="bcpx.htm">CPX</a> #$22
+B4CE: D0 05     <a href="bbne.htm">BNE</a> <a href="romb4d5.htm">$B4D5</a>     ; Save String Descriptor
+B4D0: A2 19     <a href="bldx.htm">LDX</a> #$19
+
+Jump from <a href="romb4f4.htm">$B51A</a>:
+
+B4D2: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+    <a href="romb465.htm">Previous Page</a> / <a href="romb4d5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,385 @@
+<html>
+
+<head>
+	<title>Technical SID Information/Software Stuff</title>
+</head>
+
+	<body bgcolor="#ffffff">
+
+	<h1 align="center">Software Stuff</h1>
+
+	<h3>SID CONTROL REGISTERS</h3>
+
+	<p align="justify">There are 29 eight-bit registers in SID which control the generation of
+	sound. These registers are either WRITE-only or READ-only and are listed
+	below in Table 1.</p>
+
+	<p>Table 1. SID Register Map</p>
+
+<pre>
+REG #	DATA                                           REG NAME TYPE
+(Hex)	d7    d6    d5    d4    d3    d2    d1    d0
+- --------------------------------------------------------------------
+
+Voice 1:
+
+00     F7    F6    F5    F4    F3    F2    F1    F0    FREQ LO  Write
+01     F15   F14   F13   F12   F11   F10   F9    F8    FREQ HI  Write
+02     PW7   PW6   PW5   PW4   PW3   PW2   PW1   PW0   PW LO	Write
+03     -     -     -     -     PW11  PW10  PW9   PW8   PW HI    Write
+04     Noise Pulse ///   /\/\  TEST  RING  SYNC  GATE  CONTROL  Write
+05     ATK3  ATK2  ATK1  ATK0  DCY3  DCY2  DCY1  DCY0  ATK/DCY	Write
+06     STN3  STN2  STN1  STN0  RLS3  RLS2  RLS1  RLS0  STN/RLS  Write
+
+Voice 2:
+
+07     F7    F6    F5    F4    F3    F2    F1    F0    FREQ LO  Write
+08     F15   F14   F13   F12   F11   F10   F9    F8    FREQ HI  Write
+09     PW7   PW6   PW5   PW4   PW3   PW2   PW1   PW0   PW LO	Write
+0A     -     -     -     -     PW11  PW10  PW9   PW8   PW HI    Write
+0B     Noise Pulse ///   /\/\  TEST  RING  SYNC  GATE  CONTROL  Write
+0C     ATK3  ATK2  ATK1  ATK0  DCY3  DCY2  DCY1  DCY0  ATK/DCY	Write
+0D     STN3  STN2  STN1  STN0  RLS3  RLS2  RLS1  RLS0  STN/RLS  Write
+
+Voice 3:
+
+0E     F7    F6    F5    F4    F3    F2    F1    F0    FREQ LO  Write
+0F     F15   F14   F13   F12   F11   F10   F9    F8    FREQ HI  Write
+10     PW7   PW6   PW5   PW4   PW3   PW2   PW1   PW0   PW LO	Write
+11     -     -     -     -     PW11  PW10  PW9   PW8   PW HI    Write
+12     Noise Pulse ///   /\/\  TEST  RING  SYNC  GATE  CONTROL  Write
+13     ATK3  ATK2  ATK1  ATK0  DCY3  DCY2  DCY1  DCY0  ATK/DCY	Write
+14     STN3  STN2  STN1  STN0  RLS3  RLS2  RLS1  RLS0  STN/RLS  Write
+
+Filter:
+
+15     -     -     -     -     -     FC2   FC1   FC0   FC LO	Write
+16     FC10  FC9   FC8   FC7   FC6   FC5   FC4   FC3   FC HI    Write
+17     RES3  RES2  RES1  RES0  FILEX FILT3 FILT2 FILT1 RES/FILT Write
+18     3 OFF HP    BP    LP    VOL3  VOL2  VOL1  VOL0  MODE/VOL Write
+
+Misc.:
+
+19     PX7   PX6   PX5   PX4   PX3   PX2   PX1   PX0   POT X    Read
+1A     PY7   PY6   PY5   PY4   PY3   PY2   PY1   PY0   POT Y    Read
+1B     O7    O6    O5    O4    O3    O2    O1    O0    OSC3/RND Read
+1C     E7    E6    E5    E4    E3    E2    E1    E0    ENV3     Read
+</pre>
+
+	<h3>VOICE 1</h3>
+
+	<dl>
+		<dt>&#160;<br><i>FREQ LO/FREQ HI (Registers 00,01)</i></dt>
+		<dd>&#160;<br><p align="justify">Together these registers form a 16-bit number which linearly controls the
+		frequncy of Osscillator 1. The frequency is determined by the following equation:<br>
+		<br>
+		Fout = (Fn * Fclk / 16777216) Hz<br>
+		<br>
+		Where Fn is the 16-bit number in the frequency registers and Fclk is the
+		system clock applied to the Phi2 input (pin 6). For a standard 1.0 MHz clock,
+		the frequency is given by:<br>
+		<br>
+		Fout = (Fn * 0.059604645) Hz<br>
+		<br>
+		It should be noted that the frequency resolution of SID is sufficient for
+		any tuning scale and allows sweeping from note to note (portamento) with
+		no dicernable frequency steps.</p></dd>
+
+		<dt>&#160;<br><i>PW LO/PW HI (Registers 02,03)</i></dt>
+		<dd>&#160;<br><p align="justify">Together these registers form a 12-bit number (bits 4-7 of PW HI are not
+		used) which linearly controls the pulse width (duty cycle) of the pulse
+		waveform on Oscillator 1. The pulse width is determined by the following
+		equation:<br>
+		<br>
+		PWout = (PWn/40.95) %<br>
+		<br>
+		Where PWn is the 12-bit number in the Pulse Width registers.
+		The pulse width resolution allows the width to be smoothly swept with no
+		discernable stepping. Note that the pulse waveform on Oscillator 1 must
+		be selected in order for the pulse width registers to have any audible effect.
+		A value of 0 or 4095 ($FFF) in the pulse width registers will poroduce a
+		constant DC output, while a value of 2048 ($800) will produce a square wave.
+		[A value of 4095 will not produce a constant DC output].</p></dd>
+
+		<dt>&#160;<br><i>CONTROL REGISTER (Register 04)</i></dt>
+		<dd>&#160;<br><p align="justify">This register contains eight control bits which select various options on
+		Oscillator 1. 
+		<ul>
+			<li><p align="justify">GATE (Bit 0): The GATE bit controls the envelope generator for voice
+			1. When this bit is set to one, the envelope generator is gated (triggered)
+			and the ATTACK/DECAY/SUSTAIN cycle is initiated. When the bit is reset to
+			zero, the RELEASE cycle begins. The envelope generator controls the amplitude
+			of Oscillator 1 appearing at the audio output, therefore, the GATE bit must
+			be set (along with suitable envelope parameters) for the selceted output
+			of oscillator 1 to be audible.</p></li>
+			<li><p align="justify">SYNC (Bit 1): The SYNC bit, when set to one, synchronizes the fundamental
+			frequency of oscillator 1 with the fundamental frequency of oscillator 3,
+			producing &quot;Hard Sync&quot; effects. Varying the frequency of oscillator
+			1 with respect to oscillator 3 produces a wide range of complex harmonic
+			structures from voice 1 at the frequency of oscillator 3. In order for sync
+			to occur, oscillator 3 must be set to some frequency other than zero but
+			preferable lower than the frequency of oscillator 1. No other parameters
+			of voice 3 have any effect on sync.</p></li>
+			<li><p align="justify">RING MOD (Bit 2): The RING MOD bit, when set to a one, replaces the
+			triangle waveform of output of oscillator 1 with a &quot;Ring Modulated&quot;
+			combination of oscillators 1 and 3. Varying the frequency of oscillator
+			1 with respect to oscillator 3 produces a wide range ofnon-harmonic overtone
+			structures for creating bell or gong sounds and for special effects. In
+			order for ring modulation to be audible, the triangle waveform of oscillator
+			1 must be selected and oscillator 3 must be set to some frequency other
+			than zero. No other parameters of voice 3 have any effect on ring modulation.</p></li>
+			<li><p align="justify">TEST (Bit 3): The TEST bit, when set to one, resets and locks oscillator
+			1 at zero until the TEST bit is cleared. The noise waveform output of oscillator
+			1 is also reset and the pulse waveform output is held at a DC level. Normally
+			this bit is used for testing purposes, however, it can be used to synchronize
+			oscillator 1 to external events, allowing the generation of highly complex
+			waveforms under real-time software control.</p></li>
+			<li><p align="justify"><tt>/\/\</tt> (Bit 4): When set to a one, the triangle waveform output
+			of oscillator 1 is selected. The triangle waveform is low in harmonics and
+			has a mellow, flute-like quality.</p></li>
+			<li><p align="justify"><tt>///</tt> (Bit 5): When set to one, the sawtooth waveform output
+			of oscillator 1 is selected. The sawtooth waveform is rich in even and odd
+			harmonics and has a bright, brassy quality.</p></li>
+			<li><p align="justify">PULSE (Bit 6): When set to one, the pulse waveform output of oscillator
+			1 is selected. The harmonic content of this waveform can be adjusted by
+			the pulse width registers, producing tone qualities ranging from a bright,
+			hollow square wave to a reedy pulse. Sweeping the pulse width in real-time
+			produces a dynamic &quot;phasing&quot; effect which adds a sense of motion
+			to the sound. Rapidly jumping between different pulse widths can produce
+			interesting harmonic sequences.</p></li>
+			<li><p align="justify">NOISE (bit 7): When set to one, the noise output waveform of oscillator
+			1 is selected. This output is a random signal which changes at the frequency
+			of oscillator 1. The sound quality can be varied from a low rumbling to
+			hissing white noise via the oscillator frequency registers. Noise is useful
+			in creating explosions, gunshots, jet engines, wind, surf and other unpitched
+			sounds, as well as snare drums and cymbals. Sweeping the oscillator frequency
+			with noise selected produces a dramatic rushing effect. [The Noise output
+			is not &quot;true&quot; random, as it is based on a 23 bit internal register].</p></li>
+		</ul>
+		One of the output waveforms must be selected for oscillator 1 to be audible,
+		however it is NOT nescessary to de-select waveforms to silence the output
+		of voice 1. The amplitude of voice 1 at the final output is a function of
+		the envelope generator only.</p>
+		<p align="justify"><b>NOTE:</b> The oscillator output waveforms
+		are NOT additive. If more than one output waveform is selected simultaneously,
+		the result will be a logical ANDing of the waveforms.
+		<i>[Transcriber's note: This is most probably wrong. Some claim that it is
+		the &quot;min&quot; function that is used, but my experience is that it
+		is more complex than that].</i></p>
+		<p align="justify">Although this technique can be used to generate additional waveforms beyond
+		the four listed above, it must be used with care. If any other waveform
+		is selected while noise is on, the noise output can &quot;lock up&quot;.
+		If this occurs, the noise output will remain silent until reset by the TEST
+		bit or by bringing RES (pin 5) low.</p></dd>
+
+		<dt>&#160;<br><i>ATTACK/DECAY (Register 05)</i></dt>
+		<dd>&#160;<br><p align="justify">Bits 4-7 of this registers (ATK0-ATK3) select 1 of 16 ATTACK rates for the
+		voice 1 envelope generator. The ATTACK rate determines how rapidly the output
+		of voice 1 rises from zero to peak amplitude when the envelope generator
+		is gated. The 16 ATTACK rates are listed in Table 2.</p>
+		<p align="justify">Bits 0-3 (DCY0-DCY3) select 1 of 16 DECAY rates for the envelope generator.
+		The DECAY cycle follows the ATTACK cycle and the DECAY rate determines how
+		rapidly the output falls from the peak amplitude to the selected SUSTAIN
+		level. The 26 DECAY rates are listed in Table 2.</p></dd>
+
+		<dt>&#160;<br><i>SUSTAIN/RELEASE (Register 06)</i></dt>
+		<dd>&#160;<br><p align="justify">Bits 4-7 of this register (STN0-STN3) select 1 of 16 SUSTAIN levels for
+		the envelope generator. The SUSTAIN cycle follows the DECAY cycle and the
+		output of voice 1 will remain at the selected SUSTAIN amplitude as long
+		as the gate bit remains set. The SUSTAIN levels range form zero to peak
+		amplitude in 16 linear steps, with a SUSTAIN value of 0 selecting zero amplitude
+		and a SUSTAIN value of 15 ($F) selecting the peak amplitude. A SUSTAIN value
+		of 8 would cause voice 1 to SUSTAIN at an amplitude one-half the peak amplitude
+		reached by the ATTACK cycle.</p>
+		<p align="justify">Bits 0-3 (RLS0-RLS3) select 1 of 16 RELEASE rates for the envelope generator.
+		The RELEASE cycle follows the SUSTAIN cycle when the gate bit is reset to
+		zero. At this time, the output of voice 1 will fall from the SUSTAIN amplitude
+		to zero amplitude at the selected RELEASE rate. The 16 RELEASE rates are
+		identical to the DECAY rates.</p>
+		<p align="justify"><b>NOTE:</b> The cycling of the envelope generator can be altered at any
+		point via the gate bit. The envelope generator can be gated and released
+		without restriction. For example, if the gate bit is reset before the envelope
+		has finished the ATTACK cycle, the RELEASE cycles will immediately begin,
+		starting from whatever amplitude had been reached. If the envelope is then
+		gated again (before the RELEASE cycle has reached zero amplitude), another
+		ATTACK cycle will begin, starting from whatever amplitude had been reached.
+		This technique can be used to generate complex amplitude envelopes via real-time
+		software control.</p>
+		<p>Table 2. Envelope Rates</p>
+
+<pre>
+VALUE  	ATTACK RATE	DECAY/RELEASE RATE
+	Time/Cycle	Time/Cycle
+- ------------------------------------------
+ 0	  2 ms		  6 ms
+ 1	  8 ms		 24 ms
+ 2	 16 ms		 48 ms
+ 3	 24 ms		 72 ms
+ 4	 38 ms		114 ms
+ 5	 56 ms		168 ms
+ 6	 68 ms		204 ms
+ 7	 80 ms		240 ms
+ 8	100 ms		300 ms
+ 9	240 ms		750 ms
+10	500 ms		1.5 s
+11	800 ms		2.4 s
+12	  1 s		  3 s
+13	  3 s		  9 s
+14	  5 s		 15 s
+15	  8 s		 24 s
+</pre>
+
+		<p>Picture 3. 6581 Envelope</p>
+		<img src="sidadsr.gif" alt="6581 Envelope" width="370" height="220" align=bottom><br>
+		<p align="justify"><b>NOTE:</b> Envelope rates are based on a 1.0 MHz &oslash;2 clock. For
+		other &oslash;2 frequencies, multiply the given rate by 1 MHz/&oslash;2.
+		The rates refer to the amount of time per cycle. For example, given an ATTACK
+		value of 2, the ATTACK cycle would take 16 ms to rise from zero to peak
+		amplitude. The DECAY/RELEASE rates refer to the amount of time theses cycles
+		would take to fall from peak amplitude to zero.</p>
+	</dl>
+
+	<h3>VOICE 2</h3>
+
+	<p align="justify">Registers $07-$0D control voice 2 and are functionally identical to registers
+	$00-$06 with these exceptions: 
+	<ol>
+	<li>When selected, SYNC synchronizes oscillator 2 with oscillator 1.</li>
+	<li>When selected, RING MOD replaces the triangle output of oscillator 2
+	with the ring modulated combinations of oscillators 2 and 1.</li>
+	</ol></p>
+
+	<h3>VOICE 3</h3>
+
+	<p align="justify">Registers $0E-$14 control voice 3 and are functionally identical to registers
+	$00-$06 with these exceptions: 
+	<ol>
+	<li>When selected, SYNC synchronizes oscillator 3 with oscillator 2.</li>
+	<li>When selected, RING MOD replaces the triangle output of oscillator 3
+	with the ring modulated combinations of oscillators 3 and 2.</li>
+	</ol></p>
+
+	<p align="justify">Typical operation of a voice consists of selecting the desired parameters:
+	frequency, effects (SYNC, RING MOD) and envelope rates, then gating the
+	voice whenever the sound is desired. The sound can be sustained for any
+	length of time and terminated by clearing the gate bit. Each voice can be
+	used separately, with independent parameters and gating, or in unison to
+	create a single, powerful voice. When used in unison, a slight detuning
+	of each oscillator or tuning to musical intervals creates a rich, animated
+	sound.</p>
+
+	<h3>FILTER</h3>
+
+	<dl>
+		<dt>&#160;<br><i>FC LO/FC HI (Reigster $15, $16)</i></dt>
+		<dd>&#160;<br><p align="justify">Together these registers form an 11-bit number (bits 3-7 of FC LO are not
+		used) which linearly controls the cutoff (or center) frequency of the programmable
+		filter. The approximate cutoff frequency ranges from 30 Hz to 12 KHz.</p></dd>
+
+		<dt>&#160;<br><i>RES/FILT (Register $17)</i></dt>
+		<dd>&#160;<br><p align="justify">Bits 4-7 of this register (RES0-RES3) control the resonance of the filter.
+		Resonance is a peaking effect which emphasizes frequency components at the
+		cutoff frequency of the filter, causing a sharper sound. There are 16 resonance
+		settings ranging linearly from no resonance (0) to maximum resonance (15
+		or $F).</p>
+		<p align="justify">Bits 0-3 determine which signals will be routed through the Filter:<ul>
+			<li><p align="justify">FILT 1 (Bit 0): When set to a zero, Voice 1 appears directly at the audio
+			output and the Filter has no effect on it. When set to a one, Voice 1 will
+			be processed through the Filter and the harmonic content of Voice 1 will
+			be altered according to the selected Filter parameters.</p></li>
+			<li><p align="justify">FILT 2 (Bit 1): Same as bit 0 for Voice 2.</p></li>
+			<li><p align="justify">FILT 3 (Bit 2): Same as bit 0 for Voice 3.</p></li>
+			<li><p align="justify">FILTEX (Bit 3): Same as bit 0 for External audio input (pin 26).</p></li>
+		</ul></p></dd>
+
+		<dt>&#160;<br><i>MODE/VOL (Register $18)</i></dt>
+		<dd>&#160;<br><p align="justify">Bits 4-7 of this register select various filter mode and output options:<ul>
+			<li><p align="justify">LP (Bit 4): When set to a one, the low-pass output of the filter is selected
+			and sent to the audio output. For a given filter input signal, all frequency
+			components below the filter cutoff frequency are passed unaltered, while
+			all frequency components above the cutoff are attenuated at a rate of 12
+			dB/Octave. The low-pass mode produces full-bodied sounds.</p></li>
+			<li><p align="justify">BP (Bit 5): Same as bit 4 for the bandpass output. All frequency components
+			above and below the cutoff are attenuated at a rate of 6 dB/Octave. The
+			bandpass mode produces thin, open sounds.</p></li>
+			<li><p align="justify">HP (Bit 6): Same as bit 4 for the high-pass output. All frequency components
+			above the Cutoff are passed unaltered, while all freqeuncy components below
+			the cutoff are attenuated at a rate of 12 dB/Octave. The high-pass mode
+			produces thin, buzzy sounds.</p></li>
+			<li><p align="justify">3 OFF (Bit 7): When set to a one, the output of voice 3 is disconnected
+			from the direct audio path. Setting voice 3 to bypass the filter (FILT 3
+			= 0) and setting 3 OFF to a one prevents voice 3 from reaching the audio
+			output. This allows voice 3 to be used for modulation purposes without any
+			undesirable output.</p></li>
+		</ul></p>
+		<p align="justify"><b>NOTE:</b> The filter output modes ARE additive and multiple filter modes
+		may be selected simultaneously. For example, both LP and HP modes can be
+		selected to produce a notch (or band reject) filter response. In order for
+		the filter to have any audible effect, at least one filter output must be
+		selected and at least one voice must be routed through the filter.
+		The filter is, perhaps, the most important element in SID as it allows the
+		generation of complex tone colors via subtractive synthesis (the filter
+		is used to eliminate specific frequency componenets from a harmonically
+		rich input signal). The best results are achieved by varying the cutoff
+		frequency in real-time.</p>
+		<p align="justify">Bits 0-3 (VOL0-VOL3) select 1 of 16 overall volume levels for the final
+		composite audio output. The output volume levels range from no output (0)
+		to maximum volume (15 or $F) in 16 linear steps. This control can be used
+		as a static volume control for balancing levels in multi-chip systems or
+		for creating dynamic volume effects, such as tremolo. Some volume level
+		other than zero must be selected in order for SID to produce any sound.</p></dd>
+	</dl>
+
+	<h3>MISCELLANEOUS</h3>
+
+	<dl>
+		<dt>&#160;<br><i>POTX (Register $19)</i></dt>
+		<dd>&#160;<br><p align="justify">This register allows the microprocessor to read the position of the potentiometer
+		tied to POTX (pin 24), with values ranging from 0 at minimum resistance,
+		to 255 ($FF) at maximum resistance. See the Pin Description section for
+		information on pot and capacitor values.[This register is supposed to be
+		updated every 512 cycles].</p></dd>
+
+		<dt>&#160;<br><i>POTY (Register $1A)</i></dt>
+		<dd>&#160;<br><p align="justify">Same as POTX for the pot tied to POTY (pin 23).</p></dd>
+
+		<dt>&#160;<br><i>OSC 3/RANDOM (Register $1B)</i></dt>
+		<dd>&#160;<br><p align="justify">This register allows the microprocessor to read the upper 8 output bits
+		of oscillator 3. The character of the numbers generated is directly related
+		to the waveform selected. If the sawtooth waveform of oscillator 3 is selected,
+		this register will present a series of numbers incrementing from 0 to 255
+		($FF) at a rate detmined by the frequency of oscillator 3. If the triangle
+		waveform is selected, the output will increment from 0 up to 255, then decrement
+		down to 0.
+		<i>[Transcriber's note: This is 0,1,..,254,255,255,254,..1,0,0,1..]</i></p>
+		<p align="justify">If the pulse waveform is selected, the output will jump between 0 and 255.
+		Selecting the noise waveform will produce a series of random numbers, therefore,
+		this register can be used as a random number generator for games. There
+		are numerous timing and sequencing applications for the OSC 3 register,
+		however, the chief function is probably that of a modulation generator.
+		The numbers generated by this register can be added, via software, to the
+		oscillator or filter frequency registers or the pulse width registers in
+		real-time. Many dynamic effects can be generated in this manner. Siren-like
+		sounds can be created by adding the OSC 3 Sawtooth output to the frequency
+		control of another oscillator. Synthesizer &quot;Sample and Hold&quot; effects
+		can be created by adding the OSC 3 Sawtooth output to the Filter Frequency
+		control registers. Vibrato can be produced by setting Oscillator 3 to a
+		frequency around 7 Hz and adding the OSC 3 triangle output (with proper
+		scaling) to the Frequency control of another oscillator. An unlimited range
+		of effects are available by altering the frequency of oscillator 3 and scaling
+		the OSC 3 output. Normally, when oscillator 3 is used for modulation, the
+		audio output of voice 3 should be eliminated (3 Off = 1).</p></dd>
+
+		<dt>&#160;<br><i>ENV 3 (Register $1C)</i></dt>
+		<dd>&#160;<br><p align="justify">Same as OSC 3, but this register allows the microprocessor to read the output
+		of the voice 3 envelope generator. This output can be added to the filter
+		frequency to produce harmonic envelopes, WAH-WAH, and similar effects. &quot;Phaser&quot;
+		sounds can be created by adding this output to the frequency control registers
+		of an oscillator. The voice 3 envelope generators must be gated in order
+		to produce any output from this register. The OSC 3 register, however, always
+		reflects the changing output of the oscillator and is not affected in any
+		way by the envelope generator.</p></dd>
+	</dl>
+</body>
+
+</html>

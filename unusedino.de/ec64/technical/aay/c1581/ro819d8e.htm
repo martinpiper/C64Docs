@@ -1,0 +1,73 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Schreib-Lesejobs aufrufen ($de50)
+
+T&amp;S aus $4d/$4e holen, Job ausfuehren, 'Puffer geaendert' loeschen
+
+Einsprung von <a href="ro81a459.htm">$A4BA</a>:
+
+9D8E: A9 90     LDA #$90         &lt;-- Schreiben
+9D90: 85 28     STA <a href="ra8128.htm">$28</a>
+9D92: D0 24     BNE $9DB8
+
+Einsprung von <a href="ro8188c5.htm">$88E0</a>, <a href="ro818d7d.htm">$8E1B</a>, <a href="ro819fbf.htm">$9FD7</a>, <a href="ro819fbf.htm">$9FE5</a>, <a href="ro819fbf.htm">$9FF5</a>, <a href="ro81a235.htm">$A25E</a>:
+
+9D94: A9 80     LDA #$80         &lt;-- Lesen
+9D96: 85 28     STA <a href="ra8128.htm">$28</a>
+9D98: D0 1E     BNE $9DB8
+
+T&amp;S aus Jobpuffer holen, Job ausfuehren, 'Puffer geaendert' loeschen
+
+Einsprung von <a href="ro818688.htm">$8740</a>, <a href="ro8188c5.htm">$88FA</a>, <a href="ro819bc3.htm">$9C76</a>, <a href="ro819d2e.htm">$9D33</a>, <a href="ro819fbf.htm">$9FC7</a>, <a href="ro81a2d6.htm">$A391</a>, <a href="ro81a2d6.htm">$A3B2</a>,
+              <a href="ro81a459.htm">$A4F4</a>, <a href="ro81a459.htm">$A538</a>:
+
+9D9A: A9 90     LDA #$90         &lt;-- Schreiben
+9D9C: 85 28     STA <a href="ra8128.htm">$28</a>
+9D9E: D0 24     BNE $9DC4
+9DA0: A9 80     LDA #$80         &lt;-- Lesen
+9DA2: 85 28     STA <a href="ra8128.htm">$28</a>
+9DA4: D0 1E     BNE $9DC4
+
+Side Sektoren schreiben/lesen
+
+Einsprung von <a href="ro819bc3.htm">$9C52</a>, <a href="ro81a2d6.htm">$A417</a>:
+
+9DA6: A9 90     LDA #$90         &lt;-- Side-Sektor schreiben
+9DA8: 85 28     STA <a href="ra8128.htm">$28</a>
+9DAA: D0 02     BNE $9DAE
+
+Einsprung von <a href="ro819b0d.htm">$9B60</a>:
+
+9DAC: A9 80     LDA #$80         &lt;-- Side-Sektor lesen
+
+Einsprung von $9DAA:
+
+9DAE: 85 28     STA <a href="ra8128.htm">$28</a>
+
+9DB0: A6 50     LDX <a href="ra8150.htm">$50</a>
+9DB2: BD 65 02  LDA <a href="ra810265.htm">$0265</a>,X      Puffer des Side-Sektors holen
+9DB5: AA        TAX
+9DB6: 10 13     BPL $9DCB        (normalerweise) immer ==&gt;
+
+Einsprung von $9D92, $9D98:
+
+9DB8: 20 85 95  JSR <a href="ro819585.htm">$9585</a>        T&amp;S an DC uebergeben
+9DBB: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+9DBE: AA        TAX
+9DBF: A9 00     LDA #$00         Laufwerksnummer (0) setzen
+9DC1: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X      [wird nicht abgefragt]
+
+Einsprung von $9D9E, $9DA4:
+
+9DC4: 20 9C A0  JSR <a href="ro81a09c.htm">$A09C</a>        Flag 'Puffer geaendert' loeschen
+9DC7: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+9DCA: AA        TAX
+
+Einsprung von $9DB6:
+
+9DCB: 4C 71 94  JMP <a href="ro819471.htm">$9471</a>        T&amp;S testen, Job aufrufen
+
+    <a href="ro819d79.htm">Previous Page</a> / <a href="ro819dce.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

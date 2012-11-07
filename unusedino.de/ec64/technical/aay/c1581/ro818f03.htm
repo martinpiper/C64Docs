@@ -1,0 +1,135 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Partition initialisieren ($d042)
+
+Einsprung von <a href="ro8184ae.htm">$84E0</a>, <a href="ro818ec5.htm">$8ECE</a>, <a href="ro819678.htm">$96DB</a>, <a href="ro81a7ae.htm">$A7EA</a>, <a href="ro81b262.htm">$B265</a>, <a href="ro81b380.htm">$B383</a>, <a href="ro81b390.htm">$B42F</a>, <a href="ro81b781.htm">$B7FD</a>, <a href="ro81bcb2.htm">$BCCB</a>,
+              <a href="ro81bebb.htm">$BEEA</a>:
+
+8F03: AD FB 01  LDA <a href="ra8101fb.htm">$01FB</a>        Autoboot aus
+8F06: 29 BF     AND #$BF
+8F08: 8D FB 01  STA <a href="ra8101fb.htm">$01FB</a>
+8F0B: A5 8A     LDA <a href="ra818a.htm">$8A</a>          OR-Maske fuer Burststatus
+8F0D: 09 80     ORA #$80         b7=1: Fremdformat
+8F0F: 85 8A     STA <a href="ra818a.htm">$8A</a>
+8F11: 20 6E 92  JSR <a href="ro81926e.htm">$926E</a>        SA 0-14 freigeben
+8F14: 20 DC 8E  JSR <a href="ro818edc.htm">$8EDC</a>        Blockheader des Verzeichnis-Headers suchen
+8F17: C9 02     CMP #$02
+8F19: B0 06     BCS $8F21        Fehler, ==&gt;
+8F1B: A5 91     LDA <a href="ra8191.htm">$91</a>          Sektorengroesse
+8F1D: C9 02     CMP #$02         =2 (512 Bytes) ?
+8F1F: F0 03     BEQ $8F24        ja, ==&gt;
+
+Einsprung von $8F19:
+
+8F21: 4C B9 8F  JMP $8FB9        Fehler bzw. kein 1581-Format
+
+Einsprung von $8F1F:
+
+8F24: 20 DE 94  JSR <a href="ro8194de.htm">$94DE</a>        Block lesen
+8F27: A5 6C     LDA <a href="ra816c.htm">$6C</a>          Puffernummer holen
+8F29: 0A        ASL
+8F2A: AA        TAX
+8F2B: A9 01     LDA #$01         Folgesektor holen
+8F2D: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X
+8F2F: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)      als 1. Sektor des Verzeichnisses merken
+8F31: 8D E5 01  STA <a href="ra8101e5.htm">$01E5</a>
+8F34: A9 02     LDA #$02         Diskettenversionsnummer
+8F36: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        (Formatkennzeichen) merken
+8F38: A1 BB     LDA (<a href="ra81bb.htm">$BB</a>,X)
+8F3A: 85 6F     STA <a href="ra816f.htm">$6F</a>
+8F3C: A9 00     LDA #$00         BAM-Puffer als leer kennzeichnen
+8F3E: 8D 00 0A  STA <a href="ra810a00.htm">$0A00</a>
+8F41: 20 4F B6  JSR <a href="ro81b64f.htm">$B64F</a>        BAM einlesen
+8F44: A9 00     LDA #$00
+8F46: 85 25     STA <a href="ra8125.htm">$25</a>          Flag 'Diskettenwechsel' loeschen
+8F48: 85 6E     STA <a href="ra816e.htm">$6E</a>          Drivestatus loeschen
+8F4A: A0 02     LDY #$02
+8F4C: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Diskettenversionsnummer in Byte 2 der BAM
+8F4E: CD EB 01  CMP <a href="ra8101eb.htm">$01EB</a>        = 1581-Nummer (normalerweise 'd') ?
+8F51: D0 66     BNE $8FB9        nein, ==&gt;
+8F53: C8        INY
+8F54: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      und steht in Byte 3 ihr Komplement ?
+8F56: 49 FF     EOR #$FF
+8F58: CD EB 01  CMP <a href="ra8101eb.htm">$01EB</a>
+8F5B: D0 5C     BNE $8FB9        nein, ==&gt;
+8F5D: A5 8A     LDA <a href="ra818a.htm">$8A</a>          Flag fuer Fremdformat in der Burst-OR-Maske
+8F5F: 29 7F     AND #$7F         loeschen
+8F61: 85 8A     STA <a href="ra818a.htm">$8A</a>
+8F63: A0 04     LDY #$04
+8F65: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      ID1
+8F67: 85 1D     STA <a href="ra811d.htm">$1D</a>
+8F69: C8        INY
+8F6A: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      ID2
+8F6C: 85 1E     STA <a href="ra811d.htm">$1E</a>
+8F6E: C8        INY
+8F6F: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      E/A-Byte
+8F71: 85 8D     STA <a href="ra818d.htm">$8D</a>
+8F73: 29 20     AND #$20         Flag 'Superside-Sektor verwenden'
+8F75: 8D 01 01  STA <a href="ra810101.htm">$0101</a>        (b5=0) merken
+8F78: C8        INY
+8F79: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Autoboot-Byte
+8F7B: 10 08     BPL $8F85        aus, ==&gt;
+8F7D: AD FB 01  LDA <a href="ra8101fb.htm">$01FB</a>        Autoboot einschalten
+8F80: 09 40     ORA #$40
+8F82: 8D FB 01  STA <a href="ra8101fb.htm">$01FB</a>
+
+Anzahl freier Blocks in Partition berechnen
+
+Einsprung von $8F7B, <a href="ro81b44a.htm">$B512</a>:
+
+8F85: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Aktuelle Tracknummer merken
+8F87: 48        PHA
+8F88: A2 00     LDX #$00         Anfangen mit 0 Blocks frei
+8F8A: 8E A9 02  STX <a href="ra8102a9.htm">$02A9</a>
+8F8D: 8E AA 02  STX <a href="ra8102a9.htm">$02AA</a>
+8F90: A6 90     LDX <a href="ra8190.htm">$90</a>          Starttrack der Partition
+8F92: 24         B $24
+
+Einsprung von $8F99, $8FAC, $8FB1:
+
+8F93: E8        INX
+8F94: 86 4D     STX <a href="ra814d.htm">$4D</a>
+8F96: EC 2B 02  CPX <a href="ra81022b.htm">$022B</a>        Dir-Track ?
+8F99: F0 F8     BEQ $8F93        ja, ==&gt;
+8F9B: EC 2C 02  CPX <a href="ra81022c.htm">$022C</a>        letzter Track + 1 ?
+8F9E: B0 13     BCS $8FB3        ja, ==&gt;
+8FA0: 20 BD B5  JSR <a href="ro81b5b4.htm">$B5BD</a>        BAM-Zeiger auf aktuelles Bitmuster setzen
+8FA3: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Freie Blocks des Tracks
+8FA5: 18        CLC
+8FA6: 6D A9 02  ADC <a href="ra8102a9.htm">$02A9</a>        addieren
+8FA9: 8D A9 02  STA <a href="ra8102a9.htm">$02A9</a>
+8FAC: 90 E5     BCC $8F93        kein Uebertrag, ==&gt;
+8FAE: EE AA 02  INC <a href="ra8102a9.htm">$02AA</a>
+8FB1: D0 E0     BNE $8F93        immer ==&gt;
+
+Einsprung von $8F9E:
+
+8FB3: 68        PLA              Aktuelle Tracknummer zurueckholen
+8FB4: 85 4D     STA <a href="ra814d.htm">$4D</a>
+8FB6: A2 00     LDX #$00
+8FB8: 60        RTS
+
+kein 1581-Diskettenformat
+
+Einsprung von $8F21, $8F51, $8F5B:
+
+8FB9: A2 03     LDX #$03         Verzeichnis-Folgesektor
+8FBB: 8E E5 01  STX <a href="ra8101e5.htm">$01E5</a>
+8FBE: A2 C0     LDX #$C0         E/A-Byte: b6: CRC-Test ein; b7:Verify ein
+8FC0: 86 8D     STX <a href="ra818d.htm">$8D</a>          b5=0: Super-Side-Sektoren verwenden
+8FC2: A2 00     LDX #$00         Flags fuer REL-Datei loeschen
+8FC4: 8E 01 01  STX <a href="ra810101.htm">$0101</a>
+8FC7: 86 25     STX <a href="ra8125.htm">$25</a>          Flag fuer Diskettenwechsel loeschen
+8FC9: 86 6E     STX <a href="ra816e.htm">$6E</a>          Drivestatus loeschen
+8FCB: 8E A9 02  STX <a href="ra8102a9.htm">$02A9</a>        keine freien Blocks
+8FCE: 8E AA 02  STX <a href="ra8102a9.htm">$02AA</a>
+8FD1: 86 1D     STX <a href="ra811d.htm">$1D</a>          ID loeschen
+8FD3: 86 1E     STX <a href="ra811d.htm">$1E</a>
+8FD5: 60        RTS
+
+DOS 3
+
+    <a href="ro818edc.htm">Previous Page</a> / <a href="ro818fd6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

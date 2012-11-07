@@ -1,0 +1,15 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E853/59475:   IRQ routine for serial bus
+
+Jump from <a href="ro41fe67.htm">$FE73</a>:
+
+E853: AD 01 18  LDA <a href="via11.htm">$1801</a>       ; read port A, erase IRQ flag
+E856: A9 01     LDA #$01
+E858: 85 7C     STA <a href="ra417c.htm">$7C</a>         ; set flag for 'ATN received'
+E85A: 60        RTS
+
+    <a href="ro41e84b.htm">Previous Page</a> / <a href="ro41e85b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

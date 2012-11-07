@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Schrittmotor ansteuern
+
+Einsprung von <a href="ro81ce00.htm">$CE09</a>:
+
+CE71: A4 26     LDY <a href="ra8126.htm">$26</a>          Drivemodus holen
+
+Einsprung von <a href="ro81ce00.htm">$CE51</a>, <a href="ro81ce00.htm">$CE55</a>, <a href="ro81ce00.htm">$CE60</a>, <a href="ro81ce00.htm">$CE64</a>:
+
+CE73: 98        TYA              soll der Kopf bewegt werden ?
+CE74: 29 40     AND #$40
+CE76: F0 F5     BEQ <a href="ro81ce00.htm">$CE6D</a>        nein, (Ende) ==&gt;
+CE78: A5 88     LDA <a href="ra8188.htm">$88</a>          Solltrack
+CE7A: C5 27     CMP <a href="ra8127.htm">$27</a>          = Isttrack ?
+CE7C: F0 18     BEQ $CE96        Ja, (Schrittmotor-Flag loeschen) ==&gt;
+CE7E: 8D 03 60  STA <a href="wd813.htm">$6003</a>        Solltrack uebergeben
+CE81: A5 27     LDA <a href="ra8127.htm">$27</a>
+CE83: 8D 01 60  STA <a href="wd811.htm">$6001</a>        Isttrack uebergeben
+CE86: AD DB 01  LDA <a href="ra8101db.htm">$01DB</a>        Controller-Befehl: SEEK
+CE89: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        in Controller schreiben
+CE8C: 20 EC CB  JSR <a href="ro81cbec.htm">$CBEC</a>        und Ausfuehrung abwarten  [leider ...]
+CE8F: A5 88     LDA <a href="ra8188.htm">$88</a>          Kopf steht jetzt auf Solltrack
+CE91: 85 27     STA <a href="ra8127.htm">$27</a>          (= Isttrack)
+CE93: 8D 01 60  STA <a href="wd811.htm">$6001</a>        Isttrack an Controller uebergeben
+
+Einsprung von $CE7C:
+
+CE96: A5 26     LDA <a href="ra8126.htm">$26</a>          b6=0: Schrittmotor ist inaktiv
+CE98: 29 BF     AND #$BF         im Drivestatus eintragen
+CE9A: 85 26     STA <a href="ra8126.htm">$26</a>
+CE9C: A4 98     LDY <a href="ra8198.htm">$98</a>          Kopfberuhigungszeit abwarten
+CE9E: 20 D5 CB  JSR <a href="ro81cbd5.htm">$CBD5</a>        (18 ms)
+CEA1: 4C 6D CE  JMP <a href="ro81ce00.htm">$CE6D</a>        Ende ==&gt;
+
+    <a href="ro81ce00.htm">Previous Page</a> / <a href="ro81cea4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

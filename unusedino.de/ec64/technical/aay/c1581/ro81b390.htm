@@ -1,0 +1,115 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Verzeichnis-Header und BAM anlegen ($ee56)
+
+Verzeichnis-Header anlegen
+
+Einsprung von <a href="ro81b348.htm">$B37D</a>, <a href="ro81b380.htm">$B38B</a>:
+
+B390: A5 6C     LDA <a href="ra816c.htm">$6C</a>          letzte Jobnummer
+B392: A8        TAY
+B393: 0A        ASL              *2
+B394: AA        TAX
+B395: AD 77 DB  LDA <a href="ro81dafd.htm">$DB77</a>        Position des Verzeichnisnamens
+B398: 95 BB     STA <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger setzen
+B39A: AE 91 02  LDX <a href="ra810291.htm">$0291</a>
+B39D: A9 1B     LDA #$1B
+B39F: 20 EE 84  JSR <a href="ro8184ee.htm">$84EE</a>        Diskettennamen kopieren
+B3A2: A0 00     LDY #$00
+B3A4: 84 64     STY <a href="ra8164.htm">$64</a>          Pufferzeiger auf 0 setzen
+B3A6: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Verzeichnis-Track
+B3A9: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      als Zeiger auf naechsten Block
+B3AB: C8        INY
+B3AC: A9 03     LDA #$03         1. Verzeichnis-Sektor
+B3AE: 8D E5 01  STA <a href="ra8101e5.htm">$01E5</a>
+B3B1: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      als Zeiger auf naechsten Block
+B3B3: C8        INY
+B3B4: AD EB 01  LDA <a href="ra8101eb.htm">$01EB</a>        Formatkennzeichen
+B3B7: 85 6F     STA <a href="ra816f.htm">$6F</a>          = aktuelles Formatkennzeichen
+B3B9: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      im Block merken
+B3BB: C8        INY
+B3BC: A9 00     LDA #$00         $00
+B3BE: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+
+B3C0: A0 16     LDY #$16         Weiter bei Position 22
+B3C2: A5 1D     LDA <a href="ra811d.htm">$1D</a>          ID1
+B3C4: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3C6: C8        INY
+B3C7: A5 1E     LDA <a href="ra811d.htm">$1E</a>          ID2
+B3C9: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3CB: C8        INY
+B3CC: A9 A0     LDA #$A0         $a0
+B3CE: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3D0: C8        INY
+B3D1: AD EC 01  LDA <a href="ra8101ec.htm">$01EC</a>        DOS-Versionsnummer
+B3D4: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3D6: C8        INY
+B3D7: A5 6F     LDA <a href="ra816f.htm">$6F</a>          Diskettenversionsnummer
+B3D9: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3DB: C8        INY
+B3DC: A9 A0     LDA #$A0         $a0
+B3DE: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3E0: C8        INY
+B3E1: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      $a0
+B3E3: C8        INY
+B3E4: A9 00     LDA #$00         Rest vom Block mit $00 fuellen
+
+Einsprung von $B3E9:
+
+B3E6: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+B3E8: C8        INY
+B3E9: D0 FB     BNE $B3E6
+B3EB: A9 00     LDA #$00         Sektornummer = 0
+B3ED: 20 35 B4  JSR $B435        T&amp;S des 1. Directory-Sektors setzen
+B3F0: 20 C1 93  JSR <a href="ro8193bd.htm">$93C1</a>        Puffer schreiben
+
+1. Directory-Sektor anlegen
+
+B3F3: A9 00     LDA #$00
+B3F5: 85 64     STA <a href="ra8164.htm">$64</a>          Pufferzeiger auf 0
+B3F7: A8        TAY
+
+Einsprung von $B3FB:
+
+B3F8: 91 64     STA ($64),Y      Puffer mit $00 fuellen
+B3FA: C8        INY
+B3FB: D0 FB     BNE $B3F8
+B3FD: C8        INY              y=1
+B3FE: A9 FF     LDA #$FF         $00, $ff an Blockanfang schreiben
+B400: 91 64     STA (<a href="ra8164.htm">$64</a>),Y      (Zeichen fuer letzten Dir-Block)
+B402: AD E5 01  LDA <a href="ra8101e5.htm">$01E5</a>        Nummer des 1. Dir-Sektors holen
+B405: 20 35 B4  JSR $B435        und als aktuelle T&amp;S setzen
+B408: 20 C1 93  JSR <a href="ro8193bd.htm">$93C1</a>        Puffer schreiben
+
+BAM anlegen
+
+B40B: 20 4A B4  JSR <a href="ro81b44a.htm">$B44A</a>        neue BAM anlegen
+B40E: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>
+B411: 85 4D     STA <a href="ra814d.htm">$4D</a>          Verzeichnis-Header in BAM belegen
+B413: A9 00     LDA #$00
+B415: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B417: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        Block belegen
+B41A: E6 4E     INC <a href="ra814e.htm">$4E</a>
+B41C: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        1. BAM-Block belegen
+B41F: E6 4E     INC <a href="ra814e.htm">$4E</a>
+B421: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        2. BAM-Block belegen
+B424: AD E5 01  LDA <a href="ra8101e5.htm">$01E5</a>
+B427: 85 4E     STA <a href="ra814e.htm">$4E</a>          1. Verzeichnis-Block belegen
+B429: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>
+B42C: 20 12 B6  JSR <a href="ro81b612.htm">$B612</a>        BAM auf Diskette schreiben
+B42F: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Partition initialisieren
+B432: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>        Ok. Ende
+
+T&amp;S eines Blocks des Verzeichnisses setzen
+
+Einsprung von $B3ED, $B405:
+
+B435: 85 4E     STA <a href="ra814e.htm">$4E</a>          Sektornummer in a
+B437: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory-Track
+B43A: 85 4D     STA <a href="ra814d.htm">$4D</a>
+B43C: 60        RTS
+
+    <a href="ro81b380.htm">Previous Page</a> / <a href="ro81b43d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

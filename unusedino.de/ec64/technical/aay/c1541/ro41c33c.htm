@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C33C/49980:   Search for drive number
+
+Jump from <a href="ro41c312.htm">$C32A</a>:
+
+C33C: AA        TAX             ; note position
+C33D: A0 00     LDY #$00
+C33F: A9 3A     LDA #$3A        ; ':'
+C341: DD 01 02  CMP <a href="ra410200.htm">$0201</a>,X     ; colon behind it?
+C344: F0 0C     BEQ $C352       ; yes
+C346: DD 00 02  CMP <a href="ra410200.htm">$0200</a>,X     ; colon here?
+C349: D0 16     BNE $C361       ; no
+C34B: E8        INX
+
+Jump from $C35F:
+
+C34C: 98        TYA
+
+Jump from $C359, $C35D:
+
+C34D: 29 01     AND #$01        ; drive number
+
+Jump from $C366:
+
+C34F: A8        TAY
+C350: 8A        TXA
+C351: 60        RTS
+
+Jump from $C344:
+
+C352: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; get drive number
+C355: E8        INX
+C356: E8        INX
+C357: C9 30     CMP #$30        ; '0'?
+C359: F0 F2     BEQ $C34D       ; yes
+C35B: C9 31     CMP #$31        ; '1'?
+C35D: F0 EE     BEQ $C34D       ; yes
+C35F: D0 EB     BNE $C34C       ; no, use last drive number
+
+Jump from $C349:
+
+C361: 98        TYA             ; last drive number
+C362: 09 80     ORA #$80        ; set bit 7, uncertain drive number
+C364: 29 81     AND #$81        ; erase remaining bits
+C366: D0 E7     BNE $C34F
+
+    <a href="ro41c312.htm">Previous Page</a> / <a href="ro41c368.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

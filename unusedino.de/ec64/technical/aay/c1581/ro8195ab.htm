@@ -1,0 +1,148 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Neue Datei im Directory eintragen ($d6e4)
+
+Einsprung von <a href="ro81876e.htm">$87FA</a>, <a href="ro819890.htm">$9893</a>, <a href="ro81b88d.htm">$B89F</a>:
+
+95AB: A5 52     LDA <a href="ra8152.htm">$52</a>          aktuelle SA und
+95AD: 48        PHA
+95AE: A5 50     LDA <a href="ra8150.htm">$50</a>          aktuelle Kanalnummer merken
+95B0: 48        PHA
+
+freien Eintrag suchen
+
+95B1: A5 4E     LDA <a href="ra814e.htm">$4E</a>          aktuelle T&amp;S merken
+95B3: 48        PHA
+95B4: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+95B6: 48        PHA
+95B7: A9 11     LDA #$11         internen Lesekanal oeffnen,
+95B9: 85 52     STA <a href="ra8152.htm">$52</a>          aktuellen Puffer holen und
+95BB: 20 79 9D  JSR <a href="ro819d79.htm">$9D79</a>        T&amp;S des geladenen Blocks holen
+95BE: AD 2D 02  LDA <a href="ra81022d.htm">$022D</a>        aktuellen Dateityp merken
+95C1: 48        PHA
+95C2: A6 6C     LDX <a href="ra816c.htm">$6C</a>          Puffernummer
+95C4: A5 EF     LDA <a href="ra81ef.htm">$EF</a>          Drivenummer des Files
+95C6: 5D 72 02  EOR <a href="ra810272.htm">$0272</a>,X      mit Drivenummer des Jobs vergleichen
+95C9: 4A        LSR
+95CA: 90 0B     BCC $95D7        gleich, ==&gt;
+
+Das Verzeichnis des falschen Laufwerks ist geoeffnet
+
+95CC: A2 01     LDX #$01         Flag: '1. freien Eintrag finden' setzen
+95CE: 86 73     STX <a href="ra8173.htm">$73</a>
+95D0: 20 24 84  JSR <a href="ro818424.htm">$8424</a>        und Eintrag suchen
+95D3: F0 20     BEQ $95F5        keinen freier Eintrag, ==&gt;
+95D5: D0 2D     BNE $9604
+
+Das richtige Verzeichnis ist geoeffnet
+
+Einsprung von $95CA:
+
+95D7: A5 72     LDA <a href="ra8172.htm">$72</a>          1. Dir-Block mit freiem Eintrag
+95D9: F0 11     BEQ $95EC        noch nicht gefunden ?, ==&gt;
+95DB: C5 4E     CMP <a href="ra814e.htm">$4E</a>          ist der Block bereits geladen ?
+95DD: F0 25     BEQ $9604        ja, ==&gt;
+95DF: 85 4E     STA <a href="ra814e.htm">$4E</a>
+95E1: 20 BD 93  JSR <a href="ro8193bd.htm">$93BD</a>        Dir-Block in den aktuellen Puffer einlesen
+95E4: 4C 04 96  JMP $9604
+
+Einsprung von $95FC:
+
+95E7: A9 72     LDA #$72         72, Disk full
+95E9: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $95D9:
+
+95EC: A9 01     LDA #$01         Flag: '1. freien Eintrag finden' setzen
+95EE: 85 73     STA <a href="ra8173.htm">$73</a>
+95F0: 20 89 84  JSR <a href="ro818424.htm">$8489</a>        und Suche fortsetzen
+95F3: D0 0F     BNE $9604        freien Eintrag gefunden, ==&gt;
+
+Im Directory ist kein Eintrag mehr frei, Directory erweitern
+
+Einsprung von $95D3:
+
+95F5: 20 E7 93  JSR <a href="ro8193e7.htm">$93E7</a>        neuen Dir-Block anhaengen
+95F8: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer &lt; 3 ?
+95FA: C9 03     CMP #$03
+95FC: 90 E9     BCC $95E7        ja, (Direktory ist voll) ==&gt;
+95FE: 85 72     STA <a href="ra8172.htm">$72</a>          1. Eintrag des neuen Blocks fuer den
+9600: A9 02     LDA #$02         Filenamen verwenden (beginnt hinter der
+9602: 85 73     STA <a href="ra8173.htm">$73</a>          Blockverkettung)
+
+File im Directory an der freien Stelle eintragen
+
+Einsprung von $95D5, $95DD, $95E4, $95F3:
+
+9604: A5 73     LDA <a href="ra8173.htm">$73</a>          Pufferzeiger auf den freien Eintrag setzen
+9606: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+9609: 68        PLA              Aktuellen Dateityp zurueckholen
+960A: 8D 2D 02  STA <a href="ra81022d.htm">$022D</a>
+960D: C9 04     CMP #$04         Dateityp = REL-Datei ?
+960F: D0 02     BNE $9613        nein, ==&gt;
+9611: 09 80     ORA #$80         Flag: 'Datei geschlossen' setzen
+
+Einsprung von $960F:
+
+9613: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Dateityp in Puffer schreiben
+9616: 68        PLA
+9617: 8D 97 02  STA <a href="ra810297.htm">$0297</a>        T&amp;S merken
+961A: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        und in Puffer schreiben
+961D: 68        PLA
+961E: 8D 9C 02  STA <a href="ra81029c.htm">$029C</a>
+9621: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+9624: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+9627: A8        TAY
+9628: AD 91 02  LDA <a href="ra810291.htm">$0291</a>        Position des Filenamens holen
+962B: AA        TAX
+962C: A9 10     LDA #$10         Maximale Filenamenlaenge setzen
+962E: 20 EE 84  JSR <a href="ro8184ee.htm">$84EE</a>        Filenamen in Puffer kopieren
+9631: A0 10     LDY #$10
+9633: A9 00     LDA #$00         Rest des Eintrags (11 Bytes) loeschen
+
+Einsprung von $963A:
+
+9635: 91 64     STA ($64),Y      [$64 zeigt auf das 3. Byte des Eintrages;
+9637: C8        INY               y= 16..27 - Also werden die Bytes 19-29
+9638: C0 1B     CPY #$1B          geloescht.]
+963A: 90 F9     BCC $9635
+963C: AD 2D 02  LDA <a href="ra81022d.htm">$022D</a>        Dateityp = REL-Datei ?
+963F: C9 04     CMP #$04
+9641: D0 13     BNE $9656        nein, ==&gt;
+9643: A0 10     LDY #$10
+9645: AD 70 02  LDA <a href="ra810270.htm">$0270</a>        T&amp;S des (Super-)Side-Sektors eintragen
+9648: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+964A: C8        INY
+964B: AD 71 02  LDA <a href="ra810271.htm">$0271</a>
+964E: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+9650: C8        INY
+9651: AD 6F 02  LDA <a href="ra81026f.htm">$026F</a>        Datensatzlaenge eintragen
+9654: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+
+Einsprung von $9641:
+
+9656: 20 C1 93  JSR <a href="ro8193bd.htm">$93C1</a>        Puffer schreiben
+
+9659: 68        PLA
+965A: 85 50     STA <a href="ra8150.htm">$50</a>          Kanalnummer und
+965C: AA        TAX
+965D: 68        PLA
+965E: 85 52     STA <a href="ra8152.htm">$52</a>          SA zurueckholen
+T&amp;S des Eintrages dem Kanal und der Dateitabelle zuordnen
+
+9660: A5 72     LDA <a href="ra8172.htm">$72</a>          Dir-Block merken
+9662: 85 E5     STA <a href="ra81e5.htm">$E5</a>
+9664: 9D 7D 02  STA <a href="ra81027d.htm">$027D</a>,X
+9667: A5 73     LDA <a href="ra8173.htm">$73</a>          Position im Dir-Block merken
+9669: 85 EA     STA <a href="ra81ea.htm">$EA</a>
+966B: 9D 84 02  STA <a href="ra810284.htm">$0284</a>,X
+966E: AD 2D 02  LDA <a href="ra81022d.htm">$022D</a>        Dateityp merken
+9671: 85 F4     STA <a href="ra81f4.htm">$F4</a>
+9673: A9 00     LDA #$00         Drivenummer (immer 0) merken
+9675: 85 EF     STA <a href="ra81ef.htm">$EF</a>
+9677: 60        RTS
+
+    <a href="ro819598.htm">Previous Page</a> / <a href="ro819678.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,67 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C268/49768:   Search character in input buffer
+
+Jump from <a href="ro41c1d1.htm">$C1D8</a>, <a href="ro41c1e5.htm">$C1EB</a>, <a href="ro41c1ee.htm">$C202</a>, <a href="ro41c1ee.htm">$C236</a>, <a href="ro41cc1b.htm">$CC21</a>, <a href="ro41cc6f.htm">$CC75</a>, <a href="ro41d815.htm">$D845</a>, <a href="ro41e7a3.htm">$E7A5</a>:
+
+C268: 8D 75 02  STA <a href="ra410275.htm">$0275</a>       ; save character
+
+Jump from $C285, $C29C:
+
+C26B: CC 74 02  CPY <a href="ra410274.htm">$0274</a>       ; already done?
+C26E: B0 2E     BCS $C29E       ; yes
+C270: B1 A3     LDA (<a href="ra41a3.htm">$A3</a>),Y     ; get char from buffer
+C272: C8        INY
+C273: CD 75 02  CMP <a href="ra410275.htm">$0275</a>       ; compared with char
+C276: F0 28     BEQ $C2A0       ; found
+C278: C9 2A     CMP #$2A        ; '*'
+C27A: F0 04     BEQ $C280
+C27C: C9 3F     CMP #$3F        ; '?'
+C27E: D0 03     BNE $C283
+
+Jump from $C27A:
+
+C280: EE 8A 02  INC <a href="ra41028a.htm">$028A</a>       ; set wildcard flag
+
+Jump from $C27E:
+
+C283: C9 2C     CMP #$2C        ; ','
+C285: D0 E4     BNE $C26B
+C287: 98        TYA
+C288: 9D 7B 02  STA <a href="ra41027a.htm">$027B</a>,X     ; note comma position
+C28B: AD 8A 02  LDA <a href="ra41028a.htm">$028A</a>       ; wildcard flag
+C28E: 29 7F     AND #$7F
+C290: F0 07     BEQ $C299       ; no wildcard
+C292: A9 80     LDA #$80
+C294: 95 E7     STA <a href="ra41e7.htm">$E7</a>,X       ; note flag
+C296: 8D 8A 02  STA <a href="ra41028a.htm">$028A</a>       ; and save as wildcard flag
+
+Jump from $C290:
+
+C299: E8        INX             ; increment comma counter
+C29A: E0 04     CPX #$04        ; 4 commas already?
+C29C: 90 CD     BCC $C26B       ; no, continue
+
+Jump from $C26E:
+
+C29E: A0 00     LDY #$00
+
+Jump from $C276:
+
+C2A0: AD 74 02  LDA <a href="ra410274.htm">$0274</a>       ; set flag for line end
+C2A3: 9D 7B 02  STA <a href="ra41027a.htm">$027B</a>,X
+C2A6: AD 8A 02  LDA <a href="ra41028a.htm">$028A</a>       ; wildcard flag
+C2A9: 29 7F     AND #$7F
+C2AB: F0 04     BEQ $C2B1       ; no wildcard
+C2AD: A9 80     LDA #$80
+C2AF: 95 E7     STA <a href="ra41e7.htm">$E7</a>,X       ; set flag
+
+Jump from $C2AB:
+
+C2B1: 98        TYA
+C2B2: 60        RTS
+
+    <a href="ro41c1ee.htm">Previous Page</a> / <a href="ro41c2b3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

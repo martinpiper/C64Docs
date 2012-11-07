@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C2B3/49843:   Check line length
+
+Jump from <a href="ro41c146.htm">$C160</a>, <a href="ro41d7b4.htm">$D7B9</a>, <a href="ro41e207.htm">$E207</a>:
+
+C2B3: A4 A3     LDY <a href="ra41a3.htm">$A3</a>         ; pointer to command input buffer
+C2B5: F0 14     BEQ $C2CB       ; zero?
+C2B7: 88        DEY
+C2B8: F0 10     BEQ $C2CA       ; one?
+C2BA: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; pointer to input buffer
+C2BD: C9 0D     CMP #$0D        ; 'CR'
+C2BF: F0 0A     BEQ $C2CB       ; yes, line end
+C2C1: 88        DEY
+C2C2: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; preceding character
+C2C5: C9 0D     CMP #$0D        ; 'CR'
+C2C7: F0 02     BEQ $C2CB       ; yes
+C2C9: C8        INY
+
+Jump from $C2B8:
+
+C2CA: C8        INY             ; pointer to old value again
+
+Jump from $C2B5, $C2BF, $C2C7:
+
+C2CB: 8C 74 02  STY <a href="ra410274.htm">$0274</a>       ; same line length
+C2CE: C0 2A     CPY #$2A        ; compare with 42 characters
+C2D0: A0 FF     LDY #$FF
+C2D2: 90 08     BCC <a href="ro41c2dc.htm">$C2DC</a>       ; smaller, ok
+C2D4: 8C 2A 02  STY <a href="ra41022a.htm">$022A</a>
+C2D7: A9 32     LDA #$32
+C2D9: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 32, 'syntax error' line too long
+
+    <a href="ro41c268.htm">Previous Page</a> / <a href="ro41c2dc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

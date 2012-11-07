@@ -1,0 +1,135 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+neue BAM erzeugen ($eeb7)
+
+Einsprung von <a href="ro81b262.htm">$B268</a>, <a href="ro81b390.htm">$B40B</a>:
+
+B44A: A9 00     LDA #$00         beim Erzeugen der Bam mit der
+B44C: 85 4D     STA <a href="ra814d.htm">$4D</a>          ersten Spur beginnen
+B44E: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Link-Zeiger der BAM-Bloecke setzen
+B451: 8D 00 0A  STA <a href="ra810a00.htm">$0A00</a>        im 1. BAM-Puffer:  tt, $02
+B454: A9 00     LDA #$00
+B456: 8D 00 0B  STA <a href="ra810b00.htm">$0B00</a>        im 2. BAM-Puffer: $00, $ff
+B459: A9 02     LDA #$02
+B45B: 8D 01 0A  STA <a href="ra810a00.htm">$0A01</a>
+B45E: A9 FF     LDA #$FF
+B460: 8D 01 0B  STA <a href="ra810b00.htm">$0B01</a>
+B463: AD EB 01  LDA <a href="ra8101eb.htm">$01EB</a>        1581-Formatkennzeichen abspeichern
+B466: 8D 02 0A  STA <a href="ra810a00.htm">$0A02</a>
+B469: 8D 02 0B  STA <a href="ra810b00.htm">$0B02</a>
+B46C: 49 FF     EOR #$FF         negiert
+B46E: 8D 03 0A  STA <a href="ra810a00.htm">$0A03</a>        ergibt das ergaenzende Formatkennzeichen
+B471: 8D 03 0B  STA <a href="ra810b00.htm">$0B03</a>
+B474: A5 1D     LDA <a href="ra811d.htm">$1D</a>          ID1 und
+B476: 8D 04 0A  STA <a href="ra810a00.htm">$0A04</a>
+B479: 8D 04 0B  STA <a href="ra810b00.htm">$0B04</a>
+B47C: A5 1E     LDA <a href="ra811d.htm">$1E</a>          ID2 abspeichern
+B47E: 8D 05 0A  STA <a href="ra810a00.htm">$0A05</a>
+B481: 8D 05 0B  STA <a href="ra810b00.htm">$0B05</a>
+B484: A5 8D     LDA <a href="ra818d.htm">$8D</a>          E/A-Byte
+B486: 8D 06 0A  STA <a href="ra810a00.htm">$0A06</a>
+B489: 8D 06 0B  STA <a href="ra810b00.htm">$0B06</a>
+B48C: A9 00     LDA #$00         Auto-Boot ausschalten
+B48E: 8D 07 0A  STA <a href="ra810a00.htm">$0A07</a>
+B491: 8D 07 0B  STA <a href="ra810b00.htm">$0B07</a>
+
+Bloecke, die zur Partition gehoeren, freigeben
+alle anderen als belegt kennzeichnen
+
+B494: 20 52 B6  JSR <a href="ro81b64f.htm">$B652</a>        Zeiger auf 1. BAM-Eintrag setzen ($4d = 0)
+
+Einsprung von $B4E9:
+
+B497: A0 10     LDY #$10         $10: Start der BAM im BAM-Block
+
+Einsprung von $B4DF:
+
+B499: E6 4D     INC <a href="ra814d.htm">$4D</a>          naechsten Track waehlen
+B49B: A5 4D     LDA <a href="ra814d.htm">$4D</a>          aktuelle Tracknummer
+B49D: C5 90     CMP <a href="ra8190.htm">$90</a>          mit Start der Partition vergleichen
+B49F: F0 0B     BEQ $B4AC        = : Blocks freigeben ==&gt;
+B4A1: 90 07     BCC $B4AA        &lt; : Blocks belegen ==&gt;
+B4A3: CD 2C 02  CMP <a href="ra81022c.htm">$022C</a>        &gt;= Ende der Partition ?
+B4A6: F0 02     BEQ $B4AA
+B4A8: 90 02     BCC $B4AC        nein, (Blocks freigeben) ==&gt;
+
+Einsprung von $B4A1, $B4A6:
+
+B4AA: 18        CLC              ja: Blocks belegen
+B4AB: 24         B $24
+
+Einsprung von $B49F, $B4A8:
+
+B4AC: 38        SEC              Blocks freigeben
+B4AD: 08        PHP
+B4AE: A9 00     LDA #$00         Bam-Muster: 'Alle Blocks belegt'
+B4B0: 85 40     STA <a href="ra8140.htm">$40</a>
+B4B2: 85 41     STA <a href="ra8140.htm">$41</a>
+B4B4: 85 42     STA <a href="ra8140.htm">$42</a>
+B4B6: 85 43     STA <a href="ra8140.htm">$43</a>
+B4B8: 85 44     STA <a href="ra8140.htm">$44</a>
+B4BA: A6 75     LDX <a href="ra8175.htm">$75</a>          Anzahl Sektoren pro Track holen
+B4BC: 8A        TXA
+B4BD: B0 02     BCS $B4C1        c=1, ==&gt;
+B4BF: A9 00     LDA #$00         c=0: 0 Blocks frei
+
+Einsprung von $B4BD:
+
+B4C1: 91 31     STA (<a href="ra8131.htm">$31</a>),Y      Anzahl der freien Blocks
+B4C3: C8        INY
+
+Einsprung von $B4D1:
+
+B4C4: 28        PLP              [Diese Routine ist fuer Disketten gedacht,
+B4C5: 08        PHP               die eine flexible Zahl Blocks/Track haben
+B4C6: 26 40     ROL <a href="ra8140.htm">$40</a>           haben und bei denen die Blockzahl kein
+B4C8: 26 41     ROL <a href="ra8140.htm">$41</a>           Vielfaches von 8 ist (1541: 17-21 Blocks).
+B4CA: 26 42     ROL <a href="ra8140.htm">$42</a>           Bei der 1581 (40 Blocks / Track) werden:
+B4CC: 26 43     ROL <a href="ra8140.htm">$43</a>           bei c=1 alle Bytes = $ff,
+B4CE: 26 44     ROL <a href="ra8140.htm">$44</a>           bei c=0 alle Bytes = $00]
+B4D0: CA        DEX              Anzahl zu belegender Sektoren -1
+B4D1: D0 F1     BNE $B4C4        naechsten Sektor belegen, ==&gt;
+B4D3: 28        PLP
+
+Einsprung von $B4DC:
+
+B4D4: B5 40     LDA <a href="ra8140.htm">$40</a>,X        Bitmuster in BAM kopieren
+B4D6: 91 31     STA (<a href="ra8131.htm">$31</a>),Y
+B4D8: C8        INY
+B4D9: E8        INX
+B4DA: E0 05     CPX #$05         (5 Bytes)
+B4DC: 90 F6     BCC $B4D4
+B4DE: 98        TYA              Ende des BAM-Puffers erreicht ?
+B4DF: D0 B8     BNE $B499        nein, ==&gt;
+B4E1: A5 32     LDA <a href="ra8131.htm">$32</a>          War es bereits der 2. Puffer ?
+B4E3: C9 0B     CMP #$0B
+B4E5: F0 04     BEQ $B4EB        ja, ==&gt;
+B4E7: E6 32     INC <a href="ra8131.htm">$32</a>          naechsten BAM-Puffer waehlen
+B4E9: D0 AC     BNE $B497        immer ==&gt;
+
+Directory-Bloecke in BAM belegen und 'Blocks free' berechnen
+
+Einsprung von $B4E5:
+
+B4EB: A9 01     LDA #$01         Flag 'BAM abspeichern' setzen
+B4ED: 85 35     STA <a href="ra8135.htm">$35</a>
+B4EF: A9 00     LDA #$00         'Blocks Free' Lo =0 (wozu ?)
+B4F1: 8D A9 02  STA <a href="ra8102a9.htm">$02A9</a>
+B4F4: AD 2B 02  LDA <a href="ra81022b.htm">$022B</a>        Directory-Track holen
+B4F7: 85 4D     STA <a href="ra814d.htm">$4D</a>
+B4F9: A9 00     LDA #$00         Verzeichnis-Header
+B4FB: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B4FD: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        belegen
+B500: E6 4E     INC <a href="ra814e.htm">$4E</a>          1. BAM-Block
+B502: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        belegen
+B505: E6 4E     INC <a href="ra814e.htm">$4E</a>          2. BAM-Block
+B507: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        belegen
+B50A: AD E5 01  LDA <a href="ra8101e5.htm">$01E5</a>        1. Verzeichnis-Block
+B50D: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B50F: 20 72 B5  JSR <a href="ro81b572.htm">$B572</a>        belegen
+B512: 4C 85 8F  JMP <a href="ro818f03.htm">$8F85</a>        Anzahl 'Blocks free' berechnen
+
+    <a href="ro81b43d.htm">Previous Page</a> / <a href="ro81b515.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

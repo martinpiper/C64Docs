@@ -1,0 +1,132 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Spur mit Cachedaten vergleichen
+
+Einsprung von <a href="ro81c3bb.htm">$C3CB</a>, <a href="ro81c9e1.htm">$C9E8</a>, <a href="ro81cb35.htm">$CB4F</a>:
+
+CA00: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen
+CA03: A5 88     LDA <a href="ra8188.htm">$88</a>          steht der Kopf auf der richtigen Spur ?
+CA05: C5 1F     CMP <a href="ra811f.htm">$1F</a>          (Sollspur mit gefundenem Wert vergleichen)
+CA07: F0 03     BEQ $CA0C        ja, ==&gt;
+CA09: 4C 88 CB  JMP <a href="ro81cb85.htm">$CB88</a>        nein (MISHD_DV_ER) ==&gt;
+
+Einsprung von $CA07:
+
+CA0C: 8D 01 60  STA <a href="wd811.htm">$6001</a>        als aktuelle Spur merken
+CA0F: 20 B7 CF  JSR <a href="ro81cfb7.htm">$CFB7</a>        Cachepufferzeiger auf Cache-Anfang setzen
+CA12: A5 96     LDA <a href="ra8196.htm">$96</a>          aktuelle Seite merken
+CA14: 85 39     STA <a href="ra8139.htm">$39</a>          [wozu ???]
+CA16: A5 92     LDA <a href="ra8192.htm">$92</a>          Anzahl der Sektoren merken
+CA18: 85 3A     STA <a href="ra813a.htm">$3A</a>
+CA1A: A5 21     LDA <a href="ra8121.htm">$21</a>          aktuelle Sektornummer
+CA1C: AA        TAX              merken
+CA1D: C5 93     CMP <a href="ra8193.htm">$93</a>          = letzter Sektor auf der Spur ?
+CA1F: 08        PHP              (Ergebnis merken)
+CA20: D0 06     BNE $CA28        nein, ==&gt;
+CA22: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornummer auf der Spur
+CA24: AA        TAX              merken
+CA25: 38        SEC              -1 [Dies ist also praktisch der Sektor, der
+CA26: E9 01     SBC #$01          vor dem 1. Sektor kommt.]
+
+Einsprung von $CA20:
+
+CA28: 38        SEC              - 1.Sektornummer [Dies ergibt die aktuelle
+CA29: E5 94     SBC <a href="ra8194.htm">$94</a>          Position im Cache.]
+CA2B: 18        CLC              + 1 [Folgesektor soll gelesen werden.]
+CA2C: 69 01     ADC #$01
+CA2E: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+
+Einsprung von $CA34:
+
+CA30: 88        DEY              Sektornummer auf 256-Byte Sektoren
+CA31: F0 03     BEQ $CA36        umrechnen (a kann nun als Hi-Byte fuer den
+CA33: 0A        ASL              Cachepufferzeiger verwendet werden)
+CA34: 90 FA     BCC $CA30
+
+Einsprung von $CA31:
+
+CA36: 20 8D CB  JSR <a href="ro81cb8d.htm">$CB8D</a>        Cachepufferzeiger setzen
+
+CA39: 8A        TXA              aktuelle physikalische Sektornummer
+CA3A: 28        PLP              = letzter physikalischer Sektor der Spur ?
+CA3B: F0 05     BEQ $CA42        ja, ==&gt;
+CA3D: 18        CLC              Sektornummer +1
+CA3E: 69 01     ADC #$01
+CA40: D0 02     BNE $CA44        immer ==&gt;
+
+Einsprung von $CA3B:
+
+CA42: A5 94     LDA <a href="ra8194.htm">$94</a>          1. physikalischen Sektor einlesen
+
+Einsprung von $CA40:
+
+CA44: 8D 02 60  STA <a href="wd812.htm">$6002</a>        Sektornummer an Controller uebergeben
+CA47: EA  ....  NOP            [20 NOPS]
+CA5A: ....  EA  NOP
+
+Einsprung von $CAB4, $CAD3:
+
+CA5B: AD DF 01  LDA <a href="ra8101df.htm">$01DF</a>        Controller-Befehl: Read-Sector
+CA5E: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Kommando in Controller schreiben
+CA61: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+CA63: C0 03     CPY #$03         =3 (1024 Bytes) ?
+CA65: D0 02     BNE $CA69        nein, ==&gt;
+CA67: C8        INY              ja: y=4
+CA68: EA        NOP              (Anzahl der Speicherseiten pro Block)
+
+Einsprung von $CA65, $CA71, $CA88, $CA8D:
+
+CA69: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Controllerstatus holen
+CA6C: 29 03     AND #$03
+CA6E: 4A        LSR
+CA6F: 90 65     BCC $CAD6        b0=0: 'Controller ready', ==&gt;
+CA71: F0 F6     BEQ $CA69        b1=0: noch kein 'Byte ready', ==&gt;
+CA73: A5 9B     LDA <a href="ra819b.htm">$9B</a>          aktuelles Fuellbyte holen
+CA75: C9 F5     CMP #$F5         = $f5 ?
+CA77: D0 08     BNE $CA81        nein, (Sektor mit Fuellbyte vergleichen) ==&gt;
+CA79: 84 82     STY <a href="ra8182.htm">$82</a>          ja: Spurdaten mit Cachedaten vergleichen
+CA7B: A0 00     LDY #$00
+CA7D: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y      Wert aus dem Cachepuffer holen
+CA7F: A4 82     LDY <a href="ra8182.htm">$82</a>
+
+Einsprung von $CA77:
+
+CA81: CD 03 60  CMP <a href="wd813.htm">$6003</a>        mit den Daten der Spur vergleichen
+CA84: D0 56     BNE <a href="ro81cadc.htm">$CADC</a>        Fehler, ==&gt;
+CA86: E6 4A     INC <a href="ra814a.htm">$4A</a>          Cachepufferzeiger erhoehen
+CA88: D0 DF     BNE $CA69        naechstes Byte vergleichen, ==&gt;
+CA8A: E6 4B     INC <a href="ra814a.htm">$4B</a>          Cachepufferzeiger Hi erhoehen
+CA8C: 88        DEY              Blocklaenge Hi -1
+CA8D: D0 DA     BNE $CA69        Block noch nicht zu Ende, ==&gt;
+CA8F: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controllerstatus pruefen
+CA92: D0 47     BNE $CADB        Fehler, ==&gt;
+CA94: C6 3A     DEC <a href="ra813a.htm">$3A</a>          Anzahl der Sektoren -1
+CA96: F0 3E     BEQ $CAD6        sind alle Sektoren geprueft ? ja, ==&gt;
+CA98: AD 02 60  LDA <a href="wd812.htm">$6002</a>        aktuelle Sektornummer merken
+CA9B: EE 02 60  INC <a href="wd812.htm">$6002</a>        naechsten Sektor anwaehlen
+CA9E: EA  ....  NOP            [20 NOPS]
+CAB1: ....  EA  NOP
+
+CAB2: C5 93     CMP <a href="ra8193.htm">$93</a>          wurde letzter Sektor der Spur verglichen ?
+CAB4: D0 A5     BNE $CA5B        nein, ==&gt;
+CAB6: A5 8C     LDA <a href="ra818b.htm">$8C</a>          ja: Cachepufferzeiger auf Pufferanfang
+CAB8: 85 4B     STA <a href="ra814a.htm">$4B</a>          setzen
+CABA: A5 94     LDA <a href="ra8194.htm">$94</a>          1. physikalischen Sektor anwaehlen
+CABC: 8D 02 60  STA <a href="wd812.htm">$6002</a>
+CABF: EA  ....  NOP            [20 NOPS]
+CAC0: ....  EA  NOP
+CAD3: 4C 5B CA  JMP $CA5B        naechsten Sektor vergleichen
+
+Einsprung von $CA6F, $CA96:
+
+CAD6: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controllerstatus pruefen
+CAD9: D0 06     BNE <a href="ro81cadc.htm">$CAE1</a>        Fehler, ==&gt;
+
+Einsprung von $CA92:
+
+CADB: 60        RTS
+
+    <a href="ro81c9e1.htm">Previous Page</a> / <a href="ro81cadc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

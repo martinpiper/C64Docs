@@ -1,0 +1,347 @@
+<HTML
+><HEAD
+><TITLE
+>Introduction to UNIX assembly programming</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="NEXT"
+TITLE="Hello, world!"
+HREF="hello.html"></HEAD
+><BODY
+CLASS="ARTICLE"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+></A
+>Introduction to UNIX assembly programming</H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+>Konstantin Boldyshev</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+>	    <A
+HREF="http://linuxassembly.org/"
+TARGET="_top"
+>	    Linux Assembly<A
+NAME="KONST"
+></A
+></A
+>
+	<BR></SPAN
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;<TT
+CLASS="EMAIL"
+>&#60;<A
+HREF="mailto:konst@linuxassembly.org"
+>konst@linuxassembly.org</A
+>&#62;</TT
+><br>
+	</P
+></DIV
+></DIV
+><SPAN
+CLASS="RELEASEINFO"
+>Version 0.9<BR></SPAN
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 1999, 2000, 2006 Konstantin Boldyshev</P
+><P
+CLASS="PUBDATE"
+>$Date: 2006/02/11 08:10:41 $<BR></P
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><A
+NAME="AEN20"
+></A
+><P
+></P
+><P
+>This document is intended to be a tutorial, showing how to write
+a simple assembly program in
+several UNIX operating systems on the IA-32 (i386) platform.
+Included material may or may not be applicable
+to other hardware and/or software platforms.</P
+><P
+>This document explains program layout, system call convention,
+and the build process.</P
+><P
+>It accompanies the
+<A
+HREF="http://linuxassembly.org/howto.html"
+TARGET="_top"
+>Linux Assembly HOWTO</A
+>,
+which may also be of interest, though it is more Linux specific.</P
+><P
+></P
+></DIV
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>1. <A
+HREF="http://unusedino.de/linuxassembly/intro/Assembly-Intro.html#INTRO"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="http://unusedino.de/linuxassembly/intro/Assembly-Intro.html#S-LEGAL"
+>Legal blurb</A
+></DT
+><DT
+>1.2. <A
+HREF="http://unusedino.de/linuxassembly/intro/Assembly-Intro.html#AEN32"
+>Obtaining this document</A
+></DT
+><DT
+>1.3. <A
+HREF="http://unusedino.de/linuxassembly/intro/Assembly-Intro.html#AEN36"
+>Tools you need</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html"
+>Hello, world!</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN55"
+>System calls</A
+></DT
+><DT
+>2.2. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN77"
+>Program layout</A
+></DT
+><DT
+>2.3. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN86"
+>Linux</A
+></DT
+><DT
+>2.4. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN124"
+>FreeBSD</A
+></DT
+><DT
+>2.5. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN159"
+>BeOS</A
+></DT
+><DT
+>2.6. <A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html#AEN175"
+>Building an executable</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="http://unusedino.de/linuxassembly/intro/references.html"
+>References</A
+></DT
+><DT
+>A. <A
+HREF="http://unusedino.de/linuxassembly/intro/history.html"
+>History</A
+></DT
+><DT
+>B. <A
+HREF="http://unusedino.de/linuxassembly/intro/acknowledgements.html"
+>Acknowledgements</A
+></DT
+><DT
+>C. <A
+HREF="http://unusedino.de/linuxassembly/intro/endorsements.html"
+>Endorsements</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INTRO"
+></A
+>1. Introduction</H1
+><P
+></P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S-LEGAL"
+></A
+>1.1. Legal blurb</H2
+><P
+>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU
+<A
+HREF="http://www.gnu.org/copyleft/fdl.html"
+TARGET="_top"
+>Free Documentation License</A
+> Version 1.1;
+with no Invariant Sections, with no Front-Cover Texts, and no Back-Cover texts.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN32"
+></A
+>1.2. Obtaining this document</H2
+><P
+>The latest version of this document is available from
+<A
+HREF="http://linuxassembly.org/intro.html"
+TARGET="_top"
+>http://linuxassembly.org/intro.html</A
+>.
+If you are reading a few-months-old copy,
+please check the url above for a new version.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN36"
+></A
+>1.3. Tools you need</H2
+><P
+>You will need several tools to play with programs included in this tutorial.</P
+><P
+>First of all you need the assembler (compiler).
+As a rule modern UNIX distributions include
+<B
+CLASS="COMMAND"
+>as</B
+> (or <B
+CLASS="COMMAND"
+>gas</B
+>),
+but all of the examples here use another assembler --
+<B
+CLASS="COMMAND"
+>nasm</B
+> (Netwide Assembler).
+It comes with full source code, and you can download it from the
+<A
+HREF="http://sourceforge.net/projects/nasm/"
+TARGET="_top"
+>nasm page</A
+>,
+or install it from the ports (or package) system.
+Compile it, or try to find precompiled binary for your OS;
+note that several distributions (at least Linux ones)
+already have <B
+CLASS="COMMAND"
+>nasm</B
+>, check first.</P
+><P
+>Second, you need a linker -- <B
+CLASS="COMMAND"
+>ld</B
+>,
+since assembler produces only object code.
+All distributions with the compilation tools installed
+will have <B
+CLASS="COMMAND"
+>ld</B
+>.</P
+><P
+>If you're going to dig in, you should also install include files for your OS,
+and if possible, kernel source.</P
+><P
+>Now you should be ready to start, welcome.. </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="http://unusedino.de/linuxassembly/intro/hello.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Hello, world!</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Laufwerksnummer testen und entfernen ($c33c)
+
+Einsprung von <a href="ro81820b.htm">$8212</a>:
+
+8224: AA        TAX              a: Position, an der eine Drivenummer
+8225: A0 00     LDY #$00         erwartet wird. y=0 (Default-Drivenummer)
+8227: A9 3A     LDA #$3A         Anhand der Position des ':' die Art der
+8229: DD 01 02  CMP <a href="ra810200.htm">$0201</a>,X      Driveangabe feststellen (z.B.':' oder '0:')
+822C: F0 0C     BEQ $823A        Drivenummer vorhanden, ('0:') ==&gt;
+822E: DD 00 02  CMP <a href="ra810200.htm">$0200</a>,X      nur ':', Default-Drive ==&gt;
+8231: D0 17     BNE $824A        kein ':', ==&gt;
+8233: E8        INX              Drivenummer (':') entfernen
+
+Einsprung von $8245:
+
+8234: 98        TYA              unnoetig,
+
+Einsprung von $8241:
+
+8235: 29 01     AND #$01         ist sowieso 0
+
+Einsprung von $824F:
+
+8237: A8        TAY
+8238: 8A        TXA              x zeigt jetzt hinter die Drivenummer
+8239: 60        RTS
+
+Einsprung von $822C:
+
+823A: BD 00 02  LDA <a href="ra810200.htm">$0200</a>,X      Drivenummer auslesen
+823D: E8        INX              Drivenummer ('0:') entfernen
+823E: E8        INX
+823F: C9 30     CMP #$30
+8241: F0 F2     BEQ $8235        Drive 0, dann ok ==&gt;
+8243: C9 31     CMP #$31         Drive 1, dann '31, Syntax Error'
+8245: D0 ED     BNE $8234        nicht 0 oder 1, dann Drive 0
+8247: 4C 2D 80  JMP <a href="ro818004.htm">$802D</a>        31, Syntax Error
+
+Einsprung von $8231:
+
+824A: 98        TYA
+824B: 09 80     ORA #$80         Flag fuer 'Keine Laufwerksangabe' (a = $80)
+824D: 29 81     AND #$81
+824F: D0 E6     BNE $8237        immer ==&gt;
+    <a href="ro81820b.htm">Previous Page</a> / <a href="ro818251.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

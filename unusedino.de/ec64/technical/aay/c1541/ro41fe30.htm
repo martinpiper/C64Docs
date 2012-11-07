@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FE30/65072:   Convert header in buffer 0 to GCR code
+
+Jump from <a href="ro41fac7.htm">$FC92</a>:
+
+FE30: A9 00     LDA #$00
+FE32: 85 30     STA <a href="ra4130.htm">$30</a>
+FE34: 85 2E     STA <a href="ra412e.htm">$2E</a>
+FE36: 85 36     STA <a href="ra4136.htm">$36</a>
+FE38: A9 BB     LDA #$BB
+FE3A: 85 34     STA <a href="ra4134.htm">$34</a>
+FE3C: A5 31     LDA <a href="ra4130.htm">$31</a>
+FE3E: 85 2F     STA <a href="ra412e.htm">$2F</a>
+FE40: A9 01     LDA #$01
+FE42: 85 31     STA <a href="ra4130.htm">$31</a>
+
+Jump from $FE61:
+
+FE44: A4 36     LDY <a href="ra4136.htm">$36</a>
+FE46: B1 2E     LDA (<a href="ra412e.htm">$2E</a>),Y
+FE48: 85 52     STA <a href="ra4152.htm">$52</a>
+FE4A: C8        INY
+FE4B: B1 2E     LDA (<a href="ra412e.htm">$2E</a>),Y
+FE4D: 85 53     STA <a href="ra4152.htm">$53</a>
+FE4F: C8        INY
+FE50: B1 2E     LDA (<a href="ra412e.htm">$2E</a>),Y
+FE52: 85 54     STA <a href="ra4152.htm">$54</a>
+FE54: C8        INY
+FE55: B1 2E     LDA (<a href="ra412e.htm">$2E</a>),Y
+FE57: 85 55     STA <a href="ra4152.htm">$55</a>
+FE59: C8        INY
+FE5A: F0 08     BEQ $FE64
+FE5C: 84 36     STY <a href="ra4136.htm">$36</a>
+FE5E: 20 D0 F6  JSR <a href="ro41f6d0.htm">$F6D0</a>
+FE61: 4C 44 FE  JMP $FE44
+
+Jump from $FE5A:
+
+FE64: 4C D0 F6  JMP <a href="ro41f6d0.htm">$F6D0</a>
+
+    <a href="ro41fe0e.htm">Previous Page</a> / <a href="ro41fe67.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

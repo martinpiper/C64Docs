@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DF93/57235:   Get buffer number
+
+Jump from <a href="ro41ca88.htm">$CAB7</a>, <a href="ro41cdd2.htm">$CDEC</a>, <a href="ro41cf1e.htm">$CF6F</a>, <a href="ro41cff1.htm">$CFF2</a>, <a href="ro41d0c7.htm">$D0CC</a>, <a href="ro41d12f.htm">$D12F</a>, <a href="ro41d1d3.htm">$D1D3</a>, <a href="ro41d313.htm">$D324</a>, <a href="ro41d44d.htm">$D44D</a>,
+          <a href="ro41d4c8.htm">$D4CA</a>, <a href="ro41d4e8.htm">$D4E8</a>, <a href="ro41d4f6.htm">$D4F8</a>, <a href="ro41d6d0.htm">$D6D0</a>, <a href="ro41d6e4.htm">$D75E</a>, <a href="ro41dba5.htm">$DBC3</a>, <a href="ro41ddab.htm">$DDAB</a>, <a href="ro41de2b.htm">$DE2B</a>, <a href="ro41de3b.htm">$DE3E</a>,
+          <a href="ro41de73.htm">$DE82</a>, <a href="ro41de73.htm">$DE8E</a>, <a href="ro41e07c.htm">$E07F</a>, <a href="ro41e44e.htm">$E457</a>, <a href="ro41e44e.htm">$E4D1</a>, <a href="ro41ebff.htm">$EC1F</a>, <a href="ro41ec9e.htm">$ECB3</a>, <a href="ro41ec9e.htm">$ECDC</a>, <a href="ro41ec9e.htm">$ED0D</a>,
+          <a href="ro41ed23.htm">$ED32</a>, <a href="ro41ed23.htm">$ED46</a>, <a href="ro41eef4.htm">$EEF4</a>:
+
+DF93: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DF95: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X       ; buffer number
+DF97: 10 02     BPL $DF9B
+DF99: B5 AE     LDA <a href="ra41ae.htm">$AE</a>,X       ; buffer number from second table
+
+Jump from $DF97:
+
+DF9B: 29 BF     AND #$BF        ; erase V bit
+DF9D: 60        RTS
+
+    <a href="ro41df66.htm">Previous Page</a> / <a href="ro41df9e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

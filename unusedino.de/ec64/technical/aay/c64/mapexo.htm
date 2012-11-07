@@ -1,0 +1,60 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ EXOMIZER 1.0 - 2.0:
+
+ An open-source cross-cruncher by Magnus Lind.
+ [<a href="http://covertbitops.cjb.net">http://covertbitops.cjb.net</a>]
+
+  Except for the addresses covered by the file itself ($0801-$XXXX), the
+  default decruncher also clobbers the following addresses:
+
+   <a href="zpa7.htm">$A7</a>    : Length of sequence
+   <a href="zpae.htm">$AE+$AF</a>: Source address
+   <a href="zpfb.htm">$FB-$FE</a>: Bit buffers, Destination address lo ($FE)
+   <a href="zpff.htm">$FF</a>    : Destination address hi
+   <a href="zp0100.htm">$0100-$01BA</a>: Depacker - main code (for V1.1.1+ see below!)
+   <a href="zp0334.htm">$0334-$033B</a>: Depacker - tables
+   <a href="zp033c.htm">$033C-$03CF</a>: Depacker - tables
+
+ EXOMIZER 2.0:
+
+  The decruncher uses the same ZP-addresses, buffers and stack space like
+  the previous version. As it assembles the decruncher on the fly, it is
+  too hard to precisely predict all cases where further memory areas are
+  clobbered. It should be at least similar to version 1.1.5, though.
+
+ EXOMIZER 1.1.1 - 1.1.5:
+
+  The decruncher clobbers the stack from $0100 to the stackpointer by copying
+  186 bytes of itself (and possibly some more) to the stack at $0100-$01xx.
+
+  If the start address of the decrunched data, [start], is lower than $0835
+  then the decruncher will clobber the memory from MIN([start] - 25, $07e7)
+  to but not including $081d, too. This space is used as a safety buffer.
+
+  If selected, the address $07e7 will be overwritten in order to make the
+  decrunch effect visible. This address is the lower right corner of the
+  screen.
+
+ EXOMIZER 1.1:
+
+  If the start address of the decrunched data is lower than $0826 then the
+  decruncher will clobber the memory from [(the start address) - $30] to
+  $0801. This space is used as a safety buffer.
+
+  In all cases the address $07E7 will be overwritten in order to make the
+  decrunch effect visible. This address is the lower right corner of the
+  screen.
+
+ EXOMIZER 1.0:
+
+  If the start adress of the decrunched data is lower than $0817 then the
+  decruncher will clobber the memory from [(the start adress) - $30] to
+  $0801. This space is used as a safety buffer.
+
+  If the start adress of the decrunched data is between $0817 and $084D
+  then the decruncher will clobber the memory from $07E7 to $0801. This
+  space is used as a safety buffer.
+
+</pre></td></tr></table></center></body></html>

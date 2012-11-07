@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC39/48185:   Evaluate &lt;sgn&gt;
+
+BC39: 20 2B BC  <a href="bjsr.htm">JSR</a> <a href="rombc2b.htm">$BC2B</a>     ; Check Sign of FAC#1
+
+Jump from <a href="romaf48.htm">$AF9D</a>, <a href="romb02e.htm">$B07B</a>, <a href="rombcf3.htm">$BD83</a>:
+
+BC3C: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BC3E: A9 00     <a href="blda.htm">LDA</a> #$00
+BC40: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BC42: A2 88     <a href="bldx.htm">LDX</a> #$88
+
+Jump from <a href="romb391.htm">$B39B</a>:
+
+BC44: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BC46: 49 FF     <a href="beor.htm">EOR</a> #$FF
+BC48: 2A        <a href="brol.htm">ROL</a>
+
+Jump from <a href="rombdcd.htm">$BDD4</a>:
+
+BC49: A9 00     <a href="blda.htm">LDA</a> #$00
+BC4B: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BC4D: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+
+Jump from <a href="romaf48.htm">$AF81</a>:
+
+BC4F: 86 61     <a href="bstx.htm">STX</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BC51: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BC53: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BC55: 4C D2 B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B8D2</a>     ; Perform Addition
+
+    <a href="rombc2b.htm">Previous Page</a> / <a href="rombc58.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

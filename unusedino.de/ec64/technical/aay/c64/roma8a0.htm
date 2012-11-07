@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A8A0/43168:   Perform [goto]
+
+Jump from <a href="roma7ed.htm">$A81A</a>, <a href="roma883.htm">$A89A</a>, <a href="roma93b.htm">$A945</a>:
+
+A8A0: 20 6B A9  <a href="bjsr.htm">JSR</a> <a href="roma96b.htm">$A96B</a>     ; Fetch linnum From BASIC
+A8A3: 20 09 A9  <a href="bjsr.htm">JSR</a> <a href="roma906.htm">$A909</a>     ; Search for Next Statement / Line
+A8A6: 38        <a href="bsec.htm">SEC</a>
+A8A7: A5 39     <a href="blda.htm">LDA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+A8A9: E5 14     <a href="bsbc.htm">SBC</a> <a href="zp14.htm">$14</a>       ; Temporary: Integer value
+A8AB: A5 3A     <a href="blda.htm">LDA</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+A8AD: E5 15     <a href="bsbc.htm">SBC</a> <a href="zp14.htm">$15</a>       ; Temporary: Integer value
+A8AF: B0 0B     <a href="bbcs.htm">BCS</a> $A8BC
+A8B1: 98        <a href="btya.htm">TYA</a>
+A8B2: 38        <a href="bsec.htm">SEC</a>
+A8B3: 65 7A     <a href="badc.htm">ADC</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A8B5: A6 7B     <a href="bldx.htm">LDX</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A8B7: 90 07     <a href="bbcc.htm">BCC</a> $A8C0
+A8B9: E8        <a href="binx.htm">INX</a>
+A8BA: B0 04     <a href="bbcs.htm">BCS</a> $A8C0
+
+Jump from $A8AF:
+
+A8BC: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+A8BE: A6 2C     <a href="bldx.htm">LDX</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+
+Jump from $A8B7, $A8BA:
+
+A8C0: 20 17 A6  <a href="bjsr.htm">JSR</a> <a href="roma613.htm">$A617</a>     ; Search for Line Number
+A8C3: 90 1E     <a href="bbcc.htm">BCC</a> <a href="roma8d2.htm">$A8E3</a>     ; Perform [return]
+A8C5: A5 5F     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+A8C7: E9 01     <a href="bsbc.htm">SBC</a> #$01
+A8C9: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A8CB: A5 60     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+A8CD: E9 00     <a href="bsbc.htm">SBC</a> #$00
+A8CF: 85 7B     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+
+Jump from <a href="roma8d2.htm">$A8D2</a>:
+
+A8D1: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma883.htm">Previous Page</a> / <a href="roma8d2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

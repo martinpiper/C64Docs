@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E767/59239:   Get a char of the error message
+
+Jump from <a href="ro41e706.htm">$E73D</a>, <a href="ro41e706.htm">$E745</a>:
+
+E767: E6 86     INC <a href="ra4186.htm">$86</a>
+E769: D0 02     BNE $E76D       ; increment pointer
+E76B: E6 87     INC <a href="ra4186.htm">$87</a>
+
+Jump from $E769, <a href="ro41e775.htm">$E775</a>:
+
+E76D: A1 86     LDA (<a href="ra4186.htm">$86</a>,X)     ; get character
+E76F: 0A        ASL             ; bit 7 into carry
+E770: A1 86     LDA (<a href="ra4186.htm">$86</a>,X)     ; get character
+E772: 29 7F     AND #$7F        ; erase bit 7
+E774: 60        RTS
+
+    <a href="ro41e754.htm">Previous Page</a> / <a href="ro41e775.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

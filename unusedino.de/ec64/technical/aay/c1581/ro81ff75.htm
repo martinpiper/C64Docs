@@ -1,0 +1,68 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Tabelle der DOS-Funktionen
+(wird nach $0190-$01BB kopiert)
+
+FF75: F0 B0      W <a href="ro81b0f0.htm">$B0F0</a>        Haupt-Leerschleife
+FF77: FD DA      W <a href="ro81dafd.htm">$DAFD</a>        Interrupt-Routine
+FF79: CA AF      W <a href="ro81afca.htm">$AFCA</a>        Warmstartvector
+FF7B: 62 B2      W <a href="ro81b262.htm">$B262</a>        VALIDATE
+FF7D: C5 8E      W <a href="ro818ec5.htm">$8EC5</a>        INITIALIZE
+FF7F: 81 B7      W <a href="ro81b781.htm">$B781</a>        Partition
+FF81: 2F 89      W <a href="ro81892f.htm">$892F</a>        Memory-Read/Write
+FF83: 5D 8A      W <a href="ro818a5d.htm">$8A5D</a>        Block-Befehle
+FF85: 8F 89      W <a href="ro81898f.htm">$898F</a>        USER
+FF87: A1 A1      W <a href="ro81a1a1.htm">$A1A1</a>        POSITION (RECORD)
+FF89: 56 A9      W <a href="ro81a956.htm">$A956</a>        Utility-Loader (&amp;)
+FF8B: 6E 87      W <a href="ro81876e.htm">$876E</a>        COPY
+FF8D: C5 88      W <a href="ro8188c5.htm">$88C5</a>        RENAME
+FF8F: 88 86      W <a href="ro818688.htm">$8688</a>        SCRATCH
+FF91: 48 B3      W <a href="ro81b348.htm">$B348</a>        NEW
+FF93: AE A7      W <a href="ro81a7ae.htm">$A7AE</a>        Error-Routine des Controllers
+FF95: CF AB      W <a href="ro81abcf.htm">$ABCF</a>        ATN-bearbeiten
+FF97: 5C AD      W <a href="ro81ad5c.htm">$AD5C</a>        Daten auf ser. Bus
+FF99: B8 AE      W <a href="ro81aeb8.htm">$AEB8</a>        Daten vom ser. Bus
+FF9B: BE C0      W <a href="ro81c0be.htm">$C0BE</a>        Controller-Routine
+FF9D: DC CE      W <a href="ro81cedc.htm">$CEDC</a>        log. in phys. Format
+FF9F: F1 A7      W <a href="ro81a7f1.htm">$A7F1</a>        Error-Routine des DOS
+
+FFA1: FF ....
+FFAC: .... FF
+
+Einsprung von <a href="ro81afca.htm">$AFD0</a>:
+
+FFAD: A0 2B     LDY #$2B         Vektoren initialisieren
+
+Einsprung von $FFB6:
+
+FFAF: B9 75 FF  LDA $FF75,Y
+FFB2: 99 90 01  STA <a href="ra810190.htm">$0190</a>,Y
+FFB5: 88        DEY
+FFB6: 10 F7     BPL $FFAF
+FFB8: A9 4C     LDA #$4C         ,01fc 4c 40 ba  JMP <a href="ro81ba40.htm">$BA40</a>
+FFBA: 8D FC 01  STA <a href="ra8101fc.htm">$01FC</a>        (Byte auf FSM-Bus ausgeben)
+FFBD: A9 40     LDA #$40
+FFBF: 8D FD 01  STA <a href="ra8101fc.htm">$01FD</a>
+FFC2: A9 BA     LDA #$BA
+FFC4: 8D FE 01  STA <a href="ra8101fc.htm">$01FE</a>
+FFC7: 60        RTS
+
+FFC8: FF ....
+FFE9: .... FF
+
+FFEA: 9A 8B      W <a href="ro818b9a.htm">$8B9A</a>        u1  Block lesen
+FFEC: D7 8B      W <a href="ro818bd7.htm">$8BD7</a>        u2  Block schreiben
+FFEE: 00 05      W <a href="ra810500.htm">$0500</a>        u3  Spruenge in Puffer 2
+FFF0: 03 05      W <a href="ra810500.htm">$0503</a>        u4   &quot;
+FFF2: 06 05      W <a href="ra810500.htm">$0506</a>        u5   &quot;
+FFF4: 09 05      W <a href="ra810500.htm">$0509</a>        u6   &quot;
+FFF6: 0C 05      W <a href="ra810500.htm">$050C</a>        u7   &quot;
+FFF8: 0F 05      W <a href="ra810500.htm">$050F</a>        u8   &quot;
+FFFA: 3C AD      W <a href="ro81ad3c.htm">$AD3C</a>        u9  NMI: Warmstart / Busmodus aendern
+FFFC: 24 AF      W <a href="ro81af24.htm">$AF24</a>        u:  RESET: Einschaltvektor
+FFFE: 03 FF      W <a href="ro81ff00.htm">$FF03</a>        BRK/IRQ -Vektor
+
+    <a href="ro81ff00.htm">Previous Page</a>
+
+</pre></td></tr></table></center></body></html>

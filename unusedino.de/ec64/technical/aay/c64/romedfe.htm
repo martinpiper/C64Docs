@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDFE/60926:   Send UNLISTEN
+
+Jump from <a href="romf333.htm">$F339</a>, <a href="romf5fa.htm">$F63F</a>, <a href="romf5fa.htm">$F654</a>, <a href="romffae.htm">$FFAE</a>:
+
+EDFE: A9 3F     <a href="blda.htm">LDA</a> #$3F
+EE00: 20 11 ED  <a href="bjsr.htm">JSR</a> <a href="romed0c.htm">$ED11</a>     ; Send LISTEN Command on Serial Bus
+
+Jump from <a href="romedb0.htm">$EDB7</a>:
+
+EE03: 20 BE ED  <a href="bjsr.htm">JSR</a> <a href="romedbe.htm">$EDBE</a>     ; Clear ATN
+
+Jump from <a href="romee13.htm">$EE7D</a>:
+
+EE06: 8A        <a href="btxa.htm">TXA</a>
+EE07: A2 0A     <a href="bldx.htm">LDX</a> #$0A
+
+Jump from $EE0A:
+
+EE09: CA        <a href="bdex.htm">DEX</a>
+EE0A: D0 FD     <a href="bbne.htm">BNE</a> $EE09
+EE0C: AA        <a href="btax.htm">TAX</a>
+EE0D: 20 85 EE  <a href="bjsr.htm">JSR</a> <a href="romee85.htm">$EE85</a>     ; Serial Clock On
+EE10: 4C 97 EE  <a href="bjmp.htm">JMP</a> <a href="romee97.htm">$EE97</a>     ; Serial Output 1
+
+    <a href="romedef.htm">Previous Page</a> / <a href="romee13.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

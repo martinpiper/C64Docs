@@ -1,0 +1,61 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E0AB/57515:   Write byte in REL file
+
+Jump from <a href="ro41cf9b.htm">$CFCB</a>:
+
+E0AB: A9 A0     LDA #$A0
+E0AD: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bits 6 &amp; 7
+E0B0: D0 27     BNE $E0D9       ; set?
+
+Jump from $E0F0:
+
+E0B2: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E0B4: 20 7C E0  JSR <a href="ro41e07c.htm">$E07C</a>       ; write in record
+E0B7: A5 F8     LDA <a href="ra41f8.htm">$F8</a>         ; end?
+E0B9: F0 0D     BEQ $E0C8       ; yes
+E0BB: 60        RTS
+
+Jump from $E0DF:
+
+E0BC: A9 20     LDA #$20
+E0BE: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; test bit 5
+E0C1: F0 05     BEQ $E0C8       ; not set
+E0C3: A9 51     LDA #$51        ; 51, 'overflow in record'
+E0C5: 8D 6C 02  STA <a href="ra41026c.htm">$026C</a>       ; set error flag
+
+Jump from $E0B9, $E0C1:
+
+E0C8: 20 F3 E0  JSR <a href="ro41e0f3.htm">$E0F3</a>       ; fill remainder with zeroes
+E0CB: 20 53 E1  JSR <a href="ro41e120.htm">$E153</a>
+E0CE: AD 6C 02  LDA <a href="ra41026c.htm">$026C</a>       ; error flag set?
+E0D1: F0 03     BEQ $E0D6       ; no
+E0D3: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; set error message
+
+Jump from $E0D1:
+
+E0D6: 4C BC E6  JMP <a href="ro41e6bc.htm">$E6BC</a>       ; error free execution
+
+Jump from $E0B0:
+
+E0D9: 29 80     AND #$80        ; bit 7 set?
+E0DB: D0 05     BNE $E0E2       ; yes
+E0DD: A5 F8     LDA <a href="ra41f8.htm">$F8</a>
+E0DF: F0 DB     BEQ $E0BC       ; end?
+E0E1: 60        RTS
+
+Jump from $E0DB:
+
+E0E2: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E0E4: 48        PHA
+E0E5: 20 1C E3  JSR <a href="ro41e31c.htm">$E31C</a>       ; expand side-sector
+E0E8: 68        PLA
+E0E9: 85 85     STA <a href="ra4185.htm">$85</a>
+E0EB: A9 80     LDA #$80
+E0ED: 20 9D DD  JSR <a href="ro41dd95.htm">$DD9D</a>       ; erase bit 7
+E0F0: 4C B2 E0  JMP $E0B2       ; write byte in file
+
+    <a href="ro41e07c.htm">Previous Page</a> / <a href="ro41e0f3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $1C00/7168/VIA2+0:   Data Port B (SYNC, Motors, Bit Rates, LED)
+
+   +----------+---------------------------------------------------+
+   | Bit  7   |   0 = SYNC found                                  |
+   | Bits 6-5 |   Bit rates (*):                                  |
+   |          |     00 = 250000 Bit/s    01 = 266667 Bit/s        |
+   |          |     10 = 285714 Bit/s    11 = 307692 Bit/s        |
+   | Bit  4   |   Write Protect Sense: 1 = On                     |
+   | Bit  3   |   Drive LED: 1 = On                               |
+   | Bit  2   |   Drive Motor: 1 = On                             |
+   | Bit  1-0 |   Step motor for head movement:                   |
+   |          |     Sequence 00/01/10/11/00... moves inwards      |
+   |          |     Sequence 00/11/10/01/00... moves outwards     |
+   +----------+---------------------------------------------------+
+   (*) Usually used: %11 for Tracks  1-17
+                     %10 for Tracks 18-24
+                     %01 for Tracks 25-30
+                     %00 for Tracks 31-35
+
+ROM-Reference:
+
+ AND $1C00  : <a href="ro41c100.htm">$C103</a>
+ BIT $1C00  : <a href="ro41f556.htm">$F562</a> <a href="ro41fac7.htm">$FB39</a> <a href="ro41fac7.htm">$FB3E</a> <a href="ro41fac7.htm">$FB46</a> <a href="ro41fac7.htm">$FB67</a>
+ EOR $1C00  : <a href="ro41d6a6.htm">$D6AE</a>
+ LDA $1C00  : <a href="ro41ea6e.htm">$EA86</a> <a href="ro41eaa0.htm">$EB25</a> <a href="ro41ebff.htm">$EC3F</a> <a href="ro41ebff.htm">$EC77</a> <a href="ro41f2f9.htm">$F355</a> <a href="ro41f37c.htm">$F380</a> <a href="ro41f575.htm">$F57A</a> <a href="ro41f97e.htm">$F982</a> <a href="ro41f99c.htm">$F9A2</a> <a href="ro41f9d9.htm">$F9E8</a>
+              <a href="ro41fa63.htm">$FA6E</a> <a href="ro41fac7.htm">$FADB</a> <a href="ro41fac7.htm">$FB00</a> <a href="ro41fac7.htm">$FBBB</a>
+ LDX $1C00  : <a href="ro41fa1c.htm">$FA34</a> <a href="ro41fa63.htm">$FA65</a>
+ ORA $1C00  : <a href="ro41c118.htm">$C11B</a> <a href="ro41c12c.htm">$C13C</a> <a href="ro41d6a6.htm">$D6C8</a> <a href="ro41ea6e.htm">$EA77</a>
+ STA $1C00  : <a href="ro41c100.htm">$C113</a> <a href="ro41c118.htm">$C11E</a> <a href="ro41c12c.htm">$C13F</a> <a href="ro41d6a6.htm">$D6B1</a> <a href="ro41d6a6.htm">$D6CB</a> <a href="ro41ea6e.htm">$EA8B</a> <a href="ro41eaa0.htm">$EB2A</a> <a href="ro41ebff.htm">$EC98</a> <a href="ro41f259.htm">$F260</a> <a href="ro41f2f9.htm">$F35C</a>
+              <a href="ro41f37c.htm">$F385</a> <a href="ro41f97e.htm">$F987</a> <a href="ro41f9d9.htm">$F9ED</a> <a href="ro41fa63.htm">$FA75</a> <a href="ro41fac7.htm">$FAE0</a> <a href="ro41feea.htm">$FEEA</a>
+
+</pre></td></tr></table></center></body></html>

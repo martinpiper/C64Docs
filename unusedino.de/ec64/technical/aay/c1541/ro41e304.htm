@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E304/58116:   Set pointer to next record
+
+Jump from <a href="ro41dfd0.htm">$E006</a>, <a href="ro41e2e2.htm">$E2EE</a>, <a href="ro41e2e2.htm">$E2F8</a>:
+
+E304: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E306: B5 C1     LDA <a href="ra41c1.htm">$C1</a>,X       ; write pointer
+E308: 38        SEC
+E309: F0 0D     BEQ $E318       ; equal zero?
+E30B: 18        CLC
+E30C: 75 C7     ADC <a href="ra41c7.htm">$C7</a>,X       ; add record length
+E30E: 90 0B     BCC $E31B       ; smaller than 256?
+E310: D0 06     BNE $E318       ; equal 256?
+E312: A9 02     LDA #$02
+E314: 2C CC FE  BIT <a href="ro41feca.htm">$FECC</a>
+E317: 60        RTS
+
+Jump from $E309, $E310:
+
+E318: 69 01     ADC #$01        ; add two
+E31A: 38        SEC
+
+Jump from $E30E:
+
+E31B: 60        RTS
+
+    <a href="ro41e2e2.htm">Previous Page</a> / <a href="ro41e31c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,16 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C8B6/51382:   Erase dir entry
+
+Jump from <a href="ro41c823.htm">$C842</a>, <a href="ro41d815.htm">$D8D3</a>, <a href="ro41edb3.htm">$EDDF</a>:
+
+C8B6: A0 00     LDY #$00
+C8B8: 98        TYA
+C8B9: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; set file type to zero
+C8BB: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+C8BE: 4C 99 D5  JMP <a href="ro41d599.htm">$D599</a>       ; and check
+
+    <a href="ro41c87d.htm">Previous Page</a> / <a href="ro41c8c1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

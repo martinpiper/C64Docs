@@ -1,0 +1,138 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+IRQ-Routine
+
+DAFD: 48        PHA              Prozessor-Register retten
+DAFE: 8A        TXA
+DAFF: 48        PHA
+DB00: 98        TYA
+DB01: 48        PHA
+DB02: AD 0D 40  LDA <a href="cia81d.htm">$400D</a>        ICR: Interrupt-Ursache holen
+DB05: A8        TAY
+DB06: 25 76     AND <a href="ra8176.htm">$76</a>          Bus-Modus b3=1: FSM-erlaubt ?
+DB08: 29 08     AND #$08         und wenn ja: Byte ueber FSM-empfangen ?
+DB0A: F0 06     BEQ $DB12        nein, ==&gt;
+DB0C: A5 76     LDA <a href="ra8176.htm">$76</a>
+DB0E: 09 20     ORA #$20         FSM-Modus aktivieren
+DB10: 85 76     STA <a href="ra8176.htm">$76</a>
+
+Einsprung von $DB0A:
+
+DB12: 98        TYA
+DB13: 29 10     AND #$10         ATN aufgetreten ?
+DB15: F0 06     BEQ $DB1D        nein, ==&gt;
+DB17: A5 76     LDA <a href="ra8176.htm">$76</a>
+DB19: 09 01     ORA #$01         Flag fuer ATN merken
+DB1B: 85 76     STA <a href="ra8176.htm">$76</a>
+
+Einsprung von $DB15:
+
+DB1D: 98        TYA
+DB1E: 29 02     AND #$02         Timer-IRQ aufgetreten ?
+DB20: F0 03     BEQ $DB25        nein, ==&gt;
+DB22: 20 39 FF  JSR <a href="ro81ff00.htm">$FF39</a>        Controller-Routine aufrufen
+
+Einsprung von $DB20:
+
+DB25: BA        TSX
+DB26: BD 04 01  LDA <a href="ra810102.htm">$0104</a>,X      BRK-Kommando ?
+DB29: 29 10     AND #$10
+DB2B: F0 03     BEQ $DB30        nein, ==&gt;
+DB2D: 20 39 FF  JSR <a href="ro81ff00.htm">$FF39</a>        Controller-Routine aufrufen
+
+Einsprung von $DB2B:
+
+DB30: 68        PLA              Prozessor-Register zurueckholen
+DB31: A8        TAY
+DB32: 68        PLA
+DB33: AA        TAX
+DB34: 68        PLA
+DB35: 40        RTI
+
+ROM-Tabellen
+
+U0-Befehle:     Adressen, Befehlsnr., Name,    Drive, Seite
+
+DB36: 11 BB      W $BB11       $00: Read          N0 S0
+DB38: FA BA      W $BAFA       $01: Read (n.v.)   N1 S0
+DB3A: 01 BC      W $BC01       $02: Write         N0 S0
+DB3C: F9 BB      W $BBF9       $03: Write (n.v.)  N1 S0
+DB3E: B2 BC      W $BCB2       $04: Inquire Disk  N0 S0
+DB40: FA BA      W $BAFA       $05: Inq.D.(n.v.)  N1 S0
+DB42: 12 BD      W $BD12       $06: Format        N0
+DB44: 12 BD      W $BD12       $07: Format        N1
+DB46: FC BD      W $BDFC       $08: (Syntax Error)
+DB48: FC BD      W $BDFC       $09: (Syntax Error)
+DB4A: 06 BE      W <a href="ro81be06.htm">$BE06</a>       $0a: Query Format  N0 S0
+DB4C: FA BA      W <a href="ro81baf7.htm">$BAFA</a>       $0b: Query (n.v.)  N1 S0
+DB4E: BB BE      W <a href="ro81bebb.htm">$BEBB</a>       $0c: Inquire Stat  N0
+DB50: FA BA      W <a href="ro81baf7.htm">$BAFA</a>       $0d: Inq.S.(n.v.)  N1
+DB52: F8 BE      W <a href="ro81bef8.htm">$BEF8</a>       $0e: (Syntax Error)
+DB54: F8 BE      W <a href="ro81bef8.htm">$BEF8</a>       $0f: (Syntax Error)
+
+DB56: 11 BB      W $BB11       $10: Read          N0 S1
+DB58: FA BA      W $BAFA       $11: Read (n.v.)   N1 S1
+DB5A: 01 BC      W $BC01       $12: Write         N0 S1
+DB5C: F9 BB      W $BBF9       $13: Write (n.v.)  N1 S1
+DB5E: B2 BC      W $BCB2       $14: Inquire Disk  N0 S1
+DB60: FA BA      W $BAFA       $15: Inq.D.(n.v.)  N1 S1
+DB62: 12 BD      W $BD12       $16: Format        N0
+DB64: 12 BD      W $BD12       $17: Format        N1
+DB66: CB 89      W $89CB       $18: (rts)
+DB68: CB 89      W $89CB       $19: (rts)
+DB6A: 06 BE      W <a href="ro81be06.htm">$BE06</a>       $1a: Query Format  N0 S1
+DB6C: FA BA      W <a href="ro81baf7.htm">$BAFA</a>       $1b: Query (n.v.)  N1 S1
+DB6E: 02 BF      W <a href="ro81bf02.htm">$BF02</a>       $1c: Dump Cache    N0
+DB70: 02 BF      W <a href="ro81bf02.htm">$BF02</a>       $1d: Dump Cache    N1
+DB72: 3C AA      W <a href="ro81aa3c.htm">$AA3C</a>       $1e: ChgUtl
+DB74: D5 B8      W <a href="ro81b8d2.htm">$B8D5</a>       $1f: Fastload
+
+DB76: 06        Anzahl der BAM-Bytes pro Spur
+DB77: 04        Position des Disknamens im Verzeichnis-Header
+
+Diskettenkommandos
+
+DB78: 56 49 2F 4D 42 55 50 26  vi/mbup&amp;   [Der sowieso nicht verwendbare
+DB80: 43 52 53 4E              crsn        Duplicate-Befehl der 1541 ist
+DB84: 09 0C 0F 12 15 18 1B 1E  Lo-Bytes    durch den Partition-Befehl '/'
+DB8C: 21 24 27 2A                          ersetzt worden.]
+DB90: FF FF FF FF FF FF FF FF  Hi-Bytes
+DB98: FF FF FF FF
+
+Bitmuster zur Ueberpruefung des Befehlsformates
+
+b0 : 1: '=' notwendig
+b1 : 1: '=' verboten
+b2 : 0: ',' nach '=' erlaubt
+b3 : 0: '*' nach '=' erlaubt
+
+b4 : immer 0
+b5 : immer 1
+b6 : 0: ',' vor '=' erlaubt
+b7 : 0: '*' vor '=' erlaubt
+
+DB9C: 51        %01010001      Copy
+DB9D: DD        %11011101      Rename
+DB9E: 1C        %00011100      Scratch
+DB9F: 9E        %10011110      New
+
+DBA0: 1C        %00011100      Laden
+DBA1: 52 57 41 4D              'RWAM'   Filemodi
+DBA5: 44 53 50 55 4C 43        'DSPULC' Filetypen
+
+DBAB: 44 53 50 55 52 43        DSPURC   Filetypen
+DBB1: 45 45 52 53 45 42        EERSEB   [senkrecht lesen !]
+DBB6: 4C 51 47 52 4C 4D        LQGRLM
+
+DBBD: 00                       z-Flag setzen durch BIT-Befehl
+
+gezieltes Setzen der nv-Flags durch BIT-Befehl
+
+DBBE: 3F 7F BF FF              --, -v, n-, nv
+
+DBC2: 01 FF FF 01 00           Kopfjustage bei Leseproblemen (n.v.)
+
+    <a href="ro81da63.htm">Previous Page</a> / <a href="ro81dbc7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

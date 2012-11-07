@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte auf FSM-Bus ausgeben (bei der 1571: $9228)
+E: x: auszugebendes Byte
+
+Einsprung von $BA46, $BA50:
+
+BA40: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Seriellen Bus auslesen
+BA43: CD 01 40  CMP <a href="cia811.htm">$4001</a>        und entprellen
+BA46: D0 F8     BNE $BA40
+BA48: 29 FF     AND #$FF         ATN-Modus
+BA4A: 30 15     BMI $BA61        ja, ==&gt;
+BA4C: 45 76     EOR <a href="ra8176.htm">$76</a>          Warten, bis Burst-Clock kippt
+BA4E: 29 04     AND #$04
+BA50: F0 EE     BEQ $BA40
+BA52: 8E 0C 40  STX <a href="cia81c.htm">$400C</a>        Byte ausgeben
+BA55: 45 76     EOR <a href="ra8176.htm">$76</a>
+BA57: 85 76     STA <a href="ra8176.htm">$76</a>          Burst-Clock-Zustand merken
+BA59: A9 08     LDA #$08         Uebertragung abwarten
+
+Einsprung von $BA5E:
+
+BA5B: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>
+BA5E: F0 FB     BEQ $BA5B        b3=0 (SDR schiebt noch), ==&gt;
+BA60: 60        RTS
+
+Einsprung von $BA4A:
+
+BA61: 4C 30 FF  JMP <a href="ro81ff00.htm">$FF30</a>        JATNSRV
+
+    <a href="ro81ba06.htm">Previous Page</a> / <a href="ro81ba64.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

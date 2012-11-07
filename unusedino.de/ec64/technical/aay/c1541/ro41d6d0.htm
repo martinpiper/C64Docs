@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D6D0/54992:   Transmit param to disk controller
+
+Jump from <a href="ro41d09b.htm">$D09B</a>, <a href="ro41d0af.htm">$D0BA</a>, <a href="ro41d156.htm">$D186</a>, <a href="ro41d19d.htm">$D1BE</a>, <a href="ro41dcda.htm">$DCE2</a>, <a href="ro41de73.htm">$DE7F</a>, <a href="ro41e31c.htm">$E3B9</a>, <a href="ro41e31c.htm">$E3CB</a>:
+
+D6D0: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+
+Jump from <a href="ro41c8c6.htm">$C8D7</a>, <a href="ro41d00e.htm">$D03A</a>, <a href="ro41d464.htm">$D46D</a>, <a href="ro41dc46.htm">$DC8F</a>, <a href="ro41dcda.htm">$DD2E</a>, <a href="ro41df21.htm">$DF3D</a>:
+
+D6D3: 0A        ASL
+D6D4: A8        TAY
+D6D5: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number
+D6D7: 99 06 00  STA <a href="ra4106.htm">$06</a>,Y       ; transmit
+D6DA: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number
+D6DC: 99 07 00  STA <a href="ra4106.htm">$07</a>,Y       ; transmit
+D6DF: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+D6E1: 0A        ASL             ; times 2
+D6E2: AA        TAX
+D6E3: 60        RTS
+
+    <a href="ro41d6a6.htm">Previous Page</a> / <a href="ro41d6e4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

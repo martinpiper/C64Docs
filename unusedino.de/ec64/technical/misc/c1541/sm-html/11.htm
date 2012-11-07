@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Commodore 1540/1541 Service Manual: Read/Write Control Logic</title>
+</head>
+<body bgcolor="#ffffff">
+<h2 align="right">1541 CIRCUIT THEORY</h2>
+
+<center><a href="http://unusedino.de/ec64/technical/misc/c1541/sm-html/large/11.gif"><img src="small/11.gif" alt="[Microprocessor control logic schematic]"></a> 
+
+<table border="1">
+<tr>
+<td>The circuit shown here is from the long board schematic 1540008. This logic was integrated in the PLA (Programmable Logic Array) on the short boards.</td>
+</tr>
+</table>
+</center>
+
+<h3>Read/Write Control Logic</h3>
+
+During a write operation, UD3 converts parallel data into serial data. The output on pin 9 is input to 'NAND' gate UF5 pin 4. UF5 outputs the serial data on pin 6 at the clock rate determined by input signal on pin 5. The output clocks the D flip flop
+UF6. The outputs of UF6, Q and _Q, drive the write amplifiers. 
+
+<p> During a read operation, data from the read amplifiers is applied to the CLR input of counter UF4. The outputs, C and D, are shaped by the 'NOR' gate UE5. UE5 outputs the serial data on pin 1, then it is converted to parallel data by UD2. The output
+of UD2 is latched by UC3. The serial bits are counted by UE4, when 8 bits have been counted, UF3 pin 12 goes "low", UC1 pin 10 goes "high", and UF3 pin 8 goes "low" indicating a byte is ready to be read by the processor. UC2 monitors the parallel output
+of UD2, when all 8 bits are "1", the output pin 9 goes "low" indicating a sync bit has been read.</p>
+
+</body>
+</html>
+

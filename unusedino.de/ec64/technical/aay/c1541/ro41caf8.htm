@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CAF8/51960:   Perform [M] - Memory command
+
+CAF8: AD 01 02  LDA <a href="ra410200.htm">$0201</a>       ; 2nd character from buffer
+CAFB: C9 2D     CMP #$2D        ; '-'
+CAFD: D0 4C     BNE <a href="ro41cb20.htm">$CB4B</a>
+CAFF: AD 03 02  LDA <a href="ra410200.htm">$0203</a>
+CB02: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; address in $6F/$70
+CB04: AD 04 02  LDA <a href="ra410200.htm">$0204</a>
+CB07: 85 70     STA <a href="ra416f.htm">$70</a>
+CB09: A0 00     LDY #$00
+CB0B: AD 02 02  LDA <a href="ra410200.htm">$0202</a>       ; 3rd character from buffer
+CB0E: C9 52     CMP #$52        ; 'R'
+CB10: F0 0E     BEQ <a href="ro41cb20.htm">$CB20</a>       ; to memory read
+CB12: 20 58 F2  JSR <a href="ro41f258.htm">$F258</a>       ; (RTS)
+CB15: C9 57     CMP #$57        ; 'W'
+CB17: F0 37     BEQ <a href="ro41cb50.htm">$CB50</a>       ; to memory write
+CB19: C9 45     CMP #$45        ; 'E'
+CB1B: D0 2E     BNE <a href="ro41cb20.htm">$CB4B</a>
+CB1D: 6C 6F 00  JMP (<a href="ra416f.htm">$006F</a>)     ; memory-execute
+
+    <a href="ro41cacc.htm">Previous Page</a> / <a href="ro41cb20.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

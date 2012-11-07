@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Blockheader des Verzeichnisheaders suchen
+und Schreibschutz pruefen ($d00e [mit etwas Phantasie...])
+
+Einsprung von <a href="ro8184ae.htm">$84C3</a>, <a href="ro818f03.htm">$8F14</a>:
+
+8EDC: 20 04 92  JSR <a href="ro819204.htm">$9204</a>        Puffer suchen
+8EDF: 85 6C     STA <a href="ra816c.htm">$6C</a>          und merken
+8EE1: AA        TAX
+8EE2: 20 35 92  JSR <a href="ro819228.htm">$9235</a>        Puffer wieder freigeben
+                                [Puffer wird nur waehrend der Initiali-
+                                 sierung gebraucht. In der Zeit kann
+                                 sowieso keine andere Routine Puffer
+                                 suchen.]
+8EE5: A2 00     LDX #$00
+8EE7: 86 4E     STX <a href="ra814e.htm">$4E</a>          Sector 0
+8EE9: AE 2B 02  LDX <a href="ra81022b.htm">$022B</a>        Directory-Track anwaehlen
+8EEC: 86 4D     STX <a href="ra814d.htm">$4D</a>
+8EEE: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+8EF1: A9 B0     LDA #$B0         SEEKHD_DV: Suchen eines Sectors
+8EF3: 20 E4 94  JSR <a href="ro8194de.htm">$94E4</a>        Job ausfuehren
+8EF6: A6 6C     LDX <a href="ra816c.htm">$6C</a>          Puffernummer wieder holen
+8EF8: 48        PHA
+8EF9: A9 B6     LDA #$B6         DETWP_DV: Schreibschutz pruefen
+8EFB: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Controller aufrufen
+8EFE: 8D FA 01  STA <a href="ra8101fa.htm">$01FA</a>        und Zustand merken
+8F01: 68        PLA
+8F02: 60        RTS
+
+    <a href="ro818ec5.htm">Previous Page</a> / <a href="ro818f03.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

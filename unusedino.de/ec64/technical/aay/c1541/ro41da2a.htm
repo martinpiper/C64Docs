@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DA2A/55850:   Preparation for append
+
+Jump from $DA32, <a href="ro41c8f0.htm">$C996</a>, <a href="ro41d940.htm">$D99A</a>:
+
+DA2A: 20 39 CA  JSR <a href="ro41ca35.htm">$CA39</a>       ; open channel to read, get byte
+DA2D: A9 80     LDA #$80
+DA2F: 20 A6 DD  JSR <a href="ro41dda6.htm">$DDA6</a>       ; last byte?
+DA32: F0 F6     BEQ $DA2A       ; no
+DA34: 20 95 DE  JSR <a href="ro41de95.htm">$DE95</a>       ; get track and sector number
+DA37: A6 81     LDX <a href="ra4181.htm">$81</a>         ; sector number
+DA39: E8        INX
+DA3A: 8A        TXA
+DA3B: D0 05     BNE $DA42       ; not $FF?
+DA3D: 20 A3 D1  JSR <a href="ro41d19d.htm">$D1A3</a>       ; close buffer, write block
+DA40: A9 02     LDA #$02
+
+Jump from $DA3B:
+
+DA42: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 2
+DA45: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DA47: A9 01     LDA #$01
+DA49: 95 F2     STA <a href="ra41f2.htm">$F2</a>,X       ; set flag for WRITE
+DA4B: A9 80     LDA #$80
+DA4D: 05 82     ORA <a href="ra4182.htm">$82</a>
+DA4F: A6 83     LDX <a href="ra4183.htm">$83</a>
+DA51: 9D 2B 02  STA <a href="ra41022b.htm">$022B</a>,X     ; channel number in table
+DA54: 60        RTS
+
+    <a href="ro41da09.htm">Previous Page</a> / <a href="ro41da55.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

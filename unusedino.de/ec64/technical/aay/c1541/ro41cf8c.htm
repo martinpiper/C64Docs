@@ -1,0 +1,19 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CF8C/53132:   Change buffer
+
+Jump from <a href="ro41cf1e.htm">$CF51</a>, <a href="ro41cf1e.htm">$CF57</a>, <a href="ro41cf1e.htm">$CF6C</a>:
+
+CF8C: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+CF8E: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+CF90: 49 80     EOR #$80
+CF92: 95 A7     STA <a href="ra41a7.htm">$A7</a>,X
+CF94: B5 AE     LDA <a href="ra41ae.htm">$AE</a>,X       ; rotate bit 7 in table
+CF96: 49 80     EOR #$80
+CF98: 95 AE     STA <a href="ra41ae.htm">$AE</a>,X
+CF9A: 60        RTS
+
+    <a href="ro41cf1e.htm">Previous Page</a> / <a href="ro41cf9b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

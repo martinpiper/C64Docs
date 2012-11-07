@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E780/59264:   Check for auto start - removed
+
+Jump from <a href="ro41eaa0.htm">$EBE4</a>:
+
+E780: 60        RTS
+E781: EA EA EA EA EA EA EA EA
+E789: EA EA EA EA EA EA EA EA
+E791: EA EA EA EA EA EA EA EA
+E799: EA EA EA EA EA EA EA EA
+E7A1: EA 60
+
+ For your interest, this routine was removed:
+
+E780: AD 00 18  LDA <a href="via10.htm">$1800</a>       ; read IEEE port
+E783: AA        TAX
+E784: 29 04     AND #$04        ; isolate 'CLOCK IN' bit
+E786: F0 F7     BEQ <a href="ro41e77f.htm">$E77F</a>       ; not set, then done
+E788: 8A        TXA
+E789: 29 01     AND #$01        ; isolate 'DATA IN' bit
+E78B: F0 02     BEQ <a href="ro41e77f.htm">$E77F</a>       ; not set, then done
+E78D: 58        CLI
+E78E: AD 00 18  LDA <a href="via10.htm">$1800</a>       ; load IEEE port
+E791: 29 05     AND #$05        ; test 'DATA IN' and 'CLOCK IN'
+E793: F0 F9     BNE E78E        ; wait until both set
+E795: EE 78 02  INC <a href="ra410278.htm">$0278</a>       ; file name
+E798: EE 74 02  INC <a href="ra410274.htm">$0274</a>       ; character in the input line
+E79B: A9 2A     LDA #$2A        ; '*' as filename
+E79D: 8D 00 02  STA <a href="ra410200.htm">$0200</a>       ; write in buffer
+E7A0: 4C A8 E7  JMP <a href="ro41e7a3.htm">$E7A8</a>
+
+    <a href="ro41e77f.htm">Previous Page</a> / <a href="ro41e7a3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

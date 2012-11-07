@@ -1,0 +1,62 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E168/57704:   Perform [load]
+
+E168: A9 00     <a href="blda.htm">LDA</a> #$00
+E16A: 85 0A     <a href="bsta.htm">STA</a> <a href="zp0a.htm">$0A</a>       ; Load/Verify-Flag
+E16C: 20 D4 E1  <a href="bjsr.htm">JSR</a> <a href="rome1d4.htm">$E1D4</a>     ; Get Parameters For LOAD/SAVE
+E16F: A5 0A     <a href="blda.htm">LDA</a> <a href="zp0a.htm">$0A</a>       ; Load/Verify-Flag
+E171: A6 2B     <a href="bldx.htm">LDX</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+E173: A4 2C     <a href="bldy.htm">LDY</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+E175: 20 D5 FF  <a href="bjsr.htm">JSR</a> <a href="romffd5.htm">$FFD5</a>     ; Load RAM From Device
+E178: B0 57     <a href="bbcs.htm">BCS</a> <a href="rome1c7.htm">$E1D1</a>     ; Perform [close]
+E17A: A5 0A     <a href="blda.htm">LDA</a> <a href="zp0a.htm">$0A</a>       ; Load/Verify-Flag
+E17C: F0 17     <a href="bbeq.htm">BEQ</a> $E195
+E17E: A2 1C     <a href="bldx.htm">LDX</a> #$1C
+E180: 20 B7 FF  <a href="bjsr.htm">JSR</a> <a href="romffb7.htm">$FFB7</a>     ; Read I/O Status Word
+E183: 29 10     <a href="band.htm">AND</a> #$10
+E185: D0 17     <a href="bbne.htm">BNE</a> $E19E
+E187: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+E189: C9 02     <a href="bcmp.htm">CMP</a> #$02
+E18B: F0 07     <a href="bbeq.htm">BEQ</a> $E194
+E18D: A9 64     <a href="blda.htm">LDA</a> #$64
+E18F: A0 A3     <a href="bldy.htm">LDY</a> #$A3
+E191: 4C 1E AB  <a href="bjmp.htm">JMP</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+
+Jump from $E18B, <a href="rome1c7.htm">$E1CF</a>:
+
+E194: 60        <a href="brts.htm">RTS</a>
+
+Jump from $E17C:
+
+E195: 20 B7 FF  <a href="bjsr.htm">JSR</a> <a href="romffb7.htm">$FFB7</a>     ; Read I/O Status Word
+E198: 29 BF     <a href="band.htm">AND</a> #$BF
+E19A: F0 05     <a href="bbeq.htm">BEQ</a> $E1A1
+E19C: A2 1D     <a href="bldx.htm">LDX</a> #$1D
+
+Jump from $E185:
+
+E19E: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $E19A:
+
+E1A1: A5 7B     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+E1A3: C9 02     <a href="bcmp.htm">CMP</a> #$02
+E1A5: D0 0E     <a href="bbne.htm">BNE</a> $E1B5
+E1A7: 86 2D     <a href="bstx.htm">STX</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+E1A9: 84 2E     <a href="bsty.htm">STY</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+E1AB: A9 76     <a href="blda.htm">LDA</a> #$76
+E1AD: A0 A3     <a href="bldy.htm">LDY</a> #$A3
+E1AF: 20 1E AB  <a href="bjsr.htm">JSR</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+E1B2: 4C 2A A5  <a href="bjmp.htm">JMP</a> <a href="roma4a2.htm">$A52A</a>     ; Insert BASIC Text
+
+Jump from $E1A5:
+
+E1B5: 20 8E A6  <a href="bjsr.htm">JSR</a> <a href="roma68e.htm">$A68E</a>     ; Reset TXTPTR
+E1B8: 20 33 A5  <a href="bjsr.htm">JSR</a> <a href="roma533.htm">$A533</a>     ; Rechain Lines
+E1BB: 4C 77 A6  <a href="bjmp.htm">JMP</a> <a href="roma65e.htm">$A677</a>     ; Perform [clr]
+
+    <a href="rome165.htm">Previous Page</a> / <a href="rome1be.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

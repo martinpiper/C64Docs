@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ATN-Modus testen ($ea59; bei der 1571: $ea59)
+
+Einsprung von <a href="ro81aaa8.htm">$AB03</a>, <a href="ro81ac9d.htm">$AC9D</a>, <a href="ro81ad5c.htm">$AD6A</a>, <a href="ro81ad5c.htm">$AD79</a>, <a href="ro81ad5c.htm">$AD8C</a>, <a href="ro81ad5c.htm">$AD96</a>, <a href="ro81ad5c.htm">$ADA3</a>, <a href="ro81ad5c.htm">$AE2A</a>, <a href="ro81ad5c.htm">$AE39</a>,
+              <a href="ro81ae42.htm">$AE49</a>, <a href="ro81ae42.htm">$AE5F</a>, <a href="ro81ae42.htm">$AE79</a>, <a href="ro81ae42.htm">$AEA4</a>, <a href="ro81afca.htm">$AFE3</a>, <a href="ro81bb74.htm">$BBAE</a>, <a href="ro81bc01.htm">$BC65</a>, <a href="ro81bf83.htm">$BF83</a>, <a href="ro81c026.htm">$C026</a>:
+
+AD15: A9 02     LDA #$02
+AD17: 24 76     BIT <a href="ra8176.htm">$76</a>          ist ATN-Modus gesetzt ?
+AD19: F0 06     BEQ $AD21        nein, ==&gt;
+AD1B: AD 01 40  LDA <a href="cia811.htm">$4001</a>        ATN-Modus: ist ATN auch aktiv ?
+AD1E: 10 0C     BPL $AD2C        nein, (ATN-Modus beenden) ==&gt;
+
+Einsprung von $AD24:
+
+AD20: 60        RTS              ja, also weitermachen
+
+Einsprung von $AD19:
+
+AD21: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Daten-Modus: ist ATN aktiv ?
+AD24: 10 FA     BPL $AD20        nein, also weitermachen ==&gt;
+AD26: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        ATN-IRQ-Flag loeschen
+AD29: 4C 30 FF  JMP <a href="ro81ff00.htm">$FF30</a>        ATN behandeln (ATN-Modus setzen) ==&gt;
+
+Einsprung von $AD1E:
+
+AD2C: 4C 5A AC  JMP <a href="ro81abcf.htm">$AC5A</a>        ATN-Modus beenden ==&gt;
+
+    <a href="ro81ad0c.htm">Previous Page</a> / <a href="ro81ad2f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

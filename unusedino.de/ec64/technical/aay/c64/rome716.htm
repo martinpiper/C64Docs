@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E716/59158:   Output to Screen
+
+Jump from <a href="rome5ca.htm">$E5CA</a>, <a href="rome632.htm">$E66F</a>, <a href="romf1ca.htm">$F1D2</a>:
+
+E716: 48        <a href="bpha.htm">PHA</a>
+E717: 85 D7     <a href="bsta.htm">STA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E719: 8A        <a href="btxa.htm">TXA</a>
+E71A: 48        <a href="bpha.htm">PHA</a>
+E71B: 98        <a href="btya.htm">TYA</a>
+E71C: 48        <a href="bpha.htm">PHA</a>
+E71D: A9 00     <a href="blda.htm">LDA</a> #$00
+E71F: 85 D0     <a href="bsta.htm">STA</a> <a href="zpd0.htm">$D0</a>       ; Flag: Input from ...
+E721: A4 D3     <a href="bldy.htm">LDY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E723: A5 D7     <a href="blda.htm">LDA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E725: 10 03     <a href="bbpl.htm">BPL</a> <a href="rome72a.htm">$E72A</a>     ; -unshifted characters-
+E727: 4C D4 E7  <a href="bjmp.htm">JMP</a> <a href="rome7d4.htm">$E7D4</a>     ; -shifted characters-
+
+    <a href="rome701.htm">Previous Page</a> / <a href="rome72a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E20E/57870:   Check For Comma
+
+Jump from <a href="rome200.htm">$E200</a>, <a href="rome219.htm">$E254</a>:
+
+E20E: 20 FD AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFD</a>     ; Test ','
+
+Jump from <a href="rome219.htm">$E21E</a>:
+
+E211: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+E214: D0 F7     <a href="bbne.htm">BNE</a> <a href="rome206.htm">$E20D</a>     ; Check Default Parameters
+E216: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+    <a href="rome206.htm">Previous Page</a> / <a href="rome219.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

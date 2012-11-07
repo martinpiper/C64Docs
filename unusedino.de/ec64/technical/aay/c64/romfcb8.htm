@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FCB8/64696:   Set IRQ Vector
+
+Jump from <a href="romfc57.htm">$FC86</a>:
+
+FCB8: 20 93 FC  <a href="bjsr.htm">JSR</a> <a href="romfc93.htm">$FC93</a>     ; Restore Normal IRQ
+FCBB: F0 97     <a href="bbeq.htm">BEQ</a> <a href="romfbcd.htm">$FC54</a>     ; IRQ Entry Point
+
+Jump from <a href="romf875.htm">$F8A1</a>, <a href="romfc57.htm">$FC65</a>, <a href="romfc57.htm">$FC7E</a>:
+
+FCBD: BD 93 FD  <a href="blda.htm">LDA</a> <a href="romfd50.htm">$FD93</a>,X   ; Initialise System Constants
+FCC0: 8D 14 03  <a href="bsta.htm">STA</a> <a href="zp0314.htm">$0314</a>     ; Vector: Hardware IRQ Interrupt Address
+FCC3: BD 94 FD  <a href="blda.htm">LDA</a> <a href="romfd50.htm">$FD94</a>,X   ; Initialise System Constants
+FCC6: 8D 15 03  <a href="bsta.htm">STA</a> <a href="zp0314.htm">$0315</a>     ; Vector: Hardware IRQ Interrupt Address
+FCC9: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfc93.htm">Previous Page</a> / <a href="romfcca.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

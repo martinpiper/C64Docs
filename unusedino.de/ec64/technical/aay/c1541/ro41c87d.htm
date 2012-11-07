@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C87D/51325:   Erase file
+
+Jump from <a href="ro41c823.htm">$C852</a>, <a href="ro41c823.htm">$C868</a>, <a href="ro41dba5.htm">$DC1B</a>:
+
+C87D: 20 5F EF  JSR <a href="ro41ef5c.htm">$EF5F</a>       ; free block in BAM
+C880: 20 75 D4  JSR <a href="ro41d475.htm">$D475</a>
+C883: 20 19 F1  JSR <a href="ro41f119.htm">$F119</a>       ; get buffer number in BAM
+C886: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+C888: C9 FF     CMP #$FF
+C88A: F0 08     BEQ $C894
+C88C: AD F9 02  LDA <a href="ra4102f9.htm">$02F9</a>
+C88F: 09 40     ORA #$40
+C891: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+
+Jump from $C88A, $C8B3:
+
+C894: A9 00     LDA #$00
+C896: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+C899: 20 56 D1  JSR <a href="ro41d156.htm">$D156</a>       ; get track
+C89C: 85 80     STA <a href="ra4180.htm">$80</a>
+C89E: 20 56 D1  JSR <a href="ro41d156.htm">$D156</a>       ; get sector
+C8A1: 85 81     STA <a href="ra4181.htm">$81</a>
+C8A3: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number
+C8A5: D0 06     BNE $C8AD       ; not equal to zero
+C8A7: 20 F4 EE  JSR <a href="ro41eef4.htm">$EEF4</a>       ; write BAM
+C8AA: 4C 27 D2  JMP <a href="ro41d227.htm">$D227</a>       ; close channel
+
+Jump from $C8A5:
+
+C8AD: 20 5F EF  JSR <a href="ro41ef5c.htm">$EF5F</a>       ; free block in BAM
+C8B0: 20 4D D4  JSR <a href="ro41d44d.htm">$D44D</a>       ; read next block
+C8B3: 4C 94 C8  JMP $C894       ; and continue
+
+    <a href="ro41c823.htm">Previous Page</a> / <a href="ro41c8b6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

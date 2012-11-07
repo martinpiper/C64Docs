@@ -1,0 +1,1638 @@
+<html>
+
+<head>
+	<title>linuxassembly.org - Using ModeX via direct VGA access under Linux</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+	<h1 align="center">Using ModeX via direct VGA access under Linux</h1>
+	<p align="center"><font size="-1">by <a href="mailto:linuxassembly@unusedino.de">Karsten Scheibler</a><br>
+	thanks to Kobus Retief</font></p>
+
+	<dl><dt><b>Remark&nbsp;(a):</b></dt>
+	<dd>Save this page as <tt>modex.html</tt> and use the following command to extract the source code with a sample Makefile:<br>
+	<tt>sh&nbsp;-c&nbsp;&quot;( mkdir&nbsp;modex&nbsp;&amp;&amp; cd&nbsp;modex&nbsp;&amp;&amp; awk&nbsp;'/^&lt;!--eof/{d=0}{if(d)print&gt;f}/^&lt;!--sof/{f=\$2;d=1}' )&nbsp;&lt;&nbsp;modex.html&quot;</tt>
+	</dd><dt><b>Remark&nbsp;(b):</b></dt>
+	<dd>Some browsers try to be super smart and reformat the html code
+	so you may have trouble to extract the files. This is the right time to learn more
+	about wget, a tool to download files via http or ftp ;-)
+	</dd><dt><b>Remark&nbsp;(c):</b></dt>
+	<dd>Some versions of nasm are known to generate broken code.
+	I have used nasm-0.98 for this example which worked for me.
+	</dd>
+	</dl>
+
+	<p align="justify">Accessing the VGA Card under Linux is different from DOS, the big difference
+	is that you can't use any VGA BIOS routines. So switching to the well known
+	320x200 Mode is more complicated, because you have to do all the work on your own.</p>
+
+	<p align="justify">This example offers some ModeX resolutions. You
+	can select a <a href="modex.htm#mode">mode</a> at start of the
+	source code. Most of these modes should be available on
+	every VGA Card although they are called non-standard.</p>
+
+	<p align="justify">I don't want to describe VGA details here, look at the
+	<a href="http://osdev.neopages.net/FreeVGA/home.htm?the_id=25">FreeVGA page</a> for more.
+
+	<p align="justify">This code must be executed as root (or has to be run with SetUID root),
+	because it uses <a href="modex.htm#ioperm"><b>sys_ioperm</b></a>.</p>
+
+	<p align="justify">All relevant values for the video mode are in the subroutine
+	<a href="modex.htm#switch">modex_switch_mode</a>, they are mostly taken from the
+	<a href="http://www.svgalib.org/">svgalib</a> and
+	<a href="http://www.kyuzz.org/antirez/vga256fb.html">vga256fb</a> source or
+	from libraries running under DOS.</p>
+
+	<p align="justify">The memory address of a pixel under ModeX is different compared to that you
+	would expect under the <a href="fb.htm">framebuffer device</a>. Because of the VGA specification there are
+	4 planes, this means you have 4 pixels at the same memory address they only
+	differ in the plane they resist (this is true for all modes except
+	320X200P and 256X256P. These are examples for planar addressing: one pixel
+	per address. This is possible, because all pixels are addressable
+	in a 64K range). There are also
+	different write and read modes for this planes. Hint: if you want to move
+	video memory use write mode 1 in combination with dword access (4 planes *
+	4 pixels = 16 pixels). If you don't know what i mean read the VGA description
+	mentioned above.</p>
+
+	<p align="justify">If you like you may optimize the register accesses in the
+	modex_set_* routines, you can combine some of the 8 bit out instructions
+	(<b>out word dx, al</b>) to 16 bit out instructions (<b>out word dx, ax</b>).</p>
+
+	<p align="justify">Using this example of direct VGA register access with a
+	running fb driver other than vga16fb probably does not work.</p>
+
+	<p align="justify">I also strongly recommend signal handlers in your program,
+	you should ensure that your program exits correctly even if something wents wrong.
+	It is mostly not a good idea to leave the user with a broken console if your code
+	Segfaults ;-)</p>
+
+	<dl><dt><b>Note&nbsp;1:</b></dt>
+	<dd><p align="justify">If your console runs in text mode then you should backup the video
+	memory, because there seem to lie the charset at the beginning used
+	for text display. I don't know if the charset is always placed on
+	this position or if it is device dependent, please drop me a note if
+	you find out more. Therefore this example code saves the whole 256 KB
+	of VGA memory and restores it when exiting.</p></dd>
+	<dt><b>Note&nbsp;2:</b></dt>
+	<dd><p align="justify">In this example it is important to save the charset AFTER switching
+	to ModeX and restoring it before restoring the original VGA Mode.</p></dd></dl>
+
+	<p>short procedure for switching to ModeX:<ol type="1">
+		<li>tell the kernel that we switch to graphics mode via <a href="modex.htm#graphics"><b>KD_GRAPHICS</b></a></li>
+		<li>check if there is a fb driver running (except vga16fb), you
+		may examine <b>/proc/fb</b> or open <b>/dev/fb</b>
+		and use ioctl's (see how it is
+		done in the <a href="fb.htm">framebuffer</a> example)</li>
+		<li>get access to the <a href="modex.htm#ioperm">VGA I/O ports</a></li>
+		<li><a href="modex.htm#save">save</a> the current settings</li>
+		<li><a href="modex.htm#mmap">mmap</a> the video memory</li>
+		<li><a href="modex.htm#switch">switch</a> to ModeX</li> 
+		<li>save the <a href="modex.htm#charset">charset</a></li>
+		<li>set the <a href="modex.htm#colormap">colormap</a></li>
+	</ol></p>
+
+	<p align="justify">In this example we use <b>STDIN</b> as file
+	descriptor for <b>sys_ioctl</b>. This is ok as long as nobody
+	redirects it to a file or pipe. If you want that the
+	program even works in this cases: open <b>/dev/tty</b>
+	and use that file descriptor instead.</p>
+
+	<p align="justify">If you want to enable virtual terminal switching
+	in this example, look at the <a href="vt.htm">vt</a> example code</p>
+
+	<p align="justify">If you find mistakes or have suggestions, mail
+	<a href="mailto:linuxassembly@unusedino.de">me</a>.</p>
+
+<center><table><tr><td><pre>
+<!--sof modex.n -->
+;****************************************************************************
+;****************************************************************************
+;*
+;* USING MODE X (VIA DIRECT VGA ACCESS) UNDER LINUX
+;*
+;* written by Karsten Scheibler, 2003-DEC-08
+;*
+;****************************************************************************
+;****************************************************************************
+
+
+
+
+
+;<a name="mode"></a>select the used mode here
+%define MODE_320X200P
+
+%ifdef MODE_256X224
+%define XRES				256
+%define YRES				224
+%elifdef MODE_256X240
+%define XRES				256
+%define YRES				240
+%elifdef MODE_256X256P
+%define XRES				256
+%define YRES				256
+%define MODE_PLANAR
+%elifdef MODE_256X256
+%define XRES				256
+%define YRES				256
+%elifdef MODE_280X210
+%define XRES				280
+%define YRES				210
+%elifdef MODE_320X200P
+%define XRES				320
+%define YRES				200
+%define MODE_PLANAR
+%elifdef MODE_320X200
+%define XRES				320
+%define YRES				200
+%elifdef MODE_320X240
+%define XRES				320
+%define YRES				240
+%elifdef MODE_320X270
+%define XRES				320
+%define YRES				270
+%elifdef MODE_320X400
+%define XRES				320
+%define YRES				400
+%elifdef MODE_320X480
+%define XRES				320
+%define YRES				480
+%elifdef MODE_320X540
+%define XRES				320
+%define YRES				540
+%elifdef MODE_360X200
+%define XRES				360
+%define YRES				200
+%elifdef MODE_360X240
+%define XRES				360
+%define YRES				240
+%elifdef MODE_360X270
+%define XRES				360
+%define YRES				270
+%elifdef MODE_360X400
+%define XRES				360
+%define YRES				400
+%elifdef MODE_360X480
+%define XRES				360
+%define YRES				480
+%elifdef MODE_360X540
+%define XRES				360
+%define YRES				540
+%elifdef MODE_376X282
+%define XRES				376
+%define YRES				282
+%elifdef MODE_376X564
+%define XRES				376
+%define YRES				564
+%elifdef MODE_384X282
+%define XRES				384
+%define YRES				282
+%elifdef MODE_384X564
+%define XRES				384
+%define YRES				564
+%elifdef MODE_400X300
+%define XRES				400
+%define YRES				300
+%elifdef MODE_400X600
+%define XRES				400
+%define YRES				600
+%endif
+
+
+
+global modex_start
+
+;look at the <a href="vt.htm">vt</a> example code for more
+%ifdef USE_VT
+%include "vt.n"
+%endif ;USE_VT
+
+
+
+;****************************************************************************
+;* some assign's
+;****************************************************************************
+%assign SYS_READ			3
+%assign SYS_WRITE			4
+%assign SYS_OPEN			5
+%assign SYS_CLOSE			6
+%assign SYS_IOCTL			54
+%assign SYS_MMAP			90
+%assign SYS_IOPERM			101
+
+%assign KDSETMODE			0x00004b3a
+%assign KDGETMODE			0x00004b3b
+%assign KD_TEXT				0
+%assign KD_GRAPHICS			1
+
+%assign PROT_READ			1
+%assign PROT_WRITE			2
+%assign MAP_SHARED			1
+
+%assign O_RDWR				2
+
+%assign STDIN				0
+%assign STDOUT				1
+
+%assign VGA_CRT_REGISTERS		24
+%assign VGA_ATTRIBUTE_REGISTERS		21
+%assign VGA_GRAPHIC_REGISTERS		9
+%assign VGA_SEQUENCER_REGISTERS		5
+%assign VGA_MISC_REGISTERS		1
+
+%assign VGA_IO_BASE			0x3c0
+%assign VGA_IO_SIZE			0x20
+%assign VGA_IO_BASE_MONO1		0x3b4
+%assign VGA_IO_SIZE_MONO1		0x02
+%assign VGA_IO_BASE_MONO2		0x3ba
+%assign VGA_IO_SIZE_MONO2		0x01
+
+%assign VGA_ATTRIBUTE_INDEX		0x3c0
+%assign VGA_ATTRIBUTE_DATA_WRITE	0x3c0
+%assign VGA_ATTRIBUTE_DATA_READ		0x3c1
+%assign VGA_MISC_DATA_WRITE		0x3c2
+%assign VGA_SEQUENCER_INDEX		0x3c4
+%assign VGA_SEQUENCER_DATA		0x3c5
+%assign VGA_PEL_MASK			0x3c6
+%assign VGA_PEL_INDEX_READ		0x3c7
+%assign VGA_PEL_INDEX_WRITE		0x3c8
+%assign VGA_PEL_DATA			0x3c9
+%assign VGA_MISC_DATA_READ		0x3cc
+%assign VGA_GRAPHIC_INDEX		0x3ce
+%assign VGA_GRAPHIC_DATA		0x3cf
+%assign VGA_CRT_INDEX			0x3d4
+%assign VGA_CRT_INDEX_MONO		0x3b4
+%assign VGA_CRT_DATA			0x3d5
+%assign VGA_CRT_DATA_MONO		0x3b5
+%assign VGA_INPUT_STATUS		0x3da
+%assign VGA_INPUT_STATUS_MONO		0x3ba
+
+%assign MODEX_KDMODE_SAVED			0x00000001
+%assign MODEX_CRT_REGISTERS_SAVED		0x00000002
+%assign MODEX_ATTRIBUTE_REGISTERS_SAVED		0x00000004
+%assign MODEX_GRAPHIC_REGISTERS_SAVED		0x00000008
+%assign MODEX_SEQUENCER_REGISTERS_SAVED		0x00000010
+%assign MODEX_MISC_REGISTERS_SAVED		0x00000020
+%assign MODEX_COLORMAP_SAVED			0x00000040
+%assign MODEX_CHARSET_SAVED			0x00000080
+
+
+
+;****************************************************************************
+;* data
+;****************************************************************************
+section .data
+					align	4
+modex_state:				dd	0
+modex_address:				dd	0
+modex_kdmode:				dd	0
+vga_crt_index:				dd	VGA_CRT_INDEX
+vga_crt_data:				dd	VGA_CRT_DATA
+vga_input_status:			dd	VGA_INPUT_STATUS
+
+section .bss
+					alignb	4
+modex_charset_saved:			resb	0x40000
+modex_registers:
+.colormap:				resd	256
+.crt:					resb	VGA_CRT_REGISTERS
+.attribute:				resb	VGA_ATTRIBUTE_REGISTERS
+.graphic:				resb	VGA_GRAPHIC_REGISTERS
+.sequencer:				resb	VGA_SEQUENCER_REGISTERS
+.misc:					resb	VGA_MISC_REGISTERS
+
+
+
+;****************************************************************************
+;* modex_start
+;****************************************************************************
+section .text
+modex_start:
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDGETMODE
+	mov	dword edx, modex_kdmode
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+	or	dword [modex_state], MODEX_KDMODE_SAVED
+
+	;<a name="graphics"></a>tell kernel that we switch to graphics mode
+	;this means the kernel won't do things that may change the video ram
+	;(vt switching, vt blanking, cursor, mouse cursor [gpm])
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDSETMODE
+	mov	dword edx, KD_GRAPHICS
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+
+	;<a name="ioperm"></a>get access to the VGA I/O ports
+
+	mov	dword eax, SYS_IOPERM
+	mov	dword ebx, VGA_IO_BASE
+	mov	dword ecx, VGA_IO_SIZE
+	mov	dword edx, 1
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+
+	;check if monochrome compatibility is needed
+
+	mov	dword edx, VGA_MISC_DATA_READ
+	in	byte  al, dx
+	and	dword eax, byte 1
+	jnz	short .color
+
+	mov	dword [vga_crt_index], VGA_CRT_INDEX_MONO
+	mov	dword [vga_crt_data], VGA_CRT_DATA_MONO
+	mov	dword [vga_input_status], VGA_INPUT_STATUS
+
+	mov	dword eax, SYS_IOPERM
+	mov	dword ebx, VGA_IO_BASE_MONO1
+	mov	dword ecx, VGA_IO_SIZE_MONO1
+	mov	dword edx, 1
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+	mov	dword eax, SYS_IOPERM
+	mov	dword ebx, VGA_IO_BASE_MONO2
+	mov	dword ecx, VGA_IO_SIZE_MONO2
+	mov	dword edx, 1
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+.color:
+
+	;<a name="save"></a>save current settings
+
+	call	near  modex_save_registers
+
+	;<a name="mmap"></a>mmap the VGA memory
+
+	mov	dword eax, SYS_OPEN
+	mov	dword ebx, .mem_path
+	mov	dword ecx, O_RDWR
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+	xor	dword ebx, ebx
+	push	dword 0xa0000
+	push	dword eax
+	push	dword MAP_SHARED
+	push	dword (PROT_READ | PROT_WRITE)
+	push	dword 0x10000
+	push	dword ebx
+	mov	dword eax, SYS_MMAP
+	mov	dword ebx, esp
+	int	byte  0x80
+	mov	dword ebx, [esp + 16]
+	add	dword esp, byte 24
+	test	dword eax, eax
+	jz	near  modex_error
+	mov	dword [modex_address], eax
+	mov	dword eax, SYS_CLOSE
+	int	byte  0x80
+	test	dword eax, eax
+	js	near  modex_error
+
+	;initialize the VGA with our values
+
+	call	near  modex_switch_mode
+	call	near  modex_save_charset
+	call	near  modex_prepare_colormap
+	call	near  modex_draw
+
+	;"press enter to exit" ...
+
+%ifndef USE_VT
+	push	dword eax
+	mov	dword eax, SYS_READ
+	mov	dword ebx, STDIN
+	mov	dword ecx, esp
+	mov	dword edx, 1
+	int	byte  0x80
+	add	dword esp, byte 4
+	jmp	near  modex_end
+%else ;USE_VT
+	mov	dword eax, modex_end
+	mov	dword ebx, modex_error
+	call	near  vt_init
+
+	;<a name="mainloop"></a>mainloop
+
+.keypress1:
+	call	near  vt_check_keypress
+	cmp	dword eax, byte 1
+	je	near  modex_end
+	call	near  vt_check_release
+	test	dword eax, eax
+	js	short .keypress1
+	call	near  modex_restore_charset
+	call	near  modex_restore_registers
+	call	near  vt_commit_release
+	test	dword eax, eax
+	js	short .switch_back
+.keypress2:
+	call	near  vt_check_keypress	;vt is not active => no keypress
+					;possible, we simply use select to
+					;wait here
+	call	near  vt_check_acquire
+	test	dword eax, eax
+	js	short .keypress2
+.switch_back:
+	call	near  modex_switch_mode
+	call	near  modex_prepare_colormap
+	call	near  modex_draw
+	jmp	short .keypress1
+%endif ;USE_VT	
+
+.mem_path:				db	"/dev/mem", 0
+
+
+
+;****************************************************************************
+;* modex_get_crt_registers
+;****************************************************************************
+;* ebx=>  pointer where to store crt registers
+;****************************************************************************
+section .text
+modex_get_crt_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, [vga_crt_index]
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, [vga_crt_data]
+	in	byte  al, dx
+	mov	byte  [ebx + ecx], al
+	inc	dword ecx
+	cmp	dword ecx, VGA_CRT_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_get_attribute_registers
+;****************************************************************************
+;* ebx=>  pointer where to store attribute registers
+;****************************************************************************
+section .text
+modex_get_attribute_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, [vga_input_status]
+	in	byte  al, dx
+	mov	dword edx, VGA_ATTRIBUTE_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_ATTRIBUTE_DATA_READ
+	in	byte  al, dx
+	mov	byte  [ebx + ecx], al
+	inc	dword ecx
+	cmp	dword ecx, VGA_ATTRIBUTE_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_get_graphic_registers
+;****************************************************************************
+;* ebx=>  pointer where to store graphics registers
+;****************************************************************************
+section .text
+modex_get_graphic_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	in	byte  al, dx
+	mov	byte  [ebx + ecx], al
+	inc	dword ecx
+	cmp	dword ecx, VGA_GRAPHIC_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_get_sequencer_registers
+;****************************************************************************
+;* ebx=>  pointer where to store sequencer registers
+;****************************************************************************
+section .text
+modex_get_sequencer_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	in	byte  al, dx
+	mov	byte  [ebx + ecx], al
+	inc	dword ecx
+	cmp	dword ecx, VGA_SEQUENCER_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_get_misc_registers
+;****************************************************************************
+;* ebx=>  pointer where to store misc register
+;****************************************************************************
+section .text
+modex_get_misc_registers:
+	mov	dword edx, VGA_MISC_DATA_READ
+	in	byte  al, dx
+	mov	byte  [ebx], al
+	ret
+
+
+
+;****************************************************************************
+;* modex_get_colormap
+;****************************************************************************
+;* ebx=>  pointer where to store colormap
+;****************************************************************************
+section .text
+modex_get_colormap:
+	xor	dword ecx, ecx
+	xor	dword eax, eax
+	mov	dword edx, VGA_PEL_INDEX_READ
+	out	word  dx, al
+	mov	dword edx, VGA_PEL_DATA
+.loop:
+	in	byte  al, dx
+	shl	dword eax, 8
+	in	byte  al, dx
+	shl	dword eax, 8
+	in	byte  al, dx
+	mov	dword [ebx + 4 * ecx], eax
+	inc	dword ecx
+	test	byte  cl, cl
+	jnz	short .loop
+	ret
+
+
+
+
+;****************************************************************************
+;* modex_set_crt_registers
+;****************************************************************************
+;* ebx=>  pointer to stored crt registers
+;****************************************************************************
+section .text
+modex_set_crt_registers:
+
+	;deprotect CRT registers 0 - 7
+
+	mov	dword edx, [vga_crt_index]
+	mov	byte  al, 0x11
+	out	word  dx, al
+	mov	dword edx, [vga_crt_data]
+	in	byte  al, dx
+	and	byte  al, 0x7f
+	out	word  dx, al
+
+	;write to the registers
+
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, [vga_crt_index]
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, [vga_crt_data]
+	mov	byte  al, [ebx + ecx]
+	out	word  dx, al
+	inc	dword ecx
+	cmp	dword ecx, VGA_CRT_REGISTERS
+	jb	short .loop
+	ret
+    
+
+
+;****************************************************************************
+;* modex_set_attribute_registers
+;****************************************************************************
+;* ebx=>  pointer to stored attibute registers
+;****************************************************************************
+section .text
+modex_set_attribute_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, [vga_input_status]
+	in	byte  al, dx
+	mov	dword edx, VGA_ATTRIBUTE_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_ATTRIBUTE_DATA_WRITE
+	mov	byte  al, [ebx + ecx]
+	out	word  dx, al
+	inc	dword ecx
+	cmp	dword ecx, VGA_ATTRIBUTE_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_set_graphic_registers
+;****************************************************************************
+;* ebx=>  pointer to stored graphic registers
+;****************************************************************************
+section .text
+modex_set_graphic_registers:
+	xor	dword ecx, ecx
+.loop:
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	mov	byte  al, [ebx + ecx]
+	out	word  dx, al
+	inc	dword ecx
+	cmp	dword ecx, VGA_GRAPHIC_REGISTERS
+	jb	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_set_sequencer_registers
+;****************************************************************************
+;* ebx=>  pointer to stored sequencer registers
+;****************************************************************************
+section .text
+modex_set_sequencer_registers:
+
+	;synchronous reset on
+
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	xor	dword eax, eax
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	inc	dword eax
+	out	word  dx, al
+
+	;write to the registers
+
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	mov	byte  al, [ebx + 1]
+	or	byte  al, 0x20
+	out	word  dx, al
+	mov	dword ecx, 2
+.loop:
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	mov	byte  al, cl
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	mov	byte  al, [ebx + ecx]
+	out	word  dx, al
+	inc	dword ecx
+	cmp	dword ecx, VGA_SEQUENCER_REGISTERS
+	jb	short .loop
+
+	;synchronous reset off
+
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	xor	dword eax, eax
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	mov	byte  al, 3
+	out	word  dx, al
+	ret
+
+
+
+;****************************************************************************
+;* modex_set_misc_registers
+;****************************************************************************
+;* ebx=>  pointer to stored misc register
+;****************************************************************************
+section .text
+modex_set_misc_registers:
+	mov	dword edx, VGA_MISC_DATA_WRITE
+	mov	byte  al, [ebx]
+	out	word dx, al
+	ret
+
+
+
+;****************************************************************************
+;* modex_set_colormap
+;****************************************************************************
+;* ebx=>  pointer to stored colormap
+;****************************************************************************
+section .text
+modex_set_colormap:
+	xor	dword ecx, ecx
+	xor	dword eax, eax
+	mov	dword edx, VGA_PEL_INDEX_WRITE
+	out	word  dx, al
+	mov	dword edx, VGA_PEL_DATA
+.loop:
+	mov	dword eax, [ebx + 4 * ecx]
+	rol	dword eax, 16
+	out	word  dx, al
+	rol	dword eax, 8
+	out	word  dx, al
+	rol	dword eax, 8
+	out	word  dx, al
+	inc	dword ecx
+	test	byte  cl, cl
+	jnz	short .loop
+	ret
+
+
+
+;****************************************************************************
+;* modex_screen_on
+;****************************************************************************
+section .text
+modex_screen_on:
+
+	;turn on the screen
+
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	mov	byte  al, 1
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	in	byte  al, dx
+	and	byte  al, 0xdf
+	out	word  dx, al
+
+	;enable video output
+
+	mov	dword edx, [vga_input_status]
+	in	byte  al, dx
+	mov	dword edx, VGA_ATTRIBUTE_DATA_WRITE
+	mov	byte  al, 0x20
+	out	word  dx, al
+	ret
+
+
+
+;<a name="switch"></a>****************************************************************************
+;* modex_switch_mode
+;****************************************************************************
+section .text
+modex_switch_mode:
+	mov	dword ebx, .vga_misc_registers
+	call	near  modex_set_misc_registers
+	mov	dword ebx, .vga_sequencer_registers
+	call	near  modex_set_sequencer_registers
+	mov	dword ebx, .vga_crt_registers
+	call	near  modex_set_crt_registers
+	mov	dword ebx, .vga_graphic_registers
+	call	near  modex_set_graphic_registers
+	mov	dword ebx, .vga_attribute_registers
+	call	near  modex_set_attribute_registers
+	call	near  modex_screen_on
+	ret
+
+%ifdef MODE_256X224
+.vga_crt_registers:
+	db	0x5f, 0x3f, 0x40, 0x82, 0x4a, 0x9a, 0x0b, 0x3e
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0xda, 0x9c, 0xbf, 0x20, 0x00, 0xc7, 0x04, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe3
+%elifdef MODE_256X240
+.vga_crt_registers:
+	db	0x5f, 0x3f, 0x40, 0x82, 0x4e, 0x96, 0x0d, 0x3e
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0xea, 0xac, 0xdf, 0x20, 0x00, 0xe7, 0x06, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe3
+%elifdef MODE_256X256P
+.vga_crt_registers:
+	db	0x5f, 0x3f, 0x40, 0x82, 0x4a, 0x9a, 0x23, 0xb2
+	db	0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x0a, 0xac, 0xff, 0x20, 0x40, 0x07, 0x1a, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x0e
+.vga_misc_registers:
+	db	0x63
+%elifdef MODE_256X256
+.vga_crt_registers:
+	db	0x5f, 0x3f, 0x40, 0x82, 0x4a, 0x9a, 0x23, 0xb2
+	db	0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x0a, 0xac, 0xff, 0x20, 0x00, 0x07, 0x1a, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe3
+%elifdef MODE_280X210
+.vga_crt_registers:
+	db	0x50, 0x45, 0x49, 0x84, 0x4b, 0x02, 0xbf, 0x1f
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0xa9, 0x82, 0xa3, 0x23, 0x00, 0xa7, 0x04, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0x63
+%elifdef MODE_320X200P
+.vga_crt_registers:
+	db	0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0xbf, 0x1f
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x9c, 0x8e, 0x8f, 0x28, 0x40, 0x96, 0xb9, 0xa3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x0e
+.vga_misc_registers:
+	db	0x63
+%elifdef MODE_320X200
+.vga_crt_registers:
+	db	0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0xbf, 0x1f
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x9c, 0x8e, 0x8f, 0x28, 0x00, 0x96, 0xb9, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0x63
+%elifdef MODE_320X240
+.vga_crt_registers:
+	db      0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0x0d, 0x3e
+	db      0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0xea, 0xac, 0xdf, 0x28, 0x00, 0xe7, 0x06, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe3
+%elifdef MODE_320X270
+.vga_crt_registers:
+	db      0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0x30, 0xf0
+	db      0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0x20, 0xa9, 0x1b, 0x28, 0x00, 0x1f, 0x2f, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00,
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe3
+%elifdef MODE_320X400
+.vga_crt_registers:
+	db	0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0xbf, 0x1f
+	db	0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x9c, 0x8e, 0x8f, 0x28, 0x00, 0x96, 0xb9, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe3
+%elifdef MODE_320X480
+.vga_crt_registers:
+	db      0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0x0d, 0x3e
+	db      0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0xea, 0xac, 0xdf, 0x28, 0x00, 0xe7, 0x06, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00,
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe3
+%elifdef MODE_320X540
+.vga_crt_registers:
+	db      0x5f, 0x4f, 0x50, 0x82, 0x54, 0x80, 0x30, 0xf0
+	db      0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0x20, 0xa9, 0x1b, 0x28, 0x00, 0x1f, 0x2f, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe3
+%elifdef MODE_360X200
+.vga_crt_registers:
+	db	0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0xbf, 0x1f
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x9c, 0x8e, 0x8f, 0x2d, 0x00, 0x96, 0xb9, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_360X240
+.vga_crt_registers:
+	db	0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0x0d, 0x3e
+	db	0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0xea, 0xac, 0xdf, 0x2d, 0x00, 0xe7, 0x06, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_360X270
+.vga_crt_registers:
+	db      0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0x30, 0xf0
+	db      0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0x20, 0xa9, 0x1b, 0x2d, 0x00, 0x1f, 0x2f, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00,
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe7
+%elifdef MODE_360X400
+.vga_crt_registers:
+	db	0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0xbf, 0x1f
+	db	0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x9c, 0x8e, 0x8f, 0x2d, 0x00, 0x96, 0xb9, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_360X480
+.vga_crt_registers:
+	db      0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0x0d, 0x3e
+	db      0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0xea, 0xac, 0xdf, 0x2d, 0x00, 0xe7, 0x06, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00,
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe7
+%elifdef MODE_360X540
+.vga_crt_registers:
+	db      0x6b, 0x59, 0x5a, 0x8e, 0x5e, 0x8a, 0x30, 0xf0
+	db      0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db      0x20, 0xa9, 0x1b, 0x2d, 0x00, 0x1f, 0x2f, 0xe3
+.vga_attribute_registers:
+	db      0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db      0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db      0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db      0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db      0xe7
+%elifdef MODE_376X282
+.vga_crt_registers:
+	db	0x6e, 0x5d, 0x5e, 0x91, 0x62, 0x8f, 0x62, 0xf0
+	db	0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x37, 0x89, 0x33, 0x2f, 0x00, 0x3c, 0x5c, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_376X564
+.vga_crt_registers:
+	db	0x6e, 0x5d, 0x5e, 0x91, 0x62, 0x8f, 0x62, 0xf0
+	db	0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x37, 0x89, 0x33, 0x2f, 0x00, 0x3c, 0x5c, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_384X282
+.vga_crt_registers:
+	db	0x6e, 0x5f, 0x60, 0x91, 0x62, 0x8f, 0x62, 0xf0
+	db	0x00, 0x61, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x37, 0x89, 0x33, 0x30, 0x00, 0x3c, 0x5c, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_384X564
+.vga_crt_registers:
+	db	0x6e, 0x5f, 0x60, 0x91, 0x62, 0x8f, 0x62, 0xf0
+	db	0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x37, 0x89, 0x33, 0x30, 0x00, 0x3c, 0x5c, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%elifdef MODE_400X300
+.vga_crt_registers:
+	db	0x71, 0x63, 0x64, 0x92, 0x65, 0x82, 0x46, 0x1f
+	db	0x00, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x31, 0x80, 0x2b, 0x32, 0x00, 0x2f, 0x44, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xa7
+%elifdef MODE_400X600
+.vga_crt_registers:
+	db	0x70, 0x63, 0x64, 0x92, 0x65, 0x82, 0x70, 0xf0
+	db	0x00, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	db	0x5b, 0x8c, 0x57, 0x32, 0x00, 0x58, 0x70, 0xe3
+.vga_attribute_registers:
+	db	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+	db	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
+	db	0x41, 0x00, 0x0f, 0x00, 0x00
+.vga_graphic_registers:
+	db	0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x05, 0x0f
+	db	0xff
+.vga_sequencer_registers:
+	db	0x03, 0x01, 0x0f, 0x00, 0x06
+.vga_misc_registers:
+	db	0xe7
+%endif
+
+
+
+;****************************************************************************
+;* modex_select_write_plane
+;****************************************************************************
+;* bl==>  write mode
+;* bh==>  write plane
+;****************************************************************************
+section .text
+modex_select_write_plane:
+	and	dword ebx, 0x0f03
+
+	;enable set/reset = 0
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 1
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	xor	dword eax, eax
+	out	word  dx, al
+
+	;logical operation = none, rotate = 0
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 3
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	xor	dword eax, eax
+	out	word  dx, al
+
+	;select write mode
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 5
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	in	byte  al, dx
+	and	byte  al, 0xfc
+	or	byte  al, bl
+	out	word  dx, al
+
+	;bitmask = 0xff
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 8
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	mov	byte  al, 0xff
+	out	word  dx, al
+
+	;select write plane
+
+	mov	dword edx, VGA_SEQUENCER_INDEX
+	mov	byte  al, 2
+	out	word  dx, al
+	mov	dword edx, VGA_SEQUENCER_DATA
+	mov	byte  al, bh
+	out	word  dx, al
+	ret
+
+
+
+;****************************************************************************
+;* modex_select_read_plane
+;****************************************************************************
+;* bl==>  read mode
+;* bh==>  read plane
+;****************************************************************************
+section .text
+modex_select_read_plane:
+	and	dword ebx, 0x0301
+	shl	byte  bl, 3
+
+	;select read mode
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 5
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	in	byte  al, dx
+	and	byte  al, 0xf7
+	or	byte  al, bl
+	out	word  dx, al
+
+	;select read plane
+
+	mov	dword edx, VGA_GRAPHIC_INDEX
+	mov	byte  al, 4
+	out	word  dx, al
+	mov	dword edx, VGA_GRAPHIC_DATA
+	mov	byte  al, bh
+	out	word  dx, al
+	ret
+
+
+
+;****************************************************************************
+;* modex_save_registers
+;****************************************************************************
+section .text
+modex_save_registers:
+.crt:
+	test	dword [modex_state], MODEX_CRT_REGISTERS_SAVED
+	jnz	short .attribute
+	mov	dword ebx, modex_registers.crt
+	call	near  modex_get_crt_registers
+	or	dword [modex_state], MODEX_CRT_REGISTERS_SAVED
+.attribute:
+	test	dword [modex_state], MODEX_ATTRIBUTE_REGISTERS_SAVED
+	jnz	short .graphic
+	mov	dword ebx, modex_registers.attribute
+	call	near  modex_get_attribute_registers
+	or	dword [modex_state], MODEX_ATTRIBUTE_REGISTERS_SAVED
+.graphic:
+	test	dword [modex_state], MODEX_GRAPHIC_REGISTERS_SAVED
+	jnz	short .sequencer
+	mov	dword ebx, modex_registers.graphic
+	call	near  modex_get_graphic_registers
+	or	dword [modex_state], MODEX_GRAPHIC_REGISTERS_SAVED
+.sequencer:
+	test	dword [modex_state], MODEX_SEQUENCER_REGISTERS_SAVED
+	jnz	short .misc
+	mov	dword ebx, modex_registers.sequencer
+	call	near  modex_get_sequencer_registers
+	or	dword [modex_state], MODEX_SEQUENCER_REGISTERS_SAVED
+.misc:
+	test	dword [modex_state], MODEX_MISC_REGISTERS_SAVED
+	jnz	short .colormap
+	mov	dword ebx, modex_registers.misc
+	call	near  modex_get_misc_registers
+	or	dword [modex_state], MODEX_MISC_REGISTERS_SAVED
+.colormap:
+	test	dword [modex_state], MODEX_COLORMAP_SAVED
+	jnz	short .end
+	mov	dword ebx, modex_registers.colormap
+	call	near  modex_get_colormap
+	or	dword [modex_state], MODEX_COLORMAP_SAVED
+.end:
+	ret
+
+
+
+;****************************************************************************
+;* modex_restore_registers
+;****************************************************************************
+section .text
+modex_restore_registers:
+.crt:
+	test	dword [modex_state], MODEX_CRT_REGISTERS_SAVED
+	jz	short .attribute
+	mov	dword ebx, modex_registers.crt
+	call	near  modex_set_crt_registers
+.attribute:
+	test	dword [modex_state], MODEX_ATTRIBUTE_REGISTERS_SAVED
+	jz	short .graphic
+	mov	dword ebx, modex_registers.attribute
+	call	near  modex_set_attribute_registers
+.graphic:
+	test	dword [modex_state], MODEX_GRAPHIC_REGISTERS_SAVED
+	jz	short .sequencer
+	mov	dword ebx, modex_registers.graphic
+	call	near  modex_set_graphic_registers
+.sequencer:
+	test	dword [modex_state], MODEX_SEQUENCER_REGISTERS_SAVED
+	jz	short .misc
+	mov	dword ebx, modex_registers.sequencer
+	call	near  modex_set_sequencer_registers
+.misc:
+	test	dword [modex_state], MODEX_MISC_REGISTERS_SAVED
+	jz	short .screen_on
+	mov	dword ebx, modex_registers.misc
+	call	near  modex_set_misc_registers
+.screen_on:
+	test	dword [modex_state], (MODEX_SEQUENCER_REGISTERS_SAVED | MODEX_ATTRIBUTE_REGISTERS_SAVED)
+	jz	short .colormap
+	call	near  modex_screen_on
+.colormap:
+	test	dword [modex_state], MODEX_COLORMAP_SAVED
+	jz	short .end
+	mov	dword ebx, modex_registers.colormap
+	call	near  modex_set_colormap
+.end:
+	ret
+
+
+
+;<a name="charset"></a>****************************************************************************
+;* modex_save_charset
+;****************************************************************************
+section .text
+modex_save_charset:
+	test	dword [modex_state], MODEX_CHARSET_SAVED
+	jnz	short .end
+	or	dword [modex_state], MODEX_CHARSET_SAVED
+	xor	dword ebx, ebx
+	call	near  modex_select_read_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, [modex_address]
+	mov	dword edi, modex_charset_saved
+	cld
+	rep movsd
+	mov	dword ebx, 0x0100
+	call	near  modex_select_read_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, [modex_address]
+	mov	dword edi, (modex_charset_saved + 0x10000)
+	cld
+	rep movsd
+	mov	dword ebx, 0x0200
+	call	near  modex_select_read_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, [modex_address]
+	mov	dword edi, (modex_charset_saved + 0x20000)
+	cld
+	rep movsd
+	mov	dword ebx, 0x0300
+	call	near  modex_select_read_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, [modex_address]
+	mov	dword edi, (modex_charset_saved + 0x30000)
+	cld
+	rep movsd
+.end:
+	ret
+
+
+
+;****************************************************************************
+;* modex_restore_charset
+;****************************************************************************
+section .text
+modex_restore_charset:
+	test	dword [modex_state], MODEX_CHARSET_SAVED
+	jz	short .end
+	mov	dword ebx, 0x0100
+	call	near  modex_select_write_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, modex_charset_saved
+	mov	dword edi, [modex_address]
+	cld
+	rep movsd
+	mov	dword ebx, 0x0200
+	call	near  modex_select_write_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, (modex_charset_saved + 0x10000)
+	mov	dword edi, [modex_address]
+	cld
+	rep movsd
+	mov	dword ebx, 0x0400
+	call	near  modex_select_write_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, (modex_charset_saved + 0x20000)
+	mov	dword edi, [modex_address]
+	cld
+	rep movsd
+	mov	dword ebx, 0x0800
+	call	near  modex_select_write_plane
+	mov	dword ecx, 0x4000
+	mov	dword esi, (modex_charset_saved + 0x30000)
+	mov	dword edi, [modex_address]
+	cld
+	rep movsd
+.end:
+	ret
+
+
+
+;****************************************************************************
+;* modex_restore_kdmode
+;****************************************************************************
+section .text
+modex_restore_kdmode:
+	test	dword [modex_state], MODEX_KDMODE_SAVED
+	jz	short .end
+
+	;tell the kernel that we have left graphics mode
+
+	mov	dword eax, SYS_IOCTL
+	mov	dword ebx, STDIN
+	mov	dword ecx, KDSETMODE
+	mov	dword edx, [modex_kdmode]
+	int	byte  0x80
+.end:
+	ret
+
+
+
+;<a name="colormap"></a>****************************************************************************
+;* modex_prepare_colormap
+;****************************************************************************
+section .text
+modex_prepare_colormap:
+	sub	dword esp, 1024
+	xor	dword eax, eax
+	mov	dword ebx, 0x0000003f
+	mov	dword ecx, 0x00003f00
+	mov	dword edx, 0x003f0000
+	xor	dword ebp, ebp
+.set_colormap:
+	mov	dword [esp + 4 * ebp], eax
+	mov	dword [esp + 4 * ebp + 0x100], ebx
+	mov	dword [esp + 4 * ebp + 0x200], ecx
+	mov	dword [esp + 4 * ebp + 0x300], edx
+	inc	dword eax
+	add	dword ebx, 0x0000013f
+	add	dword ecx, 0x00013f00
+	sub	dword edx, 0x00010000
+	and	dword ebx, 0x003f3f3f
+	and	dword ecx, 0x003f3f3f
+	inc	dword ebp
+	cmp	dword ebp, byte 0x40
+	jb	short .set_colormap
+	mov	dword ebx, esp
+	call	near  modex_set_colormap
+	add	dword esp, 1024
+	ret
+
+
+
+;****************************************************************************
+;* modex_draw
+;****************************************************************************
+section .text
+modex_draw:
+%ifdef MODE_PLANAR
+	mov	dword ebx, 0x0f00
+	call	near  modex_select_write_plane
+	mov	dword ebx, YRES
+	mov	dword edi, [modex_address]
+.line:
+	mov	dword ecx, XRES
+	mov	dword eax, ebx
+.pixel:
+	stosb
+	inc	dword eax
+	dec	dword ecx
+	jnz	short .pixel
+	dec	dword ebx
+	jnz	short .line
+%else ;MODE_PLANAR
+	mov	dword ebx, YRES
+	mov	dword edi, [modex_address]
+.line:
+	mov	dword ecx, (XRES / 4)
+	mov	dword eax, ebx
+.pixel:
+	push	dword ebx
+	push	dword ecx
+	push	dword eax
+	mov	dword ebx, 0x0100
+	call	near  modex_select_write_plane
+	pop	dword eax
+	mov	byte  [edi], al
+	inc	dword eax
+	push	dword eax
+	mov	dword ebx, 0x0200
+	call	near  modex_select_write_plane
+	pop	dword eax
+	mov	byte  [edi], al
+	inc	dword eax
+	push	dword eax
+	mov	dword ebx, 0x0400
+	call	near  modex_select_write_plane
+	pop	dword eax
+	mov	byte  [edi], al
+	inc	dword eax
+	push	dword eax
+	mov	dword ebx, 0x0800
+	call	near  modex_select_write_plane
+	pop	dword eax
+	stosb
+	pop	dword ecx
+	pop	dword ebx
+	inc	dword eax
+	dec	dword ecx
+	jnz	short .pixel
+	dec	dword ebx
+	jnz	short .line
+%endif ;MODE_PLANAR
+	ret
+
+
+
+;****************************************************************************
+;* modex_error
+;****************************************************************************
+section .text
+modex_error:
+	call	near  modex_restore_charset
+	call	near  modex_restore_registers
+	call	near  modex_restore_kdmode
+
+	;finished
+
+	xor	dword eax, eax
+	inc	dword eax
+	mov	dword ebx, eax
+	int	byte  0x80
+
+
+
+;****************************************************************************
+;* modex_end
+;****************************************************************************
+section .text
+modex_end:
+	call	near  modex_restore_charset
+	call	near  modex_restore_registers
+	call	near  modex_restore_kdmode
+
+	;finished
+
+	xor	dword eax, eax
+	xor	dword ebx, ebx
+	inc	dword eax
+	int	byte  0x80
+;*********************************************** linuxassembly@unusedino.de *
+<!--eof-->
+</pre></td></tr></table></center>
+
+<!--sof Makefile
+MAKE=make
+NASM=nasm -w+orphan-labels -w+macro-params -w+number-overflow -f elf
+STRIP=strip -R .note -R .comment
+LD=ld -s
+RM=rm -f
+
+.PHONY: all clean
+
+all: modex modex-vt
+
+modex: modex.n
+	${NASM} -o modex.o modex.n
+	${LD} -e modex_start -o modex modex.o
+	${STRIP} modex
+
+modex-vt: modex.n
+	${NASM} -o modex-vt.o -i ../vt/ -DUSE_VT modex.n
+	${LD} -e modex_start -o modex-vt modex-vt.o
+	${STRIP} modex-vt
+
+clean:
+	${RM} *.bak *~ modex modex.o modex-vt modex-vt.o core
+<!--eof-->
+
+</body>
+
+</html>

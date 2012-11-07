@@ -1,0 +1,132 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Scratch ($c823)
+
+8688: 20 70 82  JSR <a href="ro818270.htm">$8270</a>        Dateityp feststellen ('S0:A*=U')
+868B: 20 0B 82  JSR <a href="ro81820b.htm">$820B</a>        alle Filenamen auf Drivenummer testen
+868E: 20 A2 82  JSR <a href="ro8182a2.htm">$82A2</a>        Drive initialisieren
+8691: A9 00     LDA #$00         Zaehler fuer 'Files scratched' = 0
+8693: 85 55     STA <a href="ra8155.htm">$55</a>
+8695: 20 ED 82  JSR <a href="ro8182e6.htm">$82ED</a>        1. Datei suchen
+8698: 30 6E     BMI $8708        nicht gefunden, ==&gt;
+
+Einsprung von $8706:
+
+869A: 20 F5 9C  JSR <a href="ro819cf5.htm">$9CF5</a>        Ist das File gerade geoeffnet
+869D: 90 64     BCC $8703        ja, ==&gt;
+869F: A0 00     LDY #$00         Filetyp holen
+86A1: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+86A3: 8D EE 01  STA <a href="ra8101ed.htm">$01EE</a>        und merken
+86A6: 29 40     AND #$40         b6=1: Ist der Scratch-Schutz aktiv ?
+86A8: D0 59     BNE $8703        ja, ==&gt;
+86AA: 20 3B 87  JSR $873B        Filetyp = 0 setzen
+
+CBM-Dateien loeschen
+
+86AD: AD EE 01  LDA <a href="ra8101ed.htm">$01EE</a>        Filetyp holen
+86B0: 29 07     AND #$07
+86B2: C9 05     CMP #$05         ist es eine Partition
+86B4: D0 25     BNE $86DB        nein, ==&gt;
+86B6: C8        INY
+86B7: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Start-T&amp;S holen
+86B9: 85 4D     STA <a href="ra814d.htm">$4D</a>
+86BB: C8        INY
+86BC: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+86BE: 85 4E     STA <a href="ra814e.htm">$4E</a>
+86C0: A0 1C     LDY #$1C
+86C2: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Laenge der Partition holen
+86C4: 8D EE 01  STA <a href="ra8101ed.htm">$01EE</a>
+86C7: C8        INY
+86C8: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+86CA: 8D ED 01  STA <a href="ra8101ed.htm">$01ED</a>
+
+Einsprung von $86D6:
+
+86CD: 20 B5 94  JSR <a href="ro8194b5.htm">$94B5</a>        auf gueltigen Partition-Block pruefen
+86D0: 20 46 B5  JSR <a href="ro81b546.htm">$B546</a>        Block in Bam freigeben
+86D3: 20 EF B2  JSR <a href="ro81b2ef.htm">$B2EF</a>        naechsten Block der Partition holen
+86D6: D0 F5     BNE $86CD        noch Blocks uebrig, ==&gt;
+86D8: 4C EE DB  JMP $DBEE        Bam speichern, Sprung nach $8701
+
+File loeschen
+
+Einsprung von $86B4:
+
+86DB: A0 13     LDY #$13         Side-Sektoren loeschen
+86DD: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+86DF: F0 0A     BEQ $86EB        sind Side-Sektoren vorhanden ?
+86E1: 85 4D     STA <a href="ra814d.htm">$4D</a>          ja, T&amp;S merken
+86E3: C8        INY
+86E4: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+86E6: 85 4E     STA <a href="ra814e.htm">$4E</a>
+86E8: 20 13 87  JSR $8713        Blocks freigeben
+
+Einsprung von $86DF:
+
+86EB: AE 6D 02  LDX <a href="ra81026d.htm">$026D</a>        File loeschen
+86EE: A9 20     LDA #$20         ist die Datei ordnungsgemaess geschlossen ?
+86F0: 35 F4     AND <a href="ra81f4.htm">$F4</a>,X        (b5=0)
+86F2: D0 0D     BNE $8701        nein, ('*'-File) ==&gt;
+86F4: BD 97 02  LDA <a href="ra810297.htm">$0297</a>,X      T&amp;S des Files holen
+86F7: 85 4D     STA <a href="ra814d.htm">$4D</a>
+86F9: BD 9C 02  LDA <a href="ra81029c.htm">$029C</a>,X
+86FC: 85 4E     STA <a href="ra814e.htm">$4E</a>
+86FE: 20 13 87  JSR $8713        Datei verfolgen und Blocks freigeben
+
+Einsprung von $86F2, <a href="ro81dbc7.htm">$DBF1</a>:
+
+8701: E6 55     INC <a href="ra8155.htm">$55</a>          Anzahl 'Files scratched' +1
+
+Einsprung von $869D, $86A8:
+
+8703: 20 E6 82  JSR <a href="ro8182e6.htm">$82E6</a>        naechste Datei suchen
+8706: 10 92     BPL $869A        gefunden, ==&gt;
+
+Einsprung von $8698:
+
+8708: A5 55     LDA <a href="ra8155.htm">$55</a>          Anzahl 'Files scratched' fuer die Meldung
+870A: 85 4D     STA <a href="ra814d.htm">$4D</a>          als aktuelle Tracknummer merken
+870C: A0 00     LDY #$00         Sektornummer =0
+870E: A9 01     LDA #$01         01, Files scratched ,xx,00
+8710: 4C 5D 80  JMP <a href="ro81804c.htm">$805D</a>
+
+File verfolgen und Blocks freigeben
+
+Einsprung von $86E8, $86FE, <a href="ro819a72.htm">$9AE2</a>:
+
+8713: 20 46 B5  JSR <a href="ro81b546.htm">$B546</a>        1. Block des Files  freigeben
+8716: 20 CF 93  JSR <a href="ro8193cf.htm">$93CF</a>        Datei auf internem Lesekanal oeffnen
+
+Einsprung von $8738:
+
+8719: A9 00     LDA #$00         Pufferzeiger auf 0 setzen
+871B: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+871E: 20 9B 90  JSR <a href="ro81909b.htm">$909B</a>        T&amp;S des Folgeblocks holen und merken
+8721: 85 4D     STA <a href="ra814d.htm">$4D</a>
+8723: 20 9B 90  JSR <a href="ro81909b.htm">$909B</a>        (Byte aus Puffer holen)
+8726: 85 4E     STA <a href="ra814e.htm">$4E</a>
+8728: A5 4D     LDA <a href="ra814d.htm">$4D</a>          existiert ein Folgeblock ?
+872A: D0 06     BNE $8732        ja, ==&gt;
+872C: 20 15 B5  JSR <a href="ro81b515.htm">$B515</a>        BAM abspeichern
+872F: 4C 9E 91  JMP <a href="ro81919e.htm">$919E</a>        Lesekanal freigeben
+
+Einsprung von $872A:
+
+8732: 20 46 B5  JSR <a href="ro81b546.htm">$B546</a>        Folgeblock freigeben
+8735: 20 AA 93  JSR <a href="ro8193aa.htm">$93AA</a>        Folgeblock lesen
+8738: 4C 19 87  JMP $8719
+
+File im Directory als geloescht kennzeichnen
+
+Einsprung von $86AA, <a href="ro819773.htm">$9780</a>, <a href="ro81b262.htm">$B2C1</a>:
+
+873B: A0 00     LDY #$00         Filetyp = 0 (DEL) setzen
+873D: 98        TYA
+873E: 91 64     STA (<a href="ra8164.htm">$64</a>),Y
+8740: 20 9A 9D  JSR <a href="ro819d8e.htm">$9D9A</a>        Puffer schreiben
+8743: 4C ED 94  JMP <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung ueberwachen
+
+    <a href="ro81854d.htm">Previous Page</a> / <a href="ro818746.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

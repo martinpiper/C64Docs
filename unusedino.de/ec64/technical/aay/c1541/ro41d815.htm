@@ -1,0 +1,145 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D815/55317:   -Check '#' Channel
+
+Jump from <a href="ro41d7f3.htm">$D7F5</a>:
+
+D815: E0 23     CPX #$23        ; &quot;#&quot;
+D817: D0 12     BNE $D82B
+D819: 4C 84 CB  JMP <a href="ro41cb84.htm">$CB84</a>       ; open direct access file
+
+Jump from <a href="ro41d7c7.htm">$D7CD</a>:
+
+D81C: A9 02     LDA #$02
+D81E: 8D 96 02  STA <a href="ra410296.htm">$0296</a>       ; file type program
+D821: A9 00     LDA #$00
+D823: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive 0
+D825: 8D 8E 02  STA <a href="ra41028e.htm">$028E</a>
+D828: 20 42 D0  JSR <a href="ro41d042.htm">$D042</a>       ; load BAM
+
+Jump from $D817:
+
+D82B: 20 E5 C1  JSR <a href="ro41c1e5.htm">$C1E5</a>       ; analyze line
+D82E: D0 04     BNE $D834       ; colon found?
+D830: A2 00     LDX #$00
+D832: F0 0C     BEQ $D840
+
+Jump from $D82E:
+
+D834: 8A        TXA             ; comma found?
+D835: F0 05     BEQ $D83C       ; no
+D837: A9 30     LDA #$30
+D839: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 30, 'syntax error'
+
+Jump from $D835:
+
+D83C: 88        DEY
+D83D: F0 01     BEQ $D840
+D83F: 88        DEY
+
+Jump from $D832, $D83D:
+
+D840: 8C 7A 02  STY <a href="ra41027a.htm">$027A</a>       ; pointer to drive number
+D843: A9 8D     LDA #$8D        ; shift CR
+D845: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; analyze line to end
+D848: E8        INX
+D849: 8E 78 02  STX <a href="ra410278.htm">$0278</a>       ; comma counter
+D84C: 20 12 C3  JSR <a href="ro41c312.htm">$C312</a>       ; get drive number
+D84F: 20 CA C3  JSR <a href="ro41c3ca.htm">$C3CA</a>       ; check drive number
+D852: 20 9D C4  JSR <a href="ro41c48b.htm">$C49D</a>       ; find file entry in directory
+D855: A2 00     LDX #$00        ; default values
+D857: 8E 58 02  STX <a href="ra410258.htm">$0258</a>       ; record length
+D85A: 8E 97 02  STX <a href="ra410297.htm">$0297</a>
+D85D: 8E 4A 02  STX <a href="ra41024a.htm">$024A</a>       ; file type
+D860: E8        INX
+D861: EC 77 02  CPX <a href="ra410277.htm">$0277</a>       ; comma before equal sign?
+D864: B0 10     BCS $D876       ; no
+D866: 20 09 DA  JSR <a href="ro41da09.htm">$DA09</a>       ; get file type and control mode
+D869: E8        INX
+D86A: EC 77 02  CPX <a href="ra410277.htm">$0277</a>       ; additional comma?
+D86D: B0 07     BCS $D876       ; no
+D86F: C0 04     CPY #$04
+D871: F0 3E     BEQ $D8B1
+D873: 20 09 DA  JSR <a href="ro41da09.htm">$DA09</a>       ; get file type and control method
+
+Jump from $D864, $D86D, $D8BD, $D8C4:
+
+D876: AE 4C 02  LDX <a href="ra41024c.htm">$024C</a>
+D879: 86 83     STX <a href="ra4183.htm">$83</a>         ; secondary address
+D87B: E0 02     CPX #$02        ; greater than 2?
+D87D: B0 12     BCS $D891       ; yes
+D87F: 8E 97 02  STX <a href="ra410297.htm">$0297</a>       ; 0 or 1 (LOAD or SAVE)
+D882: A9 40     LDA #$40
+D884: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+D887: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>       ; file type
+D88A: D0 1B     BNE $D8A7       ; not deleted
+D88C: A9 02     LDA #$02        ; PRG
+D88E: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; as file type
+
+Jump from $D87D:
+
+D891: AD 4A 02  LDA <a href="ra41024a.htm">$024A</a>
+D894: D0 11     BNE $D8A7
+D896: A5 E7     LDA <a href="ra41e7.htm">$E7</a>
+D898: 29 07     AND #$07        ; get file type and command line
+D89A: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>
+D89D: AD 80 02  LDA <a href="ra410280.htm">$0280</a>       ; track number
+D8A0: D0 05     BNE $D8A7       ; not equal zero?
+D8A2: A9 01     LDA #$01
+D8A4: 8D 4A 02  STA <a href="ra41024a.htm">$024A</a>       ; file type sequential
+
+Jump from $D88A, $D894, $D8A0:
+
+D8A7: AD 97 02  LDA <a href="ra410297.htm">$0297</a>       ; control method
+D8AA: C9 01     CMP #$01        ; 'W'
+D8AC: F0 18     BEQ $D8C6       ; yes
+D8AE: 4C 40 D9  JMP <a href="ro41d940.htm">$D940</a>
+
+Jump from $D871:
+
+D8B1: BC 7A 02  LDY <a href="ra41027a.htm">$027A</a>,X     ; pointer behind second comma
+D8B4: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; get value
+D8B7: 8D 58 02  STA <a href="ra410258.htm">$0258</a>       ; record length
+D8BA: AD 80 02  LDA <a href="ra410280.htm">$0280</a>       ; track number
+D8BD: D0 B7     BNE $D876
+D8BF: A9 01     LDA #$01        ; 'W'
+D8C1: 8D 97 02  STA <a href="ra410297.htm">$0297</a>       ; as second method
+D8C4: D0 B0     BNE $D876
+
+Jump from $D8AC:
+
+D8C6: A5 E7     LDA <a href="ra41e7.htm">$E7</a>         ; file type
+D8C8: 29 80     AND #$80        ; isolate wildcard flag
+D8CA: AA        TAX
+D8CB: D0 14     BNE $D8E1       ; wildcard in name
+D8CD: A9 20     LDA #$20
+D8CF: 24 E7     BIT <a href="ra41e7.htm">$E7</a>         ; was file closed?
+D8D1: F0 06     BEQ $D8D9       ; yes
+D8D3: 20 B6 C8  JSR <a href="ro41c8b6.htm">$C8B6</a>       ; byte 0 in buffer and write block
+D8D6: 4C E3 D9  JMP <a href="ro41d9e3.htm">$D9E3</a>
+
+Jump from $D8D1:
+
+D8D9: AD 80 02  LDA <a href="ra410280.htm">$0280</a>       ; track number of the first block
+D8DC: D0 03     BNE $D8E1       ; already existing
+D8DE: 4C E3 D9  JMP <a href="ro41d9e3.htm">$D9E3</a>
+
+Jump from $D8CB, $D8DC:
+
+D8E1: AD 00 02  LDA <a href="ra410200.htm">$0200</a>       ; first character from input buffer
+D8E4: C9 40     CMP #$40        ; '@'?
+D8E6: F0 0D     BEQ <a href="ro41d8f5.htm">$D8F5</a>       ; yes
+D8E8: 8A        TXA
+D8E9: D0 05     BNE $D8F0       ; wildcard set?
+D8EB: A9 63     LDA #$63
+D8ED: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 63, 'file exists'
+
+Jump from $D8E9:
+
+D8F0: A9 33     LDA #$33
+D8F2: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 33, 'syntax error'
+
+    <a href="ro41d7f3.htm">Previous Page</a> / <a href="ro41d8f5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

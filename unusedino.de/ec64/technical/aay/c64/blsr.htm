@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  LSR          LSR Shift right one bit (memory or accumulator)          LSR
+
+                   +-+-+-+-+-+-+-+-+
+  Operation:  0 -&gt; |7|6|5|4|3|2|1|0| -&gt; C               N V - B D I Z C
+                   +-+-+-+-+-+-+-+-+                    0 . . . . . / /
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr5.htm">Accumulator</a>   |   LSR A               |   $4A   |    1    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4b.htm">ZeroPage</a>      |   LSR $FF             |   $46   |    2    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10b.htm">ZeroPage,X</a>    |   LSR $FF,X           |   $56   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2b.htm">Absolute</a>      |   LSR $FFFF           |   $4E   |    3    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,X</a>    |   LSR $FFFF,X         |   $5E   |    3    |    7     |
+  +----------------+-----------------------+---------+---------+----------+
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+</pre></td></tr></table></center></body></html>

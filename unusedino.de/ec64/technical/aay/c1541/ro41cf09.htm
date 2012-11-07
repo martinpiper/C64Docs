@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CF09/53001:   ?
+
+Jump from <a href="ro41cf1e.htm">$CF1E</a>, <a href="ro41cf1e.htm">$CF7B</a>:
+
+CF09: A0 04     LDY #$04
+CF0B: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+
+Jump from $CF1A:
+
+CF0D: B9 FA 00  LDA <a href="ra41fa.htm">$FA</a>,Y
+CF10: 96 FA     STX <a href="ra41fa.htm">$FA</a>,Y
+CF12: C5 82     CMP <a href="ra4182.htm">$82</a>         ; channel number
+CF14: F0 07     BEQ $CF1D
+CF16: 88        DEY
+CF17: 30 E1     BMI <a href="ro41cefa.htm">$CEFA</a>
+CF19: AA        TAX
+CF1A: 4C 0D CF  JMP $CF0D
+
+Jump from $CF14:
+
+CF1D: 60        RTS
+
+    <a href="ro41cefa.htm">Previous Page</a> / <a href="ro41cf1e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

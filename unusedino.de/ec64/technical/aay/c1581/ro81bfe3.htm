@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Cachepuffer auf Diskette schreiben
+E: x: zu verwendender Jobspeicher
+
+Einsprung von <a href="ro81ff00.htm">$FF6C</a>:
+
+BFE3: A9 A2     LDA #$A2         TRKWRT_DV (Cache schreiben)
+BFE5: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X
+BFE8: A5 95     LDA <a href="ra8195.htm">$95</a>          Track im Cache
+BFEA: 85 4D     STA <a href="ra814d.htm">$4D</a>          = aktueller Track
+BFEC: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornummer auf Track
+BFEE: 85 4E     STA <a href="ra814e.htm">$4E</a>          = aktuelle Sektornummer
+BFF0: 86 6C     STX <a href="ra816c.htm">$6C</a>          Jobnummer merken
+BFF2: 8A        TXA
+BFF3: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S an DC uebergeben
+BFF6: A6 6C     LDX <a href="ra816c.htm">$6C</a>          Jobnummer
+BFF8: A5 30     LDA <a href="ra8130.htm">$30</a>          Anzahl Schreibversuche
+BFFA: 29 3F     AND #$3F
+BFFC: 85 28     STA <a href="ra8128.htm">$28</a>          in Zaehler
+BFFE: 20 1D C0  JSR $C01D        Schreibjob ausfuehren
+C001: 90 15     BCC $C018        kein Fehler, ==&gt;
+
+Einsprung von $C00A:
+
+C003: 20 19 C0  JSR $C019        Schreibflag setzen, neuer Versuch
+C006: 90 10     BCC $C018        kein Fehler, ==&gt;
+C008: C6 28     DEC <a href="ra8128.htm">$28</a>          Naechster Versuch
+C00A: D0 F7     BNE $C003
+C00C: 24 81     BIT <a href="ra8181.htm">$81</a>          Fehlermeldung unterdruecken (Burst) ?
+C00E: 30 08     BMI $C018        ja, ==&gt;
+C010: 2C A8 02  BIT <a href="ra8102a8.htm">$02A8</a>        Fehlermeldung unterdruecken (DOS-Flag) ?
+C013: 30 03     BMI $C018        ja, ==&gt;
+C015: 4C 2F 95  JMP <a href="ro8194f8.htm">$952F</a>        Fehlermeldung ausgeben
+
+Einsprung von $C001, $C006, $C00E, $C013:
+
+C018: 60        RTS
+
+Einsprung von $C003:
+
+C019: A9 80     LDA #$80         Flag: 'Cache veraendert' setzen
+C01B: 85 87     STA <a href="ra8187.htm">$87</a>
+
+Einsprung von $BFFE:
+
+C01D: A5 4D     LDA <a href="ra814d.htm">$4D</a>          aktuellen Track
+C01F: 85 95     STA <a href="ra8195.htm">$95</a>          als Track im Cachepuffer setzen
+C021: A0 01     LDY #$01         1 Schreibversuch
+C023: 4C 69 95  JMP <a href="ro8194f8.htm">$9569</a>        Cache schreiben
+    <a href="ro81bfb0.htm">Previous Page</a> / <a href="ro81c026.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

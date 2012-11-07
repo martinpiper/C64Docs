@@ -1,0 +1,138 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BE68/48744:   Convert TI to String
+
+Jump from <a href="romaf48.htm">$AF56</a>:
+
+BE68: A2 80     <a href="bldx.htm">LDX</a> #$80
+
+Jump from $BE8A, $BE8E, $BEC2:
+
+BE6A: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BE6C: 18        <a href="bclc.htm">CLC</a>
+BE6D: 79 19 BF  <a href="badc.htm">ADC</a> <a href="rombf16.htm">$BF19</a>,Y   ; Table of Constants  4-byte powers of 10
+BE70: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BE72: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BE74: 79 18 BF  <a href="badc.htm">ADC</a> <a href="rombf16.htm">$BF18</a>,Y   ; Table of Constants  4-byte powers of 10
+BE77: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BE79: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BE7B: 79 17 BF  <a href="badc.htm">ADC</a> <a href="rombf16.htm">$BF17</a>,Y   ; Table of Constants  4-byte powers of 10
+BE7E: 85 63     <a href="bsta.htm">STA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BE80: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BE82: 79 16 BF  <a href="badc.htm">ADC</a> <a href="rombf16.htm">$BF16</a>,Y   ; Table of Constants  4-byte powers of 10
+BE85: 85 62     <a href="bsta.htm">STA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BE87: E8        <a href="binx.htm">INX</a>
+BE88: B0 04     <a href="bbcs.htm">BCS</a> $BE8E
+BE8A: 10 DE     <a href="bbpl.htm">BPL</a> $BE6A
+BE8C: 30 02     <a href="bbmi.htm">BMI</a> $BE90
+
+Jump from $BE88:
+
+BE8E: 30 DA     <a href="bbmi.htm">BMI</a> $BE6A
+
+Jump from $BE8C:
+
+BE90: 8A        <a href="btxa.htm">TXA</a>
+BE91: 90 04     <a href="bbcc.htm">BCC</a> $BE97
+BE93: 49 FF     <a href="beor.htm">EOR</a> #$FF
+BE95: 69 0A     <a href="badc.htm">ADC</a> #$0A
+
+Jump from $BE91:
+
+BE97: 69 2F     <a href="badc.htm">ADC</a> #$2F
+BE99: C8        <a href="biny.htm">INY</a>
+BE9A: C8        <a href="biny.htm">INY</a>
+BE9B: C8        <a href="biny.htm">INY</a>
+BE9C: C8        <a href="biny.htm">INY</a>
+BE9D: 84 47     <a href="bsty.htm">STY</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+BE9F: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+BEA1: C8        <a href="biny.htm">INY</a>
+BEA2: AA        <a href="btax.htm">TAX</a>
+BEA3: 29 7F     <a href="band.htm">AND</a> #$7F
+BEA5: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+BEA8: C6 5D     <a href="bdec.htm">DEC</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BEAA: D0 06     <a href="bbne.htm">BNE</a> $BEB2
+BEAC: A9 2E     <a href="blda.htm">LDA</a> #$2E
+BEAE: C8        <a href="biny.htm">INY</a>
+BEAF: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+
+Jump from $BEAA:
+
+BEB2: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+BEB4: A4 47     <a href="bldy.htm">LDY</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+BEB6: 8A        <a href="btxa.htm">TXA</a>
+BEB7: 49 FF     <a href="beor.htm">EOR</a> #$FF
+BEB9: 29 80     <a href="band.htm">AND</a> #$80
+BEBB: AA        <a href="btax.htm">TAX</a>
+BEBC: C0 24     <a href="bcpy.htm">CPY</a> #$24
+BEBE: F0 04     <a href="bbeq.htm">BEQ</a> $BEC4
+BEC0: C0 3C     <a href="bcpy.htm">CPY</a> #$3C
+BEC2: D0 A6     <a href="bbne.htm">BNE</a> $BE6A
+
+Jump from $BEBE:
+
+BEC4: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+
+Jump from $BECC:
+
+BEC6: B9 FF 00  <a href="blda.htm">LDA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+BEC9: 88        <a href="bdey.htm">DEY</a>
+BECA: C9 30     <a href="bcmp.htm">CMP</a> #$30
+BECC: F0 F8     <a href="bbeq.htm">BEQ</a> $BEC6
+BECE: C9 2E     <a href="bcmp.htm">CMP</a> #$2E
+BED0: F0 01     <a href="bbeq.htm">BEQ</a> $BED3
+BED2: C8        <a href="biny.htm">INY</a>
+
+Jump from $BED0:
+
+BED3: A9 2B     <a href="blda.htm">LDA</a> #$2B
+BED5: A6 5E     <a href="bldx.htm">LDX</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BED7: F0 2E     <a href="bbeq.htm">BEQ</a> $BF07
+BED9: 10 08     <a href="bbpl.htm">BPL</a> $BEE3
+BEDB: A9 00     <a href="blda.htm">LDA</a> #$00
+BEDD: 38        <a href="bsec.htm">SEC</a>
+BEDE: E5 5E     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BEE0: AA        <a href="btax.htm">TAX</a>
+BEE1: A9 2D     <a href="blda.htm">LDA</a> #$2D
+
+Jump from $BED9:
+
+BEE3: 99 01 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0101</a>,Y   ; 6510 Hardware Stack Area
+BEE6: A9 45     <a href="blda.htm">LDA</a> #$45
+BEE8: 99 00 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0100</a>,Y   ; 6510 Hardware Stack Area
+BEEB: 8A        <a href="btxa.htm">TXA</a>
+BEEC: A2 2F     <a href="bldx.htm">LDX</a> #$2F
+BEEE: 38        <a href="bsec.htm">SEC</a>
+
+Jump from $BEF2:
+
+BEEF: E8        <a href="binx.htm">INX</a>
+BEF0: E9 0A     <a href="bsbc.htm">SBC</a> #$0A
+BEF2: B0 FB     <a href="bbcs.htm">BCS</a> $BEEF
+BEF4: 69 3A     <a href="badc.htm">ADC</a> #$3A
+BEF6: 99 03 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0103</a>,Y   ; 6510 Hardware Stack Area
+BEF9: 8A        <a href="btxa.htm">TXA</a>
+BEFA: 99 02 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0102</a>,Y   ; 6510 Hardware Stack Area
+BEFD: A9 00     <a href="blda.htm">LDA</a> #$00
+BEFF: 99 04 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0104</a>,Y   ; 6510 Hardware Stack Area
+BF02: F0 08     <a href="bbeq.htm">BEQ</a> $BF0C
+
+Jump from <a href="rombddd.htm">$BDF5</a>:
+
+BF04: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+
+Jump from $BED7:
+
+BF07: A9 00     <a href="blda.htm">LDA</a> #$00
+BF09: 99 00 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0100</a>,Y   ; 6510 Hardware Stack Area
+
+Jump from $BF02:
+
+BF0C: A9 00     <a href="blda.htm">LDA</a> #$00
+BF0E: A0 01     <a href="bldy.htm">LDY</a> #$01
+BF10: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombddd.htm">Previous Page</a> / <a href="rombf11.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

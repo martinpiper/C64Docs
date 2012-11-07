@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AA86/43654:   Perform [cmd]
+
+Jump from <a href="romaa80.htm">$AA80</a>:
+
+AA86: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+AA89: F0 05     <a href="bbeq.htm">BEQ</a> $AA90
+AA8B: A9 2C     <a href="blda.htm">LDA</a> #$2C
+AA8D: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+
+Jump from $AA89:
+
+AA90: 08        <a href="bphp.htm">PHP</a>
+AA91: 86 13     <a href="bstx.htm">STX</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AA93: 20 18 E1  <a href="bjsr.htm">JSR</a> <a href="rome118.htm">$E118</a>     ; Set Up For Output
+AA96: 28        <a href="bplp.htm">PLP</a>
+AA97: 4C A0 AA  <a href="bjmp.htm">JMP</a> <a href="romaaa0.htm">$AAA0</a>     ; Perform [print]
+
+    <a href="romaa80.htm">Previous Page</a> / <a href="romaa9a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

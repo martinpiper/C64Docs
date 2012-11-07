@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C1BD/49597:   Erase input buffer
+
+Jump from <a href="ro41c194.htm">$C1B7</a>, <a href="ro41e645.htm">$E648</a>:
+
+C1BD: A0 28     LDY #$28        ; erase 41 characters
+C1BF: A9 00     LDA #$00
+
+Jump from $C1C5:
+
+C1C1: 99 00 02  STA <a href="ra410200.htm">$0200</a>,Y     ; $200 to $228
+C1C4: 88        DEY
+C1C5: 10 FA     BPL $C1C1
+C1C7: 60        RTS
+
+    <a href="ro41c194.htm">Previous Page</a> / <a href="ro41c1c8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,95 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C3CA/50122:   Verify drive number
+
+Jump from <a href="ro41c44f.htm">$C44F</a>, <a href="ro41c823.htm">$C829</a>, <a href="ro41d815.htm">$D84F</a>, <a href="ro41da55.htm">$DA9E</a>:
+
+C3CA: A9 00     LDA #$00
+C3CC: 85 6F     STA <a href="ra416f.htm">$6F</a>
+C3CE: 8D 8D 02  STA <a href="ra41028d.htm">$028D</a>
+C3D1: 48        PHA
+C3D2: AE 78 02  LDX <a href="ra410278.htm">$0278</a>       ; number of drive numbers
+
+Jump from $C3E9, $C3ED:
+
+C3D5: 68        PLA
+C3D6: 05 6F     ORA <a href="ra416f.htm">$6F</a>
+C3D8: 48        PHA
+C3D9: A9 01     LDA #$01
+C3DB: 85 6F     STA <a href="ra416f.htm">$6F</a>
+C3DD: CA        DEX
+C3DE: 30 0F     BMI $C3EF
+C3E0: B5 E2     LDA <a href="ra41e2.htm">$E2</a>,X
+C3E2: 10 04     BPL $C3E8
+C3E4: 06 6F     ASL <a href="ra416f.htm">$6F</a>
+C3E6: 06 6F     ASL <a href="ra416f.htm">$6F</a>
+
+Jump from $C3E2:
+
+C3E8: 4A        LSR
+C3E9: 90 EA     BCC $C3D5
+C3EB: 06 6F     ASL <a href="ra416f.htm">$6F</a>
+C3ED: D0 E6     BNE $C3D5
+
+Jump from $C3DE:
+
+C3EF: 68        PLA
+C3F0: AA        TAX
+C3F1: BD 3F C4  LDA $C43F,X     ; get syntax flag
+C3F4: 48        PHA
+C3F5: 29 03     AND #$03
+C3F7: 8D 8C 02  STA <a href="ra41028c.htm">$028C</a>
+C3FA: 68        PLA
+C3FB: 0A        ASL
+C3FC: 10 3E     BPL $C43C
+C3FE: A5 E2     LDA <a href="ra41e2.htm">$E2</a>
+
+Jump from $C43D:
+
+C400: 29 01     AND #$01        ; isolate drive number
+C402: 85 7F     STA <a href="ra417f.htm">$7F</a>
+C404: AD 8C 02  LDA <a href="ra41028c.htm">$028C</a>
+C407: F0 2B     BEQ $C434
+C409: 20 3D C6  JSR <a href="ro41c63d.htm">$C63D</a>       ; initialize drive
+C40C: F0 12     BEQ $C420       ; error?
+C40E: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>       ; switch to other drive
+C411: A9 00     LDA #$00
+C413: 8D 8C 02  STA <a href="ra41028c.htm">$028C</a>
+C416: 20 3D C6  JSR <a href="ro41c63d.htm">$C63D</a>       ; initialize drive
+C419: F0 1E     BEQ $C439       ; no error?
+
+Jump from $C437:
+
+C41B: A9 74     LDA #$74
+C41D: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 74, 'drive not ready'
+
+Jump from $C40C:
+
+C420: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>
+C423: 20 3D C6  JSR <a href="ro41c63d.htm">$C63D</a>       ; initialize drive
+C426: 08        PHP
+C427: 20 8F C3  JSR <a href="ro41c38f.htm">$C38F</a>       ; switch to other drive
+C42A: 28        PLP
+C42B: F0 0C     BEQ $C439       ; no error?
+C42D: A9 00     LDA #$00
+C42F: 8D 8C 02  STA <a href="ra41028c.htm">$028C</a>       ; number of drives
+C432: F0 05     BEQ $C439
+
+Jump from $C407:
+
+C434: 20 3D C6  JSR <a href="ro41c63d.htm">$C63D</a>       ; initialize drive
+C437: D0 E2     BNE $C41B       ; error?
+
+Jump from $C419, $C42B, $C432:
+
+C439: 4C 00 C1  JMP <a href="ro41c100.htm">$C100</a>       ; turn LED on
+
+Jump from $C3FC:
+
+C43C: 2A        ROL             ; drive number from carry after bit 0
+C43D: 4C 00 C4  JMP $C400
+
+    <a href="ro41c3bd.htm">Previous Page</a> / <a href="ro41c440.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

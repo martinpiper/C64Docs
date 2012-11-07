@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CB20/52000:   M-R memory read
+
+Jump from <a href="ro41caf8.htm">$CB10</a>:
+
+CB20: B1 6F     LDA (<a href="ra416f.htm">$6F</a>),Y     ; read byte
+CB22: 85 85     STA <a href="ra4185.htm">$85</a>
+CB24: AD 74 02  LDA <a href="ra410274.htm">$0274</a>       ; length of command line
+CB27: C9 06     CMP #$06        ; less than 6?
+CB29: 90 1A     BCC $CB45       ; yes
+CB2B: AE 05 02  LDX <a href="ra410200.htm">$0205</a>       ; number
+CB2E: CA        DEX
+CB2F: F0 14     BEQ $CB45       ; only one byte?
+CB31: 8A        TXA             ; number of bytes
+CB32: 18        CLC
+CB33: 65 6F     ADC <a href="ra416f.htm">$6F</a>         ; plus start address
+CB35: E6 6F     INC <a href="ra416f.htm">$6F</a>
+CB37: 8D 49 02  STA <a href="ra410244.htm">$0249</a>       ; end pointer
+CB3A: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+CB3C: 85 A5     STA <a href="ra41a5.htm">$A5</a>         ; buffer pointer for error message
+CB3E: A5 70     LDA <a href="ra416f.htm">$70</a>         ; set to start address for 'M-R'
+CB40: 85 A6     STA <a href="ra41a5.htm">$A6</a>
+CB42: 4C 43 D4  JMP <a href="ro41d39b.htm">$D443</a>       ; byte out
+
+Jump from $CB29, $CB2F:
+
+CB45: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open read channel
+CB48: 4C 3A D4  JMP <a href="ro41d39b.htm">$D43A</a>       ; byte out
+
+Jump from <a href="ro41caf8.htm">$CAFD</a>, <a href="ro41caf8.htm">$CB1B</a>:
+
+CB4B: A9 31     LDA #$31
+CB4D: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 31, 'syntax error'
+
+    <a href="ro41caf8.htm">Previous Page</a> / <a href="ro41cb50.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

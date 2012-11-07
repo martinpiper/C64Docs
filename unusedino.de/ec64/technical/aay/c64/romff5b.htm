@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FF5B/65371:   Initialize screen editor
+
+Jump from <a href="romfce2.htm">$FCFB</a>, <a href="romff81.htm">$FF81</a>:
+
+FF5B: 20 18 E5  <a href="bjsr.htm">JSR</a> <a href="rome518.htm">$E518</a>     ; Initialize I/O
+
+Jump from $FF61:
+
+FF5E: AD 12 D0  <a href="blda.htm">LDA</a> <a href="vic18.htm">$D012</a>     ; VIC: Raster Position
+FF61: D0 FB     <a href="bbne.htm">BNE</a> $FF5E
+FF63: AD 19 D0  <a href="blda.htm">LDA</a> <a href="vic25.htm">$D019</a>     ; VIC: Interrupt Request Register (IRR)
+FF66: 29 01     <a href="band.htm">AND</a> #$01
+FF68: 8D A6 02  <a href="bsta.htm">STA</a> <a href="zp02a6.htm">$02A6</a>     ; Flag: TV Standard
+FF6B: 4C DD FD  <a href="bjmp.htm">JMP</a> <a href="romfddd.htm">$FDDD</a>     ; Enable Timer
+
+Jump from <a href="romfddd.htm">$FDF6</a>:
+
+FF6E: A9 81     <a href="blda.htm">LDA</a> #$81
+FF70: 8D 0D DC  <a href="bsta.htm">STA</a> <a href="cia113.htm">$DC0D</a>     ; CIA1: Interrupt (IRQ) Control Register
+FF73: AD 0E DC  <a href="blda.htm">LDA</a> <a href="cia114.htm">$DC0E</a>     ; CIA1: Control Register A
+FF76: 29 80     <a href="band.htm">AND</a> #$80
+FF78: 09 11     <a href="bora.htm">ORA</a> #$11
+FF7A: 8D 0E DC  <a href="bsta.htm">STA</a> <a href="cia114.htm">$DC0E</a>     ; CIA1: Control Register A
+FF7D: 4C 8E EE  <a href="bjmp.htm">JMP</a> <a href="romee8e.htm">$EE8E</a>     ; Serial Clock Off
+
+    <a href="romff48.htm">Previous Page</a> / <a href="romff80.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,173 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BCF3/48371:   Convert ASCII String to a Number in FAC
+
+Jump from <a href="romac35.htm">$AC89</a>, <a href="romae83.htm">$AE8F</a>, <a href="romb7b5.htm">$B7DA</a>:
+
+BCF3: A0 00     <a href="bldy.htm">LDY</a> #$00
+BCF5: A2 0A     <a href="bldx.htm">LDX</a> #$0A
+
+Jump from $BCFA:
+
+BCF7: 94 5D     <a href="bsty.htm">STY</a> <a href="zp5c.htm">$5D</a>,X     ; Temporary storage for FLPT value
+BCF9: CA        <a href="bdex.htm">DEX</a>
+BCFA: 10 FB     <a href="bbpl.htm">BPL</a> $BCF7
+BCFC: 90 0F     <a href="bbcc.htm">BCC</a> $BD0D
+BCFE: C9 2D     <a href="bcmp.htm">CMP</a> #$2D
+BD00: D0 04     <a href="bbne.htm">BNE</a> $BD06
+BD02: 86 67     <a href="bstx.htm">STX</a> <a href="zp67.htm">$67</a>       ; Pointer: Series Evaluation Constant
+BD04: F0 04     <a href="bbeq.htm">BEQ</a> $BD0A
+
+Jump from $BD00:
+
+BD06: C9 2B     <a href="bcmp.htm">CMP</a> #$2B
+BD08: D0 05     <a href="bbne.htm">BNE</a> $BD0F
+
+Jump from $BD04, $BD45, $BD7B:
+
+BD0A: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+
+Jump from $BCFC:
+
+BD0D: 90 5B     <a href="bbcc.htm">BCC</a> $BD6A
+
+Jump from $BD08:
+
+BD0F: C9 2E     <a href="bcmp.htm">CMP</a> #$2E
+BD11: F0 2E     <a href="bbeq.htm">BEQ</a> $BD41
+BD13: C9 45     <a href="bcmp.htm">CMP</a> #$45
+BD15: D0 30     <a href="bbne.htm">BNE</a> $BD47
+BD17: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+BD1A: 90 17     <a href="bbcc.htm">BCC</a> $BD33
+BD1C: C9 AB     <a href="bcmp.htm">CMP</a> #$AB
+BD1E: F0 0E     <a href="bbeq.htm">BEQ</a> $BD2E
+BD20: C9 2D     <a href="bcmp.htm">CMP</a> #$2D
+BD22: F0 0A     <a href="bbeq.htm">BEQ</a> $BD2E
+BD24: C9 AA     <a href="bcmp.htm">CMP</a> #$AA
+BD26: F0 08     <a href="bbeq.htm">BEQ</a> $BD30
+BD28: C9 2B     <a href="bcmp.htm">CMP</a> #$2B
+BD2A: F0 04     <a href="bbeq.htm">BEQ</a> $BD30
+BD2C: D0 07     <a href="bbne.htm">BNE</a> $BD35
+
+Jump from $BD1E, $BD22:
+
+BD2E: 66 60     <a href="bror.htm">ROR</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+
+Jump from $BD26, $BD2A, $BDB0:
+
+BD30: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+
+Jump from $BD1A:
+
+BD33: 90 5C     <a href="bbcc.htm">BCC</a> $BD91
+
+Jump from $BD2C:
+
+BD35: 24 60     <a href="bbit.htm">BIT</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+BD37: 10 0E     <a href="bbpl.htm">BPL</a> $BD47
+BD39: A9 00     <a href="blda.htm">LDA</a> #$00
+BD3B: 38        <a href="bsec.htm">SEC</a>
+BD3C: E5 5E     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BD3E: 4C 49 BD  <a href="bjmp.htm">JMP</a> $BD49
+
+Jump from $BD11:
+
+BD41: 66 5F     <a href="bror.htm">ROR</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+BD43: 24 5F     <a href="bbit.htm">BIT</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+BD45: 50 C3     <a href="bbvc.htm">BVC</a> $BD0A
+
+Jump from $BD15, $BD37:
+
+BD47: A5 5E     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+
+Jump from $BD3E:
+
+BD49: 38        <a href="bsec.htm">SEC</a>
+BD4A: E5 5D     <a href="bsbc.htm">SBC</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BD4C: 85 5E     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BD4E: F0 12     <a href="bbeq.htm">BEQ</a> $BD62
+BD50: 10 09     <a href="bbpl.htm">BPL</a> $BD5B
+
+Jump from $BD57:
+
+BD52: 20 FE BA  <a href="bjsr.htm">JSR</a> <a href="rombafe.htm">$BAFE</a>     ; Divide FAC#1 by 10
+BD55: E6 5E     <a href="binc.htm">INC</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BD57: D0 F9     <a href="bbne.htm">BNE</a> $BD52
+BD59: F0 07     <a href="bbeq.htm">BEQ</a> $BD62
+
+Jump from $BD50, $BD60:
+
+BD5B: 20 E2 BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAE2</a>     ; Multiply FAC#1 by 10
+BD5E: C6 5E     <a href="bdec.htm">DEC</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BD60: D0 F9     <a href="bbne.htm">BNE</a> $BD5B
+
+Jump from $BD4E, $BD59:
+
+BD62: A5 67     <a href="blda.htm">LDA</a> <a href="zp67.htm">$67</a>       ; Pointer: Series Evaluation Constant
+BD64: 30 01     <a href="bbmi.htm">BMI</a> $BD67
+BD66: 60        <a href="brts.htm">RTS</a>
+
+Jump from $BD64:
+
+BD67: 4C B4 BF  <a href="bjmp.htm">JMP</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+
+Jump from $BD0D:
+
+BD6A: 48        <a href="bpha.htm">PHA</a>
+BD6B: 24 5F     <a href="bbit.htm">BIT</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+BD6D: 10 02     <a href="bbpl.htm">BPL</a> $BD71
+BD6F: E6 5D     <a href="binc.htm">INC</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+
+Jump from $BD6D:
+
+BD71: 20 E2 BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAE2</a>     ; Multiply FAC#1 by 10
+BD74: 68        <a href="bpla.htm">PLA</a>
+BD75: 38        <a href="bsec.htm">SEC</a>
+BD76: E9 30     <a href="bsbc.htm">SBC</a> #$30
+BD78: 20 7E BD  <a href="bjsr.htm">JSR</a> $BD7E
+BD7B: 4C 0A BD  <a href="bjmp.htm">JMP</a> $BD0A
+
+Jump from $BD78, <a href="roma9e3.htm">$AA29</a>, <a href="romb9ea.htm">$BA21</a>:
+
+BD7E: 48        <a href="bpha.htm">PHA</a>
+BD7F: 20 0C BC  <a href="bjsr.htm">JSR</a> <a href="rombc0c.htm">$BC0C</a>     ; Copy FAC#1 into FAC#2
+BD82: 68        <a href="bpla.htm">PLA</a>
+BD83: 20 3C BC  <a href="bjsr.htm">JSR</a> <a href="rombc39.htm">$BC3C</a>     ; Evaluate &lt;sgn&gt;
+BD86: A5 6E     <a href="blda.htm">LDA</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+BD88: 45 66     <a href="beor.htm">EOR</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BD8A: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+BD8C: A6 61     <a href="bldx.htm">LDX</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BD8E: 4C 6A B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B86A</a>     ; Perform Addition
+
+Jump from $BD33:
+
+BD91: A5 5E     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BD93: C9 0A     <a href="bcmp.htm">CMP</a> #$0A
+BD95: 90 09     <a href="bbcc.htm">BCC</a> $BDA0
+BD97: A9 64     <a href="blda.htm">LDA</a> #$64
+BD99: 24 60     <a href="bbit.htm">BIT</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+BD9B: 30 11     <a href="bbmi.htm">BMI</a> $BDAE
+BD9D: 4C 7E B9  <a href="bjmp.htm">JMP</a> <a href="romb97e.htm">$B97E</a>     ; Output ?OVERFLOW Error
+
+Jump from $BD95:
+
+BDA0: 0A        <a href="basl.htm">ASL</a>
+BDA1: 0A        <a href="basl.htm">ASL</a>
+BDA2: 18        <a href="bclc.htm">CLC</a>
+BDA3: 65 5E     <a href="badc.htm">ADC</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BDA5: 0A        <a href="basl.htm">ASL</a>
+BDA6: 18        <a href="bclc.htm">CLC</a>
+BDA7: A0 00     <a href="bldy.htm">LDY</a> #$00
+BDA9: 71 7A     <a href="badc.htm">ADC</a> (<a href="zp7a.htm">$7A</a>),Y   ; Pointer: Current Byte of BASIC Text
+BDAB: 38        <a href="bsec.htm">SEC</a>
+BDAC: E9 30     <a href="bsbc.htm">SBC</a> #$30
+
+Jump from $BD9B:
+
+BDAE: 85 5E     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BDB0: 4C 30 BD  <a href="bjmp.htm">JMP</a> $BD30
+
+    <a href="rombccc.htm">Previous Page</a> / <a href="rombdb3.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,82 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Sprungvektoren
+
+Einsprung von <a href="ro81a7f1.htm">$A83B</a>, <a href="ro81aedf.htm">$AEE7</a>, <a href="ro81afca.htm">$AFE6</a>:
+
+FF00: 6C 90 01  JMP (<a href="ra810190.htm">$0190</a>)      $b0f0  JIDLE: Hauptleerlaufschleife
+FF03: 6C 92 01  JMP (<a href="ra810192.htm">$0192</a>)      $dafd  JIRQ: Interrupt-Vektor
+
+Einsprung von <a href="ro81ad3c.htm">$AD59</a>:
+
+FF06: 6C 94 01  JMP (<a href="ra810194.htm">$0194</a>)      $afca  JNMI: Warmstart-Vektor
+FF09: 6C 96 01  JMP (<a href="ra810196.htm">$0196</a>)      $b262  JVERDIR: VALIDATE-Befehl
+FF0C: 6C 98 01  JMP (<a href="ra810198.htm">$0198</a>)      $8ec5  JINTDRV: INITIALIZE-Befehl
+FF0F: 6C 9A 01  JMP (<a href="ra81019a.htm">$019A</a>)      $b781  JPART: PARTITION-Befehl
+FF12: 6C 9C 01  JMP (<a href="ra81019c.htm">$019C</a>)      $892f  JMEM: M-x -Befehle
+FF15: 6C 9E 01  JMP (<a href="ra81019e.htm">$019E</a>)      $8a5d  JBLOCK: B-x -Befehle
+FF18: 6C A0 01  JMP (<a href="ra8101a0.htm">$01A0</a>)      $898f  JUSER: Ux -Befehle
+FF1B: 6C A2 01  JMP (<a href="ra8101a2.htm">$01A2</a>)      $a1a1  JRECORD: Position-Befehl
+FF1E: 6C A4 01  JMP (<a href="ra8101a4.htm">$01A4</a>)      $a956  JUTLODR: &amp;-Befehl
+FF21: 6C A6 01  JMP (<a href="ra8101a6.htm">$01A6</a>)      $876e  JDSKCPY: COPY-Befehl
+FF24: 6C A8 01  JMP (<a href="ra8101a8.htm">$01A8</a>)      $88c5  JRENAME: RENAME-Befehl
+FF27: 6C AA 01  JMP (<a href="ra8101aa.htm">$01AA</a>)      $8688  JSCRTCH: SCRATCH-Befehl
+
+Einsprung von <a href="ro81bd12.htm">$BD79</a>:
+
+FF2A: 6C AC 01  JMP (<a href="ra8101ac.htm">$01AC</a>)      $b348  JNEW: NEW-Befehl
+
+Einsprung von <a href="ro818746.htm">$876A</a>, <a href="ro8194f8.htm">$9536</a>, <a href="ro81b9d3.htm">$B9DC</a>, <a href="ro81bafc.htm">$BB0E</a>:
+
+FF2D: 6C AE 01  JMP (<a href="ra8101ae.htm">$01AE</a>)      $a7ae  ERROR: Error-Routine des Controllers
+
+Einsprung von <a href="ro81ad15.htm">$AD29</a>, <a href="ro81b0f0.htm">$B10C</a>, <a href="ro81ba40.htm">$BA61</a>:
+
+FF30: 6C B0 01  JMP (<a href="ra8101b0.htm">$01B0</a>)      $abcf  JATNSRV: ATN bedienen
+
+Einsprung von <a href="ro81abcf.htm">$AC88</a>:
+
+FF33: 6C B2 01  JMP (<a href="ra8101b2.htm">$01B2</a>)      $ad5c  JTALK: Daten zum Computer senden
+
+Einsprung von <a href="ro81abcf.htm">$AC75</a>:
+
+FF36: 6C B4 01  JMP (<a href="ra8101b4.htm">$01B4</a>)      $aeb8  JLISTEN: Daten vom Computer holen
+
+Einsprung von <a href="ro81dafd.htm">$DB22</a>, <a href="ro81dafd.htm">$DB2D</a>:
+
+FF39: 6C B6 01  JMP (<a href="ra8101b6.htm">$01B6</a>)      $c0be  JLCC: Controller-Routine
+
+Einsprung von <a href="ro81c0be.htm">$C0F5</a>:
+
+FF3C: 6C B8 01  JMP (<a href="ra8101b8.htm">$01B8</a>)      $cedc  JTRANS_TS: log. in phys. Format
+
+Einsprung von <a href="ro81807c.htm">$8082</a>, <a href="ro818b2f.htm">$8B5D</a>, <a href="ro819471.htm">$94A5</a>, <a href="ro8194cb.htm">$94D0</a>, <a href="ro819a72.htm">$9ACA</a>, <a href="ro81a15c.htm">$A19E</a>, <a href="ro81a956.htm">$A9E5</a>, <a href="ro81a956.htm">$AA01</a>, <a href="ro81b2ef.htm">$B320</a>,
+              <a href="ro81b5b4.htm">$B5BA</a>, <a href="ro81b6ed.htm">$B728</a>, <a href="ro81b6ed.htm">$B743</a>, <a href="ro81b75e.htm">$B77E</a>, <a href="ro81b811.htm">$B84E</a>:
+
+FF3F: 6C BA 01  JMP (<a href="ra8101ba.htm">$01BA</a>)      $a7f1  CMDERR: Error-Routine des DOS
+
+FF42: FF ....
+FF53: .... FF
+
+FF54: 4C 9D 95  JMP <a href="ro819598.htm">$959D</a>        STROBE_CONTROLLER: Aufruf des Controllers
+FF57: 4C 38 A9  JMP <a href="ro81a938.htm">$A938</a>        JCBMBOOT: Autoboot-Routine
+FF5A: 4C 4C A9  JMP <a href="ro81a94c.htm">$A94C</a>        JCBMBOOTRTN: Beenden des Bootprogramms
+FF5D: 4C 1D AB  JMP <a href="ro81ab1d.htm">$AB1D</a>        JSIGNATURE: ROM-Signatur pruefen
+FF60: 4C 45 91  JMP <a href="ro819145.htm">$9145</a>        JDEJAVU: Selbstladeroutine umschalten
+FF63: 4C EA AE  JMP <a href="ro81aeea.htm">$AEEA</a>        JSPINOUT: SPIN, SPOUT festlegen
+FF66: 4C 5C 8C  JMP <a href="ro818c5c.htm">$8C5C</a>        JALLOCBUFF: Puffer allokieren
+
+Einsprung von <a href="ro81b348.htm">$B374</a>, <a href="ro81b380.htm">$B380</a>, <a href="ro81bebb.htm">$BEE7</a>, <a href="ro81bebb.htm">$BEF5</a>:
+
+FF69: 4C 60 94  JMP <a href="ro819460.htm">$9460</a>        JDETDSKCHG: Prueft auf Diskettenwechsel
+
+Einsprung von <a href="ro81b15b.htm">$B16F</a>, <a href="ro81bf02.htm">$BF36</a>:
+
+FF6C: 4C E3 BF  JMP <a href="ro81bfe3.htm">$BFE3</a>        JTRKWRT: Cachepuffer auf Disk schreiben
+
+FF6F: FF ....
+FF74: .... FF
+    <a href="ro81dbc7.htm">Previous Page</a> / <a href="ro81ff75.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

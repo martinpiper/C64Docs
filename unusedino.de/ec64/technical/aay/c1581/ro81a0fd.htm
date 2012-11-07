@@ -1,0 +1,85 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Letztes benutzte Zeichen im Record suchen ($e16e)
+
+Einsprung von <a href="ro819f4c.htm">$9FBC</a>:
+
+A0FD: A6 50     LDX <a href="ra8150.htm">$50</a>
+A0FF: BD 57 02  LDA <a href="ra810257.htm">$0257</a>,X      Zeiger auf naechsten Record holen
+A102: 85 56     STA <a href="ra8156.htm">$56</a>
+A104: C6 56     DEC <a href="ra8156.htm">$56</a>          -1 (letztes Zeichen im Record)
+A106: C9 02     CMP #$02         Ist letztes Zeichen im alten Datenblock ?
+A108: D0 04     BNE $A10E        nein, ==&gt;
+A10A: A9 FF     LDA #$FF         Zeiger auf letztes Zeichen im Datenblock
+A10C: 85 56     STA <a href="ra8156.htm">$56</a>          setzen
+
+Einsprung von $A108:
+
+A10E: BD 5E 02  LDA <a href="ra81025e.htm">$025E</a>,X      Recordlaenge merken (Dies ist der Bereich,
+A111: 85 57     STA <a href="ra8157.htm">$57</a>          in dem das Zeichen liegen muss)
+A113: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger des aktiven Puffers holen
+A116: A6 50     LDX <a href="ra8150.htm">$50</a>          Ist Pufferzeiger hinter dem Record-Ende ?
+A118: C5 56     CMP <a href="ra8156.htm">$56</a>
+A11A: 90 19     BCC $A135        nein, ==&gt;
+A11C: F0 17     BEQ $A135        nein, ==&gt;
+A11E: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        ja, Puffer wechseln (Record hoert im anderen
+                                Puffer auf)
+A121: 20 43 A1  JSR $A143        Recordende suchen
+A124: 90 08     BCC $A12E        nicht gefunden, ==&gt;
+A126: A6 50     LDX <a href="ra8150.htm">$50</a>          Record geht ueber die Blockgrenze hinaus
+A128: 9D 42 02  STA <a href="ra810242.htm">$0242</a>,X      Recordende merken
+A12B: 4C 7D 8D  JMP <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln (1. Teil des Records) ==&gt;
+
+Einsprung von $A124:
+
+A12E: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln (1. Teil des Records)
+A131: A9 FF     LDA #$FF         Zeiger auf Pufferende setzen
+A133: 85 56     STA <a href="ra8156.htm">$56</a>
+
+Einsprung von $A11A, $A11C:
+
+A135: 20 43 A1  JSR $A143        weitersuchen
+A138: B0 03     BCS $A13D        gefunden, ==&gt;
+                                [Record ist komplett leer; deshalb wird der
+A13A: 20 42 94  JSR <a href="ro819434.htm">$9442</a>         Pufferzeiger des aktiven Puffers
+                                 als Recordende genommen (provoziert EOI).]
+
+Einsprung von $A138:
+
+A13D: A6 50     LDX <a href="ra8150.htm">$50</a>
+A13F: 9D 42 02  STA <a href="ra810242.htm">$0242</a>,X      Zeiger auf Recordende merken
+A142: 60        RTS
+
+Recordende im aktiven Puffer suchen
+A: c: 1: a: Zeiger auf Record-Ende; 0: Recordende nicht gefunden
+
+Einsprung von $A121, $A135:
+
+A143: 20 69 9D  JSR <a href="ro819d69.htm">$9D69</a>        Zeiger auf Anfang des aktiven Puffers
+A146: A4 56     LDY <a href="ra8156.htm">$56</a>          setzen
+
+Einsprung von $A153:
+
+A148: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Datenbyte aus Record holen
+A14A: D0 0D     BNE $A159        &lt;&gt; 0, dann Ende gefunden ==&gt;
+A14C: 88        DEY
+A14D: C0 02     CPY #$02         Datenbereichs-Anfang erreicht ?
+A14F: 90 04     BCC $A155        ja, ==&gt;
+A151: C6 57     DEC <a href="ra8157.htm">$57</a>          Recordlaenge -1
+A153: D0 F3     BNE $A148        ==&gt;
+
+Einsprung von $A14F:
+
+A155: C6 57     DEC <a href="ra8157.htm">$57</a>          Recordlaenge -1
+A157: 18        CLC              c=0: Anfang noch nicht gefunden
+A158: 60        RTS
+
+Einsprung von $A14A:
+
+A159: 98        TYA              Zeiger auf Recordende nach a
+A15A: 38        SEC              c=1 Anfang gefunden
+A15B: 60        RTS
+    <a href="ro81a0ec.htm">Previous Page</a> / <a href="ro81a15c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Kanal zum Lesen holen und pruefen ($d0eb)
+E: $52   : Sekundaeradresse
+a: $50, x: Kanalnummer
+
+Einsprung von <a href="ro81854d.htm">$8561</a>, <a href="ro81876e.htm">$880A</a>, <a href="ro81892f.htm">$8978</a>, <a href="ro818c0f.htm">$8C24</a>, <a href="ro8192f4.htm">$92F4</a>, <a href="ro8197a2.htm">$97BB</a>, <a href="ro819d79.htm">$9D79</a>, <a href="ro81a1a1.htm">$A1A9</a>, <a href="ro81a7f1.htm">$A828</a>,
+              <a href="ro81ad5c.htm">$AD5D</a>:
+
+9027: A5 52     LDA <a href="ra8152.htm">$52</a>          aktuelle Sekundaeradresse
+9029: C9 13     CMP #$13         &gt;18
+902B: 90 02     BCC $902F        nein, ==&gt;
+902D: 29 0F     AND #$0F         ja, auf 15 begrenzen
+
+Einsprung von $902B:
+
+902F: C9 0F     CMP #$0F         Kommandokanal ?
+9031: D0 02     BNE $9035
+9033: A9 10     LDA #$10         ja, Kanal 16 (Fehlerkanal) benutzen
+
+Einsprung von $9031:
+
+9035: AA        TAX
+9036: 38        SEC              entsprechende Kanalnummer aus
+9037: B5 A8     LDA <a href="ra81a8.htm">$A8</a>,X        Sekundaeradressentabelle holen
+9039: 30 06     BMI $9041        b7=1: Schreibkanal ? ja, ==&gt;
+903B: 29 0F     AND #$0F         Kanalnummer isolieren
+903D: 85 50     STA <a href="ra8150.htm">$50</a>          und als aktuellen Kanal merken
+903F: AA        TAX
+9040: 18        CLC
+
+Einsprung von $9039:
+
+9041: 60        RTS
+
+    <a href="ro818ffe.htm">Previous Page</a> / <a href="ro819042.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

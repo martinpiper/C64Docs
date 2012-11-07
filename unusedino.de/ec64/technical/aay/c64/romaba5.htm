@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $ABA5/43941:   Perform [input#]
+
+ABA5: 20 9E B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79E</a>     ; Evaluate Text to 1 Byte in XR
+ABA8: A9 2C     <a href="blda.htm">LDA</a> #$2C
+ABAA: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+ABAD: 86 13     <a href="bstx.htm">STX</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ABAF: 20 1E E1  <a href="bjsr.htm">JSR</a> <a href="rome11e.htm">$E11E</a>     ; Set Up For Input
+ABB2: 20 CE AB  <a href="bjsr.htm">JSR</a> <a href="romabbf.htm">$ABCE</a>     ; Perform [input]
+
+Jump from <a href="romaa80.htm">$AA83</a>, <a href="romabbf.htm">$ABE4</a>:
+
+ABB5: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+
+Jump from <a href="romab7b.htm">$ABA2</a>:
+
+ABB7: 20 CC FF  <a href="bjsr.htm">JSR</a> <a href="romffcc.htm">$FFCC</a>     ; Restore I/O Vector
+ABBA: A2 00     <a href="bldx.htm">LDX</a> #$00
+ABBC: 86 13     <a href="bstx.htm">STX</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ABBE: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romab7b.htm">Previous Page</a> / <a href="romabbf.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

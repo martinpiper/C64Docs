@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F017/61463:   Send to RS232 Buffer
+
+Jump from <a href="romf1ca.htm">$F208</a>:
+
+F017: AC 9E 02  <a href="bldy.htm">LDY</a> <a href="zp029e.htm">$029E</a>     ; RS232 Index to End of Output Buffer
+F01A: C8        <a href="biny.htm">INY</a>
+F01B: CC 9D 02  <a href="bcpy.htm">CPY</a> <a href="zp029d.htm">$029D</a>     ; RS232 Pointer: High Byte of Output Buffer
+F01E: F0 F4     <a href="bbeq.htm">BEQ</a> <a href="romf00d.htm">$F014</a>     ; No DSR (Data Set Ready) Error
+F020: 8C 9E 02  <a href="bsty.htm">STY</a> <a href="zp029e.htm">$029E</a>     ; RS232 Index to End of Output Buffer
+F023: 88        <a href="bdey.htm">DEY</a>
+F024: A5 9E     <a href="blda.htm">LDA</a> <a href="zp9e.htm">$9E</a>       ; Tape Error log pass 1
+F026: 91 F9     <a href="bsta.htm">STA</a> (<a href="zpf9.htm">$F9</a>),Y   ; RS232 Output Buffer Pointer
+
+Jump from <a href="romf00d.htm">$F014</a>:
+
+F028: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F02B: 4A        <a href="blsr.htm">LSR</a>
+F02C: B0 1E     <a href="bbcs.htm">BCS</a> $F04C
+F02E: A9 10     <a href="blda.htm">LDA</a> #$10
+F030: 8D 0E DD  <a href="bsta.htm">STA</a> <a href="cia214.htm">$DD0E</a>     ; CIA2: Control Register A
+F033: AD 99 02  <a href="blda.htm">LDA</a> <a href="zp0299.htm">$0299</a>     ; RS232 Baud Rate; Full Bit time microseconds
+F036: 8D 04 DD  <a href="bsta.htm">STA</a> <a href="cia24.htm">$DD04</a>     ; CIA2: Timer A Low-Byte  (RS232)
+F039: AD 9A 02  <a href="blda.htm">LDA</a> <a href="zp0299.htm">$029A</a>     ; RS232 Baud Rate; Full Bit time microseconds
+F03C: 8D 05 DD  <a href="bsta.htm">STA</a> <a href="cia25.htm">$DD05</a>     ; CIA2: Timer A High-Byte (RS232)
+F03F: A9 81     <a href="blda.htm">LDA</a> #$81
+F041: 20 3B EF  <a href="bjsr.htm">JSR</a> <a href="romef39.htm">$EF3B</a>     ; Disable Timer
+F044: 20 06 EF  <a href="bjsr.htm">JSR</a> <a href="romef06.htm">$EF06</a>     ; Send New RS232 Byte
+F047: A9 11     <a href="blda.htm">LDA</a> #$11
+F049: 8D 0E DD  <a href="bsta.htm">STA</a> <a href="cia214.htm">$DD0E</a>     ; CIA2: Control Register A
+
+Jump from $F02C:
+
+F04C: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf00d.htm">Previous Page</a> / <a href="romf04d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

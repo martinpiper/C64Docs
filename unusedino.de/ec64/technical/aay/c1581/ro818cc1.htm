@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Zahl der Bytes bis zum gesuchten Record berechnen ($ce2c)
+(Recordnummer * Recordlaenge + Position im Record)
+
+Einsprung von <a href="ro818c89.htm">$8C89</a>:
+
+8CC1: 20 38 8D  JSR <a href="ro818d38.htm">$8D38</a>        Rechenregister 1 loeschen
+8CC4: 85 62     STA <a href="ra8160.htm">$62</a>          Recordnummer in Rechenregister 2 schreiben
+8CC6: A6 50     LDX <a href="ra8150.htm">$50</a>
+8CC8: BD 49 02  LDA <a href="ra810249.htm">$0249</a>,X      (aktuelle Recordnummer Lo)
+8CCB: 85 60     STA <a href="ra8160.htm">$60</a>
+8CCD: BD 50 02  LDA <a href="ra810250.htm">$0250</a>,X      (Hi)
+8CD0: 85 61     STA <a href="ra8160.htm">$61</a>
+8CD2: D0 04     BNE $8CD8        Recordnummer = 0 ?
+8CD4: A5 60     LDA <a href="ra8160.htm">$60</a>
+8CD6: F0 0B     BEQ $8CE3        ja, ==&gt;
+
+Einsprung von $8CD2:
+
+8CD8: A5 60     LDA <a href="ra8160.htm">$60</a>          Recordnummer -1 nehmen
+8CDA: 38        SEC
+8CDB: E9 01     SBC #$01
+8CDD: 85 60     STA <a href="ra8160.htm">$60</a>
+8CDF: B0 02     BCS $8CE3
+8CE1: C6 61     DEC <a href="ra8160.htm">$61</a>
+
+Einsprung von $8CD6, $8CDF:
+
+8CE3: BD 5E 02  LDA <a href="ra81025e.htm">$025E</a>,X      Recordlaenge holen
+    <a href="ro818c89.htm">Previous Page</a> / <a href="ro818ce6.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

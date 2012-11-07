@@ -1,0 +1,173 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ATN-bearbeiten ($e85b; bei der 1571: $80ce)
+
+Vorbereitung
+
+ABCF: 78        SEI
+ABD0: A5 9D     LDA <a href="ra819d.htm">$9D</a>          Cache-Verzoegerungszaehler initialisieren
+ABD2: 85 9C     STA <a href="ra819c.htm">$9C</a>
+ABD4: A5 76     LDA <a href="ra8176.htm">$76</a>          LISTEN &amp; TALK loeschen
+ABD6: 29 3E     AND #$3E         b0: Flag 'ATN aufgetreten' loeschen
+ABD8: 85 76     STA <a href="ra8176.htm">$76</a>
+ABDA: A6 4F     LDX <a href="ra814f.htm">$4F</a>          Stack initialisieren
+ABDC: 9A        TXS
+ABDD: 20 BB AC  JSR <a href="ro81acb6.htm">$ACBB</a>        FSM-Bus auf Eingabe stellen
+ABE0: A9 80     LDA #$80         EOI-Flag loeschen
+ABE2: 85 51     STA <a href="ra8151.htm">$51</a>
+
+Bus im ATN-Modus bedienen
+
+ABE4: A5 76     LDA <a href="ra8176.htm">$76</a>          b1=1: ATN-Modus aktivieren
+ABE6: 09 02     ORA #$02
+ABE8: 85 76     STA <a href="ra8176.htm">$76</a>
+ABEA: 20 03 AD  JSR <a href="ro81ad03.htm">$AD03</a>        CLOCK OUT auf Lo
+ABED: 20 F1 AC  JSR <a href="ro81acf1.htm">$ACF1</a>        DATA OUT auf Hi
+ABF0: AD 01 40  LDA <a href="cia811.htm">$4001</a>        automatische ATN-Beantwortung ausschalten,
+ABF3: 29 EF     AND #$EF         damit die Software den Bus im ATN-Modus
+ABF5: 8D 01 40  STA <a href="cia811.htm">$4001</a>        bedienen kann
+
+ - Kommando-Byte vom Computer einlesen
+
+Einsprung von $ABFF:
+
+ABF8: AD 01 40  LDA <a href="cia811.htm">$4001</a>        liegt kein ATN mehr an ?
+ABFB: 10 5D     BPL $AC5A        ja, ==&gt;
+ABFD: 29 04     AND #$04         Warten bis CLOCK IN = Lo wird
+ABFF: D0 F7     BNE $ABF8        (zeigt an, dass Daten kommen)
+
+Einsprung von $AC58:
+
+AC01: 20 42 AE  JSR <a href="ro81ae42.htm">$AE42</a>        Byte vom seriellen Bus holen
+
+ - UNLISTEN
+
+AC04: C9 3F     CMP #$3F         UNLISTEN
+AC06: D0 09     BNE $AC11        nein, ==&gt;
+AC08: A5 76     LDA <a href="ra8176.htm">$76</a>          Busbetrieb auf
+AC0A: 29 9F     AND #$9F         b5: seriell, langsam
+AC0C: 85 76     STA <a href="ra8176.htm">$76</a>          b6: kein LISTEN
+AC0E: 4C 1B AC  JMP $AC1B        ATN Ende abwarten
+
+ - UNTALK
+
+Einsprung von $AC06:
+
+AC11: C9 5F     CMP #$5F         UNTALK ?
+AC13: D0 09     BNE $AC1E        nein, ==&gt;
+AC15: A5 76     LDA <a href="ra8176.htm">$76</a>          Busbetrieb auf
+AC17: 29 5F     AND #$5F         b5: seriell,langsam
+AC19: 85 76     STA <a href="ra8176.htm">$76</a>          b7: kein TALK
+
+Einsprung von $AC0E:
+
+AC1B: 4C 96 AC  JMP $AC96        ATN Ende abwarten
+
+ - TALK
+
+Einsprung von $AC13:
+
+AC1E: C5 78     CMP <a href="ra8178.htm">$78</a>          TALK ?
+AC20: D0 0A     BNE $AC2C        nein, ==&gt;
+AC22: A5 76     LDA <a href="ra8176.htm">$76</a>          ja,
+AC24: 09 80     ORA #$80         b7: Flag fuer TALK setzen
+AC26: 29 BF     AND #$BF         b6: Flag fuer LISTEN loeschen
+AC28: 85 76     STA <a href="ra8176.htm">$76</a>
+AC2A: D0 29     BNE $AC55        ==&gt;
+ - LISTEN
+
+Einsprung von $AC20:
+
+AC2C: C5 77     CMP <a href="ra8177.htm">$77</a>          LISTEN ?
+AC2E: D0 0A     BNE $AC3A        nein, ==&gt;
+AC30: A5 76     LDA <a href="ra8176.htm">$76</a>          ja,
+AC32: 09 40     ORA #$40         b6: Flag fuer LISTEN setzen
+AC34: 29 7F     AND #$7F         b7: Flag fuer TALK loeschen
+AC36: 85 76     STA <a href="ra8176.htm">$76</a>
+AC38: D0 1B     BNE $AC55
+
+ - Sekundaeradresse einlesen
+
+Einsprung von $AC2E:
+
+AC3A: AA        TAX
+AC3B: 29 60     AND #$60         Sekundaeradresse (b65=11) ?
+AC3D: C9 60     CMP #$60
+AC3F: D0 50     BNE $AC91        nein, (anderes Geraet war gemeint) ==&gt;
+AC41: 8A        TXA              Sekundaeradresse vom Computer
+AC42: 85 53     STA <a href="ra8153.htm">$53</a>          mit Kommandobits merken
+AC44: 29 0F     AND #$0F
+AC46: 85 52     STA <a href="ra8152.htm">$52</a>          SA pur merken
+
+ - CLOSE
+
+AC48: A5 53     LDA <a href="ra8153.htm">$53</a>          Kommando vom Computer
+AC4A: 29 F0     AND #$F0
+AC4C: C9 E0     CMP #$E0         = 'schliessen' ?
+AC4E: D0 46     BNE $AC96        nein, (Datenmodus aktivieren) ==&gt;
+AC50: 58        CLI
+AC51: 20 5C 99  JSR <a href="ro81995c.htm">$995C</a>        aktuellen Kanal schliessen
+AC54: 78        SEI
+
+Einsprung von $AC2A, $AC38:
+
+AC55: 2C 01 40  BIT <a href="cia811.htm">$4001</a>        ATN testen
+AC58: 30 A7     BMI $AC01        gesetzt, ==&gt;
+
+Bus im Datenmodus bedienen
+
+Einsprung von $ABFB, $AC99, <a href="ro81ad15.htm">$AD2C</a>:
+
+AC5A: A5 76     LDA <a href="ra8176.htm">$76</a>          b1=0: ATN-Modus loeschen
+AC5C: 29 FD     AND #$FD         Datenmodus aktivieren
+AC5E: 85 76     STA <a href="ra8176.htm">$76</a>
+AC60: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Automatische ATN-Beantwortung einschalten
+AC63: 09 10     ORA #$10
+AC65: 8D 01 40  STA <a href="cia811.htm">$4001</a>
+
+ - LISTEN bearbeiten
+
+AC68: 24 76     BIT <a href="ra8176.htm">$76</a>          LISTEN ?
+AC6A: 50 0F     BVC $AC7B        nein ==&gt;
+AC6C: A9 20     LDA #$20         FSM-Betrieb ?
+AC6E: 24 76     BIT <a href="ra8176.htm">$76</a>
+AC70: F0 03     BEQ $AC75        nein, ==&gt;
+AC72: 20 9D AC  JSR <a href="ro81ac9d.htm">$AC9D</a>        ja, schnellen Bus-Modus anfordern
+
+Einsprung von $AC70:
+
+AC75: 20 36 FF  JSR <a href="ro81ff00.htm">$FF36</a>        LISTEN behandeln
+AC78: 4C E4 AE  JMP <a href="ro81aedf.htm">$AEE4</a>        FSM abschliessen, Ende
+
+ - TALK bearbeiten
+
+Einsprung von $AC6A:
+
+AC7B: 24 76     BIT <a href="ra8176.htm">$76</a>          TALK ?
+AC7D: 10 0F     BPL $AC8E        nein, ==&gt;
+AC7F: 20 E8 AC  JSR <a href="ro81ace8.htm">$ACE8</a>        DATA OUT auf Lo
+AC82: 20 FA AC  JSR <a href="ro81acfa.htm">$ACFA</a>        CLOCK OUT auf Hi
+AC85: 20 2F AD  JSR <a href="ro81ad2f.htm">$AD2F</a>        kurze Zeit warten
+AC88: 20 33 FF  JSR <a href="ro81ff00.htm">$FF33</a>        TALK behandeln
+AC8B: 20 2F AD  JSR <a href="ro81ad2f.htm">$AD2F</a>        kurze Zeit warten
+
+Einsprung von $AC7D:
+
+AC8E: 4C DF AE  JMP <a href="ro81aedf.htm">$AEDF</a>        FSM auf Eingabe schalten, Ende
+ - ATN-Modus abwarten, wenn z.B. ein anderes Geraet angesprochen wird
+
+Einsprung von $AC3F:
+
+AC91: A9 00     LDA #$00         Alle Ausgaenge Lo (Laufwerk passiv halten)
+AC93: 8D 01 40  STA <a href="cia811.htm">$4001</a>
+
+Einsprung von $AC1B, $AC4E, $AC9B:
+
+AC96: 2C 01 40  BIT <a href="cia811.htm">$4001</a>        Ist ATN noch gesetzt ?
+AC99: 10 BF     BPL $AC5A        nein, ==&gt;
+AC9B: 30 F9     BMI $AC96        Warten bis ATN geloescht ist
+
+    <a href="ro81ab1d.htm">Previous Page</a> / <a href="ro81ac9d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

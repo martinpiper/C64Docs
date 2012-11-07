@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A65E/42590:   Perform [clr]
+
+A65E: D0 2D     <a href="bbne.htm">BNE</a> $A68D
+
+Jump from <a href="roma871.htm">$A87D</a>:
+
+A660: 20 E7 FF  <a href="bjsr.htm">JSR</a> <a href="romffe7.htm">$FFE7</a>     ; Close All Channels And Files
+
+Jump from <a href="rome0f9.htm">$E101</a>:
+
+A663: A5 37     <a href="blda.htm">LDA</a> <a href="zp37.htm">$37</a>       ; Pointer: Highest Address available to BASIC
+A665: A4 38     <a href="bldy.htm">LDY</a> <a href="zp37.htm">$38</a>       ; Pointer: Highest Address available to BASIC
+A667: 85 33     <a href="bsta.htm">STA</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+A669: 84 34     <a href="bsty.htm">STY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+A66B: A5 2D     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+A66D: A4 2E     <a href="bldy.htm">LDY</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+A66F: 85 2F     <a href="bsta.htm">STA</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+A671: 84 30     <a href="bsty.htm">STY</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+A673: 85 31     <a href="bsta.htm">STA</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+A675: 84 32     <a href="bsty.htm">STY</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+
+Jump from <a href="rome165.htm">$E1BB</a>:
+
+A677: 20 1D A8  <a href="bjsr.htm">JSR</a> <a href="roma81d.htm">$A81D</a>     ; Perform [restore]
+
+Jump from <a href="roma437.htm">$A462</a>, <a href="rome37b.htm">$E382</a>:
+
+A67A: A2 19     <a href="bldx.htm">LDX</a> #$19
+A67C: 86 16     <a href="bstx.htm">STX</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+A67E: 68        <a href="bpla.htm">PLA</a>
+A67F: A8        <a href="btay.htm">TAY</a>
+A680: 68        <a href="bpla.htm">PLA</a>
+A681: A2 FA     <a href="bldx.htm">LDX</a> #$FA
+A683: 9A        <a href="btxs.htm">TXS</a>
+A684: 48        <a href="bpha.htm">PHA</a>
+A685: 98        <a href="btya.htm">TYA</a>
+A686: 48        <a href="bpha.htm">PHA</a>
+A687: A9 00     <a href="blda.htm">LDA</a> #$00
+A689: 85 3E     <a href="bsta.htm">STA</a> <a href="zp3d.htm">$3E</a>       ; Pointer: BASIC Statement for CONT
+A68B: 85 10     <a href="bsta.htm">STA</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+
+Jump from $A65E, <a href="roma69c.htm">$A6A2</a>:
+
+A68D: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma642.htm">Previous Page</a> / <a href="roma68e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

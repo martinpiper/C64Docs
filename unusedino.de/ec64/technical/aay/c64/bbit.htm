@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  BIT             BIT Test bits in memory with accumulator              BIT
+
+  Operation:  A /\ M -&gt; Z, M7 -&gt; N, M6 -&gt; V             N V - B D I Z C
+                                                        M7M6. . . . / .
+  Bit 6 and 7 are transferred to the status register.
+  If the result of A /\ M is zero then Z = 1, otherwise Z=0.
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   BIT $FF             |   $24   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   BIT $FFFF           |   $2C   |    3    |    4     |
+  +----------------+-----------------------+---------+---------+----------+
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>      |   BIT #$FF            |   $89   |    2    |    2     |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">Direct Page,X</a>  |   BIT $FF,X           |   $34   |    2    |    3     |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>     |   BIT $FFFF,X         |   $3C   |    3    |    4     |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

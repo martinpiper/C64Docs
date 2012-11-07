@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  LDY                   LDY Load index Y with memory                    LDY
+
+  Operation:  M -&gt; Y                                    N V - B D I Z C
+                                                        / . . . . . / .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr1.htm">Immediate</a>     |   LDY #$FF            |   $A0   |    2    |    2     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   LDY $FF             |   $A4   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   LDY $FF,X           |   $B4   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   LDY $FFFF           |   $AC   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   LDY $FFFF,X         |   $BC   |    3    |    4*    |
+  +----------------+-----------------------+---------+---------+----------+
+  * Add 1 when page boundary is crossed.
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+</pre></td></tr></table></center></body></html>

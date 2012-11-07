@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CEED/52973:   Add 3-byte registers
+
+Jump from <a href="ro41ce2c.htm">$CE54</a>, <a href="ro41ce71.htm">$CEA3</a>:
+
+CEED: 18        CLC
+CEEE: A2 FD     LDX #$FD
+
+Jump from $CEF7:
+
+CEF0: B5 8E     LDA <a href="ra418b.htm">$8E</a>,X       ; register $90/$91/$92
+CEF2: 75 93     ADC <a href="ra418f.htm">$93</a>,X       ; add to register $8B/$8C/$8D
+CEF4: 95 8E     STA <a href="ra418b.htm">$8E</a>,X
+CEF6: E8        INX
+CEF7: D0 F7     BNE $CEF0
+CEF9: 60        RTS
+
+    <a href="ro41cee5.htm">Previous Page</a> / <a href="ro41cefa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

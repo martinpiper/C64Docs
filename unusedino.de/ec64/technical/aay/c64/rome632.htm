@@ -1,0 +1,83 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E632/58930:   Input From Screen or Keyboard
+
+Jump from <a href="romf157.htm">$F163</a>, <a href="romf157.htm">$F170</a>:
+
+E632: 98        <a href="btya.htm">TYA</a>
+E633: 48        <a href="bpha.htm">PHA</a>
+E634: 8A        <a href="btxa.htm">TXA</a>
+E635: 48        <a href="bpha.htm">PHA</a>
+E636: A5 D0     <a href="blda.htm">LDA</a> <a href="zpd0.htm">$D0</a>       ; Flag: Input from ...
+E638: F0 93     <a href="bbeq.htm">BEQ</a> <a href="rome5ca.htm">$E5CD</a>     ; Input From Keyboard
+
+Jump from <a href="rome5ca.htm">$E61D</a>, <a href="rome5ca.htm">$E626</a>, <a href="rome5ca.htm">$E62E</a>:
+
+E63A: A4 D3     <a href="bldy.htm">LDY</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E63C: B1 D1     <a href="blda.htm">LDA</a> (<a href="zpd1.htm">$D1</a>),Y   ; Pointer: Current Screen Line Address
+E63E: 85 D7     <a href="bsta.htm">STA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E640: 29 3F     <a href="band.htm">AND</a> #$3F
+E642: 06 D7     <a href="basl.htm">ASL</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E644: 24 D7     <a href="bbit.htm">BIT</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E646: 10 02     <a href="bbpl.htm">BPL</a> $E64A
+E648: 09 80     <a href="bora.htm">ORA</a> #$80
+
+Jump from $E646:
+
+E64A: 90 04     <a href="bbcc.htm">BCC</a> $E650
+E64C: A6 D4     <a href="bldx.htm">LDX</a> <a href="zpd4.htm">$D4</a>       ; Flag: Editor in Quote Mode
+E64E: D0 04     <a href="bbne.htm">BNE</a> $E654
+
+Jump from $E64A:
+
+E650: 70 02     <a href="bbvs.htm">BVS</a> $E654
+E652: 09 40     <a href="bora.htm">ORA</a> #$40
+
+Jump from $E64E, $E650:
+
+E654: E6 D3     <a href="binc.htm">INC</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E656: 20 84 E6  <a href="bjsr.htm">JSR</a> <a href="rome684.htm">$E684</a>     ; Quotes Test
+E659: C4 C8     <a href="bcpy.htm">CPY</a> <a href="zpc8.htm">$C8</a>       ; Pointer: End of Line for Input
+E65B: D0 17     <a href="bbne.htm">BNE</a> $E674
+
+Jump from <a href="rome5ca.htm">$E630</a>:
+
+E65D: A9 00     <a href="blda.htm">LDA</a> #$00
+E65F: 85 D0     <a href="bsta.htm">STA</a> <a href="zpd0.htm">$D0</a>       ; Flag: Input from ...
+E661: A9 0D     <a href="blda.htm">LDA</a> #$0D
+E663: A6 99     <a href="bldx.htm">LDX</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+E665: E0 03     <a href="bcpx.htm">CPX</a> #$03
+E667: F0 06     <a href="bbeq.htm">BEQ</a> $E66F
+E669: A6 9A     <a href="bldx.htm">LDX</a> <a href="zp9a.htm">$9A</a>       ; Default Output Device (3)
+E66B: E0 03     <a href="bcpx.htm">CPX</a> #$03
+E66D: F0 03     <a href="bbeq.htm">BEQ</a> $E672
+
+Jump from $E667:
+
+E66F: 20 16 E7  <a href="bjsr.htm">JSR</a> <a href="rome716.htm">$E716</a>     ; Output to Screen
+
+Jump from $E66D:
+
+E672: A9 0D     <a href="blda.htm">LDA</a> #$0D
+
+Jump from $E65B:
+
+E674: 85 D7     <a href="bsta.htm">STA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E676: 68        <a href="bpla.htm">PLA</a>
+E677: AA        <a href="btax.htm">TAX</a>
+E678: 68        <a href="bpla.htm">PLA</a>
+E679: A8        <a href="btay.htm">TAY</a>
+E67A: A5 D7     <a href="blda.htm">LDA</a> <a href="zpd7.htm">$D7</a>       ; Current Input Character/Last Character Output
+E67C: C9 DE     <a href="bcmp.htm">CMP</a> #$DE
+E67E: D0 02     <a href="bbne.htm">BNE</a> $E682
+E680: A9 FF     <a href="blda.htm">LDA</a> #$FF
+
+Jump from $E67E:
+
+E682: 18        <a href="bclc.htm">CLC</a>
+E683: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rome5ca.htm">Previous Page</a> / <a href="rome684.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

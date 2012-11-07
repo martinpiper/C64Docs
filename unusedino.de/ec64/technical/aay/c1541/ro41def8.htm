@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DEF8/57080:   Get side sector and buffer pointer
+
+Jump from <a href="ro41e207.htm">$E258</a>, <a href="ro41e31c.htm">$E43C</a>:
+
+DEF8: 20 66 DF  JSR <a href="ro41df66.htm">$DF66</a>       ; is side-sector in buffer?
+DEFB: 30 0E     BMI $DF0B       ; no
+DEFD: 50 13     BVC $DF12       ; ok
+DEFF: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+DF01: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number
+DF03: 20 1B DF  JSR <a href="ro41df1b.htm">$DF1B</a>       ; read side-sector
+DF06: 20 66 DF  JSR <a href="ro41df66.htm">$DF66</a>       ; and check if in buffer
+DF09: 10 07     BPL $DF12       ; yes?
+
+Jump from $DEFB:
+
+DF0B: 20 CB E1  JSR <a href="ro41e1cb.htm">$E1CB</a>       ; get last side-sector
+DF0E: 2C CE FE  BIT <a href="ro41fecd.htm">$FECE</a>       ; set V bit
+DF11: 60        RTS
+
+Jump from $DEFD, $DF09:
+
+DF12: A5 D6     LDA <a href="ra41d6.htm">$D6</a>         ; side-sector and pointer
+DF14: 20 E9 DE  JSR <a href="ro41dee9.htm">$DEE9</a>       ; set pointer in side-sector
+DF17: 2C CD FE  BIT <a href="ro41fecd.htm">$FECD</a>       ; erase V bit
+DF1A: 60        RTS
+
+    <a href="ro41dee9.htm">Previous Page</a> / <a href="ro41df1b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

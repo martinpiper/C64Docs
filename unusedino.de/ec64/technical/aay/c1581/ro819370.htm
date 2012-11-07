@@ -1,0 +1,65 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Fehlerkanal auslesen bzw M-R-Befehl ($d414)
+
+Einsprung von <a href="ro819303.htm">$9311</a>:
+
+9370: 20 42 94  JSR <a href="ro819434.htm">$9442</a>        Pufferzeiger holen
+9373: C9 CF     CMP #$CF         = $02cf (Pufferanfang) ?
+9375: D0 18     BNE $938F        nein, Byte holen ==&gt;
+9377: A5 65     LDA <a href="ra8164.htm">$65</a>
+9379: C9 02     CMP #$02
+937B: D0 12     BNE $938F        nein, Byte holen ==&gt;
+937D: A9 0D     LDA #$0D         ja, CR ausgeben
+937F: 85 54     STA <a href="ra8154.htm">$54</a>
+
+[Diese Abfrage fuehrt dazu, dass die neue Fehlermeldung bereitge stellt wird,
+ wenn die alte ausgegeben worden ist. Die Fehlermeldung wird aber auch dann
+ bereitgestellt, wenn man mit dem M-R Befehl versucht, ueber den
+ Fehlerpuffer-Anfang zu lesen. Dann wird der M-R einfach abgebrochen.]
+
+Ok-Meldung bereitstellen
+
+9381: 20 E5 81  JSR <a href="ro8181e5.htm">$81E5</a>        LEDs ausschalten
+9384: A9 00     LDA #$00
+9386: 20 67 A8  JSR <a href="ro81a862.htm">$A867</a>        '00, OK,00,00'-Meldung bereitstellen
+9389: C6 CF     DEC <a href="ra81cf.htm">$CF</a>
+938B: A9 80     LDA #$80         EOI setzen
+938D: D0 12     BNE $93A1        immer ==&gt;
+
+Einsprung von $9375, $937B:
+
+938F: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        Byte aus aktuellem Puffer holen
+9392: 85 54     STA <a href="ra8154.htm">$54</a>          und merken
+9394: D0 09     BNE $939F        Pufferende erreicht ?
+
+[Leider ist das z-Flag nicht nur am Pufferende gesetzt, sondern generell,
+ wenn eine Seitengrenze uebersprungen wird, da das Hi-Byte der Pufferadresse
+ nicht beruecksichtigt wird. Dies ist bei 'normalen' Puffern auch ganz in
+ Ordnung. Beim M-R Befehl tritt jedoch ein Fehler auf, da bei ihm der
+ Ausgabepuffer auch ueber Seitengrenzen gehen kann. In einem solchen Fall
+ wird einfach wieder auf Fehlerausgabe umgeschaltet.]
+Fehlerausgabe initialisieren
+
+Einsprung von <a href="ro81892f.htm">$897B</a>:
+
+9396: A9 CF     LDA #$CF         Fehler-Pufferzeiger auf $02cf setzen
+9398: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger Lo auf $cf setzen
+939B: A9 02     LDA #$02         Pufferzeiger Hi auf $02 setzen
+939D: 95 BC     STA <a href="ra81bb.htm">$BC</a>,X
+
+Einsprung von $9394, <a href="ro81892f.htm">$8975</a>:
+
+939F: A9 88     LDA #$88         b3=1: EOI-Flag loeschen
+
+Einsprung von $938D:
+
+93A1: 8D 3A 02  STA <a href="ra81023a.htm">$023A</a>        b7=1: auf Ausgabe (Lesen) schalten
+93A4: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte holen
+93A6: 8D 41 02  STA <a href="ra810241.htm">$0241</a>        und in Ausgabepuffer schreiben
+93A9: 60        RTS
+
+    <a href="ro819303.htm">Previous Page</a> / <a href="ro8193aa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

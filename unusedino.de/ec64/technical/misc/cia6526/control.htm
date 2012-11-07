@@ -1,0 +1,252 @@
+<html>
+<head>
+<title>6526 CIA: CONTROL REGISTERS</title>
+</head>
+<body bgcolor="#ffffff">
+
+<h1 align="center">Control Registers</h1>
+
+<p align="justify">There are two control registers in the 6526, CRA and CRB. CRA is
+associated with TIMER A and CRB is associated with TIMER B. The
+register format is as follows:</p>
+
+<h3>CRA:</h3>
+
+<table width="100%">
+<tr>
+<th align="LEFT" width="5%">Bit</th>
+<th align="LEFT" width="16%">Name</th>
+<th align="LEFT">Function</th>
+</tr>
+
+<tr>
+<td valign="TOP">0</td>
+<td valign="TOP">START</td>
+<td>1=START TIMER A, 0=STOP TIMER A. This bit is automatically
+reset when underflow occurs during one-shot mode.</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>PBON</td>
+<td>1=TIMER A output appears on PB6, 0=PB6 normal operation.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>OUTMODE</td>
+<td>1=TOGGLE, 0=PULSE</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>RUNMODE</td>
+<td>1=ONE-SHOT, 0=CONTINUOUS</td>
+</tr>
+
+<tr>
+<td valign="TOP">4</td>
+<td valign="TOP">LOAD</td>
+<td>1=FORCE LOAD (this is a STROBE input, there is no data
+storage,<br>
+ bit 4 will always read back a zero and writing a zero has no
+effect).</td>
+</tr>
+
+<tr>
+<td valign="TOP">5</td>
+<td valign="TOP">INMODE</td>
+<td>1=TIMER A counts positive CNT transitions,<br>
+ 0=TIMER A counts <img src="phi2.gif"> pulses.</td>
+</tr>
+
+<tr>
+<td valign="TOP">6</td>
+<td valign="TOP">SPMODE</td>
+<td>1=SERIAL PORT output (CNT sources shift clock),<br>
+ 0=SERIAL PORT input (external shift clock required).</td>
+</tr>
+
+<tr>
+<td valign="TOP">7</td>
+<td valign="TOP">TODIN</td>
+<td>1=50 Hz clock required on TOD pin for accurate time,<br>
+ 0=60 Hz clock required on TOD pin for accurate time.</td>
+</tr>
+</table>
+
+<h3>CRB:</h3>
+
+<table width="100%">
+<tr>
+<th width="5%" align="LEFT">Bit</th>
+<th width="16%" align="LEFT">Name</th>
+<th align="LEFT">Function</th>
+</tr>
+
+<tr>
+<td valign="TOP">0-4</td>
+<td>&nbsp;</td>
+<td>(Bits CRB0-CRB4 are identical to CRA0-CRA4 for TIMER B with the
+exception that bit 1 controls the output of TIMER B on PB7).</td>
+</tr>
+
+<tr>
+<td valign="TOP">5,6</td>
+<td valign="TOP">INMODE</td>
+<td>Bits CRB5 and CRB6 select one of four input modes for TIMER B
+as:<br>
+ 
+
+<table width="100%">
+<tr>
+<th>CRB6</th>
+<th>CRB5</th>
+<th>&nbsp;&nbsp;&nbsp;</th>
+<th>&nbsp;</th>
+</tr>
+
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td>&nbsp;</td>
+<td>TIMER B counts <img src="phi2.gif"> pulses.</td>
+</tr>
+
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td>&nbsp;</td>
+<td>TIMER B counts positive CNT transistions.</td>
+</tr>
+
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td>&nbsp;</td>
+<td>TIMER B counts TIMER A underflow pulses.</td>
+</tr>
+
+<tr>
+<td align="center" valign="TOP">1</td>
+<td align="center" valign="TOP">1</td>
+<td>&nbsp;</td>
+<td>TIMER B counts TIMER A underflow pulses<br>
+ while CNT is high.</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td valign="TOP">7</td>
+<td valign="TOP">ALARM</td>
+<td>1=writing to TOD registers sets ALARM,<br>
+ 0=writing to TOD registers sets TOD clock.</td>
+</tr>
+</table>
+
+<br>
+ 
+
+<table width="100%" border="1">
+<tr>
+<th><font size="-1">REG</font></th>
+<th><font size="-1">NAME</font></th>
+<th><font size="-1">TOD<br>
+IN</font></th>
+<th><font size="-1">SP<br>
+MODE</font></th>
+<th><font size="-1">IN<br>
+MODE</font></th>
+<th><font size="-1">LOAD</font></th>
+<th><font size="-1">RUN<br>
+MODE</font></th>
+<th><font size="-1">OUT<br>
+MODE</font></th>
+<th><font size="-1">PB ON</font></th>
+<th><font size="-1">START</font></th>
+</tr>
+
+<tr>
+<td valign="TOP"><font size="-1">&nbsp;E</font></td>
+<td valign="TOP"><font size="-1">&nbsp;CRA</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=60Hz<br>
+&nbsp;1=50Hz</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=INPUT<br>
+&nbsp;1=OUTPUT</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=<img src="phi2.gif"><br>
+&nbsp;1=CNT</font></td>
+<td><font size="-1">&nbsp;1=FORCE<br>
+&nbsp;LOAD<br>
+&nbsp;(STROBE)</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=CONT.<br>
+&nbsp;1=O.S.</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=PULSE<br>
+&nbsp;1=TOGGLE</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=PB<sub>6</sub>OFF<br>
+&nbsp;1=PB<sub>6</sub>ON</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=STOP<br>
+&nbsp;1=START</font></td>
+</tr>
+
+<tr>
+<td colspan="4">&nbsp;</td>
+<td align="center" colspan="6"><font size="-1">TA</font></td>
+</tr>
+</table>
+
+<br>
+<br>
+ 
+
+<table width="100%" border="1">
+<tr>
+<th><font size="-1">REG</font></th>
+<th><font size="-1">NAME</font></th>
+<th><font size="-1">ALARM</font></th>
+<th><font size="-1">IN<br>
+MODE</font></th>
+<th><font size="-1">LOAD</font></th>
+<th><font size="-1">RUN<br>
+MODE</font></th>
+<th><font size="-1">OUT<br>
+MODE</font></th>
+<th><font size="-1">PB ON</font></th>
+<th><font size="-1">START</font></th>
+</tr>
+
+<tr>
+<td valign="TOP"><font size="-1">&nbsp;F</font></td>
+<td valign="TOP"><font size="-1">&nbsp;CRB</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=TOD<br>
+&nbsp;1=ALARM</font></td>
+<td><font size="-1">&nbsp;00=<img src="phi2.gif"><br>
+&nbsp;01=CNT<br>
+&nbsp;10=TA<br>
+&nbsp;11=CNT&middot; TA</font></td>
+<td valign="TOP"><font size="-1">&nbsp;1=FORCE<br>
+&nbsp;LOAD<br>
+&nbsp;(STROBE)</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=CONT.<br>
+&nbsp;1=O.S.</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=PULSE<br>
+&nbsp;1=TOGGLE</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=PB<sub>7</sub>OFF<br>
+&nbsp;1=PB<sub>7</sub>ON</font></td>
+<td valign="TOP"><font size="-1">&nbsp;0=STOP<br>
+&nbsp;1=START</font></td>
+</tr>
+
+<tr>
+<td colspan="3">&nbsp;</td>
+<td align="center" colspan="6"><font size="-1">TB</font></td>
+</tr>
+</table>
+
+<p align="justify">All unused register bits are unaffected by a write and are
+forced to zero on a read.</p>
+
+</body>
+</html>
+

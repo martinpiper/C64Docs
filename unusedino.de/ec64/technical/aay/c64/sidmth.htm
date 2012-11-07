@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ SID-Maths:
+
+  Frequency:
+  ----------
+
+   To calculate the frequency corresponding to the 16-bit value in
+   <a href="sid0.htm">$D400</a>+<a href="sid1.htm">$D401</a>, <a href="sid7.htm">$D407</a>+<a href="sid8.htm">$D408</a>, <a href="sid14.htm">$D40E</a>+<a href="sid15.htm">$D40F</a> use the following formula:
+
+    Freq = 16Bit-Value * Phi2 / 16777216 Hz
+
+   where Phi2 is the system-clock, 985248 Hz for PAL-systems,
+   1022727 Hz for NTSC-systems.
+
+   A good approximation for both systems is the formula:
+
+    Freq = 16Bit-Value / 17.03
+
+  Pulse-Width:
+  ------------
+
+   To calculate the pulse width (in %) corresponding to the 12-bit value in
+   <a href="sid2.htm">$D402</a>+<a href="sid3.htm">$D403</a>, <a href="sid9.htm">$D409</a>+<a href="sid10.htm">$D40A</a>, <a href="sid16.htm">$D410</a>+<a href="sid17.htm">$D411</a> use the following formula:
+
+    PulseWidth = (16Bit-Value / 40.96) %
+
+</pre></td></tr></table></center></body></html>

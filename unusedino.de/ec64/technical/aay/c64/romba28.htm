@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BA28/47656:   Perform Multiply
+
+Jump from <a href="rombddd.htm">$BE04</a>, <a href="rombf7b.htm">$BFAA</a>, <a href="rombfed.htm">$BFF1</a>, <a href="rome043.htm">$E04C</a>, <a href="rome043.htm">$E056</a>, <a href="rome043.htm">$E070</a>, <a href="rome097.htm">$E0C9</a>:
+
+BA28: 20 8C BA  <a href="bjsr.htm">JSR</a> <a href="romba8c.htm">$BA8C</a>     ; Load FAC#2 From Memory
+BA2B: D0 03     <a href="bbne.htm">BNE</a> $BA30
+BA2D: 4C 8B BA  <a href="bjmp.htm">JMP</a> <a href="romba59.htm">$BA8B</a>     ; Multiply by a Byte
+
+Jump from $BA2B:
+
+BA30: 20 B7 BA  <a href="bjsr.htm">JSR</a> <a href="rombab7.htm">$BAB7</a>     ; Test Both Accumulators
+BA33: A9 00     <a href="blda.htm">LDA</a> #$00
+BA35: 85 26     <a href="bsta.htm">STA</a> <a href="zp26.htm">$26</a>       ; Floating point product of Multiply and Divide
+BA37: 85 27     <a href="bsta.htm">STA</a> <a href="zp26.htm">$27</a>       ; Floating point product of Multiply and Divide
+BA39: 85 28     <a href="bsta.htm">STA</a> <a href="zp26.htm">$28</a>       ; Floating point product of Multiply and Divide
+BA3B: 85 29     <a href="bsta.htm">STA</a> <a href="zp26.htm">$29</a>       ; Floating point product of Multiply and Divide
+BA3D: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BA3F: 20 59 BA  <a href="bjsr.htm">JSR</a> <a href="romba59.htm">$BA59</a>     ; Multiply by a Byte
+BA42: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BA44: 20 59 BA  <a href="bjsr.htm">JSR</a> <a href="romba59.htm">$BA59</a>     ; Multiply by a Byte
+BA47: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BA49: 20 59 BA  <a href="bjsr.htm">JSR</a> <a href="romba59.htm">$BA59</a>     ; Multiply by a Byte
+BA4C: A5 63     <a href="blda.htm">LDA</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BA4E: 20 59 BA  <a href="bjsr.htm">JSR</a> <a href="romba59.htm">$BA59</a>     ; Multiply by a Byte
+BA51: A5 62     <a href="blda.htm">LDA</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BA53: 20 5E BA  <a href="bjsr.htm">JSR</a> <a href="romba59.htm">$BA5E</a>     ; Multiply by a Byte
+BA56: 4C 8F BB  <a href="bjmp.htm">JMP</a> <a href="rombb0f.htm">$BB8F</a>     ; Divide FAC#2 by FAC#1
+
+    <a href="romb9ea.htm">Previous Page</a> / <a href="romba59.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,37 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E2E2/58082:   Divide data blocks into records
+
+Jump from <a href="ro41dcda.htm">$DD7B</a>, <a href="ro41e31c.htm">$E3C2</a>, <a href="ro41e31c.htm">$E3CE</a>:
+
+E2E2: 20 2B DE  JSR <a href="ro41de2b.htm">$DE2B</a>       ; set buffer pointer
+E2E5: A0 02     LDY #$02
+E2E7: A9 00     LDA #$00
+
+Jump from $E2EC:
+
+E2E9: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; erase buffer
+E2EB: C8        INY
+E2EC: D0 FB     BNE $E2E9
+E2EE: 20 04 E3  JSR <a href="ro41e304.htm">$E304</a>       ; set pointer to next record
+
+Jump from $E2FB:
+
+E2F1: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X
+E2F3: A8        TAY
+E2F4: A9 FF     LDA #$FF
+E2F6: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; $FF as 1st character in record
+E2F8: 20 04 E3  JSR <a href="ro41e304.htm">$E304</a>       ; set pointer to next record
+E2FB: 90 F4     BCC $E2F1       ; done in this block?
+E2FD: D0 04     BNE $E303       ; block full?
+E2FF: A9 00     LDA #$00
+E301: 95 C1     STA <a href="ra41c1.htm">$C1</a>,X       ; write pointer to zero
+
+Jump from $E2FD:
+
+E303: 60        RTS
+
+    <a href="ro41e207.htm">Previous Page</a> / <a href="ro41e304.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

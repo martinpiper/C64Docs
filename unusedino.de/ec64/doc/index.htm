@@ -1,0 +1,364 @@
+<html>
+<head>
+<title>ec64: documentation</title>
+</head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td width="10%">&nbsp;<br></td><td width="80%">
+&nbsp;<br><p align="right"><img alt="" src="doc.gif" width="500" height="50" border="0"></p>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Index</b></font></td></tr></table></td></tr></table><br>
+
+<ul>
+	<li><a href="#compiling">Compiling</a></li>
+	<li><a href="#installation">Installation</a></li>
+	<li><a href="#usage">Usage</a></li>
+	<li><a href="#faq">FAQ</a></li>
+	<li><a href="#changelog">Change Log</a></li>
+	<li><a href="#todo">Todo</a></li>
+</ul>
+
+<a name="compiling"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Compiling</b></font></td></tr></table></td></tr></table><br>
+
+<p align="justify">If you are in the ec64 base directory just type make. After succesful
+compilation you should find a binary in the <tt>bin/</tt> directory. If you want
+to change some compiletime settings then you should edit
+the <tt>Config</tt> file.</p>
+
+<p align="justify">ec64 consists of different parts: sys, io, ui, rom, core. Some of them
+are pure x86 assembler (sys, rom, core), one is pure C (ui) and
+one is a mix of assembler and C (io).</p>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c098ff"><td><p align="justify">If you want to compile ec64 on your own you need nasm-0.98, there
+seem to float some versions around the net which won't work for ec64. They generate
+broken object files, so ec64 immediately crashes after start.</p></td></tr></table></td></tr></table><br>
+
+<p align="justify">For assembler files you need <a href="http://nasm.2y.net/">nasm-0.98</a>.
+If you have problems while compiling,
+perhaps you have an older version (0.97 may cause problems). Or the
+parameters in your NASM Environment Variable may conflict with compile
+time settings. Try "unset NASM" before compiling.</p>
+
+<p align="justify">Each C file is compiled in 3 steps<ul>
+	<li>compiling the <tt>.c</tt> file with gcc to an <tt>.s</tt> file with AT &amp; T syntax</li>
+	<li>filtering this <tt>.s</tt> file through sed, resulting in a <tt>.S</tt> file</li>
+	<li>assembling this <tt>.S</tt> file with gas to an <tt>.o</tt> file</li>
+</ul>Yes this looks a little bit strange, because this could be done in
+one step with a single gcc call. But i've decided to do this to filter out some
+instructions out of the <tt>.s</tt> file, maybe this is obsolete if i would use
+some more advanced gcc options ;-)</p>
+
+<a name="installation"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Installation</b></font></td></tr></table></td></tr></table><br>
+
+<p align="justify">After successful compilation, copy the binary to a place you like
+(<tt>/usr/bin</tt> or <tt>$HOME/bin</tt> might be a good place).
+If your kernel has support for a "real" fb device you can start this binary
+as normal user. If you have no fb device or you use vga16fb ec64 will try to
+access the VGA registers directly, but for this task ec64 needs root rights,
+either you start it as root, or you use the setuid mechanism, execute the
+following commands as root:</p>
+<center><table border="0"><tr><td><pre>
+
+chown root:root ec64
+chmod 4111 ec64
+
+</pre></td></tr></table></center>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#a098ff"><td align="left"><b>Notes</b></td></tr></table></td></tr></table><br>
+
+<ul>
+	<li>vesafb may cause problems, because the driver can't change color
+	depth at run time.</li>
+	<li>check the file permissions of your audio and fb device, if you run
+	ec64 as normal user, this user must have read/write permissions
+	on this devices.</li>
+	<li>For additional fb device drivers you should have a look at the
+	<a href="http://www.ggi-project.org/">GGI Project</a>. In the GGI
+	package you will find KGIcon drivers, which also have a fb device
+	interface.</li>
+</ul>
+
+<a name="usage"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Usage</b></font></td></tr></table></td></tr></table><br>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c098ff"><td><p align="justify">ec64 runs on console only. This means you can't start it from a
+pseudoterminal (like <tt>xterm</tt>). Note that programs like <tt>ttysnoop</tt>
+or <tt>screen</tt> also make use of pseudoterminals.</p></td></tr></table></td></tr></table><br>
+
+<p align="justify">Some seconds
+after starting ec64 the blue C64 screen should appear. Now you are in
+&quot;Keyboard mode&quot; this means (nearly) all pressed keys will be
+mapped to the C64 keyboard. Here some special keys (all other keys can
+be examined through testing ;-):</p>
+<center><table border="0"><tr><td><pre>
+
+PC Keyboard		| C64 Keyboard
+------------------------+------------------------
+Shift Left		| SHIFT Left
+Shift Right		| SHIFT Right
+Ctrl Left, Ctrl Right	| CONTROL
+Alt			| C=
+TAB			| RUNSTOP
+Pause			| RESTORE
+
+</pre></td></tr></table></center>
+<p align="justify">The following keys have a special meaning to the emulator itself:<ul>
+	<li>Ctrl+ESC quits ec64</li>
+	<li>F9 switches between the input modes: Keyboard, Joystick 1,
+	Joystick 2, Monitor</li>
+	<li>F10 makes the Statusline always visible</li>
+	<li>F11 makes the Monitor always visible (in large resolutions this is always the case)</li>
+	<li>F12 takes a screenshot, if this feature was compiled in ec64</li>
+</ul></p>
+
+<p align="justify">In &quot;Joystick mode&quot; only SPACE and the Cursorkeys are used
+to emulate a joystick on Port 1 or 2</p>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#a098ff"><td align="left"><b>Monitor Commands</b></td></tr></table></td></tr></table><br>
+
+<p align="justify">In &quot;Monitor mode&quot; you are able to manipulate the emulation.
+The breakpoint commands are not very useful yet, so i don't explain
+very much details about them.</p>
+
+<dl>
+	<dt><tt>version</tt></dt>
+	<dd>displays the ec64 version</dd>
+
+	<dt><tt>load &lt;d64|g64&gt; &lt;filename&gt;</tt></dt>
+	<dd>loads a D64 disk image in the C1541 drive (G64 not supported
+	at the moment).</dd>
+
+	<dt><tt>save &lt;d64|g64&gt; &lt;filename&gt;</tt></dt>
+	<dd>saves the D64 disk image currently in the C1541 drive (G64 not
+	supported at the moment).
+	<p align="justify"><b>NOTE:</b> If you have no disk image loaded the C1541 drive
+	contains an unformatted disk, this means you can't extract a
+	D64 image.</p></dd>
+
+	<dt><tt>cycles</tt></dt>
+	<dd>displays the emulated cycles</dd>
+
+	<dt><tt>stop</tt></dt>
+	<dd>stops the emulation</dd>
+
+	<dt><tt>continue</tt></dt>
+	<dd>continues the emulation</dd>
+
+	<dt><tt>reset &lt;soft|hard&gt;</tt></dt>
+	<dd>resets the emulation. Soft means a warmstart and hard a cold start</dd>
+
+	<dt><tt>sync &lt;on|off&gt;</tt></dt>
+	<dd>If sync is off the emulation runs at full host CPU speed. If
+	sync is on the emulation runs as fast as the original C64 (maybe
+	slower if your system is too slow)</dd>
+
+	<dt><tt>script &lt;filename&gt;</tt></dt>
+	<dd>all commands you can enter in the monitor, can also be loaded
+	as a script.
+	<p align="justify"><b>NOTE:</b> you can produce endless loops if a script file
+	executes itself via the script command</p></dd>
+
+	<dt><tt>type &lt;text&gt;</tt></dt>
+	<dd>types something on the C64 keyboard, this is useful for
+	scripting. Special characters are escaped through a <tt>^</tt>.
+	If keys should be pressed at once (for example RUNSTOP and RESTORE),
+	they have to be surrounded by a <tt>`</tt>.
+<center><table border="0"><tr><td><pre>
+
+^l	SHIFT Left
+^r	SHIFT Right
+^c	CONTROL
+^o	C=
+^1	F1
+^2	F2
+^3	F3
+^4	F4
+^5	F5
+^6	F6
+^7	F7
+^8	F8
+^L	(<=)
+^E	(L)
+^H	HOME
+^I	INST
+^U	(^)
+^T	RESTORE
+^S	RUNSTOP
+^N	RETURN
+^D	CURSOR DOWN
+^R	CURSOR RIGHT
+
+</pre></td></tr></table></center>
+	<p align="justify">Examples:<ul>
+		<li><tt>type hello</tt></li>
+		<li><tt>type \ world</tt> ; if your text contains
+		spaces you have to add a leading <tt>\</tt></li>
+		<li><tt>type \10 print"hello world"^N20 goto 10^Nrun^Ndummy^Sdummy`^S^T`</tt>
+		; test it and you will see what happens :-)</li>
+	</ul></p>
+	</dd>
+
+	<dt><tt>wait &lt;number of frames&gt;</tt></dt>
+	<dd>waits the given number of frames (useful for scripts)</dd>
+
+	<dt><tt>bpadd &lt;modulid&gt; &lt;bptype&gt; &lt;bpflags&gt; [start_address [end_address [value [mask]]]]</tt></dt>
+	<dd>add a breakpoint. Available modulid's are: c64cpu c1541cpu.
+	bptyte's: ro, rd, rs, wd, ws. Can also be written as
+	read_opcode, read_data, read_stack, write_data, write_stack.
+	<p align="justify">Examples:<ul>
+		<li><tt>bpadd c64cpu ro +trap 1000 1fff</tt></li>
+	</ul></p></dd>
+
+	<dt><tt>bplist &lt;modulid&gt; &lt;bptype&gt;</tt></dt>
+	<dd>lists the breakpoints for modulid and bptype</dd>
+
+	<dt><tt>bpdel &lt;modulid&gt; &lt;bptype&gt; &lt;bpnumber&gt;</tt></dt>
+	<dd>deletes a breakpoint</dd>
+
+	<dt><tt>exit</tt></dt>
+	<dd>quits ec64</dd>
+
+	<dt><tt>quit</tt></dt>
+	<dd>quits ec64</dd>
+
+	<dt><tt>help</tt></dt>
+	<dd>shows all available commands</dd>
+
+</dl>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#a098ff"><td align="left"><b>Commandline Options</b></td></tr></table></td></tr></table><br>
+
+<center><table border="0"><tr><td><pre>
+
+Usage: ec64 [-h] [-d &lt;file&gt;] [-s &lt;file&gt;] [-dsp &lt;file&gt;] [-fb &lt;file&gt;] [-f]
+            [-vm &lt;mode&gt;]
+
+  -h          this help
+  -s &lt;file&gt;   load and execute script on startup
+  -d &lt;file&gt;   load d64 file on startup
+  -dsp &lt;file&gt; audio device file
+  -fb &lt;file&gt;  fb device file
+  -f          fullscreen 400x300@60Hz on fb device
+              (MAY BE NOT SUPPORTED ON ALL DEVICES!)
+  -vm &lt;mode&gt;  vga mode (supported values: 320x240, 360x240)
+
+</pre></td></tr></table></center>
+
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#a098ff"><td align="left"><b>Notes</b></td></tr></table></td></tr></table><br>
+
+<ul>
+	<li>ec64 runs slower under ModeX than with the fb device, especially
+	while massive screen changes and sprite movement.</li>
+	<li>if the emulation seems to hang, probably a C64 program used some
+	features which are not implemented at the moment. If something
+	strange happens the emulation will be stopped and you get a message
+	to the monitor.</li>
+</ul>
+
+<a name="faq"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>FAQ</b></font></td></tr></table></td></tr></table><br>
+
+<dl>
+	<dt><i>I have loaded a d64 image (either via </i><tt><b>-d</b></tt><i>-command line switch
+	or with the </i><tt><b>load</b></tt><i> command in monitor mode) but nothing happens&nbsp;?</i></dt>
+	<dd><p align="justify">You have just done that: loaded a disk image. This means you
+	have inserted a disk in the C1541 disk drive. Now you need to
+	issue the usual commands on a C64, to load something from the floppy.
+	For showing disk contents use <tt><b>LOAD&quot;$&quot;,8</b></tt>.
+	For loading a program in memory use <tt><b>LOAD&quot;programname&quot;,8</b></tt>
+	When the <tt><b>READY.</b></tt> prompt appears again type <tt><b>RUN</b></tt>. Games often
+	use some tricks to automagically start the loaded program, so you only need
+	to load the program with absolute address in memory via
+	<tt><b>LOAD&quot;programname&quot;,8,1</b></tt>. Or if you are really
+	lazy <tt><b>LOAD&quot;*&quot;,8,1</b></tt> will also work, if
+	the first program on disk is that what you want.</p></dd>
+
+	<dt><i>I have started ec64 on console, but it only says </i><tt><b>couldn't&nbsp;initialize&nbsp;video</b></tt><i> or
+	something like </i><tt><b>ioctl(FBIOPUT_VSCREENINFO)&nbsp;failed</b></tt><i> , so whats wrong&nbsp;?</i></dt>
+	<dd><p align="justify">Especially newer distributions boot Linux with the VESA
+	frame buffer driver (vesafb) enabled. Execute <tt><b>cat&nbsp;/proc/fb</b></tt> to find
+	out if this is the case. This driver is unable to change resolution
+	or color depth. So either you use a fb driver suitable for
+	your graphics card or you switch vesafb off. If you use lilo as your
+	boot loader you may either try adding <tt><b>append&nbsp;=&nbsp;&quot;video=vesa:off&quot;</b></tt> to your
+	boot image in <tt><b>/etc/lilo.conf</b></tt>. Or if you have a line
+	starting with <tt><b>vga&nbsp;=&nbsp;</b></tt> try uncommenting this first.
+	This will hopefully
+	switch off vesafb on next boot and ec64 will be able to use its
+	built in VGA driver.</p></dd>
+</dl>
+
+<a name="changelog"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Change Log</b></font></td></tr></table></td></tr></table><br>
+
+<p align="justify"><b>ec64-0.17-20031221:</b><ul>
+	<li>the only thing that changed is the displayed eMail and Webaddress</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.17-20020914:</b><ul>
+	<li>the nasty gpm trick is not needed any more, because of KDSETMODE</li>
+	<li>additional support for the 320x240 resolution under ModeX</li>
+	<li>VIC: fixed a bug causing <tt>reset &lt;soft|hard&gt;</tt> to
+	throw an exception</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.17-20011013:</b><ul>
+	<li>VIC: fixed a bug in bus_cycle_62</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.17-20010915:</b><ul>
+	<li>minor compilation fixes for newer gcc versions in gpm.c</li>
+	<li>CPU: fixed a bug in opcode_jmp_indirect</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.17-20010304:</b><ul>
+	<li>CPU now emulates most (but not all) illegal opcodes</li>
+	<li>screenshots possible</li>
+	<li>bug with large virtual resolutions fixed</li>
+	<li>fullscreen video support for fb devices (if your fb supports 400x300@60Hz)</li>
+	<li>support for ModeX 360x240 via direct VGA access (no fb device needed,
+	but you have to run ec64 with root rights, because of sys_ioperm)</li>
+	<li>splitted ec64 in different parts: sys, io, ui, core (some of them are
+	now written in C)</li>
+	<li>sprites are now displayed (but slow)</li>
+	<li>first working SID emulation</li>
+	<li>better keymapping (using raw keyboard mode)</li>
+	<li>first working joystick emulation (via keyboard)</li>
+	<li>builtin monitor with basic functionality</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.09-20000430:</b><ul>
+	<li>redesigned nearly everything (but cascaded CIA timers not reimplemented)</li>
+	<li>4bpp support with vga16fb</li>
+	<li>faster than ec64-0.05 (realtime on pentium 166+)</li>
+	<li>VIC x scrolling works now</li>
+	<li>sprite DMA is implemented, but no sprites are displayed</li>
+</ul></p>
+
+<p align="justify"><b>ec64-0.05-19991219 (first official release):</b><ul>
+	<li>runs on a pentium 300+ in realtime</li>
+	<li>no SID emulation</li>
+	<li>VIC is emulated without sprites and x scrolling</li>
+	<li>CPU emulates only legal opcodes</li>
+</ul></p>
+
+<a name="todo"></a>
+<br><table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%"><tr bgcolor="#c0b8ff"><td align="left"><font size="+1"><b>Todo</b></font></td></tr></table></td></tr></table><br>
+
+<ul>
+	<li>DISC: recognize SYNC not only on byte boundaries</li>
+	<li>SID: sync and ring modulation and filters</li>
+	<li>CIA: cascaded timers</li>
+	<li>VIA: latched/unlatched mode</li>
+	<li>VIC: sprite collision detection</li>
+	<li>VIC: fix sporadic DMA timing misbehavior</li>
+	<li>VIC: speed up sprite decoding</li>
+	<li>CPU: the missing illegal opcodes</li>
+</ul>
+
+</td><td width="10%">&nbsp;<br></td></tr></table>
+&nbsp;<br><p align="center"><font size="1">&lt; <a href="mailto:ec64@unusedino.de">Karsten Scheibler</a> | 2003-DEC-21 &gt;</font></p>
+</body>
+</html>
+

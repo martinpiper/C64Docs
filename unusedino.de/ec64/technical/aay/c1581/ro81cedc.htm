@@ -1,0 +1,103 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JTRANS_TS: logisches in physikalisches Format umwandeln
+
+CEDC: 06 86     ASL <a href="ra8185.htm">$86</a>          Soll umgewandelt werden (b7=0) ?
+CEDE: B0 6E     BCS $CF4E        nein, Ende ==&gt;
+CEE0: A4 99     LDY <a href="ra8199.htm">$99</a>          Index fuer 2-Byte Jobspeicher holen
+CEE2: 06 85     ASL <a href="ra8185.htm">$85</a>          Sind Parameter sowieso physikalisch (b7=0)?
+CEE4: 90 44     BCC $CF2A        ja, ==&gt;
+CEE6: A6 83     LDX <a href="ra8183.htm">$83</a>
+CEE8: B5 9F     LDA <a href="ra819f.htm">$9F</a>,X        b7=1: wurde das Format bereits umgewandelt?
+CEEA: 10 01     BPL $CEED        nein, (also umwandeln) ==&gt;
+CEEC: 60        RTS              [ja: Wenigstens die Diskettenseite muesste
+                                 neu nach $96 geschrieben werden !!!]
+
+Einsprung von $CEEA:
+
+CEED: B9 0B 00  LDA <a href="ra810b.htm">$000B</a>,Y      logische Spur - 1
+CEF0: 38        SEC
+CEF1: E9 01     SBC #$01
+CEF3: 99 BC 01  STA <a href="ra8101bc.htm">$01BC</a>,Y      = physikalische Spur
+
+CEF6: A5 75     LDA <a href="ra8175.htm">$75</a>          Anzahl Sektoren pro Track
+CEF8: 4A        LSR              / 2 = Sektoren pro Spur
+CEF9: AA        TAX              = 1. logischer Block auf Rueckseite
+CEFA: D9 0C 00  CMP <a href="ra810b.htm">$000C</a>,Y      Sektornummer &gt;= a ?
+CEFD: F0 05     BEQ $CF04        ja, (Seite 1) ==&gt;
+CEFF: 90 03     BCC $CF04        ja, (Seite 1) ==&gt;
+CF01: A9 00     LDA #$00         Seite 0 waehlen
+CF03: 2C         B $2C
+
+Einsprung von $CEFD, $CEFF:
+
+CF04: A9 01     LDA #$01         Seite 1 waehlen
+CF06: 85 96     STA <a href="ra8196.htm">$96</a>          als aktuelle Seite merken
+CF08: F0 01     BEQ $CF0B        Aktuelle Seite =1 ? nein, ==&gt;
+CF0A: 8A        TXA              ja:
+
+Einsprung von $CF08:
+
+CF0B: 85 39     STA <a href="ra8139.htm">$39</a>          als 1. log. Sek. der Seite merken
+CF0D: A6 83     LDX <a href="ra8183.htm">$83</a>
+CF0F: B9 0C 00  LDA <a href="ra810b.htm">$000C</a>,Y      logischer Sektor
+CF12: 38        SEC
+CF13: E5 39     SBC <a href="ra8139.htm">$39</a>          - 1. log. Sektor der Disk-Seite
+CF15: 09 80     ORA #$80         b7=1: Flag: 'T&amp;S sind umgewandelt' setzen
+CF17: 95 9F     STA <a href="ra819f.htm">$9F</a>,X        als Zeiger (Hi) in Cachepuffer merken
+CF19: 29 7F     AND #$7F         physikalische Sektornummer berechnen
+CF1B: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorgroesse holen
+
+Einsprung von $CF21:
+
+CF1D: CA        DEX              [Wenn ein physikalischer Sektor 512 Byte
+CF1E: F0 04     BEQ $CF24         gross ist, passen immer 2 logische Sektoren
+CF20: 4A        LSR               hinein. Also muss die Sektornummer /2
+CF21: 4C 1D CF  JMP $CF1D         genommen werden (Normalfall).]
+
+Einsprung von $CF1E:
+
+CF24: 18        CLC
+CF25: 65 94     ADC <a href="ra8194.htm">$94</a>          + 1. physikalische Sektornummer der Spur
+CF27: 4C 4A CF  JMP $CF4A        = phy. Sektornummer ==&gt;
+es wurden phy. T&amp;S angegeben; Position im Cache berechnen
+
+Einsprung von $CEE4:
+
+CF2A: A6 83     LDX <a href="ra8183.htm">$83</a>
+CF2C: BD CE 01  LDA <a href="ra8101ce.htm">$01CE</a>,X      Seitennummer
+CF2F: 85 96     STA <a href="ra8196.htm">$96</a>          uebernehmen
+CF31: B9 0B 00  LDA <a href="ra810b.htm">$000B</a>,Y      Tracknummer
+CF34: 99 BC 01  STA <a href="ra8101bc.htm">$01BC</a>,Y      uebernehmen
+CF37: B9 0C 00  LDA <a href="ra810b.htm">$000C</a>,Y      Sektornummer
+CF3A: 48        PHA              merken
+CF3B: 38        SEC
+CF3C: E5 94     SBC <a href="ra8194.htm">$94</a>          - 1. Sektornummer auf der Spur
+CF3E: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorgroesse
+
+Einsprung von $CF44:
+
+CF40: CA        DEX              [Sektornummer auf 256 Byte grosse Bloecke
+CF41: F0 04     BEQ $CF47         umrechnen. Bei 512 Byte grossen Sektoren
+CF43: 0A        ASL               muss die Sektor nummer also *2 genommen
+CF44: 4C 40 CF  JMP $CF40         werden (Normalfall).]
+
+Einsprung von $CF41:
+
+CF47: 95 9F     STA <a href="ra819f.htm">$9F</a>,X        Sektornummer merken
+CF49: 68        PLA
+
+Einsprung von $CF27:
+
+CF4A: 99 BD 01  STA <a href="ra8101bc.htm">$01BD</a>,Y      physikalische Sektornummer merken
+CF4D: 2C         B $2C         Ende ==&gt;
+
+Einsprung von $CEDE:
+
+CF4E: 06 85     ASL <a href="ra8185.htm">$85</a>          [Die Routine muss $85 genau 1 mal nach Links
+CF50: 60        RTS               shiften.]
+
+    <a href="ro81cea4.htm">Previous Page</a> / <a href="ro81cf51.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

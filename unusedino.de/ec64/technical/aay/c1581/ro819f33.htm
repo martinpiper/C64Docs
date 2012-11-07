@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Pruefen, ob ein Puffer des Kanals nicht belegt ist ($dfb7)
+A: z: 1: Puffer ist nicht belegt
+
+Einsprung von <a href="ro818e37.htm">$8E3F</a>:
+
+9F33: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer
+9F35: B5 D1     LDA <a href="ra81d1.htm">$D1</a>,X        ist 1. Puffer inaktiv
+9F37: 30 02     BMI $9F3B        ja, ==&gt;
+9F39: B5 D8     LDA <a href="ra81d8.htm">$D8</a>,X        2. Puffer pruefen
+
+Einsprung von $9F37:
+
+9F3B: C9 FF     CMP #$FF         auf 'nicht belegt' pruefen
+9F3D: 60        RTS
+
+    <a href="ro819f1c.htm">Previous Page</a> / <a href="ro819f3e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

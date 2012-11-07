@@ -1,0 +1,60 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B983/47491:   Multiply by Zero Byte
+
+Jump from <a href="romba59.htm">$BA5B</a>:
+
+B983: A2 25     <a href="bldx.htm">LDX</a> #$25
+
+Jump from $B99B, $B99D:
+
+B985: B4 04     <a href="bldy.htm">LDY</a> <a href="zp03.htm">$04</a>,X     ; Jump Vector: Convert FAC to Integer
+B987: 84 70     <a href="bsty.htm">STY</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B989: B4 03     <a href="bldy.htm">LDY</a> <a href="zp03.htm">$03</a>,X     ; Jump Vector: Convert FAC to Integer
+B98B: 94 04     <a href="bsty.htm">STY</a> <a href="zp03.htm">$04</a>,X     ; Jump Vector: Convert FAC to Integer
+B98D: B4 02     <a href="bldy.htm">LDY</a> <a href="zp02.htm">$02</a>,X     ; Unused
+B98F: 94 03     <a href="bsty.htm">STY</a> <a href="zp03.htm">$03</a>,X     ; Jump Vector: Convert FAC to Integer
+B991: B4 01     <a href="bldy.htm">LDY</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B993: 94 02     <a href="bsty.htm">STY</a> <a href="zp02.htm">$02</a>,X     ; Unused
+B995: A4 68     <a href="bldy.htm">LDY</a> <a href="zp68.htm">$68</a>       ; Bit Overflow Area during normalisation Routine
+B997: 94 01     <a href="bsty.htm">STY</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+
+Jump from <a href="romb862.htm">$B862</a>, <a href="rombc9b.htm">$BCB5</a>:
+
+B999: 69 08     <a href="badc.htm">ADC</a> #$08
+B99B: 30 E8     <a href="bbmi.htm">BMI</a> $B985
+B99D: F0 E6     <a href="bbeq.htm">BEQ</a> $B985
+B99F: E9 08     <a href="bsbc.htm">SBC</a> #$08
+B9A1: A8        <a href="btay.htm">TAY</a>
+B9A2: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+B9A4: B0 14     <a href="bbcs.htm">BCS</a> $B9BA
+
+Jump from $B9B8:
+
+B9A6: 16 01     <a href="basl.htm">ASL</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B9A8: 90 02     <a href="bbcc.htm">BCC</a> $B9AC
+B9AA: F6 01     <a href="binc.htm">INC</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+
+Jump from $B9A8:
+
+B9AC: 76 01     <a href="bror.htm">ROR</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+B9AE: 76 01     <a href="bror.htm">ROR</a> <a href="zp01.htm">$01</a>,X     ; 6510 On-chip 8-bit Input/Output Register
+
+Jump from <a href="romb867.htm">$B8A0</a>, <a href="rombc9b.htm">$BCC6</a>:
+
+B9B0: 76 02     <a href="bror.htm">ROR</a> <a href="zp02.htm">$02</a>,X     ; Unused
+B9B2: 76 03     <a href="bror.htm">ROR</a> <a href="zp03.htm">$03</a>,X     ; Jump Vector: Convert FAC to Integer
+B9B4: 76 04     <a href="bror.htm">ROR</a> <a href="zp03.htm">$04</a>,X     ; Jump Vector: Convert FAC to Integer
+B9B6: 6A        <a href="bror.htm">ROR</a>
+B9B7: C8        <a href="biny.htm">INY</a>
+B9B8: D0 EC     <a href="bbne.htm">BNE</a> $B9A6
+
+Jump from $B9A4:
+
+B9BA: 18        <a href="bclc.htm">CLC</a>
+B9BB: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb97e.htm">Previous Page</a> / <a href="romb9bc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

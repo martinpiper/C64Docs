@@ -1,0 +1,73 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CF9B/53147:   Write data in buffer
+
+Jump from <a href="ro41c9d5.htm">$C9D5</a>, <a href="ro41c9d5.htm">$C9E7</a>:
+
+CF9B: A2 12     LDX #$12        ; channel 18
+CF9D: 86 83     STX <a href="ra4183.htm">$83</a>
+CF9F: 20 07 D1  JSR <a href="ro41d107.htm">$D107</a>       ; open write channel
+CFA2: 20 00 C1  JSR <a href="ro41c100.htm">$C100</a>       ; turn LED on
+CFA5: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+CFA8: 90 05     BCC $CFAF       ; no rel-file
+CFAA: A9 20     LDA #$20
+CFAC: 20 9D DD  JSR <a href="ro41dd95.htm">$DD9D</a>       ; change buffer
+
+Jump from $CFA8:
+
+CFAF: A5 83     LDA <a href="ra4183.htm">$83</a>         ; secondary address
+CFB1: C9 0F     CMP #$0F        ; 15?
+CFB3: F0 23     BEQ $CFD8       ; yes
+CFB5: D0 08     BNE $CFBF       ; no
+
+Jump from <a href="ro41ea2e.htm">$EA48</a>:
+
+CFB7: A5 84     LDA <a href="ra4184.htm">$84</a>         ; secondary address
+CFB9: 29 8F     AND #$8F
+CFBB: C9 0F     CMP #$0F        ; greater than 15?
+CFBD: B0 19     BCS $CFD8       ; then input buffer
+
+Jump from $CFB5:
+
+CFBF: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; check file type
+CFC2: B0 05     BCS $CFC9       ; rel-file or direct access?
+CFC4: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+CFC6: 4C 9D D1  JMP <a href="ro41d19d.htm">$D19D</a>       ; write in buffer
+
+Jump from $CFC2:
+
+CFC9: D0 03     BNE $CFCE       ; direct access file?
+CFCB: 4C AB E0  JMP <a href="ro41e0ab.htm">$E0AB</a>       ; write data byte in rel-file
+
+Jump from $CFC9:
+
+CFCE: A5 85     LDA <a href="ra4185.htm">$85</a>
+CFD0: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write data byte in buffer
+CFD3: A4 82     LDY <a href="ra4182.htm">$82</a>         ; channel number
+CFD5: 4C EE D3  JMP <a href="ro41d39b.htm">$D3EE</a>       ; prepare next byte for output
+
+Jump from $CFB3, $CFBD:
+
+CFD8: A9 04     LDA #$04        ; channel 4
+CFDA: 85 82     STA <a href="ra4182.htm">$82</a>         ; corresponding input buffer
+CFDC: 20 E8 D4  JSR <a href="ro41d4e8.htm">$D4E8</a>       ; set buffer pointer
+CFDF: C9 2A     CMP #$2A        ; 40
+CFE1: F0 05     BEQ $CFE8       ; buffer end?
+CFE3: A5 85     LDA <a href="ra4185.htm">$85</a>
+CFE5: 20 F1 CF  JSR <a href="ro41cff1.htm">$CFF1</a>       ; write data byte in buffer
+
+Jump from $CFE1:
+
+CFE8: A5 F8     LDA <a href="ra41f8.htm">$F8</a>         ; end flag set?
+CFEA: F0 01     BEQ $CFED       ; yes
+CFEC: 60        RTS
+
+Jump from $CFEA:
+
+CFED: EE 55 02  INC <a href="ra410255.htm">$0255</a>       ; set command flag
+CFF0: 60        RTS
+
+    <a href="ro41cf8c.htm">Previous Page</a> / <a href="ro41cff1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,89 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CE71/52849:   Divide by 120
+
+Jump from <a href="ro41ce0e.htm">$CE18</a>:
+
+CE71: A9 78     LDA #$78
+CE73: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; divisor
+CE75: A2 03     LDX #$03
+
+Jump from $CE82:
+
+CE77: B5 8F     LDA <a href="ra418f.htm">$8F</a>,X
+CE79: 48        PHA
+CE7A: B5 8A     LDA <a href="ra4186.htm">$8A</a>,X
+CE7C: 95 8F     STA <a href="ra418f.htm">$8F</a>,X
+CE7E: 68        PLA
+CE7F: 95 8A     STA <a href="ra4186.htm">$8A</a>,X
+CE81: CA        DEX
+CE82: D0 F3     BNE $CE77
+CE84: 20 D9 CE  JSR <a href="ro41ced9.htm">$CED9</a>       ; erase work storage
+
+Jump from $CEC3:
+
+CE87: A2 00     LDX #$00
+
+Jump from $CE90:
+
+CE89: B5 90     LDA <a href="ra418f.htm">$90</a>,X
+CE8B: 95 8F     STA <a href="ra418f.htm">$8F</a>,X
+CE8D: E8        INX
+CE8E: E0 04     CPX #$04
+CE90: 90 F7     BCC $CE89
+CE92: A9 00     LDA #$00
+CE94: 85 92     STA <a href="ra418f.htm">$92</a>
+CE96: 24 6F     BIT <a href="ra416f.htm">$6F</a>
+CE98: 30 09     BMI $CEA3
+CE9A: 06 8F     ASL <a href="ra418f.htm">$8F</a>
+CE9C: 08        PHP
+CE9D: 46 8F     LSR <a href="ra418f.htm">$8F</a>
+CE9F: 28        PLP
+CEA0: 20 E6 CE  JSR <a href="ro41cee5.htm">$CEE6</a>       ; shift register 1 left
+
+Jump from $CE98:
+
+CEA3: 20 ED CE  JSR <a href="ro41ceed.htm">$CEED</a>       ; add register 0 to register 1
+CEA6: 20 E5 CE  JSR <a href="ro41cee5.htm">$CEE5</a>       ; shift register 1 left
+CEA9: 24 6F     BIT <a href="ra416f.htm">$6F</a>
+CEAB: 30 03     BMI $CEB0
+CEAD: 20 E2 CE  JSR <a href="ro41cee2.htm">$CEE2</a>       ; left-shift register 1 twice
+
+Jump from $CEAB:
+
+CEB0: A5 8F     LDA <a href="ra418f.htm">$8F</a>
+CEB2: 18        CLC
+CEB3: 65 90     ADC <a href="ra418f.htm">$90</a>
+CEB5: 85 90     STA <a href="ra418f.htm">$90</a>
+CEB7: 90 06     BCC $CEBF
+CEB9: E6 91     INC <a href="ra418f.htm">$91</a>
+CEBB: D0 02     BNE $CEBF
+CEBD: E6 92     INC <a href="ra418f.htm">$92</a>
+
+Jump from $CEB7, $CEBB:
+
+CEBF: A5 92     LDA <a href="ra418f.htm">$92</a>
+CEC1: 05 91     ORA <a href="ra418f.htm">$91</a>
+CEC3: D0 C2     BNE $CE87
+CEC5: A5 90     LDA <a href="ra418f.htm">$90</a>
+CEC7: 38        SEC
+CEC8: E5 6F     SBC <a href="ra416f.htm">$6F</a>         ; quotient in $8B/$8C/$8D
+CECA: 90 0C     BCC $CED8
+CECC: E6 8B     INC <a href="ra418b.htm">$8B</a>
+CECE: D0 06     BNE $CED6
+CED0: E6 8C     INC <a href="ra418b.htm">$8C</a>
+CED2: D0 02     BNE $CED6
+CED4: E6 8D     INC <a href="ra418b.htm">$8D</a>
+
+Jump from $CECE, $CED2:
+
+CED6: 85 90     STA <a href="ra418f.htm">$90</a>         ; remainder in $90
+
+Jump from $CECA:
+
+CED8: 60        RTS
+
+    <a href="ro41ce6e.htm">Previous Page</a> / <a href="ro41ced9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

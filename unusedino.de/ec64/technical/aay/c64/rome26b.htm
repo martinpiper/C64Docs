@@ -1,0 +1,52 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E26B/57963:   Evaluate &lt;sin&gt;
+
+Jump from <a href="rome2b4.htm">$E2BB</a>:
+
+E26B: 20 0C BC  <a href="bjsr.htm">JSR</a> <a href="rombc0c.htm">$BC0C</a>     ; Copy FAC#1 into FAC#2
+E26E: A9 E5     <a href="blda.htm">LDA</a> #$E5
+E270: A0 E2     <a href="bldy.htm">LDY</a> #$E2
+E272: A6 6E     <a href="bldx.htm">LDX</a> <a href="zp6e.htm">$6E</a>       ; AFAC Sign
+E274: 20 07 BB  <a href="bjsr.htm">JSR</a> <a href="rombb07.htm">$BB07</a>     ; Divide FAC#2 by Flpt at (AC/YR)
+E277: 20 0C BC  <a href="bjsr.htm">JSR</a> <a href="rombc0c.htm">$BC0C</a>     ; Copy FAC#1 into FAC#2
+E27A: 20 CC BC  <a href="bjsr.htm">JSR</a> <a href="rombccc.htm">$BCCC</a>     ; Evaluate &lt;int&gt;
+E27D: A9 00     <a href="blda.htm">LDA</a> #$00
+E27F: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+E281: 20 53 B8  <a href="bjsr.htm">JSR</a> <a href="romb850.htm">$B853</a>     ; Perform Subtraction
+E284: A9 EA     <a href="blda.htm">LDA</a> #$EA
+E286: A0 E2     <a href="bldy.htm">LDY</a> #$E2
+E288: 20 50 B8  <a href="bjsr.htm">JSR</a> <a href="romb850.htm">$B850</a>     ; Perform Subtraction
+E28B: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+E28D: 48        <a href="bpha.htm">PHA</a>
+E28E: 10 0D     <a href="bbpl.htm">BPL</a> $E29D
+E290: 20 49 B8  <a href="bjsr.htm">JSR</a> <a href="romb849.htm">$B849</a>     ; Add 0.5 to FAC#1
+E293: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+E295: 30 09     <a href="bbmi.htm">BMI</a> $E2A0
+E297: A5 12     <a href="blda.htm">LDA</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+E299: 49 FF     <a href="beor.htm">EOR</a> #$FF
+E29B: 85 12     <a href="bsta.htm">STA</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+
+Jump from $E28E, <a href="rome2b4.htm">$E2DD</a>:
+
+E29D: 20 B4 BF  <a href="bjsr.htm">JSR</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+
+Jump from $E295:
+
+E2A0: A9 EA     <a href="blda.htm">LDA</a> #$EA
+E2A2: A0 E2     <a href="bldy.htm">LDY</a> #$E2
+E2A4: 20 67 B8  <a href="bjsr.htm">JSR</a> <a href="romb867.htm">$B867</a>     ; Perform Addition
+E2A7: 68        <a href="bpla.htm">PLA</a>
+E2A8: 10 03     <a href="bbpl.htm">BPL</a> $E2AD
+E2AA: 20 B4 BF  <a href="bjsr.htm">JSR</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+
+Jump from $E2A8:
+
+E2AD: A9 EF     <a href="blda.htm">LDA</a> #$EF
+E2AF: A0 E2     <a href="bldy.htm">LDY</a> #$E2
+E2B1: 4C 43 E0  <a href="bjmp.htm">JMP</a> <a href="rome043.htm">$E043</a>     ; Series Evaluation
+
+    <a href="rome264.htm">Previous Page</a> / <a href="rome2b4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

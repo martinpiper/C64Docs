@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+FSM auf Eingang schalten
+
+ACB6: EA        NOP              [s. 1571-DOS:
+ACB7: EA        NOP             81C4  A9 84     LDA #$84     eigentlich #88
+ACB8: EA        NOP             81C6  8D 0D 40  STA $400D
+ACB9: EA        NOP               Interrupt bei Alarmzeit (Fehler des DOS)
+ACBA: EA        NOP               haette genau die richtige Laenge.]
+
+Einsprung von <a href="ro81abcf.htm">$ABDD</a>, <a href="ro81aedf.htm">$AEE4</a>, <a href="ro81aeea.htm">$AEEC</a>, <a href="ro81b0f0.htm">$B102</a>, <a href="ro81bebb.htm">$BEC5</a>, <a href="ro81bf5a.htm">$BF63</a>:
+
+ACBB: 08        PHP              &lt;-- I-Flag retten
+ACBC: 78        SEI
+ACBD: AD 0E 40  LDA <a href="cia81e.htm">$400E</a>        SDR auf Eingang schalten
+ACC0: 29 BF     AND #$BF
+ACC2: 20 C7 DB  JSR <a href="ro81dbc7.htm">$DBC7</a>        Schiebezaehler initialisieren
+ACC5: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Bustreiber auf Eingang schalten
+ACC8: 29 DF     AND #$DF
+ACCA: 8D 01 40  STA <a href="cia811.htm">$4001</a>
+ACCD: 28        PLP
+ACCE: 60        RTS
+
+    <a href="ro81ac9d.htm">Previous Page</a> / <a href="ro81accf.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,84 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F2F9/62201:   Head transport
+
+Jump from <a href="ro41f2b0.htm">$F2EE</a>:
+
+F2F9: A9 20     LDA #$20
+F2FB: 85 20     STA <a href="ra4120.htm">$20</a>         ; program head transport
+F2FD: A0 05     LDY #$05
+F2FF: 84 3F     STY <a href="ra413f.htm">$3F</a>         ; initialize buffer counter
+
+Jump from $F308:
+
+F301: 20 93 F3  JSR <a href="ro41f393.htm">$F393</a>       ; set pointer in buffer
+F304: 30 1A     BMI $F320       ; command for buffer?
+
+Jump from $F324, $F339:
+
+F306: C6 3F     DEC <a href="ra413f.htm">$3F</a>         ; decrement counter
+F308: 10 F7     BPL $F301       ; check next buffer
+F30A: A4 41     LDY <a href="ra4141.htm">$41</a>         ; buffer number
+F30C: 20 95 F3  JSR <a href="ro41f393.htm">$F395</a>       ; set pointer in buffer
+F30F: A5 42     LDA <a href="ra4142.htm">$42</a>         ; track difference for last job
+F311: 85 4A     STA <a href="ra414a.htm">$4A</a>         ; as counter for head transport
+F313: 06 4A     ASL <a href="ra414a.htm">$4A</a>
+F315: A9 60     LDA #$60        ; set flag for head transport
+F317: 85 20     STA <a href="ra4120.htm">$20</a>
+F319: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y     ; get track number from buffer
+F31B: 85 22     STA <a href="ra4122.htm">$22</a>
+F31D: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+Jump from $F304:
+
+F320: 29 01     AND #$01        ; isolate drive number
+F322: C5 3D     CMP <a href="ra413d.htm">$3D</a>         ; equal drive number of last job?
+F324: D0 E0     BNE $F306       ; no
+F326: A5 22     LDA <a href="ra4122.htm">$22</a>         ; last track number
+F328: F0 12     BEQ $F33C       ; equal zero?
+F32A: 38        SEC
+F32B: F1 32     SBC (<a href="ra4132.htm">$32</a>),Y     ; equal track number of this job?
+F32D: F0 0D     BEQ $F33C       ; yes
+F32F: 49 FF     EOR #$FF
+F331: 85 42     STA <a href="ra4142.htm">$42</a>
+F333: E6 42     INC <a href="ra4142.htm">$42</a>
+F335: A5 3F     LDA <a href="ra413f.htm">$3F</a>         ; drive number
+F337: 85 41     STA <a href="ra4141.htm">$41</a>
+F339: 4C 06 F3  JMP $F306
+
+Jump from $F328, $F32D:
+
+F33C: A2 04     LDX #$04
+F33E: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y     ; track number of the job
+F340: 85 40     STA <a href="ra4140.htm">$40</a>         ; save
+
+Jump from $F346:
+
+F342: DD D6 FE  CMP <a href="ro41fed6.htm">$FED6</a>,X     ; compare with maximum track number
+F345: CA        DEX
+F346: B0 FA     BCS $F342       ; greater?
+F348: BD D1 FE  LDA <a href="ro41fed1.htm">$FED1</a>,X     ; get number of sectors per track
+F34B: 85 43     STA <a href="ra4143.htm">$43</a>         ; and save
+F34D: 8A        TXA
+F34E: 0A        ASL
+F34F: 0A        ASL
+F350: 0A        ASL
+F351: 0A        ASL
+F352: 0A        ASL
+F353: 85 44     STA <a href="ra4144.htm">$44</a>         ; gives 0, 32, 64, 96
+F355: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+F358: 29 9F     AND #$9F
+F35A: 05 44     ORA <a href="ra4144.htm">$44</a>         ; generate control byte for motor
+F35C: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+F35F: A6 3D     LDX <a href="ra413d.htm">$3D</a>
+F361: A5 45     LDA <a href="ra4145.htm">$45</a>         ; command code
+F363: C9 40     CMP #$40        ; position head?
+F365: F0 15     BEQ <a href="ro41f37c.htm">$F37C</a>       ; yes
+F367: C9 60     CMP #$60        ; command code for program execution?
+F369: F0 03     BEQ <a href="ro41f36e.htm">$F36E</a>       ; yes
+F36B: 4C B1 F3  JMP <a href="ro41f3b1.htm">$F3B1</a>       ; read block header
+
+    <a href="ro41f2b0.htm">Previous Page</a> / <a href="ro41f36e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

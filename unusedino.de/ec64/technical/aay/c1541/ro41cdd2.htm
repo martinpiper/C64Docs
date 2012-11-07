@@ -1,0 +1,33 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CDD2/52690:   Open channel
+
+Jump from <a href="ro41cdbd.htm">$CDBD</a>, <a href="ro41cdf2.htm">$CDF2</a>:
+
+CDD2: A6 D3     LDX <a href="ra41d3.htm">$D3</a>
+CDD4: E6 D3     INC <a href="ra41d3.htm">$D3</a>
+CDD6: BD 85 02  LDA <a href="ra410285.htm">$0285</a>,X     ; buffer number
+CDD9: A8        TAY
+CDDA: 88        DEY
+CDDB: 88        DEY
+CDDC: C0 0C     CPY #$0C        ; buffer number smaller than 14?
+CDDE: 90 05     BCC $CDE5       ; yes
+
+Jump from $CDEA:
+
+CDE0: A9 70     LDA #$70
+CDE2: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 70, 'no channel'
+
+Jump from $CDDE:
+
+CDE5: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+CDE7: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>       ; open channel
+CDEA: B0 F4     BCS $CDE0       ; already allocated, 'no channel'
+CDEC: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; buffer number
+CDEF: 85 F9     STA <a href="ra41f9.htm">$F9</a>         ; set
+CDF1: 60        RTS
+
+    <a href="ro41cdbd.htm">Previous Page</a> / <a href="ro41cdf2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

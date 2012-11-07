@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Fehlerbehandlung fuer Burst-Fastload setzen
+
+Einsprung von <a href="ro81b8d2.htm">$B8EE</a>:
+
+BA64: 20 7C BA  JSR <a href="ro81ba7c.htm">$BA7C</a>        Sprungvektoren retten
+BA67: A9 D3     LDA #$D3         ERROR: Error-Routine des Controllers auf
+BA69: 8D AE 01  STA <a href="ra8101ae.htm">$01AE</a>        $b9d3 setzen
+BA6C: A9 B9     LDA #$B9
+BA6E: 8D AF 01  STA <a href="ra8101ae.htm">$01AF</a>
+BA71: A9 DF     LDA #$DF         CMDERR: Error-Routine des DOS auf $dfdf
+BA73: 8D BA 01  STA <a href="ra8101ba.htm">$01BA</a>        setzen
+BA76: A9 DF     LDA #$DF         [Da ist kein Programm !?
+BA78: 8D BB 01  STA <a href="ra8101ba.htm">$01BB</a>         Vermutlich ist $b9df gemeint.]
+BA7B: 60        RTS
+
+    <a href="ro81ba40.htm">Previous Page</a> / <a href="ro81ba7c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

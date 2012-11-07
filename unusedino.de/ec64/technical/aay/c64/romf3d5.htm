@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F3D5/62421:   Send Secondary Address
+
+Jump from <a href="romf34a.htm">$F37F</a>, <a href="romf4b8.htm">$F4C8</a>, <a href="romf5fa.htm">$F605</a>:
+
+F3D5: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F3D7: 30 FA     <a href="bbmi.htm">BMI</a> <a href="romf34a.htm">$F3D3</a>     ; Open File
+F3D9: A4 B7     <a href="bldy.htm">LDY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F3DB: F0 F6     <a href="bbeq.htm">BEQ</a> <a href="romf34a.htm">$F3D3</a>     ; Open File
+F3DD: A9 00     <a href="blda.htm">LDA</a> #$00
+F3DF: 85 90     <a href="bsta.htm">STA</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+F3E1: A5 BA     <a href="blda.htm">LDA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F3E3: 20 0C ED  <a href="bjsr.htm">JSR</a> <a href="romed0c.htm">$ED0C</a>     ; Send LISTEN Command on Serial Bus
+F3E6: A5 B9     <a href="blda.htm">LDA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+F3E8: 09 F0     <a href="bora.htm">ORA</a> #$F0
+F3EA: 20 B9 ED  <a href="bjsr.htm">JSR</a> <a href="romedb9.htm">$EDB9</a>     ; Send LISTEN Secondary Address
+F3ED: A5 90     <a href="blda.htm">LDA</a> <a href="zp90.htm">$90</a>       ; Kernal I/O Status Word ST
+F3EF: 10 05     <a href="bbpl.htm">BPL</a> $F3F6
+F3F1: 68        <a href="bpla.htm">PLA</a>
+F3F2: 68        <a href="bpla.htm">PLA</a>
+F3F3: 4C 07 F7  <a href="bjmp.htm">JMP</a> <a href="romf707.htm">$F707</a>     ; Output I/O Error Messages: 'DEVICE NOT PRESENT'
+
+Jump from $F3EF:
+
+F3F6: A5 B7     <a href="blda.htm">LDA</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F3F8: F0 0C     <a href="bbeq.htm">BEQ</a> $F406
+F3FA: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $F404:
+
+F3FC: B1 BB     <a href="blda.htm">LDA</a> (<a href="zpbb.htm">$BB</a>),Y   ; Pointer: Current File name Address
+F3FE: 20 DD ED  <a href="bjsr.htm">JSR</a> <a href="romeddd.htm">$EDDD</a>     ; Send Serial Deferred
+F401: C8        <a href="biny.htm">INY</a>
+F402: C4 B7     <a href="bcpy.htm">CPY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F404: D0 F6     <a href="bbne.htm">BNE</a> $F3FC
+
+Jump from $F3F8:
+
+F406: 4C 54 F6  <a href="bjmp.htm">JMP</a> <a href="romf5fa.htm">$F654</a>     ; Save to Serial Bus
+
+    <a href="romf34a.htm">Previous Page</a> / <a href="romf409.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

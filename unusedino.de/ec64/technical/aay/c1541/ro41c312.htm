@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C312/49938:   Preserve drive number
+
+Jump from <a href="ro41d815.htm">$D84C</a>, <a href="ro41ee0d.htm">$EE0D</a>:
+
+C312: AD 78 02  LDA <a href="ra410278.htm">$0278</a>       ; number of commas
+C315: 8D 77 02  STA <a href="ra410277.htm">$0277</a>       ; save
+C318: A9 01     LDA #$01
+C31A: 8D 78 02  STA <a href="ra410278.htm">$0278</a>       ; number of drive numbers
+C31D: 8D 79 02  STA <a href="ra410279.htm">$0279</a>
+
+Jump from <a href="ro41c823.htm">$C826</a>, <a href="ro41c8f0.htm">$C90F</a>, <a href="ro41ca88.htm">$CA88</a>, <a href="ro41da55.htm">$DA9B</a>:
+
+C320: AC 8E 02  LDY <a href="ra41028e.htm">$028E</a>       ; last drive number
+C323: A2 00     LDX #$00
+
+Jump from $C339:
+
+C325: 86 D3     STX <a href="ra41d3.htm">$D3</a>
+C327: BD 7A 02  LDA <a href="ra41027a.htm">$027A</a>,X     ; position of the colon
+C32A: 20 3C C3  JSR <a href="ro41c33c.htm">$C33C</a>       ; get drive number before colon
+C32D: A6 D3     LDX <a href="ra41d3.htm">$D3</a>
+C32F: 9D 7A 02  STA <a href="ra41027a.htm">$027A</a>,X     ; save exact position
+C332: 98        TYA
+C333: 95 E2     STA <a href="ra41e2.htm">$E2</a>,X       ; drive number in table
+C335: E8        INX
+C336: EC 78 02  CPX <a href="ra410278.htm">$0278</a>       ; got all drive numbers?
+C339: 90 EA     BCC $C325       ; no, continue
+C33B: 60        RTS
+
+    <a href="ro41c2dc.htm">Previous Page</a> / <a href="ro41c33c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

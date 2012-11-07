@@ -1,0 +1,16 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DED2/57042:   Get side-sector number
+
+Jump from <a href="ro41df66.htm">$DF66</a>, <a href="ro41e1cb.htm">$E1CB</a>:
+
+DED2: A9 00     LDA #$00
+DED4: 20 DC DE  JSR <a href="ro41dedc.htm">$DEDC</a>       ; buffer pointer to zero
+DED7: A0 02     LDY #$02
+DED9: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; byte 2 contains the side-sector number
+DEDB: 60        RTS
+
+    <a href="ro41dec1.htm">Previous Page</a> / <a href="ro41dedc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

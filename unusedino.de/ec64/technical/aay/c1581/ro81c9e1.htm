@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Job $a0: WRTVER_DV
+
+Einsprung von <a href="ro81c600.htm">$C6D4</a>:
+
+C9E1: 24 8D     BIT <a href="ra818d.htm">$8D</a>          E/A-Byte: b7=1: 'Verify ein' ?
+C9E3: 10 0B     BPL $C9F0        nein, ==&gt;
+C9E5: 20 DC CB  JSR <a href="ro81cbd5.htm">$CBDC</a>        1,6 ms warten
+C9E8: 20 00 CA  JSR <a href="ro81ca00.htm">$CA00</a>        Spur mit Cachedaten vergleichen
+
+Einsprung von $C9F3:
+
+C9EB: 06 87     ASL <a href="ra8187.htm">$87</a>          Flag: 'Cache veraendert' loeschen
+C9ED: 4C E2 CD  JMP <a href="ro81cde2.htm">$CDE2</a>        Ende; naechsten Job pruefen ==&gt;
+
+Einsprung von $C9E3:
+
+C9F0: 20 DC CB  JSR <a href="ro81cbd5.htm">$CBDC</a>        1,6 ms warten
+C9F3: 4C EB C9  JMP $C9EB        Flag: 'Cache veraendert' loeschen
+
+C9F6: FF  ....
+C9FF: ....  FF
+
+    <a href="ro81c900.htm">Previous Page</a> / <a href="ro81ca00.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

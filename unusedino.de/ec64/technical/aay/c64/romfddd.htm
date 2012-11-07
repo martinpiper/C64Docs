@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FDDD/64989:   Enable Timer
+
+Jump from <a href="romfc93.htm">$FCA5</a>, <a href="romff5b.htm">$FF6B</a>:
+
+FDDD: AD A6 02  <a href="blda.htm">LDA</a> <a href="zp02a6.htm">$02A6</a>     ; Flag: TV Standard
+FDE0: F0 0A     <a href="bbeq.htm">BEQ</a> $FDEC
+FDE2: A9 25     <a href="blda.htm">LDA</a> #$25
+FDE4: 8D 04 DC  <a href="bsta.htm">STA</a> <a href="cia14.htm">$DC04</a>     ; CIA1: Timer A Low-Byte  (Kernal-IRQ, Tape)
+FDE7: A9 40     <a href="blda.htm">LDA</a> #$40
+FDE9: 4C F3 FD  <a href="bjmp.htm">JMP</a> $FDF3
+
+Jump from $FDE0:
+
+FDEC: A9 95     <a href="blda.htm">LDA</a> #$95
+FDEE: 8D 04 DC  <a href="bsta.htm">STA</a> <a href="cia14.htm">$DC04</a>     ; CIA1: Timer A Low-Byte  (Kernal-IRQ, Tape)
+FDF1: A9 42     <a href="blda.htm">LDA</a> #$42
+
+Jump from $FDE9:
+
+FDF3: 8D 05 DC  <a href="bsta.htm">STA</a> <a href="cia15.htm">$DC05</a>     ; CIA1: Timer A High-Byte (Kernal-IRQ, Tape)
+FDF6: 4C 6E FF  <a href="bjmp.htm">JMP</a> <a href="romff5b.htm">$FF6E</a>     ; Initialize screen editor
+
+    <a href="romfda3.htm">Previous Page</a> / <a href="romfdf9.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

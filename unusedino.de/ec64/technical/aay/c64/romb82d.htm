@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B82D/47149:   Perform [wait]
+
+B82D: 20 EB B7  <a href="bjsr.htm">JSR</a> <a href="romb7eb.htm">$B7EB</a>     ; Get parameters for POKE/WAIT
+B830: 86 49     <a href="bstx.htm">STX</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+B832: A2 00     <a href="bldx.htm">LDX</a> #$00
+B834: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+B837: F0 03     <a href="bbeq.htm">BEQ</a> $B83C
+B839: 20 F1 B7  <a href="bjsr.htm">JSR</a> <a href="romb7eb.htm">$B7F1</a>     ; Get parameters for POKE/WAIT
+
+Jump from $B837:
+
+B83C: 86 4A     <a href="bstx.htm">STX</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+B83E: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $B846:
+
+B840: B1 14     <a href="blda.htm">LDA</a> (<a href="zp14.htm">$14</a>),Y   ; Temporary: Integer value
+B842: 45 4A     <a href="beor.htm">EOR</a> <a href="zp49.htm">$4A</a>       ; Pointer: Index Variable for FOR/NEXT loop
+B844: 25 49     <a href="band.htm">AND</a> <a href="zp49.htm">$49</a>       ; Pointer: Index Variable for FOR/NEXT loop
+B846: F0 F8     <a href="bbeq.htm">BEQ</a> $B840
+
+Jump from <a href="romb867.htm">$B878</a>:
+
+B848: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb824.htm">Previous Page</a> / <a href="romb849.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

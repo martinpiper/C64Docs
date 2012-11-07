@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F13E/61758:   Get a byte
+
+F13E: A5 99     <a href="blda.htm">LDA</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+F140: D0 08     <a href="bbne.htm">BNE</a> $F14A
+F142: A5 C6     <a href="blda.htm">LDA</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+F144: F0 0F     <a href="bbeq.htm">BEQ</a> $F155
+F146: 78        <a href="bsei.htm">SEI</a>
+F147: 4C B4 E5  <a href="bjmp.htm">JMP</a> <a href="rome5b4.htm">$E5B4</a>     ; Get Character From Keyboard Buffer
+
+Jump from $F140:
+
+F14A: C9 02     <a href="bcmp.htm">CMP</a> #$02
+F14C: D0 18     <a href="bbne.htm">BNE</a> <a href="romf157.htm">$F166</a>     ; Input a byte
+
+Jump from <a href="romf199.htm">$F1B8</a>:
+
+F14E: 84 97     <a href="bsty.htm">STY</a> <a href="zp97.htm">$97</a>       ; Storage of Y Register during RS232 fetch
+F150: 20 86 F0  <a href="bjsr.htm">JSR</a> <a href="romf086.htm">$F086</a>     ; Get From RS232
+F153: A4 97     <a href="bldy.htm">LDY</a> <a href="zp97.htm">$97</a>       ; Storage of Y Register during RS232 fetch
+
+Jump from $F144:
+
+F155: 18        <a href="bclc.htm">CLC</a>
+F156: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf12f.htm">Previous Page</a> / <a href="romf157.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

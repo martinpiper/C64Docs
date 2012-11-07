@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+letzte existierende Gruppe ermitteln
+
+Einsprung von <a href="ro81a15c.htm">$A161</a>:
+
+A5A9: A9 5A     LDA #$5A         90 (groesste moegliche Gruppennummer bei den
+                                verwendeten 24-Bit Rechnungen)
+A5AB: 8D 00 01  STA <a href="ra810100.htm">$0100</a>        als gesuchte Gruppe merken
+A5AE: 20 C0 A5  JSR <a href="ro81a5c0.htm">$A5C0</a>        Gruppe anwaehlen
+A5B1: D0 01     BNE $A5B4        Gruppe existiert nicht, ==&gt;
+A5B3: 60        RTS
+
+Einsprung von $A5B1, $A5BD:
+
+A5B4: CE 00 01  DEC <a href="ra810100.htm">$0100</a>        Gruppennummer -1
+A5B7: AD 00 01  LDA <a href="ra810100.htm">$0100</a>
+A5BA: 20 D2 A5  JSR <a href="ro81a5c0.htm">$A5D2</a>        Gruppe anwaehlen
+A5BD: D0 F5     BNE $A5B4        nicht vorhanden, ==&gt;
+A5BF: 60        RTS
+
+    <a href="ro81a574.htm">Previous Page</a> / <a href="ro81a5c0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

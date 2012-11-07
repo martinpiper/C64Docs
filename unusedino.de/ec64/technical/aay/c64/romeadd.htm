@@ -1,0 +1,80 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EADD/60125:   Process Key Image
+
+EADD: 6C 8F 02  <a href="bjmp.htm">JMP</a> (<a href="zp028f.htm">$028F</a>)   ; Vector: Routine to determine Keyboard table
+
+Jump from <a href="romeb48.htm">$EB76</a>:
+
+EAE0: A4 CB     <a href="bldy.htm">LDY</a> <a href="zpc5.htm">$CB</a>       ; Matrix value of last Key pressed
+EAE2: B1 F5     <a href="blda.htm">LDA</a> (<a href="zpf5.htm">$F5</a>),Y   ; Vector: Current Keyboard decoding Table
+EAE4: AA        <a href="btax.htm">TAX</a>
+EAE5: C4 C5     <a href="bcpy.htm">CPY</a> <a href="zpc5.htm">$C5</a>       ; Matrix value of last Key pressed
+EAE7: F0 07     <a href="bbeq.htm">BEQ</a> $EAF0
+EAE9: A0 10     <a href="bldy.htm">LDY</a> #$10
+EAEB: 8C 8C 02  <a href="bsty.htm">STY</a> <a href="zp028c.htm">$028C</a>     ; Repeat Key: First repeat delay Counter
+EAEE: D0 36     <a href="bbne.htm">BNE</a> $EB26
+
+Jump from $EAE7:
+
+EAF0: 29 7F     <a href="band.htm">AND</a> #$7F
+EAF2: 2C 8A 02  <a href="bbit.htm">BIT</a> <a href="zp028a.htm">$028A</a>     ; Flag: Repeat keys
+EAF5: 30 16     <a href="bbmi.htm">BMI</a> $EB0D
+EAF7: 70 49     <a href="bbvs.htm">BVS</a> $EB42
+EAF9: C9 7F     <a href="bcmp.htm">CMP</a> #$7F
+
+Jump from <a href="romea87.htm">$EA98</a>:
+
+EAFB: F0 29     <a href="bbeq.htm">BEQ</a> $EB26
+EAFD: C9 14     <a href="bcmp.htm">CMP</a> #$14
+EAFF: F0 0C     <a href="bbeq.htm">BEQ</a> $EB0D
+EB01: C9 20     <a href="bcmp.htm">CMP</a> #$20
+EB03: F0 08     <a href="bbeq.htm">BEQ</a> $EB0D
+EB05: C9 1D     <a href="bcmp.htm">CMP</a> #$1D
+EB07: F0 04     <a href="bbeq.htm">BEQ</a> $EB0D
+EB09: C9 11     <a href="bcmp.htm">CMP</a> #$11
+EB0B: D0 35     <a href="bbne.htm">BNE</a> $EB42
+
+Jump from $EAF5, $EAFF, $EB03, $EB07:
+
+EB0D: AC 8C 02  <a href="bldy.htm">LDY</a> <a href="zp028c.htm">$028C</a>     ; Repeat Key: First repeat delay Counter
+EB10: F0 05     <a href="bbeq.htm">BEQ</a> $EB17
+EB12: CE 8C 02  <a href="bdec.htm">DEC</a> <a href="zp028c.htm">$028C</a>     ; Repeat Key: First repeat delay Counter
+EB15: D0 2B     <a href="bbne.htm">BNE</a> $EB42
+
+Jump from $EB10:
+
+EB17: CE 8B 02  <a href="bdec.htm">DEC</a> <a href="zp028b.htm">$028B</a>     ; Repeat Key: Speed Counter
+EB1A: D0 26     <a href="bbne.htm">BNE</a> $EB42
+EB1C: A0 04     <a href="bldy.htm">LDY</a> #$04
+EB1E: 8C 8B 02  <a href="bsty.htm">STY</a> <a href="zp028b.htm">$028B</a>     ; Repeat Key: Speed Counter
+EB21: A4 C6     <a href="bldy.htm">LDY</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+EB23: 88        <a href="bdey.htm">DEY</a>
+EB24: 10 1C     <a href="bbpl.htm">BPL</a> $EB42
+
+Jump from $EAEE, $EAFB:
+
+EB26: A4 CB     <a href="bldy.htm">LDY</a> <a href="zpc5.htm">$CB</a>       ; Matrix value of last Key pressed
+EB28: 84 C5     <a href="bsty.htm">STY</a> <a href="zpc5.htm">$C5</a>       ; Matrix value of last Key pressed
+EB2A: AC 8D 02  <a href="bldy.htm">LDY</a> <a href="zp028d.htm">$028D</a>     ; Flag: Shift Keys
+EB2D: 8C 8E 02  <a href="bsty.htm">STY</a> <a href="zp028e.htm">$028E</a>     ; Last Shift Key used for debouncing
+EB30: E0 FF     <a href="bcpx.htm">CPX</a> #$FF
+EB32: F0 0E     <a href="bbeq.htm">BEQ</a> $EB42
+EB34: 8A        <a href="btxa.htm">TXA</a>
+EB35: A6 C6     <a href="bldx.htm">LDX</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+EB37: EC 89 02  <a href="bcpx.htm">CPX</a> <a href="zp0289.htm">$0289</a>     ; Maximum number of Bytes in Keyboard Buffer
+EB3A: B0 06     <a href="bbcs.htm">BCS</a> $EB42
+EB3C: 9D 77 02  <a href="bsta.htm">STA</a> <a href="zp0277.htm">$0277</a>,X   ; Keyboard Buffer Queue (FIFO)
+EB3F: E8        <a href="binx.htm">INX</a>
+EB40: 86 C6     <a href="bstx.htm">STX</a> <a href="zpc6.htm">$C6</a>       ; Number of Characters in Keyboard Buffer queue
+
+Jump from $EAF7, $EB0B, $EB15, $EB1A, $EB24, $EB32, $EB3A, <a href="romeb48.htm">$EB52</a>:
+
+EB42: A9 7F     <a href="blda.htm">LDA</a> #$7F
+EB44: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+EB47: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romea87.htm">Previous Page</a> / <a href="romeb48.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

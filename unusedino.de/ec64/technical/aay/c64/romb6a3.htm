@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B6A3/46755:   Perform String Housekeeping
+
+Jump from <a href="romb782.htm">$B782</a>, <a href="rome219.htm">$E25A</a>:
+
+B6A3: 20 8F AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8F</a>     ; Confirm Result
+
+Jump from <a href="roma9d9.htm">$A9E0</a>, <a href="romab1e.htm">$AB21</a>, <a href="romb02e.htm">$B034</a>, <a href="romb37d.htm">$B381</a>:
+
+B6A6: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B6A8: A4 65     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+
+Jump from <a href="romb02e.htm">$B041</a>, <a href="romb63d.htm">$B667</a>, <a href="romb63d.htm">$B671</a>, <a href="romb700.htm">$B716</a>:
+
+B6AA: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B6AC: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+B6AE: 20 DB B6  <a href="bjsr.htm">JSR</a> <a href="romb6db.htm">$B6DB</a>     ; Clean Descriptor Stack
+B6B1: 08        <a href="bphp.htm">PHP</a>
+B6B2: A0 00     <a href="bldy.htm">LDY</a> #$00
+B6B4: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B6B6: 48        <a href="bpha.htm">PHA</a>
+B6B7: C8        <a href="biny.htm">INY</a>
+B6B8: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B6BA: AA        <a href="btax.htm">TAX</a>
+B6BB: C8        <a href="biny.htm">INY</a>
+B6BC: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B6BE: A8        <a href="btay.htm">TAY</a>
+B6BF: 68        <a href="bpla.htm">PLA</a>
+B6C0: 28        <a href="bplp.htm">PLP</a>
+B6C1: D0 13     <a href="bbne.htm">BNE</a> $B6D6
+B6C3: C4 34     <a href="bcpy.htm">CPY</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B6C5: D0 0F     <a href="bbne.htm">BNE</a> $B6D6
+B6C7: E4 33     <a href="bcpx.htm">CPX</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B6C9: D0 0B     <a href="bbne.htm">BNE</a> $B6D6
+B6CB: 48        <a href="bpha.htm">PHA</a>
+B6CC: 18        <a href="bclc.htm">CLC</a>
+B6CD: 65 33     <a href="badc.htm">ADC</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B6CF: 85 33     <a href="bsta.htm">STA</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B6D1: 90 02     <a href="bbcc.htm">BCC</a> $B6D5
+B6D3: E6 34     <a href="binc.htm">INC</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+
+Jump from $B6D1:
+
+B6D5: 68        <a href="bpla.htm">PLA</a>
+
+Jump from $B6C1, $B6C5, $B6C9:
+
+B6D6: 86 22     <a href="bstx.htm">STX</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B6D8: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+B6DA: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romb67a.htm">Previous Page</a> / <a href="romb6db.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

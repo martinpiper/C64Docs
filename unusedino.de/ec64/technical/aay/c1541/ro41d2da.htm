@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D2DA/53978:   ?
+
+Jump from <a href="ro41e207.htm">$E2BC</a>, <a href="ro41e207.htm">$E2BF</a>:
+
+D2DA: A6 82     LDX <a href="ra4182.htm">$82</a>
+D2DC: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+D2DE: 30 09     BMI $D2E9
+D2E0: 8A        TXA
+D2E1: 18        CLC
+D2E2: 69 07     ADC #$07
+D2E4: AA        TAX
+D2E5: B5 A7     LDA <a href="ra41a7.htm">$A7</a>,X
+D2E7: 10 F0     BPL <a href="ro41d2ba.htm">$D2D9</a>
+
+Jump from $D2DE:
+
+D2E9: C9 FF     CMP #$FF
+D2EB: F0 EC     BEQ <a href="ro41d2ba.htm">$D2D9</a>
+D2ED: 48        PHA
+D2EE: A9 FF     LDA #$FF
+D2F0: 95 A7     STA <a href="ra41a7.htm">$A7</a>,X
+D2F2: 68        PLA
+
+Jump from <a href="ro41d25a.htm">$D268</a>, <a href="ro41d25a.htm">$D279</a>, <a href="ro41d25a.htm">$D28A</a>:
+
+D2F3: 29 0F     AND #$0F
+D2F5: A8        TAY             ; buffer number
+D2F6: C8        INY
+D2F7: A2 10     LDX #$10        ; 16
+
+Jump from $D304:
+
+D2F9: 6E 50 02  ROR <a href="ra41024f.htm">$0250</a>
+D2FC: 6E 4F 02  ROR <a href="ra41024f.htm">$024F</a>       ; rotate 16-bit allocation register
+D2FF: 88        DEY
+D300: D0 01     BNE $D303
+D302: 18        CLC             ; erase bit for buffer
+
+Jump from $D300:
+
+D303: CA        DEX
+D304: 10 F3     BPL $D2F9
+D306: 60        RTS
+
+    <a href="ro41d2ba.htm">Previous Page</a> / <a href="ro41d307.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

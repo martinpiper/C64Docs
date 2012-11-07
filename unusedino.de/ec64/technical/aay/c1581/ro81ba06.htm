@@ -1,0 +1,56 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Filenamen nach Drivenummer durchsuchen
+und Burstbefehl entfernen (bei der 1571: $91ea)
+A: c: 1: Drivenummer ist '1'
+
+Einsprung von <a href="ro81b8d2.htm">$B8DE</a>:
+
+BA06: A0 03     LDY #$03         Laenge des Burst-Befehls
+BA08: A5 29     LDA <a href="ra8129.htm">$29</a>          Befehlszeilenlaenge
+BA0A: 38        SEC
+BA0B: E9 03     SBC #$03         - 3 ('u0.')
+BA0D: 85 29     STA <a href="ra8129.htm">$29</a>
+BA0F: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        Drivenummer suchen
+BA12: C9 3A     CMP #$3A         (erkennbar an dem ':')
+BA14: D0 0E     BNE $BA24        keine Drivenummer angegeben, ==&gt;
+BA16: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Drivenummer holen
+BA19: AA        TAX
+BA1A: 29 30     AND #$30         ist das Zeichen wirklich eine Drivenummer ?
+BA1C: C9 30     CMP #$30         (b54 = 11)
+BA1E: D0 04     BNE $BA24        nein, ==&gt;
+BA20: E0 31     CPX #$31         Wenn Drivenummer = '1', dann
+BA22: F0 1A     BEQ $BA3E        Fehler ==&gt;
+
+Einsprung von $BA14, $BA1E:
+
+BA24: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Sind Burst-Befehl und Filename durch ':'
+BA27: C9 3A     CMP #$3A         getrennt (ohne Drivenummer) ?
+BA29: D0 03     BNE $BA2E        nein, ==&gt;
+BA2B: C6 29     DEC <a href="ra8129.htm">$29</a>          ja, auch ':' entfernen
+BA2D: C8        INY              Laenge des Burst-Befehls =4 setzen
+
+Einsprung von $BA29:
+
+BA2E: A2 00     LDX #$00         Burst-Befehl entfernen
+
+Einsprung von $BA3A:
+
+BA30: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      durch Verschieben der restlichen Eingaben
+BA33: 9D 00 02  STA <a href="ra810200.htm">$0200</a>,X
+BA36: C8        INY
+BA37: E8        INX
+BA38: E4 29     CPX <a href="ra8129.htm">$29</a>
+BA3A: D0 F4     BNE $BA30        noch Zeichen zu verschieben ? ja, ==&gt;
+BA3C: 18        CLC              Drivenummer Ok.
+BA3D: 24         B $24
+
+Einsprung von $BA22:
+
+BA3E: 38        SEC              falsche Drivenummer
+BA3F: 60        RTS
+
+    <a href="ro81b9fb.htm">Previous Page</a> / <a href="ro81ba40.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

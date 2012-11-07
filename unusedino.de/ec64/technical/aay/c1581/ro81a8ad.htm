@@ -1,0 +1,128 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Fehlertext in Puffer schreiben ($e706)
+E: a: Fehlernummer im BCD-Code
+   y: Position im Fehlerpuffer
+[Diese Routine ruft sich selbst rekursiv auf:
+ Zuerst wird in der Fehlermeldungstabelle die richtige Fehlernummer
+ gesucht. Dabei muessen die Fehlertexte, die in Bytes mit gesetztem Bit7
+ eingeschlossen sind, uebersprungen werden. Ist die richtige Fehlernummer
+ gefunden, muss das naechste Byte mit gesetztem Bit7 gesucht werden. Ab
+ diesem Byte werden nun die Zeichen (Bytes&gt;=32) mit geloeschtem Bit7 in den
+ Fehlerpuffer geschrieben. Bytes &lt; 32 stellen eigenstaendige Fehlertexte
+ dar, die durch einen erneuten Aufruf dieser Routine in den Puffer
+ geschrieben werden. Eine Rekursion wird beendet, wenn das naechste Byte
+ mit gestztem Bit7 ausgegeben worden ist.]
+
+Einsprung von $A906, <a href="ro81a862.htm">$A886</a>:
+
+A8AD: AA        TAX
+A8AE: A5 55     LDA <a href="ra8155.htm">$55</a>          Zeiger in Fehlertabelle retten
+A8B0: 48        PHA              (fuer rekursiven Aufruf)
+A8B1: A5 56     LDA <a href="ra8156.htm">$56</a>
+A8B3: 48        PHA
+A8B4: A9 02     LDA #$02         Zeiger auf Tabelle mit Fehlermeldungen
+A8B6: 85 55     STA <a href="ra8155.htm">$55</a>          setzen ($a602)
+A8B8: A9 A6     LDA #$A6
+A8BA: 85 56     STA <a href="ra8156.htm">$56</a>
+A8BC: 8A        TXA
+A8BD: A2 00     LDX #$00
+
+Einsprung von $A8DD:
+
+A8BF: C1 55     CMP (<a href="ra8155.htm">$55</a>,X)      Fehlernummer mit Nummer in der Tabelle
+A8C1: F0 21     BEQ $A8E4        vergleichen; gleich, ==&gt;
+A8C3: 48        PHA              Fehlernummer merken
+A8C4: 20 1C A9  JSR $A91C        ist im Byte b7=1 (dann ist c=1): Wechsel
+A8C7: 90 05     BCC $A8CE        zwischen Nummern und Meldung ? nein, ==&gt;
+A8C9: 20 1C A9  JSR $A91C        ja: Naechsten Wechsel suchen und damit die
+A8CC: 90 FB     BCC $A8C9        Fehlermeldung ueberlesen; bis b7=1  ==&gt;
+
+Einsprung von $A8C7:
+
+A8CE: A5 56     LDA <a href="ra8156.htm">$56</a>          Tabellenende erreicht ($a7ae) ?
+A8D0: C9 A7     CMP #$A7
+A8D2: 90 08     BCC $A8DC        nein, ==&gt;
+A8D4: D0 0A     BNE $A8E0        ja, ==&gt;
+A8D6: A9 AE     LDA #$AE
+A8D8: C5 55     CMP <a href="ra8155.htm">$55</a>
+A8DA: 90 04     BCC $A8E0        ja, ==&gt;
+
+Einsprung von $A8D2:
+
+A8DC: 68        PLA              nein: Fehlernummer zurueckholen
+A8DD: 4C BF A8  JMP $A8BF
+
+Einsprung von $A8D4, $A8DA:
+
+A8E0: 68        PLA              Fehlernummer vom Stack entfernen
+A8E1: 4C F4 A8  JMP $A8F4        Ende ==&gt;
+
+Einsprung von $A8C1, $A8E7:
+
+A8E4: 20 0E A9  JSR $A90E        naechstes Byte holen
+A8E7: 90 FB     BCC $A8E4        b7=1: Wechsel zwischen Nummern und Text ?
+
+Einsprung von $A8EF:
+
+A8E9: 20 FB A8  JSR $A8FB        ja, ein Zeichen / eine Meldung ausgeben
+A8EC: 20 0E A9  JSR $A90E        naechstes Byte holen
+A8EF: 90 F8     BCC $A8E9        Text noch nicht zu Ende, ==&gt;
+A8F1: 20 FB A8  JSR $A8FB        letztes Zeichen ausgeben
+
+Einsprung von $A8E1:
+
+A8F4: 68        PLA
+A8F5: 85 56     STA <a href="ra8156.htm">$56</a>          letzten 'Zeiger in Fehlertabelle'
+A8F7: 68        PLA              zurueckholen
+A8F8: 85 55     STA <a href="ra8155.htm">$55</a>
+A8FA: 60        RTS
+
+Einsprung von $A8E9, $A8F1:
+
+A8FB: C9 20     CMP #$20         Zeichen oder Meldung ausgeben ?
+A8FD: B0 0B     BCS $A90A        Zeichen, ==&gt;
+A8FF: AA        TAX
+A900: A9 20     LDA #$20         Space in Fehler-Puffer schreiben
+A902: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y
+A904: C8        INY
+A905: 8A        TXA
+A906: 20 AD A8  JSR $A8AD        Meldung ausgeben
+A909: 60        RTS
+
+Einsprung von $A8FD:
+
+A90A: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y      Zeichen ausgeben
+A90C: C8        INY
+A90D: 60        RTS
+
+Byte aus Fehlertabelle holen
+
+Einsprung von $A8E4, $A8EC:
+
+A90E: E6 55     INC <a href="ra8155.htm">$55</a>          &lt;--  erst Zeiger erhoehen, dann Byte holen
+A910: D0 02     BNE $A914
+A912: E6 56     INC <a href="ra8156.htm">$56</a>
+
+Einsprung von $A910, $A91C:
+
+A914: A1 55     LDA (<a href="ra8155.htm">$55</a>,X)      b7 des Zeichens ins Carry schieben
+A916: 0A        ASL
+A917: A1 55     LDA (<a href="ra8155.htm">$55</a>,X)      Zeichen holen
+A919: 29 7F     AND #$7F
+A91B: 60        RTS
+
+Einsprung von $A8C4, $A8C9:
+
+A91C: 20 14 A9  JSR $A914        &lt;--  erst Byte holen, dann Zeiger erhoehen
+A91F: E6 55     INC <a href="ra8155.htm">$55</a>
+A921: D0 02     BNE $A925
+A923: E6 56     INC <a href="ra8156.htm">$56</a>
+
+Einsprung von $A921:
+
+A925: 60        RTS
+    <a href="ro81a862.htm">Previous Page</a> / <a href="ro81a926.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

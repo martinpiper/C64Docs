@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F24B/62027:   Establish number of sectors per track
+
+Jump from <a href="ro41d506.htm">$D540</a>, <a href="ro41d55f.htm">$D568</a>, <a href="ro41eeb7.htm">$EED2</a>, <a href="ro41f11e.htm">$F17C</a>, <a href="ro41f1fa.htm">$F204</a>:
+
+F24B: AE D6 FE  LDX <a href="ro41fed6.htm">$FED6</a>       ; 4 different values
+
+Jump from $F252:
+
+F24E: DD D6 FE  CMP <a href="ro41fed6.htm">$FED6</a>,X     ; track number
+F251: CA        DEX
+F252: B0 FA     BCS $F24E       ; not greater?
+F254: BD D1 FE  LDA <a href="ro41fed1.htm">$FED1</a>,X     ; get number of sectors
+F257: 60        RTS
+
+    <a href="ro41f220.htm">Previous Page</a> / <a href="ro41f258.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

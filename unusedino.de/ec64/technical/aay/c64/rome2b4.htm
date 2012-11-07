@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E2B4/58036:   Evaluate &lt;tan&gt;
+
+E2B4: 20 CA BB  <a href="bjsr.htm">JSR</a> <a href="rombbc7.htm">$BBCA</a>     ; Store FAC#1 in Memory
+E2B7: A9 00     <a href="blda.htm">LDA</a> #$00
+E2B9: 85 12     <a href="bsta.htm">STA</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+E2BB: 20 6B E2  <a href="bjsr.htm">JSR</a> <a href="rome26b.htm">$E26B</a>     ; Evaluate &lt;sin&gt;
+E2BE: A2 4E     <a href="bldx.htm">LDX</a> #$4E
+E2C0: A0 00     <a href="bldy.htm">LDY</a> #$00
+E2C2: 20 F6 E0  <a href="bjsr.htm">JSR</a> <a href="rome097.htm">$E0F6</a>     ; Evaluate &lt;rnd&gt;
+E2C5: A9 57     <a href="blda.htm">LDA</a> #$57
+E2C7: A0 00     <a href="bldy.htm">LDY</a> #$00
+E2C9: 20 A2 BB  <a href="bjsr.htm">JSR</a> <a href="rombba2.htm">$BBA2</a>     ; Load FAC#1 From Memory
+E2CC: A9 00     <a href="blda.htm">LDA</a> #$00
+E2CE: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+E2D0: A5 12     <a href="blda.htm">LDA</a> <a href="zp12.htm">$12</a>       ; Flag: TAN sign/Comparative result
+E2D2: 20 DC E2  <a href="bjsr.htm">JSR</a> $E2DC
+E2D5: A9 4E     <a href="blda.htm">LDA</a> #$4E
+E2D7: A0 00     <a href="bldy.htm">LDY</a> #$00
+E2D9: 4C 0F BB  <a href="bjmp.htm">JMP</a> <a href="rombb0f.htm">$BB0F</a>     ; Divide FAC#2 by FAC#1
+
+Jump from $E2D2:
+
+E2DC: 48        <a href="bpha.htm">PHA</a>
+E2DD: 4C 9D E2  <a href="bjmp.htm">JMP</a> <a href="rome26b.htm">$E29D</a>     ; Evaluate &lt;sin&gt;
+
+    <a href="rome26b.htm">Previous Page</a> / <a href="rome2e0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

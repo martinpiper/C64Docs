@@ -1,0 +1,53 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E000/57344:   EXP continued From BASIC ROM
+
+Jump from <a href="rombfed.htm">$BFFD</a>:
+
+E000: 85 56     <a href="bsta.htm">STA</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+E002: 20 0F BC  <a href="bjsr.htm">JSR</a> <a href="rombc0c.htm">$BC0F</a>     ; Copy FAC#1 into FAC#2
+E005: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+E007: C9 88     <a href="bcmp.htm">CMP</a> #$88
+E009: 90 03     <a href="bbcc.htm">BCC</a> $E00E
+
+Jump from $E016:
+
+E00B: 20 D4 BA  <a href="bjsr.htm">JSR</a> <a href="rombad4.htm">$BAD4</a>     ; Overflow / Underflow
+
+Jump from $E009:
+
+E00E: 20 CC BC  <a href="bjsr.htm">JSR</a> <a href="rombccc.htm">$BCCC</a>     ; Evaluate &lt;int&gt;
+E011: A5 07     <a href="blda.htm">LDA</a> <a href="zp07.htm">$07</a>       ; Temporary Integer during OR/AND
+E013: 18        <a href="bclc.htm">CLC</a>
+E014: 69 81     <a href="badc.htm">ADC</a> #$81
+E016: F0 F3     <a href="bbeq.htm">BEQ</a> $E00B
+E018: 38        <a href="bsec.htm">SEC</a>
+E019: E9 01     <a href="bsbc.htm">SBC</a> #$01
+E01B: 48        <a href="bpha.htm">PHA</a>
+E01C: A2 05     <a href="bldx.htm">LDX</a> #$05
+
+Jump from $E027:
+
+E01E: B5 69     <a href="blda.htm">LDA</a> <a href="zp69.htm">$69</a>,X     ; AFAC Exponent
+E020: B4 61     <a href="bldy.htm">LDY</a> <a href="zp61.htm">$61</a>,X     ; FAC Exponent
+E022: 95 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>,X     ; FAC Exponent
+E024: 94 69     <a href="bsty.htm">STY</a> <a href="zp69.htm">$69</a>,X     ; AFAC Exponent
+E026: CA        <a href="bdex.htm">DEX</a>
+E027: 10 F5     <a href="bbpl.htm">BPL</a> $E01E
+E029: A5 56     <a href="blda.htm">LDA</a> <a href="zp54.htm">$56</a>       ; Jump Vector used in Function Evaluation
+E02B: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+E02D: 20 53 B8  <a href="bjsr.htm">JSR</a> <a href="romb850.htm">$B853</a>     ; Perform Subtraction
+E030: 20 B4 BF  <a href="bjsr.htm">JSR</a> <a href="rombfb4.htm">$BFB4</a>     ; Negate FAC#1
+E033: A9 C4     <a href="blda.htm">LDA</a> #$C4
+E035: A0 BF     <a href="bldy.htm">LDY</a> #$BF
+E037: 20 59 E0  <a href="bjsr.htm">JSR</a> <a href="rome043.htm">$E059</a>     ; Series Evaluation
+E03A: A9 00     <a href="blda.htm">LDA</a> #$00
+E03C: 85 6F     <a href="bsta.htm">STA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+E03E: 68        <a href="bpla.htm">PLA</a>
+E03F: 20 B9 BA  <a href="bjsr.htm">JSR</a> <a href="rombab7.htm">$BAB9</a>     ; Test Both Accumulators
+E042: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombfed.htm">Previous Page</a> / <a href="rome043.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

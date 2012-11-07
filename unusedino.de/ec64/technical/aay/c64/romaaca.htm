@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AACA/43722:   -Add zero terminator to string
+
+Jump from <a href="roma560.htm">$A576</a>:
+
+AACA: A9 00     <a href="blda.htm">LDA</a> #$00
+AACC: 9D 00 02  <a href="bsta.htm">STA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+AACF: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+AAD1: A0 01     <a href="bldy.htm">LDY</a> #$01
+AAD3: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AAD5: D0 10     <a href="bbne.htm">BNE</a> <a href="romaad7.htm">$AAE7</a>     ; Output CR/LF
+
+    <a href="romaab8.htm">Previous Page</a> / <a href="romaad7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

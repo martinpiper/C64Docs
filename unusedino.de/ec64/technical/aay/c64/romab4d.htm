@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AB4D/43853:   Handle Bad Data
+
+Jump from <a href="romac35.htm">$AC9A</a>:
+
+AB4D: A5 11     <a href="blda.htm">LDA</a> <a href="zp11.htm">$11</a>       ; Input Flag
+AB4F: F0 11     <a href="bbeq.htm">BEQ</a> $AB62
+AB51: 30 04     <a href="bbmi.htm">BMI</a> $AB57
+AB53: A0 FF     <a href="bldy.htm">LDY</a> #$FF
+AB55: D0 04     <a href="bbne.htm">BNE</a> $AB5B
+
+Jump from $AB51:
+
+AB57: A5 3F     <a href="blda.htm">LDA</a> <a href="zp3f.htm">$3F</a>       ; Current DATA Line number
+AB59: A4 40     <a href="bldy.htm">LDY</a> <a href="zp3f.htm">$40</a>       ; Current DATA Line number
+
+Jump from $AB55:
+
+AB5B: 85 39     <a href="bsta.htm">STA</a> <a href="zp39.htm">$39</a>       ; Current BASIC Line number
+AB5D: 84 3A     <a href="bsty.htm">STY</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+
+Jump from <a href="romaae8.htm">$AB04</a>:
+
+AB5F: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $AB4F:
+
+AB62: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AB64: F0 05     <a href="bbeq.htm">BEQ</a> $AB6B
+AB66: A2 18     <a href="bldx.htm">LDX</a> #$18
+AB68: 4C 37 A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A437</a>     ; Error Routine
+
+Jump from $AB64:
+
+AB6B: A9 0C     <a href="blda.htm">LDA</a> #$0C
+AB6D: A0 AD     <a href="bldy.htm">LDY</a> #$AD
+AB6F: 20 1E AB  <a href="bjsr.htm">JSR</a> <a href="romab1e.htm">$AB1E</a>     ; Output String
+AB72: A5 3D     <a href="blda.htm">LDA</a> <a href="zp3d.htm">$3D</a>       ; Pointer: BASIC Statement for CONT
+AB74: A4 3E     <a href="bldy.htm">LDY</a> <a href="zp3d.htm">$3E</a>       ; Pointer: BASIC Statement for CONT
+AB76: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+AB78: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+AB7A: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romab3b.htm">Previous Page</a> / <a href="romab7b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,20 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+u1 ($cd5f)
+
+8B9A: 20 9F 8A  JSR <a href="ro818a9f.htm">$8A9F</a>        Kanal oeffnen, Parameter holen
+8B9D: 20 71 8B  JSR <a href="ro818b71.htm">$8B71</a>        Block einlesen
+
+Einsprung von <a href="ro818b8e.htm">$8B97</a>:
+
+8BA0: B9 42 02  LDA <a href="ra810242.htm">$0242</a>,Y      Anzahl zu uebertragender Bytes [dies ist ja
+                                 das 1. Byte des gelesenen Blocks !]
+8BA3: 99 3B 02  STA <a href="ra81023b.htm">$023B</a>,Y      in Ausgabepuffer (als Datenbyte) schreiben
+8BA6: A9 FF     LDA #$FF         Blocklaenge setzen (ganzen Block ausgeben)
+8BA8: 99 42 02  STA <a href="ra810242.htm">$0242</a>,Y
+8BAB: 4C 4C 80  JMP <a href="ro81804c.htm">$804C</a>
+
+    <a href="ro818b8e.htm">Previous Page</a> / <a href="ro818bae.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Aufruf des Controllers
+A: a: Jobrueckmeldung
+
+E: x: Puffernummer
+
+Einsprung von <a href="ro8194f8.htm">$94F8</a>:
+
+9598: 08        PHP              &lt;--  i-Flag retten
+9599: 58        CLI              i-Flag loeschen
+959A: 4C A1 95  JMP $95A1
+
+E: a: Jobcode
+   x: Puffernummer
+
+Einsprung von <a href="ro818746.htm">$8756</a>, <a href="ro818746.htm">$8761</a>, <a href="ro818edc.htm">$8EFB</a>, <a href="ro8194d3.htm">$94DB</a>, <a href="ro8194f8.htm">$9545</a>, <a href="ro8194f8.htm">$9572</a>, <a href="ro81afe9.htm">$B0A2</a>,
+              <a href="ro81afe9.htm">$B0AB</a>, <a href="ro81bcb2.htm">$BCDE</a>, <a href="ro81bd12.htm">$BDD8</a>, <a href="ro81bd12.htm">$BDDD</a>, <a href="ro81be06.htm">$BE26</a>, <a href="ro81be06.htm">$BE3A</a>, <a href="ro81be06.htm">$BE3F</a>,
+              <a href="ro81be06.htm">$BE4E</a>, <a href="ro81bf02.htm">$BF2A</a>, <a href="ro81bf44.htm">$BF56</a>, <a href="ro81bfb0.htm">$BFBB</a>, <a href="ro81bfb0.htm">$BFDD</a>, <a href="ro81dbc7.htm">$DBF4</a>, <a href="ro81dbc7.htm">$DBFD</a>,
+              <a href="ro81ff00.htm">$FF54</a>:
+
+959D: 08        PHP              &lt;--  i-Flag retten
+959E: 58        CLI              i-Flag loeschen
+959F: 95 02     STA <a href="ra8102.htm">$02</a>,X        Jobcode fuer Puffer x setzen
+
+Einsprung von $959A:
+
+95A1: 00        BRK              Jobschleife aufrufen
+95A2: EA        NOP              [BRK ist ein 2-Byte-Befehl!]
+
+Einsprung von $95A5:
+
+95A3: B5 02     LDA <a href="ra8102.htm">$02</a>,X        warten, bis Controller fertig ist
+95A5: 30 FC     BMI $95A3
+95A7: 28        PLP              i-Flag zurueckholen
+95A8: B5 02     LDA <a href="ra8102.htm">$02</a>,X        Status lesen
+95AA: 60        RTS
+
+    <a href="ro819585.htm">Previous Page</a> / <a href="ro8195ab.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

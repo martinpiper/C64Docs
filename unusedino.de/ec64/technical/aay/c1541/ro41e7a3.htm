@@ -1,0 +1,111 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E7A3/59299:   Perform [&amp;] - USR file execute command
+
+E7A3: A9 8D     LDA #$8D
+E7A5: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; check command line to end
+
+Jump from <a href="ro41e780.htm">$E7A0</a>:
+
+E7A8: 20 58 F2  JSR <a href="ro41f258.htm">$F258</a>       ; (RTS)
+E7AB: AD 78 02  LDA <a href="ra410278.htm">$0278</a>       ; number of file names
+E7AE: 48        PHA             ; save
+E7AF: A9 01     LDA #$01
+E7B1: 8D 78 02  STA <a href="ra410278.htm">$0278</a>       ; file name
+E7B4: A9 FF     LDA #$FF
+E7B6: 85 86     STA <a href="ra4186.htm">$86</a>
+E7B8: 20 4F C4  JSR <a href="ro41c44f.htm">$C44F</a>       ; find file
+E7BB: AD 80 02  LDA <a href="ra410280.htm">$0280</a>
+E7BE: D0 05     BNE $E7C5       ; found?
+E7C0: A9 39     LDA #$39
+E7C2: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 39, 'file not found'
+
+Jump from $E7BE:
+
+E7C5: 68        PLA
+E7C6: 8D 78 02  STA <a href="ra410278.htm">$0278</a>       ; get number of file names back
+E7C9: AD 80 02  LDA <a href="ra410280.htm">$0280</a>
+E7CC: 85 80     STA <a href="ra4180.htm">$80</a>         ; track
+E7CE: AD 85 02  LDA <a href="ra410285.htm">$0285</a>
+E7D1: 85 81     STA <a href="ra4181.htm">$81</a>         ; and sector
+E7D3: A9 03     LDA #$03        ; file type 'USR'
+E7D5: 20 77 D4  JSR <a href="ro41d475.htm">$D477</a>       ; buffer allocated, read 1st block
+
+Jump from $E82E:
+
+E7D8: A9 00     LDA #$00
+E7DA: 85 87     STA <a href="ra4186.htm">$87</a>         ; erase checksum
+E7DC: 20 39 E8  JSR $E839       ; get byte from file
+E7DF: 85 88     STA <a href="ra4186.htm">$88</a>         ; save as start address lo
+E7E1: 20 4B E8  JSR <a href="ro41e84b.htm">$E84B</a>       ; from checksum
+E7E4: 20 39 E8  JSR $E839       ; get byte from file
+E7E7: 85 89     STA <a href="ra4186.htm">$89</a>         ; as start address hi
+E7E9: 20 4B E8  JSR <a href="ro41e84b.htm">$E84B</a>       ; form checksum
+E7EC: A5 86     LDA <a href="ra4186.htm">$86</a>
+E7EE: F0 0A     BEQ $E7FA
+E7F0: A5 88     LDA <a href="ra4186.htm">$88</a>
+E7F2: 48        PHA             ; save program start address
+E7F3: A5 89     LDA <a href="ra4186.htm">$89</a>
+E7F5: 48        PHA
+E7F6: A9 00     LDA #$00
+E7F8: 85 86     STA <a href="ra4186.htm">$86</a>
+
+Jump from $E7EE:
+
+E7FA: 20 39 E8  JSR $E839       ; get byte from file
+E7FD: 85 8A     STA <a href="ra4186.htm">$8A</a>         ; save as counter
+E7FF: 20 4B E8  JSR <a href="ro41e84b.htm">$E84B</a>       ; form checksum
+
+Jump from $E819:
+
+E802: 20 39 E8  JSR $E839       ; get byte from file
+E805: A0 00     LDY #$00
+E807: 91 88     STA (<a href="ra4186.htm">$88</a>),Y     ; save as program bytes
+E809: 20 4B E8  JSR <a href="ro41e84b.htm">$E84B</a>       ; form checksum
+E80C: A5 88     LDA <a href="ra4186.htm">$88</a>
+E80E: 18        CLC
+E80F: 69 01     ADC #$01
+E811: 85 88     STA <a href="ra4186.htm">$88</a>         ; increment $88/$89
+E813: 90 02     BCC $E817
+E815: E6 89     INC <a href="ra4186.htm">$89</a>
+
+Jump from $E813:
+
+E817: C6 8A     DEC <a href="ra4186.htm">$8A</a>         ; decrement pointer
+E819: D0 E7     BNE $E802
+E81B: 20 35 CA  JSR <a href="ro41ca35.htm">$CA35</a>       ; get next byte
+E81E: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E820: C5 87     CMP <a href="ra4186.htm">$87</a>         ; equal to checksum?
+E822: F0 08     BEQ $E82C       ; yes
+E824: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>       ; transmit parameter to disk controller
+E827: A9 50     LDA #$50
+E829: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 50, 'record not present'
+
+Jump from $E822:
+
+E82C: A5 F8     LDA <a href="ra41f8.htm">$F8</a>         ; end?
+E82E: D0 A8     BNE $E7D8       ; no, next data block
+E830: 68        PLA
+E831: 85 89     STA <a href="ra4186.htm">$89</a>
+E833: 68        PLA             ; get program start address back
+E834: 85 88     STA <a href="ra4186.htm">$88</a>
+E836: 6C 88 00  JMP (<a href="ra4186.htm">$0088</a>)     ; and execute program
+
+Jump from $E7DC, $E7E4, $E7FA, $E802:
+
+E839: 20 35 CA  JSR <a href="ro41ca35.htm">$CA35</a>       ; get byte from file
+E83C: A5 F8     LDA <a href="ra41f8.htm">$F8</a>         ; end?
+E83E: D0 08     BNE $E848       ; no
+E840: 20 3E DE  JSR <a href="ro41de3b.htm">$DE3E</a>       ; transmit parameter to disk controller
+E843: A9 51     LDA #$51
+E845: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 51, 'overflow in record'
+
+Jump from $E83E:
+
+E848: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+E84A: 60        RTS
+
+    <a href="ro41e780.htm">Previous Page</a> / <a href="ro41e84b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

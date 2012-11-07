@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D011/53265/VIC+17:  Control Register 1
+
+   +----------+---------------------------------------------------+
+   | Bit  7   |    Raster Position Bit 8 from <a href="vic18.htm">$D012</a>               |
+   | Bit  6   |    Extended Color Text Mode: 1 = Enable           |
+   | Bit  5   |    Bitmap Mode: 1 = Enable                        |
+   | Bit  4   |    Blank Screen to Border Color: 0 = Blank        |
+   | Bit  3   |    Select 24/25 Row Text Display: 1 = 25 Rows     |
+   | Bits 2-0 |    Smooth Scroll to Y Dot-Position (0-7)          |
+   +----------+---------------------------------------------------+
+
+   Default Value: $9B/155 (%10011011).
+
+Kernal-Reference:
+
+ LDA $D011   : <a href="romf875.htm">$F88D</a> <a href="romfc93.htm">$FC95</a>
+ STA $D011   : <a href="romf875.htm">$F892</a> <a href="romfc93.htm">$FC9A</a>
+
+</pre></td></tr></table></center></body></html>

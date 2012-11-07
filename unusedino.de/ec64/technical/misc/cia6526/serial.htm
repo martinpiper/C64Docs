@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>6526 CIA: SERIAL PORT</title>
+</head>
+<body bgcolor="#ffffff">
+<h1 align="center">Serial Port Register (SDR)</h1>
+
+<p align="justify">The serial port is a buffered, 8-bit synchronous shift register
+system. A control bit selects input or output mode. In input mode,
+data on the SP pin is shifted into the shift register on the rising
+edge of the signal applied to the CNT pin. After 8 CNT pulses, the
+data in the shift register is dumped into the Serial Data Register
+and an interrupt is generated. In the output mode, TIMER A is used
+for the baud rate generator. Data is shifted out on the SP pin at
+1/2 the underflow rate of TIMER A. The maximum baud rate possible
+is <img src="phi2.gif"> divided by 4, but the maximum useable baud
+rate will be determined by line loading and the speed at which the
+receiver responds to input data. Transmission will start following
+a write to the Serial Data Register (provided TIMER A is running
+and in continuous mode). The clock signal derived from TIMER A
+appears as an output on the CNT pin. The data in the Serial Data
+Register will be loaded into the shift register then shift out to
+the SP pin when a CNT pulse occurs. Data shifted out becomes valid
+on the falling edge of CNT and remains valid until the next falling
+edge. After 8 CNT pulses, an interrupt is generated to indicate
+more data can be sent. If the Serial Data Register was loaded with
+new information prior to this interrupt, the new data will
+automatically be loaded into the shift register and transmission
+will continue. If the microprocessor stays one byte ahead of the
+shift register, transmission will be continuous. If no further data
+is to be transmitted, after the 8th CNT pulse, CNT will return high
+and SP will remain at the level of the last data bit transmitted.
+SDR data is shifted out MSB first and serial input data should also
+appear in this format.</p>
+
+<p align="justify">The bidirectional capability of the Serial Port and CNT clock
+allows many 6526 devices to be connected to a common serial
+communication bus on which one 6526 acts as a master, sourcing data
+and shift clock, while all other 6526 chips act as slaves. Both CNT
+and SP outputs are open drain to allow such a common bus. Protocol
+for master/slave selection can be transmitted over the serial bus,
+or via dedicated handshaking lines.</p>
+
+<br>
+ 
+
+<center>
+<table border="1">
+<tr>
+<th>
+<center>REG</center>
+</th>
+<th>
+<center>NAME</center>
+</th>
+<th colspan="8">&nbsp;</th>
+</tr>
+
+<tr>
+<td width="9%">
+<center>C</center>
+</td>
+<td width="9%">
+<center>SDR</center>
+</td>
+<td width="9%">
+<center>S<sub>7</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>6</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>5</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>4</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>3</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>2</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>1</sub></center>
+</td>
+<td width="9%">
+<center>S<sub>0</sub></center>
+</td>
+</tr>
+</table></center>
+
+</body>
+</html>
+

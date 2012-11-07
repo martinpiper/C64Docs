@@ -1,0 +1,140 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Folgeblock fuer Datei suchen ($f11e)
+[Die Suche nach einem freien Block wird in 3 Phasen unterteilt:
+ 1. Ausgehend vom aktuellen Track wird ein Track gesucht, in dem mindestens
+    ein freier Block ist. Dabei wird vom Directory weg gesucht (nach Track
+    39 kommt 38; nach Track 41 kommt 42).
+    Wenn bis zum Rand der Diskette (Partition) kein Track gefunden wurde
+    kommt Phase 2.
+ 2. Es wird auf der anderen Seite des Directorys nach einem Track mit
+    freien Blocks gesucht.
+ 3. Die Routine versucht es noch einmal auf der ersten Seite, um evtl.
+    freie Blocks zu finden, die sich zwischen Directory und dem aktuellen
+    Block befinden.
+ Ist die aktuelle Tracknummer = Directory-Track, dann wird die Suche auf
+ den Directory-Track beschraenkt.
+ Achtung:
+ Leider ist diese Routine nicht fuer den Cachepuffer optimiert worden:
+ Wenn alle Blocks auf einem Track belegt worden sind, wird fuer den naechsten
+ Sektor die Tracknummer erhoeht und der Sektorversatz zur aktuellen
+ Sektornummer addiert. War der letzte Sektor nicht die Nummer 40, wird
+ mitten in der Spur angefangen, die Blocks zu belegen. Die Folge ist, dass
+ diese Spur spaeter 2 mal geladen werden muss.
+ z.B.: Der 1. belegte Sektor ist die Nummer 4, dann wird der Cache mit der
+ Seite 0 gefuellt. Nun koennen die Blocks 4-19 gelesen werden. Fuer die Blocks
+ 20-39 muss die Seite 1 geladen werden, und schliesslich fuer die Blocks 0-3
+ wieder die Seite 0.
+ Diese Situation tritt zum Glueck nur selten auf (besonders bei REL-Files).]
+
+Einsprung von <a href="ro819112.htm">$9118</a>, <a href="ro819bc3.htm">$9C07</a>, <a href="ro819bc3.htm">$9CAA</a>, <a href="ro81a2d6.htm">$A387</a>, <a href="ro81a2d6.htm">$A39A</a>, <a href="ro81a459.htm">$A459</a>:
+
+B668: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S der aktuellen Datei holen
+B66B: A9 03     LDA #$03
+B66D: 85 40     STA <a href="ra8140.htm">$40</a>          Zaehler fuer Phasen der Blocksuche setzen
+B66F: A9 01     LDA #$01         Flag 'BAM veraendert' setzen
+B671: 05 35     ORA <a href="ra8135.htm">$35</a>          [Dieses ORA stammt von der 1541 und ist
+B673: 85 35     STA <a href="ra8135.htm">$35</a>           bei der 1581 ueberfluessig.]
+
+Einsprung von $B68C, $B69E, $B6AD, $B6BB, <a href="ro8193e7.htm">$93F5</a>:
+
+B675: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        BAM-Zeiger auf aktuellen Track setzen
+B678: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Anzahl freier Blocks holen
+B67A: D0 43     BNE $B6BF        &gt;0, (freie Blocks) ==&gt;
+B67C: A5 4D     LDA <a href="ra814d.htm">$4D</a>          'aktueller Track' mit 'Dir-Track'
+B67E: CD 2B 02  CMP <a href="ra81022b.htm">$022B</a>        vergleichen
+B681: F0 1D     BEQ $B6A0        = , Suche beenden ==&gt;
+B683: 90 20     BCC $B6A5        &lt; , (in Richtung Track1 suchen) ==&gt;
+
+in Richtung Track80 suchen
+
+B685: E6 4D     INC <a href="ra814d.htm">$4D</a>          Tracknummer erhoehen
+B687: A5 4D     LDA <a href="ra814d.htm">$4D</a>
+B689: CD 2C 02  CMP <a href="ra81022c.htm">$022C</a>        Ist der Track innerhalb der Partition
+B68C: D0 E7     BNE $B675        ja, ==&gt;
+B68E: AE 2B 02  LDX <a href="ra81022b.htm">$022B</a>        auf die andere Seite wechseln
+B691: CA        DEX              Suche bei 'Directory-Track -1' fortsetzen
+B692: 86 4D     STX <a href="ra814d.htm">$4D</a>
+B694: E4 90     CPX <a href="ra8190.htm">$90</a>          existiert die andere Seite ?
+B696: 90 17     BCC $B6AF        (bei Partitions nicht), ==&gt;
+                                [eigentlich muesste bei Partitions die
+                                 2. Phase uebersprungen werden: 2 x DEC 40.
+                                 Dies geschieht aber nicht. Dadurch sucht
+                                 das DOS bei den beiden letzten Phasen im
+                                 gleichen Bereich.]
+B698: A9 00     LDA #$00         Sektor = 0 setzen [Spaeter wird der Sektor-
+B69A: 85 4E     STA <a href="ra814e.htm">$4E</a>           versatz addiert! Dann wird nicht mehr am
+                                 Spuranfang begonnen, Blocks zu belegen,
+                                 sondern bei Sektor 1.]
+B69C: C6 40     DEC <a href="ra8140.htm">$40</a>          naechste Phase
+B69E: D0 D5     BNE $B675        noch eine Suchphase, ==&gt;
+
+Einsprung von $B681, $B6BD:
+
+B6A0: A9 72     LDA #$72         72, Disk full
+B6A2: 20 7C 80  JSR <a href="ro81807c.htm">$807C</a>
+in Richtung Track1 suchen
+
+Einsprung von $B683:
+
+B6A5: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Ist Start der Partition erreicht?
+B6A7: C5 90     CMP <a href="ra8190.htm">$90</a>          [Die Abfrage kommt doch einen Track zu
+                                 spaet !? (Sie wird aber zum Glueck nie
+                                 gebraucht, da immer vom Directory weg
+                                 gesucht wird)]
+B6A9: 90 04     BCC $B6AF        befand sich der letzte gepruefte Track vor
+                                dem Partition-Anfang ? ja, ==&gt;
+B6AB: C6 4D     DEC <a href="ra814d.htm">$4D</a>          Tracknummer -1
+B6AD: D0 C6     BNE $B675        Disketten-Anfang? nein, (hier klappt's) ==&gt;
+
+Einsprung von $B696, $B6A9:
+
+B6AF: AE 2B 02  LDX <a href="ra81022b.htm">$022B</a>        Seite wechseln
+B6B2: E8        INX
+B6B3: 86 4D     STX <a href="ra814d.htm">$4D</a>
+B6B5: A9 00     LDA #$00         Sektor = 0 setzen
+B6B7: 85 4E     STA <a href="ra814e.htm">$4E</a>          [Spaeter wird der Sektorversatz addiert !]
+B6B9: C6 40     DEC <a href="ra8140.htm">$40</a>          naechste Phase
+B6BB: D0 B8     BNE $B675        noch eine Suchphase, ==&gt;
+B6BD: F0 E1     BEQ $B6A0        72, Disk full
+
+freien Sektor auf dem aktuellen Track suchen
+
+Einsprung von $B67A:
+
+B6BF: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer um Sektorversatz erhoehen
+B6C1: 18        CLC
+B6C2: 65 2E     ADC <a href="ra812e.htm">$2E</a>
+B6C4: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B6C6: A5 75     LDA <a href="ra8175.htm">$75</a>          Anzahl Sektoren pro Track holen (40)
+B6C8: 85 28     STA <a href="ra8128.htm">$28</a>          Jobcode ??? [Stammt noch von der 1541.]
+B6CA: C5 4E     CMP <a href="ra814e.htm">$4E</a>          ist das Spurende ueberschritten ?
+B6CC: B0 0B     BCS $B6D9        nein, [Sektor 40 ist aber auch zu gross] ==&gt;
+B6CE: 38        SEC              Tracknummer &gt;= 41:
+B6CF: A5 4E     LDA <a href="ra814e.htm">$4E</a>          Sektornummer - Anzahl der Sektoren / Track
+B6D1: E5 75     SBC <a href="ra8175.htm">$75</a>
+B6D3: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B6D5: F0 02     BEQ $B6D9        =0, ==&gt;
+B6D7: C6 4E     DEC <a href="ra814e.htm">$4E</a>          -1
+
+Einsprung von $B6CC, $B6D5:
+
+B6D9: 20 46 B7  JSR <a href="ro81b746.htm">$B746</a>        naechsten freien Block auf dem Track suchen
+B6DC: F0 03     BEQ $B6E1        nicht gefunden, ==&gt;
+
+Einsprung von $B6E8:
+
+B6DE: 4C 72 B5  JMP <a href="ro81b572.htm">$B572</a>        Block in BAM belegen
+
+Einsprung von $B6DC:
+
+B6E1: A9 00     LDA #$00         Sektornummer =0 setzen
+B6E3: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B6E5: 20 46 B7  JSR <a href="ro81b746.htm">$B746</a>        und noch einmal einen freien Block suchen
+B6E8: D0 F4     BNE $B6DE        erfolgreich, ==&gt;
+B6EA: 4C 41 B7  JMP <a href="ro81b6ed.htm">$B741</a>        71, Dir Error
+
+    <a href="ro81b65b.htm">Previous Page</a> / <a href="ro81b6ed.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

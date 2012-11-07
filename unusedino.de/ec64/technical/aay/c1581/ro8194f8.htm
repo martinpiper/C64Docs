@@ -1,0 +1,128 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Job auf fehlerfreie Durchfuehrung pruefen ($d5a6)
+E: x: Puffernummer
+
+Test auf Fehler, bei denen mehrere Versuche keine Besserung bringen koennen
+
+Einsprung von <a href="ro8194de.htm">$94ED</a>:
+
+94F8: 20 98 95  JSR <a href="ro819598.htm">$9598</a>        Controller aufrufen
+94FB: C9 02     CMP #$02         kein Fehler ? (0 oder 1)
+94FD: 90 19     BCC $9518        ja, Ok. Ende ==&gt;
+94FF: C9 08     CMP #$08         Schreibschutzfehler ?
+9501: F0 0C     BEQ $950F        ja, ==&gt;
+9503: C9 0B     CMP #$0B         Falsche ID ?
+9505: F0 08     BEQ $950F        ja, ==&gt;
+9507: C9 03     CMP #$03         keine Adressmarke gefunden ?
+9509: F0 04     BEQ $950F        ja, ==&gt;
+950B: C9 0F     CMP #$0F         keine Diskette eingelegt ?
+950D: D0 0B     BNE $951A        nein, ==&gt;
+
+Einsprung von $9501, $9505, $9509:
+
+950F: 24 81     BIT <a href="ra8181.htm">$81</a>          Burst-Fehlerunterdrueckung ?
+9511: 30 05     BMI $9518        ja, ==&gt;
+9513: 2C A8 02  BIT <a href="ra8102a8.htm">$02A8</a>        DOS-Fehlerunterdrueckung ?
+9516: 10 17     BPL $952F        nein, ==&gt;
+
+Einsprung von $94FD, $9511:
+
+9518: 18        CLC              ja: Fehler kommentarlos hinnehmen
+9519: 60        RTS
+
+Mehrere Leseversuche unternehmen, ggf. Spur 0 anfahren
+
+Einsprung von $950D:
+
+951A: 98        TYA
+951B: 48        PHA
+951C: 20 64 95  JSR $9564        Mehrere Versuche durchfuehren
+951F: C9 02     CMP #$02         kein Fehler mehr ?
+9521: 90 37     BCC $955A        ja, ==&gt;
+9523: 24 30     BIT <a href="ra8130.htm">$30</a>          b7=0: Kopf auf Spur 0 fahren ?
+9525: 10 12     BPL $9539        ja, ==&gt;
+
+Einsprung von $954D:
+
+9527: 68        PLA              Stack restaurieren
+                                [enthielt ein gerettetes y-Reg. Der Wert
+                                 hat nichts mit Jobcodes zu tun, trotzdem
+9528: C9 90     CMP #$90          wird mit $90: Jobcode zum Schreiben ver-
+952A: D0 03     BNE $952F         glichen - ein Fehler bei der Veraenderung
+952C: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X      des 1541-DOS;  wird bei der 1581 aber
+                                 sowieso nicht mehr benoetigt]
+
+Einsprung von $9516, $952A, $955C, <a href="ro81bfe3.htm">$C015</a>:
+
+952F: A9 00     LDA #$00         Fehlerpruefung einschalten
+9531: 8D A8 02  STA <a href="ra8102a8.htm">$02A8</a>        [Fehlerunterdrueckung wird nicht beachtet !]
+9534: B5 02     LDA <a href="ra8102.htm">$02</a>,X        Fehlernummer holen
+9536: 20 2D FF  JSR <a href="ro81ff00.htm">$FF2D</a>        Error-Routine des Controllers
+Kopf auf Spur 0 fahren und Job nochmal probieren
+
+Einsprung von $9525:
+
+9539: 24 81     BIT <a href="ra8181.htm">$81</a>          Burst-Fehlerunterdrueckung ?
+953B: 30 21     BMI $955E        ja, ==&gt;
+953D: 2C A8 02  BIT <a href="ra8102a8.htm">$02A8</a>        DOS-Fehlerunterdrueckung ?
+9540: 30 1C     BMI $955E        ja, ==&gt;
+9542: 48        PHA              a enthaelt letzte Job-RoeCK-meldung
+9543: A9 C0     LDA #$C0         RESTORE_DV
+9545: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Aufruf des Controllers
+9548: 20 64 95  JSR $9564        Schreib-/Lesejob ausfuehren
+954B: C9 02     CMP #$02         Fehler ?
+954D: B0 D8     BCS $9527        ja, ==&gt;
+
+954F: 68        PLA              vorletzte Job-RoeCK-meldung holen
+9550: C9 90     CMP #$90         (ist immer &lt; $10)
+9552: D0 0A     BNE $955E        also immer ==&gt;
+9554: 9D 72 02  STA <a href="ra810272.htm">$0272</a>,X      wird nie aufgerufen
+9557: 20 64 95  JSR $9564        &quot;
+
+Einsprung von $9521:
+
+955A: C9 02     CMP #$02         &quot;
+955C: B0 D1     BCS $952F        &quot;
+
+Einsprung von $953B, $9540, $9552:
+
+955E: 68        PLA              y-Register zurueckholen
+955F: A8        TAY
+9560: B5 02     LDA <a href="ra8102.htm">$02</a>,X        Jobrueckmeldung holen
+9562: 18        CLC              Ok. Ende
+9563: 60        RTS
+
+mehrere Schreib-/Leseversuche ausfuehren
+
+Einsprung von $951C, $9548, $9557:
+
+9564: A5 30     LDA <a href="ra8130.htm">$30</a>          Anzahl der Leseversuche nach y
+9566: 29 3F     AND #$3F
+9568: A8        TAY
+
+Einsprung von $957A, <a href="ro81bfe3.htm">$C023</a>:
+
+9569: A5 79     LDA <a href="ra8179.htm">$79</a>          LED-Blinken aktivieren
+956B: 09 20     ORA #$20
+956D: 85 79     STA <a href="ra8179.htm">$79</a>
+956F: BD 72 02  LDA <a href="ra810272.htm">$0272</a>,X      Jobcode holen
+9572: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Job nochmals ausfuehren
+9575: C9 02     CMP #$02         Fehler
+9577: 90 03     BCC $957C        nein, =&gt;
+9579: 88        DEY              naechster Versuch ?
+957A: D0 ED     BNE $9569        ja, ==&gt;
+
+Einsprung von $9577:
+
+957C: 48        PHA              Jobrueckmeldung merken
+957D: A5 79     LDA <a href="ra8179.htm">$79</a>          LED-Blinken aus
+957F: 29 DF     AND #$DF
+9581: 85 79     STA <a href="ra8179.htm">$79</a>
+9583: 68        PLA              Jobrueckmeldung in A
+9584: 60        RTS
+
+    <a href="ro8194de.htm">Previous Page</a> / <a href="ro819585.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

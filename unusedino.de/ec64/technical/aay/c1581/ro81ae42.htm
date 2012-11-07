@@ -1,0 +1,102 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte vom seriellen Bus holen ($e9c9; bei der 1571: $82c7)
+
+Warten, bis Computer bereit ist
+
+Einsprung von <a href="ro81abcf.htm">$AC01</a>, <a href="ro81aeb8.htm">$AECF</a>:
+
+AE42: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        Flag 'Daten ueber FSM-Bus empfangen' loeschen
+AE45: A9 08     LDA #$08         Zaehler auf 8 Datenbits setzen
+AE47: 85 66     STA <a href="ra8166.htm">$66</a>
+
+Einsprung von $AE51:
+
+AE49: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AE4C: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AE4F: 29 04     AND #$04
+AE51: D0 F6     BNE $AE49        auf CLOCK IN = Lo warten
+AE53: 20 E8 AC  JSR <a href="ro81ace8.htm">$ACE8</a>        DATA OUT auf Lo
+AE56: A9 01     LDA #$01         b0: DATA IN
+
+Einsprung von $AE5B:
+
+AE58: 2C 01 40  BIT <a href="cia811.htm">$4001</a>
+AE5B: D0 FB     BNE $AE58        auf DATA IN = Lo warten
+
+auf EOI testen
+
+AE5D: A2 0A     LDX #$0A         EOI-Zaehler initialisieren (ca. 520 Takte)
+
+Einsprung von $AE6A:
+
+AE5F: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AE62: CA        DEX              ca. 260 us gewartet ?
+AE63: F0 09     BEQ $AE6E        ja, (EOI) ==&gt;
+AE65: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AE68: 29 04     AND #$04         Ist CLOCK IN = Lo ?
+AE6A: F0 F3     BEQ $AE5F        ja, (weiter warten) ==&gt;
+AE6C: D0 19     BNE $AE87        (Byte empfangen) ==&gt;
+
+ - Computer mitteilen, dass EOI-empfangen wurde
+
+Einsprung von $AE63:
+
+AE6E: 20 F1 AC  JSR <a href="ro81acf1.htm">$ACF1</a>        DATA OUT auf Hi
+AE71: A2 18     LDX #$18         50 us warten
+
+Einsprung von $AE74:
+
+AE73: CA        DEX              [Die Routine im Computer, die das DATA Hi
+AE74: D0 FD     BNE $AE73         prueft, braucht ca. 38 us.]
+AE76: 20 E8 AC  JSR <a href="ro81ace8.htm">$ACE8</a>        DATA OUT auf Lo
+
+Einsprung von $AE81:
+
+AE79: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AE7C: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AE7F: 29 04     AND #$04
+AE81: F0 F6     BEQ $AE79        auf CLOCK IN = Hi warten
+AE83: A9 00     LDA #$00         EOI-Flag setzen
+AE85: 85 51     STA <a href="ra8151.htm">$51</a>
+Byte empfangen
+
+Einsprung von $AE6C, $AEA0, $AEB0:
+
+AE87: AD 01 40  LDA <a href="cia811.htm">$4001</a>
+AE8A: 49 01     EOR #$01         Datenbit kippen (Daten werden
+AE8C: AA        TAX              Lo-aktiv uebertragen)
+AE8D: AD 0D 40  LDA <a href="cia81d.htm">$400D</a>        Sind Daten ueber FSM-Bus gekommen ?
+AE90: 29 08     AND #$08
+AE92: F0 08     BEQ $AE9C        nein, ==&gt;
+AE94: AD 0C 40  LDA <a href="cia81c.htm">$400C</a>        Datenbyte aus SDR holen
+AE97: 85 54     STA <a href="ra8154.htm">$54</a>          und merken
+AE99: 4C B2 AE  JMP $AEB2
+
+Einsprung von $AE92:
+
+AE9C: 8A        TXA
+AE9D: 4A        LSR              Datenbit ins Carry schieben
+AE9E: 29 02     AND #$02         b1: CLOCK IN = 1 ?
+AEA0: D0 E5     BNE $AE87        Ja, ==&gt;
+AEA2: 66 54     ROR <a href="ra8154.htm">$54</a>          empfangenes Bit ins Datenbyte schieben
+
+Einsprung von $AEAC:
+
+AEA4: 20 15 AD  JSR <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+AEA7: 20 0C AD  JSR <a href="ro81ad0c.htm">$AD0C</a>        Bus auslesen
+AEAA: 29 04     AND #$04
+AEAC: F0 F6     BEQ $AEA4        auf CLOCK IN = Hi warten
+AEAE: C6 66     DEC <a href="ra8166.htm">$66</a>          Sind noch Bits zu empfangen ?
+AEB0: D0 D5     BNE $AE87        ja, ==&gt;
+
+Einsprung von $AE99:
+
+AEB2: 20 F1 AC  JSR <a href="ro81acf1.htm">$ACF1</a>        DATA OUT auf Hi setzen
+AEB5: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte holen
+AEB7: 60        RTS
+
+    <a href="ro81ad5c.htm">Previous Page</a> / <a href="ro81aeb8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

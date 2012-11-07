@@ -1,0 +1,53 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F04D/61517:   Input From RS232
+
+Jump from <a href="romf20e.htm">$F227</a>:
+
+F04D: 85 99     <a href="bsta.htm">STA</a> <a href="zp99.htm">$99</a>       ; Default Input Device (0)
+F04F: AD 94 02  <a href="blda.htm">LDA</a> <a href="zp0294.htm">$0294</a>     ; RS232 Pseudo 6551 command Register Image
+F052: 4A        <a href="blsr.htm">LSR</a>
+F053: 90 28     <a href="bbcc.htm">BCC</a> $F07D
+F055: 29 08     <a href="band.htm">AND</a> #$08
+F057: F0 24     <a href="bbeq.htm">BEQ</a> $F07D
+F059: A9 02     <a href="blda.htm">LDA</a> #$02
+F05B: 2C 01 DD  <a href="bbit.htm">BIT</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F05E: 10 AD     <a href="bbpl.htm">BPL</a> <a href="romf00d.htm">$F00D</a>     ; No DSR (Data Set Ready) Error
+F060: F0 22     <a href="bbeq.htm">BEQ</a> $F084
+
+Jump from $F066:
+
+F062: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F065: 4A        <a href="blsr.htm">LSR</a>
+F066: B0 FA     <a href="bbcs.htm">BCS</a> $F062
+F068: AD 01 DD  <a href="blda.htm">LDA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F06B: 29 FD     <a href="band.htm">AND</a> #$FD
+F06D: 8D 01 DD  <a href="bsta.htm">STA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+
+Jump from $F075:
+
+F070: AD 01 DD  <a href="blda.htm">LDA</a> <a href="cia21.htm">$DD01</a>     ; CIA2: Data Port B (User Port, RS232)
+F073: 29 04     <a href="band.htm">AND</a> #$04
+F075: F0 F9     <a href="bbeq.htm">BEQ</a> $F070
+
+Jump from $F082:
+
+F077: A9 90     <a href="blda.htm">LDA</a> #$90
+F079: 18        <a href="bclc.htm">CLC</a>
+F07A: 4C 3B EF  <a href="bjmp.htm">JMP</a> <a href="romef39.htm">$EF3B</a>     ; Disable Timer
+
+Jump from $F053, $F057:
+
+F07D: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+F080: 29 12     <a href="band.htm">AND</a> #$12
+F082: F0 F3     <a href="bbeq.htm">BEQ</a> $F077
+
+Jump from $F060:
+
+F084: 18        <a href="bclc.htm">CLC</a>
+F085: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf017.htm">Previous Page</a> / <a href="romf086.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

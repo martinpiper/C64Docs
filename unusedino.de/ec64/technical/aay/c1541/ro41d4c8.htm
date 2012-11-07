@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D4C8/54472:   Set buffer pointer
+
+Jump from <a href="ro41c5ac.htm">$C614</a>, <a href="ro41c87d.htm">$C896</a>, <a href="ro41c9fa.htm">$CA14</a>, <a href="ro41c9fa.htm">$CA32</a>, <a href="ro41ca88.htm">$CAB4</a>, <a href="ro41cd42.htm">$CD47</a>, <a href="ro41cd73.htm">$CD83</a>, <a href="ro41d156.htm">$D16F</a>, <a href="ro41d19d.htm">$D1AB</a>,
+          <a href="ro41d19d.htm">$D1C3</a>, <a href="ro41d39b.htm">$D43C</a>, <a href="ro41d475.htm">$D483</a>, <a href="ro41d48d.htm">$D4A3</a>, <a href="ro41d48d.htm">$D4B8</a>, <a href="ro41d6e4.htm">$D740</a>, <a href="ro41d8f5.htm">$D914</a>, <a href="ro41da2a.htm">$DA42</a>, <a href="ro41db62.htm">$DB92</a>,
+          <a href="ro41dc46.htm">$DCA0</a>, <a href="ro41dcda.htm">$DD6F</a>, <a href="ro41de95.htm">$DE97</a>, <a href="ro41dfd0.htm">$DFFA</a>, <a href="ro41e03c.htm">$E04F</a>, <a href="ro41e207.htm">$E27A</a>, <a href="ro41e44e.htm">$E476</a>, <a href="ro41e44e.htm">$E4A3</a>, <a href="ro41e44e.htm">$E4C0</a>,
+          <a href="ro41e44e.htm">$E4DB</a>, <a href="ro41ec9e.htm">$ECA9</a>, <a href="ro41ede5.htm">$EDF0</a>:
+
+D4C8: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; save pointer
+D4CA: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+D4CD: 0A        ASL             ; times 2
+D4CE: AA        TAX
+D4CF: B5 9A     LDA <a href="ra4199.htm">$9A</a>,X       ; buffer pointer hi
+D4D1: 85 95     STA <a href="ra4194.htm">$95</a>
+D4D3: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+D4D5: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; buffer pointer lo, new value
+D4D7: 85 94     STA <a href="ra4194.htm">$94</a>
+D4D9: 60        RTS
+
+    <a href="ro41d48d.htm">Previous Page</a> / <a href="ro41d4da.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

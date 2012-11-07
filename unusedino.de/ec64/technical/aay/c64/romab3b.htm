@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AB3B/43835:   Output Format Character
+
+Jump from <a href="romaab8.htm">$AAC5</a>, <a href="romaae8.htm">$AB19</a>, <a href="romabf9.htm">$AC00</a>:
+
+AB3B: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+AB3D: F0 03     <a href="bbeq.htm">BEQ</a> $AB42
+AB3F: A9 20     <a href="blda.htm">LDA</a> #$20
+AB41: 2C        .BYTE $2C
+
+Jump from $AB3D:
+
+AB42: A9 1D     <a href="blda.htm">LDA</a> #$1D
+AB44: 2C        .BYTE $2C
+
+Jump from <a href="roma437.htm">$A451</a>, <a href="romabf9.htm">$ABFD</a>, <a href="romac35.htm">$AC47</a>:
+
+AB45: A9 3F     <a href="blda.htm">LDA</a> #$3F
+
+Jump from <a href="roma437.htm">$A45B</a>, <a href="roma69c.htm">$A6F3</a>, <a href="roma717.htm">$A73D</a>, <a href="romaad7.htm">$AAD9</a>, <a href="romaad7.htm">$AAE2</a>, <a href="romab1e.htm">$AB2D</a>:
+
+AB47: 20 0C E1  <a href="bjsr.htm">JSR</a> <a href="rome10c.htm">$E10C</a>     ; Output Character
+AB4A: 29 FF     <a href="band.htm">AND</a> #$FF
+AB4C: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romab1e.htm">Previous Page</a> / <a href="romab4d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

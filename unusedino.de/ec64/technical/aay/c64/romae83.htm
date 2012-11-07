@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AE83/44675:   Evaluate Single Term
+
+Jump from <a href="romad9e.htm">$ADB1</a>, <a href="romb63d.htm">$B643</a>:
+
+AE83: 6C 0A 03  <a href="bjmp.htm">JMP</a> (<a href="zp030a.htm">$030A</a>)   ; Vector: BASIC Token evaluation
+AE86: A9 00     <a href="blda.htm">LDA</a> #$00
+AE88: 85 0D     <a href="bsta.htm">STA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+
+Jump from <a href="romaead.htm">$AEB7</a>:
+
+AE8A: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+AE8D: B0 03     <a href="bbcs.htm">BCS</a> $AE92
+
+Jump from <a href="romaead.htm">$AEAF</a>:
+
+AE8F: 4C F3 BC  <a href="bjmp.htm">JMP</a> <a href="rombcf3.htm">$BCF3</a>     ; Convert ASCII String to a Number in FAC
+
+Jump from $AE8D:
+
+AE92: 20 13 B1  <a href="bjsr.htm">JSR</a> <a href="romb113.htm">$B113</a>     ; Does A hold an alphabetic character?
+AE95: 90 03     <a href="bbcc.htm">BCC</a> $AE9A
+AE97: 4C 28 AF  <a href="bjmp.htm">JMP</a> <a href="romaf28.htm">$AF28</a>     ; Search for Variable
+
+Jump from $AE95:
+
+AE9A: C9 FF     <a href="bcmp.htm">CMP</a> #$FF
+AE9C: D0 0F     <a href="bbne.htm">BNE</a> <a href="romaead.htm">$AEAD</a>     ; Continue Expression
+AE9E: A9 A8     <a href="blda.htm">LDA</a> #$A8
+AEA0: A0 AE     <a href="bldy.htm">LDY</a> #$AE
+AEA2: 20 A2 BB  <a href="bjsr.htm">JSR</a> <a href="rombba2.htm">$BBA2</a>     ; Load FAC#1 From Memory
+AEA5: 4C 73 00  <a href="bjmp.htm">JMP</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+
+    <a href="romad9e.htm">Previous Page</a> / <a href="romaea8.htm">Next Page</a>
+
+Kernal-Reference:
+
+ BIT $AE91   : <a href="romf4b8.htm">$F51B</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,50 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D156/53590:   Get byte and read next block
+
+Jump from <a href="ro41c87d.htm">$C899</a>, <a href="ro41c87d.htm">$C89E</a>, <a href="ro41d39b.htm">$D400</a>, <a href="ro41d44d.htm">$D45C</a>, <a href="ro41dc46.htm">$DCA9</a>:
+
+D156: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get byte from buffer
+D159: D0 36     BNE $D191       ; not last character?
+D15B: 85 85     STA <a href="ra4185.htm">$85</a>         ; save data byte
+D15D: B9 44 02  LDA <a href="ra410244.htm">$0244</a>,Y     ; end pointer
+D160: F0 08     BEQ $D16A       ; yes
+D162: A9 80     LDA #$80
+D164: 99 F2 00  STA <a href="ra41f2.htm">$F2</a>,Y       ; READ-flag
+D167: A5 85     LDA <a href="ra4185.htm">$85</a>         ; data byte
+D169: 60        RTS
+
+Jump from $D160:
+
+D16A: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer and read next block
+D16D: A9 00     LDA #$00
+D16F: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; set buffer pointer to zero
+D172: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get first byte from buffer
+D175: C9 00     CMP #$00        ; track number zero
+D177: F0 19     BEQ $D192       ; yes, then last block
+D179: 85 80     STA <a href="ra4180.htm">$80</a>         ; save last track number
+D17B: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get next byte
+D17E: 85 81     STA <a href="ra4181.htm">$81</a>         ; save as following track
+D180: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer and read next block
+D183: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; save drive number
+D186: 20 D0 D6  JSR <a href="ro41d6d0.htm">$D6D0</a>       ; parameter to disk controller
+D189: 20 C3 D0  JSR <a href="ro41d0c3.htm">$D0C3</a>       ; transmit read command
+D18C: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer and read block
+D18F: A5 85     LDA <a href="ra4185.htm">$85</a>         ; get data byte
+
+Jump from $D159:
+
+D191: 60        RTS
+
+Jump from $D177:
+
+D192: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get next byte from buffer
+D195: A4 82     LDY <a href="ra4182.htm">$82</a>
+D197: 99 44 02  STA <a href="ra410244.htm">$0244</a>,Y     ; save as end pointer
+D19A: A5 85     LDA <a href="ra4185.htm">$85</a>         ; get data byte back
+D19C: 60        RTS
+
+    <a href="ro41d137.htm">Previous Page</a> / <a href="ro41d19d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

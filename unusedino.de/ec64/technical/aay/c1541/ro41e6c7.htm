@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E6C7/59079:   Print error on current track to error buffer
+
+Jump from <a href="ro41c194.htm">$C1A7</a>, <a href="ro41e60a.htm">$E63B</a>, <a href="ro41e645.htm">$E645</a>, <a href="ro41ef90.htm">$EFCB</a>:
+
+E6C7: A0 00     LDY #$00        ; buffer pointer
+E6C9: A2 D5     LDX #$D5
+E6CB: 86 A5     STX <a href="ra41a5.htm">$A5</a>         ; pointer $A5/$A6 to $2D5
+E6CD: A2 02     LDX #$02
+E6CF: 86 A6     STX <a href="ra41a5.htm">$A6</a>
+E6D1: 20 AB E6  JSR <a href="ro41e6ab.htm">$E6AB</a>       ; error number to ASCII and in buffer
+E6D4: A9 2C     LDA #$2C        ; ',' comma
+E6D6: 91 A5     STA (<a href="ra41a5.htm">$A5</a>),Y     ; write in buffer
+E6D8: C8        INY             ; increment buffer pointer
+E6D9: AD D5 02  LDA <a href="ra4102d5.htm">$02D5</a>       ; first digit of the disk status
+E6DC: 8D 43 02  STA <a href="ra41022e.htm">$0243</a>       ; in output register
+E6DF: 8A        TXA             ; error number in accumulator
+E6E0: 20 06 E7  JSR <a href="ro41e706.htm">$E706</a>       ; error message in buffer
+E6E3: A9 2C     LDA #$2C        ; ',' comma
+E6E5: 91 A5     STA (<a href="ra41a5.htm">$A5</a>),Y     ; write in buffer
+E6E7: C8        INY             ; and increment buffer pointer
+E6E8: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track number
+E6EA: 20 9B E6  JSR <a href="ro41e69b.htm">$E69B</a>       ; to ASCII and in buffer
+E6ED: A9 2C     LDA #$2C        ; ',' comma
+E6EF: 91 A5     STA (<a href="ra41a5.htm">$A5</a>),Y     ; write in buffer
+E6F1: C8        INY             ; increment buffer pointer
+E6F2: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+E6F4: 20 9B E6  JSR <a href="ro41e69b.htm">$E69B</a>       ; convert to ASCII and in buffer
+E6F7: 88        DEY
+E6F8: 98        TYA
+E6F9: 18        CLC
+E6FA: 69 D5     ADC #$D5
+E6FC: 8D 49 02  STA <a href="ra410244.htm">$0249</a>       ; end pointer
+E6FF: E6 A5     INC <a href="ra41a5.htm">$A5</a>
+E701: A9 88     LDA #$88        ; set READ flag
+E703: 85 F7     STA <a href="ra41f2.htm">$F7</a>
+E705: 60        RTS
+
+    <a href="ro41e6c1.htm">Previous Page</a> / <a href="ro41e706.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

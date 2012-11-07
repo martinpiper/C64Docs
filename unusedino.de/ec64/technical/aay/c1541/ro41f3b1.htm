@@ -1,0 +1,72 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F3B1/62385:   Read block header, verify ID
+
+Jump from <a href="ro41f2f9.htm">$F36B</a>, <a href="ro41f575.htm">$F5E6</a>:
+
+F3B1: A2 5A     LDX #$5A        ; 90
+F3B3: 86 4B     STX <a href="ra414b.htm">$4B</a>         ; counter
+F3B5: A2 00     LDX #$00
+F3B7: A9 52     LDA #$52        ; 82
+F3B9: 85 24     STA <a href="ra4124.htm">$24</a>
+
+Jump from $F409:
+
+F3BB: 20 56 F5  JSR <a href="ro41f556.htm">$F556</a>       ; wait for SYNC
+
+Jump from $F3BE:
+
+F3BE: 50 FE     BVC $F3BE       ; byte ready?
+F3C0: B8        CLV
+F3C1: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; data from read head
+F3C4: C5 24     CMP <a href="ra4124.htm">$24</a>
+F3C6: D0 3F     BNE $F407       ; 20, 'read error'
+
+Jump from $F3C8, $F3D3:
+
+F3C8: 50 FE     BVC $F3C8       ; byte ready?
+F3CA: B8        CLV
+F3CB: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; data byte from disk (block header)
+F3CE: 95 25     STA <a href="ra4124.htm">$25</a>,X       ; save 7 bytes
+F3D0: E8        INX
+F3D1: E0 07     CPX #$07
+F3D3: D0 F3     BNE $F3C8       ; continue reading
+F3D5: 20 97 F4  JSR <a href="ro41f423.htm">$F497</a>
+F3D8: A0 04     LDY #$04        ; 4 bytes plus parity
+F3DA: A9 00     LDA #$00
+
+Jump from $F3E0:
+
+F3DC: 59 16 00  EOR <a href="ra4116.htm">$16</a>,Y       ; form checksum for header
+F3DF: 88        DEY
+F3E0: 10 FA     BPL $F3DC
+F3E2: C9 00     CMP #$00        ; parity ok?
+F3E4: D0 38     BNE <a href="ro41f41e.htm">$F41E</a>       ; 27, 'read error'
+F3E6: A6 3E     LDX <a href="ra413e.htm">$3E</a>         ; drive number
+F3E8: A5 18     LDA <a href="ra4118.htm">$18</a>         ; track number of header
+F3EA: 95 22     STA <a href="ra4122.htm">$22</a>,X       ; use as actual track number
+F3EC: A5 45     LDA <a href="ra4145.htm">$45</a>
+F3EE: C9 30     CMP #$30        ; code for 'preserve header'
+F3F0: F0 1E     BEQ <a href="ro41f410.htm">$F410</a>       ; preserve header
+F3F2: A5 3E     LDA <a href="ra413e.htm">$3E</a>
+F3F4: 0A        ASL
+F3F5: A8        TAY
+F3F6: B9 12 00  LDA <a href="ra4112.htm">$12</a>,Y
+F3F9: C5 16     CMP <a href="ra4116.htm">$16</a>         ; command with ID1
+F3FB: D0 1E     BNE <a href="ro41f41b.htm">$F41B</a>
+F3FD: B9 13 00  LDA <a href="ra4112.htm">$13</a>,Y
+F400: C5 17     CMP <a href="ra4116.htm">$17</a>         ; command with ID2
+F402: D0 17     BNE <a href="ro41f41b.htm">$F41B</a>       ; &lt;&gt;, then 29, 'disk id mismatch'
+F404: 4C 23 F4  JMP <a href="ro41f423.htm">$F423</a>
+
+Jump from $F3C6:
+
+F407: C6 4B     DEC <a href="ra414b.htm">$4B</a>         ; decrement counter for attempts
+F409: D0 B0     BNE $F3BB       ; and try again
+F40B: A9 02     LDA #$02        ; else
+F40D: 20 69 F9  JSR <a href="ro41f969.htm">$F969</a>       ; 20, 'read error'
+
+    <a href="ro41f393.htm">Previous Page</a> / <a href="ro41f410.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

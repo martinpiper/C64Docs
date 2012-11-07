@@ -1,0 +1,48 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A7ED/42989:   Perform BASIC Keyword
+
+Jump from <a href="roma7e1.htm">$A7E7</a>, <a href="roma93b.htm">$A948</a>:
+
+A7ED: F0 3C     <a href="bbeq.htm">BEQ</a> <a href="roma81d.htm">$A82B</a>     ; Perform [restore]
+
+Jump from <a href="roma94b.htm">$A95C</a>:
+
+A7EF: E9 80     <a href="bsbc.htm">SBC</a> #$80
+A7F1: 90 11     <a href="bbcc.htm">BCC</a> $A804
+A7F3: C9 23     <a href="bcmp.htm">CMP</a> #$23
+A7F5: B0 17     <a href="bbcs.htm">BCS</a> $A80E
+A7F7: 0A        <a href="basl.htm">ASL</a>
+A7F8: A8        <a href="btay.htm">TAY</a>
+A7F9: B9 0D A0  <a href="blda.htm">LDA</a> <a href="roma00c.htm">$A00D</a>,Y   ; BASIC Command Vectors - 1
+A7FC: 48        <a href="bpha.htm">PHA</a>
+A7FD: B9 0C A0  <a href="blda.htm">LDA</a> <a href="roma00c.htm">$A00C</a>,Y   ; BASIC Command Vectors - 1
+A800: 48        <a href="bpha.htm">PHA</a>
+A801: 4C 73 00  <a href="bjmp.htm">JMP</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+
+Jump from $A7F1:
+
+A804: 4C A5 A9  <a href="bjmp.htm">JMP</a> <a href="roma9a5.htm">$A9A5</a>     ; Perform [let]
+
+Jump from <a href="roma7ae.htm">$A7C2</a>:
+
+A807: C9 3A     <a href="bcmp.htm">CMP</a> #$3A
+A809: F0 D6     <a href="bbeq.htm">BEQ</a> <a href="roma7e1.htm">$A7E1</a>     ; Prepare to execute statement
+
+Jump from $A810:
+
+A80B: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $A7F5:
+
+A80E: C9 4B     <a href="bcmp.htm">CMP</a> #$4B
+A810: D0 F9     <a href="bbne.htm">BNE</a> $A80B
+A812: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A815: A9 A4     <a href="blda.htm">LDA</a> #$A4
+A817: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+A81A: 4C A0 A8  <a href="bjmp.htm">JMP</a> <a href="roma8a0.htm">$A8A0</a>     ; Perform [goto]
+
+    <a href="roma7e1.htm">Previous Page</a> / <a href="roma81d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

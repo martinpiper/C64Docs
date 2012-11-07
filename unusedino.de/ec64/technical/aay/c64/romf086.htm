@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F086/61574:   Get From RS232
+
+Jump from <a href="romf13e.htm">$F150</a>:
+
+F086: AD 97 02  <a href="blda.htm">LDA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+F089: AC 9C 02  <a href="bldy.htm">LDY</a> <a href="zp029c.htm">$029C</a>     ; RS232 Pointer: High Byte of Input Buffer
+F08C: CC 9B 02  <a href="bcpy.htm">CPY</a> <a href="zp029b.htm">$029B</a>     ; RS232 Index to End of Input Buffer
+F08F: F0 0B     <a href="bbeq.htm">BEQ</a> $F09C
+F091: 29 F7     <a href="band.htm">AND</a> #$F7
+F093: 8D 97 02  <a href="bsta.htm">STA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+F096: B1 F7     <a href="blda.htm">LDA</a> (<a href="zpf7.htm">$F7</a>),Y   ; RS232 Input Buffer Pointer
+F098: EE 9C 02  <a href="binc.htm">INC</a> <a href="zp029c.htm">$029C</a>     ; RS232 Pointer: High Byte of Input Buffer
+F09B: 60        <a href="brts.htm">RTS</a>
+
+Jump from $F08F:
+
+F09C: 09 08     <a href="bora.htm">ORA</a> #$08
+F09E: 8D 97 02  <a href="bsta.htm">STA</a> <a href="zp0297.htm">$0297</a>     ; RS232 Pseudo 6551 Status Register Image
+F0A1: A9 00     <a href="blda.htm">LDA</a> #$00
+F0A3: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf04d.htm">Previous Page</a> / <a href="romf0a4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

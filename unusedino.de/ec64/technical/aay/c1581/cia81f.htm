@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $400F/16399/CIA+15:      CIA Control Register B
+
+   +----------+--------------------------------------------------------+
+   | Bit  7   |   Set Alarm/TOD-Clock: 1 = Alarm, 0 = Clock            |
+   | Bits 6-5 |   Timer B Mode Select:                                 |
+   |          |            00 = Count System 02 Clock Pulses           |
+   |          |            01 = Count Positive CNT Transitions         |
+   |          |            10 = Count Timer A Underflow Pulses         |
+   |          |            11 = Count Timer A Underflows While CNT     |
+   | Bit  4   |   Force Load Timer B: 1 = Now! (Write only Strobe Bit) |                      |
+   | Bit  3   |   Timer B Run Mode: 1 = One-Shot, 0 = Continuous       |
+   | Bit  2   |   Timer B Output Mode to PB7: 1 = Toggle, 0 = Pulse    |
+   | Bit  1   |   Timer B Output on PB7: 1 = Yes, 0 = No               |
+   | Bit  0   |   Start/Stop Timer B: 1 = Start, 0 = Stop              |
+   +----------+--------------------------------------------------------+
+
+   Default Value: $11/17 (%00010001)
+
+ROM-Reference:
+
+ STA $400F  : <a href="ro81cb9f.htm">$CBAD</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Drivenummer setzen, LED einschalten ($c368)
+
+Einsprung von <a href="ro818085.htm">$8096</a>:
+
+8251: A9 00     LDA #$00         Befehlssyntaxflag loeschen
+8253: 8D A2 02  STA <a href="ra8102a2.htm">$02A2</a>
+8256: AC 91 02  LDY <a href="ra810291.htm">$0291</a>        Position der Drivenummer holen
+
+Einsprung von $8268:
+
+8259: B1 CD     LDA (<a href="ra81cd.htm">$CD</a>),Y      Drivenummer holen
+825B: 20 95 82  JSR <a href="ro818295.htm">$8295</a>        mit '0' und '1' vergleichen
+825E: 10 0D     BPL $826D        Drivenummer ok., ==&gt;
+8260: C8        INY              Zeilenende erreicht ?
+8261: C4 29     CPY <a href="ra8129.htm">$29</a>
+8263: B0 05     BCS $826A        ja, ==&gt;
+8265: A4 29     LDY <a href="ra8129.htm">$29</a>          Drivenummer am Zeilenende suchen
+8267: 88        DEY              (z.B. 'I0','V0','$0', ...)
+8268: D0 EF     BNE $8259        Befehlslaenge &lt;&gt;1, ==&gt;
+
+Einsprung von $8263:
+
+826A: CE A2 02  DEC <a href="ra8102a2.htm">$02A2</a>        = $ff
+
+Einsprung von $825E:
+
+826D: 4C F6 81  JMP <a href="ro8181e5.htm">$81F6</a>        Drive-LED einschalten
+
+    <a href="ro818224.htm">Previous Page</a> / <a href="ro818270.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

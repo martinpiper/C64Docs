@@ -1,0 +1,58 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Ein Byte in Record-Puffer schreiben ($e07c)
+
+Byte in Puffer schreiben
+
+Einsprung von <a href="ro81a033.htm">$A03C</a>, <a href="ro81a07b.htm">$A086</a>:
+
+9FFC: 20 8D A0  JSR <a href="ro81a08d.htm">$A08D</a>        Flags 'Puffer / REL-Datei geaendert' setzen
+9FFF: 20 11 9F  JSR <a href="ro819f11.htm">$9F11</a>        Nummer des aktiven Puffers holen
+A002: 0A        ASL              (2-Byte Tabelle)
+A003: AA        TAX
+A004: A5 54     LDA <a href="ra8154.htm">$54</a>          Datenbyte holen
+A006: 81 BB     STA (<a href="ra81bb.htm">$BB</a>,X)      und in den Puffer schreiben
+
+auf Recordende testen
+
+A008: B4 BB     LDY <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger (Lo) holen
+A00A: C8        INY              Pufferende erreicht ?
+A00B: D0 09     BNE $A016        nein, ==&gt;
+A00D: A4 50     LDY <a href="ra8150.htm">$50</a>          Ist der 'Zeiger auf naechsten Record' = 0
+A00F: B9 57 02  LDA <a href="ra810257.htm">$0257</a>,Y      [Dies ist genau dann der Fall, wenn der
+                                 aktuelle Record genau bis zum Blockende
+                                 geht und er ausserdem der letzte Record
+                                 der Datei ist.]
+A012: F0 0A     BEQ $A01E        ja, dieser letzte Record ist voll, ==&gt;
+A014: A0 02     LDY #$02         Ist das Recordende genau am Pufferende ?
+
+Einsprung von $A00B:
+
+A016: 98        TYA
+A017: A4 50     LDY <a href="ra8150.htm">$50</a>          aktuellen Pufferzeiger mit
+A019: D9 57 02  CMP <a href="ra810257.htm">$0257</a>,Y      'Zeiger auf naechsten Record' vergleichen
+A01C: D0 05     BNE $A023        ungleich, (Record noch nicht voll) ==&gt;
+
+Einsprung von $A012:
+
+A01E: A9 20     LDA #$20         Flag 'Record voll' setzen
+A020: 4C D5 9C  JMP <a href="ro819cd3.htm">$9CD5</a>
+Zeiger auf naechstes Byte setzen
+
+Einsprung von $A01C:
+
+A023: F6 BB     INC <a href="ra81bb.htm">$BB</a>,X        Pufferzeiger erhoehen; Pufferende erreicht ?
+A025: D0 0B     BNE $A032        nein, ==&gt;
+A027: AD 01 01  LDA <a href="ra810101.htm">$0101</a>        Flag '2.Teil des Records geladen' setzen
+A02A: 09 10     ORA #$10
+A02C: 8D 01 01  STA <a href="ra810101.htm">$0101</a>
+A02F: 4C BF 9F  JMP <a href="ro819fbf.htm">$9FBF</a>        Folgeblock einlesen
+
+Einsprung von $A025:
+
+A032: 60        RTS
+
+    <a href="ro819fbf.htm">Previous Page</a> / <a href="ro81a033.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

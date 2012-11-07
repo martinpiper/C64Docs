@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Error-Routine des Controllers ($e60a)
+
+A7AE: 48        PHA              Fehlernummer merken
+A7AF: 86 6C     STX <a href="ra816c.htm">$6C</a>          Puffernummer bzw Jobspeichernummer merken
+A7B1: 8A        TXA
+A7B2: 0A        ASL              (Index fuer 2-Byte Tabelle)
+A7B3: AA        TAX
+A7B4: B5 0B     LDA <a href="ra810b.htm">$0B</a>,X        T&amp;S des Fehlers holen
+A7B6: 85 4D     STA <a href="ra814d.htm">$4D</a>
+A7B8: B5 0C     LDA <a href="ra810b.htm">$0C</a>,X
+A7BA: 85 4E     STA <a href="ra814e.htm">$4E</a>
+A7BC: 68        PLA              Fehlernummer zurueckholen
+Job-Errorcodes in DOS-Errorcodes umwandeln
+
+A7BD: 29 0F     AND #$0F         Fehlercode = $10 ?
+A7BF: F0 10     BEQ $A7D1        ja, (24, Read Error) ==&gt;
+A7C1: C9 03     CMP #$03         NOADAM_DV_ER: keine Sync-Markierungen
+A7C3: F0 08     BEQ $A7CD        ja, (74, Drive not Ready) ==&gt;
+A7C5: C9 0E     CMP #$0E         SYNTAX_DV_ER: ungueltiger Jobcode
+A7C7: F0 04     BEQ $A7CD        ja, (74, Drive not Ready) ==&gt;
+A7C9: C9 0F     CMP #$0F         NODSKPRS_DV_ER:
+A7CB: D0 06     BNE $A7D3        nein, Fehlrecode errechnen
+
+Einsprung von $A7C3, $A7C7:
+
+A7CD: A9 74     LDA #$74         Meldung: '74, Drive not Ready' ausgeben
+A7CF: D0 08     BNE $A7D9        ==&gt;
+
+Einsprung von $A7BF:
+
+A7D1: A9 06     LDA #$06         24, Read Error ausgeben
+
+Einsprung von $A7CB:
+
+A7D3: 09 20     ORA #$20         Fehlernummer + 20 (BCD) -2
+A7D5: AA        TAX              (Aus den Fehlern: 02,04,05,07,08 und 09
+A7D6: CA        DEX              die entsprechenden DOS-Meldungen errechnen.
+A7D7: CA        DEX              Bsp.: aus 5 wird 23; aus 9 wird 27)
+A7D8: 8A        TXA
+
+Einsprung von $A7CF:
+
+A7D9: 48        PHA              Fehlernummer merken
+A7DA: AD 2A 02  LDA <a href="ra81022a.htm">$022A</a>        aktuelle DOS-Befehlsnummer holen
+A7DD: C9 00     CMP #$00         = 0 (Validate) ?
+A7DF: D0 0F     BNE $A7F0        nein, ==&gt;
+A7E1: A9 FF     LDA #$FF         Befehlsnummer loeschen
+A7E3: 8D 2A 02  STA <a href="ra81022a.htm">$022A</a>
+A7E6: 68        PLA              Fehlernummer zurueckholen
+A7E7: 20 6D A8  JSR <a href="ro81a862.htm">$A86D</a>        Fehlertext generieren
+A7EA: 20 03 8F  JSR <a href="ro818f03.htm">$8F03</a>        Partition initialisieren
+A7ED: 4C F4 A7  JMP <a href="ro81a7f1.htm">$A7F4</a>
+
+Einsprung von $A7DF:
+
+A7F0: 68        PLA
+
+    <a href="ro81a602.htm">Previous Page</a> / <a href="ro81a7f1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

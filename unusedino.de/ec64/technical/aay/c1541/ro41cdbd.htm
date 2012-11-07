@@ -1,0 +1,18 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CDBD/52669:   B-P block pointer
+
+CDBD: 20 D2 CD  JSR <a href="ro41cdd2.htm">$CDD2</a>       ; open channel, get buffer number
+CDC0: A5 F9     LDA <a href="ra41f9.htm">$F9</a>         ; buffer number
+CDC2: 0A        ASL             ; * 2
+CDC3: AA        TAX             ; as index
+CDC4: AD 86 02  LDA <a href="ra410285.htm">$0286</a>       ; pointer value
+CDC7: 95 99     STA <a href="ra4199.htm">$99</a>,X       ; save as buffer pointer
+CDC9: 20 2F D1  JSR <a href="ro41d12f.htm">$D12F</a>       ; prepare a byte in buffer
+CDCC: 20 EE D3  JSR <a href="ro41d39b.htm">$D3EE</a>       ; for output
+CDCF: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done
+
+    <a href="ro41cda3.htm">Previous Page</a> / <a href="ro41cdd2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

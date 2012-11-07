@@ -1,0 +1,125 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B526/46374:   Garbage Collection
+
+Jump from <a href="roma408.htm">$A41C</a>, <a href="romb37d.htm">$B384</a>, <a href="romb4f4.htm">$B51C</a>:
+
+B526: A6 37     <a href="bldx.htm">LDX</a> <a href="zp37.htm">$37</a>       ; Pointer: Highest Address available to BASIC
+B528: A5 38     <a href="blda.htm">LDA</a> <a href="zp37.htm">$38</a>       ; Pointer: Highest Address available to BASIC
+
+Jump from <a href="romb606.htm">$B63A</a>:
+
+B52A: 86 33     <a href="bstx.htm">STX</a> <a href="zp33.htm">$33</a>       ; Pointer: Bottom of String space
+B52C: 85 34     <a href="bsta.htm">STA</a> <a href="zp33.htm">$34</a>       ; Pointer: Bottom of String space
+B52E: A0 00     <a href="bldy.htm">LDY</a> #$00
+B530: 84 4F     <a href="bsty.htm">STY</a> <a href="zp4e.htm">$4F</a>       ; Temporary storage for FLPT value
+B532: 84 4E     <a href="bsty.htm">STY</a> <a href="zp4e.htm">$4E</a>       ; Temporary storage for FLPT value
+B534: A5 31     <a href="blda.htm">LDA</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B536: A6 32     <a href="bldx.htm">LDX</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+B538: 85 5F     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B53A: 86 60     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B53C: A9 19     <a href="blda.htm">LDA</a> #$19
+B53E: A2 00     <a href="bldx.htm">LDX</a> #$00
+B540: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B542: 86 23     <a href="bstx.htm">STX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+
+Jump from $B54B:
+
+B544: C5 16     <a href="bcmp.htm">CMP</a> <a href="zp16.htm">$16</a>       ; Pointer: Temporary String Stack
+B546: F0 05     <a href="bbeq.htm">BEQ</a> $B54D
+B548: 20 C7 B5  <a href="bjsr.htm">JSR</a> <a href="romb5bd.htm">$B5C7</a>     ; Search for Next String
+B54B: F0 F7     <a href="bbeq.htm">BEQ</a> $B544
+
+Jump from $B546:
+
+B54D: A9 07     <a href="blda.htm">LDA</a> #$07
+B54F: 85 53     <a href="bsta.htm">STA</a> <a href="zp53.htm">$53</a>       ; Length of String during Garbage collection
+B551: A5 2D     <a href="blda.htm">LDA</a> <a href="zp2d.htm">$2D</a>       ; Pointer: Start of BASIC Variables
+B553: A6 2E     <a href="bldx.htm">LDX</a> <a href="zp2d.htm">$2E</a>       ; Pointer: Start of BASIC Variables
+B555: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B557: 86 23     <a href="bstx.htm">STX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+
+Jump from $B564:
+
+B559: E4 30     <a href="bcpx.htm">CPX</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+B55B: D0 04     <a href="bbne.htm">BNE</a> $B561
+B55D: C5 2F     <a href="bcmp.htm">CMP</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+B55F: F0 05     <a href="bbeq.htm">BEQ</a> $B566
+
+Jump from $B55B:
+
+B561: 20 BD B5  <a href="bjsr.htm">JSR</a> <a href="romb5bd.htm">$B5BD</a>     ; Search for Next String
+B564: F0 F3     <a href="bbeq.htm">BEQ</a> $B559
+
+Jump from $B55F:
+
+B566: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B568: 86 59     <a href="bstx.htm">STX</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B56A: A9 03     <a href="blda.htm">LDA</a> #$03
+B56C: 85 53     <a href="bsta.htm">STA</a> <a href="zp53.htm">$53</a>       ; Length of String during Garbage collection
+
+Jump from $B599, $B59C:
+
+B56E: A5 58     <a href="blda.htm">LDA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B570: A6 59     <a href="bldx.htm">LDX</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+
+Jump from $B5B6:
+
+B572: E4 32     <a href="bcpx.htm">CPX</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+B574: D0 07     <a href="bbne.htm">BNE</a> $B57D
+B576: C5 31     <a href="bcmp.htm">CMP</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B578: D0 03     <a href="bbne.htm">BNE</a> $B57D
+B57A: 4C 06 B6  <a href="bjmp.htm">JMP</a> <a href="romb606.htm">$B606</a>     ; Collect a String
+
+Jump from $B574, $B578:
+
+B57D: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B57F: 86 23     <a href="bstx.htm">STX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+B581: A0 00     <a href="bldy.htm">LDY</a> #$00
+B583: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B585: AA        <a href="btax.htm">TAX</a>
+B586: C8        <a href="biny.htm">INY</a>
+B587: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B589: 08        <a href="bphp.htm">PHP</a>
+B58A: C8        <a href="biny.htm">INY</a>
+B58B: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B58D: 65 58     <a href="badc.htm">ADC</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B58F: 85 58     <a href="bsta.htm">STA</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B591: C8        <a href="biny.htm">INY</a>
+B592: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B594: 65 59     <a href="badc.htm">ADC</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B596: 85 59     <a href="bsta.htm">STA</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B598: 28        <a href="bplp.htm">PLP</a>
+B599: 10 D3     <a href="bbpl.htm">BPL</a> $B56E
+B59B: 8A        <a href="btxa.htm">TXA</a>
+B59C: 30 D0     <a href="bbmi.htm">BMI</a> $B56E
+B59E: C8        <a href="biny.htm">INY</a>
+B59F: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+B5A1: A0 00     <a href="bldy.htm">LDY</a> #$00
+B5A3: 0A        <a href="basl.htm">ASL</a>
+B5A4: 69 05     <a href="badc.htm">ADC</a> #$05
+B5A6: 65 22     <a href="badc.htm">ADC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B5A8: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+B5AA: 90 02     <a href="bbcc.htm">BCC</a> $B5AE
+B5AC: E6 23     <a href="binc.htm">INC</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+
+Jump from $B5AA:
+
+B5AE: A6 23     <a href="bldx.htm">LDX</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+
+Jump from $B5BB:
+
+B5B0: E4 59     <a href="bcpx.htm">CPX</a> <a href="zp57.htm">$59</a>       ; Temporary storage for FLPT value
+B5B2: D0 04     <a href="bbne.htm">BNE</a> $B5B8
+B5B4: C5 58     <a href="bcmp.htm">CMP</a> <a href="zp57.htm">$58</a>       ; Temporary storage for FLPT value
+B5B6: F0 BA     <a href="bbeq.htm">BEQ</a> $B572
+
+Jump from $B5B2:
+
+B5B8: 20 C7 B5  <a href="bjsr.htm">JSR</a> <a href="romb5bd.htm">$B5C7</a>     ; Search for Next String
+B5BB: F0 F3     <a href="bbeq.htm">BEQ</a> $B5B0
+
+    <a href="romb4f4.htm">Previous Page</a> / <a href="romb5bd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

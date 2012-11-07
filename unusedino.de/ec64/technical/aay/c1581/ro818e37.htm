@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Falls dem Kanal ein Puffer fehlt, einen neuen zuordnen ($cf7b)
+Einsprung bei $8e3c
+
+Einsprung von $8E47:
+
+8E37: A9 70     LDA #$70         70, No Channel
+8E39: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+8E3C: 20 68 8D  JSR <a href="ro818d59.htm">$8D68</a>        &lt;-- Kanalnummer ans Tabellenende
+8E3F: 20 33 9F  JSR <a href="ro819f33.htm">$9F33</a>        Besitzt Kanal nur einen Puffer
+8E42: D0 08     BNE $8E4C        nein, ==&gt;
+8E44: 20 04 92  JSR <a href="ro819204.htm">$9204</a>        neuen Puffer suchen
+8E47: 30 EE     BMI $8E37        keinen gefunden ? ja, ==&gt;
+8E49: 4C 3E 9F  JMP <a href="ro819f3e.htm">$9F3E</a>        Dem Kanal neuen Puffer zuordnen
+
+Einsprung von $8E42:
+
+8E4C: 60        RTS
+
+    <a href="ro818d7d.htm">Previous Page</a> / <a href="ro818e4d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

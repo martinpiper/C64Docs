@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B08B/45195:   Identify Variable
+
+Jump from <a href="roma9a5.htm">$A9A5</a>, <a href="romac06.htm">$AC15</a>, <a href="romad1e.htm">$AD24</a>, <a href="romaf28.htm">$AF28</a>, <a href="romb3ae.htm">$B3C0</a>:
+
+B08B: A2 00     <a href="bldx.htm">LDX</a> #$00
+B08D: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+
+Jump from <a href="romb07e.htm">$B082</a>:
+
+B090: 86 0C     <a href="bstx.htm">STX</a> <a href="zp0c.htm">$0C</a>       ; Flag: Default Array dimension
+
+Jump from <a href="romb3e1.htm">$B3EA</a>:
+
+B092: 85 45     <a href="bsta.htm">STA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B094: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+B097: 20 13 B1  <a href="bjsr.htm">JSR</a> <a href="romb113.htm">$B113</a>     ; Does A hold an alphabetic character?
+B09A: B0 03     <a href="bbcs.htm">BCS</a> $B09F
+
+Jump from $B0CA:
+
+B09C: 4C 08 AF  <a href="bjmp.htm">JMP</a> <a href="romaf08.htm">$AF08</a>     ; Output ?SYNTAX Error
+
+Jump from $B09A:
+
+B09F: A2 00     <a href="bldx.htm">LDX</a> #$00
+B0A1: 86 0D     <a href="bstx.htm">STX</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B0A3: 86 0E     <a href="bstx.htm">STX</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+B0A5: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+B0A8: 90 05     <a href="bbcc.htm">BCC</a> $B0AF
+B0AA: 20 13 B1  <a href="bjsr.htm">JSR</a> <a href="romb113.htm">$B113</a>     ; Does A hold an alphabetic character?
+B0AD: 90 0B     <a href="bbcc.htm">BCC</a> $B0BA
+
+Jump from $B0A8:
+
+B0AF: AA        <a href="btax.htm">TAX</a>
+
+Jump from $B0B3, $B0B8:
+
+B0B0: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+B0B3: 90 FB     <a href="bbcc.htm">BCC</a> $B0B0
+B0B5: 20 13 B1  <a href="bjsr.htm">JSR</a> <a href="romb113.htm">$B113</a>     ; Does A hold an alphabetic character?
+B0B8: B0 F6     <a href="bbcs.htm">BCS</a> $B0B0
+
+Jump from $B0AD:
+
+B0BA: C9 24     <a href="bcmp.htm">CMP</a> #$24
+B0BC: D0 06     <a href="bbne.htm">BNE</a> $B0C4
+B0BE: A9 FF     <a href="blda.htm">LDA</a> #$FF
+B0C0: 85 0D     <a href="bsta.htm">STA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B0C2: D0 10     <a href="bbne.htm">BNE</a> $B0D4
+
+Jump from $B0BC:
+
+B0C4: C9 25     <a href="bcmp.htm">CMP</a> #$25
+B0C6: D0 13     <a href="bbne.htm">BNE</a> $B0DB
+B0C8: A5 10     <a href="blda.htm">LDA</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+B0CA: D0 D0     <a href="bbne.htm">BNE</a> $B09C
+B0CC: A9 80     <a href="blda.htm">LDA</a> #$80
+B0CE: 85 0E     <a href="bsta.htm">STA</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+B0D0: 05 45     <a href="bora.htm">ORA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B0D2: 85 45     <a href="bsta.htm">STA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+
+Jump from $B0C2:
+
+B0D4: 8A        <a href="btxa.htm">TXA</a>
+B0D5: 09 80     <a href="bora.htm">ORA</a> #$80
+B0D7: AA        <a href="btax.htm">TAX</a>
+B0D8: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+
+Jump from $B0C6:
+
+B0DB: 86 46     <a href="bstx.htm">STX</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B0DD: 38        <a href="bsec.htm">SEC</a>
+B0DE: 05 10     <a href="bora.htm">ORA</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+B0E0: E9 28     <a href="bsbc.htm">SBC</a> #$28
+B0E2: D0 03     <a href="bbne.htm">BNE</a> <a href="romb0e7.htm">$B0E7</a>     ; Locate Ordinary Variable
+B0E4: 4C D1 B1  <a href="bjmp.htm">JMP</a> <a href="romb1d1.htm">$B1D1</a>     ; Get Array Parameters
+
+    <a href="romb07e.htm">Previous Page</a> / <a href="romb0e7.htm">Next Page</a>
+
+Kernal-Reference:
+
+ BIT $B0E6   : <a href="romf92c.htm">$F9DD</a>
+
+</pre></td></tr></table></center></body></html>

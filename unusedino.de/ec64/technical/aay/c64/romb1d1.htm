@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B1D1/45521:   Get Array Parameters
+
+Jump from <a href="romb08b.htm">$B0E4</a>:
+
+B1D1: A5 0C     <a href="blda.htm">LDA</a> <a href="zp0c.htm">$0C</a>       ; Flag: Default Array dimension
+B1D3: 05 0E     <a href="bora.htm">ORA</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+B1D5: 48        <a href="bpha.htm">PHA</a>
+B1D6: A5 0D     <a href="blda.htm">LDA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B1D8: 48        <a href="bpha.htm">PHA</a>
+B1D9: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $B207:
+
+B1DB: 98        <a href="btya.htm">TYA</a>
+B1DC: 48        <a href="bpha.htm">PHA</a>
+B1DD: A5 46     <a href="blda.htm">LDA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B1DF: 48        <a href="bpha.htm">PHA</a>
+B1E0: A5 45     <a href="blda.htm">LDA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B1E2: 48        <a href="bpha.htm">PHA</a>
+B1E3: 20 B2 B1  <a href="bjsr.htm">JSR</a> <a href="romb1b2.htm">$B1B2</a>     ; Evaluate Text for Integer
+B1E6: 68        <a href="bpla.htm">PLA</a>
+B1E7: 85 45     <a href="bsta.htm">STA</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B1E9: 68        <a href="bpla.htm">PLA</a>
+B1EA: 85 46     <a href="bsta.htm">STA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B1EC: 68        <a href="bpla.htm">PLA</a>
+B1ED: A8        <a href="btay.htm">TAY</a>
+B1EE: BA        <a href="btsx.htm">TSX</a>
+B1EF: BD 02 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0102</a>,X   ; 6510 Hardware Stack Area
+B1F2: 48        <a href="bpha.htm">PHA</a>
+B1F3: BD 01 01  <a href="blda.htm">LDA</a> <a href="zp0100.htm">$0101</a>,X   ; 6510 Hardware Stack Area
+B1F6: 48        <a href="bpha.htm">PHA</a>
+B1F7: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+B1F9: 9D 02 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0102</a>,X   ; 6510 Hardware Stack Area
+B1FC: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+B1FE: 9D 01 01  <a href="bsta.htm">STA</a> <a href="zp0100.htm">$0101</a>,X   ; 6510 Hardware Stack Area
+B201: C8        <a href="biny.htm">INY</a>
+B202: 20 79 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0079</a>     ; CHRGOT: Get same Byte again
+B205: C9 2C     <a href="bcmp.htm">CMP</a> #$2C
+B207: F0 D2     <a href="bbeq.htm">BEQ</a> $B1DB
+B209: 84 0B     <a href="bsty.htm">STY</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+B20B: 20 F7 AE  <a href="bjsr.htm">JSR</a> <a href="romaef7.htm">$AEF7</a>     ; Test ')'
+B20E: 68        <a href="bpla.htm">PLA</a>
+B20F: 85 0D     <a href="bsta.htm">STA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+B211: 68        <a href="bpla.htm">PLA</a>
+B212: 85 0E     <a href="bsta.htm">STA</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+B214: 29 7F     <a href="band.htm">AND</a> #$7F
+B216: 85 0C     <a href="bsta.htm">STA</a> <a href="zp0c.htm">$0C</a>       ; Flag: Default Array dimension
+
+    <a href="romb1bf.htm">Previous Page</a> / <a href="romb218.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

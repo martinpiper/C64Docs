@@ -1,0 +1,69 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FD50/64848:   Initialise System Constants
+
+Jump from <a href="romfce2.htm">$FCF5</a>, <a href="romff87.htm">$FF87</a>:
+
+FD50: A9 00     <a href="blda.htm">LDA</a> #$00
+FD52: A8        <a href="btay.htm">TAY</a>
+
+Jump from $FD5D:
+
+FD53: 99 02 00  <a href="bsta.htm">STA</a> <a href="zp02.htm">$0002</a>,Y   ; Unused
+FD56: 99 00 02  <a href="bsta.htm">STA</a> <a href="zp0200.htm">$0200</a>,Y   ; BASIC Input Buffer (Input Line from Screen)
+FD59: 99 00 03  <a href="bsta.htm">STA</a> <a href="zp0300.htm">$0300</a>,Y   ; Vector: BASIC Error Message
+FD5C: C8        <a href="biny.htm">INY</a>
+FD5D: D0 F4     <a href="bbne.htm">BNE</a> $FD53
+FD5F: A2 3C     <a href="bldx.htm">LDX</a> #$3C
+FD61: A0 03     <a href="bldy.htm">LDY</a> #$03
+FD63: 86 B2     <a href="bstx.htm">STX</a> <a href="zpb2.htm">$B2</a>       ; Pointer: Start Address of Tape Buffer
+FD65: 84 B3     <a href="bsty.htm">STY</a> <a href="zpb2.htm">$B3</a>       ; Pointer: Start Address of Tape Buffer
+FD67: A8        <a href="btay.htm">TAY</a>
+FD68: A9 03     <a href="blda.htm">LDA</a> #$03
+FD6A: 85 C2     <a href="bsta.htm">STA</a> <a href="zpc1.htm">$C2</a>       ; Start Address for LOAD and Cassette Write
+
+Jump from $FD86:
+
+FD6C: E6 C2     <a href="binc.htm">INC</a> <a href="zpc1.htm">$C2</a>       ; Start Address for LOAD and Cassette Write
+
+Jump from $FD84:
+
+FD6E: B1 C1     <a href="blda.htm">LDA</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD70: AA        <a href="btax.htm">TAX</a>
+FD71: A9 55     <a href="blda.htm">LDA</a> #$55
+FD73: 91 C1     <a href="bsta.htm">STA</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD75: D1 C1     <a href="bcmp.htm">CMP</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD77: D0 0F     <a href="bbne.htm">BNE</a> $FD88
+FD79: 2A        <a href="brol.htm">ROL</a>
+FD7A: 91 C1     <a href="bsta.htm">STA</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD7C: D1 C1     <a href="bcmp.htm">CMP</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD7E: D0 08     <a href="bbne.htm">BNE</a> $FD88
+FD80: 8A        <a href="btxa.htm">TXA</a>
+FD81: 91 C1     <a href="bsta.htm">STA</a> (<a href="zpc1.htm">$C1</a>),Y   ; Start Address for LOAD and Cassette Write
+FD83: C8        <a href="biny.htm">INY</a>
+FD84: D0 E8     <a href="bbne.htm">BNE</a> $FD6E
+FD86: F0 E4     <a href="bbeq.htm">BEQ</a> $FD6C
+
+Jump from $FD77, $FD7E:
+
+FD88: 98        <a href="btya.htm">TYA</a>
+FD89: AA        <a href="btax.htm">TAX</a>
+FD8A: A4 C2     <a href="bldy.htm">LDY</a> <a href="zpc1.htm">$C2</a>       ; Start Address for LOAD and Cassette Write
+FD8C: 18        <a href="bclc.htm">CLC</a>
+FD8D: 20 2D FE  <a href="bjsr.htm">JSR</a> <a href="romfe25.htm">$FE2D</a>     ; Read / Set Top of Memory
+FD90: A9 08     <a href="blda.htm">LDA</a> #$08
+FD92: 8D 82 02  <a href="bsta.htm">STA</a> <a href="zp0281.htm">$0282</a>     ; Pointer: Bottom of Memory for Operating System
+FD95: A9 04     <a href="blda.htm">LDA</a> #$04
+FD97: 8D 88 02  <a href="bsta.htm">STA</a> <a href="zp0288.htm">$0288</a>     ; High Byte of Screen Memory Address
+FD9A: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romfd30.htm">Previous Page</a> / <a href="romfd9b.htm">Next Page</a>
+
+Kernal-Reference:
+
+ LDA $FD93,X : <a href="romfcb8.htm">$FCBD</a>
+
+ LDA $FD94,X : <a href="romfcb8.htm">$FCC3</a>
+
+</pre></td></tr></table></center></body></html>

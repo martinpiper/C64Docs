@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block einlesen und Folgeblock merken ($d09b)
+E: $50    : Kanalnummer
+   $4d,$4e: T&amp;S
+A: $4d,$4e: T&amp;S des Folgeblocks
+            (Fileende: $4d=0, $4e=Anzahl der gueltigen Zeichen)
+
+Einsprung von <a href="ro818fea.htm">$8FEA</a>, <a href="ro819b0d.htm">$9B1C</a>:
+
+8FD6: 20 85 95  JSR <a href="ro819585.htm">$9585</a>        T&amp;S an DC
+8FD9: 20 FE 8F  JSR <a href="ro818ffe.htm">$8FFE</a>        Befehl (lesen) an DC
+8FDC: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung ueberwachen
+
+Folgeblock merken
+
+8FDF: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        1. Byte aus Puffer holen
+8FE2: 85 4D     STA <a href="ra814d.htm">$4D</a>
+8FE4: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        2. Byte
+8FE7: 85 4E     STA <a href="ra814e.htm">$4E</a>
+8FE9: 60        RTS
+
+    <a href="ro818f03.htm">Previous Page</a> / <a href="ro818fea.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

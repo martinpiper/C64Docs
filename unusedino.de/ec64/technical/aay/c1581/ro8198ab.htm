@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+File-Modus oder File-Typ aus Kommandozeile holen ($da09)
+E: x: Nummer des Parameters in Eingabezeile
+
+Einsprung von <a href="ro819678.htm">$9719</a>, <a href="ro819678.htm">$9726</a>:
+
+98AB: BC 91 02  LDY <a href="ra810291.htm">$0291</a>,X      Position des Parameters holen
+98AE: B9 00 02  LDA <a href="ra810200.htm">$0200</a>,Y      1. Zeichen des Parameters holen
+98B1: A0 04     LDY #$04         auf Zugriffsart testen
+
+Einsprung von $98B9:
+
+98B3: 88        DEY
+98B4: 30 08     BMI $98BE        nicht gefunden, ==&gt;
+98B6: D9 A1 DB  CMP <a href="ro81dafd.htm">$DBA1</a>,Y      mit den Zugriffsarten vergleichen
+98B9: D0 F8     BNE $98B3        ungleich, ==&gt;
+98BB: 8C A7 02  STY <a href="ra8102a7.htm">$02A7</a>        aktuelle Zugriffsart setzen
+
+Einsprung von $98B4:
+
+98BE: A0 06     LDY #$06         auf Filetyp testen
+
+Einsprung von $98C6:
+
+98C0: 88        DEY
+98C1: 30 08     BMI $98CB        nicht gefunden, ==&gt;
+98C3: D9 A5 DB  CMP <a href="ro81dafd.htm">$DBA5</a>,Y      mit den Filetypen vergleichen
+98C6: D0 F8     BNE $98C0        ungleich, ==&gt;
+98C8: 8C 2D 02  STY <a href="ra81022d.htm">$022D</a>        aktuellen Filetyp setzen
+
+Einsprung von $98C1:
+
+98CB: 60        RTS
+
+    <a href="ro819896.htm">Previous Page</a> / <a href="ro8198cc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

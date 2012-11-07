@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  STA                  STA Store accumulator in memory                  STA
+
+  Operation:  A -&gt; M                                    N V - B D I Z C
+                                                        . . . . . . . .
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4a.htm">ZeroPage</a>      |   STA $FF             |   $85   |    2    |    3     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10a.htm">ZeroPage,X</a>    |   STA $FF,X           |   $95   |    2    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2a.htm">Absolute</a>      |   STA $FFFF           |   $8D   |    3    |    4     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,X</a>    |   STA $FFFF,X         |   $9D   |    3    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12a.htm">Absolute,Y</a>    |   STA $FFFF,Y         |   $99   |    3    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9a.htm">(Indirect,X)</a>  |   STA ($FF,X)         |   $81   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7a.htm">(Indirect),Y</a>  |   STA ($FF),Y         |   $91   |    2    |    6     |
+  +----------------+-----------------------+---------+---------+----------+
+  For penalty cycles on the 65816, check the desired addressing mode.
+
+ 65816 Extensions:
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr3a.htm">AbsoluteLong</a>   |   STA $FFFFFF         |   $8F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr13.htm">AbsoluteLong,X</a> |   STA $FFFFFF,X       |   $9F   |    4    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr18.htm">(Indirect)</a>     |   STA ($FF)           |   $92   |    2    |     5    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr19.htm">[Indirect Long]</a>|   STA [$FF]           |   $87   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr8.htm">[Ind.Long],Y</a>   |   STA [$FF],Y         |   $97   |    2    |     6    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr22.htm">Relative,S</a>     |   STA $FF,S           |   $83   |    2    |     4    |
+  | <a href="http://unusedino.de/ec64/technical/aay/c64/addr23.htm">(Indirect,S),Y</a> |   STA ($FF,S),Y       |   $93   |    2    |     7    |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

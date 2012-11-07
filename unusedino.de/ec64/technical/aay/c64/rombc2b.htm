@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC2B/48171:   Check Sign of FAC#1
+
+Jump from <a href="roma742.htm">$A79F</a>, <a href="romb9ea.htm">$B9EA</a>, <a href="rombc39.htm">$BC39</a>, <a href="rombc5b.htm">$BC65</a>, <a href="rome097.htm">$E097</a>:
+
+BC2B: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BC2D: F0 09     <a href="bbeq.htm">BEQ</a> $BC38
+
+Jump from <a href="rombc5b.htm">$BC6B</a>:
+
+BC2F: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+
+Jump from <a href="rombc5b.htm">$BC98</a>:
+
+BC31: 2A        <a href="brol.htm">ROL</a>
+BC32: A9 FF     <a href="blda.htm">LDA</a> #$FF
+BC34: B0 02     <a href="bbcs.htm">BCS</a> $BC38
+BC36: A9 01     <a href="blda.htm">LDA</a> #$01
+
+Jump from $BC2D, $BC34:
+
+BC38: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombc1b.htm">Previous Page</a> / <a href="rombc39.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

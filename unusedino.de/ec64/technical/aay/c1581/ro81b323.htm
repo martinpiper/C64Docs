@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Partition-Parameter aus Verzeichniseintrag holen
+
+Einsprung von <a href="ro81b262.htm">$B2B8</a>, <a href="ro81b781.htm">$B7C7</a>:
+
+B323: A0 01     LDY #$01
+B325: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Starttrack
+B327: 85 4D     STA <a href="ra814d.htm">$4D</a>
+B329: C8        INY
+B32A: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Startsektor
+B32C: 85 4E     STA <a href="ra814e.htm">$4E</a>
+B32E: A0 1C     LDY #$1C
+B330: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Partition-Laenge
+B332: 8D EE 01  STA <a href="ra8101ed.htm">$01EE</a>        Lo
+B335: C8        INY
+B336: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y
+B338: 8D ED 01  STA <a href="ra8101ed.htm">$01ED</a>        Hi
+B33B: 60        RTS
+
+    <a href="ro81b2ef.htm">Previous Page</a> / <a href="ro81b33c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

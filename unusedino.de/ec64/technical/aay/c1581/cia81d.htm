@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $400D/16397/CIA+13:      CIA Interrupt Control Register
+
+   +-------+------------------------------------------------------+
+   | Bit 7 |   On Read:  1 = Interrupt occured                    |
+   |       |   On Write: 1 = Set Int.-Flags, 0 = Clear Int-.Flags |
+   | Bit 4 |   FLAG1 IRQ (ATN occured)                            |
+   | Bit 3 |   Serial Port IRQ (<a href="cia81c.htm">$4C0C</a> (FSM) is ready)             |
+   | Bit 2 |   Time-of-Day Clock Alarm Interrupt                  |
+   | Bit 1 |   Timer B Interrupt (Interrupt Timer)                |
+   | Bit 0 |   Timer A Interrupt                                  |
+   +-------+------------------------------------------------------+
+
+   Standard-Wert: $9A/154 (%10011010)
+
+   <b>Your CIA does NOT clear this register! You have to do this by
+   simply reading it.</b>
+
+ROM-Reference:
+
+ BIT $400D  : <a href="ro81aaa8.htm">$AADC</a> <a href="ro81aaa8.htm">$AAE9</a> <a href="ro81ac9d.htm">$ACB1</a> <a href="ro81ad15.htm">$AD26</a> <a href="ro81ad5c.htm">$ADC3</a> <a href="ro81ad5c.htm">$ADD0</a> <a href="ro81ae42.htm">$AE42</a> <a href="ro81ba40.htm">$BA5B</a> <a href="ro81bb74.htm">$BB92</a> <a href="ro81bb74.htm">$BB9F</a>
+              <a href="ro81bc01.htm">$BC44</a> <a href="ro81bc01.htm">$BC51</a> <a href="ro81bf83.htm">$BFA5</a>
+ LDA $400D  : <a href="ro81ae42.htm">$AE8D</a> <a href="ro81dafd.htm">$DB02</a>
+ STA $400D  : <a href="ro81af24.htm">$AF4B</a>
+
+</pre></td></tr></table></center></body></html>

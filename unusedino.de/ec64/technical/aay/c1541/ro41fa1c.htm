@@ -1,0 +1,29 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FA1C/64028:   Calculate number of head steps
+
+Jump from <a href="ro41fa05.htm">$FA10</a>:
+
+FA1C: E5 5E     SBC <a href="ra415e.htm">$5E</a>
+FA1E: E5 5E     SBC <a href="ra415e.htm">$5E</a>
+FA20: 85 61     STA <a href="ra415f.htm">$61</a>
+FA22: A5 5E     LDA <a href="ra415e.htm">$5E</a>
+FA24: 85 60     STA <a href="ra415f.htm">$60</a>
+FA26: A9 7B     LDA #$7B
+FA28: 85 62     STA <a href="ra4162.htm">$62</a>
+FA2A: A9 FA     LDA #$FA        ; pointer $62/$63 to $FA7B
+FA2C: 85 63     STA <a href="ra4162.htm">$63</a>
+
+Jump from <a href="ro41f99c.htm">$F9C8</a>, <a href="ro41fa05.htm">$FA1A</a>, <a href="ro41fa3b.htm">$FA3D</a>, <a href="ro41fa7b.htm">$FA94</a>:
+
+FA2E: A5 4A     LDA <a href="ra414a.htm">$4A</a>         ; step counter for head transport
+FA30: 10 31     BPL <a href="ro41fa63.htm">$FA63</a>
+FA32: E6 4A     INC <a href="ra414a.htm">$4A</a>         ; increment
+FA34: AE 00 1C  LDX <a href="via20.htm">$1C00</a>
+FA37: CA        DEX
+FA38: 4C 69 FA  JMP <a href="ro41fa63.htm">$FA69</a>
+
+    <a href="ro41fa05.htm">Previous Page</a> / <a href="ro41fa3b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

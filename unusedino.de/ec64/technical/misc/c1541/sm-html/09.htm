@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Commodore 1540/1541 Service Manual: The Serial Interface</title>
+</head>
+<body bgcolor="#ffffff">
+<h2 align="right">1541 CIRCUIT THEORY</h2>
+
+<center><a href="http://unusedino.de/ec64/technical/misc/c1541/sm-html/large/09.gif"><img src="small/09.gif" alt="[Serial interface schematic]"></a></center>
+
+<h3>The Serial Interface</h3>
+
+UC3 is a 6522 Versatile Interface Adapter (VIA). Two parallel ports, handshake control, programmable timers, and interrupt control are standard features of the VIA. Port B signals (PB0-PB7) control the serial interface driver ICs (UB1 and UA1). CLK and
+DATA signals are bidirectional signals connected to pins 4 and 5 of P2 and P3. ANT (Attention) is an input on pin 3 of P2 and P3 that is sensed at PB7 and CA1 of UC3 after being inverted by UA1. ATNA (Attention Acknowledge) is an output from PB4 of UC3
+which is sensed on the data line pin 5 of P2 and P4 after being exclusively "ored" by UD3 and inverted by UB1. UC3 is selected by UC7 pin 7 going "low" when the proper address is output from the processor. UC3 resides at memory locations $1C00-$1C0F. 
+
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+prueft, ob gesuchtes File durch eine SA angesprochen wird ($ddb7)
+
+Einsprung von <a href="ro818688.htm">$869A</a>:
+
+9CF5: A2 00     LDX #$00         mit SA = 0 anfangen
+
+Einsprung von $9D04:
+
+9CF7: 86 42     STX <a href="ra8140.htm">$42</a>
+9CF9: B5 A8     LDA <a href="ra81a8.htm">$A8</a>,X        ist ein Kanal zugeordnet ?
+9CFB: C9 FF     CMP #$FF
+9CFD: D0 08     BNE $9D07        ja, ==&gt;
+
+Einsprung von $9D1C, $9D23, $9D2A:
+
+9CFF: A6 42     LDX <a href="ra8140.htm">$42</a>          naechste SA probieren
+9D01: E8        INX
+9D02: E0 10     CPX #$10         wurde letzte SA getestet ?
+9D04: 90 F1     BCC $9CF7        nein, ==&gt;
+9D06: 60        RTS              c=1: File ist nicht geoeffnet
+
+Einsprung von $9CFD:
+
+9D07: 86 42     STX <a href="ra8140.htm">$42</a>
+9D09: 29 3F     AND #$3F         Kanalnummer isolieren
+9D0B: A8        TAY
+9D0C: B9 F9 00  LDA <a href="ra81f9.htm">$00F9</a>,Y      Drivenummer des Kanals holen
+9D0F: 29 01     AND #$01
+9D11: 85 41     STA <a href="ra8140.htm">$41</a>
+9D13: AE 6D 02  LDX <a href="ra81026d.htm">$026D</a>        Nummer des gefundenen Files holen
+9D16: B5 EF     LDA <a href="ra81ef.htm">$EF</a>,X        mit Drivenummer des Files vergleichen
+9D18: 29 01     AND #$01
+9D1A: C5 41     CMP <a href="ra8140.htm">$41</a>
+9D1C: D0 E1     BNE $9CFF        ungleich, (nicht gefunden) ==&gt;
+9D1E: B9 7D 02  LDA <a href="ra81027d.htm">$027D</a>,Y      Directory-Block des Kanals mit
+9D21: D5 E5     CMP <a href="ra81e5.htm">$E5</a>,X        Directory-Block des Files vergleichen
+9D23: D0 DA     BNE $9CFF        ungleich, ==&gt;
+9D25: B9 84 02  LDA <a href="ra810284.htm">$0284</a>,Y      Position im Dir-Block des Kanals mit
+9D28: D5 EA     CMP <a href="ra81ea.htm">$EA</a>,X        Position im Dir-Block des Files vergleichen
+9D2A: D0 D3     BNE $9CFF        ungleich, ==&gt;
+9D2C: 18        CLC
+9D2D: 60        RTS              c=0: File ist geoeffnet
+
+    <a href="ro819ce9.htm">Previous Page</a> / <a href="ro819d2e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

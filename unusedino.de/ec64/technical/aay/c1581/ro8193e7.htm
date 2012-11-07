@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Neuen Block an das Directory anhaengen ($d48d)
+
+Einsprung von <a href="ro8195ab.htm">$95F5</a>:
+
+93E7: 20 79 9D  JSR <a href="ro819d79.htm">$9D79</a>        T&amp;S der aktuellen Datei holen
+93EA: A9 01     LDA #$01         nur eine Suchphase ausfuehren (s. $b668)
+93EC: 85 40     STA <a href="ra8140.htm">$40</a>
+93EE: A5 2E     LDA <a href="ra812e.htm">$2E</a>          Sektorversatz merken
+93F0: 48        PHA
+93F1: A9 01     LDA #$01         Sektorversatz auf 1 setzen
+93F3: 85 2E     STA <a href="ra812e.htm">$2E</a>
+93F5: 20 75 B6  JSR <a href="ro81b668.htm">$B675</a>        freien Block suchen
+93F8: 68        PLA
+93F9: 85 2E     STA <a href="ra812e.htm">$2E</a>          alten Sektorversatz zurueckholen
+93FB: A9 00     LDA #$00         Pufferzeiger auf Verkettungsbytes setzen
+93FD: 20 22 94  JSR <a href="ro819422.htm">$9422</a>
+9400: A5 4D     LDA <a href="ra814d.htm">$4D</a>          T&amp;S des Folgeblocks im aktuellen Block
+9402: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        eintragen
+9405: A5 4E     LDA <a href="ra814e.htm">$4E</a>
+9407: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>
+940A: 20 02 90  JSR <a href="ro818ffe.htm">$9002</a>        alten Directory-Block schreiben
+940D: 20 ED 94  JSR <a href="ro8194de.htm">$94ED</a>        Jobausfuehrung pruefen
+9410: A9 00     LDA #$00
+9412: 20 22 94  JSR <a href="ro819422.htm">$9422</a>        Pufferzeiger auf 0 setzen
+
+Einsprung von $9418:
+
+9415: 20 B1 8E  JSR $8EB1        Puffer mit $00 fuellen
+9418: D0 FB     BNE $9415        (z=1: Puffer voll)
+941A: 20 B1 8E  JSR <a href="ro818eb1.htm">$8EB1</a>        Kennzeichen fuer 'letzter Sektor'
+941D: A9 FF     LDA #$FF         und aktuelle Blocklaenge setzen
+941F: 4C B1 8E  JMP <a href="ro818eb1.htm">$8EB1</a>        [Die ist im Directory immer 255.]
+
+    <a href="ro8193e0.htm">Previous Page</a> / <a href="ro819422.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,103 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $CC6F/52335:   Get parameters form block commands
+
+Jump from <a href="ro41cc1b.htm">$CC48</a>, <a href="ro41cd5f.htm">$CD5F</a>, <a href="ro41cd97.htm">$CD97</a>:
+
+CC6F: A0 00     LDY #$00
+CC71: A2 00     LDX #$00
+CC73: A9 3A     LDA #$3A        ; ':'
+CC75: 20 68 C2  JSR <a href="ro41c268.htm">$C268</a>       ; test line to colon
+CC78: D0 02     BNE $CC7C       ; found?
+CC7A: A0 03     LDY #$03        ; no, begin at 4th character
+
+Jump from $CC78, $CC8F, <a href="ro41cb84.htm">$CBA7</a>:
+
+CC7C: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; search for separating char
+CC7F: C9 20     CMP #$20        ; ' ' blank
+CC81: F0 08     BEQ $CC8B
+CC83: C9 1D     CMP #$1D        ; cursor right
+CC85: F0 04     BEQ $CC8B
+CC87: C9 2C     CMP #$2C        ; ',' comma
+CC89: D0 07     BNE $CC92
+
+Jump from $CC81, $CC85, $CC9D:
+
+CC8B: C8        INY
+CC8C: CC 74 02  CPY <a href="ra410274.htm">$0274</a>       ; line end?
+CC8F: 90 EB     BCC $CC7C
+CC91: 60        RTS
+
+Jump from $CC89:
+
+CC92: 20 A1 CC  JSR $CCA1       ; preserve next parameter
+CC95: EE 77 02  INC <a href="ra410277.htm">$0277</a>       ; increment parameter counter
+CC98: AC 79 02  LDY <a href="ra410279.htm">$0279</a>
+CC9B: E0 04     CPX #$04        ; compare with maximum number
+CC9D: 90 EC     BCC $CC8B
+CC9F: B0 8A     BCS <a href="ro41cc1b.htm">$CC2B</a>       ; 30, 'syntax error'
+
+Jump from $CC92:
+
+CCA1: A9 00     LDA #$00
+CCA3: 85 6F     STA <a href="ra416f.htm">$6F</a>
+CCA5: 85 70     STA <a href="ra416f.htm">$70</a>         ; erase storage area for decimal numbers
+CCA7: 85 72     STA <a href="ra4172.htm">$72</a>
+CCA9: A2 FF     LDX #$FF
+
+Jump from $CCC8:
+
+CCAB: B9 00 02  LDA <a href="ra410200.htm">$0200</a>,Y     ; get characters from input buffer
+CCAE: C9 40     CMP #$40
+CCB0: B0 18     BCS $CCCA       ; no digits?
+CCB2: C9 30     CMP #$30        ; '0'
+CCB4: 90 14     BCC $CCCA       ; no digits?
+CCB6: 29 0F     AND #$0F        ; convert ASCII digits to hex
+CCB8: 48        PHA             ; and save
+CCB9: A5 70     LDA <a href="ra416f.htm">$70</a>
+CCBB: 85 71     STA <a href="ra4171.htm">$71</a>         ; move digits one further
+CCBD: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+CCBF: 85 70     STA <a href="ra416f.htm">$70</a>
+CCC1: 68        PLA
+CCC2: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; note read number
+CCC4: C8        INY             ; increment pointer in input buffer
+CCC5: CC 74 02  CPY <a href="ra410274.htm">$0274</a>       ; line end reached
+CCC8: 90 E1     BCC $CCAB       ; no
+
+Jump from $CCB0, $CCB4:
+
+CCCA: 8C 79 02  STY <a href="ra410279.htm">$0279</a>       ; save pointer
+CCCD: 18        CLC
+CCCE: A9 00     LDA #$00
+
+Jump from $CCD8:
+
+CCD0: E8        INX
+CCD1: E0 03     CPX #$03
+CCD3: B0 0F     BCS $CCE4       ; convert hex digits to one byte
+CCD5: B4 6F     LDY <a href="ra416f.htm">$6F</a>,X
+
+Jump from $CCDD, $CCE2:
+
+CCD7: 88        DEY
+CCD8: 30 F6     BMI $CCD0
+CCDA: 7D F2 CC  ADC <a href="ro41ccf2.htm">$CCF2</a>,X     ; add decimal value
+CCDD: 90 F8     BCC $CCD7
+CCDF: 18        CLC
+CCE0: E6 72     INC <a href="ra4172.htm">$72</a>
+CCE2: D0 F3     BNE $CCD7
+
+Jump from $CCD3:
+
+CCE4: 48        PHA
+CCE5: AE 77 02  LDX <a href="ra410277.htm">$0277</a>       ; counter for paramaters
+CCE8: A5 72     LDA <a href="ra4172.htm">$72</a>
+CCEA: 9D 80 02  STA <a href="ra410280.htm">$0280</a>,X     ; hi-byte
+CCED: 68        PLA
+CCEE: 9D 85 02  STA <a href="ra410285.htm">$0285</a>,X     ; lo-byte
+CCF1: 60        RTS
+
+    <a href="ro41cc63.htm">Previous Page</a> / <a href="ro41ccf2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

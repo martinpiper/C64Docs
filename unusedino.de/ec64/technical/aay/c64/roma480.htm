@@ -1,0 +1,23 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A480/42112:   Input &amp; Identify BASIC Line
+
+Jump from $A48E, <a href="roma4a2.htm">$A4F6</a>, <a href="roma4a2.htm">$A530</a>:
+
+A480: 6C 02 03  <a href="bjmp.htm">JMP</a> (<a href="zp0302.htm">$0302</a>)   ; Vector: BASIC Input Line and Decode
+A483: 20 60 A5  <a href="bjsr.htm">JSR</a> <a href="roma560.htm">$A560</a>     ; Input Line Into Buffer
+A486: 86 7A     <a href="bstx.htm">STX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A488: 84 7B     <a href="bsty.htm">STY</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A48A: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+A48D: AA        <a href="btax.htm">TAX</a>
+A48E: F0 F0     <a href="bbeq.htm">BEQ</a> $A480
+A490: A2 FF     <a href="bldx.htm">LDX</a> #$FF
+A492: 86 3A     <a href="bstx.htm">STX</a> <a href="zp39.htm">$3A</a>       ; Current BASIC Line number
+A494: 90 06     <a href="bbcc.htm">BCC</a> <a href="roma49c.htm">$A49C</a>     ; Get Line Number &amp; Tokenise Text
+A496: 20 79 A5  <a href="bjsr.htm">JSR</a> <a href="roma579.htm">$A579</a>     ; Tokenise Input Buffer
+A499: 4C E1 A7  <a href="bjmp.htm">JMP</a> <a href="roma7e1.htm">$A7E1</a>     ; Prepare to execute statement
+
+    <a href="roma474.htm">Previous Page</a> / <a href="roma49c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

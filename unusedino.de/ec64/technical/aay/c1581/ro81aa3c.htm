@@ -1,0 +1,82 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehl $1e: CHGUTL (bei der 1571: $8fe5)
+
+AA3C: 78        SEI
+AA3D: A6 29     LDX <a href="ra8129.htm">$29</a>
+AA3F: E0 04     CPX #$04
+AA41: 90 40     BCC $AA83        31, SYNTAX ERROR
+AA43: AD 03 02  LDA <a href="ra810200.htm">$0203</a>
+AA46: C9 49     CMP #$49         Cache-Verzoegerung einstellen
+AA48: F0 E9     BEQ <a href="ro81aa33.htm">$AA33</a>
+AA4A: AD 03 02  LDA <a href="ra810200.htm">$0203</a>
+AA4D: C9 42     CMP #$42         Busmodus waehlen
+AA4F: F0 37     BEQ $AA88
+AA51: C9 53     CMP #$53         Sektorversatz einstellen
+AA53: F0 D2     BEQ <a href="ro81aa27.htm">$AA27</a>
+AA55: C9 52     CMP #$52         Leseversuche setzen
+AA57: F0 D4     BEQ <a href="ro81aa2d.htm">$AA2D</a>
+AA59: C9 54     CMP #$54         ROM-Test aufrufen
+AA5B: F0 DC     BEQ <a href="ro81aa39.htm">$AA39</a>
+AA5D: C9 4D     CMP #$4D         Memory-Read/Write
+AA5F: F0 47     BEQ <a href="ro81aaa8.htm">$AAA8</a>
+AA61: C9 56     CMP #$56         Disk-Verify ein/aus
+AA63: F0 35     BEQ $AA9A
+AA65: A8        TAY
+AA66: C0 04     CPY #$04         Geraeteadresse einstellen
+AA68: 90 19     BCC $AA83        31, Syntax Error
+AA6A: C0 1F     CPY #$1F
+AA6C: B0 15     BCS $AA83        31, Syntax Error
+Geraeteadresse einstellen
+
+AA6E: A9 40     LDA #$40         TALK
+AA70: 85 78     STA <a href="ra8178.htm">$78</a>          und
+AA72: A9 20     LDA #$20         LISTEN
+AA74: 85 77     STA <a href="ra8177.htm">$77</a>          Geraeteadressen loeschen
+AA76: 98        TYA
+AA77: 18        CLC              und mit neuer Geraeteadresse
+AA78: 65 78     ADC <a href="ra8178.htm">$78</a>          addieren
+AA7A: 85 78     STA <a href="ra8178.htm">$78</a>          (Talk)
+AA7C: 98        TYA
+AA7D: 18        CLC
+AA7E: 65 77     ADC <a href="ra8177.htm">$77</a>          (Listen)
+AA80: 85 77     STA <a href="ra8177.htm">$77</a>
+AA82: 60        RTS
+
+Einsprung von $AA41, $AA68, $AA6C, <a href="ro81aaa8.htm">$AB00</a>, <a href="ro81ab09.htm">$AB14</a>:
+
+AA83: A9 31     LDA #$31         31, Syntax Error
+AA85: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Busmode waehlen
+
+Einsprung von $AA4F:
+
+AA88: A5 76     LDA <a href="ra8176.htm">$76</a>          b3=0: auf langsamen Bus schalten
+AA8A: 29 F7     AND #$F7
+AA8C: 85 76     STA <a href="ra8176.htm">$76</a>
+AA8E: 20 09 AB  JSR <a href="ro81ab09.htm">$AB09</a>        Parameter holen
+AA91: 4A        LSR
+AA92: 4A        LSR
+AA93: 4A        LSR
+AA94: 4A        LSR
+AA95: 05 76     ORA <a href="ra8176.htm">$76</a>          Bit gesetzt, dann b3=1: FSM
+AA97: 85 76     STA <a href="ra8176.htm">$76</a>
+AA99: 60        RTS
+
+Verify ein/ausschalten
+
+Einsprung von $AA63:
+
+AA9A: A5 8D     LDA <a href="ra818d.htm">$8D</a>          b7=0: Verify aus
+AA9C: 29 7F     AND #$7F
+AA9E: 85 8D     STA <a href="ra818d.htm">$8D</a>
+AAA0: 20 09 AB  JSR <a href="ro81ab09.htm">$AB09</a>        Parameter holen (in Bit 7)
+AAA3: 05 8D     ORA <a href="ra818d.htm">$8D</a>          Bit gesetzt, dann b7=1: Verify ein
+AAA5: 85 8D     STA <a href="ra818d.htm">$8D</a>
+AAA7: 60        RTS
+
+    <a href="ro81aa39.htm">Previous Page</a> / <a href="ro81aaa8.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

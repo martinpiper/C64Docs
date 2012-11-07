@@ -1,0 +1,51 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Freigeben einer SA ausser der des Kommandokanals; Puffer freigeben ($d227)
+Schreib-/Lesekanaele ausser dem Kommandokanal schliessen
+E: $52: Sekundaeradresse, die geschlossen werden soll
+
+Einsprung von <a href="ro818688.htm">$872F</a>, <a href="ro819157.htm">$915E</a>, <a href="ro819262.htm">$9266</a>, <a href="ro81926e.htm">$9289</a>, <a href="ro819434.htm">$9438</a>, <a href="ro819434.htm">$943F</a>, <a href="ro81995c.htm">$9965</a>,
+              <a href="ro81999f.htm">$99C5</a>, <a href="ro81999f.htm">$9A02</a>, <a href="ro81a7f1.htm">$A838</a>, <a href="ro81b2c7.htm">$B2E3</a>:
+
+919E: A5 52     LDA <a href="ra8152.htm">$52</a>          Sekundaeradresse holen
+91A0: C9 0F     CMP #$0F         Kommandokanal nicht
+91A2: D0 01     BNE $91A5        schliessen
+91A4: 60        RTS
+
+Einsprung von $91A2:
+
+91A5: A6 52     LDX <a href="ra8152.htm">$52</a>          Aktuelle SA holen
+91A7: B5 A8     LDA <a href="ra81a8.htm">$A8</a>,X        Zugehoerige Kanalnummer holen
+91A9: C9 FF     CMP #$FF         'Kanal unbenutzt' ?
+91AB: F0 20     BEQ $91CD        ja, ==&gt;
+91AD: 29 3F     AND #$3F         Kanalnummer isolieren
+91AF: 85 50     STA <a href="ra8150.htm">$50</a>          Als aktuelle Kanalnummer merken
+91B1: A9 FF     LDA #$FF         SA als unbenutzt kennzeichnen
+91B3: 95 A8     STA <a href="ra81a8.htm">$A8</a>,X        SA freigeben
+91B5: A6 50     LDX <a href="ra8150.htm">$50</a>          Kanalnummer wieder holen
+91B7: A9 00     LDA #$00         Kanalstatus loeschen
+91B9: 9D 34 02  STA <a href="ra810234.htm">$0234</a>,X
+91BC: 20 CE 91  JSR <a href="ro8191ce.htm">$91CE</a>        Puffer und Zuordnung freigeben
+91BF: A6 50     LDX <a href="ra8150.htm">$50</a>
+91C1: A9 01     LDA #$01         Entsprechendes Bit der Kanaltabelle setzen
+
+Einsprung von $91C7:
+
+91C3: CA        DEX              und damit den Kanal freigeben
+91C4: 30 03     BMI $91C9
+91C6: 0A        ASL              Bit an die richtige Stelle
+91C7: D0 FA     BNE $91C3        schieben
+
+Einsprung von $91C4:
+
+91C9: 05 70     ORA <a href="ra8170.htm">$70</a>          Bit setzen
+91CB: 85 70     STA <a href="ra8170.htm">$70</a>
+
+Einsprung von $91AB:
+
+91CD: 60        RTS
+
+    <a href="ro819157.htm">Previous Page</a> / <a href="ro8191ce.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

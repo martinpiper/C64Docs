@@ -1,0 +1,35 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C9A7/51623:   ?
+
+Jump from <a href="ro41c9a1.htm">$C9A1</a>:
+
+C9A7: 20 E7 CA  JSR <a href="ro41cacc.htm">$CAE7</a>
+C9AA: A5 E2     LDA <a href="ra41e2.htm">$E2</a>         ; drive number of first file
+C9AC: 29 01     AND #$01
+C9AE: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+C9B0: 20 86 D4  JSR <a href="ro41d486.htm">$D486</a>
+C9B3: 20 E4 D6  JSR <a href="ro41d6e4.htm">$D6E4</a>       ; enter file in directory
+C9B6: AE 77 02  LDX <a href="ra410277.htm">$0277</a>
+
+Jump from <a href="ro41c8f0.htm">$C99B</a>, <a href="ro41c9d5.htm">$C9F1</a>:
+
+C9B9: 8E 79 02  STX <a href="ra410279.htm">$0279</a>
+C9BC: 20 FA C9  JSR <a href="ro41c9fa.htm">$C9FA</a>
+C9BF: A9 11     LDA #$11        ; 17
+C9C1: 85 83     STA <a href="ra4183.htm">$83</a>
+C9C3: 20 EB D0  JSR <a href="ro41d0eb.htm">$D0EB</a>
+C9C6: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; get data type
+C9C9: D0 03     BNE $C9CE       ; no rel-file?
+C9CB: 20 53 CA  JSR <a href="ro41ca35.htm">$CA53</a>
+
+Jump from $C9C9:
+
+C9CE: A9 08     LDA #$08
+C9D0: 85 F8     STA <a href="ra41f8.htm">$F8</a>
+C9D2: 4C D8 C9  JMP <a href="ro41c9d5.htm">$C9D8</a>
+
+    <a href="ro41c9a1.htm">Previous Page</a> / <a href="ro41c9d5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

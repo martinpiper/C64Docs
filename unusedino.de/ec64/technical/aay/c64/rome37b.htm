@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E37B/58235:   BASIC Warm Start [RUNSTOP-RESTORE]
+
+E37B: 20 CC FF  <a href="bjsr.htm">JSR</a> <a href="romffcc.htm">$FFCC</a>     ; Restore I/O Vector
+E37E: A9 00     <a href="blda.htm">LDA</a> #$00
+E380: 85 13     <a href="bsta.htm">STA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+E382: 20 7A A6  <a href="bjsr.htm">JSR</a> <a href="roma65e.htm">$A67A</a>     ; Perform [clr]
+E385: 58        <a href="bcli.htm">CLI</a>
+
+Jump from <a href="roma69c.htm">$A714</a>, <a href="roma831.htm">$A854</a>, <a href="rome394.htm">$E3A0</a>:
+
+E386: A2 80     <a href="bldx.htm">LDX</a> #$80
+E388: 6C 00 03  <a href="bjmp.htm">JMP</a> (<a href="zp0300.htm">$0300</a>)   ; Vector: BASIC Error Message
+E38B: 8A        <a href="btxa.htm">TXA</a>
+E38C: 30 03     <a href="bbmi.htm">BMI</a> $E391
+E38E: 4C 3A A4  <a href="bjmp.htm">JMP</a> <a href="roma437.htm">$A43A</a>     ; Error Routine
+
+Jump from $E38C:
+
+E391: 4C 74 A4  <a href="bjmp.htm">JMP</a> <a href="roma474.htm">$A474</a>     ; Restart BASIC
+
+    <a href="rome376.htm">Previous Page</a> / <a href="rome394.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,19 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F5AF/62895:   Print &quot;SEARCHING&quot;
+
+Jump from <a href="romf34a.htm">$F39E</a>, <a href="romf4b8.htm">$F4C1</a>, <a href="romf533.htm">$F546</a>:
+
+F5AF: A5 9D     <a href="blda.htm">LDA</a> <a href="zp9d.htm">$9D</a>       ; Error-Mode-Flag
+F5B1: 10 1E     <a href="bbpl.htm">BPL</a> <a href="romf5c1.htm">$F5D1</a>     ; Print Filename
+F5B3: A0 0C     <a href="bldy.htm">LDY</a> #$0C
+F5B5: 20 2F F1  <a href="bjsr.htm">JSR</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+F5B8: A5 B7     <a href="blda.htm">LDA</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F5BA: F0 15     <a href="bbeq.htm">BEQ</a> <a href="romf5c1.htm">$F5D1</a>     ; Print Filename
+F5BC: A0 17     <a href="bldy.htm">LDY</a> #$17
+F5BE: 20 2F F1  <a href="bjsr.htm">JSR</a> <a href="romf12f.htm">$F12F</a>     ; Print Message
+
+    <a href="romf533.htm">Previous Page</a> / <a href="romf5c1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

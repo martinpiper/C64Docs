@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte in Ziffernstring umwandeln ($e69b)
+E: a: Bytewert (von 0-99)
+   y: Position, an der die Zahl in den Puffer
+      geschrieben werden soll
+
+Byte in BCD umwandeln
+
+Einsprung von <a href="ro81a862.htm">$A890</a>, <a href="ro81a862.htm">$A89A</a>:
+
+A83E: 08        PHP              i-Flag merken
+A83F: 78        SEI              Interrupt sperren (damit die Dezimal-
+A840: AA        TAX              arithmetik aktiviert werden kann)
+A841: A9 00     LDA #$00
+A843: F8        SED
+
+Einsprung von $A84C:
+
+A844: E0 00     CPX #$00         Schleife x-mal durchlaufen
+A846: F0 07     BEQ $A84F
+A848: 18        CLC              X(binaer)-mal a erhoehen (BCD)
+A849: 69 01     ADC #$01         adc arbeitet im BCD-Modus
+A84B: CA        DEX              dex arbeitet im Binaer-Modus
+A84C: 4C 44 A8  JMP $A844
+
+Einsprung von $A846:
+
+A84F: D8        CLD
+A850: 28        PLP
+
+BCD-Zahl in Ziffernstring umwandeln
+
+Einsprung von <a href="ro81a862.htm">$A877</a>:
+
+A851: AA        TAX              BCD-Zahl merken
+A852: 4A        LSR              Erst hoeherwertige Ziffer in Ausgabepuffer
+A853: 4A        LSR              schreiben
+A854: 4A        LSR
+A855: 4A        LSR
+A856: 20 5A A8  JSR $A85A
+A859: 8A        TXA              dann die niederwertige Ziffer
+
+BCD-Ziffer in Zeichen umwandeln
+
+Einsprung von $A856:
+
+A85A: 29 0F     AND #$0F
+A85C: 09 30     ORA #$30         BCD-Ziffer + '0' ergibt '(Ziffer)'
+A85E: 91 CF     STA (<a href="ra81cf.htm">$CF</a>),Y      in Puffer schreiben
+A860: C8        INY
+A861: 60        RTS
+
+    <a href="ro81a7f1.htm">Previous Page</a> / <a href="ro81a862.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

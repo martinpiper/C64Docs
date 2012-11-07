@@ -1,0 +1,59 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F510/62736:   Read block header
+
+Jump from <a href="ro41f50a.htm">$F50A</a>, <a href="ro41f575.htm">$F589</a>, <a href="ro41f6ca.htm">$F6CA</a>:
+
+F510: A5 3D     LDA <a href="ra413d.htm">$3D</a>         ; drive number
+F512: 0A        ASL
+F513: AA        TAX
+F514: B5 12     LDA <a href="ra4112.htm">$12</a>,X       ; ID1
+F516: 85 16     STA <a href="ra4116.htm">$16</a>         ; save
+F518: B5 13     LDA <a href="ra4112.htm">$13</a>,X       ; ID2
+F51A: 85 17     STA <a href="ra4116.htm">$17</a>         ; save
+F51C: A0 00     LDY #$00
+F51E: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y     ; get track and
+F520: 85 18     STA <a href="ra4118.htm">$18</a>
+F522: C8        INY
+F523: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y     ; sector number from buffer
+F525: 85 19     STA <a href="ra4119.htm">$19</a>
+F527: A9 00     LDA #$00
+F529: 45 16     EOR <a href="ra4116.htm">$16</a>
+F52B: 45 17     EOR <a href="ra4116.htm">$17</a>         ; calculate parity for block header
+F52D: 45 18     EOR <a href="ra4118.htm">$18</a>
+F52F: 45 19     EOR <a href="ra4119.htm">$19</a>
+F531: 85 1A     STA <a href="ra411a.htm">$1A</a>         ; and save
+F533: 20 34 F9  JSR <a href="ro41f934.htm">$F934</a>
+F536: A2 5A     LDX #$5A        ; 90 attempts
+
+Jump from $F54F:
+
+F538: 20 56 F5  JSR <a href="ro41f556.htm">$F556</a>       ; wait for SYNC
+F53B: A0 00     LDY #$00
+
+Jump from $F53D, $F54B:
+
+F53D: 50 FE     BVC $F53D       ; byte ready?
+F53F: B8        CLV
+F540: AD 01 1C  LDA <a href="via21.htm">$1C01</a>       ; read data from block header
+F543: D9 24 00  CMP <a href="ra4124.htm">$24</a>,Y       ; compare with saved data
+F546: D0 06     BNE $F54E       ; not the same, try again
+F548: C8        INY
+F549: C0 08     CPY #$08        ; 8 bytes read?
+F54B: D0 F0     BNE $F53D       ; no
+F54D: 60        RTS
+
+Jump from $F546:
+
+F54E: CA        DEX             ; decrement counter
+F54F: D0 E7     BNE $F538       ; not yet zero?
+F551: A9 02     LDA #$02
+
+Jump from <a href="ro41f556.htm">$F560</a>:
+
+F553: 4C 69 F9  JMP <a href="ro41f969.htm">$F969</a>       ; 20, 'read error'
+
+    <a href="ro41f50a.htm">Previous Page</a> / <a href="ro41f556.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

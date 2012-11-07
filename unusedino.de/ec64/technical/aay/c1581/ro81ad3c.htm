@@ -1,0 +1,34 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+NMI-Routine ($ff01)
+[schaltet immer in den C64 Modus !!!]
+
+AD3C: AD 02 02  LDA <a href="ra810200.htm">$0202</a>        'U9x'
+AD3F: C9 2D     CMP #$2D         %0010.1101: b1=0
+AD41: F0 05     BEQ $AD48
+AD43: 38        SEC
+AD44: E9 2B     SBC #$2B         bei '-': $00: b1=0  [CMP #2b waere besser]
+AD46: D0 11     BNE $AD59        weder '+' noch '-', (Warmstart) ==&gt;
+
+Einsprung von $AD41:
+
+AD48: 29 02     AND #$02         b1 ist immer 0 !!!
+AD4A: 0A        ASL
+AD4B: 0A        ASL
+AD4C: 0A        ASL
+AD4D: 85 38     STA <a href="ra8138.htm">$38</a>          bei '+' $00
+AD4F: 78        SEI              bei '-' $00 (sollte $10 sein)
+AD50: A5 76     LDA <a href="ra8176.htm">$76</a>          Busmodus setzen
+AD52: 29 EF     AND #$EF
+AD54: 05 38     ORA <a href="ra8138.htm">$38</a>
+AD56: 85 76     STA <a href="ra8176.htm">$76</a>
+AD58: 60        RTS
+
+Einsprung von $AD46:
+
+AD59: 4C 06 FF  JMP <a href="ro81ff00.htm">$FF06</a>        Warmstart-Vektor
+
+    <a href="ro81ad2f.htm">Previous Page</a> / <a href="ro81ad5c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

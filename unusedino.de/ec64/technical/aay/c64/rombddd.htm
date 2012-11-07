@@ -1,0 +1,127 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BDDD/48605:   Convert FAC#1 to ASCII String
+
+Jump from <a href="romaab8.htm">$AABC</a>:
+
+BDDD: A0 01     <a href="bldy.htm">LDY</a> #$01
+
+Jump from <a href="romb465.htm">$B46A</a>, <a href="rombdcd.htm">$BDD7</a>:
+
+BDDF: A9 20     <a href="blda.htm">LDA</a> #$20
+BDE1: 24 66     <a href="bbit.htm">BIT</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BDE3: 10 02     <a href="bbpl.htm">BPL</a> $BDE7
+BDE5: A9 2D     <a href="blda.htm">LDA</a> #$2D
+
+Jump from $BDE3:
+
+BDE7: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+BDEA: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BDEC: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+BDEE: C8        <a href="biny.htm">INY</a>
+BDEF: A9 30     <a href="blda.htm">LDA</a> #$30
+BDF1: A6 61     <a href="bldx.htm">LDX</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BDF3: D0 03     <a href="bbne.htm">BNE</a> $BDF8
+BDF5: 4C 04 BF  <a href="bjmp.htm">JMP</a> <a href="rombe68.htm">$BF04</a>     ; Convert TI to String
+
+Jump from $BDF3:
+
+BDF8: A9 00     <a href="blda.htm">LDA</a> #$00
+BDFA: E0 80     <a href="bcpx.htm">CPX</a> #$80
+BDFC: F0 02     <a href="bbeq.htm">BEQ</a> $BE00
+BDFE: B0 09     <a href="bbcs.htm">BCS</a> $BE09
+
+Jump from $BDFC:
+
+BE00: A9 BD     <a href="blda.htm">LDA</a> #$BD
+BE02: A0 BD     <a href="bldy.htm">LDY</a> #$BD
+BE04: 20 28 BA  <a href="bjsr.htm">JSR</a> <a href="romba28.htm">$BA28</a>     ; Perform Multiply
+BE07: A9 F7     <a href="blda.htm">LDA</a> #$F7
+
+Jump from $BDFE:
+
+BE09: 85 5D     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+
+Jump from $BE2D:
+
+BE0B: A9 B8     <a href="blda.htm">LDA</a> #$B8
+BE0D: A0 BD     <a href="bldy.htm">LDY</a> #$BD
+BE0F: 20 5B BC  <a href="bjsr.htm">JSR</a> <a href="rombc5b.htm">$BC5B</a>     ; Compare FAC#1 With Memory
+BE12: F0 1E     <a href="bbeq.htm">BEQ</a> $BE32
+BE14: 10 12     <a href="bbpl.htm">BPL</a> $BE28
+
+Jump from $BE26:
+
+BE16: A9 B3     <a href="blda.htm">LDA</a> #$B3
+BE18: A0 BD     <a href="bldy.htm">LDY</a> #$BD
+BE1A: 20 5B BC  <a href="bjsr.htm">JSR</a> <a href="rombc5b.htm">$BC5B</a>     ; Compare FAC#1 With Memory
+BE1D: F0 02     <a href="bbeq.htm">BEQ</a> $BE21
+BE1F: 10 0E     <a href="bbpl.htm">BPL</a> $BE2F
+
+Jump from $BE1D:
+
+BE21: 20 E2 BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAE2</a>     ; Multiply FAC#1 by 10
+BE24: C6 5D     <a href="bdec.htm">DEC</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BE26: D0 EE     <a href="bbne.htm">BNE</a> $BE16
+
+Jump from $BE14:
+
+BE28: 20 FE BA  <a href="bjsr.htm">JSR</a> <a href="rombafe.htm">$BAFE</a>     ; Divide FAC#1 by 10
+BE2B: E6 5D     <a href="binc.htm">INC</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BE2D: D0 DC     <a href="bbne.htm">BNE</a> $BE0B
+
+Jump from $BE1F:
+
+BE2F: 20 49 B8  <a href="bjsr.htm">JSR</a> <a href="romb849.htm">$B849</a>     ; Add 0.5 to FAC#1
+
+Jump from $BE12:
+
+BE32: 20 9B BC  <a href="bjsr.htm">JSR</a> <a href="rombc9b.htm">$BC9B</a>     ; Convert FAC#1 to Integer
+BE35: A2 01     <a href="bldx.htm">LDX</a> #$01
+BE37: A5 5D     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BE39: 18        <a href="bclc.htm">CLC</a>
+BE3A: 69 0A     <a href="badc.htm">ADC</a> #$0A
+BE3C: 30 09     <a href="bbmi.htm">BMI</a> $BE47
+BE3E: C9 0B     <a href="bcmp.htm">CMP</a> #$0B
+BE40: B0 06     <a href="bbcs.htm">BCS</a> $BE48
+BE42: 69 FF     <a href="badc.htm">ADC</a> #$FF
+BE44: AA        <a href="btax.htm">TAX</a>
+BE45: A9 02     <a href="blda.htm">LDA</a> #$02
+
+Jump from $BE3C:
+
+BE47: 38        <a href="bsec.htm">SEC</a>
+
+Jump from $BE40:
+
+BE48: E9 02     <a href="bsbc.htm">SBC</a> #$02
+BE4A: 85 5E     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+BE4C: 86 5D     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+BE4E: 8A        <a href="btxa.htm">TXA</a>
+BE4F: F0 02     <a href="bbeq.htm">BEQ</a> $BE53
+BE51: 10 13     <a href="bbpl.htm">BPL</a> $BE66
+
+Jump from $BE4F:
+
+BE53: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+BE55: A9 2E     <a href="blda.htm">LDA</a> #$2E
+BE57: C8        <a href="biny.htm">INY</a>
+BE58: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+BE5B: 8A        <a href="btxa.htm">TXA</a>
+BE5C: F0 06     <a href="bbeq.htm">BEQ</a> $BE64
+BE5E: A9 30     <a href="blda.htm">LDA</a> #$30
+BE60: C8        <a href="biny.htm">INY</a>
+BE61: 99 FF 00  <a href="bsta.htm">STA</a> <a href="zpff.htm">$00FF</a>,Y   ; Assembly Area for Floating point to ASCII
+
+Jump from $BE5C:
+
+BE64: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+
+Jump from $BE51:
+
+BE66: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+    <a href="rombdcd.htm">Previous Page</a> / <a href="rombe68.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

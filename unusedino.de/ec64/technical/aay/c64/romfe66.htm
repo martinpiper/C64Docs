@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FE66/65126:   Warm Start Basic
+
+FE66: 20 15 FD  <a href="bjsr.htm">JSR</a> <a href="romfd15.htm">$FD15</a>     ; Restore Kernal Vectors
+FE69: 20 A3 FD  <a href="bjsr.htm">JSR</a> <a href="romfda3.htm">$FDA3</a>     ; Initialise I/O
+FE6C: 20 18 E5  <a href="bjsr.htm">JSR</a> <a href="rome518.htm">$E518</a>     ; Initialize I/O
+FE6F: 6C 02 A0  <a href="bjmp.htm">JMP</a> (<a href="roma000.htm">$A002</a>)   ; Restart Vectors
+
+Jump from <a href="romfe43.htm">$FE54</a>, <a href="romfe43.htm">$FE64</a>:
+
+FE72: 98        <a href="btya.htm">TYA</a>
+FE73: 2D A1 02  <a href="band.htm">AND</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FE76: AA        <a href="btax.htm">TAX</a>
+FE77: 29 01     <a href="band.htm">AND</a> #$01
+FE79: F0 28     <a href="bbeq.htm">BEQ</a> $FEA3
+FE7B: AD 00 DD  <a href="blda.htm">LDA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+FE7E: 29 FB     <a href="band.htm">AND</a> #$FB
+FE80: 05 B5     <a href="bora.htm">ORA</a> <a href="zpb5.htm">$B5</a>       ; RS232 Next Bit to send/Tape Read - End of Tape
+FE82: 8D 00 DD  <a href="bsta.htm">STA</a> <a href="cia20.htm">$DD00</a>     ; CIA2: Data Port A (Serial Bus, RS232, VIC Base Mem.)
+FE85: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FE88: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+FE8B: 8A        <a href="btxa.htm">TXA</a>
+FE8C: 29 12     <a href="band.htm">AND</a> #$12
+FE8E: F0 0D     <a href="bbeq.htm">BEQ</a> $FE9D
+FE90: 29 02     <a href="band.htm">AND</a> #$02
+FE92: F0 06     <a href="bbeq.htm">BEQ</a> $FE9A
+FE94: 20 D6 FE  <a href="bjsr.htm">JSR</a> <a href="romfed6.htm">$FED6</a>     ; NMI RS232 In
+FE97: 4C 9D FE  <a href="bjmp.htm">JMP</a> $FE9D
+
+Jump from $FE92:
+
+FE9A: 20 07 FF  <a href="bjsr.htm">JSR</a> <a href="romff07.htm">$FF07</a>     ; NMI RS232 Out
+
+Jump from $FE8E, $FE97:
+
+FE9D: 20 BB EE  <a href="bjsr.htm">JSR</a> <a href="romeebb.htm">$EEBB</a>     ; RS232 Send
+FEA0: 4C B6 FE  <a href="bjmp.htm">JMP</a> $FEB6
+
+Jump from $FE79:
+
+FEA3: 8A        <a href="btxa.htm">TXA</a>
+FEA4: 29 02     <a href="band.htm">AND</a> #$02
+FEA6: F0 06     <a href="bbeq.htm">BEQ</a> $FEAE
+FEA8: 20 D6 FE  <a href="bjsr.htm">JSR</a> <a href="romfed6.htm">$FED6</a>     ; NMI RS232 In
+FEAB: 4C B6 FE  <a href="bjmp.htm">JMP</a> $FEB6
+
+Jump from $FEA6:
+
+FEAE: 8A        <a href="btxa.htm">TXA</a>
+FEAF: 29 10     <a href="band.htm">AND</a> #$10
+FEB1: F0 03     <a href="bbeq.htm">BEQ</a> $FEB6
+FEB3: 20 07 FF  <a href="bjsr.htm">JSR</a> <a href="romff07.htm">$FF07</a>     ; NMI RS232 Out
+
+Jump from $FEA0, $FEAB, $FEB1:
+
+FEB6: AD A1 02  <a href="blda.htm">LDA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FEB9: 8D 0D DD  <a href="bsta.htm">STA</a> <a href="cia213.htm">$DD0D</a>     ; CIA2: Interrupt (NMI) Control Register
+
+    <a href="romfe43.htm">Previous Page</a> / <a href="romfebc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

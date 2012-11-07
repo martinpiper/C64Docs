@@ -1,0 +1,22 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BFED/49133:   Evaluate &lt;exp&gt;
+
+Jump from <a href="rombf7b.htm">$BF7B</a>, <a href="rombf7b.htm">$BFAD</a>:
+
+BFED: A9 BF     <a href="blda.htm">LDA</a> #$BF
+BFEF: A0 BF     <a href="bldy.htm">LDY</a> #$BF
+BFF1: 20 28 BA  <a href="bjsr.htm">JSR</a> <a href="romba28.htm">$BA28</a>     ; Perform Multiply
+BFF4: A5 70     <a href="blda.htm">LDA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BFF6: 69 50     <a href="badc.htm">ADC</a> #$50
+BFF8: 90 03     <a href="bbcc.htm">BCC</a> $BFFD
+BFFA: 20 23 BC  <a href="bjsr.htm">JSR</a> <a href="rombc1b.htm">$BC23</a>     ; Round FAC#1
+
+Jump from $BFF8:
+
+BFFD: 4C 00 E0  <a href="bjmp.htm">JMP</a> <a href="rome000.htm">$E000</a>     ; EXP continued From BASIC ROM
+
+    <a href="rombfe8.htm">Previous Page</a> / <a href="rome000.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

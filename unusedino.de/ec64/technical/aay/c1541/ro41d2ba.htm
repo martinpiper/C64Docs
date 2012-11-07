@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D2BA/53946:   ?
+
+Jump from <a href="ro41d28e.htm">$D292</a>, <a href="ro41d28e.htm">$D298</a>:
+
+D2BA: A2 07     LDX #$07
+
+Jump from $D2C5:
+
+D2BC: B9 4F 02  LDA <a href="ra41024f.htm">$024F</a>,Y
+D2BF: 3D E9 EF  AND <a href="ro41efe9.htm">$EFE9</a>,X     ; erase bit
+D2C2: F0 04     BEQ $D2C8
+D2C4: CA        DEX
+D2C5: 10 F5     BPL $D2BC
+D2C7: 60        RTS
+
+Jump from $D2C2:
+
+D2C8: B9 4F 02  LDA <a href="ra41024f.htm">$024F</a>,Y
+D2CB: 5D E9 EF  EOR <a href="ro41efe9.htm">$EFE9</a>,X     ; rotate bit
+D2CE: 99 4F 02  STA <a href="ra41024f.htm">$024F</a>,Y
+D2D1: 8A        TXA             ; buffer number
+D2D2: 88        DEY
+D2D3: 30 03     BMI $D2D8
+D2D5: 18        CLC
+D2D6: 69 08     ADC #$08
+
+Jump from $D2D3:
+
+D2D8: AA        TAX             ; buffer number
+
+Jump from <a href="ro41d2da.htm">$D2E7</a>, <a href="ro41d2da.htm">$D2EB</a>:
+
+D2D9: 60        RTS
+
+    <a href="ro41d28e.htm">Previous Page</a> / <a href="ro41d2da.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,156 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Burst-Befehle $06,$07,$16,$17: Format (bei der 1571: $84b7)
+
+BD12: AD 02 02  LDA <a href="ra810200.htm">$0202</a>        N-Flag (b0): Laufwerksnummer
+BD15: 29 01     AND #$01
+BD17: D0 F1     BNE <a href="ro81bd0a.htm">$BD0A</a>        N=1: Laufwerk n. v., ==&gt;
+BD19: AD 02 02  LDA <a href="ra810200.htm">$0202</a>        M-Flag (b7): Modus-Flag
+BD1C: 10 40     BPL $BD5E        M=0: 1581-Format mit Verzeichnis, ==&gt;
+
+(bei der 1571: $8c67)
+
+BD1E: A5 29     LDA <a href="ra8129.htm">$29</a>
+BD20: 38        SEC
+BD21: E9 03     SBC #$03         Laenge der Kommandozeile = 3 ?
+BD23: A8        TAY              ('U0.')
+BD24: F0 56     BEQ $BD7C        Ja, Defaultwerte benutzen
+BD26: AD 03 02  LDA <a href="ra810200.htm">$0203</a>        Sektorgroesse setzen
+BD29: 85 91     STA <a href="ra8191.htm">$91</a>
+BD2B: 88        DEY              Anzahl der angegebenen Parameter:
+BD2C: F0 52     BEQ $BD80        1, ==&gt;
+BD2E: 88        DEY              Nummer der letzten Spur
+BD2F: F0 54     BEQ $BD85        2, ==&gt;
+BD31: 88        DEY              Anzahl der Sektoren
+BD32: F0 59     BEQ $BD8D        3, ==&gt;
+BD34: 88        DEY              Startspur
+BD35: F0 5B     BEQ $BD92        4, ==&gt;
+BD37: 88        DEY              Fuellbyte
+BD38: F0 5D     BEQ $BD97        5, ==&gt;
+BD3A: AD 08 02  LDA <a href="ra810200.htm">$0208</a>        1. Sektornummer
+BD3D: 85 94     STA <a href="ra8194.htm">$94</a>
+BD3F: 88        DEY
+BD40: F0 59     BEQ $BD9B        6, ==&gt;
+BD42: AD 09 02  LDA <a href="ra810200.htm">$0209</a>        Groesse der Luecke zwischen zwei Sektoren
+BD45: 85 9A     STA <a href="ra819a.htm">$9A</a>
+BD47: 4C A2 BD  JMP $BDA2        &gt;= 7, ==&gt;
+
+Diskette im 1581-Format formatieren
+
+BD4A: 4E 30 3A 43 4F 50 59 52  n0:copyr
+BD52: 49 47 48 54 20 43 42 4D  ight cbm
+BD5A: 2C 38 36 0D              ,86
+
+Einsprung von $BD1C:
+
+BD5E: A0 13     LDY #$13         Kommandostring in Kommandozeile kopieren
+
+Einsprung von $BD67:
+
+BD60: B9 4A BD  LDA $BD4A,Y
+BD63: 99 00 02  STA <a href="ra810200.htm">$0200</a>,Y      Name: 'copyright cbm', ID:'86'
+BD66: 88        DEY
+BD67: 10 F7     BPL $BD60
+BD69: A9 14     LDA #$14         Laenge der Befehlszeile
+BD6B: 85 29     STA <a href="ra8129.htm">$29</a>
+BD6D: A9 11     LDA #$11         Position des Kommas
+BD6F: 8D 92 02  STA <a href="ra810291.htm">$0292</a>
+BD72: A9 01     LDA #$01         Position der Drivenummer
+BD74: 8D 91 02  STA <a href="ra810291.htm">$0291</a>
+BD77: A2 00     LDX #$00         (nutzlos)
+BD79: 4C 2A FF  JMP <a href="ro81ff00.htm">$FF2A</a>        JNEW: Diskette formatieren
+
+Spezialformat anfertigen (bei der 1571: $8c90)
+
+Einsprung von $BD24:
+
+BD7C: A9 02     LDA #$02         Sektorgroesse auf 512 Bytes setzen
+BD7E: 85 91     STA <a href="ra8191.htm">$91</a>
+
+Einsprung von $BD2C:
+
+BD80: A9 4F     LDA #$4F         letzte Spur = 79
+BD82: 8D 04 02  STA <a href="ra810200.htm">$0204</a>
+
+Einsprung von $BD2F:
+
+BD85: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorgroesse holen
+BD87: BD 06 BD  LDA <a href="ro81bcb2.htm">$BD06</a>,X      Anzahl der Sektoren pro Spur
+BD8A: 8D 05 02  STA <a href="ra810200.htm">$0205</a>
+
+Einsprung von $BD32:
+
+BD8D: A9 00     LDA #$00         Startspur = 0
+BD8F: 8D 06 02  STA <a href="ra810200.htm">$0206</a>
+
+Einsprung von $BD35:
+
+BD92: A9 E5     LDA #$E5         Fuellbyte = 229
+BD94: 8D 07 02  STA <a href="ra810200.htm">$0207</a>
+
+Einsprung von $BD38:
+
+BD97: A9 01     LDA #$01         1. Sektornummer = 1
+BD99: 85 94     STA <a href="ra8194.htm">$94</a>
+
+Einsprung von $BD40:
+
+BD9B: A6 91     LDX <a href="ra8191.htm">$91</a>          Sektorgroesse holen
+BD9D: BD F8 BD  LDA $BDF8,X      Groesse der Luecke zwischen zwei Sektoren
+BDA0: 85 9A     STA <a href="ra819a.htm">$9A</a>
+
+Einsprung von $BD47:
+
+BDA2: A5 90     LDA <a href="ra8190.htm">$90</a>          Starttrack der aktuellen Partition merken
+BDA4: 48        PHA
+BDA5: A5 9B     LDA <a href="ra819b.htm">$9B</a>          Fuellbyte fuer Datenbloecke merken
+BDA7: 48        PHA
+BDA8: A5 8F     LDA <a href="ra818f.htm">$8F</a>          Nummer der letzten physikalischen Spur
+BDAA: 48        PHA
+BDAB: AD 04 02  LDA <a href="ra810200.htm">$0204</a>        letzte physikalische Spur festlegen
+BDAE: 85 8F     STA <a href="ra818f.htm">$8F</a>
+BDB0: AD 05 02  LDA <a href="ra810200.htm">$0205</a>        Anzahl der Sektoren festlegen
+BDB3: 85 92     STA <a href="ra8192.htm">$92</a>
+BDB5: 18        CLC
+BDB6: 65 94     ADC <a href="ra8194.htm">$94</a>          + '1. Sektornummer'
+BDB8: 38        SEC
+BDB9: E9 01     SBC #$01         - 1
+BDBB: 85 93     STA <a href="ra8193.htm">$93</a>          = letzte Sektornummer
+BDBD: 8D F0 01  STA <a href="ra8101f0.htm">$01F0</a>        = groesste Sektornummer der Spur
+BDC0: AC 06 02  LDY <a href="ra810200.htm">$0206</a>        Starttrack fuer Formatieren festlegen
+BDC3: C8        INY              +1 (logisches Format)
+BDC4: 84 90     STY <a href="ra8190.htm">$90</a>          Start der Partition merken
+BDC6: AD 07 02  LDA <a href="ra810200.htm">$0207</a>        Fuellbyte fuer Datenbloecke festlegen
+BDC9: 85 9B     STA <a href="ra819b.htm">$9B</a>
+BDCB: A5 90     LDA <a href="ra8190.htm">$90</a>          Starttrack als aktuellen Track setzen
+BDCD: 85 4D     STA <a href="ra814d.htm">$4D</a>
+BDCF: A9 00     LDA #$00         Job0 benutzen
+BDD1: 85 4E     STA <a href="ra814e.htm">$4E</a>          Sektornummer = 0
+BDD3: 20 88 95  JSR <a href="ro819585.htm">$9588</a>        T&amp;S in Jobspeicher schreiben
+BDD6: A9 C0     LDA #$C0         Job-Befehl $c0: RESTORE_DV
+BDD8: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Controller aufrufen
+BDDB: A9 F0     LDA #$F0         Job-Befehl $f0: FORMATDK_DV
+BDDD: 20 9D 95  JSR <a href="ro819598.htm">$959D</a>        Controller aufrufen
+BDE0: C9 02     CMP #$02         Fehler ?
+BDE2: B0 03     BCS $BDE7        Ja, ==&gt;
+BDE4: A9 00     LDA #$00         Ok. Meldung merken
+BDE6: 2C         B $2C
+
+Einsprung von $BDE2:
+
+BDE7: A9 06     LDA #$06         Format-Error merken
+BDE9: 20 66 BF  JSR <a href="ro81bf66.htm">$BF66</a>        Burst-Status setzen
+BDEC: 68        PLA
+BDED: 85 8F     STA <a href="ra818f.htm">$8F</a>          letzte physikalische Spur zurueckholen
+BDEF: 68        PLA
+BDF0: 85 9B     STA <a href="ra819b.htm">$9B</a>          Fuellbyte zurueckholen
+BDF2: 68        PLA
+BDF3: 85 90     STA <a href="ra8190.htm">$90</a>          Starttrack der Partition zurueckholen
+BDF5: 4C 02 BB  JMP <a href="ro81bafc.htm">$BB02</a>        Fehler im Klartext ausgeben
+
+BDF8: 0E 16 26 44              Anzahl Bytes zwischen zwei Sektoren
+
+    <a href="ro81bd0a.htm">Previous Page</a> / <a href="ro81bdfc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

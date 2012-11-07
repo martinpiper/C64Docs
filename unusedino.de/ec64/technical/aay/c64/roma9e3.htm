@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A9E3/43491:   Assign TI$
+
+A9E3: C9 06     <a href="bcmp.htm">CMP</a> #$06
+A9E5: D0 3D     <a href="bbne.htm">BNE</a> $AA24
+A9E7: A0 00     <a href="bldy.htm">LDY</a> #$00
+A9E9: 84 61     <a href="bsty.htm">STY</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+A9EB: 84 66     <a href="bsty.htm">STY</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+
+Jump from $AA0C:
+
+A9ED: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+A9EF: 20 1D AA  <a href="bjsr.htm">JSR</a> $AA1D
+A9F2: 20 E2 BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAE2</a>     ; Multiply FAC#1 by 10
+A9F5: E6 71     <a href="binc.htm">INC</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+A9F7: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+A9F9: 20 1D AA  <a href="bjsr.htm">JSR</a> $AA1D
+A9FC: 20 0C BC  <a href="bjsr.htm">JSR</a> <a href="rombc0c.htm">$BC0C</a>     ; Copy FAC#1 into FAC#2
+A9FF: AA        <a href="btax.htm">TAX</a>
+AA00: F0 05     <a href="bbeq.htm">BEQ</a> $AA07
+AA02: E8        <a href="binx.htm">INX</a>
+AA03: 8A        <a href="btxa.htm">TXA</a>
+AA04: 20 ED BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAED</a>     ; Multiply FAC#1 by 10
+
+Jump from $AA00:
+
+AA07: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+AA09: C8        <a href="biny.htm">INY</a>
+AA0A: C0 06     <a href="bcpy.htm">CPY</a> #$06
+AA0C: D0 DF     <a href="bbne.htm">BNE</a> $A9ED
+AA0E: 20 E2 BA  <a href="bjsr.htm">JSR</a> <a href="rombae2.htm">$BAE2</a>     ; Multiply FAC#1 by 10
+AA11: 20 9B BC  <a href="bjsr.htm">JSR</a> <a href="rombc9b.htm">$BC9B</a>     ; Convert FAC#1 to Integer
+AA14: A6 64     <a href="bldx.htm">LDX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AA16: A4 63     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+AA18: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AA1A: 4C DB FF  <a href="bjmp.htm">JMP</a> <a href="romffdb.htm">$FFDB</a>     ; Set Real-Time Clock
+
+Jump from $A9EF, $A9F9:
+
+AA1D: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+AA1F: 20 80 00  <a href="bjsr.htm">JSR</a> <a href="zp79.htm">$0080</a>     ; CHRGOT: Get same Byte again
+AA22: 90 03     <a href="bbcc.htm">BCC</a> $AA27
+
+Jump from $A9E5:
+
+AA24: 4C 48 B2  <a href="bjmp.htm">JMP</a> <a href="romb248.htm">$B248</a>     ; ?ILLEGAL QUANTITY
+
+Jump from $AA22:
+
+AA27: E9 2F     <a href="bsbc.htm">SBC</a> #$2F
+AA29: 4C 7E BD  <a href="bjmp.htm">JMP</a> <a href="rombcf3.htm">$BD7E</a>     ; Convert ASCII String to a Number in FAC
+
+    <a href="roma9d9.htm">Previous Page</a> / <a href="romaa2c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

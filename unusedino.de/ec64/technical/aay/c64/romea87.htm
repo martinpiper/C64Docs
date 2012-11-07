@@ -1,0 +1,76 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EA87/60039:   Scan Keyboard
+
+Jump from <a href="romea31.htm">$EA7B</a>, <a href="romff9f.htm">$FF9F</a>:
+
+EA87: A9 00     <a href="blda.htm">LDA</a> #$00
+EA89: 8D 8D 02  <a href="bsta.htm">STA</a> <a href="zp028d.htm">$028D</a>     ; Flag: Shift Keys
+EA8C: A0 40     <a href="bldy.htm">LDY</a> #$40
+EA8E: 84 CB     <a href="bsty.htm">STY</a> <a href="zpc5.htm">$CB</a>       ; Matrix value of last Key pressed
+EA90: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+EA93: AE 01 DC  <a href="bldx.htm">LDX</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+EA96: E0 FF     <a href="bcpx.htm">CPX</a> #$FF
+EA98: F0 61     <a href="bbeq.htm">BEQ</a> <a href="romeadd.htm">$EAFB</a>     ; Process Key Image
+EA9A: A8        <a href="btay.htm">TAY</a>
+EA9B: A9 81     <a href="blda.htm">LDA</a> #$81
+EA9D: 85 F5     <a href="bsta.htm">STA</a> <a href="zpf5.htm">$F5</a>       ; Vector: Current Keyboard decoding Table
+EA9F: A9 EB     <a href="blda.htm">LDA</a> #$EB
+EAA1: 85 F6     <a href="bsta.htm">STA</a> <a href="zpf5.htm">$F6</a>       ; Vector: Current Keyboard decoding Table
+EAA3: A9 FE     <a href="blda.htm">LDA</a> #$FE
+EAA5: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+
+Jump from $EADA:
+
+EAA8: A2 08     <a href="bldx.htm">LDX</a> #$08
+EAAA: 48        <a href="bpha.htm">PHA</a>
+
+Jump from $EAB1:
+
+EAAB: AD 01 DC  <a href="blda.htm">LDA</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+EAAE: CD 01 DC  <a href="bcmp.htm">CMP</a> <a href="cia11.htm">$DC01</a>     ; CIA1: Data Port B (Keyboard, Joystick, Paddles)
+EAB1: D0 F8     <a href="bbne.htm">BNE</a> $EAAB
+
+Jump from $EAD2:
+
+EAB3: 4A        <a href="blsr.htm">LSR</a>
+EAB4: B0 16     <a href="bbcs.htm">BCS</a> $EACC
+EAB6: 48        <a href="bpha.htm">PHA</a>
+EAB7: B1 F5     <a href="blda.htm">LDA</a> (<a href="zpf5.htm">$F5</a>),Y   ; Vector: Current Keyboard decoding Table
+EAB9: C9 05     <a href="bcmp.htm">CMP</a> #$05
+EABB: B0 0C     <a href="bbcs.htm">BCS</a> $EAC9
+EABD: C9 03     <a href="bcmp.htm">CMP</a> #$03
+EABF: F0 08     <a href="bbeq.htm">BEQ</a> $EAC9
+EAC1: 0D 8D 02  <a href="bora.htm">ORA</a> <a href="zp028d.htm">$028D</a>     ; Flag: Shift Keys
+EAC4: 8D 8D 02  <a href="bsta.htm">STA</a> <a href="zp028d.htm">$028D</a>     ; Flag: Shift Keys
+EAC7: 10 02     <a href="bbpl.htm">BPL</a> $EACB
+
+Jump from $EABB, $EABF:
+
+EAC9: 84 CB     <a href="bsty.htm">STY</a> <a href="zpc5.htm">$CB</a>       ; Matrix value of last Key pressed
+
+Jump from $EAC7:
+
+EACB: 68        <a href="bpla.htm">PLA</a>
+
+Jump from $EAB4:
+
+EACC: C8        <a href="biny.htm">INY</a>
+EACD: C0 41     <a href="bcpy.htm">CPY</a> #$41
+EACF: B0 0B     <a href="bbcs.htm">BCS</a> $EADC
+EAD1: CA        <a href="bdex.htm">DEX</a>
+EAD2: D0 DF     <a href="bbne.htm">BNE</a> $EAB3
+EAD4: 38        <a href="bsec.htm">SEC</a>
+EAD5: 68        <a href="bpla.htm">PLA</a>
+EAD6: 2A        <a href="brol.htm">ROL</a>
+EAD7: 8D 00 DC  <a href="bsta.htm">STA</a> <a href="cia10.htm">$DC00</a>     ; CIA1: Data Port A (Keyboard, Joystick, Paddles)
+EADA: D0 CC     <a href="bbne.htm">BNE</a> $EAA8
+
+Jump from $EACF:
+
+EADC: 68        <a href="bpla.htm">PLA</a>
+
+    <a href="romea81.htm">Previous Page</a> / <a href="romeadd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

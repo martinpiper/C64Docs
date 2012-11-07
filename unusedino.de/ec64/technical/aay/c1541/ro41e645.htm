@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E645/58949:   Print error message into error buffer
+
+Jump from <a href="ro41c1c8.htm">$C1CE</a>, <a href="ro41cd03.htm">$CD2E</a>, <a href="ro41d506.htm">$D54F</a>, <a href="ro41d572.htm">$D577</a>, <a href="ro41dba5.htm">$DC03</a>, <a href="ro41e1cb.htm">$E204</a>, <a href="ro41e7a3.htm">$E829</a>, <a href="ro41e7a3.htm">$E845</a>, <a href="ro41f1a9.htm">$F1DC</a>,
+          <a href="ro41f1a9.htm">$F1F7</a>, <a href="ro41f220.htm">$F248</a>:
+
+E645: 20 C7 E6  JSR <a href="ro41e6c7.htm">$E6C7</a>       ; set error message
+
+Jump from <a href="ro41d00e.htm">$D021</a>, <a href="ro41e60a.htm">$E641</a>, <a href="ro41f011.htm">$F01F</a>:
+
+E648: 20 BD C1  JSR <a href="ro41c1bd.htm">$C1BD</a>       ; erase input buffer
+E64B: A9 00     LDA #$00
+E64D: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>       ; erase error flag
+E650: 20 2C C1  JSR <a href="ro41c12c.htm">$C12C</a>       ; turn LED off
+E653: 20 DA D4  JSR <a href="ro41d4da.htm">$D4DA</a>       ; close channels 17 and 18
+E656: A9 00     LDA #$00
+E658: 85 A3     STA <a href="ra41a3.htm">$A3</a>         ; input buffer pointer to zero
+E65A: A2 45     LDX #$45
+E65C: 9A        TXS             ; initialize stack pointer
+E65D: A5 84     LDA <a href="ra4184.htm">$84</a>         ; secondary address
+E65F: 29 0F     AND #$0F
+E661: 85 83     STA <a href="ra4183.htm">$83</a>
+E663: C9 0F     CMP #$0F        ; 15?
+E665: F0 31     BEQ <a href="ro41e688.htm">$E698</a>       ; yes, command channel
+E667: 78        SEI
+E668: A5 79     LDA <a href="ra4179.htm">$79</a>         ; LISTEN active?
+E66A: D0 1C     BNE <a href="ro41e688.htm">$E688</a>       ; yes
+E66C: A5 7A     LDA <a href="ra417a.htm">$7A</a>         ; TALK active?
+E66E: D0 10     BNE <a href="ro41e680.htm">$E680</a>       ; yes
+E670: A6 83     LDX <a href="ra4183.htm">$83</a>         ; channel number
+E672: BD 2B 02  LDA <a href="ra41022b.htm">$022B</a>,X     ; open channel to this secondary addr
+E675: C9 FF     CMP #$FF
+E677: F0 1F     BEQ <a href="ro41e688.htm">$E698</a>       ; no
+E679: 29 0F     AND #$0F
+E67B: 85 82     STA <a href="ra4182.htm">$82</a>         ; channel
+E67D: 4C 8E E6  JMP <a href="ro41e688.htm">$E68E</a>
+
+    <a href="ro41e60a.htm">Previous Page</a> / <a href="ro41e680.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

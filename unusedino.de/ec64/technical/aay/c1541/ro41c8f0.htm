@@ -1,0 +1,99 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C8F0/51440:   Perform [C] - Copy command
+
+C8F0: A9 E0     LDA #$E0
+C8F2: 8D 4F 02  STA <a href="ra41024f.htm">$024F</a>
+C8F5: 20 D1 F0  JSR <a href="ro41f0d1.htm">$F0D1</a>
+C8F8: 20 19 F1  JSR <a href="ro41f119.htm">$F119</a>       ; get buffer number of BAM
+C8FB: A9 FF     LDA #$FF
+C8FD: 95 A7     STA <a href="ra41a7.htm">$A7</a>,X
+C8FF: A9 0F     LDA #$0F
+C901: 8D 56 02  STA <a href="ra410256.htm">$0256</a>
+C904: 20 E5 C1  JSR <a href="ro41c1e5.htm">$C1E5</a>       ; check input line
+C907: D0 03     BNE $C90C
+C909: 4C C1 C8  JMP <a href="ro41c8c1.htm">$C8C1</a>       ; 31, 'syntax error'
+
+Jump from $C907:
+
+C90C: 20 F8 C1  JSR <a href="ro41c1ee.htm">$C1F8</a>       ; check input
+C90F: 20 20 C3  JSR <a href="ro41c312.htm">$C320</a>       ; test drive number
+C912: AD 8B 02  LDA <a href="ra41028a.htm">$028B</a>       ; flag for syntax check
+C915: 29 55     AND #$55
+C917: D0 0F     BNE $C928
+C919: AE 7A 02  LDX <a href="ra41027a.htm">$027A</a>
+C91C: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; character of the command
+C91F: C9 2A     CMP #$2A        ; '*'
+C921: D0 05     BNE $C928
+
+Jump from $C92D:
+
+C923: A9 30     LDA #$30
+C925: 4C C8 C1  JMP <a href="ro41c1c8.htm">$C1C8</a>       ; 30, 'syntax error'
+
+Jump from $C917, $C921:
+
+C928: AD 8B 02  LDA <a href="ra41028a.htm">$028B</a>       ; syntax flag
+C92B: 29 D9     AND #$D9
+C92D: D0 F4     BNE $C923       ; 30, 'syntax error'
+C92F: 4C 52 C9  JMP $C952
+C932: A9 00     LDA #$00
+C934: 8D 58 02  STA <a href="ra410258.htm">$0258</a>
+C937: 8D 8C 02  STA <a href="ra41028c.htm">$028C</a>       ; number of drives
+C93A: 8D 80 02  STA <a href="ra410280.htm">$0280</a>       ; track number in directory
+C93D: 8D 81 02  STA <a href="ra410280.htm">$0281</a>
+C940: A5 E3     LDA <a href="ra41e2.htm">$E3</a>
+C942: 29 01     AND #$01
+C944: 85 7F     STA <a href="ra417f.htm">$7F</a>         ; drive number
+C946: 09 01     ORA #$01
+C948: 8D 91 02  STA <a href="ra410291.htm">$0291</a>
+C94B: AD 7B 02  LDA <a href="ra41027a.htm">$027B</a>
+C94E: 8D 7A 02  STA <a href="ra41027a.htm">$027A</a>
+C951: 60        RTS
+
+Jump from $C92F:
+
+C952: 20 4F C4  JSR <a href="ro41c44f.htm">$C44F</a>       ; search for file in directory
+C955: AD 78 02  LDA <a href="ra410278.htm">$0278</a>       ; number of filenames in command
+C958: C9 03     CMP #$03        ; smaller than three?
+C95A: 90 45     BCC <a href="ro41c9a1.htm">$C9A1</a>       ; yes
+C95C: A5 E2     LDA <a href="ra41e2.htm">$E2</a>         ; first drive number
+C95E: C5 E3     CMP <a href="ra41e2.htm">$E3</a>         ; second drive number
+C960: D0 3F     BNE <a href="ro41c9a1.htm">$C9A1</a>       ; not on same drive?
+C962: A5 DD     LDA <a href="ra41dd.htm">$DD</a>         ; directory block of the 1st file
+C964: C5 DE     CMP <a href="ra41dd.htm">$DE</a>         ; same directory block as second file?
+C966: D0 39     BNE <a href="ro41c9a1.htm">$C9A1</a>       ; no
+C968: A5 D8     LDA <a href="ra41d8.htm">$D8</a>         ; directory sector of first file
+C96A: C5 D9     CMP <a href="ra41d8.htm">$D9</a>         ; same directory sector as second file?
+C96C: D0 33     BNE <a href="ro41c9a1.htm">$C9A1</a>       ; no
+C96E: 20 CC CA  JSR <a href="ro41cacc.htm">$CACC</a>       ; is file present?
+C971: A9 01     LDA #$01
+C973: 8D 79 02  STA <a href="ra410279.htm">$0279</a>
+C976: 20 FA C9  JSR <a href="ro41c9fa.htm">$C9FA</a>
+C979: 20 25 D1  JSR <a href="ro41d125.htm">$D125</a>       ; get data type
+C97C: F0 04     BEQ $C982       ; rel-file? yes
+C97E: C9 02     CMP #$02        ; prg-file?
+C980: D0 05     BNE $C987       ; no
+
+Jump from $C97C:
+
+C982: A9 64     LDA #$64
+C984: 20 C8 C1  JSR <a href="ro41c1c8.htm">$C1C8</a>       ; 64, 'file type mismatch'
+
+Jump from $C980:
+
+C987: A9 12     LDA #$12        ; 18
+C989: 85 83     STA <a href="ra4183.htm">$83</a>         ; secondary address
+C98B: AD 3C 02  LDA <a href="ra41022e.htm">$023C</a>
+C98E: 8D 3D 02  STA <a href="ra41022e.htm">$023D</a>
+C991: A9 FF     LDA #$FF
+C993: 8D 3C 02  STA <a href="ra41022e.htm">$023C</a>
+C996: 20 2A DA  JSR <a href="ro41da2a.htm">$DA2A</a>       ; prepare append
+C999: A2 02     LDX #$02
+C99B: 20 B9 C9  JSR <a href="ro41c9a7.htm">$C9B9</a>       ; copy file
+C99E: 4C 94 C1  JMP <a href="ro41c194.htm">$C194</a>       ; done
+
+    <a href="ro41c8c6.htm">Previous Page</a> / <a href="ro41c9a1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Prueft, ob im aktuellen Track die Anzahl freier Blocks stimmt. ($f220)
+[Der Wert, der die Anzahl der freien Blocks angibt, wird mit der Anzahl der
+ Bits, die einen freien Block kennzeichnen, verglichen. Bei Abweichungen
+ voneinander wird 'DIR Error' ausgegeben.]
+
+Einsprung von <a href="ro81b515.htm">$B525</a>, <a href="ro81b746.htm">$B749</a>:
+
+B75E: A9 00     LDA #$00
+B760: 85 2F     STA <a href="ra812f.htm">$2F</a>          Anzahl freier Blocks loeschen
+B762: AC 76 DB  LDY <a href="ro81dafd.htm">$DB76</a>        Anzahl der BAM-Bytes pro Spur
+B765: 88        DEY              -1 (Index beginnt bei 0)
+
+Einsprung von $B773:
+
+B766: A2 08     LDX #$08         8 Bits pro Byte
+B768: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Byte mit Bitmuster holen
+
+Einsprung von $B770:
+
+B76A: 0A        ASL              Alle Bits nacheinander ins Carry schieben
+B76B: 90 02     BCC $B76F        gesetzte Bits zaehlen; nicht gesetzt, ==&gt;
+B76D: E6 2F     INC <a href="ra812f.htm">$2F</a>          (gesetztes Bit heisst: Block frei)
+
+Einsprung von $B76B:
+
+B76F: CA        DEX
+B770: D0 F8     BNE $B76A        naechstes Bit, ==&gt;
+B772: 88        DEY              [Die BAM-Bytes 1-5 zusammen muessen
+B773: D0 F1     BNE $B766         genausoviele 1-Bits haben
+B775: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y       wie im Byte 0 angegeben ist]
+B777: C5 2F     CMP <a href="ra812f.htm">$2F</a>
+B779: D0 01     BNE $B77C        wenn nicht, ==&gt;
+B77B: 60        RTS
+
+Einsprung von $B779:
+
+B77C: A9 71     LDA #$71         71, DIR ERROR
+B77E: 20 3F FF  JSR <a href="ro81ff00.htm">$FF3F</a>
+
+    <a href="ro81b746.htm">Previous Page</a> / <a href="ro81b781.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,19 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $DDF1/56817:   Write a block of a REL file
+
+Jump from <a href="ro41db02.htm">$DB2C</a>, <a href="ro41e207.htm">$E2AA</a>, <a href="ro41e44e.htm">$E454</a>:
+
+DDF1: 20 9E DF  JSR <a href="ro41df9e.htm">$DF9E</a>       ; get buffer number
+DDF4: 50 06     BVC $DDFC       ; no rel-file?
+DDF6: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+DDF9: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+
+Jump from $DDF4:
+
+DDFC: 60        RTS
+
+    <a href="ro41ddb7.htm">Previous Page</a> / <a href="ro41ddfd.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

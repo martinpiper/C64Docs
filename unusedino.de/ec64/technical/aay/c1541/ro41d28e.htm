@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $D28E/53902:   Find buffer
+
+Jump from <a href="ro41cf1e.htm">$CF29</a>, <a href="ro41cf1e.htm">$CF83</a>, <a href="ro41d00e.htm">$D019</a>, <a href="ro41d1e2.htm">$D20A</a>, <a href="ro41d1e2.htm">$D21E</a>, <a href="ro41dc46.htm">$DC79</a>, <a href="ro41dcda.htm">$DD0E</a>, <a href="ro41f0df.htm">$F0E7</a>:
+
+D28E: 98        TYA
+D28F: 48        PHA
+D290: A0 01     LDY #$01
+D292: 20 BA D2  JSR <a href="ro41d2ba.htm">$D2BA</a>
+D295: 10 0C     BPL $D2A3
+D297: 88        DEY
+D298: 20 BA D2  JSR <a href="ro41d2ba.htm">$D2BA</a>
+D29B: 10 06     BPL $D2A3
+D29D: 20 39 D3  JSR <a href="ro41d339.htm">$D339</a>
+D2A0: AA        TAX
+D2A1: 30 13     BMI $D2B6
+
+Jump from $D295, $D29B, $D2A5:
+
+D2A3: B5 00     LDA <a href="ra4100.htm">$00</a>,X
+D2A5: 30 FC     BMI $D2A3
+D2A7: A5 7F     LDA <a href="ra417f.htm">$7F</a>
+D2A9: 95 00     STA <a href="ra4100.htm">$00</a>,X
+D2AB: 9D 5B 02  STA <a href="ra41025b.htm">$025B</a>,X
+D2AE: 8A        TXA
+D2AF: 0A        ASL
+D2B0: A8        TAY
+D2B1: A9 02     LDA #$02
+D2B3: 99 99 00  STA <a href="ra4199.htm">$99</a>,Y
+
+Jump from $D2A1:
+
+D2B6: 68        PLA
+D2B7: A8        TAY
+D2B8: 8A        TXA
+D2B9: 60        RTS
+
+    <a href="ro41d25a.htm">Previous Page</a> / <a href="ro41d2ba.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

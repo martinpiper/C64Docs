@@ -1,0 +1,73 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AF48/44872:   Convert TI to ASCII String
+
+AF48: 20 84 AF  <a href="bjsr.htm">JSR</a> $AF84
+AF4B: 84 5E     <a href="bsty.htm">STY</a> <a href="zp5c.htm">$5E</a>       ; Temporary storage for FLPT value
+AF4D: 88        <a href="bdey.htm">DEY</a>
+AF4E: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+AF50: A0 06     <a href="bldy.htm">LDY</a> #$06
+AF52: 84 5D     <a href="bsty.htm">STY</a> <a href="zp5c.htm">$5D</a>       ; Temporary storage for FLPT value
+AF54: A0 24     <a href="bldy.htm">LDY</a> #$24
+AF56: 20 68 BE  <a href="bjsr.htm">JSR</a> <a href="rombe68.htm">$BE68</a>     ; Convert TI to String
+AF59: 4C 6F B4  <a href="bjmp.htm">JMP</a> <a href="romb465.htm">$B46F</a>     ; Evaluate &lt;str$&gt;
+
+Jump from <a href="romaf28.htm">$AF3E</a>, <a href="romaf28.htm">$AF42</a>, <a href="romaf28.htm">$AF46</a>:
+
+AF5C: 60        <a href="brts.htm">RTS</a>
+
+Jump from <a href="romaf28.htm">$AF35</a>:
+
+AF5D: 24 0E     <a href="bbit.htm">BIT</a> <a href="zp0e.htm">$0E</a>       ; Data type Flag
+AF5F: 10 0D     <a href="bbpl.htm">BPL</a> $AF6E
+AF61: A0 00     <a href="bldy.htm">LDY</a> #$00
+AF63: B1 64     <a href="blda.htm">LDA</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+AF65: AA        <a href="btax.htm">TAX</a>
+AF66: C8        <a href="biny.htm">INY</a>
+AF67: B1 64     <a href="blda.htm">LDA</a> (<a href="zp62.htm">$64</a>),Y   ; FAC Mantissa
+AF69: A8        <a href="btay.htm">TAY</a>
+AF6A: 8A        <a href="btxa.htm">TXA</a>
+AF6B: 4C 91 B3  <a href="bjmp.htm">JMP</a> <a href="romb391.htm">$B391</a>     ; Convert Integer in (AC/YR) to Flpt
+
+Jump from $AF5F:
+
+AF6E: 20 14 AF  <a href="bjsr.htm">JSR</a> <a href="romaf14.htm">$AF14</a>     ; Identify Reserved Variable
+AF71: 90 2D     <a href="bbcc.htm">BCC</a> $AFA0
+AF73: E0 54     <a href="bcpx.htm">CPX</a> #$54
+AF75: D0 1B     <a href="bbne.htm">BNE</a> $AF92
+AF77: C0 49     <a href="bcpy.htm">CPY</a> #$49
+AF79: D0 25     <a href="bbne.htm">BNE</a> $AFA0
+AF7B: 20 84 AF  <a href="bjsr.htm">JSR</a> $AF84
+AF7E: 98        <a href="btya.htm">TYA</a>
+AF7F: A2 A0     <a href="bldx.htm">LDX</a> #$A0
+AF81: 4C 4F BC  <a href="bjmp.htm">JMP</a> <a href="rombc39.htm">$BC4F</a>     ; Evaluate &lt;sgn&gt;
+
+Jump from $AF48, $AF7B:
+
+AF84: 20 DE FF  <a href="bjsr.htm">JSR</a> <a href="romffde.htm">$FFDE</a>     ; Read Real-Time Clock
+AF87: 86 64     <a href="bstx.htm">STX</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AF89: 84 63     <a href="bsty.htm">STY</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+AF8B: 85 65     <a href="bsta.htm">STA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AF8D: A0 00     <a href="bldy.htm">LDY</a> #$00
+AF8F: 84 62     <a href="bsty.htm">STY</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+AF91: 60        <a href="brts.htm">RTS</a>
+
+Jump from $AF75:
+
+AF92: E0 53     <a href="bcpx.htm">CPX</a> #$53
+AF94: D0 0A     <a href="bbne.htm">BNE</a> $AFA0
+AF96: C0 54     <a href="bcpy.htm">CPY</a> #$54
+AF98: D0 06     <a href="bbne.htm">BNE</a> $AFA0
+AF9A: 20 B7 FF  <a href="bjsr.htm">JSR</a> <a href="romffb7.htm">$FFB7</a>     ; Read I/O Status Word
+AF9D: 4C 3C BC  <a href="bjmp.htm">JMP</a> <a href="rombc39.htm">$BC3C</a>     ; Evaluate &lt;sgn&gt;
+
+Jump from $AF71, $AF79, $AF94, $AF98:
+
+AFA0: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AFA2: A4 65     <a href="bldy.htm">LDY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AFA4: 4C A2 BB  <a href="bjmp.htm">JMP</a> <a href="rombba2.htm">$BBA2</a>     ; Load FAC#1 From Memory
+
+    <a href="romaf28.htm">Previous Page</a> / <a href="romafa7.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

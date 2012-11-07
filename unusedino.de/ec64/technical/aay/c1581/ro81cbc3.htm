@@ -1,0 +1,17 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Drive LED ein-/ausschalten
+
+CBC3: AD 00 40  LDA <a href="cia810.htm">$4000</a>        b6=0: LED ausschalten
+CBC6: 29 BF     AND #$BF
+CBC8: 8D 00 40  STA <a href="cia810.htm">$4000</a>
+CBCB: 60        RTS
+
+CBCC: AD 00 40  LDA <a href="cia810.htm">$4000</a>        b6=1: LED einschalten
+CBCF: 09 40     ORA #$40
+CBD1: 8D 00 40  STA <a href="cia810.htm">$4000</a>
+CBD4: 60        RTS
+    <a href="ro81cbb1.htm">Previous Page</a> / <a href="ro81cbd5.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,57 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F011/61457:   ?
+
+Jump from <a href="ro41efcf.htm">$EFCF</a>, <a href="ro41f11e.htm">$F130</a>, <a href="ro41f1a9.htm">$F1C4</a>, <a href="ro41f1a9.htm">$F1DF</a>, <a href="ro41f1fa.htm">$F1FA</a>:
+
+F011: A5 6F     LDA <a href="ra416f.htm">$6F</a>
+F013: 48        PHA
+F014: A5 70     LDA <a href="ra416f.htm">$70</a>
+F016: 48        PHA
+F017: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+F019: B5 FF     LDA <a href="ra41ff.htm">$FF</a>,X
+F01B: F0 05     BEQ $F022       ; drive zero?
+F01D: A9 74     LDA #$74
+F01F: 20 48 E6  JSR <a href="ro41e645.htm">$E648</a>       ; 'drive not ready'
+
+Jump from $F01B:
+
+F022: 20 0F F1  JSR <a href="ro41f10f.htm">$F10F</a>       ; get buffer number for BAM
+F025: 85 6F     STA <a href="ra416f.htm">$6F</a>
+F027: 8A        TXA
+F028: 0A        ASL
+F029: 85 70     STA <a href="ra416f.htm">$70</a>
+F02B: AA        TAX
+F02C: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+F02E: DD 9D 02  CMP <a href="ra41029d.htm">$029D</a>,X
+F031: F0 0B     BEQ $F03E
+F033: E8        INX
+F034: 86 70     STX <a href="ra416f.htm">$70</a>
+F036: DD 9D 02  CMP <a href="ra41029d.htm">$029D</a>,X
+F039: F0 03     BEQ $F03E
+F03B: 20 5B F0  JSR <a href="ro41f05b.htm">$F05B</a>
+
+Jump from $F031, $F039:
+
+F03E: A5 70     LDA <a href="ra416f.htm">$70</a>
+F040: A6 7F     LDX <a href="ra417f.htm">$7F</a>         ; drive number
+F042: 9D 9B 02  STA <a href="ra41029b.htm">$029B</a>,X
+F045: 0A        ASL
+F046: 0A        ASL             ; times 4
+F047: 18        CLC
+F048: 69 A1     ADC #$A1
+F04A: 85 6D     STA <a href="ra416d.htm">$6D</a>
+F04C: A9 02     LDA #$02
+F04E: 69 00     ADC #$00
+F050: 85 6E     STA <a href="ra416d.htm">$6E</a>
+F052: A0 00     LDY #$00
+F054: 68        PLA
+F055: 85 70     STA <a href="ra416f.htm">$70</a>
+F057: 68        PLA
+F058: 85 6F     STA <a href="ra416f.htm">$6F</a>
+F05A: 60        RTS
+
+    <a href="ro41f005.htm">Previous Page</a> / <a href="ro41f05b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

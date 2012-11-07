@@ -1,0 +1,36 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BAB7/47799:   Test Both Accumulators
+
+Jump from <a href="romba28.htm">$BA30</a>, <a href="rombb0f.htm">$BB1E</a>:
+
+BAB7: A5 69     <a href="blda.htm">LDA</a> <a href="zp69.htm">$69</a>       ; AFAC Exponent
+
+Jump from <a href="rome000.htm">$E03F</a>:
+
+BAB9: F0 1F     <a href="bbeq.htm">BEQ</a> <a href="rombad4.htm">$BADA</a>     ; Overflow / Underflow
+BABB: 18        <a href="bclc.htm">CLC</a>
+BABC: 65 61     <a href="badc.htm">ADC</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BABE: 90 04     <a href="bbcc.htm">BCC</a> $BAC4
+BAC0: 30 1D     <a href="bbmi.htm">BMI</a> <a href="rombad4.htm">$BADF</a>     ; Overflow / Underflow
+BAC2: 18        <a href="bclc.htm">CLC</a>
+BAC3: 2C        .BYTE $2C
+
+Jump from $BABE:
+
+BAC4: 10 14     <a href="bbpl.htm">BPL</a> <a href="rombad4.htm">$BADA</a>     ; Overflow / Underflow
+BAC6: 69 80     <a href="badc.htm">ADC</a> #$80
+BAC8: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BACA: D0 03     <a href="bbne.htm">BNE</a> $BACF
+BACC: 4C FB B8  <a href="bjmp.htm">JMP</a> <a href="romb867.htm">$B8FB</a>     ; Perform Addition
+
+Jump from $BACA:
+
+BACF: A5 6F     <a href="blda.htm">LDA</a> <a href="zp6f.htm">$6F</a>       ; Sign of result of Arithmetic Evaluation
+BAD1: 85 66     <a href="bsta.htm">STA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BAD3: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romba8c.htm">Previous Page</a> / <a href="rombad4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

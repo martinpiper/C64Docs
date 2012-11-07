@@ -1,0 +1,46 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A533/42291:   Rechain Lines
+
+Jump from <a href="roma4a2.htm">$A4F0</a>, <a href="roma4a2.htm">$A52D</a>, <a href="rome165.htm">$E1B8</a>:
+
+A533: A5 2B     <a href="blda.htm">LDA</a> <a href="zp2b.htm">$2B</a>       ; Pointer: Start of BASIC Text Area
+A535: A4 2C     <a href="bldy.htm">LDY</a> <a href="zp2b.htm">$2C</a>       ; Pointer: Start of BASIC Text Area
+A537: 85 22     <a href="bsta.htm">STA</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A539: 84 23     <a href="bsty.htm">STY</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A53B: 18        <a href="bclc.htm">CLC</a>
+
+Jump from $A55D:
+
+A53C: A0 01     <a href="bldy.htm">LDY</a> #$01
+A53E: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A540: F0 1D     <a href="bbeq.htm">BEQ</a> $A55F
+A542: A0 04     <a href="bldy.htm">LDY</a> #$04
+
+Jump from $A547:
+
+A544: C8        <a href="biny.htm">INY</a>
+A545: B1 22     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A547: D0 FB     <a href="bbne.htm">BNE</a> $A544
+A549: C8        <a href="biny.htm">INY</a>
+A54A: 98        <a href="btya.htm">TYA</a>
+A54B: 65 22     <a href="badc.htm">ADC</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A54D: AA        <a href="btax.htm">TAX</a>
+A54E: A0 00     <a href="bldy.htm">LDY</a> #$00
+A550: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A552: A5 23     <a href="blda.htm">LDA</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A554: 69 00     <a href="badc.htm">ADC</a> #$00
+A556: C8        <a href="biny.htm">INY</a>
+A557: 91 22     <a href="bsta.htm">STA</a> (<a href="zp22.htm">$22</a>),Y   ; Second Utility Pointer
+A559: 86 22     <a href="bstx.htm">STX</a> <a href="zp22.htm">$22</a>       ; Second Utility Pointer
+A55B: 85 23     <a href="bsta.htm">STA</a> <a href="zp22.htm">$23</a>       ; Second Utility Pointer
+A55D: 90 DD     <a href="bbcc.htm">BCC</a> $A53C
+
+Jump from $A540:
+
+A55F: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma4a2.htm">Previous Page</a> / <a href="roma560.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

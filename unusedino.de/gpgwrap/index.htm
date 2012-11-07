@@ -1,0 +1,211 @@
+<html>
+
+<head>
+<title>gpgwrap</title>
+</head>
+
+<body bgcolor="#c8c8d8" text="#000000" link="#4040ff" alink="#ffffff" vlink="#000000">
+<table border="0" cellspacing="0" cellpadding="0" height="100%" width="100%"><tr height="99%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br><h1 align="right">gpgwrap</h1>
+<hr size="1" noshade style="color:#000000;">
+&nbsp;<br>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" width="18%">
+
+<table bgcolor="#000000" border="0" cellspacing="0" cellpadding="0" width="100%"><tr><td><table border="0" cellspacing="1" cellpadding="3" width="100%">
+<tr bgcolor="#a0a0c8"><td align="center" width="100%"><b>.....&nbsp;download&nbsp;.....</b></td></tr>
+<tr bgcolor="#c8c8d8"><td align="center" width="100%">
+&nbsp;<br>
+<a href="http://www.unusedino.de/gpgwrap/download/gpgwrap-latest.tar.gz">gpgwrap-0.04-20060904.tar.gz</a><br>
+<a href="http://www.unusedino.de/gpgwrap/download/gpgwrap-0.03-20050321.tar.gz">gpgwrap-0.03-20050321.tar.gz</a><br>
+<a href="http://www.unusedino.de/gpgwrap/download/gpgwrap-0.02-20041014.tar.gz">gpgwrap-0.02-20041014.tar.gz</a><br>
+<a href="http://www.unusedino.de/gpgwrap/download/gpgwrap-0.01-20040601.tar.gz">gpgwrap-0.01-20040601.tar.gz</a><br>
+&nbsp;<br>
+</td></tr>
+<tr bgcolor="#a0a0c8"><td align="center" width="100%"><b>.....&nbsp;links&nbsp;.....</b></td></tr>
+<tr bgcolor="#c8c8d8"><td align="center" width="100%">
+&nbsp;<br>
+<a href="http://www.gnupg.org/">GnuPG&nbsp;Homepage</a><br>
+<a href="http://www.fefe.de/dietlibc/">dietlibc&nbsp;Homepage</a><br>
+&nbsp;<br>
+</td></tr></table></td></tr></table>
+
+</td><td width="2%">&nbsp;</td><td valign="top" width="80%">
+
+<h3>NAME</h3>
+gpgwrap - a small wrapper for gpg
+<h3>SYNOPSIS</h3>
+<p align="justify"><p align="justify"><tt><b>gpgwrap</b> -V</tt></p><p align="justify"><tt><b>gpgwrap</b> -P [-v] [-i] [-a] [-p <i>&lt;file&gt;</i>]</tt></p><p align="justify"><tt><b>gpgwrap</b> -F [-v] [-i] [-a] [-c] [-p <i>&lt;file&gt;</i>] [-o <i>&lt;name&gt;</i>] [--] <i>&lt;file&gt;</i> [<i>&lt;file&gt;</i> ... ]</tt></p><p align="justify"><tt><b>gpgwrap</b> [-v] [-i] [-a] [-p <i>&lt;file&gt;</i>] [-o <i>&lt;name&gt;</i>] [--] <b>gpg</b> [gpg options]</tt></p></p>
+<h3>DESCRIPTION</h3>
+<p align="justify"><p align="justify">The GNU Privacy Guard (<b>gpg</b>) supplies the option <tt>--passphrase-fd</tt>. This instructs <b>gpg</b> to read the passphrase from the given file descriptor. Usually this file descriptor is opened before <b>gpg</b> is executed via <b>execvp(3)</b>. Exactly that is what <b>gpgwrap</b> is doing. The passphrase may be passed to <b>gpgwrap</b> in 4 ways:
+<ul>
+<li>as file path, whereat the passphrase is stored as plain text in the file</li>
+<li>it is piped from another program to the stdin of <b>gpgwrap</b></li>
+<li>through the <tt><b>GPGWRAP_PASSPHRASE</b></tt> environment variable</li>
+<li><b>gpgwrap</b> prompts for it</li>
+</ul>
+</p><p align="justify">With no precautions the first point undermines the secure infrastructure <b>gpg</b> provides. But in pure batch oriented environments this may be what you want. Otherwise if you are willing to enter passphrases once and don't want them to be stored as plain text in a file <b>gpg-agent</b> is what you are looking for. Another security objection could be the use of the environment variable <tt><b>GPGWRAP_PASSPHRASE</b></tt> which contains the passphrase and may be read by other processes of the same user.</p></p>
+<h3>OPTIONS</h3>
+<dl>
+<dt><tt>-V, --version</tt></dt>
+<dd><p align="justify">Print out version and exit.</p></dd>
+<dt><tt>-P, --print</tt></dt>
+<dd><p align="justify">Get the passphrase and print it mangled to stdout.</p></dd>
+<dt><tt>-F, --file</tt></dt>
+<dd><p align="justify">Read <b>gpg</b> commands from the given files. If <i>&lt;file&gt;</i> is <tt>-</tt> it is read from stdin. Exactly one command per line is expected. The given line is handled in the following way:
+<ul>
+<li>In the first place the passphrase is mangled. This means that unusual characters are replaced by their backslash escaped octal numbers.</li>
+<li>Secondly the mangled passphrase is stored in the environment variable <tt><b>GPGWRAP_PASSPHRASE</b></tt>.</li>
+<li>&quot;<tt>exec gpgwrap -- </tt>&quot; is prepended to each line, before the result is passed as argument to &quot;<tt>sh -c</tt>&quot;.</li>
+</ul>
+</p></dd>
+<dt><tt>-h, --help</tt></dt>
+<dd><p align="justify">Print out usage information.</p></dd>
+<dt><tt>-v, --verbose</tt></dt>
+<dd><p align="justify">Increase verbosity level.</p></dd>
+<dt><tt>-i, --interactive</tt></dt>
+<dd><p align="justify">Always prompt for passphrase (ignores <tt>-p</tt> and the environment variable).</p></dd>
+<dt><tt>-a, --ask-twice</tt></dt>
+<dd><p align="justify">Ask twice if prompting for a passphrase.</p></dd>
+<dt><tt>-c, --check-exit-code</tt></dt>
+<dd><p align="justify">While reading gpg commands from a file, <b>gpgwrap</b> ignores per default the exit code of its child processes. This option enables the check of the exit code. If a child terminates abnormal or with an exit code not equal 0 <b>gpgwrap</b> stops immediately and does return with this exit code. See also section <b>BUGS</b>.</p></dd>
+<dt><tt>-p <i>&lt;file&gt;</i>, --passphrase-file <i>&lt;file&gt;</i></tt></dt>
+<dd><p align="justify">Read passphrase from <i>&lt;file&gt;</i>. If <i>&lt;file&gt;</i> is <tt>-</tt> it is read from stdin. The passphrase is expected to be in plain text. If this option is not given the passphrase will be taken either from the environment variable <tt><b>GPGWRAP_PASSPHRASE</b></tt> or it will be prompted on the controlling tty if the environment variable is not set.</p></dd>
+<dt><tt>-o <i>&lt;name&gt;</i>, --option-name <i>&lt;name&gt;</i></tt></dt>
+<dd><p align="justify">Specify the name of the &quot;<tt>--passphrase-fd</tt>&quot; option understood by the program to be executed. This is useful if you want to use <b>gpgwrap</b> in combination with other programs than <b>gpg</b>.</p></dd>
+</dl>
+<h3>LIMITATIONS</h3>
+<p align="justify">The given passphrase is subject to several limitations depending on the way it was passed to <b>gpgwrap</b>:
+<ul>
+<li>There is a size limitation: the passphrase should be not larger than some kilobytes (examine the source code for the exact limit).</li>
+<li><b>gpgwrap</b> allows you to use all characters in a passphrase even \000, but this does not mean that <b>gpg</b> will accept it. <b>gpg</b> may reject your passphrase or may only read a part of it, if it contains characters like \012 (in C also known as \n).</li>
+<li>If you set the environment variable <tt><b>GPGWRAP_PASSPHRASE</b></tt> you should take special care with the backslash character, because <b>gpgwrap</b> uses backslash to escape octal numbers, (see option <tt>-F</tt>). Therefore write backslash itself as octal number: \134.</li>
+</ul>
+</p>
+<h3>EXAMPLES</h3>
+<dl>
+<dt>1.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gpgwrap</b>&nbsp;-p&nbsp;/path/to/a/secret/file&nbsp;&nbsp;\</tt><br>
+<tt><b>gpg</b>&nbsp;-c&nbsp;-z&nbsp;0&nbsp;--batch&nbsp;--no-tty&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;--cipher-algo&nbsp;blowfish&nbsp;&lt;&nbsp;infile&nbsp;&gt;&nbsp;outfile</tt><br>
+&nbsp;<br>
+<p align="justify">Read passphrase from <tt>/path/to/a/secret/file</tt> and execute <b>gpg</b> to do symmetric encryption of infile and write it to outfile.</p></p></dd>
+<dt>2.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gpgwrap</b>&nbsp;-i&nbsp;-a&nbsp;&nbsp;\</tt><br>
+<tt><b>gpg</b>&nbsp;-c&nbsp;-z&nbsp;0&nbsp;--batch&nbsp;--no-tty&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;--cipher-algo&nbsp;blowfish&nbsp;&lt;&nbsp;infile&nbsp;&gt;&nbsp;outfile</tt><br>
+&nbsp;<br>
+<p align="justify">Same as above except that <b>gpgwrap</b> prompts twice for the passphrase.</p></p></dd>
+<dt>3.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gpgwrap</b>&nbsp;-F&nbsp;-i&nbsp;-&nbsp;&lt;&lt;EOL</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile1&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile1&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile2&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile2&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile3&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile3&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile4&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile4&quot;</tt><br>
+<tt>EOL</tt><br>
+&nbsp;<br>
+<p align="justify"><b>gpgwrap</b> prompts for the passphrase and executes four instances of <b>gpg</b> to decrypt the given files.</p></p></dd>
+<dt>4.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>GPGWRAP_PASSPHRASE</b>=&quot;mysecretpassphrase&quot;</tt><br>
+<tt>export&nbsp;<b>GPGWRAP_PASSPHRASE</b></tt><br>
+<tt><b>gpgwrap</b>&nbsp;-F&nbsp;-c&nbsp;-v&nbsp;/tmp/cmdfile1&nbsp;-&nbsp;/tmp/cmdfile2&nbsp;&lt;&lt;EOL</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile1&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile1&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile2&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile2&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile3&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile3&quot;</tt><br>
+<tt><b>gpg</b>&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;&lt;&nbsp;&quot;$HOME/infile4&quot;&nbsp;&gt;&nbsp;&quot;$HOME/outfile4&quot;</tt><br>
+<tt>EOL</tt><br>
+&nbsp;<br>
+<p align="justify">Same as above except that <b>gpgwrap</b> gets the passphrase via the environment variable, reads commands additionally from other files and checks the exit code of every <b>gpg</b> instance. This means if one <b>gpg</b> command has a non zero exit code, no further commands are executed. Furthermore <b>gpgwrap</b> produces verbose output.</p></p></dd>
+<dt>5.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>GPGWRAP_PASSPHRASE</b>=&quot;$(<b>gpgwrap</b>&nbsp;-P&nbsp;-i&nbsp;-a)&quot;</tt><br>
+<tt>export&nbsp;<b>GPGWRAP_PASSPHRASE</b></tt><br>
+<tt>&nbsp;</tt><br>
+<tt><b>find</b>&nbsp;.&nbsp;-maxdepth&nbsp;1&nbsp;-type&nbsp;f&nbsp;|</tt><br>
+<tt>while&nbsp;read&nbsp;FILE;&nbsp;do</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;FILE2=&quot;$FILE.bz2.gpg&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;<b>bzip2</b>&nbsp;-c&nbsp;&quot;$FILE&quot;&nbsp;|</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;<b>gpgwrap</b>&nbsp;<b>gpg</b>&nbsp;-c&nbsp;-z&nbsp;0&nbsp;--batch&nbsp;--no-tty&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--cipher-algo&nbsp;blowfish&nbsp;&gt;&nbsp;&quot;$FILE2&quot;&nbsp;&amp;&amp;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;<b>touch</b>&nbsp;-r&nbsp;&quot;$FILE&quot;&nbsp;&quot;$FILE2&quot;&nbsp;&amp;&amp;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;<b>rm</b>&nbsp;-f&nbsp;&quot;$FILE&quot;</tt><br>
+<tt>done</tt><br>
+&nbsp;<br>
+<p align="justify">Read in passphrase, compress all files in the current directory, encrypt them and keep date from original file.</p></p></dd>
+<dt>6.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>find</b>&nbsp;.&nbsp;-maxdepth&nbsp;1&nbsp;-type&nbsp;f&nbsp;-name&nbsp;'*.bz2.gpg'&nbsp;|</tt><br>
+<tt><b>awk</b>&nbsp;'{</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;gpg&nbsp;--decrypt&nbsp;--batch&nbsp;--no-tty&nbsp;--quiet&nbsp;&quot;);</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;--no-secmem-warning&nbsp;&lt;&nbsp;%s\n&quot;,&nbsp;$0);</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;}'&nbsp;|</tt><br>
+<tt><b>gpgwrap</b>&nbsp;-F&nbsp;-i&nbsp;-c&nbsp;-&nbsp;|</tt><br>
+<tt><b>bzip2</b>&nbsp;-d&nbsp;-c&nbsp;-&nbsp;|</tt><br>
+<tt><b>grep</b>&nbsp;-i&nbsp;'data'</tt><br>
+&nbsp;<br>
+<p align="justify">Decrypt all <tt>*.bz2.gpg</tt> files in the current directory, decompress them and print out all occurances of <tt>data</tt>. If you pipe the result to <b>less</b> you get into trouble because <b>gpgwrap</b> and <b>less</b> try to read from the TTY at the same time. In such a case it is better to use the environment variable to give the passphrase (the example above shows how to do this).</p></p></dd>
+<dt>7.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>GPGWRAP_PASSPHRASE</b>=&quot;$(<b>gpgwrap</b>&nbsp;-P&nbsp;-i&nbsp;-a)&quot;</tt><br>
+<tt>export&nbsp;<b>GPGWRAP_PASSPHRASE</b></tt><br>
+<tt>&nbsp;</tt><br>
+<tt><b>gpgwrap</b>&nbsp;-P&nbsp;|</tt><br>
+<tt><b>ssh</b>&nbsp;-C&nbsp;-x&nbsp;-P&nbsp;-l&nbsp;user&nbsp;host&nbsp;&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;<b>GPGWRAP_PASSPHRASE</b>=\&quot;\$(<b>cat</b>)\&quot;</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;...</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&quot;</tt><br>
+&nbsp;<br>
+<p align="justify">Prompt for a passphrase twice and write it to the <b>GPGWRAP_PASSPHRASE</b> environment variable.</p></p></dd>
+<dt>8.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>echo</b>&nbsp;-n&nbsp;&quot;Passphrase:&nbsp;&quot;</tt><br>
+<tt><b>stty</b>&nbsp;-echo</tt><br>
+<tt>read&nbsp;<b>GPGWRAP_PASSPHRASE</b></tt><br>
+<tt><b>echo</b></tt><br>
+<tt><b>stty</b>&nbsp;echo</tt><br>
+<tt>export&nbsp;<b>GPGWRAP_PASSPHRASE</b></tt><br>
+&nbsp;<br>
+<p align="justify">Another way to prompt manually for the passphrase. It was needed in combination with older versions of <b>gpgwrap</b>, because they did not upport <tt>-P</tt>. Be aware that with this method no automatic conversion to backslash escaped octal numbers takes place.</p></p></dd>
+<dt>9.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>echo</b>&nbsp;&quot;mysecretpassphrase&quot;&nbsp;|</tt><br>
+<tt><b>gpg</b>&nbsp;--batch&nbsp;--no-tty&nbsp;--passphrase-fd&nbsp;0&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;--output&nbsp;outfile&nbsp;--decrypt&nbsp;infile</tt><br>
+&nbsp;<br>
+<p align="justify">Cheap method to give passphrase to <b>gpg</b> without <b>gpgwrap</b>. Note that you can't use stdin to pass a file to <b>gpg</b>, because stdin is already used for the passphrase.</p></p></dd>
+<dt>10.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gpg</b>&nbsp;--batch&nbsp;--no-tty&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;--passphrase-fd&nbsp;3&nbsp;3&lt;&nbsp;/path/to/a/secret/file&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&lt;&nbsp;infile&nbsp;&gt;&nbsp;outfile</tt><br>
+&nbsp;<br>
+<p align="justify">This is a more advanced method to give the passphrase, it is equivalent to Option <tt>-p</tt> of <b>gpgwrap</b>. This example should at least work with the bash.</p></p></dd>
+<dt>11.</dt>
+<dd><p align="justify"><tt>&nbsp;</tt><br>
+<tt><b>gpg</b>&nbsp;--batch&nbsp;--no-tty&nbsp;--passphrase-fd&nbsp;3&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;3&lt;&nbsp;&lt;(echo&nbsp;&quot;mysecretpassphrase&quot;)&nbsp;&nbsp;\</tt><br>
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;&lt;&nbsp;infile&nbsp;&gt;&nbsp;outfile</tt><br>
+&nbsp;<br>
+<p align="justify">Like above, but the passphrase is given directly. This example should at least work with the bash.</p></p></dd>
+</dl>
+<h3>BUGS</h3>
+<p align="justify"><p align="justify">In version 0.02 of <b>gpgwrap</b> the exit code of <b>gpg</b> was only returned if <b>gpgwrap</b> read the passphrase from a file. Since version 0.03, only <tt>-F</tt> omits exit code checking by default, but it can be enabled with <tt>-c</tt>.</p></p>
+<h3>SEE ALSO</h3>
+<p align="justify"><b>gpg</b>, <b>gpg-agent</b></p>
+<h3>AUTHOR</h3>
+<p align="justify">Karsten Scheibler</p>
+
+</td></tr></table>
+
+</td><td width="3%">&nbsp;</td></tr>
+<tr height="1%"><td width="3%">&nbsp;</td><td valign="top" width="94%">
+&nbsp;<br>
+<p align="center"><font size="1">&lt;&nbsp;Karsten&nbsp;Scheibler&nbsp;|&nbsp;2006-SEP-04&nbsp;&gt;</font></p>
+</td><td width="3%">&nbsp;</td></tr></table>
+</body>
+
+</html>

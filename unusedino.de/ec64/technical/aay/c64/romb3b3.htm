@@ -1,0 +1,30 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B3B3/46003:   Perform [def fn]
+
+B3B3: 20 E1 B3  <a href="bjsr.htm">JSR</a> <a href="romb3e1.htm">$B3E1</a>     ; Check Syntax of FN
+B3B6: 20 A6 B3  <a href="bjsr.htm">JSR</a> <a href="romb3a6.htm">$B3A6</a>     ; Confirm Program Mode
+B3B9: 20 FA AE  <a href="bjsr.htm">JSR</a> <a href="romaefa.htm">$AEFA</a>     ; Test '('
+B3BC: A9 80     <a href="blda.htm">LDA</a> #$80
+B3BE: 85 10     <a href="bsta.htm">STA</a> <a href="zp10.htm">$10</a>       ; Flag: Subscript reference/User Function call
+B3C0: 20 8B B0  <a href="bjsr.htm">JSR</a> <a href="romb08b.htm">$B08B</a>     ; Identify Variable
+B3C3: 20 8D AD  <a href="bjsr.htm">JSR</a> <a href="romad8a.htm">$AD8D</a>     ; Confirm Result
+B3C6: 20 F7 AE  <a href="bjsr.htm">JSR</a> <a href="romaef7.htm">$AEF7</a>     ; Test ')'
+B3C9: A9 B2     <a href="blda.htm">LDA</a> #$B2
+B3CB: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+B3CE: 48        <a href="bpha.htm">PHA</a>
+B3CF: A5 48     <a href="blda.htm">LDA</a> <a href="zp47.htm">$48</a>       ; Value/Descriptor-Pointer
+B3D1: 48        <a href="bpha.htm">PHA</a>
+B3D2: A5 47     <a href="blda.htm">LDA</a> <a href="zp47.htm">$47</a>       ; Value/Descriptor-Pointer
+B3D4: 48        <a href="bpha.htm">PHA</a>
+B3D5: A5 7B     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+B3D7: 48        <a href="bpha.htm">PHA</a>
+B3D8: A5 7A     <a href="blda.htm">LDA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+B3DA: 48        <a href="bpha.htm">PHA</a>
+B3DB: 20 F8 A8  <a href="bjsr.htm">JSR</a> <a href="roma8f8.htm">$A8F8</a>     ; Perform [data]
+B3DE: 4C 4F B4  <a href="bjmp.htm">JMP</a> <a href="romb3f4.htm">$B44F</a>     ; Perform [fn]
+
+    <a href="romb3ae.htm">Previous Page</a> / <a href="romb3e1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

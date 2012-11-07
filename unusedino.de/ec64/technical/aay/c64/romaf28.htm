@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AF28/44840:   Search for Variable
+
+Jump from <a href="romae83.htm">$AE97</a>:
+
+AF28: 20 8B B0  <a href="bjsr.htm">JSR</a> <a href="romb08b.htm">$B08B</a>     ; Identify Variable
+AF2B: 85 64     <a href="bsta.htm">STA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AF2D: 84 65     <a href="bsty.htm">STY</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AF2F: A6 45     <a href="bldx.htm">LDX</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+AF31: A4 46     <a href="bldy.htm">LDY</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+AF33: A5 0D     <a href="blda.htm">LDA</a> <a href="zp0d.htm">$0D</a>       ; Data type Flag
+AF35: F0 26     <a href="bbeq.htm">BEQ</a> <a href="romaf48.htm">$AF5D</a>     ; Convert TI to ASCII String
+AF37: A9 00     <a href="blda.htm">LDA</a> #$00
+AF39: 85 70     <a href="bsta.htm">STA</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+AF3B: 20 14 AF  <a href="bjsr.htm">JSR</a> <a href="romaf14.htm">$AF14</a>     ; Identify Reserved Variable
+AF3E: 90 1C     <a href="bbcc.htm">BCC</a> <a href="romaf48.htm">$AF5C</a>     ; Convert TI to ASCII String
+AF40: E0 54     <a href="bcpx.htm">CPX</a> #$54
+AF42: D0 18     <a href="bbne.htm">BNE</a> <a href="romaf48.htm">$AF5C</a>     ; Convert TI to ASCII String
+AF44: C0 C9     <a href="bcpy.htm">CPY</a> #$C9
+AF46: D0 14     <a href="bbne.htm">BNE</a> <a href="romaf48.htm">$AF5C</a>     ; Convert TI to ASCII String
+
+    <a href="romaf14.htm">Previous Page</a> / <a href="romaf48.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,88 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+benoetigte Datenbloecke  ggf. einlesen ($e29c)
+
+Einsprung von <a href="ro81a20d.htm">$A20D</a>, <a href="ro81a438.htm">$A43B</a>:
+
+A235: A5 64     LDA <a href="ra8164.htm">$64</a>          Zeiger auf Side-Sektor-Eintrag merken
+A237: 85 58     STA <a href="ra8158.htm">$58</a>
+A239: A5 65     LDA <a href="ra8164.htm">$65</a>
+A23B: 85 59     STA <a href="ra8159.htm">$59</a>
+A23D: 20 73 A2  JSR $A273        befindet sich der richtige Block im Puffer?
+A240: F0 22     BEQ $A264        ja, ==&gt;
+A242: 20 2E 9D  JSR <a href="ro819d2e.htm">$9D2E</a>        Puffer ggf. schreiben
+A245: 20 49 9D  JSR <a href="ro819d49.htm">$9D49</a>        T&amp;S des Folgeblocks holen
+A248: A5 4D     LDA <a href="ra814d.htm">$4D</a>          existiert Folgeblock ?
+A24A: F0 19     BEQ $A265        nein, ==&gt;
+
+[Der naechste Absatz war bei der 1541 fehlerhaft ($e2b4-$e2bf)
+ und fuehrte zu dem Fehlverhalten des 'P'-Befehls]
+
+A24C: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+A24F: 20 73 A2  JSR $A273        enthaelt er den richtigen Block ?
+A252: D0 11     BNE $A265        nein, ==&gt;
+A254: 20 49 9D  JSR <a href="ro819d49.htm">$9D49</a>        T&amp;S des Folgeblocks holen
+A257: A5 4D     LDA <a href="ra814d.htm">$4D</a>          existiert Folgeblock ?
+A259: F0 09     BEQ $A264        nein, ==&gt;
+A25B: 20 7D 8D  JSR <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+A25E: 20 94 9D  JSR <a href="ro819d8e.htm">$9D94</a>        Folgeblock einlesen
+A261: 4C 7D 8D  JMP <a href="ro818d7d.htm">$8D7D</a>        Puffer wechseln
+
+Einsprung von $A240, $A259:
+
+A264: 60        RTS
+
+Einsprung von $A24A, $A252:
+
+A265: A0 00     LDY #$00         T&amp;S des gesuchten Datenblocks dem
+A267: B1 58     LDA (<a href="ra8158.htm">$58</a>),Y      Side-Sektor entnehmen
+A269: 85 4D     STA <a href="ra814d.htm">$4D</a>
+A26B: C8        INY
+A26C: B1 58     LDA (<a href="ra8158.htm">$58</a>),Y
+A26E: 85 4E     STA <a href="ra814e.htm">$4E</a>
+A270: 4C EA 8F  JMP <a href="ro818fea.htm">$8FEA</a>        Block und ggf. Folgeblock lesen
+
+Prueft, ob der richtige Daten-Block im Puffer ist
+
+Einsprung von $A23D, $A24F:
+
+A273: 20 7C 9D  JSR <a href="ro819d79.htm">$9D7C</a>        T&amp;S des aktiven Puffers holen
+A276: A0 00     LDY #$00
+A278: B1 58     LDA (<a href="ra8158.htm">$58</a>),Y      T&amp;S im Side-Sektor mit
+A27A: C5 4D     CMP <a href="ra814d.htm">$4D</a>          T&amp;S des Datenblocks vergleichen
+A27C: F0 01     BEQ $A27F        Track gleich, ==&gt;
+A27E: 60        RTS
+
+Einsprung von $A27C:
+
+A27F: C8        INY
+A280: B1 58     LDA (<a href="ra8158.htm">$58</a>),Y
+A282: C5 4E     CMP <a href="ra814e.htm">$4E</a>          Sektor gleich ?
+A284: D0 11     BNE $A297        nein, ==&gt;
+
+A286: AD 01 01  LDA <a href="ra810101.htm">$0101</a>        Fehler im 1541-ROM behoben:
+A289: 29 10     AND #$10         Ist das Flag '2. Teil des Records geladen'
+A28B: F0 0A     BEQ $A297        gesetzt ? nein, ==&gt;
+
+[Ja: In diesem Fall stimmen zwar T&amp;S des aktiven Datenpuffers, es befindet
+ sich aber unter Umstaenden nicht der Folgeblock im anderen Puffer, sondern
+ der vorhergegende (Wenn z.B. der Vorgaenger-Block abgespeichert werden muss,
+ kann die 2-Puffer-Automatik den uebernaechsten Block nicht schon im Voraus
+ lesen).
+ Dies merkt die Routine, die das letzte benutzte Zeichen im Record sucht
+ (s. $a0fd), nicht und sucht bei der 1541 im falschen Block. Bei der 1581
+ werden deshalb vorsichtshalber beide Blocks neu geladen, wenn der letzte
+ Record beim Lesen/Schreiben einen Pufferwechsel noetig gemacht hat.]
+
+A28D: AD 01 01  LDA <a href="ra810101.htm">$0101</a>        Flag '2. Teil des Records geladen'
+A290: 29 EF     AND #$EF         loeschen
+A292: 8D 01 01  STA <a href="ra810101.htm">$0101</a>
+A295: 49 10     EOR #$10         z-Flag loeschen (= falscher Block im Puffer)
+
+Einsprung von $A284, $A28B:
+
+A297: 60        RTS
+    <a href="ro81a20d.htm">Previous Page</a> / <a href="ro81a298.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

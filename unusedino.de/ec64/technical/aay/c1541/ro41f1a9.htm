@@ -1,0 +1,63 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F1A9/61865:   Find free sector and allocate
+
+Jump from <a href="ro41dcda.htm">$DCDA</a>:
+
+F1A9: A9 01     LDA #$01
+F1AB: 0D F9 02  ORA <a href="ra4102f9.htm">$02F9</a>
+F1AE: 8D F9 02  STA <a href="ra4102f9.htm">$02F9</a>
+F1B1: A5 86     LDA <a href="ra4186.htm">$86</a>
+F1B3: 48        PHA
+F1B4: A9 01     LDA #$01        ; track counter
+F1B6: 85 86     STA <a href="ra4186.htm">$86</a>
+
+Jump from $F1E4:
+
+F1B8: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+F1BB: 38        SEC
+F1BC: E5 86     SBC <a href="ra4186.htm">$86</a>         ; minus counter
+F1BE: 85 80     STA <a href="ra4180.htm">$80</a>         ; save as track number
+F1C0: 90 09     BCC $F1CB       ; result &lt;= zero?
+F1C2: F0 07     BEQ $F1CB       ; then try top half of directory
+F1C4: 20 11 F0  JSR <a href="ro41f011.htm">$F011</a>       ; find BAM field for this track
+F1C7: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y     ; number of free blocks in this track
+F1C9: D0 1B     BNE $F1E6       ; free blocks exist
+
+Jump from $F1C0, $F1C2:
+
+F1CB: AD 85 FE  LDA <a href="ro41fe85.htm">$FE85</a>       ; 18, directory track
+F1CE: 18        CLC
+F1CF: 65 86     ADC <a href="ra4186.htm">$86</a>         ; plus counter
+F1D1: 85 80     STA <a href="ra4180.htm">$80</a>         ; save as track number
+F1D3: E6 86     INC <a href="ra4186.htm">$86</a>         ; increment counter
+F1D5: CD D7 FE  CMP <a href="ro41fed7.htm">$FED7</a>       ; 36, max track number plus one
+F1D8: 90 05     BCC $F1DF       ; smaller, then ok
+F1DA: A9 67     LDA #$67
+F1DC: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 67, 'illegal track or sector'
+
+Jump from $F1D8:
+
+F1DF: 20 11 F0  JSR <a href="ro41f011.htm">$F011</a>       ; find BAM field for this track
+F1E2: B1 6D     LDA (<a href="ra416d.htm">$6D</a>),Y     ; number of free blocks?
+F1E4: F0 D2     BEQ $F1B8       ; no more free blocks?
+
+Jump from $F1C9:
+
+F1E6: 68        PLA
+F1E7: 85 86     STA <a href="ra4186.htm">$86</a>
+F1E9: A9 00     LDA #$00
+F1EB: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector 0
+F1ED: 20 FA F1  JSR <a href="ro41f1fa.htm">$F1FA</a>       ; find free sector
+F1F0: F0 03     BEQ $F1F5       ; not found?
+F1F2: 4C 90 EF  JMP <a href="ro41ef90.htm">$EF90</a>       ; allocate block in BAM
+
+Jump from $F1F0, <a href="ro41f11e.htm">$F1A6</a>:
+
+F1F5: A9 71     LDA #$71
+F1F7: 20 45 E6  JSR <a href="ro41e645.htm">$E645</a>       ; 71, 'dir error'
+
+    <a href="ro41f11e.htm">Previous Page</a> / <a href="ro41f1fa.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

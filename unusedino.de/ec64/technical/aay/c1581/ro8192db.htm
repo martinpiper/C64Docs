@@ -1,0 +1,31 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Freien Kanal suchen ($d37f)
+
+Einsprung von <a href="ro819157.htm">$9161</a>:
+
+92DB: A0 00     LDY #$00         Byte ($70) nach einem gesetzten Bit
+92DD: A9 01     LDA #$01         durchsuchen
+
+Einsprung von $92E5:
+
+92DF: 24 70     BIT <a href="ra8170.htm">$70</a>          (der entsprechende Kanal ist frei)
+92E1: D0 09     BNE $92EC        Kanal gefunden, ==&gt;
+92E3: C8        INY              Kanalnummer +1
+92E4: 0A        ASL              naechstes Bit probieren
+92E5: D0 F8     BNE $92DF        noch ein Bit zu ueberpruefen, ==&gt;
+92E7: A9 70     LDA #$70         70, NO CHANNEL
+92E9: 4C 7C 80  JMP <a href="ro81807c.htm">$807C</a>
+
+Einsprung von $92E1:
+
+92EC: 49 FF     EOR #$FF         entsprechendes Bit loeschen
+92EE: 25 70     AND <a href="ra8170.htm">$70</a>          und dadurch den Kanal belegen
+92F0: 85 70     STA <a href="ra8170.htm">$70</a>
+92F2: 98        TYA              Kanalnummer nach A
+92F3: 60        RTS
+
+    <a href="ro819291.htm">Previous Page</a> / <a href="ro8192f4.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

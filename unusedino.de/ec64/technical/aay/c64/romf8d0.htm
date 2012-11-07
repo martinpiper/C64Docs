@@ -1,0 +1,27 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F8D0/63696:   Check Tape Stop
+
+Jump from <a href="romf817.htm">$F821</a>, <a href="romf875.htm">$F8C7</a>:
+
+F8D0: 20 E1 FF  <a href="bjsr.htm">JSR</a> <a href="romffe1.htm">$FFE1</a>     ; Test-Stop Vector
+F8D3: 18        <a href="bclc.htm">CLC</a>
+F8D4: D0 0B     <a href="bbne.htm">BNE</a> $F8E1
+F8D6: 20 93 FC  <a href="bjsr.htm">JSR</a> <a href="romfc93.htm">$FC93</a>     ; Restore Normal IRQ
+F8D9: 38        <a href="bsec.htm">SEC</a>
+F8DA: 68        <a href="bpla.htm">PLA</a>
+F8DB: 68        <a href="bpla.htm">PLA</a>
+
+Jump from <a href="romf864.htm">$F86E</a>, <a href="romf875.htm">$F8C5</a>:
+
+F8DC: A9 00     <a href="blda.htm">LDA</a> #$00
+F8DE: 8D A0 02  <a href="bsta.htm">STA</a> <a href="zp029f.htm">$02A0</a>     ; Temp. store for IRQ Vector during Tape I/O
+
+Jump from $F8D4:
+
+F8E1: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf875.htm">Previous Page</a> / <a href="romf8e2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

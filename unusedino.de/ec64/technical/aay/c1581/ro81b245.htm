@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Byte aus Directory holen und zur Ausgabe bereitstellen ($ed67)
+
+Einsprung von <a href="ro819303.htm">$936A</a>:
+
+B245: 20 71 90  JSR <a href="ro819071.htm">$9071</a>        Byte aus aktuellen Puffer holen
+B248: F0 01     BEQ $B24B        Puffer-Ende, ==&gt;
+B24A: 60        RTS
+
+Einsprung von $B248:
+
+B24B: 85 54     STA <a href="ra8154.htm">$54</a>          Byte merken
+B24D: A4 50     LDY <a href="ra8150.htm">$50</a>
+B24F: B9 42 02  LDA <a href="ra810242.htm">$0242</a>,Y      Puffergroesse holen
+B252: F0 08     BEQ $B25C        =0 (noch nicht letzter Block), ==&gt;
+B254: A9 80     LDA #$80         b3=0: EOI-Flag im Kanalstatus setzen
+B256: 99 34 02  STA <a href="ra810234.htm">$0234</a>,Y
+B259: A5 54     LDA <a href="ra8154.htm">$54</a>          Byte zurueckholen
+B25B: 60        RTS
+
+Einsprung von $B252:
+
+B25C: 48        PHA              Byte aus dem Directory merken
+B25D: 20 C8 B1  JSR <a href="ro81b17c.htm">$B1C8</a>        Ausgabepuffer neu fuellen
+B260: 68        PLA              Byte zurueckholen
+B261: 60        RTS
+
+    <a href="ro81b237.htm">Previous Page</a> / <a href="ro81b262.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

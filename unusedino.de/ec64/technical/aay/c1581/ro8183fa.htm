@@ -1,0 +1,49 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+1581: Zeichen hinter '*' vergleichen
+
+Einsprung von <a href="ro818327.htm">$8378</a>:
+
+83FA: 86 3B     STX <a href="ra813b.htm">$3B</a>          Position des '*' merken
+83FC: AE 90 02  LDX <a href="ra810290.htm">$0290</a>        Position des Namen-Endes holen
+83FF: CA        DEX
+8400: E4 3B     CPX <a href="ra813b.htm">$3B</a>          = Position des '*'
+8402: F0 1A     BEQ $841E        ja, ('*' ist letztes Zeichen) ==&gt;
+8404: A0 13     LDY #$13         max. Laenge des Dateinamens (+3: T&amp;S, Typ)
+
+Einsprung von $840B:
+
+8406: 88        DEY
+8407: B1 64     LDA (<a href="ra8164.htm">$64</a>),Y      Ende des Dateinamens suchen
+8409: C9 A0     CMP #$A0
+840B: F0 F9     BEQ $8406        noch nicht gefunden, ==&gt;
+
+in x und y stehen nun Endpositionen der zu vergleichenden Namen
+
+Einsprung von $841C:
+
+840D: BD 00 02  LDA <a href="ra810200.htm">$0200</a>,X      Zeichen gleich ?
+8410: D1 64     CMP (<a href="ra8164.htm">$64</a>),Y
+8412: F0 04     BEQ $8418        ja, ==&gt;
+8414: C9 3F     CMP #$3F         Joker '?' ?
+8416: D0 09     BNE $8421        nein, (Name nicht richtig) ==&gt;
+
+Einsprung von $8412:
+
+8418: 88        DEY              Zeichen rueckwaerts vergleichen
+8419: CA        DEX
+841A: E4 3B     CPX <a href="ra813b.htm">$3B</a>          bis zum '*'
+841C: D0 EF     BNE $840D        noch nicht erreicht, ==&gt;
+
+Einsprung von $8402:
+
+841E: 4C 85 83  JMP <a href="ro818327.htm">$8385</a>        Name Ok. ==&gt;
+
+Einsprung von $8416:
+
+8421: 4C 36 83  JMP <a href="ro818327.htm">$8336</a>        Name nicht richtig, ==&gt;
+
+    <a href="ro8183d7.htm">Previous Page</a> / <a href="ro818424.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

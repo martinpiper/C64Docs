@@ -1,0 +1,152 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $C4D8/50392:   ?
+
+Jump from <a href="ro41c44f.htm">$C475</a>, <a href="ro41c48b.htm">$C4BA</a>:
+
+C4D8: A2 FF     LDX #$FF
+C4DA: 8E 53 02  STX <a href="ra410253.htm">$0253</a>       ; flag for data found
+C4DD: E8        INX
+C4DE: 8E 8A 02  STX <a href="ra41028a.htm">$028A</a>
+C4E1: 20 89 C5  JSR $C589       ; set pointer to data
+C4E4: F0 06     BEQ $C4EC
+
+Jump from $C4EA:
+
+C4E6: 60        RTS
+
+Jump from $C4F5, $C4FC, $C513, $C519, $C533:
+
+C4E7: 20 94 C5  JSR $C594       ; pointer to next file
+C4EA: D0 FA     BNE $C4E6       ; end, then done
+
+Jump from $C4E4:
+
+C4EC: A5 7F     LDA <a href="ra417f.htm">$7F</a>         ; drive number
+C4EE: 55 E2     EOR <a href="ra41e2.htm">$E2</a>,X
+C4F0: 4A        LSR
+C4F1: 90 0B     BCC $C4FE
+C4F3: 29 40     AND #$40
+C4F5: F0 F0     BEQ $C4E7
+C4F7: A9 02     LDA #$02
+C4F9: CD 8C 02  CMP <a href="ra41028c.htm">$028C</a>       ; search both drives?
+C4FC: F0 E9     BEQ $C4E7       ; yes
+
+Jump from $C4F1:
+
+C4FE: BD 7A 02  LDA <a href="ra41027a.htm">$027A</a>,X
+C501: AA        TAX
+C502: 20 A6 C6  JSR <a href="ro41c6a6.htm">$C6A6</a>       ; get length of filename
+C505: A0 03     LDY #$03
+C507: 4C 1D C5  JMP $C51D
+
+Jump from $C529:
+
+C50A: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; get chars out of command line
+C50D: D1 94     CMP (<a href="ra4194.htm">$94</a>),Y     ; same character in directory?
+C50F: F0 0A     BEQ $C51B       ; yes
+C511: C9 3F     CMP #$3F        ; '?'
+C513: D0 D2     BNE $C4E7       ; no
+C515: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+C517: C9 A0     CMP #$A0        ; shift blank, end of name?
+C519: F0 CC     BEQ $C4E7       ; yes
+
+Jump from $C50F:
+
+C51B: E8        INX             ; increment pointer
+C51C: C8        INY
+
+Jump from $C507:
+
+C51D: EC 76 02  CPX <a href="ra410276.htm">$0276</a>       ; end of the name in the command?
+C520: B0 09     BCS $C52B       ; yes
+C522: BD 00 02  LDA <a href="ra410200.htm">$0200</a>,X     ; next character
+C525: C9 2A     CMP #$2A        ; '*'
+C527: F0 0C     BEQ $C535       ; yes, file found
+C529: D0 DF     BNE $C50A       ; continue search
+
+Jump from $C520:
+
+C52B: C0 13     CPY #$13        ; 19
+C52D: B0 06     BCS $C535       ; reached end of name
+C52F: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+C531: C9 A0     CMP #$A0        ; shift blank, end of name
+C533: D0 B2     BNE $C4E7       ; not found
+
+Jump from $C527, $C52D:
+
+C535: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+C538: 8E 53 02  STX <a href="ra410253.htm">$0253</a>
+C53B: B5 E7     LDA <a href="ra41e7.htm">$E7</a>,X
+C53D: 29 80     AND #$80
+C53F: 8D 8A 02  STA <a href="ra41028a.htm">$028A</a>
+C542: AD 94 02  LDA <a href="ra410294.htm">$0294</a>
+C545: 95 DD     STA <a href="ra41dd.htm">$DD</a>,X
+C547: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector number of the directory
+C549: 95 D8     STA <a href="ra41d8.htm">$D8</a>,X       ; enter in table
+C54B: A0 00     LDY #$00
+C54D: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; file type
+C54F: C8        INY
+C550: 48        PHA
+C551: 29 40     AND #$40        ; isolate search-protect bit
+C553: 85 6F     STA <a href="ra416f.htm">$6F</a>         ; (6) and save
+C555: 68        PLA
+C556: 29 DF     AND #$DF        ; erase bit 7
+C558: 30 02     BMI $C55C
+C55A: 09 20     ORA #$20        ; set bit 5
+
+Jump from $C558:
+
+C55C: 29 27     AND #$27        ; erase bits 3 and 4
+C55E: 05 6F     ORA <a href="ra416f.htm">$6F</a>         ; get bit 6 again
+C560: 85 6F     STA <a href="ra416f.htm">$6F</a>
+C562: A9 80     LDA #$80
+C564: 35 E7     AND <a href="ra41e7.htm">$E7</a>,X       ; isolate flag for wildcard
+C566: 05 6F     ORA <a href="ra416f.htm">$6F</a>
+C568: 95 E7     STA <a href="ra41e7.htm">$E7</a>,X       ; write in table
+C56A: B5 E2     LDA <a href="ra41e2.htm">$E2</a>,X
+C56C: 29 80     AND #$80
+C56E: 05 7F     ORA <a href="ra417f.htm">$7F</a>         ; drive number
+C570: 95 E2     STA <a href="ra41e2.htm">$E2</a>,X
+C572: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+C574: 9D 80 02  STA <a href="ra410280.htm">$0280</a>,X     ; first track of file
+C577: C8        INY
+C578: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y
+C57A: 9D 85 02  STA <a href="ra410285.htm">$0285</a>,X     ; get sector from directory
+C57D: AD 58 02  LDA <a href="ra410258.htm">$0258</a>       ; record length
+C580: D0 07     BNE $C589
+C582: A0 15     LDY #$15
+C584: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; record length
+C586: 8D 58 02  STA <a href="ra410258.htm">$0258</a>       ; get from directory
+
+Jump from $C4E1, $C580:
+
+C589: A9 FF     LDA #$FF
+C58B: 8D 8F 02  STA <a href="ra41028f.htm">$028F</a>
+C58E: AD 78 02  LDA <a href="ra410278.htm">$0278</a>
+C591: 8D 79 02  STA <a href="ra410279.htm">$0279</a>
+
+Jump from $C4E7, $C5A4:
+
+C594: CE 79 02  DEC <a href="ra410279.htm">$0279</a>
+C597: 10 01     BPL $C59A
+C599: 60        RTS
+
+Jump from $C597:
+
+C59A: AE 79 02  LDX <a href="ra410279.htm">$0279</a>
+C59D: B5 E7     LDA <a href="ra41e7.htm">$E7</a>,X       ; wildcard flag set?
+C59F: 30 05     BMI $C5A6       ; yes
+C5A1: BD 80 02  LDA <a href="ra410280.htm">$0280</a>,X     ; track number already set
+C5A4: D0 EE     BNE $C594       ; yes
+
+Jump from $C59F:
+
+C5A6: A9 00     LDA #$00
+C5A8: 8D 8F 02  STA <a href="ra41028f.htm">$028F</a>
+C5AB: 60        RTS
+
+    <a href="ro41c48b.htm">Previous Page</a> / <a href="ro41c5ac.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

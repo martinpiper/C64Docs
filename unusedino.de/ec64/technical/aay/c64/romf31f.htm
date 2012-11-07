@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F31F/62239:   Set File values
+
+Jump from <a href="romf20e.htm">$F216</a>, <a href="romf250.htm">$F258</a>, <a href="romf291.htm">$F298</a>:
+
+F31F: BD 59 02  <a href="blda.htm">LDA</a> <a href="zp0259.htm">$0259</a>,X   ; Active logical File numbers
+F322: 85 B8     <a href="bsta.htm">STA</a> <a href="zpb8.htm">$B8</a>       ; Current File - Logical File number
+F324: BD 63 02  <a href="blda.htm">LDA</a> <a href="zp0263.htm">$0263</a>,X   ; Active File First Addresses (Device numbers)
+F327: 85 BA     <a href="bsta.htm">STA</a> <a href="zpba.htm">$BA</a>       ; Current File - First Address (Device number)
+F329: BD 6D 02  <a href="blda.htm">LDA</a> <a href="zp026d.htm">$026D</a>,X   ; Active File Secondary Addresses
+F32C: 85 B9     <a href="bsta.htm">STA</a> <a href="zpb9.htm">$B9</a>       ; Current File - Secondary Address
+
+Jump from <a href="romf30f.htm">$F317</a>:
+
+F32E: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf30f.htm">Previous Page</a> / <a href="romf32f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

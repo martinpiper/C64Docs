@@ -1,0 +1,78 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E56C/58732:   Set Screen Pointers
+
+Jump from <a href="rome50a.htm">$E510</a>, <a href="rome701.htm">$E70E</a>, <a href="rome7d4.htm">$E847</a>, <a href="rome87c.htm">$E88E</a>:
+
+E56C: A6 D6     <a href="bldx.htm">LDX</a> <a href="zpd6.htm">$D6</a>       ; Current Screen Line number of Cursor
+E56E: A5 D3     <a href="blda.htm">LDA</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+
+Jump from $E57A:
+
+E570: B4 D9     <a href="bldy.htm">LDY</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E572: 30 08     <a href="bbmi.htm">BMI</a> $E57C
+E574: 18        <a href="bclc.htm">CLC</a>
+E575: 69 28     <a href="badc.htm">ADC</a> #$28
+E577: 85 D3     <a href="bsta.htm">STA</a> <a href="zpd3.htm">$D3</a>       ; Cursor Column on current Line
+E579: CA        <a href="bdex.htm">DEX</a>
+E57A: 10 F4     <a href="bbpl.htm">BPL</a> $E570
+
+Jump from $E572:
+
+E57C: 20 F0 E9  <a href="bjsr.htm">JSR</a> <a href="rome9f0.htm">$E9F0</a>     ; Set Start of Line
+E57F: A9 27     <a href="blda.htm">LDA</a> #$27
+E581: E8        <a href="binx.htm">INX</a>
+
+Jump from $E58A:
+
+E582: B4 D9     <a href="bldy.htm">LDY</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E584: 30 06     <a href="bbmi.htm">BMI</a> $E58C
+E586: 18        <a href="bclc.htm">CLC</a>
+E587: 69 28     <a href="badc.htm">ADC</a> #$28
+E589: E8        <a href="binx.htm">INX</a>
+E58A: 10 F6     <a href="bbpl.htm">BPL</a> $E582
+
+Jump from $E584:
+
+E58C: 85 D5     <a href="bsta.htm">STA</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E58E: 4C 24 EA  <a href="bjmp.htm">JMP</a> <a href="romea24.htm">$EA24</a>     ; Syncronise Color Pointer
+
+Jump from <a href="rome5ca.htm">$E621</a>:
+
+E591: E4 C9     <a href="bcpx.htm">CPX</a> <a href="zpc9.htm">$C9</a>       ; Cursor X/Y position at start of Input
+E593: F0 03     <a href="bbeq.htm">BEQ</a> $E598
+E595: 4C ED E6  <a href="bjmp.htm">JMP</a> <a href="rome6ed.htm">$E6ED</a>     ; Retreat Cursor
+
+Jump from $E593:
+
+E598: 60        <a href="brts.htm">RTS</a>
+E599: EA        <a href="bnop.htm">NOP</a>
+
+<b>* Old KERNAL:
+E57C: B5 D9     <a href="blda.htm">LDA</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E57E: 29 03     <a href="band.htm">AND</a> #$03
+E580: 0D 88 02  <a href="bora.htm">ORA</a> <a href="zp0288.htm">$0288</a>     ; High Byte of Screen Memory Address
+E583: 85 D2     <a href="bsta.htm">STA</a> <a href="zpd1.htm">$D2</a>       ; Pointer: Current Screen Line Address
+E585: BD F0 EC  <a href="blda.htm">LDA</a> <a href="romecf0.htm">$ECF0</a>,X   ; Low Byte Screen Line Addresses
+E588: 85 D1     <a href="bsta.htm">STA</a> <a href="zpd1.htm">$D1</a>       ; Pointer: Current Screen Line Address
+E58A: A9 27     <a href="blda.htm">LDA</a> #$27
+E58C: E8        <a href="binx.htm">INX</a>
+
+Jump from $E595:
+
+E58D: B4 D9     <a href="bldy.htm">LDY</a> <a href="zpd9.htm">$D9</a>,X     ; Screen Line Link Table
+E58F: 30 06     <a href="bbmi.htm">BMI</a> $E597
+E591: 18        <a href="bclc.htm">CLC</a>
+E592: 69 28     <a href="badc.htm">ADC</a> #$28
+E594: E8        <a href="binx.htm">INX</a>
+E595: 10 F6     <a href="bbpl.htm">BPL</a> $E58D
+
+Jump from $E58F:
+
+E597: 85 D5     <a href="bsta.htm">STA</a> <a href="zpd5.htm">$D5</a>       ; Current logical Line length: 39 or 79
+E599: 60        <a href="brts.htm">RTS</a>
+</b>
+    <a href="rome566.htm">Previous Page</a> / <a href="rome59a.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

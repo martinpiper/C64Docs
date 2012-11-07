@@ -1,0 +1,40 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+FSM: Byte ausgeben (bei der 1571: $9228)
+
+Einsprung von $BF91:
+
+BF83: 4C 15 AD  JMP <a href="ro81ad15.htm">$AD15</a>        ATN-Modus testen
+
+Einsprung von <a href="ro81aaa8.htm">$AAC8</a>, <a href="ro81baae.htm">$BAE3</a>, <a href="ro81bb11.htm">$BB59</a>, <a href="ro81be06.htm">$BE8E</a>, <a href="ro81be06.htm">$BE93</a>, <a href="ro81be06.htm">$BE99</a>, <a href="ro81be06.htm">$BE9F</a>, <a href="ro81be06.htm">$BEA4</a>, <a href="ro81be06.htm">$BEB2</a>,
+              <a href="ro81bfab.htm">$BFAD</a>:
+
+BF86: 48        PHA              &lt;-- Einsprung
+
+Einsprung von $BF8D, $BF97:
+
+BF87: AD 01 40  LDA <a href="cia811.htm">$4001</a>        Normalen Bus auslesen
+BF8A: CD 01 40  CMP <a href="cia811.htm">$4001</a>
+BF8D: D0 F8     BNE $BF87        und entprellen
+BF8F: 29 FF     AND #$FF         nz-Flags neu setzen
+BF91: 30 F0     BMI $BF83        ATN, (dann Abbruch) ==&gt;
+BF93: 45 76     EOR <a href="ra8176.htm">$76</a>          letzter FSM-Clock-Zustand
+BF95: 29 04     AND #$04         (b2: CLOCK IN)
+BF97: F0 EE     BEQ $BF87        Clock-gekippt ? nein, ==&gt;
+BF99: 68        PLA              Ja: Byte ausgeben
+BF9A: 8D 0C 40  STA <a href="cia81c.htm">$400C</a>        Byte in FSM-Schieberegister schreiben
+BF9D: A5 76     LDA <a href="ra8176.htm">$76</a>          neuen Clock-Zustand merken
+BF9F: 49 04     EOR #$04
+BFA1: 85 76     STA <a href="ra8176.htm">$76</a>
+BFA3: A9 08     LDA #$08         Schiebevorgang abwarten
+
+Einsprung von $BFA8:
+
+BFA5: 2C 0D 40  BIT <a href="cia81d.htm">$400D</a>        b3=1: Vorgang beendet ?
+BFA8: F0 FB     BEQ $BFA5        nein, ==&gt;
+BFAA: 60        RTS
+
+    <a href="ro81bf66.htm">Previous Page</a> / <a href="ro81bfab.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

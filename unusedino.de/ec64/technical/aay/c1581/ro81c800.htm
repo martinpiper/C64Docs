@@ -1,0 +1,62 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+JOB $a4: SP_READ
+
+C800: 20 A6 CF  JSR <a href="ro81cfa6.htm">$CFA6</a>        Blockheader lesen
+C803: A5 88     LDA <a href="ra8188.htm">$88</a>          befindet sich der Kopf auf der
+C805: C5 1F     CMP <a href="ra811f.htm">$1F</a>          richtigen Spur ?
+C807: F0 03     BEQ $C80C        ja, ==&gt;
+C809: 4C 88 CB  JMP <a href="ro81cb85.htm">$CB88</a>        02, MISHD_DV_ER
+
+Einsprung von $C807:
+
+C80C: A6 83     LDX <a href="ra8183.htm">$83</a>          Jobnummer holen [Dies ist der Index fuer
+                                 1-Byte Tabellen !!!
+C80E: B5 0B     LDA <a href="ra810b.htm">$0B</a>,X         Das Holen der T&amp;S funktioniert daher nur
+C810: 8D 01 60  STA <a href="wd811.htm">$6001</a>         bei Job 0. Da die Pufferadresse aber
+C813: B5 0C     LDA <a href="ra810b.htm">$0C</a>,X         sowieso immer $0300 ist, laesst sich dieser
+C815: 8D 02 60  STA <a href="wd812.htm">$6002</a>         Fehler verschmerzen.]
+C818: A9 00     LDA #$00         $0300: Pufferadresse
+C81A: 85 4A     STA <a href="ra814a.htm">$4A</a>          Pufferzeiger setzen
+C81C: A9 03     LDA #$03
+C81E: 85 4B     STA <a href="ra814a.htm">$4B</a>
+C820: EA  ....  NOP            [19 NOPS]
+C832: ....  EA  NOP
+
+C833: AD DF 01  LDA <a href="ra8101df.htm">$01DF</a>        Controller-Befehl: 'Read Sector'
+C836: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Kommando an Controller uebergeben
+C839: A4 91     LDY <a href="ra8191.htm">$91</a>          Blockgroesse holen
+C83B: C0 03     CPY #$03         Anzahl der einzulesenden Speicherseiten
+C83D: D0 02     BNE $C841        ermitteln
+C83F: C8        INY
+C840: EA        NOP
+
+Einsprung von $C83D, $C849, $C858, $C85D:
+
+C841: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Controllestatus abfragen
+C844: 29 03     AND #$03
+C846: 4A        LSR
+C847: 90 16     BCC $C85F        'Controller ready', (Fehler) ==&gt;
+C849: F0 F6     BEQ $C841        noch nicht 'Byte ready', (warten) ==&gt;
+C84B: 84 82     STY <a href="ra8182.htm">$82</a>
+C84D: A0 00     LDY #$00
+C84F: AD 03 60  LDA <a href="wd813.htm">$6003</a>        Byte von Diskette
+C852: 91 4A     STA (<a href="ra814a.htm">$4A</a>),Y      in Puffer schreiben
+C854: A4 82     LDY <a href="ra8182.htm">$82</a>
+C856: E6 4A     INC <a href="ra814a.htm">$4A</a>          Pufferzeiger erhoehen
+C858: D0 E7     BNE $C841
+C85A: E6 4B     INC <a href="ra814a.htm">$4B</a>
+C85C: 88        DEY              noch eine Seite einlesen ?
+C85D: D0 E2     BNE $C841        ja, ==&gt;
+
+Einsprung von $C847:
+
+C85F: 20 3F CD  JSR <a href="ro81cd3f.htm">$CD3F</a>        Controller-Status pruefen
+C862: 4C CC CD  JMP <a href="ro81cdcc.htm">$CDCC</a>        Jobauftrag beenden
+
+C865: FF  ....
+C8FF: ....  FF
+    <a href="ro81c700.htm">Previous Page</a> / <a href="ro81c900.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

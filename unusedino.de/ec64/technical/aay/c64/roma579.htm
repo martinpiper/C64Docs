@@ -1,0 +1,134 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $A579/42361:   Tokenise Input Buffer
+
+Jump from <a href="roma480.htm">$A496</a>, <a href="roma49c.htm">$A49F</a>:
+
+A579: 6C 04 03  <a href="bjmp.htm">JMP</a> (<a href="zp0304.htm">$0304</a>)   ; Vector: BASIC Tokenise Routine
+A57C: A6 7A     <a href="bldx.htm">LDX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A57E: A0 04     <a href="bldy.htm">LDY</a> #$04
+A580: 84 0F     <a href="bsty.htm">STY</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+
+Jump from $A58C, $A5E1:
+
+A582: BD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+A585: 10 07     <a href="bbpl.htm">BPL</a> $A58E
+A587: C9 FF     <a href="bcmp.htm">CMP</a> #$FF
+A589: F0 3E     <a href="bbeq.htm">BEQ</a> $A5C9
+A58B: E8        <a href="binx.htm">INX</a>
+A58C: D0 F4     <a href="bbne.htm">BNE</a> $A582
+
+Jump from $A585:
+
+A58E: C9 20     <a href="bcmp.htm">CMP</a> #$20
+A590: F0 37     <a href="bbeq.htm">BEQ</a> $A5C9
+A592: 85 08     <a href="bsta.htm">STA</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+A594: C9 22     <a href="bcmp.htm">CMP</a> #$22
+A596: F0 56     <a href="bbeq.htm">BEQ</a> $A5EE
+A598: 24 0F     <a href="bbit.htm">BIT</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+A59A: 70 2D     <a href="bbvs.htm">BVS</a> $A5C9
+A59C: C9 3F     <a href="bcmp.htm">CMP</a> #$3F
+A59E: D0 04     <a href="bbne.htm">BNE</a> $A5A4
+A5A0: A9 99     <a href="blda.htm">LDA</a> #$99
+A5A2: D0 25     <a href="bbne.htm">BNE</a> $A5C9
+
+Jump from $A59E:
+
+A5A4: C9 30     <a href="bcmp.htm">CMP</a> #$30
+A5A6: 90 04     <a href="bbcc.htm">BCC</a> $A5AC
+A5A8: C9 3C     <a href="bcmp.htm">CMP</a> #$3C
+A5AA: 90 1D     <a href="bbcc.htm">BCC</a> $A5C9
+
+Jump from $A5A6:
+
+A5AC: 84 71     <a href="bsty.htm">STY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+A5AE: A0 00     <a href="bldy.htm">LDY</a> #$00
+A5B0: 84 0B     <a href="bsty.htm">STY</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+A5B2: 88        <a href="bdey.htm">DEY</a>
+A5B3: 86 7A     <a href="bstx.htm">STX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A5B5: CA        <a href="bdex.htm">DEX</a>
+
+Jump from $A5BF:
+
+A5B6: C8        <a href="biny.htm">INY</a>
+A5B7: E8        <a href="binx.htm">INX</a>
+
+Jump from $A602:
+
+A5B8: BD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+A5BB: 38        <a href="bsec.htm">SEC</a>
+A5BC: F9 9E A0  <a href="bsbc.htm">SBC</a> <a href="roma09e.htm">$A09E</a>,Y   ; BASIC Command Keyword Table
+A5BF: F0 F5     <a href="bbeq.htm">BEQ</a> $A5B6
+A5C1: C9 80     <a href="bcmp.htm">CMP</a> #$80
+A5C3: D0 30     <a href="bbne.htm">BNE</a> $A5F5
+A5C5: 05 0B     <a href="bora.htm">ORA</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+
+Jump from $A607:
+
+A5C7: A4 71     <a href="bldy.htm">LDY</a> <a href="zp71.htm">$71</a>       ; Pointer: Used during CRUNCH/ASCII conversion
+
+Jump from $A589, $A590, $A59A, $A5A2, $A5AA, $A5E8, $A5EC:
+
+A5C9: E8        <a href="binx.htm">INX</a>
+A5CA: C8        <a href="biny.htm">INY</a>
+A5CB: 99 FB 01  <a href="bsta.htm">STA</a> <a href="zp013f.htm">$01FB</a>,Y   ; BASIC Stack Area
+A5CE: B9 FB 01  <a href="blda.htm">LDA</a> <a href="zp013f.htm">$01FB</a>,Y   ; BASIC Stack Area
+A5D1: F0 36     <a href="bbeq.htm">BEQ</a> $A609
+A5D3: 38        <a href="bsec.htm">SEC</a>
+A5D4: E9 3A     <a href="bsbc.htm">SBC</a> #$3A
+A5D6: F0 04     <a href="bbeq.htm">BEQ</a> $A5DC
+A5D8: C9 49     <a href="bcmp.htm">CMP</a> #$49
+A5DA: D0 02     <a href="bbne.htm">BNE</a> $A5DE
+
+Jump from $A5D6:
+
+A5DC: 85 0F     <a href="bsta.htm">STA</a> <a href="zp0f.htm">$0F</a>       ; Flag: DATA scan/List Quote/Garbage collection
+
+Jump from $A5DA:
+
+A5DE: 38        <a href="bsec.htm">SEC</a>
+A5DF: E9 55     <a href="bsbc.htm">SBC</a> #$55
+A5E1: D0 9F     <a href="bbne.htm">BNE</a> $A582
+A5E3: 85 08     <a href="bsta.htm">STA</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+
+Jump from $A5F3:
+
+A5E5: BD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+A5E8: F0 DF     <a href="bbeq.htm">BEQ</a> $A5C9
+A5EA: C5 08     <a href="bcmp.htm">CMP</a> <a href="zp08.htm">$08</a>       ; Flag: Scan for Quote at end of String
+A5EC: F0 DB     <a href="bbeq.htm">BEQ</a> $A5C9
+
+Jump from $A596:
+
+A5EE: C8        <a href="biny.htm">INY</a>
+A5EF: 99 FB 01  <a href="bsta.htm">STA</a> <a href="zp013f.htm">$01FB</a>,Y   ; BASIC Stack Area
+A5F2: E8        <a href="binx.htm">INX</a>
+A5F3: D0 F0     <a href="bbne.htm">BNE</a> $A5E5
+
+Jump from $A5C3:
+
+A5F5: A6 7A     <a href="bldx.htm">LDX</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A5F7: E6 0B     <a href="binc.htm">INC</a> <a href="zp0b.htm">$0B</a>       ; Input Buffer Pointer/Number of Subscripts
+
+Jump from $A5FD:
+
+A5F9: C8        <a href="biny.htm">INY</a>
+A5FA: B9 9D A0  <a href="blda.htm">LDA</a> <a href="roma080.htm">$A09D</a>,Y   ; BASIC Operator Vectors
+A5FD: 10 FA     <a href="bbpl.htm">BPL</a> $A5F9
+A5FF: B9 9E A0  <a href="blda.htm">LDA</a> <a href="roma09e.htm">$A09E</a>,Y   ; BASIC Command Keyword Table
+A602: D0 B4     <a href="bbne.htm">BNE</a> $A5B8
+A604: BD 00 02  <a href="blda.htm">LDA</a> <a href="zp0200.htm">$0200</a>,X   ; BASIC Input Buffer (Input Line from Screen)
+A607: 10 BE     <a href="bbpl.htm">BPL</a> $A5C7
+
+Jump from $A5D1:
+
+A609: 99 FD 01  <a href="bsta.htm">STA</a> <a href="zp013f.htm">$01FD</a>,Y   ; BASIC Stack Area
+A60C: C6 7B     <a href="bdec.htm">DEC</a> <a href="zp7a.htm">$7B</a>       ; Pointer: Current Byte of BASIC Text
+A60E: A9 FF     <a href="blda.htm">LDA</a> #$FF
+A610: 85 7A     <a href="bsta.htm">STA</a> <a href="zp7a.htm">$7A</a>       ; Pointer: Current Byte of BASIC Text
+A612: 60        <a href="brts.htm">RTS</a>
+
+    <a href="roma560.htm">Previous Page</a> / <a href="roma613.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

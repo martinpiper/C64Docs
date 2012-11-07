@@ -1,0 +1,21 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+  RRA                   RRA ROR memory, ADC memory                      RRA
+
+                                                        N V - B D I Z C
+  Operation:  A &lt;- (M &gt;&gt; 1) + (A) + C                   / / . . . . / /
+
+  +----------------+-----------------------+---------+---------+----------+
+  | Addressing Mode| Assembly Language Form| OP CODE |No. Bytes|No. Cycles|
+  +----------------+-----------------------+---------+---------+----------+
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr4b.htm">ZeroPage</a>      |   RRA $FF             |   $67   |    2    |    5     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr10b.htm">ZeroPage,X</a>    |   RRA $FF,X           |   $77   |    2    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr2b.htm">Absolute</a>      |   RRA $FFFF           |   $6F   |    3    |    6     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,X</a>    |   RRA $FFFF,X         |   $7F   |    3    |    7     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr12b.htm">Absolute,Y</a>    |   RRA $FFFF,Y         |   $7B   |    3    |    7     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr9b.htm">(Indirect,X)</a>  |   RRA ($FF,X)         |   $63   |    2    |    8     |
+  |  <a href="http://unusedino.de/ec64/technical/aay/c64/addr7b.htm">(Indirect),Y</a>  |   RRA ($FF),Y         |   $73   |    2    |    8     |
+  +----------------+-----------------------+---------+---------+----------+
+
+</pre></td></tr></table></center></body></html>

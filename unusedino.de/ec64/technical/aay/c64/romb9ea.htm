@@ -1,0 +1,45 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B9EA/47594:   Evaluate &lt;log&gt;
+
+Jump from <a href="rombf7b.htm">$BFA3</a>:
+
+B9EA: 20 2B BC  <a href="bjsr.htm">JSR</a> <a href="rombc2b.htm">$BC2B</a>     ; Check Sign of FAC#1
+B9ED: F0 02     <a href="bbeq.htm">BEQ</a> $B9F1
+B9EF: 10 03     <a href="bbpl.htm">BPL</a> $B9F4
+
+Jump from $B9ED:
+
+B9F1: 4C 48 B2  <a href="bjmp.htm">JMP</a> <a href="romb248.htm">$B248</a>     ; ?ILLEGAL QUANTITY
+
+Jump from $B9EF:
+
+B9F4: A5 61     <a href="blda.htm">LDA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B9F6: E9 7F     <a href="bsbc.htm">SBC</a> #$7F
+B9F8: 48        <a href="bpha.htm">PHA</a>
+B9F9: A9 80     <a href="blda.htm">LDA</a> #$80
+B9FB: 85 61     <a href="bsta.htm">STA</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+B9FD: A9 D6     <a href="blda.htm">LDA</a> #$D6
+B9FF: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+BA01: 20 67 B8  <a href="bjsr.htm">JSR</a> <a href="romb867.htm">$B867</a>     ; Perform Addition
+BA04: A9 DB     <a href="blda.htm">LDA</a> #$DB
+BA06: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+BA08: 20 0F BB  <a href="bjsr.htm">JSR</a> <a href="rombb0f.htm">$BB0F</a>     ; Divide FAC#2 by FAC#1
+BA0B: A9 BC     <a href="blda.htm">LDA</a> #$BC
+BA0D: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+BA0F: 20 50 B8  <a href="bjsr.htm">JSR</a> <a href="romb850.htm">$B850</a>     ; Perform Subtraction
+BA12: A9 C1     <a href="blda.htm">LDA</a> #$C1
+BA14: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+BA16: 20 43 E0  <a href="bjsr.htm">JSR</a> <a href="rome043.htm">$E043</a>     ; Series Evaluation
+BA19: A9 E0     <a href="blda.htm">LDA</a> #$E0
+BA1B: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+BA1D: 20 67 B8  <a href="bjsr.htm">JSR</a> <a href="romb867.htm">$B867</a>     ; Perform Addition
+BA20: 68        <a href="bpla.htm">PLA</a>
+BA21: 20 7E BD  <a href="bjsr.htm">JSR</a> <a href="rombcf3.htm">$BD7E</a>     ; Convert ASCII String to a Number in FAC
+BA24: A9 E5     <a href="blda.htm">LDA</a> #$E5
+BA26: A0 B9     <a href="bldy.htm">LDY</a> #$B9
+
+    <a href="romb9e5.htm">Previous Page</a> / <a href="romba28.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

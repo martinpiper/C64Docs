@@ -1,0 +1,277 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Spur formatieren
+
+Einsprung von <a href="ro81c3bb.htm">$C3BE</a>, <a href="ro81cb35.htm">$CB41</a>:
+
+C3D6: A5 88     LDA <a href="ra8188.htm">$88</a>          Solltrack: Spur mit angegebener Tracknummer
+C3D8: 8D 01 60  STA <a href="wd811.htm">$6001</a>        formatieren (auch wenn Kopf wo anders ist)
+C3DB: 20 E3 CF  JSR <a href="ro81cfe3.htm">$CFE3</a>        Precompensation ein-/ausschalten
+C3DE: A5 94     LDA <a href="ra8194.htm">$94</a>          1. Sektornummer auf der Spur
+C3E0: 85 39     STA <a href="ra8139.htm">$39</a>          merken
+C3E2: A5 92     LDA <a href="ra8192.htm">$92</a>          Anzahl der Sektoren
+C3E4: 85 3A     STA <a href="ra813a.htm">$3A</a>          merken
+C3E6: AD E3 01  LDA <a href="ra8101e3.htm">$01E3</a>        Controller Befehl 'Write Track'
+C3E9: 20 F4 CB  JSR <a href="ro81cbf4.htm">$CBF4</a>        Befehl an Controller geben
+
+C3EC: A2 20     LDX #$20         32 mal $4e schreiben
+
+Einsprung von $C3F6, $C3FE:
+
+C3EE: AD 00 60  LDA <a href="wd810.htm">$6000</a>        (Zeit, um auf Schreibmodus umschalten zu
+C3F1: 29 03     AND #$03          koennen)
+C3F3: 4A        LSR              Controller-Ready ?
+C3F4: 90 26     BCC $C41C        ja, (Sprung nach $c544) ==&gt;
+C3F6: F0 F6     BEQ $C3EE        Byte-Ready ? nein, ==&gt;
+C3F8: A9 4E     LDA #$4E
+C3FA: 8D 03 60  STA <a href="wd813.htm">$6003</a>        $4e ins Datenregister schreiben
+C3FD: CA        DEX
+C3FE: D0 EE     BNE $C3EE        32 mal, ==&gt;
+
+Einsprung von $C529:
+
+C400: A2 0C     LDX #$0C         12 mal $00 schreiben (Sync-Markierung)
+
+Einsprung von $C40A, $C412:
+
+C402: AD 00 60  LDA <a href="wd810.htm">$6000</a>
+C405: 29 03     AND #$03
+C407: 4A        LSR
+C408: 90 12     BCC $C41C        [lauter bcc bis $c544]
+C40A: F0 F6     BEQ $C402
+C40C: A9 00     LDA #$00
+C40E: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C411: CA        DEX
+C412: D0 EE     BNE $C402
+
+C414: A2 03     LDX #$03         3 mal $f5 schreiben
+
+Einsprung von $C41E, $C426:
+
+C416: AD 00 60  LDA <a href="wd810.htm">$6000</a>
+C419: 29 03     AND #$03         [$f5 ist das Zeichen fuer den Controller,
+C41B: 4A        LSR               fuer alle folgenden Bytes eine
+
+Einsprung von $C3F4, $C408:
+
+C41C: 90 51     BCC $C46F         CRC-Pruefsumme zu berechnen.
+C41E: F0 F6     BEQ $C416         $f7 veranlasst den Controller spaeter,
+C420: A9 F5     LDA #$F5          die Pruefsumme auf Diskette zu schreiben.
+C422: 8D 03 60  STA <a href="wd813.htm">$6003</a>         Auch beim spaeteren Lesen werden diese
+C425: CA        DEX               Zeichen erkannt und ausgefuehrt.]
+C426: D0 EE     BNE $C416
+C428: EA        NOP
+
+Einsprung von $C431:
+
+C429: AD 00 60  LDA <a href="wd810.htm">$6000</a>        1 mal $fe schreiben
+C42C: 29 03     AND #$03         (bedeutet zusammen mit den $f5,
+C42E: 4A        LSR               dass der Blockheader folgt)
+C42F: 90 3E     BCC $C46F
+C431: F0 F6     BEQ $C429
+C433: A9 FE     LDA #$FE
+C435: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C438: EA        NOP
+
+Einsprung von $C441:
+
+C439: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Spurnummer schreiben
+C43C: 29 03     AND #$03
+C43E: 4A        LSR
+C43F: 90 2E     BCC $C46F
+C441: F0 F6     BEQ $C439
+C443: AD 01 60  LDA <a href="wd811.htm">$6001</a>
+C446: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+
+Einsprung von $C451:
+
+C449: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Aktuelle Seite schreiben
+C44C: 29 03     AND #$03
+C44E: 4A        LSR
+C44F: 90 1E     BCC $C46F
+C451: F0 F6     BEQ $C449
+C453: A5 96     LDA <a href="ra8196.htm">$96</a>
+C455: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C458: EA        NOP
+
+Einsprung von $C461:
+
+C459: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Aktuelle Sektornummer schreiben
+C45C: 29 03     AND #$03
+C45E: 4A        LSR
+C45F: 90 0E     BCC $C46F
+C461: F0 F6     BEQ $C459
+C463: A5 39     LDA <a href="ra8139.htm">$39</a>
+C465: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C468: EA        NOP
+
+Einsprung von $C471:
+
+C469: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Sektorgroesse schreiben
+C46C: 29 03     AND #$03
+C46E: 4A        LSR
+
+Einsprung von $C41C, $C42F, $C43F, $C44F, $C45F:
+
+C46F: 90 33     BCC $C4A4
+C471: F0 F6     BEQ $C469
+C473: A5 91     LDA <a href="ra8191.htm">$91</a>
+C475: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C478: EA        NOP
+
+Einsprung von $C481:
+
+C479: AD 00 60  LDA <a href="wd810.htm">$6000</a>        $f7: CRC-Pruefsumme schreiben
+C47C: 29 03     AND #$03         (s. $c419)
+C47E: 4A        LSR
+C47F: 90 23     BCC $C4A4
+C481: F0 F6     BEQ $C479
+C483: A9 F7     LDA #$F7
+C485: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+
+C488: A2 16     LDX #$16         22 mal $4e schreiben
+
+Einsprung von $C492, $C49A:
+
+C48A: AD 00 60  LDA <a href="wd810.htm">$6000</a>        (einfache Luecke)
+C48D: 29 03     AND #$03
+C48F: 4A        LSR
+C490: 90 12     BCC $C4A4
+C492: F0 F6     BEQ $C48A
+C494: A9 4E     LDA #$4E
+C496: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C499: CA        DEX
+C49A: D0 EE     BNE $C48A
+
+C49C: A2 0C     LDX #$0C         12 mal $00 schreiben
+
+Einsprung von $C4A6, $C4AE:
+
+C49E: AD 00 60  LDA <a href="wd810.htm">$6000</a>        (Sync-Markierung)
+C4A1: 29 03     AND #$03
+C4A3: 4A        LSR
+
+Einsprung von $C46F, $C47F, $C490:
+
+C4A4: 90 3B     BCC $C4E1
+C4A6: F0 F6     BEQ $C49E
+C4A8: A9 00     LDA #$00
+C4AA: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C4AD: CA        DEX
+C4AE: D0 EE     BNE $C49E
+
+C4B0: A2 03     LDX #$03         3 mal $f5 schreiben
+
+Einsprung von $C4BA, $C4C2:
+
+C4B2: AD 00 60  LDA <a href="wd810.htm">$6000</a>        (CRC-Check anfangen)
+C4B5: 29 03     AND #$03
+C4B7: 4A        LSR
+C4B8: 90 27     BCC $C4E1
+C4BA: F0 F6     BEQ $C4B2
+C4BC: A9 F5     LDA #$F5
+C4BE: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C4C1: CA        DEX
+C4C2: D0 EE     BNE $C4B2
+C4C4: EA        NOP
+
+Einsprung von $C4CD:
+
+C4C5: AD 00 60  LDA <a href="wd810.htm">$6000</a>        1 mal $fb schreiben
+C4C8: 29 03     AND #$03         (bedeutet zusammen mit den $f5,
+C4CA: 4A        LSR               dass der Datenblock folgt)
+C4CB: 90 14     BCC $C4E1
+C4CD: F0 F6     BEQ $C4C5
+C4CF: A9 FB     LDA #$FB
+C4D1: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+
+C4D4: A4 91     LDY <a href="ra8191.htm">$91</a>          Sektorgroesse in 256 Bytes
+C4D6: C0 03     CPY #$03         feststellen
+C4D8: D0 01     BNE $C4DB
+C4DA: C8        INY
+
+Einsprung von $C4D8, $C4E3, $C4F8, $C4FD:
+
+C4DB: AD 00 60  LDA <a href="wd810.htm">$6000</a>        Daten schreiben
+C4DE: 29 03     AND #$03
+C4E0: 4A        LSR
+
+Einsprung von $C4A4, $C4B8, $C4CB:
+
+C4E1: 90 61     BCC $C544
+C4E3: F0 F6     BEQ $C4DB
+C4E5: A5 9B     LDA <a href="ra819b.htm">$9B</a>          Fuellbyte = $f5 ?
+C4E7: C9 F5     CMP #$F5
+C4E9: D0 08     BNE $C4F3        nein, (Block mit Fuellbyte fuellen) ==&gt;
+C4EB: 84 82     STY <a href="ra8182.htm">$82</a>          ja, Daten aus Cache benutzen
+C4ED: A0 00     LDY #$00
+C4EF: B1 4A     LDA (<a href="ra814a.htm">$4A</a>),Y
+C4F1: A4 82     LDY <a href="ra8182.htm">$82</a>
+
+Einsprung von $C4E9:
+
+C4F3: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C4F6: E6 4A     INC <a href="ra814a.htm">$4A</a>          Zeiger in Cachepuffer erhoehen
+C4F8: D0 E1     BNE $C4DB
+C4FA: E6 4B     INC <a href="ra814a.htm">$4B</a>
+C4FC: 88        DEY              noch einen 256-Byte Block schreiben
+C4FD: D0 DC     BNE $C4DB
+
+Einsprung von $C507:
+
+C4FF: AD 00 60  LDA <a href="wd810.htm">$6000</a>        $f7: CRC-Pruefsumme schreiben
+C502: 29 03     AND #$03
+C504: 4A        LSR
+C505: 90 3D     BCC $C544
+C507: F0 F6     BEQ $C4FF
+C509: A9 F7     LDA #$F7
+C50B: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+
+C50E: A6 9A     LDX <a href="ra819a.htm">$9A</a>          Anzahl der $4e-Bytes fuer die Luecke zwischen
+C510: EA        NOP              zwischen zwei Sektoren holen
+
+Einsprung von $C519, $C521:
+
+C511: AD 00 60  LDA <a href="wd810.htm">$6000</a>        x mal $4e schreiben
+C514: 29 03     AND #$03
+C516: 4A        LSR
+C517: 90 2B     BCC $C544
+C519: F0 F6     BEQ $C511
+C51B: A9 4E     LDA #$4E
+C51D: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C520: CA        DEX
+C521: D0 EE     BNE $C511
+
+C523: C6 3A     DEC <a href="ra813a.htm">$3A</a>          Anzahl der noch zu schreibenden
+C525: F0 06     BEQ $C52D        Sektoren =0 ? ja, ==&gt;
+C527: E6 39     INC <a href="ra8139.htm">$39</a>          Sektornummer + 1
+C529: 4C 00 C4  JMP $C400        naechsten Block ==&gt;
+C52C: EA        NOP
+
+Einsprung von $C525, $C535, $C53D:
+
+C52D: AD 00 60  LDA <a href="wd810.htm">$6000</a>        so lange $4e schreiben, bis
+C530: 29 03     AND #$03         'Controller ready'
+C532: 4A        LSR
+C533: 90 0A     BCC $C53F
+C535: F0 F6     BEQ $C52D
+C537: 18        CLC
+C538: A9 4E     LDA #$4E
+C53A: 8D 03 60  STA <a href="wd813.htm">$6003</a>
+C53D: D0 EE     BNE $C52D
+
+Einsprung von $C533:
+
+C53F: 20 EC CB  JSR <a href="ro81cbec.htm">$CBEC</a>        auf 'Controller ready' warten
+C542: 18        CLC              Ok.
+C543: 24         B $24
+
+Einsprung von $C4E1, $C505, $C517:
+
+C544: 38        SEC              Error-Ende
+C545: 60        RTS
+
+    <a href="ro81c3bb.htm">Previous Page</a> / <a href="ro81c546.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

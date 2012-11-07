@@ -1,0 +1,122 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F6D0/63184:   Convert 4 binary bytes to 5 GCR bytes
+
+Jump from <a href="ro41f78f.htm">$F7BC</a>, <a href="ro41f78f.htm">$F7E3</a>, <a href="ro41f934.htm">$F950</a>, <a href="ro41f934.htm">$F961</a>, <a href="ro41fe30.htm">$FE5E</a>, <a href="ro41fe30.htm">$FE64</a>:
+
+F6D0: A9 00     LDA #$00
+F6D2: 85 57     STA <a href="ra4156.htm">$57</a>
+F6D4: 85 5A     STA <a href="ra4156.htm">$5A</a>
+F6D6: A4 34     LDY <a href="ra4134.htm">$34</a>
+F6D8: A5 52     LDA <a href="ra4152.htm">$52</a>
+F6DA: 29 F0     AND #$F0        ; isolate hi-nibble
+F6DC: 4A        LSR
+F6DD: 4A        LSR             ; and rotate to lower nibble
+F6DE: 4A        LSR
+F6DF: 4A        LSR
+F6E0: AA        TAX             ; as index in table
+F6E1: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F6E4: 0A        ASL
+F6E5: 0A        ASL             ; times 8
+F6E6: 0A        ASL
+F6E7: 85 56     STA <a href="ra4156.htm">$56</a>
+F6E9: A5 52     LDA <a href="ra4152.htm">$52</a>
+F6EB: 29 0F     AND #$0F        ; isolate lower nibble
+F6ED: AA        TAX             ; as index in table
+F6EE: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F6F1: 6A        ROR
+F6F2: 66 57     ROR <a href="ra4156.htm">$57</a>
+F6F4: 6A        ROR
+F6F5: 66 57     ROR <a href="ra4156.htm">$57</a>
+F6F7: 29 07     AND #$07
+F6F9: 05 56     ORA <a href="ra4156.htm">$56</a>
+F6FB: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; in buffer
+F6FD: C8        INY             ; increment buffer
+F6FE: A5 53     LDA <a href="ra4152.htm">$53</a>
+F700: 29 F0     AND #$F0        ; isolate upper nibble
+F702: 4A        LSR
+F703: 4A        LSR
+F704: 4A        LSR             ; shift to upper nibble
+F705: 4A        LSR
+F706: AA        TAX             ; as index in table
+F707: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F70A: 0A        ASL
+F70B: 05 57     ORA <a href="ra4156.htm">$57</a>
+F70D: 85 57     STA <a href="ra4156.htm">$57</a>
+F70F: A5 53     LDA <a href="ra4152.htm">$53</a>
+F711: 29 0F     AND #$0F        ; lower nibble
+F713: AA        TAX             ; as index
+F714: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F717: 2A        ROL
+F718: 2A        ROL
+F719: 2A        ROL
+F71A: 2A        ROL
+F71B: 85 58     STA <a href="ra4156.htm">$58</a>
+F71D: 2A        ROL
+F71E: 29 01     AND #$01
+F720: 05 57     ORA <a href="ra4156.htm">$57</a>
+F722: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; in buffer
+F724: C8        INY             ; increment buffer
+F725: A5 54     LDA <a href="ra4152.htm">$54</a>
+F727: 29 F0     AND #$F0        ; isolate hi-nibble
+F729: 4A        LSR
+F72A: 4A        LSR
+F72B: 4A        LSR
+F72C: 4A        LSR
+F72D: AA        TAX
+F72E: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F731: 18        CLC
+F732: 6A        ROR
+F733: 05 58     ORA <a href="ra4156.htm">$58</a>
+F735: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; in buffer
+F737: C8        INY             ; increment buffer pointer
+F738: 6A        ROR
+F739: 29 80     AND #$80
+F73B: 85 59     STA <a href="ra4156.htm">$59</a>
+F73D: A5 54     LDA <a href="ra4152.htm">$54</a>
+F73F: 29 0F     AND #$0F        ; lower nibble
+F741: AA        TAX             ; as index
+F742: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F745: 0A        ASL
+F746: 0A        ASL
+F747: 29 7C     AND #$7C
+F749: 05 59     ORA <a href="ra4156.htm">$59</a>
+F74B: 85 59     STA <a href="ra4156.htm">$59</a>
+F74D: A5 55     LDA <a href="ra4152.htm">$55</a>
+F74F: 29 F0     AND #$F0        ; isolate hi-nibble
+F751: 4A        LSR
+F752: 4A        LSR             ; shift to lower nibble
+F753: 4A        LSR
+F754: 4A        LSR
+F755: AA        TAX             ; as index in table
+F756: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F759: 6A        ROR
+F75A: 66 5A     ROR <a href="ra4156.htm">$5A</a>
+F75C: 6A        ROR
+F75D: 66 5A     ROR <a href="ra4156.htm">$5A</a>
+F75F: 6A        ROR
+F760: 66 5A     ROR <a href="ra4156.htm">$5A</a>
+F762: 29 03     AND #$03
+F764: 05 59     ORA <a href="ra4156.htm">$59</a>
+F766: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; in buffer
+F768: C8        INY             ; increment buffer pointer
+F769: D0 04     BNE $F76F
+F76B: A5 2F     LDA <a href="ra412e.htm">$2F</a>
+F76D: 85 31     STA <a href="ra4130.htm">$31</a>
+
+Jump from $F769:
+
+F76F: A5 55     LDA <a href="ra4152.htm">$55</a>
+F771: 29 0F     AND #$0F        ; lower nibble
+F773: AA        TAX             ; as index
+F774: BD 7F F7  LDA <a href="ro41f77f.htm">$F77F</a>,X
+F777: 05 5A     ORA <a href="ra4156.htm">$5A</a>
+F779: 91 30     STA (<a href="ra4130.htm">$30</a>),Y     ; in buffer
+F77B: C8        INY             ; increment buffer pointer
+F77C: 84 34     STY <a href="ra4134.htm">$34</a>         ; and save
+F77E: 60        RTS
+
+    <a href="ro41f6ca.htm">Previous Page</a> / <a href="ro41f77f.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

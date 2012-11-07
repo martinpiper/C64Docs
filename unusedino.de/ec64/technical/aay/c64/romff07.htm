@@ -1,0 +1,42 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FF07/65287:   NMI RS232 Out
+
+Jump from <a href="romfe66.htm">$FE9A</a>, <a href="romfe66.htm">$FEB3</a>:
+
+FF07: AD 95 02  <a href="blda.htm">LDA</a> <a href="zp0295.htm">$0295</a>     ; RS232 Non-standard Bits/Second
+FF0A: 8D 06 DD  <a href="bsta.htm">STA</a> <a href="cia26.htm">$DD06</a>     ; CIA2: Timer B Low-Byte  (RS232)
+FF0D: AD 96 02  <a href="blda.htm">LDA</a> <a href="zp0295.htm">$0296</a>     ; RS232 Non-standard Bits/Second
+FF10: 8D 07 DD  <a href="bsta.htm">STA</a> <a href="cia27.htm">$DD07</a>     ; CIA2: Timer B High-Byte (RS232)
+FF13: A9 11     <a href="blda.htm">LDA</a> #$11
+FF15: 8D 0F DD  <a href="bsta.htm">STA</a> <a href="cia215.htm">$DD0F</a>     ; CIA2: Control Register B
+FF18: A9 12     <a href="blda.htm">LDA</a> #$12
+FF1A: 4D A1 02  <a href="beor.htm">EOR</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FF1D: 8D A1 02  <a href="bsta.htm">STA</a> <a href="zp02a1.htm">$02A1</a>     ; RS232 Enables
+FF20: A9 FF     <a href="blda.htm">LDA</a> #$FF
+FF22: 8D 06 DD  <a href="bsta.htm">STA</a> <a href="cia26.htm">$DD06</a>     ; CIA2: Timer B Low-Byte  (RS232)
+FF25: 8D 07 DD  <a href="bsta.htm">STA</a> <a href="cia27.htm">$DD07</a>     ; CIA2: Timer B High-Byte (RS232)
+FF28: AE 98 02  <a href="bldx.htm">LDX</a> <a href="zp0298.htm">$0298</a>     ; RS232 Number of Bits left to send
+FF2B: 86 A8     <a href="bstx.htm">STX</a> <a href="zpa8.htm">$A8</a>       ; RS232 Input Bit count/Tape temporary
+FF2D: 60        <a href="brts.htm">RTS</a>
+
+Jump from <a href="romf409.htm">$F44A</a>:
+
+FF2E: AA        <a href="btax.htm">TAX</a>
+FF2F: AD 96 02  <a href="blda.htm">LDA</a> <a href="zp0295.htm">$0296</a>     ; RS232 Non-standard Bits/Second
+FF32: 2A        <a href="brol.htm">ROL</a>
+FF33: A8        <a href="btay.htm">TAY</a>
+FF34: 8A        <a href="btxa.htm">TXA</a>
+FF35: 69 C8     <a href="badc.htm">ADC</a> #$C8
+FF37: 8D 99 02  <a href="bsta.htm">STA</a> <a href="zp0299.htm">$0299</a>     ; RS232 Baud Rate; Full Bit time microseconds
+FF3A: 98        <a href="btya.htm">TYA</a>
+FF3B: 69 00     <a href="badc.htm">ADC</a> #$00
+FF3D: 8D 9A 02  <a href="bsta.htm">STA</a> <a href="zp0299.htm">$029A</a>     ; RS232 Baud Rate; Full Bit time microseconds
+FF40: 60        <a href="brts.htm">RTS</a>
+FF41: EA        <a href="bnop.htm">NOP</a>
+FF42: EA        <a href="bnop.htm">NOP</a>
+
+    <a href="romfed6.htm">Previous Page</a> / <a href="romff43.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

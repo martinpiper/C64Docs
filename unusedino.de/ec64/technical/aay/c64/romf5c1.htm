@@ -1,0 +1,26 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F5C1/62913:   Print Filename
+
+Jump from <a href="romf68f.htm">$F698</a>:
+
+F5C1: A4 B7     <a href="bldy.htm">LDY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F5C3: F0 0C     <a href="bbeq.htm">BEQ</a> $F5D1
+F5C5: A0 00     <a href="bldy.htm">LDY</a> #$00
+
+Jump from $F5CF:
+
+F5C7: B1 BB     <a href="blda.htm">LDA</a> (<a href="zpbb.htm">$BB</a>),Y   ; Pointer: Current File name Address
+F5C9: 20 D2 FF  <a href="bjsr.htm">JSR</a> <a href="romffd2.htm">$FFD2</a>     ; Output Vector, chrout
+F5CC: C8        <a href="biny.htm">INY</a>
+F5CD: C4 B7     <a href="bcpy.htm">CPY</a> <a href="zpb7.htm">$B7</a>       ; Number of Characters in Filename
+F5CF: D0 F6     <a href="bbne.htm">BNE</a> $F5C7
+
+Jump from $F5C3, <a href="romf5af.htm">$F5B1</a>, <a href="romf5af.htm">$F5BA</a>:
+
+F5D1: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romf5af.htm">Previous Page</a> / <a href="romf5d2.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

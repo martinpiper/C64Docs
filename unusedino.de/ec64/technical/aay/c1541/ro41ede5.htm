@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EDE5/60901:   Allocate file blocks in BAM
+
+Jump from <a href="ro41ed84.htm">$EDA5</a>, <a href="ro41edb3.htm">$EDC8</a>, <a href="ro41edb3.htm">$EDD1</a>:
+
+EDE5: 20 5F D5  JSR <a href="ro41d55f.htm">$D55F</a>       ; check track and sector number
+EDE8: 20 90 EF  JSR <a href="ro41ef90.htm">$EF90</a>       ; allocate block in BAM
+EDEB: 20 75 D4  JSR <a href="ro41d475.htm">$D475</a>       ; read next block
+
+Jump from $EE0A:
+
+EDEE: A9 00     LDA #$00
+EDF0: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer zero
+EDF3: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get byte from buffer
+EDF6: 85 80     STA <a href="ra4180.htm">$80</a>         ; track
+EDF8: 20 37 D1  JSR <a href="ro41d137.htm">$D137</a>       ; get byte from buffer
+EDFB: 85 81     STA <a href="ra4181.htm">$81</a>         ; sector
+EDFD: A5 80     LDA <a href="ra4180.htm">$80</a>         ; another block?
+EDFF: D0 03     BNE $EE04       ; yes
+EE01: 4C 27 D2  JMP <a href="ro41d227.htm">$D227</a>       ; close channel
+
+Jump from $EDFF:
+
+EE04: 20 90 EF  JSR <a href="ro41ef90.htm">$EF90</a>       ; allocate block in BAM
+EE07: 20 4D D4  JSR <a href="ro41d44d.htm">$D44D</a>       ; read next block
+EE0A: 4C EE ED  JMP $EDEE       ; continue
+
+    <a href="ro41edb3.htm">Previous Page</a> / <a href="ro41ee0d.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

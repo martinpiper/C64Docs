@@ -1,0 +1,54 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC5B/48219:   Compare FAC#1 With Memory
+
+Jump from <a href="romb01b.htm">$B027</a>, <a href="romb1bf.htm">$B1C9</a>, <a href="rombddd.htm">$BE0F</a>, <a href="rombddd.htm">$BE1A</a>, <a href="rombf7b.htm">$BF96</a>:
+
+BC5B: 85 24     <a href="bsta.htm">STA</a> <a href="zp22.htm">$24</a>       ; Second Utility Pointer
+
+Jump from <a href="romad1e.htm">$AD57</a>:
+
+BC5D: 84 25     <a href="bsty.htm">STY</a> <a href="zp22.htm">$25</a>       ; Second Utility Pointer
+BC5F: A0 00     <a href="bldy.htm">LDY</a> #$00
+BC61: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC63: C8        <a href="biny.htm">INY</a>
+BC64: AA        <a href="btax.htm">TAX</a>
+BC65: F0 C4     <a href="bbeq.htm">BEQ</a> <a href="rombc2b.htm">$BC2B</a>     ; Check Sign of FAC#1
+BC67: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC69: 45 66     <a href="beor.htm">EOR</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BC6B: 30 C2     <a href="bbmi.htm">BMI</a> <a href="rombc2b.htm">$BC2F</a>     ; Check Sign of FAC#1
+BC6D: E4 61     <a href="bcpx.htm">CPX</a> <a href="zp61.htm">$61</a>       ; FAC Exponent
+BC6F: D0 21     <a href="bbne.htm">BNE</a> $BC92
+BC71: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC73: 09 80     <a href="bora.htm">ORA</a> #$80
+BC75: C5 62     <a href="bcmp.htm">CMP</a> <a href="zp62.htm">$62</a>       ; FAC Mantissa
+BC77: D0 19     <a href="bbne.htm">BNE</a> $BC92
+BC79: C8        <a href="biny.htm">INY</a>
+BC7A: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC7C: C5 63     <a href="bcmp.htm">CMP</a> <a href="zp62.htm">$63</a>       ; FAC Mantissa
+BC7E: D0 12     <a href="bbne.htm">BNE</a> $BC92
+BC80: C8        <a href="biny.htm">INY</a>
+BC81: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC83: C5 64     <a href="bcmp.htm">CMP</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+BC85: D0 0B     <a href="bbne.htm">BNE</a> $BC92
+BC87: C8        <a href="biny.htm">INY</a>
+BC88: A9 7F     <a href="blda.htm">LDA</a> #$7F
+BC8A: C5 70     <a href="bcmp.htm">CMP</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+BC8C: B1 24     <a href="blda.htm">LDA</a> (<a href="zp22.htm">$24</a>),Y   ; Second Utility Pointer
+BC8E: E5 65     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+BC90: F0 28     <a href="bbeq.htm">BEQ</a> <a href="rombc9b.htm">$BCBA</a>     ; Convert FAC#1 to Integer
+
+Jump from $BC6F, $BC77, $BC7E, $BC85:
+
+BC92: A5 66     <a href="blda.htm">LDA</a> <a href="zp66.htm">$66</a>       ; FAC Sign
+BC94: 90 02     <a href="bbcc.htm">BCC</a> $BC98
+BC96: 49 FF     <a href="beor.htm">EOR</a> #$FF
+
+Jump from $BC94:
+
+BC98: 4C 31 BC  <a href="bjmp.htm">JMP</a> <a href="rombc2b.htm">$BC31</a>     ; Check Sign of FAC#1
+
+    <a href="rombc58.htm">Previous Page</a> / <a href="rombc9b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,2681 @@
+<html>
+<head>
+<title>Der MOS 6567/6569 Videocontroller (VIC-II)</title>
+</head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+
+                Der MOS 6567/6569 Videocontroller (VIC-II)
+                    und seine Anwendung im Commodore 64
+
+                            von Christian Bauer
+                     &lt;bauec002@goofy.zdv.uni-mainz.de&gt;
+
+                                28.Aug.1996
+
+
+
+Inhalt
+------
+
+1. Einleitung
+2. Die Architektur des Commodore 64
+2.1. &Uuml;bersicht
+2.2. 6510 Prozessor
+2.3. 6567/6569 Grafikchip
+2.4. Speicher
+2.4.1. Speicheraufteilung aus Sicht des 6510
+2.4.2. Speicheraufteilung aus Sicht des VIC
+2.4.3. Speicherzugriff von 6510 und VIC
+3. Funktionsweise des VIC
+3.1. Blockbild
+3.2. Register
+3.3. Farbpalette
+3.4. Bildaufbau und Ausma&szlig;e des Bildausschnittes
+3.5. Bad Lines
+3.6. Speicherzugriff
+3.6.1. Die X-Koordinaten
+3.6.2. Zugriffsarten
+3.6.3. Timing einer Rasterzeile
+3.7. Text-/Bitmapdarstellung
+3.7.1. Idle-Zustand/Display-Zustand
+3.7.2. VC und RC
+3.7.3. Grafikmodi
+3.7.3.1. Standard-Textmodus (ECM/BMM/MCM=0/0/0)
+3.7.3.2. Multicolor-Textmodus (ECM/BMM/MCM=0/0/1)
+3.7.3.3. Standard-Bitmap-Modus (ECM/BMM/MCM=0/1/0)
+3.7.3.4. Multicolor-Bitmap-Modus (ECM/BMM/MCM=0/1/1)
+3.7.3.5. ECM-Textmodus (ECM/BMM/MCM=1/0/0)
+3.7.3.6. Ung&uuml;ltiger Textmodus (ECM/BMM/MCM=1/0/1)
+3.7.3.7. Ung&uuml;ltiger Bitmap-Modus 1 (ECM/BMM/MCM=1/1/0)
+3.7.3.8. Ung&uuml;ltiger Bitmap-Modus 2 (ECM/BMM/MCM=1/1/1)
+3.7.3.9. Idle-Zustand
+3.8. Sprites
+3.8.1. Speicherzugriff und Darstellung
+3.8.2. Priorit&auml;t und Kollisionserkennung
+3.9. Die Rahmenstufe
+3.10. Display Enable
+3.11. Lightpen
+3.12. VIC-Interrupts
+3.13. DRAM-Refresh
+3.14. Effekte/Anwendungen
+3.14.1. Hyperscreen
+3.14.2. FLD
+3.14.3. FLI
+3.14.4. Linecrunch
+3.14.5. Verdoppelte Textzeilen
+3.14.6. DMA-Delay
+3.14.7. Sprite-Stretching
+4. Die Adressen 0 und 1 und der $de00-Bereich
+
+Anhang A: Literaturverzeichnis
+Anhang B: Danksagungen
+
+
+
+1. Einleitung
+-------------
+
+Dieser Artikel ist der Versuch, die Ergebnisse der zahlreichen
+Untersuchungen &uuml;ber den Grafikchip &quot;6567/6569 Video Interface Controller
+(VIC-II)&quot; (im folgenden einfach &quot;VIC&quot; genannt), der im legend&auml;ren Commodore
+64 zum Einsatz kommt, zu ordnen und damit eine umfassende Referenz &uuml;ber
+dessen spezifizierte und nicht spezifizierte Eigenschaften zur Verf&uuml;gung zu
+stellen. Er richtet sich erster Linie an C64-Programmierer und Autoren von
+C64-Emulationen, allerdings sollte die Lekt&uuml;re auch f&uuml;r &quot;Au&szlig;enstehende&quot;,
+die sich f&uuml;r Hardwaredesign und -programmierung und die Ausnutzung eines
+Computers bis zum letzten Bit interessieren, aufschlu&szlig;reich sein. Aus
+diesem Grund wurden auch einige Grundlagen mit aufgenommen, die f&uuml;r
+erfahrene C64-Programmierer ein alter Hut sind (z.B. die
+Speicheraufteilung).
+
+Die Beschreibung der nicht spezifizierten Eigenschaften basiert auf
+Messungen, die Marko M&auml;kel&auml;, Andreas Boose, Pasi Ojala, Wolfgang Lorenz und
+ich (und zahlreiche Ungenannte) im Laufe der letzten Jahre vorgenommen
+haben. Dabei werden auch interne Register und Abl&auml;ufe im VIC angesprochen.
+Da die Innenschaltung des VIC nicht zur Verf&uuml;gung steht, kann es sich dabei
+nat&uuml;rlich nur um Spekulationen handeln, aber es wurde in allen F&auml;llen ein
+Modell gew&auml;hlt, das die beobachteten Ph&auml;nomene mit dem geringsten
+Schaltungsaufwand erkl&auml;rt. So wurde z.B. beim Videomatrixz&auml;hler (VC) einem
+Modell mit zwei einfachen Z&auml;hlern einem aufwendigeren mit einem
++40-Addierer der Vorzug gegeben.
+
+Obwohl einige Messungen mit einem Oszilloskop direkt am Chip stattfanden,
+beruhen die meisten Erkenntnisse jedoch auf Testprogrammen auf dem C64 und
+deren Vergleich mit der Implementierung in Einzelzyklusemulationen wie
+&quot;Frodo SC&quot;.
+
+
+2. Die Architektur des Commodore 64
+-----------------------------------
+
+Dieses Kapitel behandelt den grundlegenden Hardwareaufbau des C64 und die
+Anbindung des VIC an den Rest des Systems.
+
+2.1. &Uuml;bersicht
+--------------
+
+Der C64 besteht im Wesentlichen aus folgenden Baugruppen:
+
+ &middot; 6510 8-Bit Mikroprozessor
+ &middot; 6567/6569 VIC-II Grafikchip
+ &middot; 6581 SID Soundchip
+ &middot; Zwei 6526 CIA I/O-Chips
+ &middot; 64KB DRAM (64K*8 Bit) als Hauptspeicher
+ &middot; 0,5KB SRAM (1K*4 Bit) als Farb-RAM
+ &middot; 16KB ROM (16K*8 Bit) f&uuml;r Betriebssystem und Basic-Interpreter
+ &middot; 4KB ROM (4K*8 Bit) als Zeichengenerator
+
+Die meisten Chips sind in NMOS-Technologie gefertigt.
+
+2.2. 6510 Prozessor
+-------------------
+
+Der 6510-Mikroprozessor [1] besitzt einen 8-Bit-Daten- und 16-Bit-Adressbus
+und ist zum bekannten 6502 bin&auml;rkompatibel. Er verf&uuml;gt &uuml;ber zwei externe
+Interruptm&ouml;glichkeiten (eine nicht maskierbare (IRQ) und eine maskierbare
+(NMI)) und als Besonderheit einen 6 Bit breiten bidirektionalen I/O-Port.
+Er wird im C64 mit einer Taktfrequenz von ca. 1MHz betrieben.
+
+Wichtige Signale:
+
+&oslash;2     Prozessortakt Ausgang
+       Dieses Taktsignal ist die Grundlage des gesamten Bus-Timing. Seine
+       Frequenz betr&auml;gt 1022,7 kHz (NTSC-Rechner) bzw. 985,248 kHz
+       (PAL-Rechner). Eine Periode dieses Signals entspricht einem
+       Taktzyklus, der aus zwei Phasen besteht: W&auml;hrend der ersten
+       Taktphase ist &oslash;2 Low, w&auml;hrend der zweiten Phase High (daher auch
+       der Name '&oslash;2' f&uuml;r &quot;Phase 2&quot;). Der 6510 greift nur w&auml;hrend der
+       zweiten Taktphase auf den Bus zu, der VIC normalerweise w&auml;hrend der
+       ersten Phase.
+
+R/W    Dieses Signal zeigt einen Lese- (R/W High) oder Schreibzugriff (R/W
+       Low) an.
+
+IRQ    Ist dieser Eingang auf Low-Pegel, wird eine Interruptbearbeitung
+       ausgel&ouml;st, sofern der Interrupt &uuml;ber ein Bit im Statusregister
+       freigegeben wurde. Die Unterbrechung erfolgt fr&uuml;hestens nach zwei
+       Taktzyklen beim Erreichen des n&auml;chsten Befehls. Mit diesem Pin kann
+       der VIC einen Interrupt im Prozessor ausl&ouml;sen. Interrupts werden nur
+       erkannt, wenn RDY high ist.
+
+RDY    Ist diese Leitung w&auml;hrend eines Lesezugriffs Low, h&auml;lt der Prozessor
+       an und gibt auf Adre&szlig;leitungen die Adresse, auf die zugegriffen
+       werden sollte, aus. Bei Schreibzugriffen wird das Signal ignoriert.
+       Im C64 wird RDY benutzt, um den Prozessor anzuhalten, wenn der VIC
+       f&uuml;r den Zeichenzeiger- und Spritedatenzugriff zus&auml;tzliche Buszyklen
+       ben&ouml;tigt. Es ist direkt mit dem Signal BA des VIC verbunden.
+
+AEC    Mit diesem Pin werden die Adre&szlig;leitungen hochohmig geschaltet. Dies
+       dient dazu, den Prozessoradre&szlig;bus bei Zugriffen des VIC lahmzulegen.
+       Das Signal ist mit dem Ausgang AEC des VIC verbunden.
+
+P0-P5  Dies ist der eingebaute 6-Bit-I/O-Port. Jede Leitung kann einzeln
+       als Ein- oder Ausgang programmiert werden. Dazu sind ein
+       Datenrichtungsregister bei Adresse 0 und ein Datenregister bei
+       Adresse 1 prozessorintern in den Adre&szlig;raum eingeblendet. Daher
+       sollte man annehmen, da&szlig; der Prozessor nicht auf die RAM-Adressen 0
+       und 1 zugreifen kann (sie werden ja vom I/O-Port &uuml;berlagert), aber
+       dazu sp&auml;ter mehr...
+
+2.3. 6567/6569 Grafikchip
+-------------------------
+
+Die Grafikchips der 656*-Reihe von MOS Technologies wurden urspr&uuml;nglich f&uuml;r
+den Einsatz in Videospielen und Grafikterminals entwickelt. Da der Absatz
+in diesen M&auml;rkten jedoch eher bescheiden war, entschlo&szlig; sich Commodore, als
+sie eigene Heimcomputer planten, die Chips daf&uuml;r zu verwenden.
+
+Im C64 fand der &quot;Video Interface Controller II (VIC-II)&quot; [2] Verwendung,
+der 3 textbasierte (40&times;25 Zeichen mit je 8&times;8 Pixeln) und 2 bitmapbasierte
+(320&times;200 Pixel) Videomodi beherrscht, &uuml;ber 8 Hardwaresprites und eine feste
+Palette von 16 Farben verf&uuml;gt und bis zu 16KB dynamisches RAM verwalten
+kann (inklusive der Erzeugung von RAS und CAS und dem Refresh des RAM).
+Au&szlig;erdem besitzt er noch einen Eingang f&uuml;r Lichtgriffel und die
+M&ouml;glichkeit, Interrupts auszul&ouml;sen.
+
+Zwei VIC-Typen kommen im C64 vor: Der 6567 in NTSC-Rechnern und der 6569 in
+PAL-Rechnern. Von beiden Typen gibt es mehrere Maskenrevisionen, wovon
+allerdings bis auf den 6567R56A die Unterschiede relativ belanglos sind.
+In neueren C64-Versionen kommen die gleichwertigen Bausteine 8562 (NTSC)
+und 8565 (PAL) zum Einsatz. Im folgenden ist aber immer von 6567/6569 die
+Rede. Alle Aussagen lassen sich auf die 856*-Chips &uuml;bertragen. Es gibt
+au&szlig;erdem noch den 6566, der zum Anschlu&szlig; an statisches RAM entworfen wurde,
+aber f&uuml;r den C64 keine Rolle spielt.
+
+Wichtige Signale:
+
+A0-A13  Der 14-Bit-Videoadre&szlig;bus, mit dem der VIC 16KB Speicher adressieren
+        kann. Dabei sind die Adre&szlig;bits A0-A5 und A8-A13 jeweils paarweise
+        (d.h. A0/A8, A1/A9 etc.) auf einem Pin gemultiplext. Die Bits
+        A6-A11 sind (zus&auml;tzlich) als einzelne Leitungen ausgef&uuml;hrt.
+
+D0-D11  Ein 12 Bit breiter Datenbus, &uuml;ber den der VIC auf den Speicher
+        zugreift. Die unteren 8 Bit sind mit dem Hauptspeicher und dem
+        Prozessordatenbus verbunden, die oberen 4 Bit mit einem besonderen
+        4 Bit breiten statischen Speicher (1024 Adressen, A0-A9), in dem
+        Farbinformationen gespeichert werden, dem Farb-RAM.
+
+IRQ     Dieser Ausgang ist an den IRQ-Eingang des Prozessors angeschlossen
+        und gibt dem VIC die M&ouml;glichkeit, Interrupts zu erzeugen. Der VIC
+        hat vier Interruptm&ouml;glichkeiten: Beim Erreichen einer bestimmten
+        Rasterzeile (Rasterinterrupt), bei der Kollision von zwei Sprites
+        untereinander, bei der Kollision von Sprites mit Grafikdaten und
+        bei einer negativen Flanke am Lichtgriffel-Eingang.
+
+BA      Mit diesem Signal zeigt der VIC an, da&szlig; der Bus f&uuml;r den Prozessor
+        in der zweiten Taktphase (&oslash;2 High) zu Verf&uuml;gung steht.
+        Normalerweise ist BA High, da der VIC meistens nur w&auml;hrend der
+        ersten Phase zugreift. F&uuml;r die Zeichenzeiger- und
+        Spritedatenzugriffe ben&ouml;tigt der VIC den Bus jedoch auch w&auml;hrend
+        der zweiten Phase. In diesem Fall geht BA drei Zyklen bevor der VIC
+        zugreift auf Low, danach bleibt AEC auch w&auml;hrend der zweiten Phase
+        Low und der VIC greift zu. Warum drei Zyklen? Wie bereits
+        beschrieben, ist BA mit der RDY-Leitung des Prozessors verbunden,
+        aber diese Leitung wird nur bei Lesezugriffen abgefragt, der
+        Prozessor kann bei Schreibzugriffen nicht unterbrochen werden.
+        Allerdings f&uuml;hrt der 6510 nie mehr als drei Schreibzugriffe
+        hintereinander aus (siehe dazu [5]).
+
+AEC     Dieser Pin ist mit den gleichnamigen Signal des Prozessors
+        verbunden (siehe dort). Es gibt den Status der Daten- und
+        Adre&szlig;bustreiber des VIC wieder. Bei High befinden sie sich im
+        Tri-State. Normalerweise ist AEC w&auml;hrend der ersten Taktphase (&oslash;2
+        Low) Low und w&auml;hrend der zweiten Phase High, entsprechend dem
+        Schema, da&szlig; der VIC w&auml;hrend der ersten Phase auf den Speicher
+        zugreift und der 6510 w&auml;hrend der zweiten Phase. Wenn der VIC auch
+        w&auml;hrend der zweiten Taktphase zugreift, bleibt AEC Low.
+
+LP      Dieser Eingang ist f&uuml;r den Anschlu&szlig; eines Lichtgriffels vorgesehen.
+        Bei einer negativen Flanke wird die aktuelle Position des
+        Rasterstrahls in den Registern LPX und LPY gelatcht. Da dieser Pin
+        im C64 eine Leitung der Tastaturmatrix mitbenutzt, l&auml;&szlig;t er sich
+        auch per Software ansprechen.
+
+&oslash;IN     Hier liegt der Pixeltakt von 8,18 MHz (NTSC) bzw. 7,88 MHz (PAL)
+        an, der aus der Quarzfrequenz gewonnen wird. Pro Bustaktzyklus (&oslash;2)
+        werden acht Pixel ausgegeben.
+
+&oslash;0      Aus dem Pixeltakt an &oslash;IN erzeugt der VIC durch Teilung durch acht
+        den Systemtakt von 1,023 MHz (NTSC) bzw. 0,985 MHz (PAL), der an
+        diesem Pin ausgegeben wird und an den Prozessor geht. Dieser
+        erzeugt daraus das Signal &oslash;2.
+
+2.4. Speicher
+-------------
+
+F&uuml;r die Grafik spielen drei Speicherbereiche im C64 eine Rolle:
+
+ &middot; Die 64KB Hauptspeicher
+ &middot; Das 1K*4 Bit Farb-RAM
+ &middot; Das 4KB Zeichengenerator-ROM (Char-ROM)
+
+In den folgenden beiden Abschnitten wird dargestellt, wie sich diese
+Speicherbereiche den Adre&szlig;raum aus Sicht der CPU und des VIC teilen.
+Anschlie&szlig;end wird auf die Grundlagen des Speicherzugriffs und des
+DRAM-Handling eingegangen.
+
+2.4.1 Speicheraufteilung aus Sicht des 6510
+-------------------------------------------
+
+Der 6510 kann mit seinen 16 Adre&szlig;leitungen 64KB linear adressieren. Mit
+Hilfe eines speziellen PAL-Bausteins im C64 k&ouml;nnen &uuml;ber die Leitungen des
+6510-I/O-Ports und &uuml;ber Steuersignale am Erweiterungsport viele
+verschiedene Speicherkonfigurationen eingestellt werden (siehe dazu [3]).
+Hier soll jedoch nur die Standardeinstellung beschrieben werden. Die
+anderen Konfigurationen &auml;ndern die Lage der verschiedenen Bereiche nicht,
+sondern blenden nur zus&auml;tzliche Bereiche des Hauptspeichers ein.
+
+Hier also die Speicherkarte aus Sicht des 6510:
+
+
+                             Der Bereich von $d000-$dfff bei
+                                  CHAREN=1     CHAREN=0
+
+ $ffff +--------------+  /$e000 +----------+  +----------+
+       |  Kernal-ROM  | /       |  I/O  2  |  |          |
+ $e000 +--------------+/  $df00 +----------+  |          |
+       |I/O, Char-ROM |         |  I/O  1  |  |          |
+ $d000 +--------------+\  $de00 +----------+  |          |
+       |     RAM      | \       |  CIA  2  |  |          |
+ $c000 +--------------+  \$dd00 +----------+  |          |
+       |  Basic-ROM   |         |  CIA  1  |  |          |
+ $a000 +--------------+   $dc00 +----------+  | Char-ROM |
+       |              |         | Farb-RAM |  |          |
+       .     RAM      .         |          |  |          |
+       .              .   $d800 +----------+  |          |
+       |              |         |   SID-   |  |          |
+ $0002 +--------------+         | Register |  |          |
+       | I/O-Port DR  |   $d400 +----------+  |          |
+ $0001 +--------------+         |   VIC-   |  |          |
+       | I/O-Port DDR |         | Register |  |          |
+ $0000 +--------------+   $d000 +----------+  +----------+
+
+
+Die 64KB Hautpspeicher stehen im Prinzip linear zur Verf&uuml;gung, aber sie
+sind an verschiedenen Stellen von ROM- und Register-Bereichen &uuml;berlagert.
+Ein Schreibzugriff auf einen ROM-Bereich speichert das Byte im
+&quot;darunterliegenden&quot; RAM. Bei Adresse $0000 und $0001 liegen
+Datenrichtungsregister und Datenregister des 6510-I/O-Ports.
+
+Im Bereich von $d000-$dfff erscheinen wahlweise die Register der I/O-Chips
+und das Farb-RAM oder das Zeichengenerator-ROM, je nach Zustand des Signals
+CHAREN (dies ist Bit 2 des 6510-I/O-Ports). Das Farb-RAM ist im
+Adre&szlig;bereich $d800-$dbff untergebracht und mit den unteren 4 Datenbits
+verbunden. Die oberen 4 Datenbits sind offen und liefern beim Lesen
+&quot;zuf&auml;llige&quot; Werte. Die beiden mit &quot;I/O 1&quot; und &quot;I/O 2&quot; bezeichneten Bereiche
+sind f&uuml;r Erweiterungskarten reserviert und normalerweise ebenfalls offen,
+ein Lesezugriff liefert auch hier &quot;zuf&auml;llige&quot; Daten (da&szlig; diese Daten gar
+nicht so zuf&auml;llig sind, wird in Kapitel 4 noch ausf&uuml;hrlich erkl&auml;rt. Ein
+Lesen von offenen Adressen liefert n&auml;mlich auf vielen C64 das zuletzt vom
+VIC gelesene Byte zur&uuml;ck!).
+
+Die 47 Register des VIC sind ab $d000 in den Adre&szlig;raum eingeblendet.
+Aufgrund der unvollst&auml;ndigen Dekodierung wiederholen sie sich alle 64 Bytes
+im Bereich von $d000-$d3ff.
+
+2.4.2 Speicheraufteilung aus Sicht des VIC
+------------------------------------------
+
+Der VIC besitzt nur 14 Adre&szlig;leitungen, kann also nur 16KB Speicher
+adressieren. Er kann trotzdem auf die kompletten 64KB Hauptspeicher
+zugreifen, denn die 2 fehlenden oberen Adre&szlig;bits werden von einem der
+CIA-I/O-Chips zur Verf&uuml;gung gestellt (es sind dies die invertierten Bits 0
+und 1 von Port A der CIA 2). Damit kann jeweils eine von 4 16KB-B&auml;nken f&uuml;r
+den VIC eingestellt werden.
+
+Die (erweiterte) Speicherlandschaft aus Sicht des VIC sieht so aus:
+
+
+ $ffff +----------+   --
+       |          |
+       |          |
+       |          |
+       |   RAM    | Bank 3
+       |          |
+       |          |
+       |          |
+ $c000 +----------+   --
+       |          |
+       |   RAM    |
+       |          |
+ $a000 +----------+ Bank 2
+       | Char-ROM |
+ $9000 +----------+
+       |   RAM    |
+ $8000 +----------+   --
+       |          |
+       |          |
+       |          |
+       |   RAM    | Bank 1
+       |          |
+       |          |
+       |          |
+ $4000 +----------+   --
+       |          |
+       |   RAM    |
+       |          |
+ $2000 +----------+ Bank 0
+       | Char-ROM |
+ $1000 +----------+
+       |   RAM    |
+ $0000 +----------+   --
+
+
+Das Char-ROM wird in den B&auml;nken 0 und 2 jeweils an den VIC-Adressen
+$1000-$1fff eingeblendet (in Bank 2 erscheint es in dem Diagramm oben an
+Adresse $9000, aber der VIC wei&szlig; ja nichts von den beiden Adre&szlig;bits, die
+noch f&uuml;r ihn erzeugt werden. Aus seiner Sicht ist das Char-ROM auch in Bank
+2 an $1000-$1fff).
+
+Der aufmerksame Leser wird bereits bemerkt haben, da&szlig; das Farb-RAM
+nirgendwo auftaucht, aber erinnern wir uns: Der VIC besitzt einen
+12-Bit-Datenbus dessen obere 4 Bit mit dem Farb-RAM verbunden sind.
+&Uuml;berhaupt dienen die oberen 4 Bit des VIC-Datenbus nur dazu, das Farb-RAM
+auszulesen. Das Farb-RAM wird &uuml;ber die unteren 10 Bit des VIC-Adre&szlig;busses
+adressiert und steht daher in allen B&auml;nken an allen Adressen zur Verf&uuml;gung.
+
+2.4.3 Speicherzugriff von 6510 und VIC
+--------------------------------------
+
+6510 und VIC beruhen beide auf einem recht einfachen, festverdrahteten
+Design. Beide Chips f&uuml;hren in JEDEM Taktzyklus einen Speicherzugriff aus,
+auch wenn dies gar nicht notwendig ist. Wenn z.B. der Prozessor in einem
+Taktzyklus mit einer internen Operation wie der Indexadressierung
+besch&auml;ftigt ist, die eigentlich keinen Zugriff erforden w&uuml;rde, wird
+trotzdem ein Lesezugriff ausgef&uuml;hrt, dessen Ergebnis verworfen wird. Der
+VIC greift nur lesend auf den Speicher zu, der 6510 lesend und schreibend.
+
+Es gibt keine Waitstates, keine internen Caches und keine aufwendigen
+Zugriffsprotokolle auf den Bus, wie sie bei modernen Prozessoren &uuml;blich
+sind. Jeder Zugriff wird in einem einzigen Zyklus ausgef&uuml;hrt.
+
+Der VIC erzeugt die Taktfrequenzen des Systembus und die RAS- und
+CAS-Signale f&uuml;r den Zugriff auf das dynamische RAM (auch f&uuml;r den
+Prozessor). Er hat daher die prim&auml;re Kontrolle &uuml;ber den Bus und kann den
+Prozessor gelegentlich &quot;bet&auml;uben&quot;, wenn er zus&auml;tzliche Zyklen f&uuml;r
+Speicherzugriffe ben&ouml;tigt. Au&szlig;erdem sorgt der VIC f&uuml;r den Refresh des DRAM,
+indem er in jeder Rasterzeile aus 5 Refresh-Adressen liest.
+
+Die Aufteilung der Zugriffe zwischen 6510 und VIC ist zun&auml;chst einmal
+statisch: Jeder Taktzyklus (eine Periode des &oslash;2-Signals) ist in zwei Phasen
+aufgeteilt. In der ersten Phase (&oslash;2 Low) greift der VIC zu, in der zweiten
+Phase (&oslash;2 High) der Prozessor. Das AEC-Signal schwingt parallel zu &oslash;2 mit.
+So k&ouml;nnten 6510 und VIC beide abwechselnd den Speicher benutzen, ohne sich
+gegenseitig zu st&ouml;ren.
+
+Jedoch ben&ouml;tigt der VIC manchmal mehr Zyklen, als dieses Schema ihm
+zuteilen w&uuml;rde. Das ist dann der Fall, wenn der VIC auf die Zeichenzeiger
+und auf die Sprite-Daten zugreift. Im ersten Fall werden 40, im zweiten
+Fall pro Sprite 2 zus&auml;tzliche Zyklen ben&ouml;tigt. Dann geht BA 3 Zyklen bevor
+der VIC den Bus komplett &uuml;bernimmt auf Low (3 Zyklen sind die maximale
+Anzahl aufeinanderfolgender Schreibzugriffe beim 6510) und nach 3 Zyklen
+bleibt AEC w&auml;hrend der zweiten Taktphase Low, damit der VIC seine Adressen
+anlegen kann.
+
+Das folgende Diagramm illustriert den Vorgang der Bus&uuml;bernahme:
+
+       _ _ _ _ _ _ _ _ _ _ _ _ _    _ _ _ _ _ _ _ _ _ _ _ _ _
+ &oslash;2   _ _ _ _ _ _ _ _ _ _ _ _ _ ..._ _ _ _ _ _ _ _ _ _ _ _ _
+      ______________                       __________________
+ BA                 ____________...________
+       _ _ _ _ _ _ _ _ _ _                  _ _ _ _ _ _ _ _ _
+ AEC  _ _ _ _ _ _ _ _ _ _ ______..._________ _ _ _ _ _ _ _ _
+
+ Chip VPVPVPVPVPVPVPVpVpVpVVVVVV...VVVVVVVVVPVPVPVPVPVPVPVP
+
+           1       |  2  |       3        |       4
+        Normale    |&Uuml;ber-|  VIC hat den   |  VIC gibt den
+      Busaktivit&auml;t |nahme| Bus &uuml;bernommen | Bus wieder frei
+
+
+Die Zeile &quot;Chip&quot; gibt an, welcher Baustein gerade auf den Bus zugreift (es
+findet ja, wie gesagt in jedem Zyklus ein Zugriff statt). &quot;V&quot; steht f&uuml;r den
+VIC, &quot;P&quot; f&uuml;r den 6510. Die mit &quot;p&quot; gekennzeichneten Zugriffe des Prozessors
+werden nur ausgef&uuml;hrt, wenn sie Schreibzugriffe sind. Der erste
+&quot;p&quot;-Lesezugriff h&auml;lt den 6510 an, sp&auml;testens nach dem dritten &quot;p&quot;, da ja
+beim 6510 h&ouml;chstens 3 Schreibzugriffe aufeinanderfolgen k&ouml;nnen. Bei einem
+&quot;p&quot;-Lesezugriff werden aber trotzdem die Prozessoradressen auf den Bus
+gegeben, denn AEC ist ja noch High.
+
+Das Diagramm beschreibt den normalen Verlauf der Bus&uuml;bernahme. Durch
+geeignetes Ver&auml;ndern des VIC-Registers $d011 ist es m&ouml;glich, eine
+Bus&uuml;bernahme zu au&szlig;erordentlichen Zeitpunkten zu erzwingen. Dies sowie das
+komplette Bus-Timing einer VIC-Rasterzeile werden in Kapitel 3 erl&auml;utert.
+
+
+3. Funktionsweise des VIC
+-------------------------
+
+Dieses Kapitel besch&auml;ftigt sich mit den einzelnen Funktionsgruppen im VIC,
+deren Arbeitsweise und Zusammenspiel und deren nicht spezifiziertem
+Verhalten und den Einblicken, die dadurch in die internen Abl&auml;ufe im VIC
+gewonnen werden k&ouml;nnen.
+
+3.1. Blockbild
+--------------
+
+Das folgende Blockschaltbild gibt eine &Uuml;bersicht &uuml;ber den inneren Aufbau
+des VIC und die unabh&auml;ngig voneinander arbeitenden Funktionsgruppen:
+
+
+ IRQ &lt;---------------------------------+
+                                       |
+            +---------------+ +-----------------+
+            | Refreshz&auml;hler | | Interrupt-Logik |&lt;----------------------+
+        +-+ +---------------+ +-----------------+                       |
+        |S|    |               ^                                        |
+  A     |p|    v               |                                        |
+  d     |e|   +-+    +------------+  +-------+                          |
+  r     |i|   |A|    |Rasterz&auml;hler|-&gt;| VC/RC |                          |
+  .     |c|   |d| +-&gt;|    X/Y     |  +-------+                          |
+  + &lt;==&gt;|h|   |r| |  +------------+      |                              |
+  D     |e|   |e| |     | | |            |                              |
+  a     |r|   |&szlig;|&lt;--------+--------------+   +-----------------------+  |
+  t     |i|   |g|===========================&gt;|40&times;12 Bit Videomatrix-/|  |
+  e     |n|&lt;=&gt;|e| |     |   |                |       Farbzeile       |  |
+  n     |t|   |n| |     |   |                +-----------------------+  |
+        |e|   |e| |     |   |                            ||             |
+        |r|   |r| |     |   | +----------------+         ||             |
+ BA  &lt;--|f|   |a|============&gt;|8&times;24 Bit Sprite-|         ||             |
+        |a|   |t|&lt;----+ |   | |  datenpuffer   |         ||             |
+ AEC &lt;--|c|   |o| |   | v   | +----------------+         ||             |
+        |e|   |r| | +-----+ |         ||                 ||             |
+        +-+   +-+ | |MC0-7| |         \/                 \/             |
+                  | +-----+ |  +--------------+   +--------------+      |
+                  |         |  | Spritedaten- |   | Grafikdaten- |      |
+        +---------------+   |  |  sequenzer   |   |  sequenzer   |      |
+ RAS &lt;--|               |   |  +--------------+   +--------------+      |
+ CAS &lt;--| Takterzeugung |   |              |         |                  |
+ &oslash;0  &lt;--|               |   |              v         v                  |
+        +---------------+   |       +-----------------------+           |
+                ^           |       |          MUX          |           |
+                |           |       | Spritepriorit&auml;ten und |-----------+
+ &oslash;IN -----------+           |       |  Kollisionserkennung  |
+                            |       +-----------------------+
+   VC: Video Counter,       |                   |
+       Videomatrixz&auml;hler    |                   v
+   RC: Row Counter,         |            +-------------+
+       Zeilenz&auml;hler         +-----------&gt;| Rahmenstufe |
+   MC: MOB Data Counter,    |            +-------------+
+       Spritedatenz&auml;hler    |                   |
+                            v                   v
+                    +----------------+  +---------------+
+                    | Sync-Erzeugung |  | Farberzeugung |&lt;-------- &oslash;COLOR
+                    +----------------+  +---------------+
+                                   |      |
+                                   v      v
+                                 Videoausgang
+                               (S/LUM und COLOR)
+
+
+Die Baugruppe f&uuml;r die Lightpen-Funktionen ist nicht dargestellt.
+
+Wie man sieht, kommt dem &quot;Rasterz&auml;hler X/Y&quot; eine zentrale Aufgabe zu.
+Logisch, denn s&auml;mtliche Darstellungen am Bildschirm und alle Buszugriffe
+orientieren sich dar&uuml;ber.
+
+Wichtig ist, zu bemerken, da&szlig; sowohl bei den Sprites als auch bei der
+Grafik die Funktionen f&uuml;r die Darstellung und die daf&uuml;r n&ouml;tigen
+Speicherzugriffe getrennt voneinander sind. Zwischen den beiden steht
+jeweils ein Datenpuffer, der die gelesenen Grafikdaten aufnimmt und f&uuml;r die
+Verwendung durch die Schaltkreise zur Darstellung zwischenspeichert. Im
+normalen Betrieb des VIC ist die Funktion der beiden Kreise so aufeinander
+abgestimmt, da&szlig; sie wie ein einziger Funktionsblock wirken. Man kann jedoch
+durch geeignete Programmierung die Kreise voneinander entkoppeln und z.B.
+Grafik darstellen lassen, ohne da&szlig; vorher Daten gelesen wurden (in diesem
+Fall werden die noch im Puffer stehenden Daten angezeigt).
+
+3.2. Register
+-------------
+
+Der VIC besitzt 47 Schreib-/Leseregister zur Steuerung seiner Funktionen
+durch den Prozessor:
+
+ #| Adr.  |Bit7|Bit6|Bit5|Bit4|Bit3|Bit2|Bit1|Bit0| Funktion
+--+-------+----+----+----+----+----+----+----+----+------------------------
+ 0| $d000 |                  M0X                  | X-Koordinate Sprite 0
+--+-------+---------------------------------------+------------------------
+ 1| $d001 |                  M0Y                  | Y-Koordinate Sprite 0
+--+-------+---------------------------------------+------------------------
+ 2| $d002 |                  M1X                  | X-Koordinate Sprite 1
+--+-------+---------------------------------------+------------------------
+ 3| $d003 |                  M1Y                  | Y-Koordinate Sprite 1
+--+-------+---------------------------------------+------------------------
+ 4| $d004 |                  M2X                  | X-Koordinate Sprite 2
+--+-------+---------------------------------------+------------------------
+ 5| $d005 |                  M2Y                  | Y-Koordinate Sprite 2
+--+-------+---------------------------------------+------------------------
+ 6| $d006 |                  M3X                  | X-Koordinate Sprite 3
+--+-------+---------------------------------------+------------------------
+ 7| $d007 |                  M3Y                  | Y-Koordinate Sprite 3
+--+-------+---------------------------------------+------------------------
+ 8| $d008 |                  M4X                  | X-Koordinate Sprite 4
+--+-------+---------------------------------------+------------------------
+ 9| $d009 |                  M4Y                  | Y-Koordinate Sprite 4
+--+-------+---------------------------------------+------------------------
+10| $d00a |                  M5X                  | X-Koordinate Sprite 5
+--+-------+---------------------------------------+------------------------
+11| $d00b |                  M5Y                  | Y-Koordinate Sprite 5
+--+-------+---------------------------------------+------------------------
+12| $d00c |                  M6X                  | X-Koordinate Sprite 6
+--+-------+---------------------------------------+------------------------
+13| $d00d |                  M6Y                  | Y-Koordinate Sprite 6
+--+-------+---------------------------------------+------------------------
+14| $d00e |                  M7X                  | X-Koordinate Sprite 7
+--+-------+---------------------------------------+------------------------
+15| $d00f |                  M7Y                  | Y-Koordinate Sprite 7
+--+-------+----+----+----+----+----+----+----+----+------------------------
+16| $d010 |M7X8|M6X8|M5X8|M4X8|M3X8|M2X8|M1X8|M0X8| MSBs der X-Koordinaten
+--+-------+----+----+----+----+----+----+----+----+------------------------
+17| $d011 |RST8| ECM| BMM| DEN|RSEL|    YSCROLL   | Steuerregister 1
+--+-------+----+----+----+----+----+--------------+------------------------
+18| $d012 |                 RASTER                | Rasterz&auml;hler
+--+-------+---------------------------------------+------------------------
+19| $d013 |                  LPX                  | Lichtgriffel X
+--+-------+---------------------------------------+------------------------
+20| $d014 |                  LPY                  | Lichtgriffel Y
+--+-------+----+----+----+----+----+----+----+----+------------------------
+21| $d015 | M7E| M6E| M5E| M4E| M3E| M2E| M1E| M0E| Sprite angeschaltet
+--+-------+----+----+----+----+----+----+----+----+------------------------
+22| $d016 |  - |  - | RES| MCM|CSEL|    XSCROLL   | Steuerregister 2
+--+-------+----+----+----+----+----+----+----+----+------------------------
+23| $d017 |M7YE|M6YE|M5YE|M4YE|M3YE|M2YE|M1YE|M0YE| Sprite Y-Expansion
+--+-------+----+----+----+----+----+----+----+----+------------------------
+24| $d018 |VM13|VM12|VM11|VM10|CB13|CB12|CB11|  - | Speicherzeiger
+--+-------+----+----+----+----+----+----+----+----+------------------------
+25| $d019 | IRQ|  - |  - |  - | ILP|IMMC|IMBC|IRST| Interruptregister
+--+-------+----+----+----+----+----+----+----+----+------------------------
+26| $d01a |  - |  - |  - |  - | ELP|EMMC|EMBC|ERST| Interrupt angeschaltet
+--+-------+----+----+----+----+----+----+----+----+------------------------
+27| $d01b |M7DP|M6DP|M5DP|M4DP|M3DP|M2DP|M1DP|M0DP| Sprite-Daten-Priorit&auml;t
+--+-------+----+----+----+----+----+----+----+----+------------------------
+28| $d01c |M7MC|M6MC|M5MC|M4MC|M3MC|M2MC|M1MC|M0MC| Sprite Multicolor
+--+-------+----+----+----+----+----+----+----+----+------------------------
+29| $d01d |M7XE|M6XE|M5XE|M4XE|M3XE|M2XE|M1XE|M0XE| Sprite X-Expansion
+--+-------+----+----+----+----+----+----+----+----+------------------------
+30| $d01e | M7M| M6M| M5M| M4M| M3M| M2M| M1M| M0M| Sprite-Sprite-Kollision
+--+-------+----+----+----+----+----+----+----+----+------------------------
+31| $d01f | M7D| M6D| M5D| M4D| M3D| M2D| M1D| M0D| Sprite-Daten-Kollision
+--+-------+----+----+----+----+----+----+----+----+------------------------
+32| $d020 |  - |  - |  - |  - |         EC        | Rahmenfarbe
+--+-------+----+----+----+----+-------------------+------------------------
+33| $d021 |  - |  - |  - |  - |        B0C        | Hintergrundfarbe 0
+--+-------+----+----+----+----+-------------------+------------------------
+34| $d022 |  - |  - |  - |  - |        B1C        | Hintergrundfarbe 1
+--+-------+----+----+----+----+-------------------+------------------------
+35| $d023 |  - |  - |  - |  - |        B2C        | Hintergrundfarbe 2
+--+-------+----+----+----+----+-------------------+------------------------
+36| $d024 |  - |  - |  - |  - |        B3C        | Hintergrundfarbe 3
+--+-------+----+----+----+----+-------------------+------------------------
+37| $d025 |  - |  - |  - |  - |        MM0        | Sprite Multicolor 0
+--+-------+----+----+----+----+-------------------+------------------------
+38| $d026 |  - |  - |  - |  - |        MM1        | Sprite Multicolor 1
+--+-------+----+----+----+----+-------------------+------------------------
+39| $d027 |  - |  - |  - |  - |        M0C        | Farbe Sprite 0
+--+-------+----+----+----+----+-------------------+------------------------
+40| $d028 |  - |  - |  - |  - |        M1C        | Farbe Sprite 1
+--+-------+----+----+----+----+-------------------+------------------------
+41| $d029 |  - |  - |  - |  - |        M2C        | Farbe Sprite 2
+--+-------+----+----+----+----+-------------------+------------------------
+42| $d02a |  - |  - |  - |  - |        M3C        | Farbe Sprite 3
+--+-------+----+----+----+----+-------------------+------------------------
+43| $d02b |  - |  - |  - |  - |        M4C        | Farbe Sprite 4
+--+-------+----+----+----+----+-------------------+------------------------
+44| $d02c |  - |  - |  - |  - |        M5C        | Farbe Sprite 5
+--+-------+----+----+----+----+-------------------+------------------------
+45| $d02d |  - |  - |  - |  - |        M6C        | Farbe Sprite 6
+--+-------+----+----+----+----+-------------------+------------------------
+46| $d02e |  - |  - |  - |  - |        M7C        | Farbe Sprite 7
+--+-------+----+----+----+----+-------------------+------------------------
+
+Hinweise:
+
+ &middot; Die mit '-' gekennzeichneten Bits sind unbelegt. Beim Lesen liefern sie
+   eine &quot;1&quot;
+ &middot; Die VIC-Register wiederholen sich im Bereich $d000-$d3ff alle 64 Bytes,
+   d.h. Register 0 ist an Adresse $d000, $d040, $d080 etc. verf&uuml;gbar
+ &middot; Die nicht belegten Adressen $d02f-$d03f liefern beim Lesen den Wert $ff,
+   ein Schreibzugriff ist ohne Wirkung
+ &middot; Die Register $d01e und $d01f sind nicht beschreibbar und werden bei
+   einem Lesezugriff automatisch gel&ouml;scht
+ &middot; Das RES-Bit (Bit 5) von Register $d016 ist bei den bisher untersuchten
+   VIC 6567/6569 ohne Funktion. Beim 6566 dient dieses Bit dazu, den VIC zu
+   stoppen.
+ &middot; Bit 7 in Register $d011 (RST8) ist Bit 8 von Register $d012. Beide
+   zusammen werden im folgenden mit &quot;RASTER&quot; bezeichnet. Ein Schreibzugriff
+   in diese Bits legt die Vergleichszeile f&uuml;r den Rasterinterrupt fest
+   (siehe Abschnitt 3.12.).
+
+3.3. Farbpalette
+----------------
+
+Der VIC besitzt eine fest vorgegebene Palette von 16 Farben, die &uuml;ber 4 Bit
+kodiert sind:
+
+  0 schwarz
+  1 wei&szlig;
+  2 rot
+  3 cyan
+  4 lila
+  5 gr&uuml;n
+  6 blau
+  7 gelb
+  8 orange
+  9 braun
+ 10 hellrot
+ 11 dunkelgrau
+ 12 mittelgrau
+ 13 hellgr&uuml;n
+ 14 hellblau
+ 15 hellgrau
+
+3.4. Bildaufbau und Ausma&szlig;e des Bildausschnittes
+------------------------------------------------
+
+Wie bei der Ansteuerung von Kathodenstrahlr&ouml;hren &uuml;blich baut der VIC das
+Videobild zeilenweise auf. Die Zeilenzahl und die Anzahl Taktzyklen pro
+Zeile sind bei jedem VIC-Typ konstant. Der VIC arbeitet zeichenbasiert,
+jedes Zeichen besteht aus einer Matrix von 8&times;8 Pixeln, entsprechend eine
+Textzeile aus 8 Pixelzeilen. In den textbasierten Modi werden 40&times;25
+Textzeichen dargestellt, in den Bitmap-Modi 320&times;200 oder 160&times;200 Pixel.
+
+Die Angabe einer Position auf dem Bildschirm erfolgt in diesem Artikel
+durch die Nummer der Rasterzeile als Y-Koordinate (RASTER, Register
+$d011/$d012) und eine X-Koordinate entsprechend dem
+Sprite-Koordinatensystem. Bei der Angabe des Zeitpunktes eines
+VIC-Speicherzugriffs oder einer internen Operation im VIC werden die
+Rasterzeilennummer als Y-Koordinate und die Nummer des Taktzyklus innerhalb
+der Zeile als X-Koordinate benutzt. Wie bereits erw&auml;hnt, kommen auf einen
+Taktzyklus 8 Pixel, die Angabe einer Sprite-X-Koordinate ist also achtmal
+so genau wie die der Zyklusnummer.
+
+Die Grafikdarstellung findet in einem nicht verschieblichen Fenster in der
+Mitte des sichtbaren Bildbereiches statt, dem &quot;Anzeigefenster&quot;. Der Bereich
+au&szlig;erhalb des Anzeigefensters bildet den Bildschirmrahmen und wird in der
+Rahmenfarbe (EC, Register $d020) dargestellt. Man kann den Rahmen mit einem
+Trick auch ganz oder teilweise ausschalten; dann erkennt man, da&szlig; das
+Anzeigefenster Teil einer &quot;Anzeigespalte&quot; ist, die sich aus der
+geradlinigen Erweiterung des Anzeigefensters nach oben und unten ergibt.
+Damit kann man auch den Rahmen in einen oberen/unteren und einen
+linken/rechten Rahmen aufteilen. Der sichtbare Bildbereich ist horizontal
+und vertikal von Austastl&uuml;cken umgeben, in denen die Videoausgabe
+abgeschaltet ist und in denen der Rasterstrahl an den Anfang der n&auml;chsten
+Zeile bzw. an den Anfang des Bildes zur&uuml;ckkehrt
+
+Die folgende Abbildung (nicht ma&szlig;st&auml;blich) illustriert den letzten Absatz:
+
+
+               Sichtbare Pixel/Zeile
+     ____________________|___________________
+    /                                        \
+
++------------------------------------------------+  &lt;- Rasterzeile 0 (6569)
+|       .                                .       |
+|       .     Vertikale Austastl&uuml;cke     .       |
+|       .                                .       |
++---+---+--------------------------------+---+---+  \
+|   |   |                                |   |   |  |
+|   |   |         Oberer Rahmen          |   |   |  |
+|   |   |                                |   |   |  |
+| H |   +--------------------------------+   | H |  |
+| o |   |                                |   | o |  |
+| r |   |                                |   | r |  |
+| i |   |                                |   | i |  |
+| z |   |                                |   | z |  |
+| o | L |                                | R | o |  |
+| n | i |                                | e | n |  |
+| t | n |                                | c | t |  |
+| a | k |                                | h | a |  |
+| l | e |                                | t | l |  |
+| e | r |                                | e | e |  |
+|   |   |         Anzeigefenster         | r |   |  |- Sichtbare Zeilen
+| A | R |                                |   | A |  |
+| u | a |                                | R | u |  |
+| s | h |                                | a | s |  |
+| t | m |                                | h | t |  |
+| a | e |                                | m | a |  |
+| s | n |                                | e | s |  |
+| t |   |                                | n | t |  |
+| l |   |                                |   | l |  |
+| &uuml; |   |                                |   | &uuml; |  |
+| c |   |                                |   | c |  |
+| k |   |                                |   | k |  |
+| e |   +--------------------------------+   | e |  |
+|   |   |                                |   |   |  |
+|   |   |         Unterer Rahmen         |   |   |  | &lt;- Rasterzeile 0 (6567)
+|   |   |                                |   |   |  |
++---+---+--------------------------------+---+---+  /
+|       .                                .       |
+|       .     Vertikale Austastl&uuml;cke     .       |
+|       .                                .       |
++------------------------------------------------+
+ 
+      ^ \________________________________/
+      |                 |
+      |           Anzeigespalte
+      |
+ X-Koordinate 0
+
+
+&Uuml;ber die Bits RSEL und CSEL in den Registern $d011 und $d016 lassen sich
+f&uuml;r die H&ouml;he und Breite des Anzeigefensters jeweils zwei verschiedene Werte
+einstellen:
+
+ RSEL| H&ouml;he des Anzeigefensters | Erste Zeile | Letzte Zeile
+ ----+--------------------------+-------------+-------------
+   0 | 24 Textzeilen/192 Pixel  |   55 ($37)  |  246 ($f6)
+   1 | 25 Textzeilen/200 Pixel  |   51 ($33)  |  250 ($fa)
+
+ CSEL| Breite des Anzeigefensters | Erste X-Koo. | Letzte X-Koo.
+ ----+----------------------------+--------------+--------------
+   0 | 38 Zeichen/304 Pixel       |   31 ($1f)   |  334 ($14e)
+   1 | 40 Zeichen/320 Pixel       |   24 ($18)   |  343 ($157)
+   
+Bei RSEL=0 werden der obere und untere Rahmen um jeweils 4 Pixel in das
+Anzeigefenster hinein verbreitert, bei CSEL=0 der linke Rahmen um 7 Pixel
+und der rechte um 9 Pixel. Die Position der Grafik im Anzeigefenster und
+deren Aufl&ouml;sung &auml;ndert sich dabei nicht, RSEL/CSEL schalten nur Start und
+Ende der Rahmendarstellung um. Auch die Gr&ouml;&szlig;e der Videomatrix bleibt
+konstant bei 40&times;25 Zeichen.
+
+Mit XSCROLL/YSCROLL (Bits 0-2 der Register $d011 (XSCROLL) und $d016
+(YSCROLL)) kann man die Position der Grafik innerhalb des Anzeigefensters
+pixelweise um bis zu jeweils 7 Pixel nach rechts und unten verschieben.
+Damit l&auml;&szlig;t sich weiches Scrolling realisieren. Die Position des
+Anzeigefensters selbst &auml;ndert sich dabei nicht. Um die Grafik b&uuml;ndig mit
+dem Fenster zu halten, sind bei 25 Zeilen/40 Spalten als X/YSCROLL die
+Werte 0 und 3, bei 24 Zeilen/38 Spalten jeweils 7 zu w&auml;hlen.
+
+Die Ausma&szlig;e der Videodarstellung bei den verschiedenen VIC-Typen sind wie
+folgt:
+
+          | Video- | Anzahl | Sichtbare | Zyklen/ |  Sichtbare
+    Typ   |  norm  | Zeilen |   Zeilen  |  Zeile  | Pixel/Zeile
+ ---------+--------+--------+-----------+---------+------------
+ 6567R56A | NTSC-M |   262  |    234    |   64    |    411
+  6567R8  | NTSC-M |   263  |    235    |   65    |    418
+   6569   |  PAL-B |   312  |    284    |   63    |    403
+
+          |  Erste   |  Letzte  |              |    Erste   |   Letzte
+          | V-Blank- | V-Blank- | Erste X-Koo. |  sichtbare | sichtbare
+    Typ   |  Zeile   |  Zeile   | einer Zeile  |    X-Koo.  |   X-Koo.
+ ---------+----------+----------+--------------+------------+-----------
+ 6567R56A |    13    |    40    |  412 ($19c)  | 488 ($1e8) | 388 ($184)
+  6567R8  |    13    |    40    |  412 ($19c)  | 489 ($1e9) | 396 ($18c)
+   6569   |   300    |    15    |  404 ($194)  | 480 ($1e0) | 380 ($17c)
+
+Wer sich bei den ersten und letzten sichtbaren X-Koordinaten wundert, da&szlig;
+scheinbar die erste Koordinate nach der letzten liegt: Dies kommt daher,
+da&szlig; als Referenzpunkt f&uuml;r den Beginn einer Rasterzeile das Auftreten des
+Raster-IRQ gew&auml;hlt wurde, das aber nicht mit der X-Koordinate 0
+zusammenf&auml;llt, sondern mit der unter &quot;Erste X-Koo. einer Zeile&quot;
+angegebenen. Die X-Koordinaten laufen innerhalb der Zeile bis $1ff (beim
+6569 nur bis $1f7), dann erst kommt X-Koordinate 0. Bei der Erkl&auml;rung des
+Aufbaus einer Rasterzeile wird dies noch genauer erkl&auml;rt.
+
+3.5. Bad Lines
+--------------
+
+Wie schon erw&auml;hnt, ben&ouml;tigt der VIC beim Zugriff auf die Zeichenzeiger
+(d.h. die Zeichencodes einer Textzeile aus der Videomatrix) 40 zus&auml;tzliche
+Buszyklen, denn die 63-65 dem VIC pro Rasterzeile f&uuml;r einen transparenten
+(vom Prozessor unbemerkten) Zugriff w&auml;hrend der ersten Taktphase zur
+Verf&uuml;gung stehenden Zyklen reichen nicht aus, um f&uuml;r die 40 Zeichen einer
+Zeile die Zeichenzeiger und auch noch die Pixeldaten der Zeichen aus dem
+Speicher zu lesen.
+
+Aus diesem Grund benutzt der VIC w&auml;hrend der ersten Pixelzeile jeder
+Textzeile den in Abschnitt 2.4.3. beschriebenen Mechanismus, um den
+Prozessor f&uuml;r 40-43 Zyklen zu &quot;bet&auml;uben&quot;, um die Zeichenzeiger lesen zu
+k&ouml;nnen. Die Rasterzeilen, in denen dies geschieht, werden gew&ouml;hnlich &quot;Bad
+Lines&quot; genannt (&quot;Bad&quot;, weil sie den Prozessor anhalten und den Rechner
+damit langsamer machen und zu Problemen f&uuml;hren, wenn es auf das genaue
+Timing eines Programms ankommt, wie bei der Daten&uuml;bertragung zum
+Diskettenlaufwerk).
+
+Der Zeichenzeigerzugriff findet auch in den Bitmap-Modi statt, denn dort
+werden die Daten der Videomatrix f&uuml;r die Farbinformation benutzt.
+
+Normalerweise ist innerhalb des Anzeigefensters beginnend mit der ersten
+Zeile der Grafik jede achte Rasterzeile eine Bad Line, jeweils die ersten
+Rasterzeilen jeder Textzeile. Daher ist die Position der Bad Lines vom
+YSCROLL ab&auml;ngig. Wie sich noch zeigen wird, basiert der gesamte
+Grafikaufbau und das Zugriffsschema auf den Grafikspeicher auf der Position
+der Bad Lines.
+
+Aus diesem Grund ist es notwendig, eine allgemeinere Definition
+einzuf&uuml;hren, n&auml;mlich die des &quot;Bad-Line-Zustands&quot;:
+
+ Ein Bad-Line-Zustand liegt in einem beliebigen Taktzyklus vor, wenn an der
+ negativen Flanke von &oslash;0 zu Beginn des Zyklus RASTER &gt;= $30 und RASTER &lt;=
+ $f7 und die unteren drei Bits von RASTER mit YSCROLL &uuml;bereinstimmen und in
+ einem beliebigen Zyklus von Rasterzeile $30 das DEN-Bit gesetzt war.
+
+Diese Definition ist w&ouml;rtlich zu nehmen. Man kann durch Ver&auml;ndern von
+YSCROLL mehrfach innerhalb einer beliebigen Rasterzeile im Bereich $30-$f7
+einen Bad-Line-Zustand erzeugen und wieder wegnehmen und damit jede
+Rasterzeile innerhalb des Anzeigefensters ganz oder teilweise zur Bad Line
+machen oder die anderen Funktionen ausl&ouml;sen oder unterdr&uuml;cken, die mit dem
+Auftreten des Bad-Line-Zustands zusammenh&auml;ngen. Ist YSCOLL=0 tritt in
+Rasterzeile $30 ein Bad-Line-Zustand auf, sobald das DEN-Bit (Register
+$d011, Bit 4) gesetzt wird (f&uuml;r n&auml;heres &uuml;ber das DEN-Bit, siehe Abschnitt
+3.10.).
+
+Die folgenden drei Abschnitte beschreiben die Funktionsgruppen, die zur
+Darstellung der Grafik benutzt werden. In Abschnitt 3.6. geht es um das
+Speicherinterface, mit dem die Grafikdaten gelesen werden, und das Timing
+der Zugriffe innerhalb einer Rasterzeile. Abschnitt 3.7. handelt von der
+Anzeigestufe, die die Daten der Text- und Bitmap-Grafik in Farben umsetzt
+und die Adressen f&uuml;r den Speicherzugriff erzeugt, Abschnitt 3.8. behandelt
+die Sprites und ihre Adre&szlig;erzeugung.
+
+3.6. Speicherzugriff/Timing einer Rasterzeile
+---------------------------------------------
+
+3.6.1. Die X-Koordinaten
+------------------------
+
+Bevor das Timing der Speicherzugriffe innerhalb einer Rasterzeile erl&auml;utert
+wird, soll noch kurz darauf eingegangen werden, woher die angegebenen
+X-Koordinaten stammen. Der VIC besitzt n&auml;mlich zum RASTER-Register, das die
+aktuelle Y-Koordinate angibt, kein passendes Gegenst&uuml;ck f&uuml;r die X-Achse,
+man kann die X-Koordinate also nicht einfach direkt mit dem Prozessor
+auslesen. Jedoch z&auml;hlt der VIC intern die X-Koordinaten sehr wohl mit, denn
+die horizontale Sprite-Positionierung basiert ja darauf und bei einem
+Impuls am Lichtgriffel-Eingang LP wird die aktuelle X-Position im Register
+LPX ($d013) gelatcht.
+
+Die Bestimmung der absoluten X-Koordinaten von Ereignissen innerhalb einer
+Rasterzeile ist nicht trivial, denn man kann nicht einfach z.B. ein Sprite
+an eine definierte X-Koordinate bringen und aus den Textzeichen, die an der
+gleichen X-Position dargestellt werden, auf die X-Koordinate der zu diesen
+Textzeichen geh&ouml;renden Speicherzugriffe schlie&szlig;en. Der Speicherzugriff und
+die Darstellung sind getrennte Funktionsgruppen und die gelesenen
+Grafikdaten werden nicht direkt auf dem Bildschirm ausgegeben (es besteht
+eine Verz&ouml;gerung von 12 Pixeln).
+
+Daher wurde anders vorgegangen und eine einzige X-Koordinate mit Hilfe des
+LPX-Registers in ihrer absoluten Position innerhalb der Rasterzeile
+bestimmt und die anderen X-Koordinaten relativ dazu ermittelt. Dazu wurde
+der IRQ-Ausgang des VIC mit dem LP-Eingang verbunden und der VIC auf einen
+Rasterzeileninterrupt programmiert. Weil die negative Flanke von IRQ als
+Beginn einer Rasterzeile festgelegt wurde, konnte so die absolute
+X-Position des Rasterzeilenbeginns ermittelt werden. Die Position der
+negativen Flanke von BA w&auml;hrend einer Bad Line wurde ebenfalls mit dieser
+Methode bestimmt und die so erhaltene Position war mit dem relativen
+Abstand von IRQ und BA zueinander konsistent. Auf der Grundlage dieser
+beiden Messungen wurden die X-Koordinaten aller anderen Ereignisse
+innerhalb einer Rasterzeile relativ dazu bestimmt (siehe [4]). Jetzt erst
+wurden die Sprite-X-Koordinaten herangezogen, um den Zeitpunkt der
+Bilderzeugung der Textzeichen bestimmen zu k&ouml;nnen.
+
+Dabei wird nat&uuml;rlich implizit angenommen, da&szlig; die LPX-Koordinaten mit den
+Sprite-X-Koordinaten &uuml;bereinstimmen. Es gibt jedoch keinen Hinweis darauf
+und somit auch keinen Grund zur Annahme, da&szlig; sie es nicht t&auml;ten (eine
+&Uuml;bereinstimmung der Koordinaten w&auml;re auch schaltungstechnisch die
+einfachste L&ouml;sung).
+
+3.6.2. Zugriffsarten
+--------------------
+
+Der VIC erzeugt zwei Arten von Grafik, die Zugriffe auf den Speicher
+erfordern: Die Text-/Bitmapgrafik (auch oft &quot;Hintergrundgrafik&quot; oder
+einfach &quot;Grafik&quot; genannt) und die Spritegrafik. Beide erfordern Zugriffe
+auf jeweils zwei getrennte Speicherbereiche.
+
+F&uuml;r die Text-/Bitmapgrafik:
+
+ &middot; Die Videomatrix, ein 1000 Videoadressen (40&times;25 mit je 12 Bit) gro&szlig;er
+   Bereich, der sich mit den Bits VM10-VM13 aus Register $d018 in 1KB-
+   Schritten innerhalb des 16KB-Adre&szlig;raums des VIC verschieben l&auml;&szlig;t. Dort
+   sind in den Textmodi die Zeichencodes und deren Farbe und in den Bitmap-
+   Modi die Farbinformationen f&uuml;r 8&times;8-Pixel-Blocks abgelegt. Das Farb-RAM
+   ist Teil der Videomatrix, es liefert die oberen 4 Bit der 12-Bit-Matrix.
+   Die aus der Videomatrix gelesenen Daten werden in einem internen Puffer
+   des VIC, der 40&times;12 Bit Videomatrix-/Farbzeile gespeichert.
+
+ &middot; Den Zeichengenerator bzw. die Bitmap, ein 2048 Bytes (Bitmap: 8192
+   Bytes) gro&szlig;er Bereich, der sich mit den Bits CB11-CB13 (Bitmap: nur
+   CB13) aus Register $d018 in 2KB-Schritten (Bitmap: 8KB-Schritte)
+   innerhalb des VIC-Adre&szlig;raums verschieben l&auml;&szlig;t. Dort sind in den Textmodi
+   die Pixeldaten der Zeichen und in den Bitmap-Modi die Bitmap
+   gespeichert. Der Zeichengenerator hat zun&auml;chst einmal nichts mit dem
+   Char-ROM zu tun. Das Char-ROM enth&auml;lt lediglich vorgefertigte Bitmuster,
+   die als Zeichengenerator dienen k&ouml;nnen, aber man kann den
+   Zeichengenerator auch im normalen RAM unterbringen um das Aussehen des
+   Zeichensatzes zu &auml;ndern.
+
+F&uuml;r die Sprites:
+
+ &middot; Die Spritedatenzeiger, 8 Bytes hinter dem Ende der Videomatrix, die f&uuml;r
+   jedes Sprite einen von 256 64-Byte-Blocks innerhalb des VIC-Adre&szlig;raums
+   f&uuml;r die Spritedaten ausw&auml;hlen.
+
+ &middot; Die Spritedaten, ein 63 Byte gro&szlig;er Bereich, der die Pixeldaten der
+   Sprites enth&auml;lt und f&uuml;r jedes Sprite einzeln mit Hilfe des
+   Spritedatenzeigers in 64-Byte-Schritten verschoben werden kann.
+
+Entsprechend macht der VIC 4 verschiedene Arten von Grafikzugriffen:
+
+1. Auf die Videomatrix (&quot;c-Zugriff&quot;, 12 Bit breit).
+2. Auf die Pixeldaten, also Zeichengenerator oder Bitmap (&quot;g-Zugriff&quot;, 8
+   Bit breit).
+3. Auf die Spritedatenzeiger (&quot;p-Zugriff&quot;, 8 Bit breit).
+4. Auf die Spritedaten (&quot;s-Zugriff&quot;, 8 Bit breit).
+
+Da&uuml;berhinaus f&uuml;hrt der VIC noch zwei weitere Arten von Zugriffen durch:
+
+5. Zugriffe zum Refresh des dynamischen RAM, 5 Lesezugriffe pro
+   Rasterzeile.
+
+6. Idle-Zugriffe. Wie beschrieben, greift der VIC in jeder ersten Taktphase
+   zu, obwohl es einige Zyklen gibt, in denen gerade kein anderer der oben
+   beschriebenen Zugriffe ansteht. In diesem Fall f&uuml;hrt der VIC einen
+   Idle-Zugriff aus, einen Lesezugriff von Videoadresse $3fff (also je nach
+   Bank an Adresse $3fff, $7fff, $bfff oder $ffff), desen Ergebnis
+   verworfen wird.
+
+3.6.3. Timing einer Rasterzeile
+-------------------------------
+
+Die Abfolge der VIC-Speicherzugriffe innerhalb einer Rasterzeile ist fest
+vorgegeben, unabh&auml;ngig vom Grafikmodus und f&uuml;r jede Rasterzeile gleich. Als
+Zeilenbeginn wurde die negative Flanke von IRQ bei einem Rasterinterrupt
+festgelegt (dies ist auch der Zeitpunkt, an dem das RASTER-Register erh&ouml;ht
+wird). Rasterzeile 0 bildet allerdings eine Ausnahme: Dort finden IRQ und
+Erh&ouml;hen (bzw. Nullsetzen) von RASTER einen Zyklus sp&auml;ter statt als in allen
+anderen Zeilen. Der Einfachheit halber wird hier jedoch von konstanten
+Zeilenl&auml;ngen ausgegangen und der Beginn von Rasterzeile 0 als einen Zyklus
+vor dem Auftreten des IRQ definiert.
+
+Hier zun&auml;chst die Timing-Diagramme, die Erkl&auml;rung folgt danach:
+
+
+6569, Bad Line, keine Sprites:
+
+Zykl-# 6                   1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 6 6 6 6
+       3 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 1
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+    &oslash;0 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+       __
+   IRQ   ________________________________________________________________________________________________________________________________
+       ________________________                                                                                      ____________________
+    BA                         ______________________________________________________________________________________
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _                                                                                 _ _ _ _ _ _ _ _ _ _
+   AEC _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _________________________________________________________________________________ _ _ _ _ _ _ _ _ _
+
+   VIC i 3 i 4 i 5 i 6 i 7 i r r r r rcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcgcg i i 0 i 1 i 2 i 3
+  6510  x x x x x x x x x x x x X X X                                                                                 x x x x x x x x x x
+
+Grafik                      |===========01020304050607080910111213141516171819202122232425262728293031323334353637383940=========
+
+X-Koo. \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+       1111111111111111111111111110000000000000000000000000000000000000000000000000000000000000000111111111111111111111111111111111111111
+       89999aaaabbbbccccddddeeeeff0000111122223333444455556666777788889999aaaabbbbccccddddeeeeffff000011112222333344445555666677778888999
+       c048c048c048c048c048c048c04048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048c048
+
+
+6569, keine Bad Line, keine Sprites (gek&uuml;rzt):
+
+Zykl-# 6                   1 1 1 1 1 1 1 1 1 1 |5 5 5 5 5 5 5 6 6 6 6
+       3 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 |3 4 5 6 7 8 9 0 1 2 3 1
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _| _ _ _ _ _ _ _ _ _ _ _ _
+    &oslash;0 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _
+       __                                      |
+   IRQ   ______________________________________|________________________
+       ________________________________________|________________________
+    BA                                         |
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _| _ _ _ _ _ _ _ _ _ _ _ _
+   AEC _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ 
+                                               |
+   VIC i 3 i 4 i 5 i 6 i 7 i r r r r r g g g g |g g g i i 0 i 1 i 2 i 3
+  6510  x x x x x x x x x x x x x x x x x x x x| x x x x x x x x x x x x
+                                               |
+Grafik                      |===========0102030|7383940=========
+                                               |
+X-Koo. \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\
+       1111111111111111111111111110000000000000|111111111111111111111111
+       89999aaaabbbbccccddddeeeeff0000111122223|344445555666677778888999
+       c048c048c048c048c048c048c04048c048c048c0|c048c048c048c048c048c048
+
+
+6567R56A, Bad Line, Sprites 5-7 in dieser Rasterzeile aktiv, Sprite 0 in
+der n&auml;chsten (gek&uuml;rzt):
+
+Zykl-# 6                   1 1 1 1 1 1 1 1 1 1 |5 5 5 5 5 5 5 6 6 6 6 6
+       4 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 |3 4 5 6 7 8 9 0 1 2 3 4 1
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _| _ _ _ _ _ _ _ _ _ _ _ _ _
+    &oslash;0 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ 
+       __                                      |
+   IRQ   ______________________________________|__________________________
+       ____                  __                |    __          __________
+    BA     __________________  ________________|____  __________
+        _ _ _ _ _             _ _ _ _          |     _ _ _ _     _ _ _ _ _
+   AEC _ _ _ _ _ _____________ _ _ _ __________|_____ _ _ _ _____ _ _ _ _ 
+                                               |
+   VIC i 3 i 4 i 5sss6sss7sssr r r r rcgcgcgcgc|gcgcg i i i 0sss1 i 2 i 3 
+  6510  x x X X X             x X X X          |     x X X X     x x x x x
+                                               |
+Grafik                      |===========0102030|7383940===========
+                                               |
+X-Koo. \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\
+       1111111111111111111111111110000000000000|11111111111111111111111111
+       999aaaabbbbccccddddeeeeffff0000111122223|3444455556666777788889999a
+       48c048c048c048c048c048c048c048c048c048c0|c048c048c048c048c048c048c0
+
+
+6567R8, keine Bad Line, Sprites 2-7 in dieser Rasterzeile aktiv, Sprites
+0-4 in der n&auml;chsten (gek&uuml;rzt):
+
+Zykl-# 6                   1 1 1 1 1 1 1 1 1 1 |5 5 5 5 5 5 5 6 6 6 6 6 6
+       5 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 |3 4 5 6 7 8 9 0 1 2 3 4 5 1
+        _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _| _ _ _ _ _ _ _ _ _ _ _ _ _ _
+    &oslash;0 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ _ _ _ _ _ _ _
+       __                                      |
+   IRQ   ______________________________________|____________________________
+                             __________________|________
+    BA ______________________                  |        ____________________
+                              _ _ _ _ _ _ _ _ _| _ _ _ _ _ _ _
+   AEC _______________________ _ _ _ _ _ _ _ _ |_ _ _ _ _ _ _ ______________
+                                               |
+   VIC ss3sss4sss5sss6sss7sssr r r r r g g g g |g g g i i i i 0sss1sss2sss3s
+  6510                        x x x x x x x x x| x x x x X X X
+                                               |
+Grafik                      |===========0102030|7383940============
+                                               |
+X-Koo. \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+       1111111111111111111111111110000000000000|1111111111111111111111111111
+       999aaaabbbbccccddddeeeeffff0000111122223|344445555666677778888889999a
+       48c048c048c048c048c048c048c048c048c048c0|c048c048c048c048c04cccc04c80
+
+
+In der Zeile &quot;Zykl-#&quot; ist die Nummer des Taktzyklus innerhalb der
+Rasterzeile aufgetragen. Die Zeile beginnt mit Zyklus 1 und besteht beim
+6569 aus 63, beim 6567R56A aus 64 und beim 6567R8 aus 65 Zyklen. Zur
+&Uuml;bersicht wurden noch der letzte Zyklus der vorangehenden und der erste
+Zyklus der n&auml;chsten Rasterzeile in jedes Diagramm mit aufgenommen.
+
+Die Zeilen &quot;&oslash;0&quot;, &quot;IRQ&quot;, &quot;BA&quot; und &quot;AEC&quot; geben den Zustand der gleichnamigen
+Bussignale wieder. In der ersten Phase jedes Zyklus ist &oslash;0 Low, in der
+zweiten Phase High.
+
+Die Symbole in den Zeilen &quot;VIC&quot; und &quot;6510&quot; geben an, welche Art von Zugriff
+VIC bzw. 6510 in der jeweiligen Taktphase durchf&uuml;hren (f&uuml;r eine Erkl&auml;rung
+der verschiedenen Zugriffsarten des VIC siehe Abschnitt 3.6.2.):
+
+  c  Zugriff auf die Videomatrix und das Farb-RAM (c-Zugriff)
+  g  Zugriff auf den Zeichengenerator oder die Bitmap (g-Zugriff)
+ 0-7 Lesen des Spritedatenzeigers f&uuml;r Sprite 0-7 (p-Zugriff)
+  s  Lesen der Spritedaten (s-Zugriff)
+  r  DRAM-Refresh
+  i  Idle-Zugriff
+
+  x  Schreib- oder Lesezugriff des Prozessors
+  X  Evtl. Schreibzugriff des Prozessors, der erste Lesezugriff stoppt den
+     Prozessor (BA ist Low und damit auch RDY)
+
+Die Zeile &quot;X-Koo.&quot; enth&auml;lt die X-Koordinaten des Beginns jeder Taktphase
+(daher die &quot;\\\&quot; als Gedankenst&uuml;tze) und die Zeile &quot;Grafik&quot; ist eine
+Projektion des 40-Spalten-Anzeigefensters und des Rahmens auf diese
+Koordinaten, zum Ausrichten von Sprites. Dies entspricht jedoch NICHT dem
+Signal am Videoausgang des VIC. Aus der &quot;Grafik&quot;-Zeile kann man auch nicht
+ablesen, wann die Rahmenstufe den Rahmen erzeugt. Dies geschieht ca. 8
+Pixel sp&auml;ter als in der &quot;Grafik&quot;-Zeile angegeben.
+
+Um beim Programmieren die Zugriffe des Prozessors innerhalb der Rasterzeile
+zeitlich bestimmen zu k&ouml;nnen, orientiert man sich am besten an den
+g-Zugriffen des VIC, indem man vom 6510 ein Byte im Grafikspeicher &auml;ndert
+und am Bildschirm beobachtet, an welchem Zeichen die &Auml;nderung fr&uuml;hestens
+wirksam wird. Der Schreibzugriff des Prozessors mu&szlig; dann in Taktphase
+direkt davor erfolgt sein. Dann kann man mit Hilfe der Diagramme ermitteln,
+in welchem Taktzyklus der Zugriff stattfand und alle weiteren Zugriffe des
+Prozessors relativ dazu einfach abz&auml;hlen.
+
+3.7. Text-/Bitmapdarstellung
+----------------------------
+
+3.7.1. Idle-Zustand/Display-Zustand
+-----------------------------------
+
+Die Text-/Bitmap-Anzeigelogik im VIC befindet sich zu jedem Zeitpunkt in
+einem von zwei Zust&auml;nden: Dem Idle-Zustand oder dem Display-Zustand.
+
+ - Im Display-Zustand finden c- und g-Zugriffe statt, die Adressen und die
+   Interpretation der Daten sind vom gew&auml;hlten Anzeigemodus abh&auml;ngig.
+
+ - Im Idle-Zustand finden nur g-Zugriffe statt. Der Zugriff erfolgt immer
+   an Videoadresse $3fff ($39ff bei gesetztem ECM-Bit in Register $d016).
+   Die Grafik wird vom Sequencer genau wie im Display-Zustand dargestellt,
+   wobei aber die Videomatrix-Daten als &quot;0&quot;-Bits angesehen werden.
+
+Der &Uuml;bergang vom Idle- in den Display-Zustand erfolgt, sobald ein
+Bad-Line-Zustand auftritt (siehe Abschnitt 3.5.). Der &Uuml;bergang vom Display-
+in den Idle-Zustand erfolgt in Zyklus 58 einer Zeile, wenn der RC (siehe
+n&auml;chsten Abschnitt) den Wert 7 hat und kein Bad-Line-Zustand vorliegt.
+
+Solange an Register $d011 innerhalb des Bildes keine Ver&auml;nderungen
+vorgenommen werden, befindet sich die Anzeigelogik innerhalb des
+Anzeigefensters im Display-Zustand und au&szlig;erhalb davon im Idle-Zustand.
+Wenn man bei einem 25-Zeilen-Anzeigefenster einen anderen YSCROLL als 3
+einstellt und in $3fff einen Wert ungleich Null ablegt, kann man am oberen
+bzw. unteren Rand des Fensters die Streifen sehen, die der Sequenzer im
+Idle-Zustand produziert.
+
+In [4] werden sowohl die Idle-Zugriffe als auch die g-Zugriffe w&auml;hrend des
+Idle-Zustand als &quot;idle bus cycle&quot; bezeichnet. Beide Ph&auml;nomene haben jedoch
+nichts miteinander zu tun. Die in den Diagrammen in [4] mit &quot;+&quot;
+gekennzeichneten Zugriffe sind normale g-Zugriffe. Der Begriff
+&quot;Idle-Zugriff&quot; wird in diesem Artikel ausschlie&szlig;lich f&uuml;r die in den
+Diagrammen in Abschnitt 3.6.3. mit &quot;i&quot; gekennzeichneten Zugriffe benutzt,
+nicht jedoch f&uuml;r die g-Zugriffe w&auml;hrend des Idle-Zustands.
+
+3.7.2. VC und RC
+----------------
+
+Das vielleicht wichtigste Ergebnis der VIC-Untersuchungen ist die
+Entschl&uuml;sselung der Funktionsweise der internen Register &quot;VC&quot; und &quot;RC&quot; des
+VIC. Mit ihrer Hilfe erzeugt der VIC die Adressen f&uuml;r den Zugriff auf
+Videomatrix und Zeichengenerator/Bitmap.
+
+Genaugenommen sind es drei Register:
+
+ &middot; &quot;VC&quot; (Video Counter) ist ein 10-Bit-Z&auml;hler, der mit dem Wert aus VCBASE
+   geladen werden kann.
+ &middot; &quot;VCBASE&quot; (Video Counter Base) ist ein 10-Bit-Datenregister mit
+   L&ouml;scheingang, das mit dem Wert aus VC geladen werden kann.
+ &middot; &quot;RC&quot; (Row Counter) ist ein 3-Bit-Z&auml;hler mit L&ouml;scheingang.
+
+Au&szlig;erdem gibt es noch einen 6-Bit-Z&auml;hler mit L&ouml;scheingang, der die Position
+innerhalb der internen 40&times;12 Bit Videomatrix-/Farbzeile angibt, an der
+gelesene Zeichenzeiger abgelegt bzw. von dort wieder gelesen werden, und
+den ich hier mit &quot;VMLI&quot; (Video Matrix Line Index) bezeichnen m&ouml;chte.
+
+Diese vier Register verhalten sich nach folgenden Regeln:
+
+1. Irgendwo einmal au&szlig;erhalb des Bereiches der Rasterzeilen $30-$f7 (also
+   au&szlig;erhalb des Bad-Line-Bereiches) wird VCBASE auf Null gesetzt.
+   Vermutlich geschieht dies in Rasterzeile 0, der genaue Zeitpunkt ist
+   nicht zu bestimmen, er spielt aber auch keine Rolle.
+
+2. In der ersten Phase von Zyklus 14 jeder Zeile wird VC mit VCBASE geladen
+   (VCBASE-&gt;VC) und VMLI gel&ouml;scht. Wenn zu diesem Zeitpunkt ein
+   Bad-Line-Zustand vorliegt, wird zus&auml;tzlich RC auf Null gesetzt.
+
+3. Liegt in den Zyklen 12-54 ein Bad-Line-Zustand vor, wird BA auf Low
+   gelegt und die c-Zugriffe gestartet. Einmal gestartet, findet in der
+   zweiten Phase jedes Taktzyklus im Bereich 15-54 ein c-Zugriff statt. Die
+   gelesenen Daten werden in der Videomatrix-/Farbzeile an der durch VMLI
+   angegebenen Position abgelegt. Bei jedem g-Zugriff im Display-Zustand
+   werden diese Daten ebenfalls an der durch VMLI spezifizierten Position
+   wieder intern gelesen.
+
+4. Nach jedem g-Zugriff im Display-Zustand werden VC und VMLI erh&ouml;ht.
+
+5. In der ersten Phase von Zyklus 58 wird gepr&uuml;ft, ob RC=7 ist. Wenn ja,
+   geht die Videologik in den Idle-Zustand und VCBASE wird mit VC geladen
+   (VC-&gt;VCBASE). Ist die Videologik danach im Display-Zustand (liegt ein
+   Bad-Line-Zustand vor, ist dies immer der Fall), wird RC erh&ouml;ht.
+
+Im Normalfall sorgen diese Regeln daf&uuml;r, da&szlig; VC innerhalb des
+Anzeigefensters die 1000 Adressen der Videomatrix einmal durchz&auml;hlt und RC
+innerhalb jeder Textzeile die 8 Pixelzeilen einer Textzeile. Das Verhalten
+von VC und RC wird ma&szlig;geblich vom (Nicht-)Auftreten des Bad-Line-Zustandes
+bestimmt und da man mit dem Prozessor &uuml;ber YSCROLL diesen beinflussen
+kann, kann man so auch VC und RC in bestimmten Grenzen steuern.
+
+3.7.3 Grafikmodi
+----------------
+
+Der Grafikdatensequenzer beherrscht 8 verschiedene Grafikmodi, die &uuml;ber die
+Bits ECM, BMM und MCM (Extended Color Mode, Bit Map Mode und Multi Color
+Mode) in den Registern $d011 und $d016 ausgew&auml;hlt werden (von den 8
+m&ouml;glichen Bitkombinationen sind 3 &quot;ung&uuml;ltig&quot; und erzeugen die gleiche
+Ausgabe, n&auml;mlich nur die Farbe Schwarz). Der Idle-Zustand ist ein
+Spezialfall, da darin keine c-Zugriffe stattfinden und der Sequenzer
+&quot;0&quot;-Bits als Videomatrix-Daten verwendet.
+
+Der Sequenzer gibt die Grafikdaten in jeder Rasterzeile im Bereich der
+Anzeigespalte aus, sofern das vertikale Rahmenflipflop gel&ouml;scht ist (siehe
+Abschnitt 3.9.). Au&szlig;erhalb der Anzeigespalte und bei gesetztem Flipflop wird
+die letzte aktuelle Hintergrundfarbe dargestellt (dieser Bereich ist
+normalerweise vom Rahmen &uuml;berdeckt). Kernst&uuml;ck des Sequenzers ist ein
+8-Bit-Schieberegister, das mit jedem Pixel um 1 Bit weitergeschoben und
+nach jedem g-Zugriff mit den gelesenen Pixeldaten geladen wird. Mit XSCROLL
+aus Register $d016 l&auml;&szlig;t sich das Laden des Schieberegisters um 0-7 Pixel
+verz&ouml;gern und dadurch die Anzeige um bis zu 7 Pixel nach rechts
+verschieben.
+
+Der Adre&szlig;generator f&uuml;r die Text-/Bitmap-Zugriffe (c- und g-Zugriffe)
+besitzt bei den g-Zugriffen im wesentlichen 3 Modi (die c-Zugriffe erfolgen
+immer nach dem selben Adre&szlig;schema). Im Display-Zustand w&auml;hlt das BMM-Bit
+entweder Zeichengenerator-Zugriffe (BMM=0) oder Bitmap-Zugriffe (BMM=1)
+aus, im Idle-Zustand erfolgen die g-Zugriffe immer an Videoadresse $3fff.
+Bei gesetztem ECM-Bit schaltet der Adre&szlig;generator bei den g-Zugriffen die
+Adre&szlig;leitungen 9 und 10 immer auf Low, bei ansonsten gleichem Adre&szlig;schema
+(z.B. erfolgen dann die g-Zugriffe im Idle-Zustand an Adresse $39ff).
+
+Die 8 Grafikmodi werden nun einzeln behandelt und die erzeugten Adressen
+und die Interpretation der gelesenen Daten bei c- und g-Zugriffen
+beschrieben. Anschlie&szlig;end folgt noch eine Beschreibung der Besonderheiten
+des Idle-Zustands. Um das Nachschlagen zu erleichtern, wurden bei jedem
+Modus die Adressen explizit hingeschrieben, obwohl z.B. die c-Zugriffe
+immer gleich ablaufen.
+
+3.7.3.1. Standard-Textmodus (ECM/BMM/MCM=0/0/0)
+-----------------------------------------------
+
+In diesem Modus (wie in allen Textmodi) liest der VIC aus der Videomatrix
+8-Bit-Zeichenzeiger, die die Adresse der Punktmatrix des Zeichens im
+Zeichengenerator angibt. Damit ist ein Zeichensatz von 256 Zeichen
+verf&uuml;gbar, die jeweils aus 8&times;8 Pixeln bestehen, die in 8
+aufeinanderfolgenden Bytes im Zeichengenerator abgelegt sind. Mit den Bits
+VM10-13 und CB11-13 aus Register $d018 lassen sich Videomatrix und
+Zeichengenerator im Speicher verschieben.
+
+Im Standard-Textmodus entspricht jedes Bit im Zeichengenerator direkt einem
+Pixel auf dem Bildschirm. Die Vordergrundfarbe ist f&uuml;r jedes Zeichen im
+Farbnybble aus der Videomatrix angegeben, die Hintergrundfarbe wird global
+durch Register $d021 festgelegt.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |     Farbe von     | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |
+ |     &quot;1&quot;-Pixeln    |    |    |    |    |    |    |    |    |
+ +-------------------+----+----+----+----+----+----+----+----+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13|CB12|CB11| D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       |
+ | &quot;0&quot;: Hintergrundfarbe 0 ($d021)       |
+ | &quot;1&quot;: Farbe aus Bits 8-11 der c-Daten  |
+ +---------------------------------------+
+
+3.7.3.2. Multicolor-Textmodus (ECM/BMM/MCM=0/0/1)
+-------------------------------------------------
+
+Dieser Modus erm&ouml;glicht es, auf Kosten der horizontalen Aufl&ouml;sung
+vierfarbige Zeichen darzustellen. Ist Bit 11 der c-Daten Null, wird das
+Zeichen wie im Standard-Textmodus dargestellt, wobei aber nur die Farben
+0-7 f&uuml;r den Vordergrund zur Verf&uuml;gung stehen. Ist Bit 11 gesetzt, bilden
+jeweils zwei horizontal benachbarte Bits der Punktmatrix ein Pixel. Dadurch
+ist die Aufl&ouml;sung des Zeichens auf 4&times;8 reduziert (die Pixel sind doppelt so
+breit, die Gesamtbreite der Zeichen &auml;ndert sich also nicht).
+
+Interessant ist, da&szlig; nicht nur die Bitkombination &quot;00&quot;, sondern auch &quot;01&quot;
+f&uuml;r die Spritepriorit&auml;t und -kollisionserkennung zum &quot;Hintergrund&quot; gez&auml;hlt
+wird.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | MC-|   Farbe von  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |
+ |Flag|  &quot;11&quot;-Pixeln |    |    |    |    |    |    |    |    |
+ +----+--------------+----+----+----+----+----+----+----+----+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13|CB12|CB11| D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       | MC-Flag = 0
+ | &quot;0&quot;: Hintergrundfarbe 0 ($d021)       |
+ | &quot;1&quot;: Farbe aus Bits 8-10 der c-Daten  |
+ +---------------------------------------+
+ |         4 Pixel (2 Bit/Pixel)         |
+ |                                       |
+ | &quot;00&quot;: Hintergrundfarbe 0 ($d021)      | MC-Flag = 1
+ | &quot;01&quot;: Hintergrundfarbe 1 ($d022)      |
+ | &quot;10&quot;: Hintergrundfarbe 2 ($d023)      |
+ | &quot;11&quot;: Farbe aus Bits 8-10 der c-Daten |
+ +---------------------------------------+
+
+3.7.3.3. Standard-Bitmap-Modus (ECM/BMM/MCM=0/1/0)
+--------------------------------------------------
+
+In diesem Modus (wie in allen Bitmap-Modi) liest der VIC die Grafikdaten
+aus einer 320&times;200-Bitmap, in der jedes Bit direkt einem Punkt auf dem
+Bildschirm entspricht. Die Daten aus der Videomatrix werden f&uuml;r die
+Farbinformation benutzt. Da die Videomatrix weiterhin nur eine 40&times;25-Matrix
+ist, k&ouml;nnen die Farben nur f&uuml;r Bl&ouml;cke von 8&times;8 Pixeln individuell bestimmt
+werden (also eine Art YC-8:1-Format). Da die Entwickler des VIC-II den
+Bitmap-Modus mit sowenig zus&auml;tzlichem Schaltungsaufwand wie m&ouml;glich
+realisieren wollten (der VIC-I hatte noch keinen Bitmap-Modus), ist die
+Bitmap etwas ungew&ouml;hnlich im Speicher abgelegt: Im Gegensatz zu modernen
+Videochips, die die Bitmap linear aus dem Speicher lesen, bilden beim VIC
+jeweils 8 aufeinanderfolgende Bytes einen 8&times;8-Pixelblock auf dem
+Bildschirm. Mit den Bits VM10-13 und CB13 aus Register $d018 lassen sich
+Videomatrix und Bitmap im Speicher verschieben.
+
+Im Standard-Bitmap-Modus entspricht jedes Bit in der Bitmap direkt einem
+Pixel auf dem Bildschirm. F&uuml;r jedem 8&times;8-Block k&ouml;nnen Vorder- und
+Hintergrundfarbe beliebig eingestellt werden.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |     unbenutzt     |     Farbe von     |     Farbe von     |
+ |                   |     &quot;1&quot;-Pixeln    |     &quot;0&quot;-Pixeln    |
+ +-------------------+-------------------+-------------------+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0| RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       |
+ | &quot;0&quot;: Farbe aus Bits 0-3 der c-Daten   |
+ | &quot;1&quot;: Farbe aus Bits 4-7 der c-Daten   |
+ +---------------------------------------+
+
+3.7.3.4. Multicolor-Bitmap-Modus (ECM/BMM/MCM=0/1/1)
+----------------------------------------------------
+
+&Auml;hnlich wie beim Multicolor-Textmodus bilden auch in diesem Modus jeweils
+zwei benachbarte Bits ein (doppelt so breites) Pixel. Die Aufl&ouml;sung
+reduziert sich damit auf 160&times;200 Pixel.
+
+Genau wie beim Multicolor-Textmodus wird die Bitkombination &quot;01&quot; f&uuml;r die
+Spritepriorit&auml;t und -kollisionserkennung zum &quot;Hintergrund&quot; gez&auml;hlt.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |     Farbe von     |     Farbe von     |     Farbe von     |
+ |    &quot;11-Pixeln&quot;    |    &quot;01&quot;-Pixeln    |    &quot;10&quot;-Pixeln    |
+ +-------------------+-------------------+-------------------+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0| RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         4 Pixel (2 Bit/Pixel)         |
+ |                                       |
+ | &quot;00&quot;: Hintergrundfarbe 0 ($d021)      |
+ | &quot;01&quot;: Farbe aus Bits 4-7 der c-Daten  |
+ | &quot;10&quot;: Farbe aus Bits 0-3 der c-Daten  |
+ | &quot;11&quot;: Farbe aus Bits 8-11 der c-Daten |
+ +---------------------------------------+
+
+3.7.3.5. ECM-Textmodus (ECM/BMM/MCM=1/0/0)
+------------------------------------------
+
+Dieser Textmodus entspricht dem Standard-Textmodus, erlaubt es aber, f&uuml;r
+jedes einzelne Zeichen eine von vier Hintergrundfarben auszuw&auml;hlen. Die
+Auswahl geschieht &uuml;ber die oberen beiden Bits des Zeichenzeigers. Dadurch
+reduziert sich der Zeichenvorrat allerdings von 256 auf 64 Zeichen.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |     Farbe von     |Wahl des | D5 | D4 | D3 | D2 | D1 | D0 |
+ |     &quot;1&quot;-Pixeln    |Hintergr.|    |    |    |    |    |    |
+ +-------------------+---------+----+----+----+----+----+----+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13|CB12|CB11|  0 |  0 | D5 | D4 | D3 | D2 | D1 | D0 | RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       |
+ | &quot;0&quot;: Je nach Bits 6/7 der c-Daten     |
+ |      00: Hintergrundfarbe 0 ($d021)   |
+ |      01: Hintergrundfarbe 1 ($d022)   |
+ |      10: Hintergrundfarbe 2 ($d023)   |
+ |      11: Hintergrundfarbe 3 ($d024)   |
+ | &quot;1&quot;: Farbe aus Bits 8-11 der c-Daten  |
+ +---------------------------------------+
+
+3.7.3.6. Ung&uuml;ltiger Textmodus (ECM/BMM/MCM=1/0/1)
+-------------------------------------------------
+
+Das gleichzeitige Setzen der ECM- und MCM-Bits w&auml;hlt keinen der
+&quot;offiziellen&quot; Grafikmodi des VIC, sondern erzeugt nur schwarze Pixel.
+Nichtsdestotrotz erzeugt der Grafikdatensequenzer auch in diesem Modus
+intern g&uuml;ltige Grafikdaten, die die Spritekollisionserkennung triggern
+k&ouml;nnen. &Uuml;ber den Umweg der Spritekollisionen kann man die erzeugten Daten
+auch auslesen (sehen kann man nichts, das Bild ist schwarz). Man kann so
+allerdings nur Vordergrund- und Hintergrundpixel unterscheiden, die
+Farbinformation l&auml;&szlig;t sich aus den Spritekollisionen nicht gewinnen.
+
+Die erzeugte Grafik entspricht der des Multicolor-Textmodus, allerdings ist
+der Zeichenvorrat genau wie im ECM-Modus auf 64 Zeichen eingeschr&auml;nkt.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | MC-|        unbenutzt       | D5 | D4 | D3 | D2 | D1 | D0 |
+ |Flag|                        |    |    |    |    |    |    |
+ +----+------------------------+----+----+----+----+----+----+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13|CB12|CB11|  0 |  0 | D5 | D4 | D3 | D2 | D1 | D0 | RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       | MC-Flag = 0
+ | &quot;0&quot;: Schwarz (Hintergrund)            |
+ | &quot;1&quot;: Schwarz (Vordergrund)            |
+ +---------------------------------------+
+ |         4 Pixel (2 Bit/Pixel)         |
+ |                                       |
+ | &quot;00&quot;: Schwarz (Hintergrund)           | MC-Flag = 1
+ | &quot;01&quot;: Schwarz (Hintergrund)           |
+ | &quot;10&quot;: Schwarz (Vordergrund)           |
+ | &quot;11&quot;: Schwarz (Vordergrund)           |
+ +---------------------------------------+
+
+3.7.3.7. Ung&uuml;ltiger Bitmap-Modus 1 (ECM/BMM/MCM=1/1/0)
+------------------------------------------------------
+
+Dieser Modus erzeugt nur ebenfalls nur ein schwarzes Bild, die Pixel lassen
+sich allerdings auch hier mit dem Spritekollisionstrick auslesen.
+
+Der Aufbau der Grafik ist im Prinzip wie im Standard-Bitmap-Modus, aber die
+Bits 9 und 10 der g-Adressen sind wegen dem gesetzten ECM-Bit immer Null,
+entsprechend besteht auch die Grafik - grob gesagt - aus vier
+&quot;Abschnitten&quot;, die jeweils viermal wiederholt dargestellt werden.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |                         unbenutzt                         |
+ +-----------------------------------------------------------+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13| VC9| VC8|  0 |  0 | VC5| VC4| VC3| VC2| VC1| VC0| RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       |
+ | &quot;0&quot;: Schwarz (Hintergrund)            |
+ | &quot;1&quot;: Schwarz (Vordergrund)            |
+ +---------------------------------------+
+
+3.7.3.8. Ung&uuml;ltiger Bitmap-Modus 2 (ECM/BMM/MCM=1/1/1)
+------------------------------------------------------
+
+Der letzte ung&uuml;ltige Modus liefert auch ein schwarzes Bild, das sich jedoch
+genauso mit Hilfe der Sprite-Grafik-Kollisionen &quot;abtasten&quot; l&auml;&szlig;t.
+
+Der Aufbau der Grafik ist im Prinzip wie im Multicolor-Bitmap-Modus, aber
+die Bits 9 und 10 der g-Adressen sind wegen dem gesetzten ECM-Bit immer
+Null, was sich in der Darstellung genauso wie beim ersten ung&uuml;ltigen
+Bitmap-Modus wiederspiegelt. Die Bitkombination &quot;01&quot; wird wie gewohnt zum
+Hintergrund gez&auml;hlt.
+
+c-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10| VC9| VC8| VC7| VC6| VC5| VC4| VC3| VC2| VC1| VC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |                         unbenutzt                         |
+ +-----------------------------------------------------------+
+
+g-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |CB13| VC9| VC8|  0 |  0 | VC5| VC4| VC3| VC2| VC1| VC0| RC2| RC1| RC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         4 Pixel (2 Bit/Pixel)         |
+ |                                       |
+ | &quot;00&quot;: Schwarz (Hintergrund)           |
+ | &quot;01&quot;: Schwarz (Hintergrund)           |
+ | &quot;10&quot;: Schwarz (Vordergrund)           |
+ | &quot;11&quot;: Schwarz (Vordergrund)           |
+ +---------------------------------------+
+
+3.7.3.9. Idle-Zustand
+---------------------
+
+Im Idle-Zustand liest der VIC die Grafikdaten von Adresse $3fff (bzw. $39ff
+bei gesetztem ECM-Bit) und stellt sie im ausgew&auml;hlten Grafikmodus dar,
+wobei aber die Videomatrix-Daten (normalerweise in den c-Zugriffen gelesen)
+nur aus &quot;0&quot;-Bits bestehen. Es wird also immer wiederholt das Byte an
+Adresse $3fff/$39ff ausgegeben.
+
+c-Zugriff
+
+ Es werden keine c-Zugriffe ausgef&uuml;hrt.
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+ |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+
+
+g-Zugriff
+
+ Adressen (ECM=0)
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Adressen (ECM=1)
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |  1 |  1 |  1 |  0 |  0 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         | Standard-Textmodus/
+ |                                       | Multicolor-Textmodus/
+ | &quot;0&quot;: Hintergrundfarbe 0 ($d021)       | ECM-Textmodus
+ | &quot;1&quot;: Schwarz                          |
+ +---------------------------------------+
+ |         8 Pixel (1 Bit/Pixel)         | Standard-Bitmap-Modus/
+ |                                       | Ung&uuml;ltiger Textmodus/
+ | &quot;0&quot;: Schwarz (Hintergrund)            | Ung&uuml;ltiger Bitmap-Modus 1
+ | &quot;1&quot;: Schwarz (Vordergrund)            |
+ +---------------------------------------+
+ |         4 Pixel (2 Bit/Pixel)         | Multicolor-Bitmap-Modus
+ |                                       |
+ | &quot;00&quot;: Hintergrundfarbe 0 ($d021)      |
+ | &quot;01&quot;: Schwarz (Hintergrund)           |
+ | &quot;10&quot;: Schwarz (Vordergrund)           |
+ | &quot;11&quot;: Schwarz (Vordergrund)           |
+ +---------------------------------------+
+ |         4 Pixel (2 Bit/Pixel)         | Ung&uuml;ltiger Bitmap-Modus 2
+ |                                       |
+ | &quot;00&quot;: Schwarz (Hintergrund)           |
+ | &quot;01&quot;: Schwarz (Hintergrund)           |
+ | &quot;10&quot;: Schwarz (Vordergrund)           |
+ | &quot;11&quot;: Schwarz (Vordergrund)           |
+ +---------------------------------------+
+
+3.8. Sprites
+------------
+
+Zus&auml;tzlich zu der Text-/Bitmapgrafik kann der VIC acht unabh&auml;ngige, 24&times;21
+Pixel gro&szlig;e, frei bewegliche Objekte darstellen, die &quot;Sprites&quot; (in [2]
+&quot;MOBs&quot; genannt (Movable Object Blocks)).
+
+Die Sprites k&ouml;nnen beliebig auf dem Bildschirm positioniert werden, man
+kann sie mit den Bits in Register $d015 (MxE) einzeln ein- und ausschalten,
+sie mit Register $d017/$d01d in X- und/oder Y-Richtung um den Faktor 2
+vergr&ouml;&szlig;ern (bei gleicher Aufl&ouml;sung von 24&times;21 Pixeln), mit Register $d01c
+(MxMC) den Standard- oder Multicolor-Darstellungmodus w&auml;hlen, mit Register
+$d01b (MxDP) die Anzeigepriorit&auml;t in Bezug zur Text-/Bitmapgrafik festlegen
+und jedem Sprite eine eigene Farbe zuordnen (Register $d027-$d02e).
+Au&szlig;erdem besitzt der VIC die M&ouml;glichkeit, Kollisionen zwischen Sprites
+untereinander oder zwischen Sprites und der Text-/Bitmapgrafik zu erkennen
+und ggf. einen Interrupt auszul&ouml;sen (siehe 3.11.).
+
+Die Position der linken oberen Ecke eines Sprites wird mit den zugeh&ouml;rigen
+Koordinatenregistern angegeben (MxX, MxY). F&uuml;r die Y-Koordinate stehen
+8 Bit, f&uuml;r die X-Koordinate 9 Bit zur Verf&uuml;gung (die h&ouml;chsten Bits aller
+Sprite-X-Koordinaten sind in Register $d010 gesammelt).
+
+3.8.1. Speicherzugriff und Darstellung
+--------------------------------------
+
+Die zur Darstellung von 24&times;21 Pixeln notwendigen 63 Bytes an Spritedaten
+sind linear im Speicher abgelegt: Jeweil 3 aufeinanderfolgende Bytes bilden
+eine Zeile des Sprites.
+
+Diese 63 Bytes lassen sich in 64-Byte-Schritten innerhalb des
+16KB-Adre&szlig;raumes des VIC verschieben. Dazu liest der VIC in jeder
+Rasterzeile f&uuml;r jedes Sprite aus den letzten 8 Bytes der Videomatrix einen
+Spritedatenzeiger (p-Zugriff), der bei den Spritedatenzugriffen
+(s-Zugriffe) die oberen 8 Bits der Adresse bildet. Die unteren 6 Bits
+stammen aus einem Spritedatenz&auml;hler (MC0-MC7, f&uuml;r jedes Sprite einen), der
+f&uuml;r die Sprites eine &auml;hnliche Aufgabe &uuml;bernimmt wie der VC f&uuml;r die
+Videomatrix. Da die p-Zugriffe in jeder Rasterzeile stattfinden und nicht
+nur dann, wenn das jeweilige Sprite gerade dargestellt wird, kann man durch
+&auml;ndern des Spritedatenzeigers das Aussehen eines Sprites mitten innerhalb
+der Darstellung &auml;ndern.
+
+Wenn f&uuml;r ein Sprite s-Zugriffe notwendig sind, finden diese innerhalb der
+Rasterzeile in den drei Halbzyklen direkt nach dem zu dem jeweiligen Sprite
+geh&ouml;renden p-Zugriff statt. Der VIC benutzt dazu ebenfalls die BA- und
+AEC-Signale (wie in den Bad Lines), um in der zweiten Taktphase auf den Bus
+zugreifen zu k&ouml;nnen. Auch in diesem Fall geht BA drei Zyklen vor dem
+eigentlichen Zugriff auf Low. Die s-Zugriffe finden in jeder Rasterzeile
+statt, in der das Sprite sichtbar ist (bei den Sprites 0-2 jeweils in der
+Zeile davor, siehe die Timing-Diagramme in Abschnitt 3.6.3.), f&uuml;r jedes
+Sprite in festgelegten Zyklen innerhalb der Zeile.
+
+Wie die Text- und Bitmap-Grafik, so besitzen auch die Sprites einen
+Standard-Modus und einen Multicolor-Modus. Im Standardmodus entspricht
+jedes Bit direkt einem Pixel auf dem Bildschirm. Ein &quot;0&quot; Pixel ist
+transparent und l&auml;&szlig;t die darunterliegende Grafik durchscheinen, ein &quot;1&quot;
+Pixel stellt die zum jeweiligen Sprite geh&ouml;rende Spritefarbe aus den
+Registern $d027-$d02e dar. Im Multicolor-Modus bilden je zwei benachbarte
+Bits ein Pixel, wodurch die Aufl&ouml;sung des Sprites auf 12&times;21 sinkt (die
+Pixel werden doppelt so breit).
+
+Au&szlig;erdem lassen sich die Sprites in X- und Y-Richtung getrennt in ihrer
+Ausdehung auf dem Bildschirm verdoppeln (X-/Y-Expansion). Dabei wird jedes
+Sprite-Pixel einfach doppelt so breit und/oder hoch dargestellt, die
+Aufl&ouml;sung &auml;ndert sich nicht. Ein Pixel eines X-expandierten
+Multicolor-Sprites ist also insgesamt viermal so breit wie ein Pixel eines
+nicht-expandierten Standard-Sprites. Obwohl beide Expansionen &auml;hnlich
+aussehen, sind sie doch auf vollkommen verschiedene Weise im VIC
+implementiert. Die X-Expansion weist einfach den Spritedatensequenzer an,
+die Pixel mit halber Frequenz auszugeben. Die Y-Expansion hingegen bewirkt,
+da&szlig; der Sprite-Adre&szlig;generator in je zwei aufeinanderfolgenden Zeilen von
+denselben Adressen liest, so da&szlig; jede Spritezeile doppelt ausgegeben wird.
+
+Zu jedem Sprite geh&ouml;rt ein eigener Spritedatensequenzer, dessen Kernst&uuml;ck
+ein 24-Bit-Schieberegister ist. Dar&uuml;berhinaus geh&ouml;ren zu jedem Sprite noch
+zwei Register:
+
+ &middot; &quot;MC&quot; (MOB Data Counter) ist ein 6-Bit-Z&auml;hler, der mit dem Wert aus
+   MCBASE geladen werden kann.
+ &middot; &quot;MCBASE&quot; (MOB Data Counter Base) ist ein 6-Bit-Z&auml;hler mit L&ouml;scheingang.
+
+Au&szlig;erdem gibt es pro Sprite noch ein Expansions-Flipflop, da&szlig; die
+Y-Expansion steuert.
+
+Die Darstellung eines Sprites geschieht nach den folgenden Regeln (die
+Zyklusangaben gelten nur f&uuml;r den 6569):
+
+1. Das Expansions-Flipflop ist gesetzt, solange das zum jeweiligen Sprite
+   geh&ouml;rende Bit MxYE in Register $d017 gel&ouml;scht ist.
+
+2. In der ersten Phase von Zyklus 55 wird das Expansions-Flipflop
+   invertiert, wenn das MxYE-Bit gesetzt ist.
+
+3. In den ersten Phasen von Zyklus 55 und 56 wird f&uuml;r jedes Sprite gepr&uuml;ft,
+   ob das entsprechende MxE-Bit in Register $d015 gesetzt und die
+   Y-Koordinate des Sprites (ungerade Register $d001-$d00f) gleich den
+   unteren 8 Bits von RASTER ist. Ist dies der Fall und der DMA f&uuml;r das
+   Sprite noch ausgeschaltet, wird der DMA angeschaltet, MCBASE gel&ouml;scht
+   und, wenn das MxYE-Bit gesetzt ist, das Expansions-Flipflop gel&ouml;scht.
+
+4. In der ersten Phase von Zyklus 58 wird f&uuml;r jedes Sprite MC mit MCBASE
+   geladen (MCBASE-&gt;MC) und gepr&uuml;ft, ob der DMA f&uuml;r das Sprite angeschaltet
+   und die Y-Koordinate des Sprites gleich den unteren 8 Bits von RASTER
+   ist. Ist dies der Fall, wird die Darstellung des Sprites angeschaltet.
+
+5. Ist der DMA f&uuml;r ein Sprite angeschaltet, finden in den entsprechenden,
+   f&uuml;r jedes Sprite festgelegten Zyklen (siehe die Diagramme in Abschnitt
+   3.6.3.) drei aufeinanderfolgende s-Zugriffe statt (die p-Zugriffe finden
+   immer statt, auch wenn das Sprite abgeschaltet ist). Die gelesenen Daten
+   des ersten Zugriffes werden in den oberen 8 Bit des Schieberegisters
+   gespeichert, die des zweiten in den mittleren 8 Bit und die des dritten
+   in den unteren 8 Bit. Nach jedem s-Zugriff wird der MC um 1 erh&ouml;ht.
+
+6. Ist die Sprite-Darstellung f&uuml;r ein Sprite angeschaltet, wird, sobald die
+   aktuelle X-Koordinate des Rasterstrahls mit der X-Koordinate des Sprites
+   (gerade Register $d000-$d00e und $d010) &uuml;bereinstimmt, mit jedem Pixel
+   das Schieberegister um ein Bit nach links geschoben und das
+   &quot;herausgefallene&quot; Bit dargestellt. Ist das zum Sprite geh&ouml;rige MxXE-Bit
+   aus Register $d01d gesetzt, wird nur jedes zweite Pixel geschoben und
+   das Sprite erscheint doppelt so breit. Wenn das Sprite im
+   Multicolor-Modus ist, werden jeweils zwei Bits zu einem Pixel
+   zusammengefa&szlig;t.
+
+7. In der ersten Phase von Zyklus 15 wird gepr&uuml;ft, ob das
+   Expansions-Flipflop gesetzt ist. Wenn ja, wird MCBASE um 2 erh&ouml;ht.
+
+8. In der ersten Phase von Zyklus 16 wird gepr&uuml;ft, ob das
+   Expansions-Flipflop gesetzt ist. Wenn ja, wird MCBASE um 1 erh&ouml;ht.
+   Dann wird gepr&uuml;ft, ob MCBASE auf 63 steht und bei positivem Vergleich
+   der DMA und die Darstellung f&uuml;r das jeweilige Sprite abgeschaltet.
+
+Dadurch, da&szlig; der Test in Punkt 3. gegen Ende der Rasterzeile gemacht wird,
+m&uuml;ssen die in den Registern angegebenen Sprite-Y-Koordinaten um 1 kleiner
+als die gew&uuml;nschte Y-Position der ersten Sprite-Zeile sein, da die
+Darstellung der Sprites erst in der folgenden Zeile beginnt, nachdem die
+ersten Spritedaten gelesen wurden (sofern das Sprite nicht &uuml;ber die
+X-Koordinate $164 (Zyklus 58, siehe Punkt 4.) hinaus positioniert wird).
+
+Sprites lassen sich vertikal &quot;wiederverwenden&quot;: Wenn man w&auml;hrend oder nach
+erfolgter Darstellung eines Sprites dessen Y-Koordinate auf eine sp&auml;tere
+Rasterzeile setzt, so da&szlig; die in Punkt 1. und 2. genannten Vergleiche
+nochmal ansprechen, wird das Sprite ab dieser Y-Koordinate noch einmal
+dargestellt (wobei man nat&uuml;rlich X-Koordinate und den Spritedatenzeiger
+beliebig &auml;ndern kann). So ist es m&ouml;glich, mehr als 8 Sprites auf dem
+Bildschirm erscheinen zu lassen.
+
+Horizontal ist dies nicht m&ouml;glich. Nach 24 dargestellten Pixeln ist das
+Schieberegister leergelaufen und auch wenn man die X-Koordinate innerhalb
+der Zeile so &auml;ndert, da&szlig; der Vergleich von Punkt 4. erneut anspricht,
+werden keine Spritedaten mehr angezeigt. Man kann also innerhalb einer
+Rasterzeile nur maximal 8 Sprites gleichzeitig darstellen.
+
+Hier noch einmal das Schema der p- und s-Zugriffe im &Uuml;berblick:
+
+p-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |VM13|VM12|VM11|VM10|  1 |  1 |  1 |  1 |  1 |  1 |  1 |  Spr.-Nummer |
+ +----+----+----+----+----+----+----+----+----+----+----+--------------+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ | MP7| MP6| MP5| MP4| MP3| MP2| MP1| MP0|
+ +----+----+----+----+----+----+----+----+
+
+s-Zugriff
+
+ Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | MP7| MP6| MP5| MP4| MP3| MP2| MP1| MP0| MC5| MC4| MC3| MC2| MC1| MC0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+ Daten
+
+ +----+----+----+----+----+----+----+----+
+ |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+
+ |         8 Pixel (1 Bit/Pixel)         |
+ |                                       | MxMC = 0
+ | &quot;0&quot;: Transparent                      |
+ | &quot;1&quot;: Spritefarbe ($d027-$d02e)        |
+ +---------------------------------------+
+ |         4 Pixel (2 Bit/Pixel)         |
+ |                                       |
+ | &quot;00&quot;: Transparent                     | MxMC = 1
+ | &quot;01&quot;: Sprite Multicolor 0 ($d025)     |
+ | &quot;10&quot;: Spritefarbe ($d027-$d02e)       |
+ | &quot;11&quot;: Sprite Multicolor 1 ($d026)     |
+ +---------------------------------------+
+
+3.8.2. Priorit&auml;t und Kollisionserkennung
+----------------------------------------
+
+Sobald sich mehrere Grafikelemente (Sprites und Text-/Bitmapgrafik) auf dem
+Bildschirm &uuml;berlappen, mu&szlig; entschieden werden, welches Element im
+Vordergrund dargestellt werden soll. Dazu wird jedem Element eine Priorit&auml;t
+zugeordnet und nur das Element mit der h&ouml;chsten Priorit&auml;t dargestellt.
+
+Die Sprites haben untereinander eine feste Rangfolge: Sprite 0 hat die
+h&ouml;chste und Sprite 7 die niedrigste Priorit&auml;t. Wenn sich zwei Sprites
+&uuml;berlappen, wird das Sprite mit der h&ouml;heren Nummer nur dort dargestellt, wo
+das andere Sprite ein transparentes Pixel hat.
+
+Die Priorit&auml;t der Sprites zur Text-/Bitmapgrafik l&auml;&szlig;t sich in gewissen
+Grenzen regeln. Zun&auml;chst einmal mu&szlig; man bei der Text-/Bitmapgrafik zwischen
+Vordergrund- und Hintergrundpixeln unterscheiden. Welche Bitkombinationen
+zum Vorder- oder Hintergrund geh&ouml;ren, entscheidet das MCM-Bit in Register
+$d016 unabh&auml;ngig von Zustand des Grafikdatensequenzers und von den BMM- und
+ECM-Bits in Register $d011:
+
+             | MCM=0 |   MCM=1
+ ------------+-------+-----------
+ Bit/Pixel   |   1   |     2
+ Pixel/Byte  |   8   |     4
+ Hintergrund |  &quot;0&quot;  | &quot;00&quot;, &quot;01&quot;
+ Vordergrund |  &quot;1&quot;  | &quot;10&quot;, &quot;11&quot;
+
+Im Multicolor-Modus (MCM=1) geh&ouml;ren also die Bitkombinationen &quot;00&quot; und &quot;01&quot;
+zum Hintergrund und &quot;10&quot; und &quot;11&quot; zum Vordergrund, w&auml;hrend im
+Standard-Modus (MCM=0) einfach gel&ouml;schte Pixel zum Hintergrund und gesetzte
+zum Vordergrund geh&ouml;ren. Es sollte noch bemerkt werden, da&szlig; dies auch f&uuml;r
+die im Idle-Zustand erzeugte Grafik gilt.
+
+Mit den MxDP-Bits aus Register $d01b l&auml;&szlig;t sich nun f&uuml;r jedes Sprite
+getrennt angeben, ob es vor oder hinter den Vordergrundpixeln dargestellt
+wird (die Tabelle in [2] ist falsch):
+
+ MxDP=0:
+
+       +-----------------------+
+       |   Hintergrundgrafik   |  niedrige Prioit&auml;t
+     +-----------------------+ |
+     |   Vordergrundgrafik   |-+
+   +-----------------------+ |
+   |       Sprite x        |-+
+ +-----------------------+ |
+ |    Bildschirmrahmen   |-+
+ |                       |   hohe Priorit&auml;t
+ +-----------------------+
+
+ MxDP=1:
+
+       +-----------------------+
+       |   Hintergrundgrafik   |  niedrige Priorit&auml;t
+     +-----------------------+ |
+     |       Sprite x        |-+
+   +-----------------------+ |
+   |   Vordergrundgrafik   |-+
+ +-----------------------+ |
+ |    Bildschirmrahmen   |-+
+ |                       |   hohe Priorit&auml;t
+ +-----------------------+
+
+Auch hier werden die Grafikelemente, die eine niedrigere Priorit&auml;t als ein
+dar&uuml;berliegendes Sprite haben, nur an den Stellen sichtbar, wo das Sprite
+ein transparentes Pixel hat.
+
+Wenn man einen der ung&uuml;ltigen Grafikmodi einstellt, sind nur die Sprites
+sichtbar (Vorder- und Hintergrundgrafik sind schwarz, siehe Abschnitte
+3.7.3.6.-3.7.3.8.), aber schaltet man die Sprites so, da&szlig; sie hinter der
+Vordergrundgrafik erscheinen, sieht man die Vordergrundgrafik als schwarze
+Pixel &uuml;ber den Sprites.
+
+Gleichzeitig mit der Priorit&auml;tsvergabe ist der VIC in der Lage, Kollisionen
+zwischen Sprites untereinander und zwischen Sprites und Vordergrundpixeln
+der Text-/Bitmapgrafik zu erkennen.
+
+Eine Kollision zwischen Sprites untereinander wird erkannt, sobald beim
+Bildaufbau zwei oder mehrere Spritedatensequenzer gleichzeitig ein
+nicht-transparentes Pixel ausgeben (dies kann auch irgendwo au&szlig;erhalb des
+sichtbaren Bildausschnittes geschehen). In diesem Fall werden im Register
+$d01e die MxM-Bits aller betroffenen Sprites gesetzt und (falls erlaubt,
+siehe Abschnitt 3.12.) ein Interrupt ausgel&ouml;st. Die Bits bleiben gesetzt,
+bis das Register vom Prozessor gelesen wird und werden durch den
+Lesezugriff automatisch gel&ouml;scht.
+
+Eine Kollision zwischen Sprites und anderen Grafikdaten wird erkannt,
+sobald beim Bildaufbau ein oder mehrere Spritedatensequenzer ein
+nicht-transparentes Pixel und der Grafikdatensequenzer ein Vordergrundpixel
+ausgeben. In diesem Fall werden im Register $d01f die MxD-Bits der
+betroffenen Sprites gesetzt und (fall erlaubt, siehe Abschnitt 3.12.) ein
+Interrupt ausgel&ouml;st. Wie bei der Sprite-Sprite-Kollision bleiben die Bits
+gesetzt, bis das Register vom Prozessor ausgelesen wird.
+
+Wenn das vertikale Rahmenflipflop gesetzt ist (also normalerweise innerhalb
+des oberen/unteren Rahmens, siehe n&auml;chsten Abschnitt), ist der Ausgang des
+Grafikdatensequenzers abgeschaltet und l&ouml;st keine Kollisionen aus.
+
+3.9. Die Rahmenstufe
+--------------------
+
+Der VIC benutzt zwei Flipflops, um den Rahmen um das Anzeigefenster
+herum zu erzeugen: Ein Haupt-Rahmenflipflop und ein vertikales
+Rahmenflipflop.
+
+Das Haupt-Rahmenflipflop steuert die Darstellung des Rahmens. Ist es
+gesetzt, stellt der VIC die in Register $d020 angegeben Farbe dar, sonst
+die Farbe, die der Priorit&auml;tsmultiplexer vom Grafik- oder
+Spritedatensequenzer durchschaltet. Der Rahmen &uuml;berlagert also sowohl die
+Text-/Bitmapgrafik als auch die Sprites. Er hat die h&ouml;chste
+Anzeigepriorit&auml;t.
+
+Das vertikale Rahmenflipflop dient zur Unterst&uuml;tzung bei der Darstellung
+des oberen/unteren Rahmens. Ist es gesetzt, kann das Haupt-Rahmenflipflop
+nicht gel&ouml;scht werden. Au&szlig;erdem steuert das vertikale Rahmenflipflop den
+Ausgang des Grafikdatensequenzers. Dieser liefert nur bei gel&ouml;schtem
+Flipflop Daten, ansonsten stellt er die Hintergrundfarbe dar. Dies dient
+vermutlich dazu, im Rahmen Sprite-Grafik-Kollisionen zu verhindern.
+
+Zu jedem der beiden Flipflops geh&ouml;ren 2&times;2 Komparatoren. Diese Komparatoren
+vergleichen die X-/Y-Position des Rasterstrahls mit einem von zwei
+festverdrahteten Werten (je nach Zustand der CSEL/RSEL-Bits) um die
+Flipflops zu steuern. Die Vergleiche fallen nur dann positiv aus, wenn der
+jeweilige Wert genau erreicht wird. Es findet kein Vergleich mit einem
+Intervall statt.
+
+Die horizontalen Vergleichswerte:
+
+        |   CSEL=0   |   CSEL=1
+ -------+------------+-----------
+ Links  |  31 ($1f)  |  24 ($18)
+ Rechts | 335 ($14f) | 344 ($158)
+
+Und die vertikalen:
+
+       |   RSEL=0  |  RSEL=1
+ ------+-----------+----------
+ Oben  |  55 ($37) |  51 ($33)
+ Unten | 247 ($f7) | 251 ($fb)
+
+Die Flipflops werden nach den folgenden Regeln geschaltet:
+
+1. Erreicht die X-Koordinate den rechten Vergleichswert, wird das
+   Haupt-Rahmenflipflop gesetzt.
+2. Erreicht die Y-Koordinate den unteren Vergleichswert in Zyklus 63, wird
+   das vertikale Rahmenflipflop gesetzt.
+3. Erreicht die Y-Koordinate den oberern Vergleichswert in Zyklus 63 und
+   ist das DEN-Bit in Register $d011 gesetzt, wird das vertikale
+   Rahmenflipflop gel&ouml;scht.
+4. Erreicht die X-Koordinate den linken Vergleichswert und die Y-Koordinate
+   den unteren, wird das vertikale Rahmenflipflop gesetzt.
+5. Erreicht die X-Koordinate den linken Vergleichswert und die Y-Koordinate
+   den oberen und ist das DEN-Bit in Register $d011 gesetzt, wird das
+   vertikale Rahmenflipflop gel&ouml;scht.
+6. Erreicht die X-Koordinate den linken Vergleichswert und ist das
+   vertikale Rahmenflipflop gel&ouml;scht, wird das Haupt-Flipflop gel&ouml;scht.
+
+Die Y-Koordinate wird also ein- oder zweimal innerhalb jeder Rasterzeile
+gepr&uuml;ft: In Zyklus 63 und wenn die X-Koordinate den linken Vergleichswert
+erreicht.
+
+Man kann durch geeignetes Umschalten der CSEL/RSEL-Bits verhindern, da&szlig;
+einer oder mehrere der Vergleichswerte erreicht werden und damit den Rahmen
+ganz oder teilweise abschalten (siehe 3.14.1.).
+
+3.10. Display Enable
+--------------------
+
+Das DEN-Bit (Display Enable, Register $d011, Bit 4) dient dazu, die
+Text-/Bitmapgrafik ein- oder auszuschalten. Im normalen Betrieb ist es
+gesetzt. Das Bit hat Auswirkungen auf zwei Funktionen des VIC: Die Bad
+Lines und die vertikale Rahmenstufe:
+
+ - Ein Bad-Line-Zustand kann nur auftreten, wenn irgendwann in Rasterzeile
+   $30 das DEN-Bit wenigstens einen Zyklus lang gesetzt war (siehe
+   Abschnitt 3.5.).
+ - Ist das DEN-Bit gel&ouml;scht, wird der Reset-Eingang des vertikalen
+   Rahmenflipflops deaktiviert (siehe Abschnitt 3.9.). Der obere/untere
+   Rahmen wird dann nicht abgeschaltet.
+
+Normalerweise bewirkt das L&ouml;schen des DEN-Bits also, da&szlig; keine Bad Lines
+(und damit auch keine c- und g-Zugriffe) auftreten und der ganze Bildschirm
+die Rahmenfarbe annimt.
+
+3.11. Lightpen
+--------------
+
+Bei einer negativen Flanke am LP-Eingang wird die aktuelle Position des
+Rasterstrahls in den Registern LPX ($d013) und LPY ($d014) gelatcht. LPX
+enth&auml;lt die oberen 8 Bit (von 9) der X-Position und LPY die unteren 8 Bit
+(ebenfalls von 9) der Y-Position. Daher ist die horizontale Aufl&ouml;sung des
+Lightpens auf 2 Pixel begrenzt.
+
+Es wird pro Bild nur eine einzige negative Flanke an LP registriert. Treten
+mehrere Flanken an LP auf, werden alle nachfolgenden ignoriert. Erst in der
+n&auml;chsten vertikalen Austastl&uuml;cke wird die Triggerung wieder freigegeben.
+
+Da der LP-Eingang des VIC wie alle Leitungen der Joystick-Ports an die
+Tastaturmatrix angeschlossen ist, l&auml;&szlig;t er sich auch per Software steuern.
+Dazu dient Bit 4 von Port B von CIA-A ($dc01/$dc03). Dies gibt die
+M&ouml;glichkeit, die aktuelle X-Position des Rasterstrahls durch Ausl&ouml;sen einer
+LP-Flanke und anschlie&szlig;endem Lesen von LPX zu ermitteln (der VIC besitzt
+kein Register, aus dem man die X-Position direkt auslesen k&ouml;nnte). Damit
+kann man z.B. Rasterinterrupt-Routinen zyklusgenau synchronisieren.
+
+Die Werte, die man im LPX-Register enth&auml;lt kann man aus den
+Sprite-Koordinaten der Timing-Diagramme in Abschnitt 3.6.3. ermitteln. Man
+mu&szlig; sich jeweils am Ende des Zyklus, in dem die LP-Leitung gesetzt wird,
+orientieren. Triggert man LP z.B. in Zyklus 20, so erh&auml;lt man in LPX den
+Wert $1e, der der Sprite-Koordinate $03c entspricht (LPX enth&auml;lt die oberen
+8 Bit der 9-Bit-X-Koordinate).
+
+Der VIC kann auch zus&auml;tzlich einen Interrupt beim Auftreten einer negativen
+Flanke am LP-Pin ausl&ouml;sen (siehe n&auml;chsten Abschnitt), ebenfalls nur einmal
+pro Strahldurchlauf.
+
+3.12. VIC-Interrupts
+--------------------
+
+Der VIC besitzt die M&ouml;glichkeit, beim Auftreten bestimmter Ereignisse einen
+Interrupt f&uuml;r den Prozessor zu erzeugen. Dazu dient der IRQ-Ausgang, der
+direkt mit dem IRQ-Eingang des 6510 verbunden ist. Die VIC-Interrupts sind
+daher mit dem I-Flag im Statusregister des Prozessors maskierbar.
+
+Im VIC gibt es vier Interruptquellen. Zu jeder Quelle geh&ouml;rt ein Bit im
+Interrupt-Latch (Register $d019) und ein Bit im Interrupt-Enable-Register
+(Register $d01a). Beim Auftreten eines Interrupts wird das entsprechende
+Bit im Latch gesetzt. Um es zu l&ouml;schen, mu&szlig; der Prozessor dort &quot;von Hand&quot;
+eine &quot;1&quot; hineinschreiben, der VIC l&ouml;scht das Latch nicht selbstt&auml;tig.
+
+Wenn mindestens ein Latch-Bit und das zugeh&ouml;rige Bit im Enable-Register
+gesetzt sind, wird die IRQ-Leitung auf Low gelegt und damit der Interrupt
+im Prozessor ausgel&ouml;st. Mit den Enable-Bits lassen sich also die vier
+Interruptquellen getrennt ein- und ausschalten. Da der VIC - wie
+beschrieben - das Latch nicht selbst l&ouml;scht, mu&szlig; dies der Prozessor tun,
+bevor er das I-Flag l&ouml;scht bzw. aus dem Interrupt zur&uuml;ckkehrt, denn sonst
+wird sofort wieder ein Interrupt ausgel&ouml;st (der IRQ-Eingang des 6510 ist
+pegelgetriggert).
+
+Die folgende Tabelle beschreibt die vier Interruptquellen und ihre Bits in
+den Latch- und Enable-Registern:
+
+ Bit|Name| Ausl&ouml;ser
+ ---+----+----------------------------------------------------------------
+  0 | RST| Erreichen einer bestimmten Rasterzeile. Die Zeile wird durch
+    |    | Schreiben in Register $d012 und $d011, Bit 7 festgelegt und vom
+    |    | VIC intern f&uuml;r den Vergleich gespeichert. Der Test auf das
+    |    | Erreichen der Interrupt-Rasterzeile findet in jeder Rasterzeile
+    |    | in Zyklus 0 (in Zeile 0 in Zyklus 1) statt.
+  1 | MBC| Kollision von mindestens einem Sprite mit der Text-/Bitmapgrafik
+    |    | (ein Spritedatensequenzer liefert zum selben Zeitpunkt ein
+    |    | nicht-transparentes Pixel an dem der Grafikdatensequenzer ein
+    |    | Vordergrundpixel ausgibt)
+  2 | MMC| Kollision von zwei oder mehr Sprites (zwei Spritedatensequenzer
+    |    | liefern gleichzeitig nicht-transparente Pixel)
+  3 | LP | Negative Flanke am LP-Eingang (Lightpen)
+
+Bei den MBC- und MMC-Interrupts l&ouml;st jeweils nur die erste Kollision einen
+Interrupt aus (d.h. wenn die Kollisionsregister $d01e bzw. $d01f vor der
+Kollision den Inhalt Null hatten). Um nach einer Kollision weitere
+Interrupts auszul&ouml;sen, mu&szlig; das betreffende Register erst durch Auslesen
+gel&ouml;scht werden.
+
+Das Bit 7 im Latch $d019 gibt den invertierten Zustand des IRQ-Ausgangs des
+VIC wieder.
+
+3.13. DRAM-Refresh
+------------------
+
+In jeder Rasterzeile f&uuml;hrt der VIC f&uuml;nf Lesezugriffe zum Refresh des
+dynamischen RAM durch. Es wird ein 8-Bit Refreshz&auml;hler (REF) zur Erzeugung
+von 256 DRAM-Zeilenadressen benutzt. Der Z&auml;hler wird in Rasterzeile 0 mit
+$ff gel&ouml;scht und nach jedem Refresh-Zugriff um 1 verringert.
+
+Der VIC greift also in Zeile 0 auf die Adressen $3fff, $3ffe, $3ffd, $3ffc
+und $3ffb zu, in Zeile 1 auf $3ffa, $3ff9, $3ff8, $3ff7 und $3ff6 usw.
+
+ Refresh-Adressen
+
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ | 13 | 12 | 11 | 10 |  9 |  8 |  7 |  6 |  5 |  4 |  3 |  2 |  1 |  0 |
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+ |  1 |  1 |  1 |  1 |  1 |  1 |REF7|REF6|REF5|REF4|REF3|REF2|REF1|REF0|
+ +----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+3.14. Effekte/Anwendungen
+-------------------------
+
+In den folgenden Abschnitten sollen einige grafische Effekte beschrieben
+werden, die sich durch die Anwendung der in den Abschnitten zuvor
+beschriebenen Funktionsweise des VIC erzielen lassen.
+
+3.14.1. Hyperscreen
+-------------------
+
+Wie in Abschnitt 3.9. erl&auml;utert, erzeugt der VIC den Bildschirmrahmen durch
+das Vergleichen der Strahlkoordinaten mit Start- und Stoppositionen, die
+sich durch die CSEL/RSEL-Bits ausw&auml;hlen lassen. Der Rahmen wird also nicht
+grunds&auml;tzlich innerhalb eines bestimmten Koordinatenbereichs dargestellt,
+sondern bei bestimmten Koordinaten ein- und ausgeschaltet. Sorgt man nun
+durch geeignetes Umschalten von CSEL/RSEL daf&uuml;r, da&szlig; der
+Koordinatenvergleich niemals anspricht, so wird der Rahmen z.B. nicht
+eingeschaltet und man kann auch die Grafik im Randbereich sehen, die
+normalerweise durch den Rahmen &uuml;berdeckt wird. Diese Technik wird als
+&quot;Hyperscreen&quot; oder &quot;&Ouml;ffnen des Rahmens&quot; bezeichnet.
+
+Allerdings beschr&auml;nkt sich die im Randbereich darstellbare Grafik
+haupts&auml;chlich auf Sprites, da der Grafikdatensequenzer in diesem Bereich im
+Idle-Zustand ist, da au&szlig;erhalb der Y-Koordinaten $30-$f7 keine Bad Lines
+auftreten k&ouml;nnen (siehe Abschnitt 3.5.). Man kann aber auch mit der im
+Idle-Zustand erzeugten Grafik etwas sinnvolles darstellen.
+
+Um den oberen/unteren Rahmen auszuschalten, geht man wie folgt vor:
+
+1. Irgendwo in der oberen H&auml;lte des Bildschirms setzt man das RSEL-Bit und
+   schaltet damit auf den 25-Zeilen-Rahmen.
+2. Nun wartet man, bis RASTER einen Wert im Bereich 248-250 erreicht hat.
+   Das vertikale Rahmenflipflop ist noch gel&ouml;scht, denn bei RSEL=1 spricht
+   der Komparator erst in Rasterzeile 251 an.
+3. Jetzt l&ouml;scht man das RSEL-Bit. Der Komparator wird umgeschaltet und
+   setzt das vertikale Flipflop nun bei Zeile 247. Diese Zeile ist aber
+   schon vorbei und der VIC &quot;vergi&szlig;t&quot; deshalb, den vertikalen Rahmen
+   einzuschalten.
+4. Nach Rasterzeile 251 setzt man das RSEL-Bit wieder und wiederholt das
+   Ganze bei Punkt 2.
+
+Wenn man den oberen/unteren Rahmen mit dieser Methode &ouml;ffnet, bleibt aber
+weiterhin der linke/rechte Rahmen in dem &quot;freigewordenen&quot; Bereich aktiv.
+Schaltet man im Bereich der Rasterzeilen 52-54 von RSEL=0 auf RSEL=1, so
+wird der Rahmen nicht mehr ausgeschaltet und &uuml;berdeckt den gesamten
+Bildschirm (dies entspricht der Darstellung bei gel&ouml;schtem DEN-Bits, jedoch
+mit dem Unterschied, da&szlig; Bad Lines stattfinden), was aber wenig sinnvoll
+ist.
+
+Der linke/rechte Rahmen l&auml;&szlig;t sich mit dem CSEL-Bit auf eine &auml;hnliche Weise
+abschalten. Das Timing ist jedoch wesentlich kritischer. Hat man beim
+vertikalen Rahmen noch 4 Rasterzeilen Zeit f&uuml;r die Umschaltung, so mu&szlig; beim
+horizontalen Rahmen der Wechsel CSEL=1 nach CSEL=0 auf den Zyklus genau
+erfolgen, und zwar in Zyklus 56. Ganz analog l&auml;&szlig;t sich das Abschalten des
+horizontalen Rahmens verhindern, indem man in Zyklus 17 von CSEL=0 auf
+CSEL=1 schaltet.
+
+Will man den linken/rechten Rahmen im oberen/unteren Randbereich &ouml;ffnen, so
+mu&szlig; man entweder damit anfangen, bevor das vertikale Rahmenflipflop gesetzt
+wird, also noch au&szlig;erhalb des oberen/unteren Rahmens, oder den
+oberen/unteren Rahmen ebenfalls &ouml;ffnen, denn das Haupt-Rahmenflipflop kann
+nur gel&ouml;scht werden, wenn auch das vertikale Flipflop gel&ouml;scht ist.
+Vergleicht man beide Methoden, kann man sich auch davon &uuml;berzeugen, da&szlig; das
+vertikale Flipflop den Ausgang des Grafikdatensequenzers steuert: Bei der
+ersten Methode ist im freigewordenen oberen/unteren Rahmenbereich nur die
+Hintergrundfarbe sichtbar, bei der zweiten Methode wird die Grafik des
+Idle-Zustands dargestellt.
+
+3.14.2. FLD
+-----------
+
+Beim Aufbau der Grafik nach Textzeilen orientiert sich der VIC
+ausschlie&szlig;lich am Auftreten der Bad Lines: Eine Bad Line gibt das
+&quot;Startsignal&quot; f&uuml;r die Darstellung einer Textzeile. Durch geeignetes &Auml;ndern
+von YSCROLL (in Register $d011) kann man den Bad-Line-Zustand unterdr&uuml;cken
+(siehe 3.5.) und beliebig verz&ouml;gern. Man kann so genau steuern, in welchen
+Rasterzeilen Bad Lines auftreten sollen und damit, ab welchen Rasterzeilen
+der VIC jeweils eine Textzeile darstellen soll. So l&auml;&szlig;t sich der Abstand
+zwischen zwei Textzeilen beliebig vergr&ouml;&szlig;ern, wenn man die n&auml;chste Bad Line
+nur lange genug zur&uuml;ckh&auml;lt. Dieser Effekt wird als &quot;Flexible Line Distance&quot;
+(FLD) bezeichnet.
+
+L&auml;&szlig;t man z.B. im ganzen Bildschirm nur drei Bad Lines bei den Rasterzeilen
+$50, $78 und $a0 zu, so stellt der VIC auch nur drei Textzeilen jeweils an
+diesen Positionen dar. Dazwischen ist der Sequenzer im Idle-Zustand.
+
+Verz&ouml;gert man nur das Auftreten der ersten Bad Line, kann man die komplette
+Grafikdarstellung um gro&szlig;e Distanzen nach unten scrollen, ohne auch nur ein
+Byte im Grafikspeicher zu verschieben.
+
+3.14.3. FLI
+-----------
+
+Anstatt wie beim FLD-Effekt das Auftreten der Bad Lines zu verz&ouml;gern, kann
+man auch k&uuml;nstlich zus&auml;tzliche Bad Lines erzeugen, bevor der VIC die
+aktuelle Textzeile beendet hat. Besonders interessant ist dies in den
+Bitmap-Modi, denn dort werden die Daten aus der Videomatrix (die ja in den
+Bad Lines gelesen werden) f&uuml;r die Farbinformation ben&ouml;tigt, weshalb in den
+Bitmap-Modi normalerweise nur einzelne 8&times;8-Pixelbl&ouml;cke individuell
+eingef&auml;rbt werden k&ouml;nnen. Macht man jedoch durch geeignetes &Auml;ndern von
+YSCROLL jede Rasterzeile zur Bad Line, liest der VIC in jeder Rasterzeile
+aus der Videomatrix und holt damit auch f&uuml;r jede Rasterzeile neue
+Farbinformationen.
+
+Dadurch ist man nun in der Lage, innerhalb der 4&times;8 Pixel eines Blocks im
+Multicolor-Modus jedes Pixel einzeln einzuf&auml;rben. Dieser durch Software
+erzeugte, neue Grafikmodus wird als &quot;Flexible Line Interpretation&quot; (FLI)
+bezeichnet und stellt vermutlich das herausragendste Beispiel
+&quot;unkonventioneller&quot; VIC-Programmierung dar.
+
+Ein Problem gibt es allerdings: Wenn man eine neue Bad Line erzeugt, noch
+bevor die aktuelle Textzeile beendet wurde, wird VCBASE nicht erh&ouml;ht (siehe
+3.7.2.). Der VIC liest also von den gleichen Adressen aus der Videomatrix,
+wie in der Zeile zuvor. Da man die Videomatrix mit dem Prozessor nicht
+schnell genug &auml;ndern kann, mu&szlig; man mit den Bits VM10-VM13 aus Register
+$d018 die Basisadresse der Videomatrix umschalten (das Farb-RAM l&auml;&szlig;t sich
+leider nicht umschalten, daher ist die Farbwahl der Pixel nicht vollkommen
+frei).
+
+Au&szlig;erdem darf man den Zugriff auf $d011 zum Erzeugen der Bad Lines erst ab
+Zyklus 14 jeder Rasterzeile machen, denn sonst wird der RC in jeder Zeile
+gel&ouml;scht und die Darstellung der Bitmap nicht wie gew&uuml;nscht. Dies hat aber
+auch zur Folge, da&szlig; die ersten drei c-Zugriffe des VIC in jeder Zeile keine
+g&uuml;ltigen Daten liefern, denn der erste c-Zugriff in Zyklus 15 erfordert,
+da&szlig; BA schon in Zyklus 12 auf Low gegangen sein mu&szlig;, damit AEC in Zyklus 15
+Low bleibt (AEC bleibt prinzipiell immer erst drei Zyklen nach der
+negativen Flanke von BA auf Low, dies l&auml;&szlig;t sich nicht umgehen). Da aber die
+Bad Line erst in Zyklus 14 erzeugt wurde, ist zwar in Zyklus 15 beim ersten
+c-Zugriff BA auf Low, aber AEC ist High und damit sind auch die internen
+Datenbustreiber D0-D7 des VIC geschlossen und da der Chip in NMOS gefertigt
+ist, liest er den Wert $ff und nicht die Videomatrix-Daten (die
+Datenbustreiber D8-D11 sind allerdings offen, jedoch wird dies in Abschnitt
+3.14.6. noch n&auml;her erl&auml;utert), was am linken Bildrand als 24 Pixel breite
+Streifen sichtbar wird.
+
+In der Praxis legt man im Speicher acht Videomatrizen an, die nach
+folgendem Schema benutzt werden: In der ersten Rasterzeile die erste Zeile
+der ersten Matrix, in der zweiten Zeile die erste Zeile der zweiten Matrix,
+usw..., in der achten Zeile die erste Zeile der achten Matrix, in der
+neunten Zeile die zweite Zeile der ersten Matrix, usw. Mit diesen acht
+Matrizen kann man eine komplette Bitmap zeilenweise abdecken.
+
+Vom FLI-Modus gibt es noch einige Abarten, z.B. AFLI (Advanced FLI), das
+den Standard-Bitmap-Modus benutzt und Farbmischungen durch &auml;hnlich
+gef&auml;rbte, nebeneinanderliegende Pixel simuliert, und IFLI (Interlaced FLI),
+das in einer Art Interlace-Verfahren abwechselnd zwei Halbbilder darstellt.
+
+3.14.4. Linecrunch
+------------------
+
+Die Manipulation von YSCROLL bietet noch mehr M&ouml;glichkeiten, auf Bad Lines
+Einflu&szlig; zu nehmen. Man kann auch eine Bad Line vor ihrer korrekten
+Beendigung abbrechen, indem man durch &Auml;nderung an YSCROLL den
+Bad-Line-Zustand innerhalb einer angefangenen Bad Line vor Zyklus 14 wieder
+wegnimmt. Das hat mehrere Konsequenzen:
+
+ - Der Grafikdaten-Sequenzer geht in den Display-Zustand, es wird also
+   Grafik dargestellt.
+ - Der RC wird nicht zur&uuml;ckgesetzt. Wenn man gleich die erste Bad Line
+   eines Bilds auf diese Art abbricht, steht der RC noch von der letzten
+   Zeile des vorigen Bildes auf 7.
+ - In Zyklus 58 der Zeile ist RC immer noch 7, darum geht der Sequenzer in
+   den Idle-Zustand und VCBASE wird mit VC geladen. Da der Sequenzer aber
+   innerhalb der Zeile im Display-Zustand war, wurde VC nach jedem
+   g-Zugriff erh&ouml;ht, also ist VCBASE jetzt effektiv um 40 erh&ouml;ht worden.
+   Der RC macht keinen &Uuml;berlauf, er bleibt auf 7.
+
+Mit diesem Verfahren hat man also die Darstellung einer Textzeile auf deren
+letzte Rasterzeile reduziert, denn weil VCBASE um 40 erh&ouml;ht wird, geht der
+VIC anschlie&szlig;end zur n&auml;chsten Zeile &uuml;ber. Daher wird dieser Effekt als
+&quot;Linecrunch&quot; bezeichnet: Man kann damit einzelne Textzeilen &quot;wegcrunchen&quot;.
+
+Wenn man nun in jeder Rasterzeile so vorgeht, so steht der RC immer auf 7
+und es finden keine c-Zugriffe statt, aber VCBASE wird in jeder Zeile um 40
+erh&ouml;ht. Dies f&uuml;hrt irgendwann dazu, da&szlig; VCBASE die 1000-Byte-Grenze der
+Videomatrix &uuml;berschreitet und der VIC auch die letzten, normalerweise
+unsichtbaren 24 Byte der Matrix darstellt (in denen u.a. die
+Spritedatenzeiger abgelegt sind) und bei Erreichen von 1024 wieder bei Null
+anf&auml;ngt.
+
+Dadurch, da&szlig; man ganze Textzeilen auf je eine Rasterzeile crunchen kann,
+hat man eine M&ouml;glichkeit, den Bildschirminhalt schnell um gro&szlig;e Distanzen
+nach oben zu scrollen, ohne den Grafikspeicher zu &auml;ndern, &auml;hnlich wie man
+ihn mit FLD nach unten scrollen kann. Der einzige st&ouml;rende Nebeneffekt
+dabei ist, da&szlig; sich die weggecrunchten Zeilen am oberen Bildschirmrand
+ansammeln, was unsch&ouml;n aussieht. Hier kann man aber durch Anwendung eines
+der ung&uuml;ltigen Grafikmodi recht praktisch im Bereich dieser Zeilen auf
+schwarz schalten.
+
+3.14.5. Verdoppelte Textzeilen
+------------------------------
+
+Normalerweise ist die Darstellung einer Textzeile nach 8 Rasterzeilen zu
+Ende, denn dann ist RC=7 und in Zyklus 58 der letzten Zeile geht der
+Sequenzer in den Idle-Zustand (siehe Abschnitt 3.7.2.). Erzeugt man jetzt
+aber einen Bad-Line-Zustand zwischen Zyklus 54-57 der letzten Zeile, so
+bleibt der Sequenzer im Display-Zustand und der RC wird nochmals erh&ouml;ht
+(und l&auml;uft damit auf Null &uuml;ber). Dann beginnt der VIC in der n&auml;chsten Zeile
+nochmal mit der Darstellung der vorigen Textzeile. Da keine neuen
+Videomatrixdaten gelesen wurden, wird die vorige Textzeile einfach doppelt
+dargestellt.
+
+3.14.6. DMA-Delay
+-----------------
+
+Die trickreichste Bad-Line-Manupulation besteht darin, innerhalb von Zyklus
+15-53 einer Rasterzeile des Anzeigefensters, innerhalb der der
+Grafikdatensequenzer im Idle-Zustand ist, einen Bad-Line-Zustand zu
+erzeugen, z.B. durch &Auml;ndern von Register $d011 derart, da&szlig; YSCROLL gleich
+den unteren drei Bit von RASTER ist.
+
+Der VIC setzt dann sofort im n&auml;chsten Zyklus BA nach Low, geht in den
+Display-Zustand und beginnt mit dem Lesen aus der Videomatrix (der
+Prozessor ist nun angehalten, denn BA ist Low und er will den n&auml;chsten
+Opcode lesen). Allerdings schwingt AEC erst noch drei Zyklen lang mit &oslash;2
+mit, bevor es ebenfalls auf Low bleibt. Dieses Verhalten (AEC erst drei
+Zyklen nach BA) ist im VIC festverdrahtet und l&auml;&szlig;t sich nicht umgehen.
+
+Trotzdem greift der VIC auf die Videomatrix zu, oder versucht es zumindest,
+denn solange AEC in der zweiten Taktphase noch High ist, sind die
+Adre&szlig;bustreiber und Datenbustreiber D0-D7 des VIC im Tri-State und der VIC
+liest statt der Daten aus der Videomatrix in den ersten drei Zyklen den
+Wert $ff an D0-D7. Die Datenleitungen D8-D13 des VIC haben allerdings
+keinen Tri-State-Treiber und sind immer auf Eingang geschaltet. Allerdings
+bekommt der VIC auch dort keine g&uuml;ltigen Farb-RAM-Daten, denn da AEC High
+ist, kontrolliert offiziell der 6510 noch den Bus und sofern dieser nicht
+zuf&auml;llig gerade den n&auml;chsten Opcode vom Farb-RAM lesen will, ist der
+Chip-Select-Eingang des Farb-RAMs nicht aktiv. Stattdessen stellt ein 4-Bit
+Analogschalter (!), U16, eine Verbindung zwischen den Datenbits D0-D3 des
+Prozessors und den Datenbits D8-D13 des VIC her. Diese Verbindung besteht
+immer bei AEC High und soll dem Prozessor ggf. den Zugriff auf das Farb-RAM
+erm&ouml;glichen. Lange Rede, kurzer Sinn: Der VIC liest in den ersten drei
+Zyklen, nachdem BA auf Low gegangen ist als Zeichenzeiger $ff und als
+Farbinformation die untersten 4 Bit des Opcodes nach dem Zugriff auf $d011.
+Erst danach werden wieder regul&auml;re Videomatrixdaten gelesen.
+
+Diese Daten werden ganz normal ab dem Anfang der internen
+Videomatrix-/Farbzeile abgelegt und nach jedem nachfolgenden g-Zugriff (mit
+dem Erzeugen der Bad Line wurde auch der Sequenzer in den Display-Zustand
+geschaltet) wird VC erh&ouml;ht. Die c- und g-Zugriffe werden bis Zyklus 54
+fortgesetzt. Dadurch, da&szlig; mit den Zugriffen aber erst mitten in der Zeile
+begonnen wurde, fanden weniger als 40 Zugriffe statt, also wurde auch VC
+insgesamt um weniger als 40 in dieser Rasterzeile erh&ouml;ht und hat keinen
+durch 40 teilbaren Wert mehr, wie dies normalerweise am Ende einer
+Rasterzeile immer der Fall ist. Aufgrund der Arbeitsweise des VC (siehe
+Abschnitt 3.7.2.) setzt sich diese &quot;Verstimmung&quot; in allen folgenden Zeilen
+fort. Der ganze Bildinhalt erscheint dadurch nach rechts gerollt, und zwar
+um soviele Zeichen, wieviele Zyklen der $d011-Zugriff nach Zyklus 14
+gemacht wurde. Da die c-Zugriffe innerhalb der Zeile erst sp&auml;ter als in
+einer normalen Bad Line einsetzen, wird dieses Verfahren als &quot;DMA-Delay&quot;
+bezeichnet.
+
+Damit ist es m&ouml;glich, den kompletten Bildschirm um gro&szlig;e Distanzen seitlich
+zu verschieben (dies funktioniert mit Bitmap-Grafiken genauso wie mit
+Textschirmen, denn der VC wird auch zum Zugriff auf die Bitmap-Daten
+benutzt), ohne den Grafikspeicher mit dem Prozessor umkopieren zu m&uuml;ssen.
+Kombiniert man den DMA-Delay mit FLD und Linecrunch, ist es m&ouml;glich,
+bildschirmf&uuml;llende Grafiken ohne nennenswerten Rechenzeitverbrauch um fast
+beliebig gro&szlig;e Distanzen in alle Richtungen zu scrollen.
+
+Das Experimentieren mit dem DMA-Delay (und mit Bad-Line-Effekten generell)
+ist auch die beste Methode, die interne Funktionsweise des VIC,
+insbesondere von RC und VC, zu ergr&uuml;nden und zu bestimmen, in welchen
+Taktzyklen bestimmte Vorg&auml;nge im VIC ablaufen.
+
+Es sollte noch erw&auml;hnt werden, da&szlig; DMA-Delay nicht nur durch Manipulation
+von YSCROLL, sondern auch mit dem DEN-Bit aus Register $d011 erzielt werden
+kann. Dazu mu&szlig; man YSCROLL auf Null setzen, damit Rasterzeile $30 zur
+ersten Bad Line wird und DEN mitten in Zeile $30 von gel&ouml;scht auf gesetzt
+schalten. Bad Lines k&ouml;nnen n&auml;mlich nur auftreten, wenn in Zeile $30 das
+DEN-Bit mindestens einen Zyklus lang gesetzt war, und wenn YSCROLL Null
+ist, tritt in Zeile $30 der Bad-Line-Zustand ein, sobald DEN gesetzt ist.
+
+3.14.7 Sprite-Stretching
+------------------------
+
+Da die Sprites einfacher aufgebaut sind als die Textgrafik, sind mit ihnen
+nicht so viele besondere Effekte m&ouml;glich, aber darunter ist ein sehr
+interessanter Effekt, der die Funktionsweise der Sprite-Y-Expansion
+ausnutzt: Durch &Auml;ndern der MxYE-Bits in Register $d017 ist es n&auml;mlich nicht
+nur m&ouml;glich, f&uuml;r jede Spritezeile einzeln zu bestimmen, ob sie verdoppelt
+werden soll, sondern man kann auch einzelne Zeilen drei- oder mehrmals
+wiederholen lassen und damit ein Sprite oder Teile davon um beliebige
+Faktoren vergr&ouml;&szlig;ern.
+
+Dieser Effekt l&auml;&szlig;t sich wie folgt verstehen (siehe dazu Abschnitt 3.8.1.):
+
+Angenommen, wir befinden uns in Zyklus 55 einer Rasterzeile, in der Sprite
+0 angeschaltet ist und deren Y-Koordinate gleich der Y-Koordinate des
+Sprites ist, also in der Zeile bevor das Sprite dargestellt wird. Das
+M0YE-Bit sei gesetzt. Dann schaltet der VIC den DMA f&uuml;r Sprite 0 an und
+l&ouml;scht MCBASE und das Expansions-Flipflop. BA geht nach Low, damit der VIC
+in Zyklus 58 und 59 in den zweiten Taktphasen zugreifen kann. In Zyklus 58
+wird MC mit MCBASE geladen und dadurch ebenfalls gel&ouml;scht, und der
+p-Zugriff f&uuml;r das Sprite gemacht. Anschlie&szlig;end werden die drei s-Zugriffe
+ausgef&uuml;hrt und MC nach jedem Zugriff erh&ouml;ht, steht also dann auf 3.
+
+Nun wartet man auf Zyklus 16 der folgenden Zeile. Da das
+Expansions-Flipflop gel&ouml;scht ist, bleibt MCBASE weiterhin auf Null. Jetzt
+l&ouml;scht man zun&auml;chst das M0YE-Bit und setzt damit das Flipflop, setzt das
+M0YE-Bit aber danach gleich wieder. In Zyklus 55 wird das Flipflop dann
+invertiert, da M0YE wieder gesetzt ist, und ist nun also gel&ouml;scht (h&auml;tte
+man das M0YE-Bit nicht gel&ouml;scht, w&auml;re das Flipflop nun gesetzt). Dies ist
+aber genau der Zustand, in dem der VIC auch in Zyklus 55 der vorigen Zeile
+war. Der VIC &quot;glaubt&quot; daher, sich erst in der ersten Rasterzeile einer
+expandierten Spritezeile zu befinden und wird (da MC immer noch Null ist)
+die erste Spritezeile noch zweimal aus dem Speicher lesen, insgesamt jetzt
+also dreimal: Die erste Spritezeile wurde verdreifacht.
+
+Ein weiterer interessanter Effekt l&auml;&szlig;t sich erzielen, wenn man genau wie
+oben vorgeht, aber das M0YE-Bit nicht nach Zyklus 16 l&ouml;scht, sondern in der
+zweiten Phase von Zyklus 15. Dann wird MCBASE um 1 erh&ouml;ht und die n&auml;chste
+Spritezeile wird mit MC=1..3 aus dem Speicher gelesen, also ein Byte h&ouml;her
+als vorgesehen. Diese &quot;Verstimmung&quot; setzt sich komplett in der Darstellung
+des Sprites fort. Daher wird auch die Bedingung MC=63 f&uuml;r das Abschalten
+des Sprite-DMA in Zyklus 16 nicht erreicht und das Sprite wird effektiv
+zweimal direkt hintereinander dargestellt. Erst nach Ende der zweiten
+Darstellung steht MC auf 63 und der DMA wird abgeschaltet.
+
+
+4. Die Adressen 0 und 1 und der $de00-Bereich
+---------------------------------------------
+
+Der Adre&szlig;bereich $de00-$dfff des 6510 (siehe 2.4.1.) ist f&uuml;r externe
+Erweiterungen des C64 reserviert und normalerweise mit keinem anderen
+Baustein (RAM, I/O) verbunden. Ein Lesezugriff von diesen Adressen liefert
+scheinbar zuf&auml;llige Daten. Dasselbe gilt f&uuml;r die oberen Nybbles der
+Adressen $d800-$dbff (das Farb-RAM).
+
+Auf einigen C64 sind diese Daten jedoch gar nicht &quot;zuf&auml;llig&quot;, sondern sind
+vielmehr mit den Daten identisch, die der VIC in der ersten Phase des
+Taktzyklus aus dem Speicher gelesen hat. Dieser Effekt ist jedoch nicht auf
+allen Ger&auml;ten und nicht immer pr&auml;zise nachvollziehbar.
+
+Davon abgesehen, da&szlig; man dadurch die M&ouml;glichkeit hat, das VIC-Timing allein
+per Software zu vermessen (die Timing-Diagramme aus [4], auf denen auch die
+Diagramme in diesem Artikel basieren, sind z.B. mit dieser Methode erstellt
+worden), kann man den 6510 auch Programme im $de00-Bereich oder im Farb-RAM
+ausf&uuml;hren lassen, wenn man den VIC eine derartige Grafik darstellen l&auml;&szlig;t,
+da&szlig; der 6510 aus den vom VIC gelesenen Grafikdaten g&uuml;ltige Opcodes erh&auml;lt.
+
+Mit einem &auml;hnlichen Effekt kann man auch vom Prozessor aus die RAM-Adressen
+0 und 1 beschreiben. Diese sind eigentlich nicht zug&auml;nglich, da an diesen
+Adressen prozessorintern das Datenrichtungsregister und das Datenregister
+des 6510-I/O-Ports eingeblendet werden und bei einem Schreibzugriff die
+Datenbustreiber im Tri-State bleiben. Allerdings wird die R/W-Leitung auf
+Low gelegt (dies ist damit zu erkl&auml;ren, da&szlig; der I/O-Port erst nachtr&auml;glich
+in das existierende Design des 6502 integriert wurde) und dadurch gelangt
+das in der ersten Taktphase vom VIC gelesene Byte ins RAM. Will man also
+einen bestimmten Wert an Adresse 0 oder 1 schreiben, so mu&szlig; man nur ein
+beliebiges Byte an diese Adressen schreiben und daf&uuml;r sorgen, da&szlig; der VIC
+in der Phase zuvor den gew&uuml;nschten Wert aus dem RAM gelesen hat.
+
+Die Adressen 0 und 1 lassen sich nat&uuml;rlich auch wieder vom Prozessor aus
+lesen. Entweder &uuml;ber den $de00-Bereich oder mit Hilfe von
+Spritekollisionen. Dabei l&auml;&szlig;t man den VIC eine Bitmap ab Adresse 0
+darstellen und bewegt ein Sprite, das nur aus einem Pixel besteht, &uuml;ber die
+einzelnen Bits der ersten beiden Bytes der Bitmap. Je nachdem, ob eine
+Kollision registriert wurde oder nicht, kann man so den Zustand der
+einzelnen Bits herausfinden und zu einem Byte zusammensetzen.
+
+
+Anhang A: Literaturverzeichnis
+------------------------------
+
+[1] Commodore B&uuml;romaschinen GmbH, &quot;Alles &uuml;ber den Commodore 64&quot;, Anhang L:
+    &quot;Datenblatt Mikroprozessor 6510&quot;, 1984
+
+[2] dto., Anhang N: &quot;6566/6567 Video Interface Controller (VIC-II) Chip
+    Specifications&quot;
+
+[3] dto., Kapitel 5, Abschnitt &quot;Speicherverwaltung beim Commodore 64&quot;,
+    S.256-263
+
+[4] Marko M&auml;kel&auml;, &quot;The memory accesses of the MOS 6569 VIC-II and MOS 8566
+    VIC-IIe Video Interface Controller&quot; (AKA: Pal timing), 15.07.1994
+
+[5] John West, Marko M&auml;kel&auml;, &quot;Documentation for the NMOS 65xx/85xx
+    Instruction Set&quot; (AKA: 64doc), 03.06.1994
+
+
+Anhang B: Danksagungen
+----------------------
+
+Mein Dank geht an
+
+ - Marko M&auml;kel&auml;, Andreas Boose, Pasi Ojala und Wolfgang Lorenz f&uuml;r die
+   Arbeit, die sie in die Untersuchung des VIC gesteckt haben
+ - Kaspar Jensen f&uuml;r das Korrekturlesen der englischen Version dieses
+   Textes und f&uuml;r seine Verbesserungsvorschl&auml;ge
+ - Adam Vardy &lt;abe0084@InfoNET.st-johns.nf.ca&gt; f&uuml;r den Hinweis, da&szlig; meine
+   Beschreibung der Grafikdarstellung im Idle-Zustand falsch war
+</pre></td></tr></table></center>
+</body>
+</html>

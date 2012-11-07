@@ -1,0 +1,199 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ 1581 Job Codes:
+
+  This table contains the addresses (logical Track and Sector, not physical!)
+  and the assigned buffers:
+
+     +-------+---------+----------+---------------+
+     |  JOB  |  TRACK  |  SECTOR  |     BUFFER    |
+     +-------+---------+----------+---------------+
+     |  <a href="ra8102.htm">$02</a>  |   <a href="ra810b.htm">$0B</a>   |   <a href="ra810b.htm">$0C</a>    |  <a href="ra810300.htm">$0300-$03FF</a>  |
+     |  <a href="ra8102.htm">$03</a>  |   <a href="ra810b.htm">$0D</a>   |   <a href="ra810b.htm">$0E</a>    |  <a href="ra810400.htm">$0400-$04FF</a>  |
+     |  <a href="ra8102.htm">$04</a>  |   <a href="ra810b.htm">$0F</a>   |   <a href="ra810b.htm">$10</a>    |  <a href="ra810500.htm">$0500-$05FF</a>  |
+     |  <a href="ra8102.htm">$05</a>  |   <a href="ra810b.htm">$11</a>   |   <a href="ra810b.htm">$12</a>    |  <a href="ra810600.htm">$0600-$06FF</a>  |
+     |  <a href="ra8102.htm">$06</a>  |   <a href="ra810b.htm">$13</a>   |   <a href="ra810b.htm">$14</a>    |  <a href="ra810700.htm">$0700-$07FF</a>  |
+     |  <a href="ra8102.htm">$07</a>  |   <a href="ra810b.htm">$15</a>   |   <a href="ra810b.htm">$16</a>    |  <a href="ra810800.htm">$0800-$08FF</a>  |
+     |  <a href="ra8102.htm">$08</a>  |   <a href="ra810b.htm">$17</a>   |   <a href="ra810b.htm">$18</a>    |  <a href="ra810900.htm">$0900-$09FF</a>  |
+     |  <a href="ra8102.htm">$09</a>  |   <a href="ra810b.htm">$19</a>   |   <a href="ra810b.htm">$1A</a>    |  <a href="ra810a00.htm">$0A00-$0AFF</a>  |
+     |  <a href="ra8102.htm">$0A</a>  |   <a href="ra810b.htm">$1B</a>   |   <a href="ra810b.htm">$1C</a>    |  <a href="ra810b00.htm">$0B00-$0BFF</a>  |
+     +-------+---------+----------+---------------+
+
+  If a disk controller routine is to be performed in the interrupt, one
+  writes the job code and the track and sector numbers of the block to be
+  processed (if necessary) in the appropriate memory locations. Now the
+  job code can be passed. This job code has a value greater than 127 (the
+  7th bit is set). In order to wait until the job is finished, only the
+  seventh bit need be tested. If this bit is cleared, the job is completed.
+  The disk controller can perform the following jobs:
+
+  +--------+--------------+-----------------------------------------------+
+  |  Code  |     Name     |  Description                                  |
+  +--------+--------------+-----------------------------------------------+
+  |  $80   | READ_DV      |  Reads  a particular logical sector into the  |
+  |        |              |  job queue buffer  (only if the disk has not  |
+  |        |              |  been  changed).  If  the  desired sector is  |
+  |        |              |  already in the track cache buffer,  then no  |
+  |        |              |  disk  activity  is  required  (the  data is  |
+  |        |              |  merely  transferred  from  the  track cache  |
+  |        |              |  memory to the job queue buffer memory).  If  |
+  |        |              |  the  desired  sector  is  not  in the track  |
+  |        |              |  cache,  then  the  current  track  cache is  |
+  |        |              |  dumped  to  disk   (only  if  it  has  been  |
+  |        |              |  modified),  the  desired track is read into  |
+  |        |              |  the track cache, and finally the particular  |
+  |        |              |  sector's data is transferred from the track  |
+  |        |              |  cache memory to the job queue buffer.        |
+  |        |              |                                               |
+  |  $82   | RESET_DV     |  Resets  the  disk controller and associated  |
+  |        |              |  variables.                                   |
+  |        |              |                                               |
+  |  $84   | MOTON_DV     |  Turns on the spindle motor  (overlays a $01  |
+  |        |              |  in the Job Queue after the spin-up sequence  |
+  |        |              |  is complete).                                |
+  |        |              |                                               |
+  |  $86   | MOTOFF_DV    |  Turns the spindle motor off after the spin-  |
+  |        |              |  down sequence is complete.                   |
+  |        |              |                                               |
+  |  $88   | MOTONI_DV    |  Turns the spindle motor on immediately.      |
+  |        |              |                                               |
+  |  $8A   | MOTOFFI_DV   |  Turns the spindle motor off immediately.     |
+  |        |              |                                               |
+  |  $8C   | SEEK_DV      |  Seeks  to  a  particular   physical   track  |
+  |        |              |  (cylinder).   The  current  physical  track  |
+  |        |              |  position   should   be  put  in  the  track  |
+  |        |              |  parameter of HDRS.                           |
+  |        |              |                                               |
+  |  $8E   | FORMAT_DV    |  Formats  one  physical track (one half of a  |
+  |        |              |  cylinder).   The   head   must   be  placed  |
+  |        |              |  physically  over  the  proper cylinder, and  |
+  |        |              |  the  head  electronics must be selected for  |
+  |        |              |  the side desired.                            |
+  |        |              |                                               |
+  |  $90   | WRTSD_DV     |  Writes  the  job  queue's  buffer data to a  |
+  |        |              |  particular  logical track,  sector.  If the  |
+  |        |              |  same  track  is already in the track cache,  |
+  |        |              |  then  this  involves  only transferring the  |
+  |        |              |  job  queue  buffer  data to the track cache  |
+  |        |              |  buffer.  If  a different track's data is in  |
+  |        |              |  the  disk  (only  if  it was modified), the  |
+  |        |              |  desired  track  read  into  the track cache  |
+  |        |              |  buffer,  and finally the job queue buffer's  |
+  |        |              |  data transferred to the track cache.         |
+  |        |              |                                               |
+  |  $92   | DISKIN_DV    |  Determines  if  there is a disk inserted in  |
+  |        |              |  the drive.                                   |
+  |        |              |                                               |
+  |  $94   | LEDACTON_DV  |  Turns on the activity LED.                   |
+  |        |              |                                               |
+  |  $96   | LEDACTOFF_DV |  Turns off the activity LED.                  |
+  |        |              |                                               |
+  |  $98   | ERRLEDON_DV  |  Enables error LED blinking.                  |
+  |        |              |                                               |
+  |  $9A   | ERRLEDOFF_DV |  Disables error LED blinking.                 |
+  |        |              |                                               |
+  |  $9C   | SIDE_DV      |  Sets  up the side select electronics to the  |
+  |        |              |  value specified (in SIDS).                   |
+  |        |              |                                               |
+  |  $9E   | BUFMOVE_DV   |  Moves data between the job queue buffer and  |
+  |        |              |  the track cache buffer. The track parameter  |
+  |        |              |  in  the  job  queue denotes the position in  |
+  |        |              |  the track cache buffer to transfer to/from.  |
+  |        |              |  The sector parameter denotes the following:  |
+  |        |              |    Bit 7 :  Direction  (1 = to  track  cache  |
+  |        |              |             buffer)                           |
+  |        |              |    Bit 6 :  Mark Flag  (set/clear the 'track  |
+  |        |              |             cache modified' flag)             |
+  |        |              |    Bit 5 :  Transfer (1 = do the transfer)    |
+  |        |              |    Bits 4-0:# of 256 byte blocks to transfer  |
+  |        |              |  With bit 7 set,  the corresponding physical  |
+  |        |              |  track  position  in  the  job queue (HDRS2)  |
+  |        |              |  must  be updated for the purpose of telling  |
+  |        |              |  the  controller  what  physical  track  the  |
+  |        |              |  track cache buffer belongs to.  In addition  |
+  |        |              |  the side var (SIDS) must also be updated.    |
+  |        |              |                                               |
+  |  $A0   | WRTVER_DV    |  Verifies  the  track  cache  buffer's  data  |
+  |        |              |  against the specified logical track's data.  |
+  |        |              |                                               |
+  |  $A2   | TRKWRT_DV    |  Dumps  the  track  cache buffer to the disk  |
+  |        |              |  (only  if  the track cache modified flag is  |
+  |        |              |  set).                                        |
+  |        |              |                                               |
+  |  $A4   | SP_READ      |  Reads   the   specified   physical   sector  |
+  |        |              |  directly  into  RAM starting at #0 ($0300).  |
+  |        |              |  It does not use the track cache buffer. The  |
+  |        |              |  sector   is   always  read  from  the  disk  |
+  |        |              |  regardless  of  the current contents of the  |
+  |        |              |  track cache.                                 |
+  |        |              |                                               |
+  |  $A6   | SP_WRITE     |  Writes  to  the  specified  physical sector  |
+  |        |              |  directly.  It does not use the track cache.  |
+  |        |              |  Data  to  be  written  starts  at buffer #0  |
+  |        |              |  ($0300).                                     |
+  |        |              |                                               |
+  |  $A8   | PSEEK_DV     |  Seeks to the specified physical track.       |
+  |        |              |                                               |
+  |  $AA   | TREAD_DV     |  Reads  logical address without transferring  |
+  |        |              |  to the job queue buffer.                     |
+  |        |              |                                               |
+  |  $AC   | TWRT_DV      |  Writes    a    logical    address   without  |
+  |        |              |  transferring from the job queue buffer.      |
+  |        |              |                                               |
+  |  $B0   | SEEKHD_DV    |  Logs  in a disk by reading information from  |
+  |        |              |  the  first  header  encountered on the disk  |
+  |        |              |  into RAM so that it can be used by the DOS.  |
+  |        |              |  The track cache buffer is not updated.       |
+  |        |              |                                               |
+  |  $B2   | TPREAD_DV    |  Reads    a    physical    address   without  |
+  |        |              |  transferring to the job queue buffer.        |
+  |        |              |                                               |
+  |  $B4   | TPWRT_DV     |  Writes    a    physical   address   without  |
+  |        |              |  transferring from the job queue buffer.      |
+  |        |              |                                               |
+  |  $B6   | DETWP_DV     |  Checks   if  the  disk  inserted  is  write  |
+  |        |              |  protected.  Returns  $00  if  disk  is  not  |
+  |        |              |  protected, else $08.                         |
+  |        |              |                                               |
+  |  $B8   | SEEKPHD_DV   |  Seeks   to   a  particular  logical  track,  |
+  |        |              |  sector. The track cache is not updated.      |
+  |        |              |                                               |
+  |  $C0   | RESTORE_DV   |  Restores  the  read/write  head  to track 0  |
+  |        |              |  ('bump').                                    |
+  |        |              |                                               |
+  |  $D0   | JUMPC_DV     |  Executes  the code in the corresponding job  |
+  |        |              |  queue buffer.                                |
+  |        |              |                                               |
+  |  $E0   | EXBUF_DV     |  Executes  the code in the corresponding job  |
+  |        |              |  queue buffer after the motor is up to speed  |
+  |        |              |  and the head is on track.                    |
+  |        |              |                                               |
+  |  $F0   | FORMATDK_DV  |  Formats  the disk with the default physical  |
+  |        |              |  format.                                      |
+  +--------+--------------+-----------------------------------------------+
+
+  If the job ends in an error then the memory location with job command
+  code is replaced with and error code. Here is a list of the error numbers:
+
+  +------+------------------+---------------------------------------------+
+  | Code | Name             | Description                                 |
+  +------+------------------+---------------------------------------------+
+  | $0x  | OK_DV            | No error.                                   |
+  | $02  | MISHD_DV_ER      | Can't find header block.                    |
+  | $03  | NOADAM_DV_ER     | No address mark detected.                   |
+  | $04  | MISDBLK_DV_ER    | Data block not present.                     |
+  | $05  | CRCDBLK_DV_ER    | CRC error encountered in data block.        |
+  | $06  | FMT_DV_ER        | Format error.                               |
+  | $07  | VERERR_DV_ER     | Verify error.                               |
+  | $08  | WRTPR_DV_ER      | Attempt to write to a write protected disk. |
+  | $09  | CRCHD_DV_ER      | CRC error encountered in header block.      |
+  | $0A  |                  | Reserved.                                   |
+  | $0B  | DSKCHG_DV_W      | Disk was changed/disk ID mismatch.          |
+  | $0C  | DSKNTLOG_DV_ER   | Disk format not logical.                    |
+  | $0D  | CONTROLLER_DV_ER | Floppy disk controller IC error.            |
+  | $0E  | SYNTAX_DV_ER     | Syntax error. Invalid job number.           |
+  | $0F  | NODSKPRS_DV_ER   | No disk is present in the drive.            |
+  +------+------------------+---------------------------------------------+
+
+</pre></td></tr></table></center></body></html>

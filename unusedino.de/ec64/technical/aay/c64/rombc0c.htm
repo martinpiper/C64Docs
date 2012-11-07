@@ -1,0 +1,28 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $BC0C/48140:   Copy FAC#1 into FAC#2
+
+Jump from <a href="roma9e3.htm">$A9FC</a>, <a href="rombae2.htm">$BAE2</a>, <a href="rombafe.htm">$BAFE</a>, <a href="rombcf3.htm">$BD7F</a>, <a href="rombf71.htm">$BF71</a>, <a href="rome26b.htm">$E26B</a>, <a href="rome26b.htm">$E277</a>:
+
+BC0C: 20 1B BC  <a href="bjsr.htm">JSR</a> <a href="rombc1b.htm">$BC1B</a>     ; Round FAC#1
+
+Jump from <a href="rome000.htm">$E002</a>:
+
+BC0F: A2 06     <a href="bldx.htm">LDX</a> #$06
+
+Jump from $BC16:
+
+BC11: B5 60     <a href="blda.htm">LDA</a> <a href="zp5c.htm">$60</a>,X     ; Temporary storage for FLPT value
+BC13: 95 68     <a href="bsta.htm">STA</a> <a href="zp68.htm">$68</a>,X     ; Bit Overflow Area during normalisation Routine
+BC15: CA        <a href="bdex.htm">DEX</a>
+BC16: D0 F9     <a href="bbne.htm">BNE</a> $BC11
+BC18: 86 70     <a href="bstx.htm">STX</a> <a href="zp70.htm">$70</a>       ; FAC low-order rounding
+
+Jump from <a href="rombc1b.htm">$BC1D</a>, <a href="rombc1b.htm">$BC21</a>, <a href="rombc1b.htm">$BC26</a>:
+
+BC1A: 60        <a href="brts.htm">RTS</a>
+
+    <a href="rombbfc.htm">Previous Page</a> / <a href="rombc1b.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

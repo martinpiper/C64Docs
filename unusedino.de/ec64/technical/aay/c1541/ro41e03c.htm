@@ -1,0 +1,44 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E03C/57404:   Write block and read next block
+
+Jump from <a href="ro41dfd0.htm">$DFF3</a>, <a href="ro41e07c.htm">$E0A7</a>, <a href="ro41e120.htm">$E135</a>:
+
+E03C: 20 D3 D1  JSR <a href="ro41d1d3.htm">$D1D3</a>       ; get drive number
+E03F: 20 95 DE  JSR <a href="ro41de95.htm">$DE95</a>       ; get track and sector number
+E042: 20 9E DF  JSR <a href="ro41df9e.htm">$DF9E</a>       ; get bufer number
+E045: 50 16     BVC $E05D       ; no rel-file?
+E047: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+E04A: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E04D: A9 02     LDA #$02
+E04F: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 2
+E052: 20 AB DD  JSR <a href="ro41ddab.htm">$DDAB</a>       ; command code for writing?
+E055: D0 24     BNE $E07B       ; no
+E057: 20 57 DE  JSR <a href="ro41de57.htm">$DE57</a>       ; read block
+E05A: 4C 99 D5  JMP <a href="ro41d599.htm">$D599</a>       ; and verify
+
+Jump from $E045:
+
+E05D: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E060: 20 AB DD  JSR <a href="ro41ddab.htm">$DDAB</a>       ; command code for writing?
+E063: D0 06     BNE $E06B       ; no
+E065: 20 57 DE  JSR <a href="ro41de57.htm">$DE57</a>       ; read block
+E068: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+
+Jump from $E063:
+
+E06B: 20 95 DE  JSR <a href="ro41de95.htm">$DE95</a>       ; get track and sector number
+E06E: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+E070: F0 09     BEQ $E07B       ; no following track
+E072: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E075: 20 57 DE  JSR <a href="ro41de57.htm">$DE57</a>       ; read block
+E078: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+
+Jump from $E055, $E070:
+
+E07B: 60        RTS
+
+    <a href="ro41dfd0.htm">Previous Page</a> / <a href="ro41e07c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

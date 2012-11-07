@@ -1,0 +1,61 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AAE8/43752:   Handle comma, TAB(, SPC(
+
+Jump from <a href="romaaa0.htm">$AAAF</a>:
+
+AAE8: 38        <a href="bsec.htm">SEC</a>
+AAE9: 20 F0 FF  <a href="bjsr.htm">JSR</a> <a href="romfff0.htm">$FFF0</a>     ; Read / Set Cursor X/Y Position
+AAEC: 98        <a href="btya.htm">TYA</a>
+AAED: 38        <a href="bsec.htm">SEC</a>
+
+Jump from $AAF0:
+
+AAEE: E9 0A     <a href="bsbc.htm">SBC</a> #$0A
+AAF0: B0 FC     <a href="bbcs.htm">BCS</a> $AAEE
+AAF2: 49 FF     <a href="beor.htm">EOR</a> #$FF
+AAF4: 69 01     <a href="badc.htm">ADC</a> #$01
+AAF6: D0 16     <a href="bbne.htm">BNE</a> $AB0E
+
+Jump from <a href="romaaa0.htm">$AAA6</a>, <a href="romaaa0.htm">$AAAB</a>:
+
+AAF8: 08        <a href="bphp.htm">PHP</a>
+AAF9: 38        <a href="bsec.htm">SEC</a>
+AAFA: 20 F0 FF  <a href="bjsr.htm">JSR</a> <a href="romfff0.htm">$FFF0</a>     ; Read / Set Cursor X/Y Position
+AAFD: 84 09     <a href="bsty.htm">STY</a> <a href="zp09.htm">$09</a>       ; Screen Column for last TAB
+AAFF: 20 9B B7  <a href="bjsr.htm">JSR</a> <a href="romb79b.htm">$B79B</a>     ; Evaluate Text to 1 Byte in XR
+AB02: C9 29     <a href="bcmp.htm">CMP</a> #$29
+AB04: D0 59     <a href="bbne.htm">BNE</a> <a href="romab4d.htm">$AB5F</a>     ; Handle Bad Data
+AB06: 28        <a href="bplp.htm">PLP</a>
+AB07: 90 06     <a href="bbcc.htm">BCC</a> $AB0F
+AB09: 8A        <a href="btxa.htm">TXA</a>
+AB0A: E5 09     <a href="bsbc.htm">SBC</a> <a href="zp09.htm">$09</a>       ; Screen Column for last TAB
+AB0C: 90 05     <a href="bbcc.htm">BCC</a> $AB13
+
+Jump from $AAF6:
+
+AB0E: AA        <a href="btax.htm">TAX</a>
+
+Jump from $AB07:
+
+AB0F: E8        <a href="binx.htm">INX</a>
+
+Jump from $AB1C:
+
+AB10: CA        <a href="bdex.htm">DEX</a>
+AB11: D0 06     <a href="bbne.htm">BNE</a> $AB19
+
+Jump from $AB0C, <a href="romaaa0.htm">$AAB3</a>:
+
+AB13: 20 73 00  <a href="bjsr.htm">JSR</a> <a href="zp73.htm">$0073</a>     ; CHRGET: Get next Byte of BASIC Text
+AB16: 4C A2 AA  <a href="bjmp.htm">JMP</a> <a href="romaaa0.htm">$AAA2</a>     ; Perform [print]
+
+Jump from $AB11:
+
+AB19: 20 3B AB  <a href="bjsr.htm">JSR</a> <a href="romab3b.htm">$AB3B</a>     ; Output Format Character
+AB1C: D0 F2     <a href="bbne.htm">BNE</a> $AB10
+
+    <a href="romaad7.htm">Previous Page</a> / <a href="romab1e.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

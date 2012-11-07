@@ -1,0 +1,76 @@
+<html>
+
+<head>
+<title>Difference between PAL and NTSC versions of the C64</title>
+</head>
+
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040">
+<center><table><tr><td><pre>
+
+The Commodore 64 scene is divided into two sections, based on
+incompatibility differences in the machines. These are based upon
+differences in the video standards of the different countries. Most
+European countries use the PAL standard, while the countries in the
+Americas primarily use the NTSC standard. Because of these
+differences, software designed on European 64's often fails to work
+correctly on an American 64 and vice versa. To cope with these
+problems, a discipline known as fixing has arisen. In this article, I
+will attempt to cover the basic differences in the 64 and what
+problems arise.
+
+The first difference is in the screen refresh rate. PAL screens are
+redrawn 50 times a second, while NTSC screens are redrawn 60 times per
+second. This usually does not prevent software from working properly,
+but anything which is synced to the screen refresh will occur at
+different rates when run on the different systems. The place this is
+most obvious is in music players. Most European tunes are fine, as
+they sound ok when played a bit faster. Some NTSC tunes may seem too
+slow when played on a European 64. The difference is noticeable but
+not usually a problem, as PAL routines will run about 20% faster on an
+NTSC machine and NTSC routines will run about 16% slower on a PAL
+machine. This does not apply to all processing, only to movements or
+other routines that make on cycle on every screen refresh.
+
+Two other differences account for most of the problems related to the
+PAL/NTSC division. PAL systems have 312 raster lines and 63 processor
+cycles on each raster line. The most common NTSC systems have 263
+raster lines and 65 cycles on each line. This means that PAL systems
+have 19,656 cycles per frame, while NTSC systems have only 17,095. PAL
+systems thus have about 15% more processing time for each video frame.
+Any PAL routine which uses up most of the available processing time
+will not complete in a single frame on an NTSC machine and will
+probably have a distorted display. Note that this only applies to
+routines that work with the graphics chip and are synced to the
+refresh rate. The problem becomes even worse when the processing must
+be done outside of the visible display area. Since the normal display
+area is 200 raster lines high, there are 112 left over on a PAL
+machine, but only 63 on an NTSC 64.
+
+Another problem arises due to the differing number of raster lines. If
+a program wishes to perform a task at some raster line greater than
+263, it will work fine on a PAL 64, but will wait in an endless loop
+on an NTSC machine. If interrups are used instead of a busy wait, the
+interrupts will never occur.
+
+Also, with the differing number of cycles per raster line, raster
+routines -- routines that need to perform one or more operations on
+each raster line and thus need to take up exactly 63 or 65 cycles in
+each interation, in the simplest case -- will become out of sync,
+looking distorted or not displaying at all. Thus an FLI routine for a
+PAL machine will often work like an FLD routine instead when run on a
+NTSC machine.
+
+One final difference exists, which causes a display distortion, but
+which is less troublesome than the others. The sprite coordinates
+above 404 are displayed at the left of a PAL screen, while coordinates
+above 412 are displayed at the left of an NTSC screen. Often these
+coordinates are used with a hyperscreen routine to display continuous
+graphics even in the left and right borders. But a PAL routine will
+have an eight pixel wide gap between two of the sprites when run on an
+NTSC 64 and an NTSC routine will have an eight pixel overlap will run
+on a PAL computer.
+
+</pre></td></tr></table></center>
+</body>
+
+</html>

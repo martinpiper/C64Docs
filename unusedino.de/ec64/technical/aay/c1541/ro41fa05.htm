@@ -1,0 +1,24 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $FA05/64005:   Move head to next track
+
+FA05: A5 4A     LDA <a href="ra414a.htm">$4A</a>
+FA07: 10 05     BPL $FA0E
+FA09: 49 FF     EOR #$FF
+FA0B: 18        CLC
+FA0C: 69 01     ADC #$01
+
+Jump from $FA07:
+
+FA0E: C5 64     CMP <a href="ra4164.htm">$64</a>
+FA10: B0 0A     BCS <a href="ro41fa1c.htm">$FA1C</a>
+FA12: A9 3B     LDA #$3B
+FA14: 85 62     STA <a href="ra4162.htm">$62</a>
+FA16: A9 FA     LDA #$FA        ; pointer $62/$63 to $FA3B
+FA18: 85 63     STA <a href="ra4162.htm">$63</a>
+FA1A: D0 12     BNE <a href="ro41fa1c.htm">$FA2E</a>
+
+    <a href="ro41f9d9.htm">Previous Page</a> / <a href="ro41fa1c.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

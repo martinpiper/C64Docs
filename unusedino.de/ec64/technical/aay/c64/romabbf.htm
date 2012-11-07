@@ -1,0 +1,32 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $ABBF/43967:   Perform [input]
+
+ABBF: C9 22     <a href="bcmp.htm">CMP</a> #$22
+ABC1: D0 0B     <a href="bbne.htm">BNE</a> $ABCE
+ABC3: 20 BD AE  <a href="bjsr.htm">JSR</a> <a href="romaead.htm">$AEBD</a>     ; Continue Expression
+ABC6: A9 3B     <a href="blda.htm">LDA</a> #$3B
+ABC8: 20 FF AE  <a href="bjsr.htm">JSR</a> <a href="romaefd.htm">$AEFF</a>     ; Test ','
+ABCB: 20 21 AB  <a href="bjsr.htm">JSR</a> <a href="romab1e.htm">$AB21</a>     ; Output String
+
+Jump from $ABC1, <a href="romaba5.htm">$ABB2</a>:
+
+ABCE: 20 A6 B3  <a href="bjsr.htm">JSR</a> <a href="romb3a6.htm">$B3A6</a>     ; Confirm Program Mode
+ABD1: A9 2C     <a href="blda.htm">LDA</a> #$2C
+ABD3: 8D FF 01  <a href="bsta.htm">STA</a> <a href="zp013f.htm">$01FF</a>     ; BASIC Stack Area
+
+Jump from <a href="romabea.htm">$ABF1</a>:
+
+ABD6: 20 F9 AB  <a href="bjsr.htm">JSR</a> <a href="romabf9.htm">$ABF9</a>     ; Do Input Prompt
+ABD9: A5 13     <a href="blda.htm">LDA</a> <a href="zp13.htm">$13</a>       ; File number of current Input Device
+ABDB: F0 0D     <a href="bbeq.htm">BEQ</a> <a href="romabea.htm">$ABEA</a>     ; Read Input Buffer
+ABDD: 20 B7 FF  <a href="bjsr.htm">JSR</a> <a href="romffb7.htm">$FFB7</a>     ; Read I/O Status Word
+ABE0: 29 02     <a href="band.htm">AND</a> #$02
+ABE2: F0 06     <a href="bbeq.htm">BEQ</a> <a href="romabea.htm">$ABEA</a>     ; Read Input Buffer
+ABE4: 20 B5 AB  <a href="bjsr.htm">JSR</a> <a href="romaba5.htm">$ABB5</a>     ; Perform [input#]
+ABE7: 4C F8 A8  <a href="bjmp.htm">JMP</a> <a href="roma8f8.htm">$A8F8</a>     ; Perform [data]
+
+    <a href="romaba5.htm">Previous Page</a> / <a href="romabea.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

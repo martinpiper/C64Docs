@@ -1,0 +1,491 @@
+<HTML
+><HEAD
+><TITLE
+>Linux Assembly Programming</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.59"><LINK
+REL="NEXT"
+TITLE="Preface"
+HREF="f38.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>Linux Assembly Programming</A
+></H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN5"
+>Konstantin Boldyshev</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;konst@linuxassembly.org<br>
+	</P
+></DIV
+></DIV
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN11"
+>Brian Raiter</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;breadbox@muppetlabs.com<br>
+	</P
+></DIV
+></DIV
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN17"
+>H-Peter Recktenwald</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;phpr@snafu.de<br>
+	</P
+></DIV
+></DIV
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN23"
+>Paul Furber</A
+></H3
+><DIV
+CLASS="AFFILIATION"
+><DIV
+CLASS="ADDRESS"
+><P
+CLASS="ADDRESS"
+>	&nbsp;&nbsp;&nbsp;&nbsp;m@verick.co.za<br>
+	</P
+></DIV
+></DIV
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2001 by authors</P
+><DIV
+><DIV
+CLASS="ABSTRACT"
+><A
+NAME="AEN36"
+></A
+><P
+></P
+><P
+></P
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="LEGALNOTICE"
+><A
+NAME="AEN32"
+></A
+><P
+></P
+><P
+></P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="http://unusedino.de/linuxassembly/lap/f38.html"
+>Preface</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="http://unusedino.de/linuxassembly/lap/f38.html#AEN40"
+>Why read this book?</A
+></DT
+><DT
+>2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x43.html"
+>The book's audience</A
+></DT
+><DT
+>3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x46.html"
+>Foreword</A
+></DT
+></DL
+></DD
+><DT
+>1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c49.html"
+>Linux OS</A
+></DT
+><DT
+>2. <A
+HREF="http://unusedino.de/linuxassembly/lap/c53.html"
+>Linux and Assembly</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c53.html#AEN55"
+>Why using assembly?</A
+></DT
+><DT
+>2.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x58.html"
+>Common myths about unix and assembly language</A
+></DT
+><DT
+>2.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x61.html"
+>When assembly is needed</A
+></DT
+><DT
+>2.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x64.html"
+>When assembly is useless</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="http://unusedino.de/linuxassembly/lap/c67.html"
+>Assemblers</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c67.html#AEN70"
+>nasm</A
+></DT
+><DT
+>3.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x73.html"
+>gas</A
+></DT
+><DT
+>3.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x76.html"
+>other tools you need</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="http://unusedino.de/linuxassembly/lap/c80.html"
+>System calls</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c80.html#AEN82"
+>What is a system call</A
+></DT
+><DT
+>4.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x85.html"
+>View from the kernel side</A
+></DT
+><DT
+>4.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x88.html"
+>View from the userland</A
+></DT
+><DT
+>4.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x91.html"
+>Using system calls</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="http://unusedino.de/linuxassembly/lap/c94.html"
+>ELF Files</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c94.html#AEN100"
+>introduction/overview</A
+></DT
+><DT
+>5.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x103.html"
+>sections and segments</A
+></DT
+><DT
+>5.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x106.html"
+>symbols and strings</A
+></DT
+><DT
+>5.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x109.html"
+>relocation records</A
+></DT
+><DT
+>5.5. <A
+HREF="http://unusedino.de/linuxassembly/lap/x112.html"
+>dynamic linking data</A
+></DT
+><DT
+>5.6. <A
+HREF="http://unusedino.de/linuxassembly/lap/x115.html"
+>GOT and PLT</A
+></DT
+><DT
+>5.7. <A
+HREF="http://unusedino.de/linuxassembly/lap/x118.html"
+>putting it all together</A
+></DT
+><DT
+>5.8. <A
+HREF="http://unusedino.de/linuxassembly/lap/x121.html"
+>other kinds of ELF files: object files and libraries</A
+></DT
+><DT
+>5.9. <A
+HREF="http://unusedino.de/linuxassembly/lap/x124.html"
+>squeezing it all down</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="http://unusedino.de/linuxassembly/lap/c127.html"
+>Assembly programming</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c127.html#AEN129"
+>Two ways to go</A
+></DT
+><DT
+>6.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x133.html"
+>Source code layout</A
+></DT
+><DT
+>6.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x136.html"
+>Compiling a program</A
+></DT
+><DT
+>6.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x139.html"
+>Debugging</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="http://unusedino.de/linuxassembly/lap/c142.html"
+>C and Assembly</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c142.html#AEN144"
+>Interfacing C code from assembly</A
+></DT
+><DT
+>7.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x147.html"
+>Interfacing assembly code from C</A
+></DT
+><DT
+>7.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x150.html"
+>gcc inline assembly</A
+></DT
+><DT
+>7.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x153.html"
+>Optimizing C code with assembly</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="http://unusedino.de/linuxassembly/lap/c156.html"
+>Assembly fun</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c156.html#AEN159"
+>Startup process details</A
+></DT
+><DT
+>8.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x162.html"
+>Treating command line</A
+></DT
+><DT
+>8.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x165.html"
+>Writing in a portable way: is it possible?</A
+></DT
+><DT
+>8.4. <A
+HREF="http://unusedino.de/linuxassembly/lap/x168.html"
+>Optimization issues</A
+></DT
+><DT
+>8.5. <A
+HREF="http://unusedino.de/linuxassembly/lap/x171.html"
+>Tips and tricks</A
+></DT
+><DT
+>8.6. <A
+HREF="http://unusedino.de/linuxassembly/lap/x174.html"
+>Frequently asked questions</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="http://unusedino.de/linuxassembly/lap/c177.html"
+>Fit it in a hand</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="http://unusedino.de/linuxassembly/lap/c177.html#AEN181"
+>Description of distribution parts</A
+></DT
+><DT
+>9.2. <A
+HREF="http://unusedino.de/linuxassembly/lap/x185.html"
+>Rewriting usual utils in assembly</A
+></DT
+><DT
+>9.3. <A
+HREF="http://unusedino.de/linuxassembly/lap/x188.html"
+>Implementing libc in assembly</A
+></DT
+></DL
+></DD
+><DT
+>A. <A
+HREF="http://unusedino.de/linuxassembly/lap/a191.html"
+>System call list</A
+></DT
+><DT
+>B. <A
+HREF="http://unusedino.de/linuxassembly/lap/a198.html"
+>Porting DOS code to Linux</A
+></DT
+><DT
+>C. <A
+HREF="http://unusedino.de/linuxassembly/lap/a201.html"
+>Graphics programming in Linux</A
+></DT
+><DT
+>D. <A
+HREF="http://unusedino.de/linuxassembly/lap/a208.html"
+>References</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="http://unusedino.de/linuxassembly/lap/f38.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Preface</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

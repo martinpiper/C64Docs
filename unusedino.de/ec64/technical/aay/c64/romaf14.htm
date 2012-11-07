@@ -1,0 +1,25 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $AF14/44820:   Identify Reserved Variable
+
+Jump from <a href="romaf28.htm">$AF3B</a>, <a href="romaf48.htm">$AF6E</a>:
+
+AF14: 38        <a href="bsec.htm">SEC</a>
+AF15: A5 64     <a href="blda.htm">LDA</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AF17: E9 00     <a href="bsbc.htm">SBC</a> #$00
+AF19: A5 65     <a href="blda.htm">LDA</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+AF1B: E9 A0     <a href="bsbc.htm">SBC</a> #$A0
+AF1D: 90 08     <a href="bbcc.htm">BCC</a> $AF27
+AF1F: A9 A2     <a href="blda.htm">LDA</a> #$A2
+AF21: E5 64     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$64</a>       ; FAC Mantissa
+AF23: A9 E3     <a href="blda.htm">LDA</a> #$E3
+AF25: E5 65     <a href="bsbc.htm">SBC</a> <a href="zp62.htm">$65</a>       ; FAC Mantissa
+
+Jump from $AF1D:
+
+AF27: 60        <a href="brts.htm">RTS</a>
+
+    <a href="romaf0d.htm">Previous Page</a> / <a href="romaf28.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

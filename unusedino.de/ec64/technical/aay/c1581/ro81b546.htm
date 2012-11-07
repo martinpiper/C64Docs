@@ -1,0 +1,39 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Block in Bam freigeben ($ef5f)
+E: $4c, $4e: T&amp;S
+
+Einsprung von <a href="ro818688.htm">$86D0</a>, <a href="ro818688.htm">$8713</a>, <a href="ro818688.htm">$8732</a>, <a href="ro818b23.htm">$8B29</a>, <a href="ro81b811.htm">$B82D</a>:
+
+B546: 20 B4 B5  JSR <a href="ro81b5b4.htm">$B5B4</a>        BAM-Zeiger auf aktuellen Track setzen
+B549: 20 D8 B5  JSR <a href="ro81b5d8.htm">$B5D8</a>        ist Block ueberhaupt belegt ?
+B54C: D0 23     BNE $B571        nein, ==&gt;
+B54E: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Block freigeben
+B550: 1D EA B5  ORA <a href="ro81b5d8.htm">$B5EA</a>,X      durch setzen des entsprechenden Bits
+B553: 91 31     STA (<a href="ra8131.htm">$31</a>),Y
+B555: A9 01     LDA #$01         Flag fuer 'BAM geaendert' setzen
+B557: 85 35     STA <a href="ra8135.htm">$35</a>
+B559: A0 00     LDY #$00
+B55B: 18        CLC
+B55C: B1 31     LDA (<a href="ra8131.htm">$31</a>),Y      Anzahl der freien Blocks +1
+B55E: 69 01     ADC #$01
+B560: 91 31     STA (<a href="ra8131.htm">$31</a>),Y
+B562: A5 4D     LDA <a href="ra814d.htm">$4D</a>          Aktueller Track
+B564: CD 2B 02  CMP <a href="ra81022b.htm">$022B</a>        = Direktory-Track
+B567: F0 34     BEQ <a href="ro81b572.htm">$B59D</a>        ja, ==&gt;
+                                [Dieser Sprung sollte nach $b571 oder $b5a0
+                                 gehen, aber doch sicherlich nicht nach
+                                 $b59d ! Dieser Fehler ist auch schon in
+                                 der 1541 vorhanden.]
+B569: EE A9 02  INC <a href="ra8102a9.htm">$02A9</a>        Anzahl der 'Blocks free' +1
+B56C: D0 03     BNE $B571
+B56E: EE AA 02  INC <a href="ra8102a9.htm">$02AA</a>
+
+Einsprung von $B54C, $B56C:
+
+B571: 60        RTS
+
+    <a href="ro81b515.htm">Previous Page</a> / <a href="ro81b572.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

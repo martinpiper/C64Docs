@@ -1,0 +1,66 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $EA6E/60014:   Flash LED for hardware defects, self-test
+
+Jump from <a href="ro41eaa0.htm">$EAB5</a>, <a href="ro41eaa0.htm">$EABE</a>, <a href="ro41eaa0.htm">$EAC4</a>:
+
+EA6E: A2 00     LDX #$00        ; blink once, zero page
+EA70: 2C        .BYTE $2C
+
+Jump from <a href="ro41eaa0.htm">$EB1F</a>:
+
+EA71: A6 6F     LDX <a href="ra416f.htm">$6F</a>         ; blink X+1 times for RAM/ROM err
+EA73: 9A        TXS
+
+Jump from $EA9E:
+
+EA74: BA        TSX
+
+Jump from $EA98:
+
+EA75: A9 08     LDA #$08        ; select LED bit in the port
+EA77: 0D 00 1C  ORA <a href="via20.htm">$1C00</a>
+EA7A: 4C EA FE  JMP <a href="ro41feea.htm">$FEEA</a>       ; turn LED on, back to $EA7D
+
+Jump from <a href="ro41feea.htm">$FEF0</a>:
+
+EA7D: 98        TYA
+
+Jump from $EA84:
+
+EA7E: 18        CLC
+
+Jump from $EA81:
+
+EA7F: 69 01     ADC #$01
+EA81: D0 FC     BNE $EA7F
+EA83: 88        DEY
+EA84: D0 F8     BNE $EA7E
+EA86: AD 00 1C  LDA <a href="via20.htm">$1C00</a>
+EA89: 29 F7     AND #$F7        ; turn LED off
+EA8B: 8D 00 1C  STA <a href="via20.htm">$1C00</a>
+
+Jump from $EA9C:
+
+EA8E: 98        TYA
+
+Jump from $EA95:
+
+EA8F: 18        CLC
+
+Jump from $EA92:
+
+EA90: 69 01     ADC #$01
+EA92: D0 FC     BNE $EA90       ; delay loop
+EA94: 88        DEY
+EA95: D0 F8     BNE $EA8F
+EA97: CA        DEX
+EA98: 10 DB     BPL $EA75
+EA9A: E0 FC     CPX #$FC
+EA9C: D0 F0     BNE $EA8E       ; wait for delay
+EA9E: F0 D4     BEQ $EA74
+
+    <a href="ro41ea59.htm">Previous Page</a> / <a href="ro41eaa0.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

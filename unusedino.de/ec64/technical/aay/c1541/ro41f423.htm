@@ -1,0 +1,122 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $F423/62499:   Job optimisation
+
+Jump from <a href="ro41f3b1.htm">$F404</a>:
+
+F423: A9 7F     LDA #$7F
+F425: 85 4C     STA <a href="ra414c.htm">$4C</a>
+F427: A5 19     LDA <a href="ra4119.htm">$19</a>
+F429: 18        CLC
+F42A: 69 02     ADC #$02
+F42C: C5 43     CMP <a href="ra4143.htm">$43</a>
+F42E: 90 02     BCC $F432
+F430: E5 43     SBC <a href="ra4143.htm">$43</a>
+
+Jump from $F42E:
+
+F432: 85 4D     STA <a href="ra414d.htm">$4D</a>
+F434: A2 05     LDX #$05
+F436: 86 3F     STX <a href="ra413f.htm">$3F</a>
+F438: A2 FF     LDX #$FF
+
+Jump from $F485:
+
+F43A: 20 93 F3  JSR <a href="ro41f393.htm">$F393</a>       ; set buffer pointer for disk controller
+F43D: 10 44     BPL $F483
+F43F: 85 44     STA <a href="ra4144.htm">$44</a>
+F441: 29 01     AND #$01
+F443: C5 3E     CMP <a href="ra413e.htm">$3E</a>
+F445: D0 3C     BNE $F483
+F447: A0 00     LDY #$00
+F449: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y
+F44B: C5 40     CMP <a href="ra4140.htm">$40</a>
+F44D: D0 34     BNE $F483
+F44F: A5 45     LDA <a href="ra4145.htm">$45</a>         ; command code
+F451: C9 60     CMP #$60
+F453: F0 0C     BEQ $F461
+F455: A0 01     LDY #$01
+F457: 38        SEC
+F458: B1 32     LDA (<a href="ra4132.htm">$32</a>),Y
+F45A: E5 4D     SBC <a href="ra414d.htm">$4D</a>
+F45C: 10 03     BPL $F461
+F45E: 18        CLC
+F45F: 65 43     ADC <a href="ra4143.htm">$43</a>
+
+Jump from $F453, $F45C:
+
+F461: C5 4C     CMP <a href="ra414c.htm">$4C</a>
+F463: B0 1E     BCS $F483
+F465: 48        PHA
+F466: A5 45     LDA <a href="ra4145.htm">$45</a>
+F468: F0 14     BEQ $F47E
+F46A: 68        PLA
+F46B: C9 09     CMP #$09
+F46D: 90 14     BCC $F483
+F46F: C9 0C     CMP #$0C
+F471: B0 10     BCS $F483
+
+Jump from $F481:
+
+F473: 85 4C     STA <a href="ra414c.htm">$4C</a>
+F475: A5 3F     LDA <a href="ra413f.htm">$3F</a>
+F477: AA        TAX
+F478: 69 03     ADC #$03
+F47A: 85 31     STA <a href="ra4130.htm">$31</a>
+F47C: D0 05     BNE $F483
+
+Jump from $F468:
+
+F47E: 68        PLA
+F47F: C9 06     CMP #$06
+F481: 90 F0     BCC $F473
+
+Jump from $F43D, $F445, $F44D, $F463, $F46D, $F471, $F47C:
+
+F483: C6 3F     DEC <a href="ra413f.htm">$3F</a>
+F485: 10 B3     BPL $F43A
+F487: 8A        TXA
+F488: 10 03     BPL $F48D
+F48A: 4C 9C F9  JMP <a href="ro41f99c.htm">$F99C</a>       ; to job loop
+
+Jump from $F488:
+
+F48D: 86 3F     STX <a href="ra413f.htm">$3F</a>
+F48F: 20 93 F3  JSR <a href="ro41f393.htm">$F393</a>       ; get buffer number
+F492: A5 45     LDA <a href="ra4145.htm">$45</a>         ; command code
+F494: 4C CA F4  JMP <a href="ro41f4ca.htm">$F4CA</a>       ; continue checking
+
+Jump from <a href="ro41f3b1.htm">$F3D5</a>:
+
+F497: A5 30     LDA <a href="ra4130.htm">$30</a>
+F499: 48        PHA             ; save pointer $30/$31
+F49A: A5 31     LDA <a href="ra4130.htm">$31</a>
+F49C: 48        PHA
+F49D: A9 24     LDA #$24
+F49F: 85 30     STA <a href="ra4130.htm">$30</a>
+F4A1: A9 00     LDA #$00        ; pointer $30/$31 to $24
+F4A3: 85 31     STA <a href="ra4130.htm">$31</a>
+F4A5: A9 00     LDA #$00
+F4A7: 85 34     STA <a href="ra4134.htm">$34</a>
+F4A9: 20 E6 F7  JSR <a href="ro41f7e6.htm">$F7E6</a>
+F4AC: A5 55     LDA <a href="ra4152.htm">$55</a>
+F4AE: 85 18     STA <a href="ra4118.htm">$18</a>
+F4B0: A5 54     LDA <a href="ra4152.htm">$54</a>
+F4B2: 85 19     STA <a href="ra4119.htm">$19</a>
+F4B4: A5 53     LDA <a href="ra4152.htm">$53</a>
+F4B6: 85 1A     STA <a href="ra411a.htm">$1A</a>
+F4B8: 20 E6 F7  JSR <a href="ro41f7e6.htm">$F7E6</a>
+F4BB: A5 52     LDA <a href="ra4152.htm">$52</a>
+F4BD: 85 17     STA <a href="ra4116.htm">$17</a>
+F4BF: A5 53     LDA <a href="ra4152.htm">$53</a>
+F4C1: 85 16     STA <a href="ra4116.htm">$16</a>
+F4C3: 68        PLA
+F4C4: 85 31     STA <a href="ra4130.htm">$31</a>
+F4C6: 68        PLA             ; get pointer $30/$31 back
+F4C7: 85 30     STA <a href="ra4130.htm">$30</a>
+F4C9: 60        RTS
+
+    <a href="ro41f41e.htm">Previous Page</a> / <a href="ro41f4ca.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

@@ -1,0 +1,43 @@
+<html><head><title>All_About_Your_64-Online-Help Version 0.64</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $B218/45592:   Find Array
+
+B218: A6 2F     <a href="bldx.htm">LDX</a> <a href="zp2f.htm">$2F</a>       ; Pointer: Start of BASIC Arrays
+B21A: A5 30     <a href="blda.htm">LDA</a> <a href="zp2f.htm">$30</a>       ; Pointer: Start of BASIC Arrays
+
+Jump from $B243:
+
+B21C: 86 5F     <a href="bstx.htm">STX</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B21E: 85 60     <a href="bsta.htm">STA</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B220: C5 32     <a href="bcmp.htm">CMP</a> <a href="zp31.htm">$32</a>       ; Pointer: End of BASIC Arrays + 1
+B222: D0 04     <a href="bbne.htm">BNE</a> $B228
+B224: E4 31     <a href="bcpx.htm">CPX</a> <a href="zp31.htm">$31</a>       ; Pointer: End of BASIC Arrays + 1
+B226: F0 39     <a href="bbeq.htm">BEQ</a> <a href="romb261.htm">$B261</a>     ; Create Array
+
+Jump from $B222:
+
+B228: A0 00     <a href="bldy.htm">LDY</a> #$00
+B22A: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B22C: C8        <a href="biny.htm">INY</a>
+B22D: C5 45     <a href="bcmp.htm">CMP</a> <a href="zp45.htm">$45</a>       ; Name of Variable being sought in Variable Table
+B22F: D0 06     <a href="bbne.htm">BNE</a> $B237
+B231: A5 46     <a href="blda.htm">LDA</a> <a href="zp45.htm">$46</a>       ; Name of Variable being sought in Variable Table
+B233: D1 5F     <a href="bcmp.htm">CMP</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B235: F0 16     <a href="bbeq.htm">BEQ</a> <a href="romb24d.htm">$B24D</a>     ; ?REDIM'D ARRAY
+
+Jump from $B22F:
+
+B237: C8        <a href="biny.htm">INY</a>
+B238: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B23A: 18        <a href="bclc.htm">CLC</a>
+B23B: 65 5F     <a href="badc.htm">ADC</a> <a href="zp5c.htm">$5F</a>       ; Temporary storage for FLPT value
+B23D: AA        <a href="btax.htm">TAX</a>
+B23E: C8        <a href="biny.htm">INY</a>
+B23F: B1 5F     <a href="blda.htm">LDA</a> (<a href="zp5c.htm">$5F</a>),Y   ; Temporary storage for FLPT value
+B241: 65 60     <a href="badc.htm">ADC</a> <a href="zp5c.htm">$60</a>       ; Temporary storage for FLPT value
+B243: 90 D7     <a href="bbcc.htm">BCC</a> $B21C
+
+    <a href="romb1d1.htm">Previous Page</a> / <a href="romb245.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

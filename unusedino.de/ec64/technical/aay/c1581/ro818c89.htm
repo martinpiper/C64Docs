@@ -1,0 +1,47 @@
+<html><head><title>All_About_Your_1581-Online-Help Version 0.13</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+Position des Records berechnen ($ce0e)
+
+Einsprung von <a href="ro81a1a1.htm">$A1ED</a>, <a href="ro81a2d6.htm">$A2D9</a>, <a href="ro81a2d6.htm">$A420</a>:
+
+8C89: 20 C1 8C  JSR <a href="ro818cc1.htm">$8CC1</a>        Bytes bis zum gesuchten Record berechnen
+8C8C: 20 06 8D  JSR <a href="ro818d06.htm">$8D06</a>        x/254
+8C8F: A5 60     LDA <a href="ra8160.htm">$60</a>          Rest merken
+8C91: 85 6B     STA <a href="ra816b.htm">$6B</a>          = gesuchte Position im Datenblock
+8C93: 20 09 8D  JSR <a href="ro818d06.htm">$8D09</a>        x/120 = Side-Sektor-Nummer
+8C96: E6 6B     INC <a href="ra816b.htm">$6B</a>          Datenbereich faengt bei Byte 2 an
+8C98: E6 6B     INC <a href="ra816b.htm">$6B</a>
+8C9A: 20 6E A5  JSR <a href="ro81a56e.htm">$A56E</a>        wird Super-Side-Sektor verwendet?
+8C9D: F0 0D     BEQ $8CAC        ja, ==&gt;
+
+1541-kompatible REL-Datei
+
+8C9F: A5 5B     LDA <a href="ra815b.htm">$5B</a>          Side-Sektor-Nummer merken
+8CA1: 85 69     STA <a href="ra8169.htm">$69</a>
+8CA3: A5 60     LDA <a href="ra8160.htm">$60</a>          Rest: Nummer des Datenblocks im Side-Sektor
+8CA5: 0A        ASL              * 2 (2-Byte Tabelle: T&amp;S)
+8CA6: 18        CLC              Die Tabelle mit den T&amp;S der Datenblocks
+8CA7: 69 10     ADC #$10         faengt an der Position 16 im Side-Sektor an
+8CA9: 85 6A     STA <a href="ra816a.htm">$6A</a>          Zeiger auf T&amp;S des Datenblocks
+8CAB: 60        RTS
+
+1581-REL-Datei mit Super-Side-Sektor
+
+Einsprung von $8C9D:
+
+8CAC: A5 60     LDA <a href="ra8160.htm">$60</a>          Rest: Nummer des Datenblocks im Side-Sektor
+8CAE: 0A        ASL
+8CAF: 18        CLC              Die 2-Byte Tabelle
+8CB0: 69 10     ADC #$10         faengt an Position 16 an
+8CB2: 85 6A     STA <a href="ra816a.htm">$6A</a>          Zeiger auf T&amp;S des Datenblocks
+8CB4: 20 0C 8D  JSR <a href="ro818d06.htm">$8D0C</a>        x/6 = Gruppe des Side-Sektors
+8CB7: A5 60     LDA <a href="ra8160.htm">$60</a>          Rest merken (Nummer des Side-Sektors)
+8CB9: 85 69     STA <a href="ra8169.htm">$69</a>
+8CBB: A5 5B     LDA <a href="ra815b.htm">$5B</a>          Gruppennummer merken
+8CBD: 8D 00 01  STA <a href="ra810100.htm">$0100</a>
+8CC0: 60        RTS
+
+    <a href="ro818c61.htm">Previous Page</a> / <a href="ro818cc1.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>

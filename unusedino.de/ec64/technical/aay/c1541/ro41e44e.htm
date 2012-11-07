@@ -1,0 +1,102 @@
+<html><head><title>All_About_Your_1541-Online-Help Version 0.23</title></head>
+<body bgcolor="#a098ff" text="#000000" link="#ffffff" alink="#ffffff" vlink="#404040"><center><table><tr><td><pre>
+
+ $E44E/58446:   Write side-sector and allocate new
+
+Jump from <a href="ro41e31c.htm">$E3EF</a>:
+
+E44E: 20 1E F1  JSR <a href="ro41f11e.htm">$F11E</a>       ; find free block in BAM
+E451: 20 1E CF  JSR <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+E454: 20 F1 DD  JSR <a href="ro41ddf1.htm">$DDF1</a>       ; write block
+E457: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+E45A: 48        PHA
+E45B: 20 C1 DE  JSR <a href="ro41dec1.htm">$DEC1</a>       ; erase buffer
+E45E: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E460: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number
+E462: A8        TAY
+E463: 68        PLA
+E464: AA        TAX
+E465: A9 10     LDA #$10        ; 16 bytes of the side-sector
+E467: 20 A5 DE  JSR <a href="ro41dea5.htm">$DEA5</a>       ; copy in buffer
+E46A: A9 00     LDA #$00
+E46C: 20 DC DE  JSR <a href="ro41dedc.htm">$DEDC</a>       ; buffer pointer to 0, old side-sector
+E46F: A0 02     LDY #$02
+E471: B1 94     LDA (<a href="ra4194.htm">$94</a>),Y     ; side-sector number
+E473: 48        PHA
+E474: A9 00     LDA #$00
+E476: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 0, new side-sector
+E479: 68        PLA
+E47A: 18        CLC
+E47B: 69 01     ADC #$01        ; increment side-sector number
+E47D: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; and in buffer
+E47F: 0A        ASL             ; times 2
+E480: 69 04     ADC #$04        ; plus 4
+E482: 85 89     STA <a href="ra4186.htm">$89</a>
+E484: A8        TAY
+E485: 38        SEC
+E486: E9 02     SBC #$02        ; minus 2
+E488: 85 8A     STA <a href="ra4186.htm">$8A</a>         ; same pointer to old side-sector
+E48A: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+E48C: 85 87     STA <a href="ra4186.htm">$87</a>
+E48E: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E490: C8        INY
+E491: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+E493: 85 88     STA <a href="ra4186.htm">$88</a>
+E495: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E497: A0 00     LDY #$00
+E499: 98        TYA
+E49A: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; zero in buffer
+E49C: C8        INY
+E49D: A9 11     LDA #$11        ; 17
+E49F: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; number of bytes in block
+E4A1: A9 10     LDA #$10        ; 16
+E4A3: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to 16
+E4A6: 20 50 DE  JSR <a href="ro41de50.htm">$DE50</a>       ; write block
+E4A9: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+E4AC: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E4AE: B5 CD     LDA <a href="ra41cd.htm">$CD</a>,X       ; buffer number of the side-sector
+E4B0: 48        PHA
+E4B1: 20 9E DF  JSR <a href="ro41df9e.htm">$DF9E</a>       ; get buffer number
+E4B4: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E4B6: 95 CD     STA <a href="ra41cd.htm">$CD</a>,X       ; write in table
+E4B8: 68        PLA
+E4B9: AE 57 02  LDX <a href="ra410257.htm">$0257</a>       ; channel number + 7
+E4BC: 95 A7     STA <a href="ra41a7.htm">$A7</a>,X       ; in table
+E4BE: A9 00     LDA #$00
+E4C0: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+E4C3: A0 00     LDY #$00
+E4C5: A5 80     LDA <a href="ra4180.htm">$80</a>         ; track
+E4C7: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E4C9: C8        INY
+E4CA: A5 81     LDA <a href="ra4181.htm">$81</a>         ; sector
+E4CC: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E4CE: 4C DE E4  JMP $E4DE
+
+Jump from $E4F7:
+
+E4D1: 20 93 DF  JSR <a href="ro41df93.htm">$DF93</a>       ; get buffer number
+E4D4: A6 82     LDX <a href="ra4182.htm">$82</a>         ; channel number
+E4D6: 20 1B DF  JSR <a href="ro41df1b.htm">$DF1B</a>       ; read block
+E4D9: A9 00     LDA #$00
+E4DB: 20 C8 D4  JSR <a href="ro41d4c8.htm">$D4C8</a>       ; buffer pointer to zero
+
+Jump from $E4CE:
+
+E4DE: C6 8A     DEC <a href="ra4186.htm">$8A</a>
+E4E0: C6 8A     DEC <a href="ra4186.htm">$8A</a>         ; counter for side-sector blocks
+E4E2: A4 89     LDY <a href="ra4186.htm">$89</a>
+E4E4: A5 87     LDA <a href="ra4186.htm">$87</a>         ; track number
+E4E6: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E4E8: C8        INY
+E4E9: A5 88     LDA <a href="ra4186.htm">$88</a>         ; sector number
+E4EB: 91 94     STA (<a href="ra4194.htm">$94</a>),Y     ; in buffer
+E4ED: 20 5E DE  JSR <a href="ro41de5e.htm">$DE5E</a>       ; write block
+E4F0: 20 99 D5  JSR <a href="ro41d599.htm">$D599</a>       ; and verify
+E4F3: A4 8A     LDY <a href="ra4186.htm">$8A</a>         ; counter for side-sector blocks
+E4F5: C0 03     CPY #$03
+E4F7: B0 D8     BCS $E4D1       ; greater than or equal to 3?
+E4F9: 4C 1E CF  JMP <a href="ro41cf1e.htm">$CF1E</a>       ; change buffer
+
+    <a href="ro41e31c.htm">Previous Page</a> / <a href="ro41e4fc.htm">Next Page</a>
+
+</pre></td></tr></table></center></body></html>
