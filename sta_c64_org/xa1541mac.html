@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The XA1541 mini-adaptor</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The XA1541 mini-adaptor</H2>
+</CENTER>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">You definitely need BSV52 transistors and 4.7 kOhm
+  resistors for this adaptor, different parts may make the adaptor
+  inoperable.</P>
+
+<LI><P ALIGN="JUSTIFY">This is a double-sided board that needs to have the two
+  sides connected via conductive material inside the drilled holes:
+  through-coppering.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">You need the following parts to build this adaptor:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">One solderable 25-pin male plug (PC parallel plug)</P>
+
+<LI><P ALIGN="JUSTIFY">One printable circuit board of about 4 x 2
+  centimeters</P>
+
+<LI><P ALIGN="JUSTIFY">Four BSV52 transistors</P>
+
+<LI><P ALIGN="JUSTIFY">Four SMD 1206-style 4.7 kOhm resistors</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> Build the board of the adaptor, cut it to
+shape and drill the holes in it, according to the board diagram (300 DPI
+resolution): <A HREF="xa1541mabtop.png">top side</A> and
+<A HREF="xa1541mabbot.png">bottom side</A>. Both diagrams show the board as
+viewed from that particular side. Use through-coppering to connect the two
+sides through the holes.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Build the
+<A HREF="legend.html#amplifier">amplifier</A> bridges, consisting of one
+transistor and one resistor each, onto the appropriate places. These include
+the following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"> <B>Parallel plug</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   13, Select  <TD WIDTH="20%">    1, Strobe  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   12, PaperEnd<TD WIDTH="20%">   14, AutoFeed<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   11, Busy    <TD WIDTH="20%">   17, SelectIn<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   10, Ack     <TD WIDTH="20%">   16, Init    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">The collector of each transistor should be pointing towards
+the pin in the left column of the table. The base of each transistor should be
+connected to one side of the resistor; the other side of each resistor should
+be connected to the pin in the right column of the table. The emitters of the
+transistors should be connected together to the common ground of the
+adaptor.</P>
+
+<P ALIGN="JUSTIFY">The parts should be soldered the following way onto the
+board. This diagram shows the top side of the board as viewed from above.</P>
+
+<A HREF="xa1541map.png"><IMG BORDER=1 SRC="xa1541map.png" ALT="[XA1541 mini-adaptor]"></A>
+
+<P ALIGN="JUSTIFY"><B>Step 3.</B> Solder and then glue the board between the
+two pin rows of the <A HREF="legend.html#parplug">parallel plug</A>. The top
+side of the adaptor, the one with the electronical components, should be
+leveled with the longer side of the parallel plug, the one with 13 pins.</P>
+
+<H4>Circuit diagram</H4>
+
+<A HREF="xa1541mac.png"><IMG BORDER=1 SRC="xa1541mac.png" ALT="[XA1541 mini-adaptor]"></A>
+
+<P ALIGN="JUSTIFY">You can find the description of all parts used on the
+diagrams at the <A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

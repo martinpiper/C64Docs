@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 serial bus functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 serial bus functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$ED09<TD WIDTH="85%"><P ALIGN="JUSTIFY">Send TALK command
+  to serial bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$ED0C<TD><P ALIGN="JUSTIFY">Send LISTEN command to serial bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$ED40<TD><P ALIGN="JUSTIFY">Flush serial bus output cache, at memory
+  address $0095, to serial bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EDB9<TD><P ALIGN="JUSTIFY">Send LISTEN secondary address to serial
+  bus.<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EDC7<TD><P ALIGN="JUSTIFY">Send TALK secondary address to serial
+  bus.<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EDDD<TD><P ALIGN="JUSTIFY">Write byte to serial bus.<BR>
+  Input: A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$EDEF<TD><P ALIGN="JUSTIFY">Send UNTALK command to serial bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EDFE<TD><P ALIGN="JUSTIFY">Send UNLISTEN command to serial bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EE13<TD><P ALIGN="JUSTIFY">Read byte from serial bus.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EE85<TD><P ALIGN="JUSTIFY">Set CLOCK OUT to high.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EE8E<TD><P ALIGN="JUSTIFY">Set CLOCK OUT to low.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EE97<TD><P ALIGN="JUSTIFY">Set DATA OUT to high.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EEA0<TD><P ALIGN="JUSTIFY">Set DATA OUT to low.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$EEA9<TD><P ALIGN="JUSTIFY">Read CLOCK IN and DATA IN.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = DATA IN; Negative = CLOCK IN; A = CLOCK IN (in bit #7).<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F1AD<TD><P ALIGN="JUSTIFY">Read byte from serial bus; read $0D,
+  Return, if device status != 0.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F237<TD><P ALIGN="JUSTIFY">Define serial bus as standard input; do
+  not send TALK secondary address if secondary address bit #7 = 1.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$F279<TD><P ALIGN="JUSTIFY">Define serial bus as standard output; do
+  not send LISTEN secondary address if secondary address bit #7 = 1.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$F3D5<TD><P ALIGN="JUSTIFY">Open file on serial bus; do not send file
+  name if secondary address bit #7 = 1 or file name length = 0.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$F528<TD><P ALIGN="JUSTIFY">Send UNTALK and CLOSE command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F63F<TD><P ALIGN="JUSTIFY">Send UNLISTEN and CLOSE command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F642<TD><P ALIGN="JUSTIFY">Close file on serial bus; do not send
+  CLOSE secondary address if secondary address bit #7 = 1.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$FE21<TD><P ALIGN="JUSTIFY">Unknown. (Set serial bus timeout.)<BR>
+  Input: A = Timeout value.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>Standard KERNAL functions</B>
+
+<TR VALIGN=TOP><TD>$FF93<TD><P ALIGN="JUSTIFY">LSTNSA. Send LISTEN secondary address to
+  serial bus. (Must call LISTEN beforehands.)<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDB9.</P>
+<TR VALIGN=TOP><TD>$FF96<TD><P ALIGN="JUSTIFY">TALKSA. Send TALK secondary address to
+  serial bus. (Must call TALK beforehands.)<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDC7.</P>
+<TR VALIGN=TOP><TD>$FFA2<TD><P ALIGN="JUSTIFY">SETTMO. Unknown. (Set serial bus
+  timeout.)<BR>
+  Input: A = Timeout value.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FE21.</P>
+<TR VALIGN=TOP><TD>$FFA5<TD><P ALIGN="JUSTIFY">IECIN. Read byte from serial bus. (
+ Must call TALK and TALKSA beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.<BR>
+  Real address: $EE13.</P>
+<TR VALIGN=TOP><TD>$FFA8<TD><P ALIGN="JUSTIFY">IECOUT. Write byte to serial bus. (Must
+  call LISTEN and LSTNSA beforehands.)<BR>
+  Input: A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $EDDD.</P>
+<TR VALIGN=TOP><TD>$FFAB<TD><P ALIGN="JUSTIFY">UNTALK. Send UNTALK command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDEF.</P>
+<TR VALIGN=TOP><TD>$FFAE<TD><P ALIGN="JUSTIFY">UNLSTN. Send UNLISTEN command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDFE.</P>
+<TR VALIGN=TOP><TD>$FFB1<TD><P ALIGN="JUSTIFY">LISTEN. Send LISTEN command to serial
+  bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $ED0C.</P>
+<TR VALIGN=TOP><TD>$FFB1<TD><P ALIGN="JUSTIFY">TALK. Send TALK command to serial bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $ED09.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

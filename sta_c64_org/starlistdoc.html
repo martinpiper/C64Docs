@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Star List</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>Star List</H2></CENTER>
+
+<P ALIGN="JUSTIFY">This program was designed to list the contents of image files and Commodore
+archive files onto the screen or into a text file. Star List is an external
+utility of The Star Commander but is also distributed separately.</P>
+
+<H3><A NAME="section1">1. Usage</A></H3>
+
+<P ALIGN="JUSTIFY">STARLIST &lt;filename&gt; [-|/&lt;options&gt;] [&lt;listname&gt; [&lt;formatname&gt;]]</P>
+
+<P ALIGN="JUSTIFY">&lt;filename&gt;:</P>
+
+<P ALIGN="JUSTIFY">Enter the path, the name and the extension of files to be listed. You can
+use wildcards to list multiple files and you can use long filenames, too.</P>
+
+<P ALIGN="JUSTIFY">&lt;listname&gt;:</P>
+
+<P ALIGN="JUSTIFY">Type the path, the name and the extension of the list file here. If the file
+already exists, the list will be appended to its contents. If you omit this
+parameter then the list is dumped onto the screen.</P>
+
+<P ALIGN="JUSTIFY">&lt;formatname&gt;:</P>
+
+<P ALIGN="JUSTIFY">Specify the path, the name and the extension of the file that contains the
+format specification. When omitted, the contents of image and archive files
+are listed in a format similar to the Commodore disk directory list, using the
+lowercase/uppercase character set. If you specify a format file, a list file
+must also be specified &#150; the output may not go onto the screen.</P>
+
+<P ALIGN="JUSTIFY">&lt;options&gt;:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">L: Displays Commodore filenames with the lowercase/uppercase character set
+(default).</P>
+
+<LI><P ALIGN="JUSTIFY">P: Breaks the list up to pages with pauses between so that you can read
+what is on the screen. This option does nothing when listing into a text
+file.</P>
+
+<LI><P ALIGN="JUSTIFY">S: Lists files in directory structures recursively.</P>
+
+<LI><P ALIGN="JUSTIFY">U: Displays Commodore filenames with the uppercase/graphics character set.</P>
+
+<LI><P ALIGN="JUSTIFY">V: Turns verbose mode on which means that the label of disk and tape
+images and the load address of files inside images and uncompressed
+archives will also be displayed in the list.</P>
+</UL>
+
+<H3><A NAME="section2">2. Format specification</A></H3>
+
+<P ALIGN="JUSTIFY">The format specification file, similarly to the format parameter of the
+"printf" instruction in the C language, may contain normal characters, special
+characters and field specifiers. Additionally, you can use conditional blocks.
+Carriage returns and line feeds are completely ignored throughout the file so
+you may wrap your lines anywhere.</P>
+
+<P ALIGN="JUSTIFY">Special characters stand for and are replaced by a normal character. They
+have the following syntax:</P>
+
+<P ALIGN="JUSTIFY">\&lt;specchar&gt;</P>
+
+<P ALIGN="JUSTIFY">Note that you have to specify "\\" to display the "\" character.</P>
+
+<P ALIGN="JUSTIFY">&lt;specchar&gt;:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">$xx: The character having the hexadecimal ASCII code "xx".</P>
+
+<LI><P ALIGN="JUSTIFY">B: Backspace.</P>
+
+<LI><P ALIGN="JUSTIFY">N: Line feed.</P>
+
+<LI><P ALIGN="JUSTIFY">R: Carriage return.</P>
+
+<LI><P ALIGN="JUSTIFY">S: Space.</P>
+
+<LI><P ALIGN="JUSTIFY">T: Tab.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Field specifiers are replaced by a string taken from the data related to the
+current container file &#150; image or archive file &#150; or the current Commodore file
+file inside it. When scanning field specifiers, invalid characters &#150; ones not
+listed below &#150; are ignored silently. Field specifiers have the following
+syntax:</P>
+
+<P ALIGN="JUSTIFY">%[&lt;width&gt;][&lt;flags&gt;]&lt;type&gt;</P>
+
+<P ALIGN="JUSTIFY">Note that you have to specify "%%" or "\$25" to display the "%" character.</P>
+
+<P ALIGN="JUSTIFY">&lt;width&gt;:</P>
+
+<P ALIGN="JUSTIFY">With these, you can first cut the strings into the width needed and then pad
+them with spaces. Don't use numbers, indicated by N, higher than 255. Use
+width specifiers in the order they're grouped below &#150; which is not the same as
+the order they're applied &#150; and don't use any from the same group twice,
+otherwise the result is undefined. The first group of width specifiers is the
+following:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">N, +N: The string is padded with spaces from the left to N characters if
+it's shorter than that.</P>
+
+<LI><P ALIGN="JUSTIFY">-N: The string is padded with spaces from the right to N characters if
+it's shorter than that.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The second group of width specifiers is the following:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">/N: The string is cut to its first N characters if it's longer than that.</P>
+
+<LI><P ALIGN="JUSTIFY">/-N: The string is cut to its last N characters if it's longer than that.</P>
+
+<LI><P ALIGN="JUSTIFY">/+N: The first N-1 characters are cut off the string, only the part
+starting with the Nth character is kept.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">&lt;flags&gt;:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">*: Displays the "sum" of the specified type: for "f"/"F", the number of
+containers; for "n"/"N", the number of files in the current container; for
+"s", the total size of files in blocks in the current container; for "S",
+the total size of file in bytes in the current container. Has no effect on
+other types.</P>
+
+<LI><P ALIGN="JUSTIFY">G: Uses the GEOS form of types "i", "I", "l", "L", "n"/"N" and "t"/"T".
+Has no effect on other types.</P>
+
+<LI><P ALIGN="JUSTIFY">H: Converts "invalid" PETSCII characters &#150; ones that have no exact ASCII
+equivalent or are usually not allowed in file names &#150; to hexadecimal codes
+in the form of "%xy". Makes sense for types "i", "I", "l", "L" and "n"/"N"
+and has no effect on other types.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Encloses the string into quotation marks, before padding it and cutting
+it to maximum width.</P>
+
+<LI><P ALIGN="JUSTIFY">U: Uses the uppercase/graphics character set, instead of the default
+lowercase/uppercase character set for types "i", "I", "l", "L", "n"/"N"
+and "t"/"T". Has no effect on other types.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">&lt;type&gt;:</P>
+
+<P ALIGN="JUSTIFY">Unlike other parts of the format specifier, most types are case-sensitive.
+The lowercase version, usually, stands for the default or short form; the
+uppercase version for the long form. Types related to containers are the
+following:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">b: Number of free blocks in disk images. 0 for other container formats.</P>
+
+<LI><P ALIGN="JUSTIFY">B: Number of free blocks in disk images, including those on the directory
+track(s). 0 for other container formats.</P>
+
+<LI><P ALIGN="JUSTIFY">d, D: Drive letter, including the trailing colon.</P>
+
+<LI><P ALIGN="JUSTIFY">e: Short file extension, including leading dot.</P>
+
+<LI><P ALIGN="JUSTIFY">E: Long file extension, including leading dot.</P>
+
+<LI><P ALIGN="JUSTIFY">f: Short file name, excluding extension.</P>
+
+<LI><P ALIGN="JUSTIFY">F: Long file name, excluding extension.</P>
+
+<LI><P ALIGN="JUSTIFY">i: Short, two-character ID code of disk images. Empty for other container
+formats.</P>
+
+<LI><P ALIGN="JUSTIFY">I: Long, five-character ID code of disk images. Empty for other container
+formats.</P>
+
+<LI><P ALIGN="JUSTIFY">l: Container label. For disk images, the ID code is excluded and all
+trailing Shift-spaces removed.</P>
+
+<LI><P ALIGN="JUSTIFY">L: Container label. For disk images, the five-character ID code is
+included, separated with a comma.</P>
+
+<LI><P ALIGN="JUSTIFY">p: Short absolute path, excluding driver letter but including leading and
+trailing backslash.</P>
+
+<LI><P ALIGN="JUSTIFY">P: Long absolute path, excluding driver letter but including leading and
+trailing backslash.</P>
+
+<LI><P ALIGN="JUSTIFY">r: Short absolute path, excluding driver letter, leading and trailing
+backslash.</P>
+
+<LI><P ALIGN="JUSTIFY">R: Long absolute path, excluding driver letter, leading and trailing
+backslash.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Types related to Commodore files inside the containers are the following:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">a: Load address of file, in hexadecimal, with a leading "$" sign. Empty
+for phantom files and files inside compressed &#150; LHA, LHA SFX, ARC, ARC SDA
+and ZipCode &#150; archives.</P>
+
+<LI><P ALIGN="JUSTIFY">A: First track and sector of file, in the form "tt;ss", in disk images.
+Empty for other container formats.</P>
+
+<LI><P ALIGN="JUSTIFY">c: Closed/splat flag. Empty for closed, "*" for splat.</P>
+
+<LI><P ALIGN="JUSTIFY">C: Closed/splat flag. 0 for closed, 1 for splat.</P>
+
+<LI><P ALIGN="JUSTIFY">n, N: File name.</P>
+
+<LI><P ALIGN="JUSTIFY">s: File size, in blocks.</P>
+
+<LI><P ALIGN="JUSTIFY">S: File size, in bytes. Displays the maximum possible value for container
+formats that store the file size in blocks.</P>
+
+<LI><P ALIGN="JUSTIFY">t, T: File type.</P>
+
+<LI><P ALIGN="JUSTIFY">w: Write-protection flag. Empty for unprotected, "&lt;" for protected.</P>
+
+<LI><P ALIGN="JUSTIFY">W: Write-protection flag. 0 for unprotected, 1 for protected.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Data inside conditional blocks is used for formatting and the resulting text
+is output only if a condition is met. You may nest conditional blocks into
+each other, thus creating an "and" relation. For an "or" relation, you have to
+create two blocks, with different conditions but the same contents. The syntax
+of conditional blocks is the following:</P>
+
+<P ALIGN="JUSTIFY">%?&lt;condition&gt;...%?!</P>
+
+<P ALIGN="JUSTIFY">Note that the symbol "%?!" ends the innermost conditional block.</P>
+
+<P ALIGN="JUSTIFY">&lt;condition&gt;:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">^: Outputs block only when processing the first file of the current
+container.</P>
+
+<LI><P ALIGN="JUSTIFY">$: Outputs block only when processing the last file of the current
+container.</P>
+
+<LI><P ALIGN="JUSTIFY">H: Outputs block &#150; and only that block, no data outside it &#150; before
+processing the first container, for a header. You shouldn't use any field
+specifier in this block because no data has been read yet.</P>
+
+<LI><P ALIGN="JUSTIFY">F: Outputs block &#150; and only that block, no data outside it &#150; after having
+processed the last container, for a footer. You shouldn't use any field
+specifier, except for "%*f", in this block because all data has already
+been discarded.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Examples:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Display an output identical to the Commodore disk directory list, using
+the lowercase/uppercase character set:</P>
+
+<P ALIGN="JUSTIFY">%?^\r\nListing %D%P%F%E\r\n<BR>
+\r\n<BR>
+0 "%-16gl" %gI\r\n%?!<BR>
+%-5s%-18gqn%1c%gt%w\r\n<BR>
+%?$%b blocks free.\r\n%?!</P>
+
+<LI><P ALIGN="JUSTIFY">Display an output almost identical to the unformatted output, as if no
+format specification file were given on the command line:</P>
+
+<P ALIGN="JUSTIFY">%?^\r\nListing: %D%P%F%E ("%gL")\r\n<BR>
+Blocks Name Type\r\n<BR>
+      ------  ------------------  -----\r\n%?! <BR>
+%6s %-18gqn %1c%gt%w\r\n<BR>
+      %?$------  ------------------  -----\r\n <BR>
+%6*s %4*n files\r\n%?!</P>
+
+<LI><P ALIGN="JUSTIFY">A simple way of including directory lists in HTML, using Netscape-style
+hexadecimal codes for invalid characters and appending the number of
+files having been listed:</P>
+
+<P ALIGN="JUSTIFY">%?h&lt;HTML&gt;\r\n<BR>
+&lt;TITLE&gt;Directory list&lt;/TITLE&gt;\r\n<BR>
+&lt;BODY&gt;\r\n%?!<BR>
+%?^Directory list of %D%P%F%E&lt;P&gt;\r\n%?!<BR>
+&lt;A HREF="file:%D%P%F%E"&gt;%ghn&lt;/A&gt;&lt;BR&gt;\r\n<BR>
+%?$&lt;P&gt;\r\n%?!<BR>
+%?fListed %*f files.\r\n<BR>
+&lt;/BODY&gt;\r\n<BR>
+&lt;/HTML&gt;\r\n%?!</P>
+
+<LI><P ALIGN="JUSTIFY">A simple way of creating a CSV file with a header that you can easily
+import into a database:</P>
+
+<P ALIGN="JUSTIFY">%?hidrive,ipath,iname,iext,fname,fblk,ftype,fsplat,fprot\r\n%?!<BR>
+%/1D,"%/R","%F","%/+2E","%gn",%s,%/1ut,%C,%W\r\n</P>
+
+<LI><P ALIGN="JUSTIFY">Another format that can be imported into a database of the same structure
+as the previous example, only there's no header and the fields are
+separated with Tabs instead of commas:</P>
+
+<P ALIGN="JUSTIFY">%/1D\t%/R\t%F\t%/+2E\t%gn\t%s\t%/1ut\t%C\t%W\r\n</P>
+</OL>
+
+<H3><A NAME="section3">3. Error messages</A></H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Invalid option<BR>
+The option is unknown.</P>
+
+<LI><P ALIGN="JUSTIFY">No known file formats found<BR>
+There are no known file formats among the specified files.</P>
+
+<LI><P ALIGN="JUSTIFY">Error reading format specification file<BR>
+The format specification file could not be opened or data could not be
+read from it for some reason.</P>
+
+<LI><P ALIGN="JUSTIFY">FILENAME.EXT not found<BR>
+The file does not exist.</P>
+
+<LI><P ALIGN="JUSTIFY">Cannot create FILENAME.EXT<BR>
+The file could not be created for some reason.</P>
+
+<LI><P ALIGN="JUSTIFY">FILENAME.EXT is not a valid &lt;file type&gt;<BR>
+The image file or archive file is corrupted.</P>
+</UL>
+
+<H3><A NAME="section4">4. Copyright and legal issues</A></H3>
+
+<P ALIGN="JUSTIFY">This program is freeware. You may use it as long as you wish and you may
+give it to any individual, provided that it's in the original, unmodified
+archive. It is highly recommended that you download distribution packages from
+the homepage or other official distribution sites. If you get a package from
+somewhere else then make sure that the package has the author's authentic
+verification stamped on it.</P>
+
+<P ALIGN="JUSTIFY">The source of this program is distributed under a license that is similar to
+the GNU Public License but is more restrictive, for the protection of the
+users and the author. You may distribute only those modified versions or
+derived softwares that satisfy all restrictions in the license. When you
+distribute this program, modified versions of it or softwares derived from it,
+you may not ask for money above the normal fee of the distribution media
+itself. Furthermore, you may not publish this program or its source on floppy
+disks, CD-ROM's, FTP sites, WWW pages or any other distribution media, include
+it in a software compilation or bundle it with other software or hardware
+without prior permission of the author.</P>
+
+<P ALIGN="JUSTIFY">Note that public distribution of the beta releases of this program is
+prohibited. The only place where you can find them is the homepage.</P>
+
+<P ALIGN="JUSTIFY">This program is provided "as is", without a warranty of any kind. You are
+using it at your own risk. The author is not liable for any damage or data
+loss caused by the software.</P>
+
+<H3><A NAME="section5">5. The author</A></H3>
+
+<P ALIGN="JUSTIFY">If you're interested in some similarly useful utilities then contact me at
+the E-mail address <A HREF="mailto:sta.ANTI@SPAM.c64.org">sta.ANTI@SPAM.c64.org</A> or visit my homepage at <A HREF="http://sta.c64.org">http://sta.c64.org</A>.</P>
+
+<P ALIGN="JUSTIFY">Joe Forster/STA<BR>
+11th January, 2010</P>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

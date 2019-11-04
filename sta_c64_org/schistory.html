@@ -1,0 +1,2781 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The history of The Star Commander</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>The history of The Star Commander</H2></CENTER>
+
+<P ALIGN="JUSTIFY">Here is the list of the phases the development of the Commander has gone
+through. The fact that the public releases of the Commander were beta versions
+and their version number is still below 1.0 does not mean that they are full
+of bugs or the functions in it do not work properly. I just hate version
+numbers like 12.3 or 1.2.34 and until the Commander does all you and I want it
+to, the version numbering will remain the same &#150; only the full, final release
+is going to be called Version 1.0. Don't hesitate to send your reports to me
+as soon as possible so that Version 1.0 can really be the final release.</P>
+
+<HR>
+
+<H3>The Star Commander, Beta Version (sc_beta.zip, Summer 1994)</H3>
+
+<P ALIGN="JUSTIFY">The first public release, only supported disk and tape images, the left
+panel was always a CBM panel, the right one always remained in DOS mode and
+there was no online help at all. I started coding it in Turbo Pascal 7.0 and
+Turbo Vision 2.0 because I saw how buggy, slow and hard-to-use X1541, DISK64E,
+C642C64S and the other copy and converter softwares were and that there was no
+software that would have the copy and conversion functions all in one. I
+uploaded it only to ftp.funet.fi and even I don't have it anymore because I
+deleted it for some stupid reason when the next release came out.</P>
+
+<HR>
+
+<H3>The Star Commander, Beta Version #2 (sc_beta2.zip, 1994-08-24)</H3>
+
+<P ALIGN="JUSTIFY">In this release I created the online help by manually copying the online
+help of The Volkov Commander sentence by sentence into a formatted text file
+which was then compiled into the help file. The functions to access the
+external Commodore 1541 drive were already there, only they didn't work yet.
+There was no history in the documentation and I don't remember any other
+changes.</P>
+
+<HR>
+
+<H3>The Star Commander, Beta Version #3 (sc_beta3.zip, 1994-10-16)</H3>
+
+<P ALIGN="JUSTIFY">Changes since Beta Version #2:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Fixed the "multi file copy to image file" bug when the directory was
+messed up sometimes.</P>
+
+<LI><P ALIGN="JUSTIFY">The redundant configuration option "Real 1541 drive connected" has been
+discarded.</P>
+
+<LI><P ALIGN="JUSTIFY">A new configuration option named "BAM disk copy" appeared.</P>
+
+<LI><P ALIGN="JUSTIFY">The image file name of the last session is not saved in the setup so the
+"&lt;image file&gt; not found" won't drive you crazy.</P>
+
+<LI><P ALIGN="JUSTIFY">The online help window does not flicker when changing topic.</P>
+
+<LI><P ALIGN="JUSTIFY">The PC-1541 connection is now more or less complete and turbo mode is also
+implemented &#150; that's what you've been waiting for for a long time!!!</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander Calibrator (sc_calib.zip, 1994-10-20)</H3>
+
+<P ALIGN="JUSTIFY">Since Beta Version #3 was still not capable of calibrating the transfer
+routines, I released an external calibrator some days after the release of the
+Commander. You had to feed the integer number displayed by the calibrator to
+the Commander as a command line parameter.</P>
+
+<HR>
+
+<H3>The Star Commander, Beta Version #4 (sc_beta4.zip, 1994-12-18)</H3>
+
+<P ALIGN="JUSTIFY">Changes since Beta Version #3:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The CBM and PC fix mode panels transformed into multi-mode panels which
+means that you can copy now directly from any format to another.</P>
+
+<LI><P ALIGN="JUSTIFY">The reselection of selected files when rereading the directory is now
+fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">Changing the labels of image files didn't work &#150; now it does.</P>
+
+<LI><P ALIGN="JUSTIFY">Two new configuration options and some other changes for comfort.</P>
+
+<LI><P ALIGN="JUSTIFY">No need to connect the 2-15 pins of the parallel port and you won't see
+the "Interface not found" error anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">No need to press Enter when changing drive.</P>
+
+<LI><P ALIGN="JUSTIFY">All DOS names are turned to uppercase while you are typing them.</P>
+
+<LI><P ALIGN="JUSTIFY">A new external calibrator routine inside the release package (run it
+before the Commander!).</P>
+
+<LI><P ALIGN="JUSTIFY">The LED on the connected 1541 blinks at every transferred block.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Beta Version #5 (sc_beta5.zip, 1995-02-12)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Beta Version #4:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">When checking the date input of the "Set attributes" dialog box the
+Commander exchanged the day and the month.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander placed the backup of the image file in the current directory
+and not into its original path.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying from a DOS mode panel to a CBM mode panel the file names
+could be converted incorrectly sometimes.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander couldn't copy a file longer than 256 blocks to a connected
+1541 drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander didn't check if a file already existed on a disk in a
+connected 1541 drive when tried to copy another one with the same name
+(nice noises!).</P>
+
+<LI><P ALIGN="JUSTIFY">The file type of all the files copied to a disk in a connected 1541 drive
+was changed to program file.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Copy" and "Copy disk" progress indicator that displayed the block
+number or the track and sector being copied was flickering.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Copy disk" worked only in turbo mode &#150; in normal speed it froze.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing ESC while reading/writing in turbo mode from/to a connected 1541
+drive froze the Commander most of the time &#150; it SEEMS to be fixed.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Beta Version #4:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The extended and fast 1541 routines are now inside the executable file and
+not as an external data file.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander uses the load path passed by DOS to locate its files instead
+of searching for the file SC.EXE.</P>
+
+<LI><P ALIGN="JUSTIFY">Manual calibration is moved to the "Configurations..." menu and it is not
+to be entered as a command line parameter.</P>
+
+<LI><P ALIGN="JUSTIFY">The new calibrator routine displays a delay value VERY NEAR the best. It
+seems that it cannot be modified in such a way that it displays the best
+delay value an all kinds of PC's.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select the address of the LPT port to be used.</P>
+
+<LI><P ALIGN="JUSTIFY">You can optionally save the paths of both panels in the setup file.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select the sort order for files in DOS mode panels (do you think
+it should be enabled in CBM mode panels, too?).</P>
+
+<LI><P ALIGN="JUSTIFY">When entering DOS file names letters are automatically turned into
+uppercase.</P>
+
+<LI><P ALIGN="JUSTIFY">All files with unknown extensions (not .SEQ, .USR, .REL, .D64 or .T64) are
+assumed to be program files.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander makes backup only once when copying or deleting a sequence
+of files to/from an image file.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander reports back if a file on a connected 1541 drive was deleted
+successfully or not.</P>
+
+<LI><P ALIGN="JUSTIFY">A new button named "All" appeared in the confirmation boxes with which you
+can confirm the operation for all the selected files.</P>
+
+<LI><P ALIGN="JUSTIFY">Selecting/unselecting all the files in a panel is moved from the "All"
+button in the dialog box to Shift + Gray+/Gray-.</P>
+
+<LI><P ALIGN="JUSTIFY">The function key bar has been rewritten so that the items are separated
+with only one space instead of two and so the original function names are
+used.</P>
+
+<LI><P ALIGN="JUSTIFY">You can move around the items in dialog boxes using the cursor keys as
+well.</P>
+
+<LI><P ALIGN="JUSTIFY">The point marking the selected item doesn't follow the highlight bar in
+the radio button items of dialog boxes.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Beta Version #5A (sc_bet5a.zip, 1995-02-28)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Beta Version #5:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander didn't display the help for "Save setup" correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander couldn't copy a non-program file from a disk in a connected
+1541 drive (the main reason why this intermediate version was released).</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Beta Version #5:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The help dialog doesn't flicker anymore &#150; the display changes only when
+the next help item is successfully read.</P>
+
+<LI><P ALIGN="JUSTIFY">The external calibration routine not only tests your machine in a loop (if
+you use the /L option) but also can use the connected 1541 drive to fine
+tune the calibration (if you use the /Fxy option where x is the number of
+the LPT port and y the device number &#150; warning: this handles no errors, it
+might lock up your system if false values are entered).</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.60 beta (not released):</H3>
+
+<P ALIGN="JUSTIFY">This version was never released officially, a tester put it onto his FTP
+site by mistake.</P>
+
+<HR>
+
+<H3>The Star Commander, Version 0.61 beta (sc061.zip, 1995-05-22)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Beta Version #5:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander didn't display the help for "Save setup" correctly (fixed in
+Beta Version #5A).</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander locked up if you changed the screen mode in DOS shell.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander couldn't copy a non-program file from a disk in a connected
+1541 drive (fixed in Beta Version #5A).</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't extract the last file from a full tape image.</P>
+
+<LI><P ALIGN="JUSTIFY">The file sizes in tape images weren't displayed correctly if over 256
+blocks.</P>
+
+<LI><P ALIGN="JUSTIFY">The ".." DOS link in image files was selected by "*" and similar wildcards
+if it wasn't on the screen at the time of the selection.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander didn't display the ".." up-directory when viewing a remote
+drive in a Novell network (now it displays a dummy ".." up-directory).</P>
+
+<LI><P ALIGN="JUSTIFY">The bugs that arise with the use of a write protected PC disk have been
+mostly eliminated.</P>
+
+<LI><P ALIGN="JUSTIFY">The mouse cursor didn't reappear when asking for a file name or
+confirmation during a multi-file copy or delete from or to a connected
+1541 drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander locked up if you tried to delete a splat file or if you
+tried to validate a disk image that contained a splat file.</P>
+
+<LI><P ALIGN="JUSTIFY">The side sectors of relative files in a disk image were not allocated
+during validate or freed during delete.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Beta Version #5:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The version number and the file name of the distribution package has
+changed: the version number is now x.yz (where x is the major and yz is
+the minor version number); similarly the file name is now SCxyz.ZIP.</P>
+
+<LI><P ALIGN="JUSTIFY">Warp transfer mode (about 5-6 times faster) introduced for copying disk
+from or to a connected 1541 drive.</P>
+
+<LI><P ALIGN="JUSTIFY">No /F option in the external calibrator routine (the delay value it
+displayed was absolutely wrong).</P>
+
+<LI><P ALIGN="JUSTIFY">The help dialog doesn't flicker anymore &#150; the display changes only when
+the next help item is successfully read (changed in Beta Version #5A).</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can be also run on monochrome VGA, CGA and Hercules
+monitors.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander displays the letters of valid PC drives when changing
+drives.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can optionally display file sizes and capacities in DOS mode
+panels in bytes instead of in blocks.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can optionally display all files with invalid file type as
+programs in tape images.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can optionally append the extension of the PC file to the
+converted C64 file name if not .PRG or .SEQ or .USR and append the
+DOS-style "extension" of C64 files (e.g. "diskcopy.lnx") to the converted
+PC file name.</P>
+
+<LI><P ALIGN="JUSTIFY">Many things were changed to match the standards of The Norton Commander:
+most of the colors and dialog boxes; the outlook and behaviour of buttons;
+the upper line of panels; you can hide the menu bar and win an extra line
+for panels.</P>
+
+<LI><P ALIGN="JUSTIFY">Each panel can hold a maximum of 1024 entries instead of 512.</P>
+
+<LI><P ALIGN="JUSTIFY">The sort mode of panels can be set from the menu bar instead of a dialog
+box.</P>
+
+<LI><P ALIGN="JUSTIFY">The scrolling of panels and the online help with mouse is slowed down &#150;
+they scroll only a single line and not a whole page.</P>
+
+<LI><P ALIGN="JUSTIFY">Frozen files in tape images are displayed and can be extracted.</P>
+
+<LI><P ALIGN="JUSTIFY">You can stop the file copy between panels of any mode at any time by
+pressing Escape.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files a progress indicator will show you the amount of the
+copy already done &#150; when you copy files from or to a connected 1541 drive
+the number of copied blocks is displayed.</P>
+
+<LI><P ALIGN="JUSTIFY">You can copy a disk image to a disk in a connected 1541 drive not only
+from the DOS directory but also when viewing the disk image itself.</P>
+
+<LI><P ALIGN="JUSTIFY">You can enter a new name for files copied between panels of any mode.</P>
+
+<LI><P ALIGN="JUSTIFY">You can enter wildcards when copying a DOS file into a DOS mode panel or
+when renaming a DOS file.</P>
+
+<LI><P ALIGN="JUSTIFY">You can't use the Tab and Shift-Tab keys to move around dialog boxes; use
+the cursor keys instead.</P>
+
+<LI><P ALIGN="JUSTIFY">You can also use Cursor Left and Cursor Right to jump to the top or the
+bottom of the panels.</P>
+
+<LI><P ALIGN="JUSTIFY">You can also use Space to select or unselect files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can't use Alt+key combinations to jump to the menu.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.70 beta (sc070.zip, 1995-10-29)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.61 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander didn't separate double clicks.</P>
+
+<LI><P ALIGN="JUSTIFY">I've mixed up the Hidden and System attributes in the "Attributes" dialog
+box.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.61 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The calibrator is now inside the Commander and is semi-automatic &#150; it will
+activate if there is no setup file or it is corrupted; you can re-run the
+calibration by selecting "Recalibrate" in the "Advanced options..." menu.</P>
+
+<LI><P ALIGN="JUSTIFY">The file copy, rename and deletion system has been rewritten from scratch;
+you can specify the source files and the destination path or image file,
+now you are not limited to copying files from the active panel to the
+inactive one but are able to copy or move practically anything anywhere.</P>
+
+<LI><P ALIGN="JUSTIFY">The enhanced "Rename" command, "Rename or move" allows you to delete the
+source files at the instant they were successfully copied.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the command line with history capable of storing a maximum of
+19 recent commands.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing warp transfer for file copy (only the CBM -&gt; PC direction is
+implemented with no error handling yet).</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing disk editor for disk images and disks in a connected CBM drive
+also in turbo mode.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a new smart shelling system that allocates less than 25 KBytes
+for the Commander while executing DOS commands (that is if you start the
+Commander through the loader SC.EXE).</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the Brief mode which displays twice or three times more files
+in the panel than the Full mode.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can optionally run with the C64 character set (only on
+EGA/VGA video cards) &#150; you can change it in the "Advanced options..." menu
+and by pressing Shift+Control and Shift+Alt when no dialog box is on the
+screen.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Configurations..." menu is split into two parts because there were
+too many options to stuff into it; there is a "Configuration..." menu
+(mostly PC related options; assigned to Control+F9) and an "Advanced
+options..." menu (rather C64 and CBM drive related options; assigned to
+Control+F10).</P>
+
+<LI><P ALIGN="JUSTIFY">An external ZipCoder is inside the Commander distribution package.</P>
+
+<LI><P ALIGN="JUSTIFY">With the "Filter" menu you can disable the display of Hidden and System
+files and you can also make the Commander show you only executable or
+image files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can create your own user menus for DOS panels.</P>
+
+<LI><P ALIGN="JUSTIFY">You can view and edit DOS files with external viewers and editors &#150; you'll
+have to create extension files first (read the online help on how to do
+that).</P>
+
+<LI><P ALIGN="JUSTIFY">You can associate commands with file extensions (e.g. start a word
+processor if you press Enter or double click on a file with the extension
+.DOC).</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can now handle tape images with more (or less) than 30
+entries.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander now has a screen saver with adjustable screen blank delay.</P>
+
+<LI><P ALIGN="JUSTIFY">You can start typing a file name to make the cursor bar jump to a matching
+file in the panel (you have to press the Alt key with the first letter).</P>
+
+<LI><P ALIGN="JUSTIFY">The scroller bars of the panels and the online help are removed &#150; they
+were the ugly remnants of the original Turbo Vision routines and had
+nothing to do with the environment of the other Commanders.</P>
+
+<LI><P ALIGN="JUSTIFY">You can retry or skip reading or writing bad sectors during disk copy.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copy CBM -&gt; PC direction has been sped up by 10 seconds.</P>
+
+<LI><P ALIGN="JUSTIFY">You can stop the reading of the directory and the validation of disk
+images by pressing Esc (it can help if there's a loop in the sector chain
+although you should fix that as soon as possible).</P>
+
+<LI><P ALIGN="JUSTIFY">All the four possible device numbers of connected CBM drives are displayed
+in the "Change drive" dialog box; if you have a single floppy drive in
+your PC, it will not be displayed as a phantom second drive.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the soft sector interleave for disk images and disks in a
+connected CBM drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Volume label" command is moved from Alt+F4 to Control+F4 &#150; Alt+F4 is
+now reserved for the internal editor (in one of the next releases).</P>
+
+<LI><P ALIGN="JUSTIFY">The Insert key now repeats just like any other key.</P>
+
+<LI><P ALIGN="JUSTIFY">You can press Control+Alt+Insert to reset all connected CBM drives and
+Control+Alt+Delete to exit the Commander immediately (emergency exit &#150; use
+it only as a last resort).</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.71 beta (sc071.zip, 1996-03-04)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.70 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">When copying a file or disk from a connected Commodore drive to the PC in
+normal transfer mode the last byte in some of the sectors or the last byte
+of the file could sometimes get lost.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't copy sequential and user files from a connected Commodore
+drive.</P>
+
+<LI><P ALIGN="JUSTIFY">If you started SCMAIN.EXE and launched a standard viewer or editor while
+the C64 character set was enabled then garbage would be displayed at the
+original DOS output screen after returning from the external software.</P>
+
+<LI><P ALIGN="JUSTIFY">If you started the Commander through SC.EXE and executed a DOS command
+when one of the panels was an external panel then a strange path would be
+offered when you tried to copy a file to the external drive and the manual
+file name conversion box would give you a blank file name.</P>
+
+<LI><P ALIGN="JUSTIFY">When both panels were off and you tried to re-read a panel with Control-R
+then nothing happened but the clock disappeared.</P>
+
+<LI><P ALIGN="JUSTIFY">User menu entries without any commands and commands prepended with "@"
+were handled incorrectly.</P>
+
+<LI><P ALIGN="JUSTIFY">If you typed anything on the command line after returing from an external
+viewer or editor then previous contents of the command line disappeared.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.70 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing a new synchronization that uses the hardware system timers and
+therefore is not machine dependent.</P>
+
+<LI><P ALIGN="JUSTIFY">The infamous problem that made the Commander unable to work in turbo modes
+on certain PC's has at last been eliminated.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing an external setup software that allows you to set all the
+settings of the Commander &#150; only the important settings can be changed
+inside the Commander and so the configuration menus are not as stuffed as
+before.</P>
+
+<LI><P ALIGN="JUSTIFY">From now on the external setup software and the Commander itself will be
+able to read the setup file created by the previous version &#150; no need to
+set the options that were unchanged in the new version.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing an external Lynx/unLynx software that can build archives out
+of multiple DOS files or the contents of disk images and extract archives
+into DOS files or disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing an external software that collects multiple file images (files
+with the extension ".P00"/".S00"/".U00" created by PC64) into tape images.</P>
+
+<LI><P ALIGN="JUSTIFY">From now on I will maintain a mailing list for those who would like to get
+the future releases of the Commander as soon as possible (you just send me
+an E-Mail and you'll get a uuencoded package on the release day).</P>
+
+<LI><P ALIGN="JUSTIFY">A World Wide Web homepage of the Commander is being under construction &#150;
+you will be able to download the latest release and read about changes in
+the upcoming version.</P>
+
+<LI><P ALIGN="JUSTIFY">The type of column mode (brief or full) and the mini status box (off,
+brief or full) can be set separately for the left and right panel and
+separately for DOS and CBM panel mode &#150; however, the original options
+"Brief" and "Full" in the "Left" and "Right" menus and "Mini status" in
+the "Options" menu were kept for comfort and compatibility.</P>
+
+<LI><P ALIGN="JUSTIFY">Critical errors are reported in a nice dialog box instead of that ugly red
+message overlaying the last line of the screen.</P>
+
+<LI><P ALIGN="JUSTIFY">Standard viewers and editors are informed about the screen mode (black and
+white, color or laptop) and the mouse mode (present or not, right or left
+handed) the Commander is using and they work with these parameters (if
+they support the way of passing parameters of The Norton Commander).</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip asks you for overwrite confirmation if the destination file
+already exists.</P>
+
+<LI><P ALIGN="JUSTIFY">You can overwrite an already existing disk image when copying a disk from
+an external drive to a disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">If the inactive panel is off then the command "Rename or Move" will
+default to renaming the file under the cursor bar.</P>
+
+<LI><P ALIGN="JUSTIFY">Emergency exit is assigned to Ctrl-Alt-Ins and external Commodore drives
+can be reset with Ctrl-Alt-Backspace (no dangerous Ctrl-Alt-Del anymore).</P>
+
+<LI><P ALIGN="JUSTIFY">Only 16 commands are stored in the history since a history of 19 commands
+could not be displayed aesthetically on a 25 line screen anyway &#150; this
+lowers the amount of memory used by the loader software, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The menu of available commands in the disk editor pops up when you press
+F2 instead of "M".</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.72 beta (sc072.zip, 1996-05-20)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.71 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">You were not prompted for overwrite confirmation when copying an already
+existing file from the PC to the connected Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">Empty files are now copied properly between panels of any mode.</P>
+
+<LI><P ALIGN="JUSTIFY">Saving the settings in the external setup while the Commander is resident
+in the memory does not create a corrupt setup file.</P>
+
+<LI><P ALIGN="JUSTIFY">Some mouse handling problems before and after executing DOS commands and
+calling standard viewers and editors have been fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid track and sector numbers are not allowed in the disk editor.</P>
+
+<LI><P ALIGN="JUSTIFY">If the functions ^[ and ^] would cause the command line to overflow
+(locking up the computer), you will not be allowed to use them.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.71 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing an internal viewer for DOS and Commodore files with wrap and
+unwrap, text/hex display, adjustable end-of-line mark, text/hex search,
+ASCII/PETSCII/screen code display and C64 character set &#150; this software
+is physically external (SCVIEW.EXE) so that the memory required by the
+Commander does not increase.</P>
+
+<LI><P ALIGN="JUSTIFY">All the interactive external softwares (currently the external setup and
+the viewer) can be also shut down by pressing Control+Alt+Insert at any
+time in case they lock up for some reason.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a full color setup for all palettes (black &amp; white, color,
+laptop and monochrome) in the external setup &#150; there are sample palette
+files included, too.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a FAQ &#150; frequently asked questions about the Commander and my
+answers.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander and all related software abort with an error message if run<BR>
+on an XT.</P>
+
+<LI><P ALIGN="JUSTIFY">On any error during finding a viewer or editor for the file to be viewed
+or edited (extension file does not exist, there is no appropriate entry in
+the extension file or the standard viewer or editor in that entry does not
+exist) the Commander will try to load the standard viewer SCVIEW.EXE or
+the standard editor SCEDIT.EXE &#150; until the internal editor of the
+Commander is done, you can rename your favorite editor to SCEDIT.EXE.</P>
+
+<LI><P ALIGN="JUSTIFY">You can recursively delete non-empty directories.</P>
+
+<LI><P ALIGN="JUSTIFY">The symbols "!", "!.!", "!:", "!\" and "!@" used in menu and extension
+files for the active panel have the equivalents of "%", "%.%", "%:", "%\"
+and "%@" for the inactive panel.</P>
+
+<LI><P ALIGN="JUSTIFY">A new C64 character set was designed for and only for the 80x25 screen
+mode.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander doesn't display "Invalid disk image" for disk images with
+error info at their end, it just ignores the error info instead.</P>
+
+<LI><P ALIGN="JUSTIFY">If a disk error occurs during warp file copy CBM-&gt;PC direction then
+instead of aborting the copy the Commander will allow you to retry the bad
+block.</P>
+
+<LI><P ALIGN="JUSTIFY">There is a new option called "Copy full track 18" that allows you to BAM
+copy disks that have unallocated but useful sectors in the directory &#150; in
+this case track #18 will be fully copied no matter what the BAM contains.</P>
+
+<LI><P ALIGN="JUSTIFY">If you try to BAM copy a disk with an invalid BAM you are asked if you
+want to copy the full disk.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copy dialog box also contains the "BAM disk copy" and "Copy full
+track 18" options which default to the value in the "Advanced options..."
+menu but you can override them temporarily for that particular disk or
+disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">If a disk error is encountered during disk copy in either direction you
+can skip the whole track, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">When finishing copying a disk from a connected Commodore drive to the PC
+or you abort the process, the Commander will only re-read the DOS panel.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing Escape will no more stops reading the directory in disk image
+panels, only in external panels.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing F6 while the inactive panel is off or pressing Control+F6 pops up
+the "Rename or Move" dialog box in rename mode offering you the original
+file name instead of a destination path.</P>
+
+<LI><P ALIGN="JUSTIFY">You can assign commands to F1 and F10 in the user menu &#150; this will
+override "Help" and "Quit" on the function key bar.</P>
+
+<LI><P ALIGN="JUSTIFY">There is a clipboard in the disk editor that allows you to copy data
+chunks between sectors.</P>
+
+<LI><P ALIGN="JUSTIFY">If you run the Commander through SC.EXE then you can enter a DOS command
+as a parameter to be executed before the Commander starts.</P>
+
+<LI><P ALIGN="JUSTIFY">You are not allowed to copy, rename or move deleted files (files with the
+file type "DEL") &#150; you can only delete them.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Mini status" option in the "Options" menu changes the mini status for
+both panels.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Clean" function deletes the garbage in the last block of files, as
+well.</P>
+
+<LI><P ALIGN="JUSTIFY">The color attribute of characters in the shadow has been changed from dark
+gray on black to light gray on black.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.73 (sc073.zip, 1996-09-30)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.72 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">If you select "Executable files" or "Image files" in the Filter dialog box
+of a panel, directories will still be displayed.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press "B" in the menu of the disk editor then the BAM editor will
+come up and not the sector editor.</P>
+
+<LI><P ALIGN="JUSTIFY">When you pop up the online help above the user menu, the cursor keys will
+be handled by the online help and not the user menu below it.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press cursor left or right in a Brief panel, the cursor will not
+jump to the first or last entry.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press Alt+A to select "All" in the manual file name conversion box,
+the Commander will not lock up after copying the file.</P>
+
+<LI><P ALIGN="JUSTIFY">The automatic file name conversion now works correctly for non-program
+files having dots in their names.</P>
+
+<LI><P ALIGN="JUSTIFY">If you enter an empty search string, the viewer will not lock up.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander now finds standard viewers/editors in its home directory if
+no path was specified in the extension file.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.72 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander is not called "beta" anymore &#150; it is just a matter of naming
+to please worrying people because the public beta releases have always
+been just as complete and bugfree as any other non-beta software.</P>
+
+<LI><P ALIGN="JUSTIFY">From this release on the Commander is giftware: it can be freely used but
+registering it is encouraged &#150; please, read REGISTER.TXT for more details.</P>
+
+<LI><P ALIGN="JUSTIFY">The delay values are now multiplied by 4, the default is 48 &#150; this makes
+the delay value scale finer, helping you with setting the correct value.</P>
+
+<LI><P ALIGN="JUSTIFY">Only the executable files of the external utilities are in the archive
+SC_ARC.ZIP in the Commander package, full packages of the Star Utilities
+are in a separately distributed archive named SUxyy.ZIP (where x.yy is the
+version number).</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum number of files displayed in the panels is reduced to 512,
+this way the Commander needs 50 KBytes less memory for execution &#150;
+similarly, the maximum number of entries in the "Make tape image" function
+is reduced to 99, the value in C64S, since you can't see 1499 entries in a
+panel anyway.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing full read and write support for the file images (files with
+the extension ".P00"/".S00"/".U00") of Personal C64; press Enter or
+double-click on a file image to view its contents and check the option
+"Into file images" in the "Copy" and "Rename or move" dialog boxes to
+copy/move the source files into file images.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for 40 track disks and disk images &#150; you can format
+such disks and create such disk images, copy them between the PC and an
+external Commodore drive and copy files into or out of them.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for the error info attached to disk images &#150; although
+most parts of the Commander ignore it, you are given the opportunity to
+collect read errors during disk copy in any mode into an error info block
+and you can edit the error info of disk images in the disk editor.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the capability of the viewer to display files inside images,
+there is even a file selector for you to view other files in the image.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing Star LHA, an external archiver than can create Commodore LHA
+archives out of disk images, list their contents and extract them into
+disk images (it uses LHA for DOS for compression and decompression so
+remember to put it into your path) &#150; it can even display archive comments
+(only the PETSCII control codes $0D, $0E and $8E are supported).</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing Star Arkive, an external archiver than can create Arkive
+archives out of disk images, list their contents and extract them into
+disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a new panel mode: Info panels show the total and free memory
+and some info about the other panel like total and free capacity, volume
+label, number of files in the current directory and the capacity they use.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a history file containing all the changes made since the first
+release of the Commander.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a command line for external drives in the User Menu &#150; if your
+Commodore drive has special commands over the normal 1541 commands, you
+can type them there.</P>
+
+<LI><P ALIGN="JUSTIFY">Lots of more C64 graphical characters are displayed in PC character set
+mode so that the directories of demo disks look a bit better.</P>
+
+<LI><P ALIGN="JUSTIFY">The configuration menus of the main program and the external setup were
+again rearranged.</P>
+
+<LI><P ALIGN="JUSTIFY">The sample menu and extension files have been expanded to handle Commodore
+archives using the external archivers.</P>
+
+<LI><P ALIGN="JUSTIFY">If you copy or move multiple files into a disk or tape image with the
+option "Backup image files" checked and an error occurs then the image
+file is not overwritten with the backup so that the previously copied or
+moved files won't disappear.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press Escape or F10 during disk or file copy while data is being
+transferred from or to an external Commodore drive, you are optionally
+asked for confirmation before the copy is cancelled.</P>
+
+<LI><P ALIGN="JUSTIFY">There is an option to display start info in the panels (the track and
+sector number of the files in disk images and the start address of
+programs in tape and file images).</P>
+
+<LI><P ALIGN="JUSTIFY">You can set the number of automatic retries on disk errors during data
+transfer between the PC and the external Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">You are warned if you copy a too big file onto a disk or into a disk
+image.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander now warns you if the destination PC disk gets full during
+file copy &#150; it allows you to continue with the next selected file but it
+always deletes the partially copied file.</P>
+
+<LI><P ALIGN="JUSTIFY">You can save the BAM in the BAM editor with F2 instead of "W".</P>
+
+<LI><P ALIGN="JUSTIFY">When the Commander is running idle, it executes INT 28h &#150; for example,
+disk caches can write data back faster in the background.</P>
+
+<LI><P ALIGN="JUSTIFY">If the environment variable TEMP is defined, the panel list files are
+created in the directory it points to.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer opens a warning window to inform you when there is not enough
+memory to view the file.</P>
+
+<LI><P ALIGN="JUSTIFY">The "NULL" line feed of the viewer has been changed into "User LF" &#150; you
+can define any one byte code for a line feed mark.</P>
+
+<LI><P ALIGN="JUSTIFY">All the external utilities recognize 40 track disk images and disk images
+with error info.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip can create and extract "filepacked" ZipCode archives (files with
+the name pattern A!*.*, B!*.*, ... plus a "directory" file X!*.*).</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip can create diskpacked ZipCode archives out of 40 track disk
+images, in which case a fifth archive is created; similarly, if this fifth
+archive is found while unzipping diskpacked ZipCode archives, a 40 track
+disk image is created &#150; note that the fifth ZipCode archive will not be
+recognized by ZipCoder softwares running on a Commodore machine.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Lynx now creates archives out of disk images by default and extracts
+archives into disk images; to lynx and unlynx multiple DOS files you must
+put the option "D" right after the command.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip and Star Lynx will allow you to extract, skip or rename the
+current file if a file with the same name was encountered in the
+destination image.</P>
+
+<LI><P ALIGN="JUSTIFY">You can add and extract phantom files (they start at the sector 18;0 and
+usually have the length of zero blocks) into and out of Lynx archives.</P>
+
+<LI><P ALIGN="JUSTIFY">You may prepend a dash to the commands of the external utilities, if you
+want.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.80 (sc080.zip, 1997-05-26)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.73:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Now the Commander does run with only 500 KBytes of free conventional
+memory just as the documentation states (I forgot to change the check for
+free memory at startup).</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander can create backup files under Windows 95, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The Format menu item in the user menu for tape images now works OK.</P>
+
+<LI><P ALIGN="JUSTIFY">The automatic file name conversion works correctly if you use wildcard
+characters or change the file extension in the Copy, Rename or move and
+Delete file name input dialog boxes.</P>
+
+<LI><P ALIGN="JUSTIFY">The device number of both panels is remembered correctly in the setup.</P>
+
+<LI><P ALIGN="JUSTIFY">The keys PgDn, PgUp, Home and End don't change the active button in the
+online help index of the viewer and the external setup.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Next" and "Previous" items in the online help don't skip the section
+"Memory allocation".</P>
+
+<LI><P ALIGN="JUSTIFY">The "Write block" item at the bottom of the disk editor menu is not
+hidden.</P>
+
+<LI><P ALIGN="JUSTIFY">When "Full screen" is off, the speed search dialog box still sticks to the
+bottom of the panel.</P>
+
+<LI><P ALIGN="JUSTIFY">If you save the setup when one of the panels is an external panel and
+restart the Commander then the "Change drive" dialog box will show you the
+correct default drive number for that panel.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Color" palette color of the numbers in the function key bar at the
+bottom is light grey on black instead of cyan on black.</P>
+
+<LI><P ALIGN="JUSTIFY">The sample Commander screens in the palette setup of the external setup
+have been changed according to the new features (I should have done that
+in Version 0.73).</P>
+
+<LI><P ALIGN="JUSTIFY">When viewing or editing files inside images, always the internal viewer or
+editor is called.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer scrolls upwards in a smarter way in files containing Tab
+characters.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer displays Commodore file names with graphical characters
+correctly in the upper status line.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer works properly if you specify the name of the file to be viewed
+and the active panel is an image panel.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LHA now omits the path stored in LHA archives and only uses the
+file name itself when displaying or extracting the contents.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Lynx doesn't create corrupt archives out of more than some 130 files.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LHA now doesn't display the option "V" for the command "L" in its
+usage info because such an option doesn't exist at all.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.73:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing a file editor for DOS files and Commodore files inside images:
+handles files up to amount of free conventional memory, ability to mark,
+copy, move and delete text and hexadecimal blocks, adjustable line feed,
+optional PETSCII and screen code display, built-in C64 character set.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing built-in support for Lynx, filepacked ZipCode, LHA, Arkive and
+TAR archives &#150; you can enter them, copy files into and out of them, rename
+and delete files inside them, even File Info and the Info panel works with
+them (note that the Commander needs LHA 2.14 or newer in order to be able
+to extract files properly).</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the XP1541 parallel cable that speeds up transferring data
+between the PC and the external Commodore drive even more.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the warp file copy PC-&gt;CBM direction.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing Star Library, yet another external utility to handle Library
+archives.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander, the external setup, the viewer and the editor all check the
+version number of the resident Commander/loader.</P>
+
+<LI><P ALIGN="JUSTIFY">The description of the X1541 interfaces has been moved to the docs from
+the online help.</P>
+
+<LI><P ALIGN="JUSTIFY">You are warned if you try to access an external Commodore drive under a
+multi-tasking system via the X1541 cable, you try to use the X1541 cable
+on an EPP or ECP parallel port or try to use the XP1541 parallel cable on
+an SPP parallel port.</P>
+
+<LI><P ALIGN="JUSTIFY">The delay value defaults to 80 on Pentiums and to 48 on earlier CPU's.</P>
+
+<LI><P ALIGN="JUSTIFY">You can sort files in CBM panels, too.</P>
+
+<LI><P ALIGN="JUSTIFY">You can press the right mouse button on the key bar at the bottom of the
+screen to access the Alt functions.</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum number of entries in tape images has been raised to 500, it
+was unnecessary to decrease it to as low as 99.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander and all the external softwares give up their time slice
+under DESQview and in the DOS shells of OS/2, GNU/Linux and any Windows
+when waiting for input.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander takes the "COUNTRY=" settings in your CONFIG.SYS into
+account, it displays numbers and displays and inputs dates and times
+accordingly; you can view these settings in the menu item "Country info"
+of the external setup.</P>
+
+<LI><P ALIGN="JUSTIFY">By checking a new option, "Verify write", the Commander verifies data
+written onto disks in the external Commodore drive during warp disk copy.</P>
+
+<LI><P ALIGN="JUSTIFY">The process of copying files from an external panel in warp mode has been
+sped up a bit by reading 256 blocks of data in one go instead of track by
+track.</P>
+
+<LI><P ALIGN="JUSTIFY">"22,READ ERROR" and "23,READ ERROR" errors are also retried as many times
+as the option "Number of retries" specifies during warp disk and file
+copy.</P>
+
+<LI><P ALIGN="JUSTIFY">You can format the destination disks during disk copy.</P>
+
+<LI><P ALIGN="JUSTIFY">When you press Enter or double-click on a DOS file, the Commander first
+reads through the extension file to find a command specified for that
+extension &#150; this way you can override the normal action of entering image
+and archive files.</P>
+
+<LI><P ALIGN="JUSTIFY">It is now possible to specify file name patterns besides extensions in the
+extension files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can specify the same commands for a sequence of name patterns in the
+extension files by listing the patterns in subsequent lines or by
+separating the patterns with semicolons.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can use the "&lt;imagetype&gt;:&lt;path&gt;\&lt;imagename&gt;\&lt;filename&gt;" file name
+format (used in the Copy dialog box) in the View and Edit dialog boxes to
+view or edit files inside images.</P>
+
+<LI><P ALIGN="JUSTIFY">The PETSCII to DOS file name conversion now includes stripping off leading
+and trailing underscores of the file name and the extension.</P>
+
+<LI><P ALIGN="JUSTIFY">It is now possible to change the file type of files being copied by
+appending ",&lt;file-type&gt;" to the file name pattern.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can set the Filter to display only archive files.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander doesn't read the error channel of the external drive if
+there were no errors while reading the directory, which speeds up the
+process.</P>
+
+<LI><P ALIGN="JUSTIFY">If you delete the image file displayed in one of the panels then that
+panel turns back to DOS mode and no error message is written onto the
+screen.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk image cleaner is much faster than before.</P>
+
+<LI><P ALIGN="JUSTIFY">The confirmation option "Write block" has transformed into the option
+"Disk editor" and now it controls all confirmations in the disk editor.</P>
+
+<LI><P ALIGN="JUSTIFY">A new confirmation option, "Abort data transfer", tells whether the
+Commander should ask for confirmation when aborting data transfer between
+the PC and the external Commodore drive or not.</P>
+
+<LI><P ALIGN="JUSTIFY">With two other new confirmation options you can control the warnings about
+possible transfer and file size problems.</P>
+
+<LI><P ALIGN="JUSTIFY">Another new option, "Auto unselect files", allows you to control whether
+processed files are automatically unselected or not.</P>
+
+<LI><P ALIGN="JUSTIFY">The option "Wipe scratched files" allows you to clean up the sectors of
+files being scratched in disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">Another new option, "Orig format pattern", controls whether empty sectors
+are filled up with zeros or the original 1541 format pattern.</P>
+
+<LI><P ALIGN="JUSTIFY">You can copy frozen files from tape images as programs and File Attributes
+can turn files in tape images into frozen files.</P>
+
+<LI><P ALIGN="JUSTIFY">There is no label displayed in file images.</P>
+
+<LI><P ALIGN="JUSTIFY">If you allocate or free a whole track in the BAM editor, the cursor will
+jump a column to the right, helping you with allocating or freeing the
+whole disk.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can also use the clipboard of the disk editor to copy data between
+different disks and disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">If the screen height allows, the lower part of the disk editor screen
+shows the current contents of the clipboard.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing Escape doesn't stop reading the directory in any panel mode.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press Space on the selected item of a radio button group then the
+selection and the cursor will jump onto the next item.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander informs you if an invalid sector link is found in the source
+disk image during file copy.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select multiple disk images and copy them one by one onto disks in
+an external drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Configuration..." menu of the external setup shows you the current
+mode of the LPT ports.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor are now able to read and write uncompressed
+(Lynx, Arkive) archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Since you can use the viewer and the editor with other softwares, as well,
+neither of them display registration info in the online help.</P>
+
+<LI><P ALIGN="JUSTIFY">When in text mode, the Goto function in the viewer and the editor ask for
+the number of the line you want to jump to, jumping to an offset is
+available only in hexadecimal mode.</P>
+
+<LI><P ALIGN="JUSTIFY">A new line feed mode in the viewer and the editor allow you to have a
+fixed line length.</P>
+
+<LI><P ALIGN="JUSTIFY">An empty line within the selected block is marked with a phantom space by
+both the viewer and the editor so that you see the block has not ended
+yet.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer now scrolls much faster when you press PgDn or PgUp.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer is a bit more tolerant, it won't lock up when viewing files
+inside damaged disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor write no messages onto the DOS screen if
+everything is OK &#150; this way you can use them under other softwares without
+that annoying screen jump.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor now scan the first 4 kilobytes of the input file
+to autodetect the line feed and whether to switch Tab translation on or
+off.</P>
+
+<LI><P ALIGN="JUSTIFY">You can switch the display of special characters (Space, Tab and line feed
+marks) both in the viewer and the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor put a "$" sign before the hexadecimal number
+input line of the Goto and User Line Feed dialog boxes.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Arkive, Star LHA, Star Library, Star Lynx and Star Zip display the
+names of files being skipped during extraction.</P>
+
+<LI><P ALIGN="JUSTIFY">When renaming a file during extraction, Star Arkive, Star LHA, Star Lynx,
+Star Library and Star Zip offer you the original file name and you can use
+the cursor keys, Home and End to move around the file name, Backspace and
+Delete to delete characters and Control+Backspace to delete the complete
+file name.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LHA lets you extract files even if another one with the same name
+already exists in the destination disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LHA recognizes file names longer than 16 characters in LHA archives.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new command of Star LHA you can prepend the SFX header to an
+already existing LHA archive or strip it off of an SFX archive.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List is now capable of listing file images, Lynx, filepacked ZipCode,
+LHA, LHA SFX, Arkive and TAR archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List now displays the total number and size of files at the end of
+the file list of the current image or archive file.</P>
+
+<LI><P ALIGN="JUSTIFY">Some of the archive checks were changed in Star Lynx to make it recognize
+more Lynx archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Tape can handle list files created by the "!@" option of the
+Commander.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.81 (sc081.zip, 1997-11-30)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.80:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The pin assignment of the VIA#1 chip was incorrect in the documentation.</P>
+
+<LI><P ALIGN="JUSTIFY">Verify is working in warp BAM disk copy PC-&gt;1541 direction.</P>
+
+<LI><P ALIGN="JUSTIFY">You can again copy files in turbo mode onto a Commodore disk.</P>
+
+<LI><P ALIGN="JUSTIFY">Turbo and warp mode is again working on 1571 drives.</P>
+
+<LI><P ALIGN="JUSTIFY">The parallel turbo file copy to the PC lost the last bytes of many of the
+sectors.</P>
+
+<LI><P ALIGN="JUSTIFY">The parallel warp file copy from the PC often damaged the last byte of the
+BAM sector and the directory sector holding the file entry.</P>
+
+<LI><P ALIGN="JUSTIFY">If a new directory sector was opened for the entry of the file currently
+being copied in warp mode, PC-&gt;1541 direction, it was left unallocated.</P>
+
+<LI><P ALIGN="JUSTIFY">You can again skip the whole track during warp disk copy 1541-&gt;PC.</P>
+
+<LI><P ALIGN="JUSTIFY">The turbo disk copy continues properly if you press "Retry" on a bad
+sector.</P>
+
+<LI><P ALIGN="JUSTIFY">There are no strange problems anymore when you try to delete files from
+write-protected PC floppy disks.</P>
+
+<LI><P ALIGN="JUSTIFY">The X1541 and the XP1541 cables can be connected to the same port, if it's
+in PS/2 mode.</P>
+
+<LI><P ALIGN="JUSTIFY">Only parallel ports between the addresses $0200-$0400 are accepted by the
+Commander and the external setup.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying a disk into a disk image in normal mode, you won't get a
+false alarm about errors during the disk copy.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying a disk into a disk image with BAM disk copy, the BAM is read
+from the disk prior to the actual disk copy.</P>
+
+<LI><P ALIGN="JUSTIFY">The fast transfer routines have been modified to be able to seek back to
+the extra tracks after a head rattle.</P>
+
+<LI><P ALIGN="JUSTIFY">You are warned if there are more entries in the current directory than the
+Commander can handle.</P>
+
+<LI><P ALIGN="JUSTIFY">Very long directories are sorted correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">Files are created on Novell network drives properly.</P>
+
+<LI><P ALIGN="JUSTIFY">When deleting phantom files, the directory blocks remain allocated.</P>
+
+<LI><P ALIGN="JUSTIFY">When deleting the first file in an LHA or TAR archive, the archive itself
+won't be deleted.</P>
+
+<LI><P ALIGN="JUSTIFY">There are a lot less error messages when you want to process files on a
+floppy disk but the drive is empty.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander won't lock up when trying to read the directory of a
+disconnected network drive, it will change to the path of the opposite
+panel instead.</P>
+
+<LI><P ALIGN="JUSTIFY">When a directory sector is damaged on the disk or becomes damaged during
+warp directory read, you are warned with a read error.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander finishes reading the directory in turbo and warp mode if it
+encounters an invalid sector link.</P>
+
+<LI><P ALIGN="JUSTIFY">The floppy drive is accessed properly for both letters on single drive
+systems.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander returns to 80 column text mode from any graphical screen
+mode upon startup and when finishing DOS shell.</P>
+
+<LI><P ALIGN="JUSTIFY">There is really no snowing on CGA video cards if you switch "Snow check"
+on.</P>
+
+<LI><P ALIGN="JUSTIFY">The annoying screen flickers upon entering and exiting DOS shell are gone.</P>
+
+<LI><P ALIGN="JUSTIFY">"Make disk" and "Make tape" gives you an error if there's no room to
+create the image.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying a file into a disk image is aborted, no splat file remains;
+leaving splat files in disk images and copying other files over them later
+can cause crosslinks to appear.</P>
+
+<LI><P ALIGN="JUSTIFY">The file copy will not lock up when copying a file from an external drive
+into a disk image with an invalid BAM.</P>
+
+<LI><P ALIGN="JUSTIFY">The file copy is aborted automatically when the directory of the
+destination disk image is full and the last entry is not corrupted either.</P>
+
+<LI><P ALIGN="JUSTIFY">Files with the names "." and ".." are properly handled in image and
+archive files but, in change, you have to specify ".\" and "..\" if you
+want to extract files, as DOS files, into the current or the parent
+directory.</P>
+
+<LI><P ALIGN="JUSTIFY">When deleting a subdirectory of the current directory, the cursor won't
+jump to the top of the panel.</P>
+
+<LI><P ALIGN="JUSTIFY">The keyboard buffer is not flushed during the copy, rename, move or delete
+process.</P>
+
+<LI><P ALIGN="JUSTIFY">Alt-Shift toggles the lowercase/uppercase and uppercase/graphics character
+set on all video cards.</P>
+
+<LI><P ALIGN="JUSTIFY">If you click on a disabled menu item, the menu will cancel itself.</P>
+
+<LI><P ALIGN="JUSTIFY">When in the menu, only those commands displayed in the current pull-down
+menu will work.</P>
+
+<LI><P ALIGN="JUSTIFY">Control+letter codes are working with national keyboard drivers.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing Control+Backspace or Control+W at the beginning of an input line
+won't press the first button in the file name input box.</P>
+
+<LI><P ALIGN="JUSTIFY">The panels don't flicker when copying files into LHA archives.</P>
+
+<LI><P ALIGN="JUSTIFY">The sample Commander screens in the external setup have again been updated
+to show the same display as in the Commander.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer doesn't display a length of -1 and the editor doesn't lock up
+with files whose first block is completely empty.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor displayed incorrect load addresses in image and
+archive directories.</P>
+
+<LI><P ALIGN="JUSTIFY">The editor doesn't scroll the screen far to the right sometimes when
+copying text blocks.</P>
+
+<LI><P ALIGN="JUSTIFY">The text cursor of the editor follows the mouse cursor correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">Binary replace in the editor works in PETSCII and screen code modes
+correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">The item "--- Next ---" is not displayed in the "Convert" dialog box of
+the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The LHA conversion routines in the Commander and Star LHA are now working
+under Novell DOS and Norton DOS and they still suppress messages from LHA
+under Windows 95.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Tape is working again.</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Utilities recognize bad track or sector links while reading input
+files inside disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LHA converts ASCII underscores to PETSCII spaces instead of Shift-
+spaces.</P>
+
+<LI><P ALIGN="JUSTIFY">Renaming a file inside a Lynx archive to a name longer than 16 characters
+will not cause archive corruption.</P>
+
+<LI><P ALIGN="JUSTIFY">The option P in Star List is working properly again.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List couldn't list Lynx and Library archives and it displayed
+incorrect file sizes in tape images.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.80:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The documentation, being a plain text and no formatted document, has been
+renamed back to SC.TXT, as it had been in Version 0.71 and before.</P>
+
+<LI><P ALIGN="JUSTIFY">The file README.1ST had been deleted.</P>
+
+<LI><P ALIGN="JUSTIFY">All text files in the Commander package have been changed to a 78
+character per line format.</P>
+
+<LI><P ALIGN="JUSTIFY">There is a lot more information about different cables and parallel port
+modes in the documentation, helping you with selecting cables easily.</P>
+
+<LI><P ALIGN="JUSTIFY">The transfer routines have been restructured, all delay values below 80
+are automatically raised by 8.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for Windows 95-style long file names: the panels
+display long file names and paths under Windows 95/98 and, when processing
+files and directories, long file names are used.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a new panel mode besides Brief and Full to show as much of
+long file names as possible.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select, copy and move DOS directories.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the XH1541 hybrid cable that gives the best performance on SPP
+parallel ports.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the XE1541 extended cable that substitutes the X1541 interface
+on all kinds of parallel ports.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing an auxiliary utility that extracts the online help into a file
+or prints it out.</P>
+
+<LI><P ALIGN="JUSTIFY">Added detection for PS/2 (bidirectional) parallel ports.</P>
+
+<LI><P ALIGN="JUSTIFY">You can launch software in emulators right from the Commander by pressing
+Enter on a file inside an image and selecting the emulator from a menu.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing full support for directories in LHA and TAR archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing full GEOS support for disk images: disks are validated and
+files are scratched properly and files are converted to and from
+sequential files using the Convert file format &#150; however, you can't view
+or edit VLIR files.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing Star ARC, another external utility that lists and extracts
+Commodore ARC archives and Self-Dissolving (SDA) archives.</P>
+
+<LI><P ALIGN="JUSTIFY">There is a new panel mode similar to "Quick view" in The Norton Commander,
+assigned to Control-Q: the contents of the image or archive file under the
+cursor are displayed in the opposite panel.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander now always deletes the file under the cursor in image and
+archive files rather than the first file with the same name.</P>
+
+<LI><P ALIGN="JUSTIFY">The menu "Advanced options" has been renamed to "Drive options".</P>
+
+<LI><P ALIGN="JUSTIFY">"Wipe scratched files" has been renamed to "Wipe deleted files".</P>
+
+<LI><P ALIGN="JUSTIFY">The configuration items "Alternative charset" and "All PRG's in a tape"
+have been deleted, both defaulting to checked.</P>
+
+<LI><P ALIGN="JUSTIFY">You can switch GEOS support off with the option "GEOS file support" so
+that GEOS file types are not displayed in the panels and Convert files are
+not created or processed during file copy.</P>
+
+<LI><P ALIGN="JUSTIFY">"Win'95 long names" allows you to switch support for Windows 95-style file
+names off so that you can work the same way as under plain DOS.</P>
+
+<LI><P ALIGN="JUSTIFY">In connection with the Windows 95-support, there are new symbols to insert
+the long form of file names into the command line and into list files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can associate several DOS command sequences to the same file name
+pattern.</P>
+
+<LI><P ALIGN="JUSTIFY">You can insert the path of both panels and the current file name of the
+active panel into file name input lines, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The destination file is only opened after having read the first block of
+data from the source file during file copy.</P>
+
+<LI><P ALIGN="JUSTIFY">You can copy several phantom files of the same name into disk images,
+Lynx, filepacked ZipCode and Arkive archives.</P>
+
+<LI><P ALIGN="JUSTIFY">You cannot specify the file type while copying or moving files into image
+or archive files but, in change, you can copy files whose names contain
+commas.</P>
+
+<LI><P ALIGN="JUSTIFY">You can now append the source files to existing DOS files during file
+copy.</P>
+
+<LI><P ALIGN="JUSTIFY">Empty files copied into disk images become phantom files.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files from a CD-ROM, the read-only flag is stripped off
+automatically.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander will recognize when a file is being copied or moved from a
+SUBST'ed drive to its real location and will abort the file copy.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying or moving files into image files or native Commodore
+archives, the manual file name conversion box limits your input to 16
+characters.</P>
+
+<LI><P ALIGN="JUSTIFY">DOS file names are turned into lowercase while being converted to
+Commodore format; you can switch this off with "Keep uppercase chars".</P>
+
+<LI><P ALIGN="JUSTIFY">You can make the Commander extract files inside PC64 file images during
+file copy by checking "Extract PC64 file images".</P>
+
+<LI><P ALIGN="JUSTIFY">The PC-&gt;1541 direction part of the warp disk and file copy routines have
+been modified to run near full speed on 286 and 386 machines.</P>
+
+<LI><P ALIGN="JUSTIFY">You can copy multiple disks into disk images with an automatic index
+generation in the destination file names.</P>
+
+<LI><P ALIGN="JUSTIFY">The fast transfer routines now support the disabling of the retry on the
+adjacent halftracks and the head bumping.</P>
+
+<LI><P ALIGN="JUSTIFY">By pressing Control+Enter in the History you can copy the current command
+into the command line without executing it.</P>
+
+<LI><P ALIGN="JUSTIFY">When in images and archives, Control-Enter pressed in the file name input
+line inserts the name of the image or archive.</P>
+
+<LI><P ALIGN="JUSTIFY">Because of the new functions using Control+Shift+key combos, Control+Shift
+alone doesn't toggle the C64 character set anymore, use Control+Tab
+instead.</P>
+
+<LI><P ALIGN="JUSTIFY">Shift+Gray plus/minus (un)select files and directories and Control+Gray
+plus/minus are the ones to (un)select all the files in a panel; also,
+Shift+Gray star inverts all the files and directories in a panel.</P>
+
+<LI><P ALIGN="JUSTIFY">You can enter multiple file name patterns, delimited with commas or
+semicolons, into the "Select" and "Unselect" dialog boxes.</P>
+
+<LI><P ALIGN="JUSTIFY">The asterisk wildcard now works a Unix-like way under Windows 95, e.g. you
+can select all files containing the letter "a" with "*a*".</P>
+
+<LI><P ALIGN="JUSTIFY">External and disk image panels are not sorted anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">The panel display can be sorted in reverse order.</P>
+
+<LI><P ALIGN="JUSTIFY">The panel contents are not reread when you change the sort order.</P>
+
+<LI><P ALIGN="JUSTIFY">If you eject the media from a removable drive and then reread the panel
+then you'll get an error message.</P>
+
+<LI><P ALIGN="JUSTIFY">You get an error message if there was not enough memory to execute a DOS
+command.</P>
+
+<LI><P ALIGN="JUSTIFY">You can swap the clipboard with the block in the disk editor, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Format disk" dialog has an option "Extended disk" to override the
+original setting.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Make disk" and "Make tape" functions don't offer you a default file
+name.</P>
+
+<LI><P ALIGN="JUSTIFY">System and/or hidden files are not displayed with a capital first letter.</P>
+
+<LI><P ALIGN="JUSTIFY">Load address is displayed for all file types, not only programs.</P>
+
+<LI><P ALIGN="JUSTIFY">You can no longer even select files with invalid file types in image and
+archive files.</P>
+
+<LI><P ALIGN="JUSTIFY">If you change the directory in the DOS shell with the active panel being
+an image or archive panel then it will change to a DOS panel showing the
+directory you changed to.</P>
+
+<LI><P ALIGN="JUSTIFY">Switching "Detect extra tracks" on makes the Commander detect the presence
+of extra tracks on disks.</P>
+
+<LI><P ALIGN="JUSTIFY">A new option, "Head movement speed" allows you to change the speed of the
+stepper motor in the external Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">You can pop up the menu bar by tapping Alt; you can switch this off in the
+setup.</P>
+
+<LI><P ALIGN="JUSTIFY">There is an option to control the "Escape toggles panels" feature.</P>
+
+<LI><P ALIGN="JUSTIFY">The option of "Number of retries" behaves a bit differently, now you can
+switch retry on the adjacent halftracks and the head bumping on and off.</P>
+
+<LI><P ALIGN="JUSTIFY">If you press Ctrl-BackSlash in an Info panel, it will be redirected to the
+opposite panel.</P>
+
+<LI><P ALIGN="JUSTIFY">When run under the Commander, the external setup only changes those
+settings in the setup file that can be set in the external setup, settings
+that can only be set inside the Commander are left alone.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander remembers all options of the viewer and the editor, that are
+not set automatically, throughout sessions.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor don't even display an error message when loading
+an empty image or archive directory.</P>
+
+<LI><P ALIGN="JUSTIFY">If the viewer or the editor cannot open the file selected from the
+directory list of an image or archive file then they return to the file
+selector.</P>
+
+<LI><P ALIGN="JUSTIFY">When symbols are on, the viewer and the editor mark the end of the file,
+too.</P>
+
+<LI><P ALIGN="JUSTIFY">All non-alphanumerical characters in the lower half of the ASCII character
+set are considered as word separators in the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">When finding a string or byte sequence in the editor, the cursor jumps to
+its beginning.</P>
+
+<LI><P ALIGN="JUSTIFY">You can press F3 twice in the editor to select the whole line the cursor
+is standing in.</P>
+
+<LI><P ALIGN="JUSTIFY">The editor allows you to enter wildcards in the "Save as..." box.</P>
+
+<LI><P ALIGN="JUSTIFY">When replacing byte sequences in the editor, the length of the file
+doesn't change.</P>
+
+<LI><P ALIGN="JUSTIFY">A new option in the Star Utilities makes them assume "Yes" to all queries,
+good for running them from batch files.</P>
+
+<LI><P ALIGN="JUSTIFY">By specifying another option you can have the Star Utilities ask for
+confirmation about extracting each file.</P>
+
+<LI><P ALIGN="JUSTIFY">Similarly to the Commander, the Star Utilities also allow you to add or
+extract files whose names contain commas.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Arkive, Star LHA and Star Library now accept archives with extensions
+other than the default, too.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List can list directory structures recursively.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List can list Commodore ARC and SDA archives, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The DOS file handling routines have been deleted from Star Lynx.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip ran endlessly when extracting filepacked ZipCode archives and it
+created DEL files.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.82 (sc082.zip, 2002-03-31)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.81:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">A pointer went astray when switching to the C64 character set, it might
+have caused rare lockups.</P>
+
+<LI><P ALIGN="JUSTIFY">The EOI detection problem, that caused the loss of the last byte of some
+sectors during disk copy and the loss of the last directory sector during
+reading the directory in normal transfer mode, has been finally fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">When the header of sectors are not found during warp disk copy, you get an
+error message instead of the transfer stopping, with the disk spinning but
+apparently no data being read.</P>
+
+<LI><P ALIGN="JUSTIFY">False timeout errors were reported at the end of file copies in normal and
+turbo mode.</P>
+
+<LI><P ALIGN="JUSTIFY">No files could be processed in directories inside archive files.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander, the viewer and the editor don't lock up under the long file
+name support software of Caldera OpenDOS anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander doesn't lock up when reading a looping directory.</P>
+
+<LI><P ALIGN="JUSTIFY">If you were using the hybrid or parallel cable on an ECP parallel port and
+saved the setup with one of the panels being an external panel then the
+Commander didn't recognize external drives upon startups anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">You get a warning when you leave the "Transfer options" menu if one of the
+LPT ports is set to a non-existant port.</P>
+
+<LI><P ALIGN="JUSTIFY">If there was an error while preformatting the destination disk, the disk
+copy was aborted.</P>
+
+<LI><P ALIGN="JUSTIFY">The warp disk copy locked up when it tried to verify certain sector
+contents.</P>
+
+<LI><P ALIGN="JUSTIFY">Wiping phantom files does not erase the directory anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander and Star Ark computed the start offset of the data area of
+Arkive archives incorrectly so they sometimes extracted corrupted files.</P>
+
+<LI><P ALIGN="JUSTIFY">Deleting files from filepacked ZipCode archives went crazy most of the
+time.</P>
+
+<LI><P ALIGN="JUSTIFY">No dialog box remains on the screen when a directory structure is copied.</P>
+
+<LI><P ALIGN="JUSTIFY">If you switched back to normal mode from either fast mode, only the first
+block of the directory was read from the Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The GEOS file converter routines chopped off the last byte of VLIR
+records.</P>
+
+<LI><P ALIGN="JUSTIFY">GEOS files are now saved exactly the same way into disk images as under
+GEOS itself.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files out of file images automatically, using the "Extract
+PC64 file images" option, the original Commodore name of the file is also
+extracted.</P>
+
+<LI><P ALIGN="JUSTIFY">When, during a file copy, the name of the destination PC64 file image
+resembles a device, an underscore is appended to the name; this follows
+PC64's original behavior.</P>
+
+<LI><P ALIGN="JUSTIFY">Commodore file names, that contain too many decimal digits, are now
+correctly converted into a PC64 file image name.</P>
+
+<LI><P ALIGN="JUSTIFY">LHA archives with entries of invalid Commodore file types or with trailing
+garbage are now considered to be valid.</P>
+
+<LI><P ALIGN="JUSTIFY">When extracting files from LHA archives, you are not asked twice for
+manual file name conversion anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">Turbo delete and validate work correctly on extended disks, too.</P>
+
+<LI><P ALIGN="JUSTIFY">If "Keep non-standard ext" is switched off, when copying DOS files into a
+CBM panel, characters including and after the rightmost dot are cut off
+rather than the leftmost dot and everything after it.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying DOS files or files in LHA or TAR archives from or into GEOS
+disk images, no ASCII-PETSCII file name conversion takes place.</P>
+
+<LI><P ALIGN="JUSTIFY">If a CD-ROM drive has no disk in it and you want to change to this drive,
+you will get the same error message as when changing to a floppy disk
+drive with no disk in it.</P>
+
+<LI><P ALIGN="JUSTIFY">Under PTS-DOS, the "Change drive" dialog box displays only those drive
+letters that are really available; also, there are no more problems when
+changing to a floppy disk drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The handling of the phantom B: drive on single-floppy PC's is now more
+compatible with DOS clones.</P>
+
+<LI><P ALIGN="JUSTIFY">The critical error boxes display device errors correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">The bug that makes C64S refuse paths given on the command line with a
+trailing backslash has been circumvented in the emulator launch file.</P>
+
+<LI><P ALIGN="JUSTIFY">If you entered an invalid image or archive then, after the error message,
+you got an empty DOS panel.</P>
+
+<LI><P ALIGN="JUSTIFY">If you pressed Enter on "Cancel" buttons then the current function was
+continued as if you had pressed the "OK" button.</P>
+
+<LI><P ALIGN="JUSTIFY">Control-PgDn enters directories, image and archive files only and never
+launches DOS files.</P>
+
+<LI><P ALIGN="JUSTIFY">The undocumented hotkeys Control-PgDn and Control-PgUp are now mentioned
+in the online help.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander locked up if you pressed Control+Backslash in an external
+panel.</P>
+
+<LI><P ALIGN="JUSTIFY">When sorting DOS directories by date, directories whose name starts with a
+dot won't be sorted before ".." anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">When renaming files with long file names, asterisk wildcards are handled
+in a Unix-like way, e.g. "a*" changes the first character of the file name
+to "a" but keeps all other characters unchanged, including the extension.</P>
+
+<LI><P ALIGN="JUSTIFY">Very long paths are truncated in the command line.</P>
+
+<LI><P ALIGN="JUSTIFY">Long file names containing the characters ",", ";", "=" or "+" are also
+enclosed into quotes when inserted into the command line.</P>
+
+<LI><P ALIGN="JUSTIFY">File time stamps are displayed with the correct country-specific separator
+in the "File attributes" dialog box.</P>
+
+<LI><P ALIGN="JUSTIFY">The bottom frame of Wide DOS panels with no mini status now joins the
+vertical separator line correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying multiple disks, destination disk images don't inherit the
+error info block of the previous one.</P>
+
+<LI><P ALIGN="JUSTIFY">In the disk copier, automatically skipped bad sectors don't inherit the
+error code of that sector where "Skip auto" was selected.</P>
+
+<LI><P ALIGN="JUSTIFY">If an error occurs during copying a disk to a disk image, the first one or
+two sectors of the current track are not overwritten with the code of the
+turbo loader.</P>
+
+<LI><P ALIGN="JUSTIFY">When changing one of the panels to an external panel, the command line
+path automatically changes to the path of the opposite panel.</P>
+
+<LI><P ALIGN="JUSTIFY">GEOS disks in external Commodore drives are also displayed with the GEOS
+character set.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't move files between images or archives with the same file
+name.</P>
+
+<LI><P ALIGN="JUSTIFY">there are no more lockups if files of empty names are copied into PC64
+file images</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files inside PC64 file images into PC64 file images, the file
+type of the source file is preserved.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying into PC64 file images, the progress indicator filled up with
+half speed and only reached the middle of the bar.</P>
+
+<LI><P ALIGN="JUSTIFY">If you copied files from Commodore drives with typing a file name pattern
+then the Commander tried to copy files in the second, third etc. directory
+sector again and again and the attribute of the destination files was also
+changed to DEL.</P>
+
+<LI><P ALIGN="JUSTIFY">By pressing "Cancel" in the file name conversion confirmation dialog box,
+now you can abort the file copy process immediately.</P>
+
+<LI><P ALIGN="JUSTIFY">When you renamed or deleted files by entering a wildcard pattern, the
+cursor was placed onto an inappropriate file afterwards.</P>
+
+<LI><P ALIGN="JUSTIFY">Directories containing files with dot as the first character of their
+file name couldn't be deleted.</P>
+
+<LI><P ALIGN="JUSTIFY">You are not allowed to copy multiple files with the same name into LHA and
+TAR archives anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">There were several problems if you tried to compress files into LHA
+archives from disk images containing phantom files.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't extract files from LHA archives with a long file name.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying, moving or renaming files, file names are truncated to 16
+characters, except for DOS, TAR and LHA panels.</P>
+
+<LI><P ALIGN="JUSTIFY">In Brief mode, file names in LHA and TAR directories are truncated to 16
+characters.</P>
+
+<LI><P ALIGN="JUSTIFY">Sometimes false errors were reported about trying to copy a file onto
+itself.</P>
+
+<LI><P ALIGN="JUSTIFY">You're not allowed to select relative files with Grey * anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select DOS directories with the right mouse button.</P>
+
+<LI><P ALIGN="JUSTIFY">Frozen files copied into tape images were given invalid attributes so the
+emulator wouldn't load them.</P>
+
+<LI><P ALIGN="JUSTIFY">When saving files, the GEOS soft interleave is used if the source file is
+a GEOS file, not if the destination disk is a GEOS disk.</P>
+
+<LI><P ALIGN="JUSTIFY">While copying files into disk images, Convert archives are not converted
+into GEOS files if GEOS support is disabled.</P>
+
+<LI><P ALIGN="JUSTIFY">If you moved files and appended them to an already existing file then only
+every second source file was processed.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't delete files in image and archive files with typing a file
+name pattern.</P>
+
+<LI><P ALIGN="JUSTIFY">If the destination file already existed, you were asked for confirmation
+about overwriting it, even if you pressed Escape while reading the first
+chunk of data from the source file.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander didn't recognize the standard Commodore file types in DOS
+file extensions.</P>
+
+<LI><P ALIGN="JUSTIFY">If you delete a file image which is opened in the inactive panel then the
+panel will fall back to DOS mode.</P>
+
+<LI><P ALIGN="JUSTIFY">If you enter a year less than 80 in the "Attributes" dialog box then it
+will be assumed to be a date after 2000.</P>
+
+<LI><P ALIGN="JUSTIFY">Even when "Auto unselect files" is unchecked, "File attributes" unselects
+processed files.</P>
+
+<LI><P ALIGN="JUSTIFY">File info didn't recognize frozen files.</P>
+
+<LI><P ALIGN="JUSTIFY">Files extracted from images or archives did not keep the date stamp if
+"Keep file date stamps" is unchecked.</P>
+
+<LI><P ALIGN="JUSTIFY">The attributes of multiple files couldn't be changed in image and archives
+file, only one by one.</P>
+
+<LI><P ALIGN="JUSTIFY">No volume label was displayed for CD-ROM drives and a false volume label
+was reported for Windows 95 partitions where there was a long file name
+entry before the entry of the real label.</P>
+
+<LI><P ALIGN="JUSTIFY">There are no more lockups if you forget the colon at the end of the
+file name pattern in extension files.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Owner" function does not lockup anymore for crosslinked and looping
+files.</P>
+
+<LI><P ALIGN="JUSTIFY">Inserting data in the text half of the sector editor works now.</P>
+
+<LI><P ALIGN="JUSTIFY">Several problems related to Quick view panels have been fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">The sample Commander screens in the external setup have been updated.</P>
+
+<LI><P ALIGN="JUSTIFY">Keeping the left mouse button pressed will scroll the panel display up or
+down, even if you move off the panel rectangle.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and editor now also display the symbols for control characters
+in screen code view mode.</P>
+
+<LI><P ALIGN="JUSTIFY">When creating a new file in the editor, several active functions in the
+key bar, at the bottom of the screen, weren't displayed.</P>
+
+<LI><P ALIGN="JUSTIFY">Search strings were truncated at 21 characters both in the viewer and the
+editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The editor couldn't backup files in shared environments.</P>
+
+<LI><P ALIGN="JUSTIFY">The editor didn't recognize when a file inside an image or archive file
+was too big and, while trying to load it fully into memory, locked up.</P>
+
+<LI><P ALIGN="JUSTIFY">In the ASCII half of the hexa mode of the editor, Alt-key combinations
+won't write a zero byte into a file anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Save as" function of the editor now reads in the attribute of the
+file specified and warns you about it being a read-only, hidden and/or
+system file correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Utilities had several problems with phantom files.</P>
+
+<LI><P ALIGN="JUSTIFY">Star ARC didn't stop displaying some archive titles because it didn't
+recognize their end.</P>
+
+<LI><P ALIGN="JUSTIFY">In Star LHA, you can use a dash before the command "S".</P>
+
+<LI><P ALIGN="JUSTIFY">Star List does not fall into an endless loop when listing messed up disk
+images and stops execution if you press Escape.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List didn't display graphical characters correctly in LHA and TAR
+archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List doesn't recurse into subdirectories unless you explicitly tell
+it to.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip warns you if the destination disk is full.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.81:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander main executable has been restructured to an overlaid
+program, now it needs about 100 KBytes less conventional memory.</P>
+
+<LI><P ALIGN="JUSTIFY">The executable files and the online help are neither compressed nor
+encrypted anymore because their source is published anyway; feel free to
+compress the executable files yourself, if you need to fit them onto a
+floppy disk.</P>
+
+<LI><P ALIGN="JUSTIFY">The personal keyfile is now called "sc.key" so that its extension doesn't
+conflict with that of Windows registry files; rename your keyfile to make
+it work again.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the command line option "/novesa", to disable VESA BIOS
+support upon startup.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the command line option "/nolpt", to completely disable
+parallel port access.</P>
+
+<LI><P ALIGN="JUSTIFY">The documentation contains some technical background information about PC
+parallel ports.</P>
+
+<LI><P ALIGN="JUSTIFY">Raised the proposed registration fee to 10 EUR and 1000 HUF; the 10 USD
+remained unchanged; also, removed the possibility to pay by check.</P>
+
+<LI><P ALIGN="JUSTIFY">The extension of the documentation files of the Star Utilities was changed
+to ".txt" because they are plain DOS text files.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for 1571 and 1581 disk images and Prologic DOS
+extended disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for Commodore 1570 and 1571 drives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for the XM1541 multitask and the XA1541 active cables.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for the XH1571 hybrid and XP1571 parallel cables for
+Commodore 1570 and 1571 drives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a new option called "Force async mode" that, at the cost of a
+slightly lower transfer speed, allows you to access Commodore drives under
+a multi-tasking system, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for the "giveio" and "userport" drivers that enable
+access of Commodore drives under Windows NT, Windows 2000 and Windows XP;
+you must use the tweak package to make this possible.</P>
+
+<LI><P ALIGN="JUSTIFY">The complete external setup has been integrated into the main program,
+Control-F9 now opens the menu of configuration screens.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a new menu for maintaing local settings for all the Commodore
+drives you have, with Control-F10 assigned to it.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can change the address of the parallel ports to any value using
+the two custom port address slots.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for relative files.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander, the viewer and the editor can now process multiple files
+with the same name independently.</P>
+
+<LI><P ALIGN="JUSTIFY">The warp disk copier now recognizes 27 and 29 READ ERROR's.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for VESA text screen modes up to 132x60, to be changed
+with Alt-F10.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for GEOS disk images in Star List.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a "printf"-style way to format the output of Star List.</P>
+
+<LI><P ALIGN="JUSTIFY">Just like in the other Commanders, Shift+F10 positions to the item
+previously executed in the menu tree.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the warp delete and validate routines that read through the
+disk only once instead of tracking through the files on it one by one.</P>
+
+<LI><P ALIGN="JUSTIFY">The configuration menus have been rearranged; you can jump between
+submenus with the "Next" and "Previous" buttons.</P>
+
+<LI><P ALIGN="JUSTIFY">The online help pages now list all configuration options related to that
+particular function rather than only the important ones.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a smart drive presence detection routine.</P>
+
+<LI><P ALIGN="JUSTIFY">You should now be able to use your Commodore drive from a Commodore
+machine and a PC simultaneously, as the Commander decouples the PC from
+the common serial bus one second after having completed a disk operation.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing Escape or F10, while messages or code fragments are transferred
+between the PC and the external drive, aborts the operation with a timeout
+error; with "Manual timeouts", you can control whether you can generate
+timeouts manually or not.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing clipboard support, buffering data on disk or, when available,
+in the common Windows clipboard.</P>
+
+<LI><P ALIGN="JUSTIFY">The mode of parallel ports is not checked upon returning from DOS shells
+anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can access tracks 36-40 on 1541 disks on any 1541 drive.</P>
+
+<LI><P ALIGN="JUSTIFY">You can again use Control+Shift to toggle the C64 character set.</P>
+
+<LI><P ALIGN="JUSTIFY">"Quality C64 charset" lets you switch between the two VGA modes used to
+display the C64 character set on the screen.</P>
+
+<LI><P ALIGN="JUSTIFY">"Prefer long names" lets you use long file names more comfortably.</P>
+
+<LI><P ALIGN="JUSTIFY">You can also select files by holding Shift when moving the cursor.</P>
+
+<LI><P ALIGN="JUSTIFY">You can use Control-N to toggle long file names.</P>
+
+<LI><P ALIGN="JUSTIFY">Control+Tab now completes DOS commands and file names on the command line
+and in file name input lines.</P>
+
+<LI><P ALIGN="JUSTIFY">Pattern matching for Commodore file names is now case-sensitive, like on
+real Commodore drives, but the "*" wildcard is handled the Unix way
+(rather than the DOS way), unlike real Commodore drives.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new option "Alternative hotkeys", a few hotkeys, mainly ones that
+are hard to use on a laptop, can be replaced with other keys or key
+combinations on the alphanumerical keyboard.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new option "Cursor follows filename", you can set whether the
+cursor should jump onto the new position of a file after a rename
+operation and jump onto the new file or directory after having created
+one.</P>
+
+<LI><P ALIGN="JUSTIFY">"Convert chars" makes the Commander convert those PETSCII characters to
+hexadecimal codes, that have no ASCII equivalent, and converts these codes
+back to PETSCII characters during file copies and any other inputs where
+Commodore strings are used.</P>
+
+<LI><P ALIGN="JUSTIFY">New possible values for the "Into PC64 file images" and "Extract PC64 file
+images" options allow you to copy into PC64 file images only if the source
+is a Commodore file and extract the contents of PC64 file images only if
+the destination is a Commodore panel; in parallel, the local override
+settings for these two options have been removed from the "Copy" dialog
+box.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can rename and delete files inside PC64 file images.</P>
+
+<LI><P ALIGN="JUSTIFY">You can use Alt-Up and Alt-Down to change the height of the panels row by
+row.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the width of the panels with Alt-Left and Alt-Right.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the width of the Name column with Alt-Shift-Left and
+Alt-Shift-Right.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the height of the mini status with Alt-Shift-Up and
+Alt-Shift-Down.</P>
+
+<LI><P ALIGN="JUSTIFY">The cursor moves in a smarter way between items in dialog boxes.</P>
+
+<LI><P ALIGN="JUSTIFY">When Tab or Shift-Tab is pressed in a group of radio buttons, the cursor
+jumps to the next or previous group of items.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the Wide panel mode for CBM panels.</P>
+
+<LI><P ALIGN="JUSTIFY">Wide DOS panels are now very similar to Full DOS panels, the only
+difference is that, in Wide panels, file names are not split into the name
+and extension parts.</P>
+
+<LI><P ALIGN="JUSTIFY">Instead of radio buttons, the panel filters are now check boxes so that
+you can make the panels show files that belong to any of the selected
+groups rather than only one selected group; also, there is a new panel
+filter for PC archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "Restore selection" feature.</P>
+
+<LI><P ALIGN="JUSTIFY">You can sort the display of disk images, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">There is a new configuration menu for soft and hard interleaves.</P>
+
+<LI><P ALIGN="JUSTIFY">To save memory, the disk editor discards the contents of temporary buffers
+upon exit.</P>
+
+<LI><P ALIGN="JUSTIFY">Now you can also enter Commodore drive device numbers in the error dialog
+box that comes up if there's no disk in the PC drive you tried to change a
+panel to.</P>
+
+<LI><P ALIGN="JUSTIFY">DOS files are first opened in sharing mode and, if unsuccessful, then in
+compatibility mode.</P>
+
+<LI><P ALIGN="JUSTIFY">The visible length of the "Program extension" input line has been raised
+to 8 characters.</P>
+
+<LI><P ALIGN="JUSTIFY">The checkbox "Fast command exec" has been changed to a group of radio
+buttons called "Command execution" with the possible values of "Normal",
+"Turbo" and "Warp".</P>
+
+<LI><P ALIGN="JUSTIFY">You are warned if the destination tape image grows above 64 entries
+because C64S can only handle the first 64 of them.</P>
+
+<LI><P ALIGN="JUSTIFY">Instead of an error message that you have to confirm, you only hear a beep
+if there's not enough memory to read in the directory.</P>
+
+<LI><P ALIGN="JUSTIFY">If there are no more entries in destination tape image during file copy
+then you're asked about expanding it.</P>
+
+<LI><P ALIGN="JUSTIFY">Under 4DOS and NDOS, files with the extension ".btm" are also recognized
+as executable files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can now set the real number of retries, the search on adjacent
+halftracks and the head bump on retry separately.</P>
+
+<LI><P ALIGN="JUSTIFY">The default number of retries of disk errors on Commodore disks has been
+raised from 1 to 5.</P>
+
+<LI><P ALIGN="JUSTIFY">The progress indicator boxes don't flicker anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">When a disk error occurs while copying a file from a Commodore disk in
+warp transfer mode, it is possible to skip the current file only rather
+than cancelling the complete file copy.</P>
+
+<LI><P ALIGN="JUSTIFY">You can make the Commander save files into the unused sectors of the
+directory track, if there's no more space in the destination disk image,
+by checking "Copy onto dir track".</P>
+
+<LI><P ALIGN="JUSTIFY">When saving files onto disks or into disk images, the fill pattern for the
+unused part of their last block is determined by the "Orig format pattern"
+option.</P>
+
+<LI><P ALIGN="JUSTIFY">When the destination file already exists, during a file copy, you can also
+choose "Rename" to have the source file saved with another name.</P>
+
+<LI><P ALIGN="JUSTIFY">You can force the deletion of all read-only or write-protected files
+without further confirmation for each.</P>
+
+<LI><P ALIGN="JUSTIFY">In delete and overwrite confirmation boxes, you can choose to skip all
+files without further confirmation for each.</P>
+
+<LI><P ALIGN="JUSTIFY">The deletion of cross-linked files ends when arriving at the BAM or the
+first directory sector.</P>
+
+<LI><P ALIGN="JUSTIFY">"Make directory" now creates a directory structure of any depth in one go.</P>
+
+<LI><P ALIGN="JUSTIFY">By checking the new item "Keep lowercase chars", under Windows 95, you can
+create directories with lowercase file names.</P>
+
+<LI><P ALIGN="JUSTIFY">Now there are separate soft interleave configurations for external drives
+and all types of disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum value of interleaves has been raised to 21.</P>
+
+<LI><P ALIGN="JUSTIFY">The hotkey Control-F7 is now assigned to "File attributes".</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the attributes of a whole directory structure of DOS files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can disable the head bump before disk format.</P>
+
+<LI><P ALIGN="JUSTIFY">Both parallel ports assigned to the Commander are initialized to input
+mode and ECP ports are set to byte mode, upon startup and before every
+access of the Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">A lot more ASCII characters are converted to PETSCII in file names during
+file copy from a DOS panel to a CBM panel.</P>
+
+<LI><P ALIGN="JUSTIFY">Now all PETSCII characters are converted to some similar ASCII character
+when displaying file names or copying files from CBM to DOS panels.</P>
+
+<LI><P ALIGN="JUSTIFY">The user menu displays the first 16 items only.</P>
+
+<LI><P ALIGN="JUSTIFY">The user menu item "Minimize" deletes unused entries from tape images.</P>
+
+<LI><P ALIGN="JUSTIFY">If the first line of a menu or extension file is a comment starting with
+the word "title" then the rest of the line is taken as the title of the
+menu to be displayed on the screen.</P>
+
+<LI><P ALIGN="JUSTIFY">The user menu for external drives is expanded with an item which changes
+the head used by the 1571 drive in 1541 mode.</P>
+
+<LI><P ALIGN="JUSTIFY">You can protect and unprotect 1541 disk images from the user menu.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new item in the user menu for disk images, you can select files
+that contain at least one bad sector.</P>
+
+<LI><P ALIGN="JUSTIFY">Now the "Clean" and "Safe clean" functions don't touch at all sectors that
+are used but don't belong to a file.</P>
+
+<LI><P ALIGN="JUSTIFY">When cleaning disk images, the BAM, the first directory sector and the
+GEOS border sector are cleaned with their default contents rather than the
+current format pattern, if they're marked free.</P>
+
+<LI><P ALIGN="JUSTIFY">If no setup file is present, the parallel port assignments default to LPT1
+both.</P>
+
+<LI><P ALIGN="JUSTIFY">Critical error dialog boxes contain an additional "Ignore" button, when
+allowed.</P>
+
+<LI><P ALIGN="JUSTIFY">With the "Skip all" button in read error message boxes, you can have all
+subsequent read errors skipped for the current file being copied and
+during a disk editor session.</P>
+
+<LI><P ALIGN="JUSTIFY">You can enter wildcards into the speed-search dialog box.</P>
+
+<LI><P ALIGN="JUSTIFY">The speed search dialog box scrolls the panel in a smarter way so that a
+few entries around the target entry are also visible.</P>
+
+<LI><P ALIGN="JUSTIFY">In sort modes other than "Unsorted", directories are sorted before normal
+files in LHA and TAR archives, too.</P>
+
+<LI><P ALIGN="JUSTIFY">The "File sizes" warning now takes the actual amount of free space into
+account and works with DOS drives, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">Some steps were taken to better display file and disk sizes above 2
+Gigabytes.</P>
+
+<LI><P ALIGN="JUSTIFY">When a bad sector is read from a disk image that has an error info block
+attached then an error message is displayed and the error code is cleared
+if a sector is overwritten; you can disable this by unchecking the new
+option "Show read errors".</P>
+
+<LI><P ALIGN="JUSTIFY">The menu of available commands in the disk editor has been moved to F9
+because now several other commands are assigned to the other function
+keys.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk editor asks for confirmation every time you read in a new sector
+and the current one had been modified.</P>
+
+<LI><P ALIGN="JUSTIFY">The confirmations in the disk editor now have three choices that allow you
+to save and proceed, discard and proceed or cancel.</P>
+
+<LI><P ALIGN="JUSTIFY">With several hotkeys in the disk editor you can jump to different
+important sectors of the disk or disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">Shift-Home in the sector editor takes "Orig format pattern" into account.</P>
+
+<LI><P ALIGN="JUSTIFY">In the BAM editor, free sectors are marked with a dot and used ones with
+an asterisk.</P>
+
+<LI><P ALIGN="JUSTIFY">You can jump to any sector directly from the BAM and error info editor.</P>
+
+<LI><P ALIGN="JUSTIFY">Ctrl-Gray Plus/Minus/Star select/unselect/invert the complete BAM in the
+BAM editor.</P>
+
+<LI><P ALIGN="JUSTIFY">Using Shift-F1 to Shift-F8 and Alt-F1 to Alt-F8, you can jump to the first
+block and the info block of files directly from directory sectors.</P>
+
+<LI><P ALIGN="JUSTIFY">A new function in the disk editor lets you see the owner of the current
+block and you can move around the blocks that belong to the same file.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk editor now shows the linear offset of the current sector in the
+disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new feature, you can make the disk editor display the sector
+contents in ASCII, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">You can use Enter to enter and exit the sector editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The sector editor remembers the last position of the cursor when you exit.</P>
+
+<LI><P ALIGN="JUSTIFY">You can pick up two bytes under the cursor in the sector editor and jump
+to the block at that track and sector.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copier has been extended with the ability to duplicate and merge
+disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">It is now possible to manually select the sectors to be copied by the disk
+copier.</P>
+
+<LI><P ALIGN="JUSTIFY">If you leave the file name part of the destination blank in the disk
+copier then the source file name will be duplicated there; except when
+copying a Commodore disk into a disk image, in which case the file name
+"disk0001" is added and indexing is switched on automatically.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying multiple disks into disk images and the destination file
+already exists, the index is increased until a non-existant file is found.</P>
+
+<LI><P ALIGN="JUSTIFY">"Fetch format label from source" has been removed from the "Copy disk"
+dialog box, destination disks are always formatted with the label of the
+source disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">Upon input of disk labels, trailing spaces are not cut off from the disk
+name or ID code.</P>
+
+<LI><P ALIGN="JUSTIFY">You can make the disk copier check the BAM ID against the sector header ID
+and correct the BAM ID, if needed.</P>
+
+<LI><P ALIGN="JUSTIFY">With a new option in the disk copier, you can have the source disk
+directory displayed in the active panel before you'd actually copy it.</P>
+
+<LI><P ALIGN="JUSTIFY">To speed up the disk copy of multiple disk images, you're not asked for
+confirmation when preformatting the destination disks.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copier can also generate indices containing disk side letters,
+when copying multiple disks from a Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copy now always ends with seeking the head back to the directory
+track.</P>
+
+<LI><P ALIGN="JUSTIFY">You can switch disk copy modes in the "Copy disk" dialog box with the
+function keys, too.</P>
+
+<LI><P ALIGN="JUSTIFY">If you're copying an extended 1541 disk or disk image and, for any reason,
+no data was copied from the extra tracks then you're asked about removing
+them completely from the resulting disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">By checking a new option, "Detect disk changes", you can make the disk
+copier continue copying the next disk or disk image as soon as you change
+the disk in the external Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">If you check a new option, "Endless retry", the disk copier will keep
+reading bad sectors until it succeeds or you exit the loop by pressing
+Escape or F10.</P>
+
+<LI><P ALIGN="JUSTIFY">If you choose to create an error info block at the end of a disk copy, the
+errors will be displayed in the error info editor.</P>
+
+<LI><P ALIGN="JUSTIFY">When specifying source files for copy, move, rename or deletion, you can
+enter a list of file name patterns, delimited with commas or semicolons.</P>
+
+<LI><P ALIGN="JUSTIFY">During a file copy from or to a Commodore 1541 drive, the extra tracks are
+detected only before copying the first file but not for subsequent files.</P>
+
+<LI><P ALIGN="JUSTIFY">You get an error message when you're trying to copy a GEOS file from a
+Commodore disk and a warning message when copying a GEOS file to a
+Commodore disk.</P>
+
+<LI><P ALIGN="JUSTIFY">There's an error message when you try to delete a GEOS file on a Commodore
+disk or try to validate a GEOS disk.</P>
+
+<LI><P ALIGN="JUSTIFY">The file copy is a bit faster when you copy selected files from a
+Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">In GEOS disk images, non-GEOS files are also saved the same way as GEOS
+files.</P>
+
+<LI><P ALIGN="JUSTIFY">You can format multiple disks in one session by checking "Format multiple
+disks" in the "Format" dialog box.</P>
+
+<LI><P ALIGN="JUSTIFY">When formatting Commodore disks, the characters "*", "=" and "?" are
+replaced with spaces so that the drive doesn't reply with an error
+message.</P>
+
+<LI><P ALIGN="JUSTIFY">Files with the extension ".sfx" are now handled as LHA archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Files starting on the dirst directory sector or on any BAM sector are also
+considered to be phantom files.</P>
+
+<LI><P ALIGN="JUSTIFY">Sizes in Info panels are now displayed in a single form, depending on the
+current status of "DOS sizes in blocks".</P>
+
+<LI><P ALIGN="JUSTIFY">Quick view panels now display file count and file size totals for
+directories in the opposite panel.</P>
+
+<LI><P ALIGN="JUSTIFY">The "File info" dialog box shows the description of GEOS files.</P>
+
+<LI><P ALIGN="JUSTIFY">For BASIC programs, "File info" now also displays the computer the file
+was, most probably, created on.</P>
+
+<LI><P ALIGN="JUSTIFY">When changing the attributes of a single Commodore file, the new default
+for the file type is "Do not change".</P>
+
+<LI><P ALIGN="JUSTIFY">The disk image maker is back to its original speed.</P>
+
+<LI><P ALIGN="JUSTIFY">The speed-search dialog boxes are now wider, allowing you to type more of
+long file names.</P>
+
+<LI><P ALIGN="JUSTIFY">When long file names are available, file name input lines allow data to be
+entered up to 255 characters.</P>
+
+<LI><P ALIGN="JUSTIFY">If a command being executed already exists in the history then it is moved
+to the end of the list instead of being duplicated.</P>
+
+<LI><P ALIGN="JUSTIFY">Command lines containing spaces only are discarded.</P>
+
+<LI><P ALIGN="JUSTIFY">In input lines, Control-Del has the same function as Control-T.</P>
+
+<LI><P ALIGN="JUSTIFY">When inputting file names, Alt-24 and Alt-27 are converted to the up and
+left arrows of the PETSCII character set.</P>
+
+<LI><P ALIGN="JUSTIFY">Good sectors are marked with a dash instead of a number "1" in the error
+info editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The function that strips the error info block off the disk image is now
+assigned to F8 in the error info editor.</P>
+
+<LI><P ALIGN="JUSTIFY">With the symbol "!/" in user menu and extension files, you can insert the
+current path inside the current image file into the command line; also,
+the symbol "!#" inserts the zero-based index of the current file inside
+the current image file.</P>
+
+<LI><P ALIGN="JUSTIFY">Standard viewers and editors are searched for in the PATH, not only the
+Commander home directory.</P>
+
+<LI><P ALIGN="JUSTIFY">The description of supported Commodore drives has been moved to a separate
+page in the online help.</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum length of a line remaining unwrapped in the viewer and the
+editor has been raised to 2048 characters.</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum length of search strings has been raised from 64 to 255 in
+both the viewer and the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and editor now accept file names containing spaces, even if
+they're not enclosed into quotation marks on the command line.</P>
+
+<LI><P ALIGN="JUSTIFY">When the load address is displayed in the viewer or editor, the "Goto"
+function inputs and goes to a memory address rather than a file offset.</P>
+
+<LI><P ALIGN="JUSTIFY">In the viewer and editor, you can also use the mouse to select the file to
+view or edit in an image or archive file.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor now also display special symbols and do Tab
+translation in PETSCII mode.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer can also display file offsets based on the load address.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer now displays a warning about the current file being corrupted
+only once.</P>
+
+<LI><P ALIGN="JUSTIFY">If a long file name is specified in the command line and the file does not
+exist then the viewer truncates the file name to short form and retries
+opening the file.</P>
+
+<LI><P ALIGN="JUSTIFY">In the editor, there are separate Insert/Overwrite modes, indicated by the
+cursor shape and a marker in the title bar, for the text and hexa modes;
+when Insert is active in hexa mode, you can insert and delete bytes just
+like in text mode.</P>
+
+<LI><P ALIGN="JUSTIFY">In the editor, Ctrl-Del deletes the selected block, if there is one;
+otherwise, deletes the word to the right of the cursor, as before.</P>
+
+<LI><P ALIGN="JUSTIFY">The Replace function of the editor can now, in both text and hexa mode,
+either delete the old string and insert the new one in its place or patch
+the old string with the new.</P>
+
+<LI><P ALIGN="JUSTIFY">If you answer "All" to the confirmation of the Replace function of the
+editor then the screen won't follow instances being replaced which speeds
+up the process to several times the original speed.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select blocks with Shift-arrow keys, as well, in the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">You can use wildcards in the "Insert file" box of the editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Utilities can now handle long file names.</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Utilities now have two more options that tell whether to display
+Commodore file names with the lowercase/uppercase or uppercase/graphics
+character set.</P>
+
+<LI><P ALIGN="JUSTIFY">A new option in the Star Utilities lets you delete successfully processed
+source files.</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Utilities can now extract data into 1571 and 1581 disk images,
+too.</P>
+
+<LI><P ALIGN="JUSTIFY">The format descriptions in the Star Utilities now mention relative files.</P>
+
+<LI><P ALIGN="JUSTIFY">Star ARC now displays archive comments upon extraction.</P>
+
+<LI><P ALIGN="JUSTIFY">Star Zip, by default, stores the cosmetical ID in the BAM of the source
+disk image as the sector header ID stored into diskpacked ZipCode
+archives.</P>
+</UL>
+
+<HR>
+
+<H3>The Star Commander, Version 0.83 (sc083.zip, 2010-01-11)</H3>
+
+<P ALIGN="JUSTIFY">Bugs fixed since Version 0.82:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The Commander doesn't crash dosemu anymore but XMS is not used either.</P>
+
+<LI><P ALIGN="JUSTIFY">You get no error message about the drive setup file being corrupted if the
+main setup file is missing.</P>
+
+<LI><P ALIGN="JUSTIFY">On certain machines, with a buggy VGA BIOS, the Commander displayed an
+empty screen, although worked correctly. (Thanks to H&aacute;rsfalvi Levente for
+the fix.)</P>
+
+<LI><P ALIGN="JUSTIFY">A weird problem, that caused extremely rare lockups upon launching the
+Commander on systems with XMS memory available, has been fixed in the
+OverXMS unit.</P>
+
+<LI><P ALIGN="JUSTIFY">"Fast mouse reset" didn't make any difference with PS/2 mice.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Extended 1541 disks" setting was saved incorrectly into the drive
+setup file.</P>
+
+<LI><P ALIGN="JUSTIFY">The "DOS type" setting was not saved at all into the drive setup file.</P>
+
+<LI><P ALIGN="JUSTIFY">The option "Orig format pattern" was always displayed as disabled in the
+configuration menu, although enabling or disabling it had the correct
+effect.</P>
+
+<LI><P ALIGN="JUSTIFY">Moving the mouse does not halt the process of a Quick view panel
+collecting the number and size of files and directories inside the
+directory highlighted in the opposite panel.</P>
+
+<LI><P ALIGN="JUSTIFY">When using the "Quick view" item of the "Left" and "Right" menus, it was
+the opposite panel that switched to Quick view mode and the display of the
+specified panel was emptied.</P>
+
+<LI><P ALIGN="JUSTIFY">PETSCII codes $7E, $9E, $DE and $FF were incorrectly displayed with the
+lowercase/uppercase C64 charset: the character was reversed.</P>
+
+<LI><P ALIGN="JUSTIFY">When pasting long file names, that contain spaces or other invalid
+characters, into input lines, they were enclosed into double quotation
+marks.</P>
+
+<LI><P ALIGN="JUSTIFY">Quotation marks are removed automatically from DOS paths and file names
+entered into input lines so that you may copy and paste them between the
+Commander and other applications easily; quotation marks in Commodore
+paths and file names are kept, however.</P>
+
+<LI><P ALIGN="JUSTIFY">When disabling long file name support with Ctrl-N, selected files were not
+reselected.</P>
+
+<LI><P ALIGN="JUSTIFY">TAR archives were reported as broken.</P>
+
+<LI><P ALIGN="JUSTIFY">The number of sides is not detected for disks in 1570 drives anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">For 1571 drives, the Commander now uses the drive's own detection method
+to determine whether a disk is single- or double-sided.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files out of LHA and ZIP archives, the archive is temporarily
+uncompressed into the destination directory &#150; or, if the destination is a
+Commodore drive, the TEMP directory &#150; rather than the source directory,
+which may be a read-only medium such as a CD/DVD-ROM or a network drive.</P>
+
+<LI><P ALIGN="JUSTIFY">Deleting the last file in Arkive, Lynx and filepacked ZipCode archives
+caused data corruption.</P>
+
+<LI><P ALIGN="JUSTIFY">Adding files to a filepacked ZipCode archive may have corrupted the last
+block of the previously last file in the archive.</P>
+
+<LI><P ALIGN="JUSTIFY">The progress indicator counted blocks incorrectly while copying a file
+from a Commodore drive in normal transfer mode.</P>
+
+<LI><P ALIGN="JUSTIFY">When appending to a DOS file, the progress bar doesn't get filled already
+at the beginning of the file copy and, when cancelling the operation, the
+destination file gets its original size and date stamp back rather than
+getting deleted.</P>
+
+<LI><P ALIGN="JUSTIFY">When copying files into filepacked ZipCode archives, sectors filled with
+one byte were compressed as "packed" instead of "homogeneous", by both the
+Commander or Star Zip, which causes no data corruption but increases the
+archive size unnecessarily.</P>
+
+<LI><P ALIGN="JUSTIFY">In the confirmation dialog box for overwriting read-only or write
+protected files, the "No" button has been renamed to "Skip" and it doesn't
+cancel the complete file operation anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">If "Copy onto dir track" was enabled, when copying a too large file into a
+GEOS-formatted disk image, the Commander locked up rather than displaying
+an error message about the destination disk having become full.</P>
+
+<LI><P ALIGN="JUSTIFY">During file rename, already existing target files are now detected
+correctly under operating systems other than real DOS, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">If you renamed files on Commodore drives with a device number other than
+8, the Commander tried to move them instead.</P>
+
+<LI><P ALIGN="JUSTIFY">It is now possible to rename files inside LHA archives to names longer
+than 16 characters.</P>
+
+<LI><P ALIGN="JUSTIFY">When trying to create a subdirectory inside a 1581 disk image, an error
+message, complaining about the number of tracks, kept popping up forever.</P>
+
+<LI><P ALIGN="JUSTIFY">When changing the date and/or time stamps of DOS files, the archive
+attribute was always set.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Attribute" function could not change the date stamps of files under
+Windows XP.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't change to a completely empty drive, one that had no files or
+directories in the root directory.</P>
+
+<LI><P ALIGN="JUSTIFY">When reading Commodore disks in warp mode, the complete sector header,
+including the two padding bytes, is transferred to the PC and stored into
+the destination, if it is a GCR-based disk format.</P>
+
+<LI><P ALIGN="JUSTIFY">The warp disk copier handled 20,READ ERROR's incorrectly: no data was read
+from the damaged sector and other sectors, on the same track, may have
+inherited this error.</P>
+
+<LI><P ALIGN="JUSTIFY">The disk copier locked up at the end of merging disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">There was a memory leak, causing weird behavior or lockups, in the message
+box in which the disk copier warned about the sector header ID and the BAM
+ID of the source disk being different.</P>
+
+<LI><P ALIGN="JUSTIFY">In the error info editor of the disk editor, you couldn't put error codes
+"A" to "F" to a whole track by pressing the appropriate shifted letter.</P>
+
+<LI><P ALIGN="JUSTIFY">When owners are displayed, the BAM editor corrupted the BAM upon saving
+changes that affect the second or third BAM sector in 1571 and 1581 disk
+images.</P>
+
+<LI><P ALIGN="JUSTIFY">If the video card returned bogus VESA screen mode numbers, the "Video
+mode" function couldn't position the highlight bar onto the line that
+represents the current screen mode, upon popping up.</P>
+
+<LI><P ALIGN="JUSTIFY">If the video card returned bogus VESA screen mode numbers, the Commander,
+its loader, the viewer and the editor may have switched the screen into
+80x25 mode, thinking that the current screen mode is graphical.</P>
+
+<LI><P ALIGN="JUSTIFY">In the palette setup screen, the cursor did not show the current color of
+the item highlighted in the list.</P>
+
+<LI><P ALIGN="JUSTIFY">The external setup locked up upon exiting the "Configuration" menu.</P>
+
+<LI><P ALIGN="JUSTIFY">Pressing the "Skip" button in the replace confirmation box of the editor
+had no effect.</P>
+
+<LI><P ALIGN="JUSTIFY">Standard viewers and editors are executed in a way that is more compatible
+with DOS clones.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer is now able to show files up to the maximum size of DOS files:
+2 Gigabytes.</P>
+
+<LI><P ALIGN="JUSTIFY">You couldn't enter subdirectories in 1581 disk images in the file selector
+of the internal viewer and editor.</P>
+
+<LI><P ALIGN="JUSTIFY">Very long Commodore file names, those of files in subdirectories of disk
+images and archive files, were cut improperly to make them fit into the
+title bar of the internal viewer and editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The directory list of the file selector is now centered on the screen in
+VESA modes, too, where the screen is wider.</P>
+
+<LI><P ALIGN="JUSTIFY">In disk images, the Star Utilities assume files with a starting track of
+zero to be phantom files and don't fall into an infinite loop when trying
+to extract file data anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List, when using a format specification file, did not display the
+container header if the first file entry of the container was deleted and
+so not visible; it also did not display the container footer if the
+listing ended because of too many entries in the container.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List shifted the filenames one line upwards when listing LHA, LHA SFX
+and TAR archives without format specification.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Other changes since Version 0.82:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">From now on, for unregistered users, beta versions expire one year after
+their release; please, always download the newest beta and don't complain
+about problems with old betas!</P>
+
+<LI><P ALIGN="JUSTIFY">The source package does not include the (modified) source of Turbo Vision,
+Borland Pascal's user interface, anymore, only the compiled units and
+object files plus patch files that convert the original Turbo Vision
+source files into their modified form.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for accessing Commodore drives via the OpenCBM driver
+(cbm4win 0.4.0 or above) under Windows NT4/2000/XP/2003 &#150; use the
+"OpenCBM" value for the "Serial cable" option in the "Transfer options"
+configuration screen.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing disk turbos for 1581 drives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for ZIP archives, using Info-ZIP as external archiver:
+you may read the directory and add, extract, rename and delete files; note
+that PKZIP will definitely not work.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing read-only support for diskpacked ZipCode archives: you may
+read the directory, extract files and view the disk with the disk editor.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the enhanced disk copier that can copy between any pairs of
+Commodore disks, disk images, diskpacked ZipCode archives and sixpacked
+ZipCode archives.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing read-only support for the "*.f64" disk image companion files
+created by FCOPY-PC.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing batch processing capability; read the documentation for more
+details.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing a Commodore 1541 disk formatter that verifies sectors and
+allocates bad ones in the BAM; for non-extended disks only.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander is now able to show file and disk sizes up to the maximum
+size of NTFS/ext2 files: 8 Exabytes (1 Exabyte = 1 thousand million
+Gigabytes).</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "/noxms" and "/noems" command line parameters that disable
+XMS and EMS usage.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "/color", "/bw" and "/laptop" command line parameters to
+force the color, black &amp; white and laptop palette.</P>
+
+<LI><P ALIGN="JUSTIFY">The "/novesa" command line parameter disables VESA support completely, not
+only during startup.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "/nowinclip" command line parameter that disables usage of
+the common Windows clipboard.</P>
+
+<LI><P ALIGN="JUSTIFY">Paths longer than 80 characters are also saved inside and between
+sessions.</P>
+
+<LI><P ALIGN="JUSTIFY">The interval of valid parallel port addresses has been expanded to
+$0200-$F800.</P>
+
+<LI><P ALIGN="JUSTIFY">Under Windows NT4/2000/XP/2003, the quasi-files, assigned to the GiveIO
+and UserPort drivers, are kept open during parallel port access and closed
+only afterwards so that drivers can set up exclusive port usage for the
+Commander.</P>
+
+<LI><P ALIGN="JUSTIFY">As the parallel port mode cannot be reliably detected under Windows
+NT4/2000/XP/2003, the warning about using an XP1541/XP1571 parallel cable
+on an SPP parallel port is not displayed anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">A new option, "Invalid GCR error", lets you configure what error message
+the warp disk copier should generate when it encounters invalid GCR codes
+in sectors of Commodore disks.</P>
+
+<LI><P ALIGN="JUSTIFY">A new option, "Num of smart retries", enables a different method for
+retrying bad sectors on Commodore disks: if the damaged raw data, read
+from the disk, is the same for this many consecutive retries, the sector
+is considered to be successfully read, the error code is noted but no
+error message is displayed.</P>
+
+<LI><P ALIGN="JUSTIFY">If the "Delay value" option is set to 0, the new default value, then the
+actual delay value is computed by the automatic calibrator before every
+access of the Commodore drive.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Force async transfer" option is now called "Async transfer" and its
+"Auto" value allows you to let the Commander automatically decide whether
+to use synchronous or asynchronous data transfer.</P>
+
+<LI><P ALIGN="JUSTIFY">The new "SafeAll" and "SafeUsed" values for "Detect port modes" skip port
+mode detection under Windows NT4/2000/XP/2003, to avoid delays and crashes
+of the DOS shell, but work exactly as "All" and "Used" under other
+operating systems.</P>
+
+<LI><P ALIGN="JUSTIFY">The current transfer mode is highlighted in the "Drive interleaves" frame
+of the "Drive options" menu so that you may tune the transfer speed
+easily.</P>
+
+<LI><P ALIGN="JUSTIFY">More alternative hotkeys: Delete for deleting files, Backspace for
+entering the parent directory.</P>
+
+<LI><P ALIGN="JUSTIFY">You get an error message if the Commander runs out of memory while reading
+the directory into a panel.</P>
+
+<LI><P ALIGN="JUSTIFY">Removed the screen flickering upon entering and exiting standard viewers
+and editors and, when the Commodore character set enabled, the screen mode
+changes upon entering and exiting the internal viewer and editor.</P>
+
+<LI><P ALIGN="JUSTIFY">The "low brightness on black" shadow color has been changed to "low
+brightness on low brightness" because it casts a more realistic shadow
+onto reverse characters.</P>
+
+<LI><P ALIGN="JUSTIFY">To specify special PETSCII characters, "%xy" hexadecimal codes may now be
+used for source file names, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">Under Windows NT4/2000/XP/2003, files with the extension ".cmd" are also
+considered executable program files.</P>
+
+<LI><P ALIGN="JUSTIFY">In the Filter settings, TAR archives are taken for PC archives rather than
+CBM archives.</P>
+
+<LI><P ALIGN="JUSTIFY">The "User command" function of the user menu for Commodore drives always
+displays the drive status and displays it as PETSCII string so that all
+kinds of unusual drive commands may be used and their results viewed.</P>
+
+<LI><P ALIGN="JUSTIFY">When turbo formatting an extended 1541 disk, and "DOS type" is set to
+"Dolphin DOS" in "Transfer options", the first padding byte of sector
+headers is set to $0D, so that Dolphin DOS also recognizes the disk as
+having 40 tracks. The same occurs, when converting an extended 1541 disk
+image or diskpacked ZipCode archive to GCR-coded disk image or sixpacked
+ZipCode archive format, and "DOS type" is set to "Dolphin DOS" in "Image
+options".</P>
+
+<LI><P ALIGN="JUSTIFY">In the "File attributes" box for DOS files, the year part of the date
+stamp is displayed with four digits, including the century.</P>
+
+<LI><P ALIGN="JUSTIFY">In "File attributes", date and time stamps may be specified in the ISO
+"yyyy-mm-dd" and "hh:mm:ss" format, too.</P>
+
+<LI><P ALIGN="JUSTIFY">In the "File info" box for GEOS files, the hour part of date stamp is
+always displayed in AM/PM mode, even if the regional settings of the
+operating system tell otherwise.</P>
+
+<LI><P ALIGN="JUSTIFY">"File info" recognizes more of the standard load addresses of BASIC
+programs for various Commodore machines.</P>
+
+<LI><P ALIGN="JUSTIFY">Added a separate online help page on disk errors: what their reason is and
+how the disk copier reacts to them.</P>
+
+<LI><P ALIGN="JUSTIFY">When "DOS type" is set to "Prologic DOS" in "Image options", only extended
+disk images get a DOS version code of "P" written into the BAM sector upon
+creation; normal disk images don't.</P>
+
+<LI><P ALIGN="JUSTIFY">The "Change drive" dialog box does not spin up floppy disk drive(s) under
+Windows NT4/2000/XP/2003, during the detection of available drive letters.</P>
+
+<LI><P ALIGN="JUSTIFY">The checkbox settings of the "Copy disk" dialog box are remembered during
+a single Commander session.</P>
+
+<LI><P ALIGN="JUSTIFY">An error message is displayed if, before a disk copy, you try to preformat
+a destination 1541 disk for an extended 1541 disk image and "Command exec
+mode" is set to "Normal".</P>
+
+<LI><P ALIGN="JUSTIFY">While writing a Commodore disk, 25,WRITE ERROR's are retried as many times
+as the value of the "Number of retries" option.</P>
+
+<LI><P ALIGN="JUSTIFY">With two new symbols, "!`" and "%`", you may use the extension part of
+file names in menu and extension files.</P>
+
+<LI><P ALIGN="JUSTIFY">It is now possible to toggle the character set even if a dialog box is on
+the screen.</P>
+
+<LI><P ALIGN="JUSTIFY">If the system code page is other than 437 (US default for DOS), there are
+seams, rather than national characters, where double and single lines meet
+in dialog box frames; also, active options are marked with an "x" instead
+of a check mark.</P>
+
+<LI><P ALIGN="JUSTIFY">The mouse cursor changes into an icon over screen hot spots and while a
+mouse operation is taking place.</P>
+
+<LI><P ALIGN="JUSTIFY">Mouse wheel up/down acts as Cursor Up/Down, when CuteMouse &#150; or any DOS
+Wheel API-compatible mouse driver &#150; is installed.</P>
+
+<LI><P ALIGN="JUSTIFY">Middle mouse button clicks on the key bar activate the functions that are
+normally accessed with Shift held down.</P>
+
+<LI><P ALIGN="JUSTIFY">Clicking the middle mouse button outside the active dialog box has the
+same effect as pressing Enter.</P>
+
+<LI><P ALIGN="JUSTIFY">You can drag the cursor in the command line with the left mouse button
+held down.</P>
+
+<LI><P ALIGN="JUSTIFY">You can select text in the command line and all input lines with the right
+mouse button held down.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the width and height of the panels by dragging the middle
+and bottom edges of the panels with the mouse.</P>
+
+<LI><P ALIGN="JUSTIFY">You can change the width of the Name columns of panels by dragging the
+vertical separator line to their right.</P>
+
+<LI><P ALIGN="JUSTIFY">Command line options, except for "/cmd", are also available in the
+external setup program, SCSETUP.EXE.</P>
+
+<LI><P ALIGN="JUSTIFY">The Commander, the internal viewer and editor and Star Lynx all handle the
+last file in Lynx archives without errors even if the "offset of last
+useful byte in last sector" counter is missing from its directory entry.</P>
+
+<LI><P ALIGN="JUSTIFY">The new "PETANSI" view mode of the internal viewer, designed for viewing
+ANSI-style PETSCII art, can process some control codes in PETSCII text
+files: carriage return, all colors, reverse on/off and character set
+switching; other control codes are ignored and not displayed.</P>
+
+<LI><P ALIGN="JUSTIFY">The viewer and the editor accept the names of Commodore files inside image
+and archive files on the command line, using the common syntax.</P>
+
+<LI><P ALIGN="JUSTIFY">When editing menu and extension files with the internal editor, Shift-F1
+toggles the mini help at the bottom of the screen.</P>
+
+<LI><P ALIGN="JUSTIFY">Star List now recognizes 1571 and 1581 disk images, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">Now Star List allows you to use field widthes up to 255 characters rather
+than only 63.</P>
+</UL>
+
+<HR>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

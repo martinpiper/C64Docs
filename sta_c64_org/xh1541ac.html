@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The XH1541 adaptor</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The XH1541 adaptor</H2>
+for Commodore 1541, 1570 and 1571 drives
+</CENTER>
+
+<P ALIGN="JUSTIFY">You should follow these instructions if your drive already
+has a <A HREF="cbmpar.html">Commodore parallel cable</A> and you want to make
+use of it. In this case, you'll have to build an adaptor, through which you
+can connect the cable to the PC parallel port.</P>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Don't use a PCB-mountable parallel plug for this
+  adaptor. If you use a solderable plug, one that is usually used for cables,
+  then you can make your adaptor significantly smaller.</P>
+
+<LI><P ALIGN="JUSTIFY">The circuitry will be on the top side of the adaptor.
+  It is very important, however, that you'll have to connect the bottom side
+  of the user port plug onto it, that is, upside down.</P>
+
+<LI><P ALIGN="JUSTIFY">On circuit diagrams, plugs are displayed as viewed from
+  the back side, the solder side. Chips are displayed as viewed from above;
+  also, see the small semicircular cut for finding the correct orientation.
+  When in doubt, see the corresponding description on the
+  <A HREF="legend.html">legend page</A>.</P>
+</UL>
+
+<H3>Construction</H3>
+
+You need the following parts to build this adaptor:
+
+<UL>
+<LI><P ALIGN="JUSTIFY">One printable circuit board of about 5.5 x 3 cm</P>
+
+<LI><P ALIGN="JUSTIFY">Eight diodes (e.g. 1N4148)</P>
+
+<LI><P ALIGN="JUSTIFY">One solderable 25-pin male plug (PC parallel plug)</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> Create the direct connections on the board,
+between the <A HREF="legend.html#userport">user port edge</A> and the
+<A HREF="legend.html#parplug">parallel plug</A>. These include the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"><B>User port edge</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     C, PB0    <TD WIDTH="20%">   13, Select  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     D, PB1    <TD WIDTH="20%">   12, PaperEnd<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     E, PB2    <TD WIDTH="20%">   10, Ack     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     F, PB3    <TD WIDTH="20%">   11, Busy    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     A, GND    <TD WIDTH="20%">18-25, GND     <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">To make the board single-sided, you may omit the GND
+connection.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Create the
+<A HREF="legend.html#diode">diode</A> connections on the board, between the
+<A HREF="legend.html#userport">user port edge</A> and the
+<A HREF="legend.html#parplug">parallel plug</A>. These include the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"><B>User port edge</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     H, PB4    <TD WIDTH="20%">    6, Data 4  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     J, PB5    <TD WIDTH="20%">    7, Data 5  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     K, PB6    <TD WIDTH="20%">    8, Data 6  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     L, PB7    <TD WIDTH="20%">    9, Data 7  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">The cathodes of the diodes should be pointing towards the
+pins in the right column of the table.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 3.</B> Build the
+<A HREF="legend.html#diode">diode</A> bridges between the appropriate pins of
+the <A HREF="legend.html#parplug">parallel plug</A>. These include the
+following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"> <B>Parallel plug</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   10, Ack     <TD WIDTH="20%">    4, Data 2  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   11, Busy    <TD WIDTH="20%">    5, Data 3  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   12, PaperEnd<TD WIDTH="20%">    3, Data 1  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   13, Select  <TD WIDTH="20%">    2, Data 0  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">The cathodes should be pointing towards the pins in the
+right column of the table.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 4.</B> Solder and then glue the board between the
+two pin rows of the <A HREF="legend.html#parplug">parallel plug</A>. The top
+side of the adaptor, the one with the circuitry, should be leveled with the
+longer side of the parallel plug, the one with thirteen (13) pins.</P>
+
+<H4>Circuit diagram</H4>
+
+<A HREF="xh1541a.png"><IMG BORDER=1 SRC="xh1541a.png" ALT="[XH1541 adaptor]"></A>
+
+<P ALIGN="JUSTIFY">You can find the description of all parts used on the
+diagrams at the <A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

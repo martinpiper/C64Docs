@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The 1541EMU cable (type 1)</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The 1541EMU cable</H2>
+(type 1, simpler design)
+</CENTER>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">On circuit diagrams, plugs are displayed as viewed from
+  the back side, the solder side. Chips are displayed as viewed from above;
+  also, see the small semicircular cut for finding the correct orientation.
+  When in doubt, see the corresponding description on the
+  <A HREF="legend.html">legend page</A>.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">You need the following parts to build this cable:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">One <A HREF="power.html">power cable</A></P>
+
+<LI><P ALIGN="JUSTIFY">One solderable 6-pin male DIN plug (Commodore serial
+  plug)</P>
+
+<LI><P ALIGN="JUSTIFY">One solderable 25-pin male plug (PC parallel plug)</P>
+
+<LI><P ALIGN="JUSTIFY">One 7406 inverter IC</P>
+
+<LI><P ALIGN="JUSTIFY">One 74LS86 exclusive-OR IC</P>
+
+<LI><P ALIGN="JUSTIFY">A shielded 3-wire or unshielded 4-wire cable of,
+  preferably, at most 2 meters</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> To make soldering on the IC's easier, you
+may want to slightly melt the plastic on the inner side of the case of
+parallel port plug and carefully embed the
+<A HREF="legend.html#inverteric">inverter IC</A> into it. Then shorten pins
+1-6, 8-10 and 12-13 of the <A HREF="legend.html#xoric">exclusive-OR IC</A>,
+glue it on top of the inverter IC and solder the three still long pins of the
+exclusive-OR IC to those of the inverter IC. You should have the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"><B>Exclusive-OR IC</B></TH><TH WIDTH="20%">  <B>Inverter IC</B>  <BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">  7, GND       </TD><TD WIDTH="20%">   7, GND      <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%"> 11, Output 4  </TD><TD WIDTH="20%">  11, Input 5  <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%"> 14, +5V       </TD><TD WIDTH="20%">  14, +5V      <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Note that the pins in each pair are exactly on top of each
+other.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Solder one end of the long cable onto the
+<A HREF="legend.html#din6plug">DIN plug</A>.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 3.</B> Solder the other end of the long cable onto
+the <A HREF="legend.html#parplug">parallel plug</A> and the
+<A HREF="legend.html#xoric">exclusive-OR IC</A>. You should have the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">   <B>DIN plug</B>   </TH><TH WIDTH="20%"> <B>Parallel plug</B> <BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    2, GND     </TD><TD WIDTH="20%"> 18-25, GND      <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    4, CLK     </TD><TD WIDTH="20%">    12, PaperEnd <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    5, DATA    </TD><TD WIDTH="20%">    15, Error    <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">   <B>DIN plug</B>   </TH><TH WIDTH="20%"><B>Exclusive-OR IC</B><BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    3, ATN     </TD><TD WIDTH="20%">  4, Input 2A <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    3, ATN     </TD><TD WIDTH="20%"> 12, Input 4A <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY"><B>Step 4.</B> Build the
+<A HREF="legend.html#inverter">inverter</A> bridges, using the inverter IC.
+You should have the following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">   <B>DIN plug</B>   </TH><TH WIDTH="20%">  <B>Inverter IC</B>  </TH><TH WIDTH="20%">  <B>Inverter IC</B>  </TH><TH WIDTH="20%"> <B>Parallel plug</B> <BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    4, CLK     </TD><TD WIDTH="20%">  6, Output 3  </TD><TD WIDTH="20%">  5, Input 3   </TD><TD WIDTH="20%">    16, Init     <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    5, DATA    </TD><TD WIDTH="20%"> 12, Output 6  </TD><TD WIDTH="20%"> 13, Input 6   </TD><TD WIDTH="20%">     1, Strobe   <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    5, DATA    </TD><TD WIDTH="20%"> 10, Output 5  <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">This is equivalent with three inverters whose outputs are
+pointing towards the pins in the left column of the table and their inputs to
+the ones on the right. Note that you have already finished the input half of
+the third inverter bridge in step 1.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 5.</B> Build the
+<A HREF="legend.html#xorgate">exclusive-OR gates</A>, using the exclusive-OR
+IC. You should have the following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"> <B>Parallel plug</B> </TH><TH WIDTH="20%"><B>Exclusive-OR IC</B></TH><TH WIDTH="20%"><B>Exclusive-OR IC</B></TH><TH WIDTH="20%"> <B>Parallel plug</B> <BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    14, AutoFeed </TD><TD WIDTH="20%">  5, Input 2B </TD><TD WIDTH="20%">  6, Output 2 </TD><TD WIDTH="20%">    10, Ack      <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    17, SelectIn </TD><TD WIDTH="20%"> 13, Input 4B <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">This is equivalent with two exclusive-OR gates whose
+outputs are pointing towards the pins in the right column of the table and
+their "B" inputs to the ones on the left. Note that you have already finished
+the output half of the second gate in step 1, and the "A" inputs for both
+gates in step 3.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 6.</B> Supply power for the inverter IC and the
+exclusive-OR IC's, with the <A HREF="power.html">power cable</A>. You should
+have the following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">  <B>Inverter IC</B>  </TH><TH WIDTH="20%">  <B>Power cable</B>  <BR></TH></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    7, GND     </TD><TD WIDTH="20%">      GND      <BR></TD></TR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   14, +5V     </TD><TD WIDTH="20%">      +5V      <BR></TD></TR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Note that this also gives power to the exclusive-OR IC as
+you have connected the two IC's together in step 1.</P>
+
+<H4>Circuit diagram</H4>
+
+<A HREF="1541emu.png"><IMG BORDER=1 SRC="1541emu.png" ALT="[1541EMU cable (type 1)]"></A>
+
+<P ALIGN="JUSTIFY">The numbers besides the inverters and the exclusive-OR
+gates show the suggested pin numbers of the inverter IC and the exclusive-OR
+IC. You don't have to follow these pin numbers exactly, though, as the
+inverter IC has six and the exclusive-OR IC has four independent circuits
+which are all equivalent. However, using these pins, you can elegantly pack
+all the necessary electronics into the plastic case of the parallel plug as
+one IC can be put on top of the other.</P>
+
+<P ALIGN="JUSTIFY">You can find the description of all parts used on the
+diagrams at the <A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

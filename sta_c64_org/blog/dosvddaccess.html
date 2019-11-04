@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Accessing Windows device drivers from DOS programs</TITLE>
+</HEAD>
+
+<BODY>
+
+<H4>Accessing Windows device drivers from DOS programs</H4>
+
+<P ALIGN="JUSTIFY">It is possible to access functionality of (appropriately written) native 32-bit Windows drivers from DOS programs. For this, otherwise non-existing CPU instructions - also known as <B>BOP</B>'s, for <B>BIOS Operation</B>, from an early PC emulator called <A HREF="http://wikipedia.org/wiki/SoftPC">SoftPC</A> - have been defined which are processed by the "invalid instruction" routine of the <A HREF="http://wikipedia.org/wiki/NTVDM">NTVDM</A> (passed to by the kernel's <CODE><B>KiTrap06</B></CODE> routine), kind of like a software version of the <A HREF="http://wikipedia.org/wiki/Syscall"><CODE>SYSCALL</CODE></A> instruction of <A HREF="http://wikipedia.org/wiki/x86-64">x86-64</A> CPU's. These instructions are the following:</P>
+<UL>
+<LI><P ALIGN="JUSTIFY"><CODE><B>RegisterModule</B></CODE>: <CODE>0xC4, 0xC4, 0x58, 0x00</CODE>. Initializes the connection between the DOS program executing this instruction and a VDD (<A HREF="http://wikipedia.org/wiki/Virtual_device_driver">Virtual Device Driver</A>, the "module").<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>DS:SI</I></B></CODE>: Pointer to the DLL name (ASCIIZ string).<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>ES:DI</I></B></CODE>: Pointer to the name of the initialization routine (ASCIIZ string). This routine is called when the connection is established. For a <CODE>NULL</CODE> pointer, no initialization takes place.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>DS:BX</I></B></CODE>: Pointer to the name of the dispatch routine (ASCIIZ string); see below.<BR>
+  <B>Output</B>:<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Carry flag</I></B></CODE>: When set, an error occurred; clear indicates success.<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>AX</I></B></CODE>: On success, handle to the VDD. On error, the error code: <CODE>1</CODE>: DLL file not found; <CODE>2</CODE>: Dispatch routine not found in DLL; <CODE>3</CODE>: Initialization routine not found in DLL; <CODE>4</CODE>: Out of memory. Read below for other errors.</P>
+<LI><P ALIGN="JUSTIFY"><CODE><B>UnregisterModule</B></CODE>: <CODE>0xC4, 0xC4, 0x58, 0x01</CODE>.
+  Closes the connection.<BR>
+  <B>Input</B>:</BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>AX</I></B></CODE>: VDD handle, as returned by <CODE>RegisterModule</CODE>.<BR>
+  <B>Output</B>: None.</P>
+<LI><P ALIGN="JUSTIFY"><CODE><B>DispatchCall</B></CODE>: <CODE>0xC4, 0xC4, 0x58, 0x02</CODE>.
+  Sends a request to the VDD.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>AX</I></B></CODE>: VDD handle, as returned by <CODE>RegisterModule</CODE>.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;Further arguments as required by the VDD.<BR>
+  <B>Output</B>: As set by the VDD.</P>
+</UL>
+<P ALIGN="JUSTIFY">For the development of the VDD, the Windows <A HREF="http://www.microsoft.com/whdc/devtools/ddk/">Driver Development Kit</A> (DDK) or its new incarnation, the <A HREF="http://www.microsoft.com/whdc/devtools/wdk/">Windows Driver Kit</A> (WDK), is required. The VDD can use the following API calls, defined in <CODE><B>vddsvc.h</B></CODE>, for communication with DOS programs running in the NTVDM:</P>
+<UL>
+<LI><P ALIGN="JUSTIFY"><CODE>UCHAR <B>GetAL()</B></CODE>, <CODE>UCHAR <B>GetAH()</B></CODE>, <CODE>USHORT <B>GetAX()</B></CODE>, <CODE>ULONG <B>GetEAX()</B></CODE>, same for <CODE>BX</CODE>, <CODE>CX</CODE>, <CODE>DX</CODE>, <CODE>SI</CODE>, <CODE>DI</CODE>, <CODE>SP</CODE>, <CODE>BP</CODE>, <CODE>IP</CODE>; <CODE>USHORT <B>GetCS()</B></CODE>, same for <CODE>DS</CODE>, <CODE>ES</CODE>, <CODE>FS</CODE>, <CODE>GS</CODE>, <CODE>SS</CODE>; <CODE>ULONG <B>GetCF()</B></CODE>, same for <CODE>PF</CODE>, <CODE>AF</CODE>, <CODE>ZF</CODE>, <CODE>SF</CODE>, <CODE>IF</CODE>, <CODE>DF</CODE>, <CODE>OF</CODE>; <CODE>USHORT <B>GetMSW()</B></CODE>: Read the values of registers, including the Machine Status Word (MSW), and flags at the point where the DOS program executed <CODE>DispatchCall</CODE>.</P>
+<LI><P ALIGN="JUSTIFY"><CODE><B>SetAL(</B>UCHAR <I>Value</I><B>)</B></CODE>, <CODE><B>SetAH(</B>UCHAR <I>Value</I><B>)</B></CODE>, <CODE><B>SetAX(</B>USHORT <I>Value</I><B>)</B></CODE>, <CODE><B>SetEAX(</B>ULONG <I>Value</I><B>)</B></CODE>, ...; <CODE><B>SetCS(</B>USHORT <I>Value</I><B>)</B></CODE>, ...; <CODE><B>SetCF(</B>ULONG <I>Value</I><B>)</B></CODE>, ...; <CODE><B>SetMSW(</B>USHORT <I>Value</I><B>)</B></CODE>: Write the values of registers and flags, returning information to the DOS program.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>PVOID <B>GetVDMPointer(</B>ULONG <I>Address</I>, ULONG <I>Length</I>, BOOL <I>IsProtMode</I><B>)</B></CODE>: Get a pointer to and lock a memory area in the NTVDM. Obsolete, use <CODE>VdmMapFlat</CODE> instead.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Address</I></B></CODE>: Start address of the memory area. The high word of is the segment, the low word is the offset.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Length</I></B></CODE>: Length of the memory area.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>IsProtMode</I></B></CODE>: <CODE>FALSE</CODE>: The NTVDM is running in real mode, the segment part is a real mode segment; <CODE>TRUE</CODE>: Protected mode, the segment part is a selector from the NTVDM's GDT.<BR>
+  <B>Output</B>: Pointer to the memory area.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>VOID <B>FreeVDMPointer(</B>ULONG <I>Address</I>, ULONG <I>Length</I>, PVOID <I>LinearAddress</I>, BOOL <I>IsProtMode</I><B>)</B></CODE>: Unlock a memory area locked by <CODE>GetVDMPointer</CODE>. Obsolete, use <CODE>VdmUnmapFlat</CODE> instead.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>LinearAddress</I></B></CODE>: Pointer to memory area, as returned by <CODE>GetVDMPointer</CODE>.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;See <CODE>GetVDMPointer</CODE> for the other input arguments.<BR>
+  <B>Output</B>: None.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>PVOID <B>VdmMapFlat(</B>USHORT <I>Segment</I>, ULONG <I>Offset</I>, VDM_MODE <I>VDMMode</I><B>)</B></CODE>: Get a pointer to and lock a memory area in the NTVDM. Supersedes <CODE>GetVDMPointer</CODE>.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Segment</I></B></CODE>: Segment part of the address of the memory area.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Offset</I></B></CODE>: Offset part of the address of the memory area.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>VDMMode</I></B></CODE>: <CODE>VDM_X86</CODE>: The NTVDM is running in real mode, the segment part is a real mode segment and the offset part is 16-bit; <CODE>VDM_PM</CODE>: Protected mode, the segment part is a selector from the NTVDM's GDT and the offset part is 32-bit.<BR>
+  <B>Output</B>: Pointer to the memory area.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>BOOL <B>VdmUnmapFlat(</B>USHORT <I>Segment</I>, ULONG <I>Offset</I>, PVOID <I>LinearAddress</I>, VDM_MODE <I>VDMMode</I><B>)</B></CODE>: Unlock a memory area locked by <CODE>VdmMapFlat</CODE>. Supersedes <CODE>FreeVDMPointer</CODE>.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>LinearAddress</I></B></CODE>: Pointer to memory area, as returned by <CODE>VdmMapFlat</CODE>.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;See <CODE>VdmMapFlat</CODE> for the other input arguments.<BR>
+  <B>Output</B>: <CODE>TRUE</CODE>, if the memory area was successfully unlocked; <CODE>FALSE</CODE>, if an error occurred.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>BOOL <B>VdmFlushCache(</B>USHORT <I>Segment</I>, ULONG <I>Offset</I>, ULONG <I>Length</I>, VDM_MODE <I>VDMMode</I><B>)</B></CODE>: Flushes writes to a memory area locked by <CODE>VdmMapFlat</CODE>. Its use is not necessary on x86 platforms, nevertheless recommended.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>Length</I></B></CODE>: Length of the memory area.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;See <CODE>VdmMapFlat</CODE> for the other input arguments.<BR>
+  <B>Output</B>: <CODE>TRUE</CODE>, if the memory area was successfully flushed; <CODE>FALSE</CODE>, if an error occurred.</P>
+<LI><P ALIGN="JUSTIFY">Notes about non-trivial behavior:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">To support real mode as well as protected mode DOS programs, use the expression <CODE>(getMSW() & MSW_PE)</CODE> rather than a constant <CODE>FALSE</CODE> or <CODE>TRUE</CODE> for the <CODE><I>IsProtMode</I></CODE> argument of <CODE>GetVDMPointer</CODE> and <CODE>FreeVDMPointer</CODE>. For the <CODE><I>VDMMode</I></CODE> argument of <CODE>VdmMapFlat</CODE>, <CODE>VdmUnmapFlat</CODE> and <CODE>VdmFlushCache</CODE>, the expression <CODE>getMODE()</CODE> is recommended.</P>
+  <LI><P ALIGN="JUSTIFY">Irrespectively of the value of the <CODE><I>IsProtMode</I></CODE> argument of <CODE>GetVDMPointer</CODE>, only the low word of <CODE><I>Address</I></CODE> is taken for an offset, therefore all offsets must be within the first 64 Kbytes of segments in protected mode (<A HREF="http://wikipedia.org/wiki/DPMI">DPMI</A>) DOS programs, including the BOP instruction (at <CODE>CS:IP</CODE>). Without this, weird errors may occur, such as nothing happening at all upon the execution of BOP's, with or without the carry flag set! If and how code and data can be forced to the beginning of segments depends on the assembler/compiler and major hacking may be required. Note that <CODE>VdmMapFlat</CODE> does not suffer from this limitation.</P>
+  </UL>
+</UL>
+<P ALIGN="JUSTIFY">More documentation:</P>
+<UL>
+<LI><P ALIGN="JUSTIFY">API reference: <A HREF="https://web.archive.org/web/20040804182416/http://www.osr.com/ddk/ddk.htm">The Microsoft Windows DDK Online</A>, <A HREF="https://web.archive.org/web/20040904222624/http://www.osr.com/ddk/other/vdd_24px.htm">Virtual Device Drivers for MS-DOS Applications or Special Hardware</A> (<A HREF="https://web.archive.org/web/20040904222636/http://www.osr.com/ddk/other/vddfn_4q0i.htm">GetVDMPointer</A>).</P>
+<LI><P ALIGN="JUSTIFY">DDK documentation: <A HREF="https://archive.org/details/WinNT3.1DDKDoc">Windows NT3.1 DDK Documentation</A>, <A HREF="https://archive.org/stream/WinNT3.1DDKDoc/Win32SubSysGuide#page/n245/">Virtual Device Drivers for MS-DOS Applications or Special Hardware</A>. (Pages are offline with the note "The item is not available due to issues with the item's content.")</P>
+</UL>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="../contact.html">Contact</A> |
+<A HREF="../copyright.html">Copyright and license</A> |
+<A HREF="./">Blog page</A> | <A HREF="../updates.html">Recent updates</A> |
+<A HREF="../">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

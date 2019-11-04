@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 screen functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 screen functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$E4DA<TD WIDTH="85%"><P ALIGN="JUSTIFY">Put current color,
+  at memory address $0286, into color RAM, pointed at by memory addresses
+  $00F3-$00F4.<BR>
+  Input: Y = Column number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$E505<TD><P ALIGN="JUSTIFY">Fetch number of screen rows and
+  columns.<BR>
+  Input: &ndash;<BR>
+  Output: X = Number of columns (40); Y = Number of rows (25).<BR>
+  Used registers: X, Y.</P>
+<TR VALIGN=TOP><TD>$E50A<TD><P ALIGN="JUSTIFY">Save or restore cursor position.<BR>
+  Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor row
+  (if Carry = 0); Y = Cursor column (if Carry = 0).<BR>
+  Output: X = Cursor row (if Carry = 1); Y = Cursor column (if Carry = 1).<BR>
+  Used registers: X, Y.</P>
+<TR VALIGN=TOP><TD>$E518<TD><P ALIGN="JUSTIFY">Initialize VIC; restore default
+  input/output to keyboard/screen; clear screen.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E544<TD><P ALIGN="JUSTIFY">Clear screen.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E566<TD><P ALIGN="JUSTIFY">Move cursor home, to upper left corner of
+  screen.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E56C<TD><P ALIGN="JUSTIFY">Set pointer at memory addresses
+  $00D1-$00D2 to current line in screen memory and pointer at memory addresses
+  $00F3-$00F4 to current line in Color RAM, according to current cursor row,
+  at memory address $00D6, and column, at memory address $00D3.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E59A<TD><P ALIGN="JUSTIFY">Initialize VIC; restore default
+  input/output to keyboard/screen; move cursor home.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E5A0<TD><P ALIGN="JUSTIFY">Initialize VIC; restore default
+  input/output to keyboard/screen.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$E5A8<TD><P ALIGN="JUSTIFY">Initialize VIC.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$E632<TD><P ALIGN="JUSTIFY">Read byte from screen; if input line is
+  empty, the cursor appears and a line of data is input.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$E684<TD><P ALIGN="JUSTIFY">Check PETSCII code; if $22, quotation
+  mark, then toggle quotation mode switch, at memory address $00D4.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$E6B6<TD><P ALIGN="JUSTIFY">Recompute the high bytes of pointers to
+  lines in screen memory, at memory addresses $00D9-$00F1.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E716<TD><P ALIGN="JUSTIFY">Write byte to screen.<BR>
+  Input: A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$E8CB<TD><P ALIGN="JUSTIFY">Check PETSCII code; if belongs to a color,
+  set current color, at memory address $0286.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$E8EA<TD><P ALIGN="JUSTIFY">Scroll complete screen upwards.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E965<TD><P ALIGN="JUSTIFY">Insert line before current line and scroll
+  lower part of screen downwards.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$E9F0<TD><P ALIGN="JUSTIFY">Set pointer at memory addresses
+  $00D1-$00D2 to current line in screen memory, fetching high byte from table
+  at memory addresses $00D9-$00F1.<BR>
+  Input: X = Row number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$E9FF<TD><P ALIGN="JUSTIFY">Clear screen line.<BR>
+  Input: X = Row number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$EA13<TD><P ALIGN="JUSTIFY">Write character and color onto screen; 
+ set cursor phase delay to 2.<BR>
+  Input: A = Character to write; X = Color to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$EA24<TD><P ALIGN="JUSTIFY">Set pointer at memory addresses
+  $00F3-$00F4 to current line in Color RAM, according to pointer at memory
+  addresses $00D1-$00D2 to current line in screen memory.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>Standard KERNAL functions</B>
+
+<TR VALIGN=TOP><TD>$FFED<TD><P ALIGN="JUSTIFY">SCREEN. Fetch number of screen rows and
+  columns.<BR>
+  Input: &ndash;<BR>
+  Output: X = Number of columns (40); Y = Number of rows (25).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $E505.</P>
+<TR VALIGN=TOP><TD>$FFF0<TD><P ALIGN="JUSTIFY">PLOT. Save or restore cursor position.<BR>
+  Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column
+  (if Carry = 0); Y = Cursor row (if Carry = 0).<BR>
+  Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $E50A.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

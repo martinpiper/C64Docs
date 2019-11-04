@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 RS232 functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 RS232 functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$EF4A<TD WIDTH="85%"><P ALIGN="JUSTIFY">Compute number of
+  data bits, according to memory address $0293.<BR>
+  Input: &ndash;<BR>
+  Output: X = Number of data bits.<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$EFE1<TD><P ALIGN="JUSTIFY">Define RS232 as default output.<BR>
+  Input: A = 2.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F017<TD><P ALIGN="JUSTIFY">Write byte, from RS232 output cache at
+  memory address $009E, to RS232.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$F04D<TD><P ALIGN="JUSTIFY">Define RS232 as default input.<BR>
+  Input: A = 2.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F086<TD><P ALIGN="JUSTIFY">Read byte from RS232.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$F0A4<TD><P ALIGN="JUSTIFY">Wait for the end of RS232 transfer and
+  disable RS232 interrupts. (So that the common chip registers can be used by
+  serial bus or datasette input/output.)<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$F14E<TD><P ALIGN="JUSTIFY">Read byte from RS232.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F1B8<TD><P ALIGN="JUSTIFY">Read byte from RS232; retry on $00
+  byte.<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$F1DD<TD><P ALIGN="JUSTIFY">Write byte to RS232.<BR>
+  Input: Carry = 0; A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$F2AF<TD><P ALIGN="JUSTIFY">Close file on RS232; free RS232 input and
+  output buffers, if exist.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F409<TD><P ALIGN="JUSTIFY">Open file on RS232; allocate RS232 input
+  and output buffers, if do not exist.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F483<TD><P ALIGN="JUSTIFY">Initialize CIA #2 for opening/closing
+  RS232.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

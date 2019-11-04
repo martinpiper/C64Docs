@@ -1,0 +1,618 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Drive Letter Manipulator</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>Drive Letter Manipulator</H2></CENTER>
+
+<P ALIGN="JUSTIFY">This software has been designed to list drive letter assignments to physical
+disk drives and hard disk partitions and to manipulate these assignments. Its
+main purpose is to restore drive letters when they get shifted after the
+installation of other hard disks, e.g. ones in hard disk racks. The drive
+letter changes, when made early enough upon the startup of DOS mode, are also
+visible in Windows 95/98/ME.</P>
+
+<P ALIGN="JUSTIFY">WARNING: It is important that all your DOS drives must have non-empty unique
+volume labels for this software to operate correctly.</P>
+
+<P ALIGN="JUSTIFY">NOTE: In this documentation, Windows means Windows 95/98/ME. In Windows
+NT/2000/XP, you can use the Disk Administrator, Disk Management or a similar
+utility of the Control Panel to assign drive letters anyway so this software
+is not needed.</P>
+
+<P ALIGN="JUSTIFY">CREDIT: Some ideas, data consistency checks and error messages in this
+software have been taken from the reverse engineering of DrvOrder (&copy; by
+unknown, 2000).</P>
+
+<H3><A NAME="section1">1. Usage</A></H3>
+
+<P ALIGN="JUSTIFY">Before using the software for the first time, see the next section for
+important notes.</P>
+
+<P ALIGN="JUSTIFY">The software comes in two flavors. You can use the executable version, with
+COM extension, of the software from the command line or AUTOEXEC.BAT:</P>
+
+<P ALIGN="JUSTIFY">DLMANIP [-|/&lt;options&gt;] &lt;command&gt; [&lt;parameters&gt;...]</P>
+
+<P ALIGN="JUSTIFY">Alternatively, you can use the driver version, with SYS extension, from
+CONFIG.SYS:</P>
+
+<P ALIGN="JUSTIFY">DEVICE=&lt;path&gt;\DLMANIP.SYS [-|/&lt;options&gt;] &lt;command&gt; [&lt;parameters...&gt;]</P>
+
+<P ALIGN="JUSTIFY">If parameters contain spaces, enclose them into quotation marks. In drive
+letters, you may append the colon, if you like.</P>
+
+<P ALIGN="JUSTIFY">If you install device drivers, from drives whose letter needs to be changed,
+in CONFIG.SYS then load the driver version of the software from CONFIG.SYS
+beforehands. Note that you have to specify the full name of the driver,
+including its path: at that point, the PATH environment variable is not
+defined yet so DOS cannot find the file automatically.</P>
+
+<P ALIGN="JUSTIFY">Note that the driver is not a real device driver: it does not install itself
+anywhere and it returns all the memory to DOS when it has finished processing
+the command specified.</P>
+
+<P ALIGN="JUSTIFY">Commands:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">LIST</P>
+
+<P ALIGN="JUSTIFY">Lists the current drive letter assignments:</P>
+
+<P ALIGN="JUSTIFY">&lt;drive letter&gt;Tab&lt;partition name&gt;Tab&lt;volume label&gt;Tab&lt;serial number&gt;</P>
+
+<P ALIGN="JUSTIFY">The partition name follows a Linux-style naming convention (see below).</P>
+
+<P ALIGN="JUSTIFY">The syntax for &lt;serial number&gt; is "####-####" where "#" represents a
+hexadecimal digit.</P>
+
+<LI><P ALIGN="JUSTIFY">SET &lt;letter&gt; &lt;partition name&gt; &lt;volume label&gt; &lt;serial number&gt;</P>
+
+<P ALIGN="JUSTIFY">Moves the drive, that is situated on the specified partition and has the
+specified volume label and serial number, to &lt;letter&gt;. The letter of the
+previous drive &lt;letter&gt; becomes undefined and is later replaced by the
+first available letter.</P>
+
+<P ALIGN="JUSTIFY">The partition name follows a Linux-style naming convention (see below).</P>
+
+<P ALIGN="JUSTIFY">The syntax for &lt;serial number&gt; is "####-####" where "#" represents a
+hexadecimal digit.</P>
+
+<P ALIGN="JUSTIFY">Special values for &lt;letter&gt; are:</P>
+
+<P ALIGN="JUSTIFY">-: Delete the drive letter. The drive will not be available anymore.</P>
+
+<P ALIGN="JUSTIFY">*: Auto assign the drive letter. The drive will be assigned the first
+available letter.</P>
+
+<P ALIGN="JUSTIFY">A special value for &lt;partition name&gt;, &lt;volume label&gt; and &lt;serial number&gt;
+is "*" which matches any partition, volume label or serial number: e.g. if
+you want to search for a volume label only, specify "*" for both the
+partition name and the serial number.</P>
+
+<P ALIGN="JUSTIFY">To see the current settings of all drives, use the "LIST" command.</P>
+
+<LI><P ALIGN="JUSTIFY">MOVE &lt;source letter&gt; &lt;destination letter&gt;</P>
+
+<P ALIGN="JUSTIFY">Moves the drive &lt;source letter&gt; to &lt;destination letter&gt;. The letter of the
+original drive &lt;destination letter&gt; becomes undefined and is later
+replaced by the first available letter.</P>
+
+<LI><P ALIGN="JUSTIFY">DELETE &lt;letter&gt;</P>
+
+<P ALIGN="JUSTIFY">Deletes the drive &lt;letter&gt;. The drive will not be available anymore and
+its letter may be reused for other drives.</P>
+
+<LI><P ALIGN="JUSTIFY">SWAP &lt;letter #1&gt; &lt;letter #2&gt;</P>
+
+<P ALIGN="JUSTIFY">Swaps the letters of two drives, &lt;letter #1&gt; and &lt;letter #2&gt;.</P>
+
+<LI><P ALIGN="JUSTIFY">REASSIGN &lt;number of main hard disks&gt;</P>
+
+<P ALIGN="JUSTIFY">Reassigns letters, using the original DOS algorithm, to all drives.</P>
+
+<P ALIGN="JUSTIFY">You have to specify the number of hard disks to which letters from the
+beginning of the alphabet are to be assigned. When all the partitions of
+this many hard disks got a letter, then and only then does the software
+advance to subsequent hard disks and assigns letters to their partitions,
+as well.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Options:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Q: Makes the software operate quietly. Beware, in this mode, not even
+error messages are displayed.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The original DOS algorithm starts the assignment of hard disk partitions
+with the drive letter C:, independently of the number of floppy disk drives
+installed. It processes only those partitions whose type it recognizes - for
+DOS 3.x and above versions: FAT12 and FAT16; for DOS 7.x versions in Windows
+95 OSR2 and Windows 98: FAT32, as well - and skips partitions of all other
+types - including but not limited to HPFS/NTFS, Linux native, Linux swap etc.
+Its main steps are the following:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Process the first primary partition of all hard disks.</P>
+
+<P ALIGN="JUSTIFY">Start at first hard disk and see if it has a primary partition. If so,
+assign a drive letter to the first such primary partition (the one with
+the lowest partition number).</P>
+
+<P ALIGN="JUSTIFY">Do the same with the next hard disk and continue until reaching the last
+hard disk.</P>
+
+<LI><P ALIGN="JUSTIFY">Process all logical partitions of all hard disks.</P>
+
+<P ALIGN="JUSTIFY">Start at first hard disk and see if it has an extended partition. (There
+may only be a single extended partition, if any, on each hard disk). If
+so, traverse through it and assign subsequent drive letters to each
+logical drive, in the order they are defined in the extended partition.</P>
+
+<P ALIGN="JUSTIFY">Do the same with the next hard disk and continue until reaching the last
+hard disk.</P>
+
+<LI><P ALIGN="JUSTIFY">Process further primary partitions of all hard disks.</P>
+
+<P ALIGN="JUSTIFY">Start at first hard disk and see if it has more than one primary
+partition. If so, assign a drive letter to them, in the order of their
+definition in the Master Boot Record. Make sure to skip the first primary
+partition as a drive letter has already been assigned to it in step 1.</P>
+
+<P ALIGN="JUSTIFY">Do the same with the next hard disk and continue until reaching the last
+hard disk.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Linux uses a significantly simpler algorithm. All partitions on all hard
+disks are processed, even if their type is not recognized. Its main steps are
+the following.</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">The two floppy disk drives are named "fd0" (usually A: under DOS/Windows)
+and "fd1" (usually B:). If more floppy disk drives are installed, they
+get subsequent numbers after the "fd" prefix.</P>
+
+<LI><P ALIGN="JUSTIFY">IDE hard disks are named "hda", "hdb", "hdc" etc. Note that, unlike with
+DOS/Windows, these names do not change if other hard disks installed. The
+master hard disk on the primary IDE channel is always "hda"; the primary
+slave is always "hdb"; the secondary master is "hdc"; the secondary slave
+is "hdd" etc.</P>
+
+<P ALIGN="JUSTIFY">SCSI hard disks are names "sda", "sdb", "sdc" etc., in a similar manner.</P>
+
+<LI><P ALIGN="JUSTIFY">Primary and extended partitions, those defined in the Master Boot Record,
+are numbered from 1 to 4, thus are named "xdx1" to "xdx4" where "xdx" is
+the name assigned to their parent hard disk in step 2. Yes, even extended
+partitions have a name, although they cannot be used to store data.</P>
+
+<LI><P ALIGN="JUSTIFY">If an extended partition exists, its logical drives are numbered from 5
+upwards, in the order they were defined in the extended partition.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">This software uses a similar algorithm for assigning names to partitions.
+The "LIST" command includes these partition names in its output:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">The first device that the BIOS recognizes as an IDE hard disk, SCSI hard
+disk or equivalent is named "hda"; the second is named "hdb" etc.</P>
+
+<P ALIGN="JUSTIFY">This device may also be an IDE/SCSI CD-ROM or DVD-ROM or a USB/Firewire
+hard disk, CD-ROM, DVD-ROM, flash drive or pen drive etc., if your BIOS
+supports accessing such devices - and, perhaps, can even boot from them.</P>
+
+<P ALIGN="JUSTIFY">For this reason, unlike under Linux, "hda" is not necessarily the master
+hard disk on the primary IDE channel. Also, holes between IDE devices are
+not taken into account by the BIOS: e.g if the primary master is present,
+the primary slave is missing, and the secondary master is present then
+the secondary master will be named "hdb", not "hdc" as Linux would name
+it. This is a limitation of the BIOS, not this software.</P>
+
+<LI><P ALIGN="JUSTIFY">Partitions are numbered the same way as under Linux (see above).</P>
+</OL>
+
+<P ALIGN="JUSTIFY">An example for drive letters shifting after the installation of another hard
+disk and the "REASSIGN" command taking care of it. You have two hard disks
+installed all the time, each have one primary partition and two logical
+drives. DOS assigns drive letters as the following:</P>
+
+<P ALIGN="JUSTIFY">C: First hard disk, primary partition<BR>
+D: Second hard disk, primary partition<BR>
+E: First hard disk, first logical drive<BR>
+F: First hard disk, second logical drive<BR>
+G: Second hard disk, first logical drive<BR>
+H: Second hard disk, second logical drive</P>
+
+<P ALIGN="JUSTIFY">Now install a third hard disk, with one primary partition and two logical
+drives on it. The result is:</P>
+
+<P ALIGN="JUSTIFY">C: First hard disk, primary partition<BR>
+D: Second hard disk, primary partition<BR>
+E: Third hard disk, primary partition<BR>
+F: First hard disk, first logical drive<BR>
+G: First hard disk, second logical drive<BR>
+H: Second hard disk, first logical drive<BR>
+I: Second hard disk, second logical drive<BR>
+J: Third hard disk, first logical drive<BR>
+K: Third hard disk, second logical drive</P>
+
+<P ALIGN="JUSTIFY">As you can see, the logical drives of the two main hard disks had their
+letters shifted. Now use the "REASSIGN 2" command and you get:</P>
+
+<P ALIGN="JUSTIFY">C: First hard disk, primary partition<BR>
+D: Second hard disk, primary partition<BR>
+E: First hard disk, first logical drive<BR>
+F: First hard disk, second logical drive<BR>
+G: Second hard disk, first logical drive<BR>
+H: Second hard disk, second logical drive<BR>
+I: Third hard disk, primary partition<BR>
+J: Third hard disk, first logical drive<BR>
+K: Third hard disk, second logical drive</P>
+
+<P ALIGN="JUSTIFY">This is the original drive letter assignment plus letters from the end of
+the alphabet have been assigned to the partitions of the third hard disk. For
+the "REASSIGN 1" command, you get:</P>
+
+<P ALIGN="JUSTIFY">C: First hard disk, primary partition<BR>
+D: First hard disk, first logical drive<BR>
+E: First hard disk, second logical drive<BR>
+F: Second hard disk, primary partition<BR>
+G: Third hard disk, primary partition<BR>
+H: Second hard disk, first logical drive<BR>
+I: Second hard disk, second logical drive<BR>
+J: Third hard disk, first logical drive<BR>
+K: Third hard disk, second logical drive</P>
+
+<P ALIGN="JUSTIFY">Note that the letter D: is not assigned to the primary partition of the
+second hard disk anymore because you specified that you have only one main
+hard disk.</P>
+
+<P ALIGN="JUSTIFY">Drive letter manipulations also work under the DOS mode of Windows. If you
+launch Windows afterwards, the new drive letter assignments will be visible
+there, too. However, read below if you want to change the letter of the system
+partition.</P>
+
+<P ALIGN="JUSTIFY">Special note for Windows users! If your operating system is installed onto a
+partition whose drive letter has been changed, you may run into one or more of
+the following errors while Windows is being loaded:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Symptom: Error message "Registry file was not found. Registry services may
+be inoperative for this session." displayed while loading. If you let
+Windows continue loading, the result will be a disaster: as no system
+configuration can be read from the registry, all settings fall back to
+default, similarly to safe mode or as if running Windows for the very
+first time, right after its installation.</P>
+
+<P ALIGN="JUSTIFY">Reason: DOS mode seems to internally store the drive letter of the system
+partition, after having finished processing CONFIG.SYS so changing the
+drive letter in AUTOEXEC.BAT or from the command line is too late. The
+message means that the registry file has not been loaded because DOS could
+not find it.</P>
+
+<P ALIGN="JUSTIFY">Solution: The drive letters have to be changed in CONFIG.SYS. You have to
+use the "DEVICE=" command in CONFIG.SYS to load the device version of the
+software.</P>
+
+<LI><P ALIGN="JUSTIFY">Symptom: Error message "XMS cache problem. Registry services may be
+inoperative for this session." displayed while loading.</P>
+
+<P ALIGN="JUSTIFY">Reason: DOS mode installs HIMEM.SYS, from the system partition, invisibly
+and automatically, before it starts processing CONFIG.SYS. The message
+means that HIMEM.SYS has not been loaded because DOS could not find it.</P>
+
+<P ALIGN="JUSTIFY">Solution: Load HIMEM.SYS explicitly in CONFIG.SYS, using the correct path.</P>
+
+<LI><P ALIGN="JUSTIFY">Symptom: Loading aborts, fatal error "[VFAT Device Initialization Failed]
+A device or resource required by VFAT is not present or is unavailable.
+VFAT cannot continue loading. System halted." displayed on a blue screen.</P>
+
+<P ALIGN="JUSTIFY">Reason: DOS mode installs IFSHLP.SYS, from the system partition, invisibly
+and automatically, before it starts processing CONFIG.SYS. The message
+means that IFSHLP.SYS has not been loaded because DOS could not find it.</P>
+
+<P ALIGN="JUSTIFY">Solution: Load IFSHLP.SYS explicitly in CONFIG.SYS, using the correct
+path.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">If your Windows ran fine before then these problems are, most probably, all
+related to DOS and Windows getting confused about the drive letter of the
+system partition being different from what it expects.</P>
+
+<P ALIGN="JUSTIFY">A suggested solution for all of the problems above is the following. First,
+copy the driver version of this software into a directory on a drive whose
+letter is never going to change ("C:\WINBOOT" in the example) - obviously, the
+best candidate for this is a directory on drive C:. Also copy HIMEM.SYS and
+IFSHLP.SYS from the Windows directory into this directory. Then prepend the
+following lines to your CONFIG.SYS:</P>
+
+<P ALIGN="JUSTIFY">DEVICE=C:\WINBOOT\DLMANIP.SYS /Q &lt;command&gt; &lt;parameters...&gt;<BR>
+DEVICE=C:\WINBOOT\HIMEM.SYS<BR>
+DEVICE=C:\WINBOOT\IFSHLP.SYS<BR>
+[...]</P>
+
+<P ALIGN="JUSTIFY">The first line fixes drive letters. The second and third lines explicitly
+install the otherwise invisibly and automatically installed system drivers.</P>
+
+<P ALIGN="JUSTIFY">Use the letter manipulation commands of this software to change the drive
+letters, before letting DOS process the rest of CONFIG.SYS. Remember, these
+must be the first lines of your CONFIG.SYS.</P>
+
+<P ALIGN="JUSTIFY">If there are some other drivers that you install from the Windows directory
+in CONFIG.SYS then make a copy of those, too, and change your CONFIG.SYS
+accordingly. For example, to install country and code page settings:</P>
+
+<P ALIGN="JUSTIFY">[...]<BR>
+COUNTRY=&lt;country&gt;,&lt;code page&gt;,C:\WINBOOT\COUNTRY.SYS<BR>
+DEVICE=C:\WINBOOT\DISPLAY.SYS CON=(EGA,,1)<BR>
+[...]</P>
+
+<H3><A NAME="section2">2. Important notes</A></H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The software can only list and manipulate drive letters the underlying
+BIOS and DOS have already recognized upon booting up.</P>
+
+<LI><P ALIGN="JUSTIFY">The software refuses to work when a disk cache is present as drive letter
+changes may make the cache read/write data from/to the wrong drive.
+Changes are not permitted under Windows either, for similar reasons, only
+in DOS mode.</P>
+
+<LI><P ALIGN="JUSTIFY">Make sure to have unique volume labels and serial numbers for all your
+drives! Not only this software needs that but many others, too.</P>
+
+<LI><P ALIGN="JUSTIFY">Because the software deals with very delicate matters, make sure that it
+is the first software executed upon the boot process. If you use software
+that create drives (disk devices) - including but not limited to CD/DVD
+drives, SCSI drives, RAID drives, USB drives, Firewire drives, network
+drives, RAM disks, compressed drives, SUBST'ed, JOIN'ed, ASSIGN'ed drives
+- then change the drive letters with this software before loading the disk
+device drivers, otherwise those drivers may get confused.</P>
+
+<LI><P ALIGN="JUSTIFY">After any change, the "number of block devices installed" value is updated
+in a DOS internal table to the highest drive letter available at that
+moment. Otherwise, the directory structure of drives, whose letter is
+above this value, may not be completely visible: only the first file or
+directory in the root directory is returned. This is due to an intentional
+internal DOS feature that is assumed have been implemented to speed up
+access to disk drives.</P>
+
+<P ALIGN="JUSTIFY">As a result of the update, the "number of block devices installed" value
+may be higher than the actual number of block devices, that is, disk
+drives installed and this may confuse some disk device drivers. Depending
+on the smartness of the disk device driver, you may or may not have
+problems with installing new drives to (unused) letters that are below the
+highest drive letter but above the "number of block devices installed"
+value. As a special case, after having moved a drive to the highest
+possible letter Z:, seeing the "number of block devices installed" value
+set to the equivalent of Z:, some (not so smart) device drivers may
+believe that there are no more drive letters available and refuse
+installation.</P>
+
+<LI><P ALIGN="JUSTIFY">Copying drive letters, that is, assigning multiple letters to the same
+drive is not possible as the result would be identical to the one above:
+only the first entry of the root directory is visible on the clone drives.
+Instead of this software, use the SUBST or ASSIGN commands of DOS.</P>
+
+<LI><P ALIGN="JUSTIFY">The DOS mode of Windows has serious problems with handling partitions that
+are very large (usually FAT32 partitions) and/or are beyond some BIOS hard
+disk size limit. As a result, the DOS mode recognizes the partition and
+assigns a letter to it but shows garbage instead of the partition contents
+or returns an error saying that the drive is invalid or unformatted.</P>
+
+<P ALIGN="JUSTIFY">Beware, even if the partition contents seem to be fine, you may destroy
+data in other partitions if you write onto such strange drives! Your best
+choice is to delete them, with the "DELETE" command of this software, so
+that they are not available in DOS mode. When the Windows GUI boots up, it
+will recognize the partitions (again), assign letters to them (again) and
+handle their contents properly.</P>
+
+<LI><P ALIGN="JUSTIFY">You will get the "Drive letter beyond LASTDRIVE value" error if you try to
+move a drive to an unavailable letter. E.g. if your LASTDRIVE is set to G,
+you will not be able to use the letters H: to Z: for any drive.</P>
+
+<P ALIGN="JUSTIFY">It is also important to know that while CONFIG.SYS is being processed,
+the LASTDRIVE value does not change. E.g. if you have altogether five DOS
+partitions on your hard disks, the device driver version of this software
+will see a LASTDRIVE value of G. Unfortunately, not even placing a
+"LASTDRIVE=Z" line before the call to the device driver helps with this:
+the LASTDRIVE value changes only after CONFIG.SYS has been processed
+completely.</P>
+
+<P ALIGN="JUSTIFY">For this reason, you cannot move drives to letters at the end of the
+alphabet from CONFIG.SYS - in the example above, from H: to Z: -, this is
+possible only from AUTOEXEC.BAT, with the executable version of the
+software, after having raised the LASTDRIVE value in CONFIG.SYS. This is a
+limitation of DOS, not this software.</P>
+</UL>
+
+<H3><A NAME="section3">3. Error messages</A></H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Unknown command</P>
+
+<P ALIGN="JUSTIFY">You specified an unknown command.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid or missing parameter</P>
+
+<P ALIGN="JUSTIFY">The syntax or the value of the parameter is invalid or too few parameters
+were specified on the command line.</P>
+
+<LI><P ALIGN="JUSTIFY">Drive letter beyond LASTDRIVE value</P>
+
+<P ALIGN="JUSTIFY">The drive letter specified on the command line is higher than the highest
+drive letter currently available. See the important notes above for more
+information about the reason for this error.</P>
+
+<LI><P ALIGN="JUSTIFY">Unsupported DOS version</P>
+
+<P ALIGN="JUSTIFY">You're using a DOS that is not supported. You need MS-DOS 4.0 or above.
+Also, the software refuses to work under most non-Microsoft DOS clones as
+their internal data areas may be different from Microsoft DOS'es.</P>
+
+<LI><P ALIGN="JUSTIFY">Windows running</P>
+
+<P ALIGN="JUSTIFY">You are not allowed to manipulate drive letters when Windows is running.
+You should run the software before launching Windows.</P>
+
+<LI><P ALIGN="JUSTIFY">Cache detected</P>
+
+<P ALIGN="JUSTIFY">You are not allowed to manipulate drive letters when a disk cache is
+installed. You should run the software before installing disk caches. Note
+that only SmartDrive and compatible disk caches are detected.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid LASTDRIVE value</P>
+
+<P ALIGN="JUSTIFY">You need to set the "LASTDRIVE" parameter in CONFIG.SYS to a value of "D"
+or above. Also, a value of above "Z" probably means a damaged system area.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid DPB drivenum</P>
+
+<P ALIGN="JUSTIFY">The logical drive number in a drive parameter block is beyond "Z". This
+probably means a non-compatible or damaged system area.</P>
+
+<LI><P ALIGN="JUSTIFY">CDS drive letter mismatch</P>
+
+<P ALIGN="JUSTIFY">The first character - the drive letter - of the path in an entry of the
+current directory structure is not as expected. The drive is probably
+SUBST'ed. You should run the software before doing any other manipulations
+on logical drives.</P>
+
+<LI><P ALIGN="JUSTIFY">CDS or DPB chain corrupted</P>
+
+<P ALIGN="JUSTIFY">The pointer to the drive parameter block of the same drive differs in the
+current directory structure and the chain of drive parameter blocks. This
+probably means a non-compatible or damaged system area.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid CDS structure</P>
+
+<P ALIGN="JUSTIFY">The path in an entry of the current directory structures is neither
+"?:\..." nor "\\...". This probably means a non-compatible or damaged
+system area or some unusual disk device. You should run the software
+before installing custom disk devices.</P>
+</UL>
+
+<H3><A NAME="section4">4. History</A></H3>
+
+<P ALIGN="JUSTIFY">0.10 beta (2003-06-29)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">First public release.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.20 beta (2003-07-01)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Fix: Added more updates so that, after the drive letter changes, the DOS
+system tables remain consistent. Without this, certain software,
+that access the disk directly, refused to work.</P>
+
+<LI><P ALIGN="JUSTIFY">Fix: Made the "LIST" and "REASSIGN" commands work under MS-DOS versions
+4.x to 6.x, as well, by getting the pointer to the drive table from a
+DOS service rather reading directly into the DOS system area.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Created a device driver version of the software that can be run,
+before any other software, from CONFIG.SYS.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Documented the method of changing the drive letter of the Windows
+system partition so that Windows can load successfully.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Added the "/q" option to force quiet operation.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.30 beta (2004-08-29)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Mod: The "LIST" command outputs completely new data: Linux-style partition
+name, volume label and serial number.</P>
+
+<LI><P ALIGN="JUSTIFY">Mod: Refined the method of changing the drive letter of the Windows system
+partition: it is recommended to copy all drivers, that are needed
+upon startup, to drive C:.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Added the "SET", "MOVE" and "DELETE" commands.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Added important notes.</P>
+
+<LI><P ALIGN="JUSTIFY">New: Added BOOTREC.PAS, a proof-of-concept program that traverses through
+all partitions of all hard disks up to the 128 Gigabyte limit, reads
+the boot sectors of DOS partitions and displays their Linux-style
+partition name, volume label and serial number.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.31 beta (2004-11-07)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">New: Added an important note about the impossibility of moving any drive,
+using the device driver version of the software from CONFIG.SYS, to a
+drive letter that is above the highest drive letter available upon
+booting.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.32 beta (2004-11-28)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">New: A new error message "Drive letter beyond LASTDRIVE value" has been
+added.</P>
+
+<LI><P ALIGN="JUSTIFY">New: BOOTREC.EXE, the executable compiled from BOOTREC.PAS, is included.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.33 beta (2005-05-08)</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Fix: Fixed a problem with detecting the end of DPB chains, that resulted
+in an "Invalid DPB drivenum" error in some cases.</P>
+</UL>
+
+<H3><A NAME="section5">5. To do</A></H3>
+
+<P ALIGN="JUSTIFY">The following changes are planned for the next release:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Support for reading commands from a text file so that multiple drive
+letters can be changed via a single call.</P>
+
+<LI><P ALIGN="JUSTIFY">New command for writing the current drive letter assignments, as "SET"
+commands, into a text file that can later be used for restoring the
+assignments, without any manual editing.</P>
+
+<LI><P ALIGN="JUSTIFY">Wildcards and intervals for the "SET" command so that the letters of
+multiple drives, with similar volume labels and/or serial numbers, can be
+changed in a single command.</P>
+</UL>
+
+<H3><A NAME="section6">6. Copyright and legal issues</A></H3>
+
+<P ALIGN="JUSTIFY">This software is freeware. You may use it as long as you wish and you may
+spread it as you like provided that it is in the original unmodified archive.
+Don't distribute single files, only the whole package, and don't ask for money
+above the normal fee of the distribution media itself. This software may not
+be included in any compilation, sold on disk or CD/DVD-ROM or bundled with
+software or hardware without prior permission from the author.</P>
+
+<P ALIGN="JUSTIFY">The source of this software is public domain and provided here "as is" - I
+don't feel like commenting it more but if you have problems then feel free to
+ask me. If you derive your own software from the source or put a part of the
+source into your own software, please, give me a credit and send a copy to me.</P>
+
+<P ALIGN="JUSTIFY">The author accepts no liability for any damage or data loss caused by this
+software.</P>
+
+<H3><A NAME="section7">7. The author</A></H3>
+
+<P ALIGN="JUSTIFY">If you're interested in some similarly useful utilities then contact me at
+the E-mail address <A HREF="mailto:sta.ANTI@SPAM.c64.org">sta.ANTI@SPAM.c64.org</A> or visit my homepage at <A HREF="http://sta.c64.org">http://sta.c64.org</A>.</P>
+
+<P ALIGN="JUSTIFY">Joe Forster/STA<BR>
+8th May, 2005</P>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

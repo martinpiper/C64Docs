@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The XEP1541 adaptor</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The XEP1541 adaptor</H2>
+</CENTER>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">You definitely need 1N5819 or BAT85 for this cable,
+  other Schottky-diodes or the usual 1N4148 diodes don't work with many
+  motherboards.</P>
+
+<LI><P ALIGN="JUSTIFY">On circuit diagrams, plugs are displayed as viewed from
+  the back side, the solder side. Chips are displayed as viewed from above;
+  also, see the small semicircular cut for finding the correct orientation.
+  When in doubt, see the corresponding description on the
+  <A HREF="legend.html">legend page</A>.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">You need the following parts to build this adaptor:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">One printable circuit board of about 9 x 5.5
+  centimeters</P>
+
+<LI><P ALIGN="JUSTIFY">One PCB-mountable 6-pin DIN female port (Commodore
+  serial port)</P>
+
+<LI><P ALIGN="JUSTIFY">One PCB-mountable 25-pin male plug (PC parallel
+  plug)</P>
+
+<LI><P ALIGN="JUSTIFY">Four 1N5819 or BAT85 diodes</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> Build the board of the adaptor, cut it to
+shape and drill the holes in it, according to the
+<A HREF="xep1541ab.png">board diagram</A> (300 DPI resolution). This diagram
+shows the board as viewed from below.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Solder the PCB-mountable
+<A HREF="legend.html#din6port">DIN port</A> and
+<A HREF="legend.html#parplug">parallel plug</A> onto the top side of the
+board.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 3.</B> Build the
+<A HREF="legend.html#diode">diode</A> bridges between onto the appropriate
+places on the top side of the board. These include the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"> <B>Parallel plug</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   13, Select  <TD WIDTH="20%">    1, Strobe  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   12, PaperEnd<TD WIDTH="20%">   14, AutoFeed<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   11, Busy    <TD WIDTH="20%">   17, SelectIn<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   10, Ack     <TD WIDTH="20%">   16, Init    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">The cathodes of the diodes should be pointing towards the
+pins in the right column of the table, which corresponds with the right side
+when the adaptor is viewed from its back side, where the DIN port and the user
+port edge are.</P>
+
+<P ALIGN="JUSTIFY">The parts should be soldered the following way onto the
+board. This diagram shows the board as viewed from above. Note the small band
+on the right side of the diodes.</P>
+
+<A HREF="xep1541ap.png"><IMG BORDER=1 SRC="xep1541ap.png" ALT="[XEP1541 adaptor]"></A>
+
+<H4>Circuit diagram</H4>
+
+<A HREF="xep1541a.png"><IMG BORDER=1 SRC="xep1541a.png" ALT="[XEP1541 adaptor]"></A>
+
+<P ALIGN="JUSTIFY">You can find the description of all parts used on the
+diagrams at the <A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

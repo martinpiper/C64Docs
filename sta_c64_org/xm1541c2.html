@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The XM1541 multitask cable</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The XM1541 multitask cable</H2>
+</CENTER>
+
+<P ALIGN="JUSTIFY">You should follow these instructions if you already have an
+<A HREF="x1541.html">X1541 cable</A> and you want to transform it.</P>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">You definitely need 1N5819 or BAT85 for this cable,
+  other Schottky-diodes or the usual 1N4148 diodes don't work with many
+  motherboards.</P>
+
+<LI><P ALIGN="JUSTIFY">On circuit diagrams, plugs are displayed as viewed from
+  the back side, the solder side. Chips are displayed as viewed from above;
+  also, see the small semicircular cut for finding the correct orientation.
+  When in doubt, see the corresponding description on the
+  <A HREF="legend.html">legend page</A>.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">You need the following parts to build this cable:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Four 1N5819 or BAT85 diodes</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> Unsolder the wires from pins 5 (DATA) and 6
+(RESET) of the <A HREF="legend.html#din6plug">DIN plug</A> and resolder them
+the opposite way.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Unsolder all wires, except for the GND, from
+the <A HREF="legend.html#parplug">parallel plug</A> and resolder them to the
+other pins. These include the following changes:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">     <B>From</B>      <TH WIDTH="20%">      <B>To</B>       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    1, Strobe  <TD WIDTH="20%">   13, Select  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   14, AutoFeed<TD WIDTH="20%">   12, PaperEnd<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   17, SelectIn<TD WIDTH="20%">   11, Busy    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   16, Init    <TD WIDTH="20%">   10, Ack     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">18-25, GND     <TD WIDTH="20%">   leave it    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY"><B>Step 3.</B> Build the
+<A HREF="legend.html#diode">diode</A> bridges between the appropriate pins of
+the <A HREF="legend.html#parplug">parallel plug</A>. These include the
+following connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%"> <B>Parallel plug</B> <TH WIDTH="20%"> <B>Parallel plug</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   13, Select  <TD WIDTH="20%">    1, Strobe  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   12, PaperEnd<TD WIDTH="20%">   14, AutoFeed<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   11, Busy    <TD WIDTH="20%">   17, SelectIn<BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">   10, Ack     <TD WIDTH="20%">   16, Init    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">The cathodes of the diodes should be pointing towards the
+pins in the right column of the table.</P>
+
+<H4>Circuit diagram:</H4>
+
+<A HREF="xm1541_2.png"><IMG BORDER=1 SRC="xm1541_2.png" ALT="[XM1541 multitask cable]"></A>
+
+<P ALIGN="JUSTIFY">The original connections of the <A HREF="x1541.html">X1541
+cable</A> are shown in grey. Connections to cut off are shown with red
+stripes. You can find the description of all parts used on the diagrams at the
+<A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

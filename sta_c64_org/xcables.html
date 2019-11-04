@@ -1,0 +1,821 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The X1541-series interfaces</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The X1541-series interfaces</H2>
+</CENTER>
+
+<P ALIGN="JUSTIFY">For a complete list of cables and adaptors discussed on
+these pages, see the <A HREF="cables.html">cables and adaptors page</A>. If
+you're having problems with a cable then download
+<A HREF="scextprg.html#xctest">XCTest</A> and test your cable with it.</P>
+
+<P ALIGN="JUSTIFY">The descriptions and construction guides on these pages are
+for beginners. If you are a hardware expert then, please, bare with them.</P>
+
+<H3>The interfaces</H3>
+
+<P ALIGN="JUSTIFY">There are four serial cables and two additional parallel
+cables. These all connect Commodore drives to the PC parallel port. Also,
+using the serial cables, you can connect a Commodore machine to the PC, too.
+Depending on what Commodore and PC hardware you have, what operating system
+you are running on your PC and what transfer speed you want to achieve, you
+may select among a number of cables and cable pairs. For a detailed guide on
+selecting, see below.</P>
+
+<P ALIGN="JUSTIFY">The cables are the following. For more infos on each cable,
+follow the link on the cable name.</P>
+
+<H4><A NAME="serial">X1541-series serial cables</A></H4>
+
+<P ALIGN="JUSTIFY">These are absolutely necessary, no data transfer will work
+without them.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The <A HREF="x1541.html">X1541 cable</A> is the
+  original cable. It requires an <A HREF="parport.html">SPP</A> or
+  <A HREF="parport.html">PS/2</A> parallel port and it's compatible with all
+  Commodore machines and drives that have the usual serial bus port. However,
+  it's not compatible with the parallel port integrated onto most Pentium and
+  above motherboards.</P>
+
+<LI><P ALIGN="JUSTIFY">The <A HREF="xe1541.html">XE1541 extended cable</A> is
+  a substitute for the X1541 cable. It's also a serial cable and it's also
+  compatible with all Commodore machines and drives that have the usual serial
+  bus port but it works on all parallel ports, including the ones integrated
+  onto most Pentium and above motherboards (see the info page for
+  exceptions!).</P>
+
+<LI><P ALIGN="JUSTIFY">The <A HREF="xm1541.html">XM1541 multitask cable</A> is
+  only a bit different from the XE1541 extended cable. It has two wires
+  swapped at the Commodore end of the cable. This allows other transfer
+  software to use interrupts rather than polling to do handshake with the
+  Commodore drive under GNU/Linux. It's a serial cable, it's compatible with
+  all Commodore machines and drives that have the usual serial bus port and it
+  works on all parallel ports, including the ones integrated onto most Pentium
+  and above motherboards (see the info page for exceptions!).</P>
+
+<LI><P ALIGN="JUSTIFY">The <A HREF="xa1541.html">XA1541 active cable</A> uses
+  transistors and resistors rather than diodes. This makes it the ultimate
+  transfer cable because it works even on those few motherboards that the
+  XE1541 extended cable and the XM1541 multitask cable have problems with.
+  This cable also works under GNU/Linux and is compatible with all Commodore
+  machines and drives that have the usual serial bus port.</P>
+</UL>
+
+<H4><A NAME="parallel">X1541-series parallel cables</A></H4>
+
+<P ALIGN="JUSTIFY">These are optional cables, companions to the serial cables,
+you can't use them alone. All they do is speed up the data transfer.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The <A HREF="xh1541.html">XH1541 and XH1571 hybrid
+  cables</A> are companion cables for the X1541 cable. They are compatible
+  with all parallel ports and come in two flavors: the XH1541 hybrid cable for
+  Commodore 1541 drives and the XH1571 hybrid cable for Commodore 1570 and
+  1571 drives; other drives are not supported. These cables can't be used
+  alone and, effectively, triple the transfer speed in the PC-to-drive
+  direction and speed it up to 150% in the drive-to-PC direction.</P>
+
+<LI><P ALIGN="JUSTIFY">The <A HREF="xp1541.html">XP1541 and XP1571 parallel
+  cables</A> are companion cables for all four serial cables. They are
+  compatible with <A HREF="parport.html">PS/2</A>,
+  <A HREF="parport.html">EPP</A> and <A HREF="parport.html">ECP</A> parallel
+  ports and come in two flavors: the XP1541 parallel cable for Commodore 1541
+  drives and the XP1571 parallel cable for Commodore 1570 and 1571 drives;
+  other drives are not supported. These cables can't be used alone and,
+  effectively, triple the transfer speed in both the PC-to-drive and the
+  drive-to-PC direction.</P>
+</UL>
+
+<H4><A NAME="combo">X1541-series cable combos</A></H4>
+
+<P ALIGN="JUSTIFY">These Y-shaped cables combine a X1541-series serial cable
+with an X1541-series parallel cable.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="xxh1541.html">XXH1541 cable combo</A>. A pair
+  of X1541 cable and XH1541 or XH1571 hybrid cable, in the form of a Y-shaped
+  cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xxp1541.html">XXP1541 cable combo</A>. A pair
+  of X1541 cable and XP1541 or XP1571 parallel cable, in the form of a
+  Y-shaped cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xep1541.html">XEP1541 cable combo</A>. A pair
+  of XE1541 extended cable and XP1541 or XP1571 parallel cable, in the form of
+  a Y-shaped cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xmp1541.html">XMP1541 cable combo</A>. A pair
+  of XM1541 multitask cable and XP1541 or XP1571 parallel cable, in the form
+  of a Y-shaped cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xap1541.html">XAP1541 cable combo</A>. A pair
+  of XA1541 active cable and XP1541 or XP1571 parallel cable, in the form of a
+  Y-shaped cable.</P>
+</UL>
+
+<H4><A NAME="adaptor">X1541-series adaptors</A></H4>
+
+<P ALIGN="JUSTIFY">The following adaptors convert an X1541-series cable to
+another.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="xem1541a.html">XE/M1541 adaptor</A>. Converts
+  an XE1541 extended cable to an XM1541 multitask cable and vice versa.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The following are the equivalents of the X1541-series cable
+combos. You can plug a <A HREF="cbmser.html">Commodore serial cable</A> and,
+optionally, a <A HREF="cbmpar.html">Commodore parallel cable</A> onto the
+adaptor and then plug the adaptor into the PC. This way, you can use the
+Commodore cables, that you already have, with a PC, too.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="xep1541a.html">XEP1541 adaptor</A>. Serves as
+  a pair of XE1541 extended cable and XP1541 or XP1571 parallel cable,
+  allowing you to reuse your already existing Commodore serial cable and
+  Commodore parallel cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xmp1541a.html">XMP1541 adaptor</A>. Serves as
+  a pair of XM1541 multitask cable and XP1541 or XP1571 parallel cable,
+  allowing you to reuse your already existing Commodore serial cable and
+  Commodore parallel cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xap1541a.html">XAP1541 adaptor</A>. Serves as
+  a pair of XA1541 active cable and XP1541 or XP1571 parallel cable, allowing
+  you to reuse your already existing Commodore serial cable and Commodore
+  parallel cable.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">If you'd like to buy parts for the cables and adaptors, see
+the <A HREF="parts.html">electronical parts</A> page. If you'd like to order
+any of these cables or adaptors then, please, visit
+<A HREF="x1541shop.html">The X1541 Shop</A>.</P>
+
+<H3><A NAME="selguide">Cable selection guide</A></H3>
+
+<P ALIGN="JUSTIFY">If this is the first time you encounter the X1541-series
+cables then it is highly recommended that you read through this whole section.
+However, if you don't have time for that or this is too much information for
+you, you may jump to the <A HREF="#conclusion">conclusion</A> right away.</P>
+
+<H4>Serial and parallel cables</H4>
+
+<P ALIGN="JUSTIFY">To be able to transfer data between your Commodore drive
+and your PC, first, you need a serial cable. Note that serial here means that
+the cable is serial, even if you connect it to the parallel port of the PC.
+You have four choices:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="x1541.html">X1541 cable</A> (recommended for
+  old PC's only!),</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xe1541.html">XE1541 extended cable</A>,</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xm1541.html">XM1541 multitask cable</A>
+  and</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="xa1541.html">XA1541 active cable</A>.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">If you have the serial cable finished and the transfer
+software up and running with it and you have a Commodore 1541, 1570 or 1571
+drive or compatible clone, you may think of speeding the transfer up with one
+of the additional cables. Please, note that all these cables need
+modifications in your Commodore drive. If you're not good at hardware hacking,
+don't try doing it yourself but ask for an expert's help instead. Also, read
+the transfer software's documentation on whether it supports these cables. You
+have two choices:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="xh1541.html">XH1541/XH1571 hybrid cable</A>
+  (recommended for old PC's only!) and</P>
+<LI><P ALIGN="JUSTIFY"><A HREF="xp1541.html">XP1541/XP1571 parallel
+  cable</A>.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The following charts describe the compatibility of the
+cables with different parallel ports and software and how the cables can be
+used together. This section should be considered as the central collection of
+the information that you can find on the info pages of each cable.</P>
+
+<H4>Compatibility with each other</H4>
+
+<P ALIGN="JUSTIFY">The serial cables can be used alone. (That is, unless the
+chosen software requires a parallel cable.) Parallel cables cannot be used
+alone, they require the presence of a serial cable. However, not all pairs of
+serial and parallel cables are possible. In general, you should not use the
+<A HREF="xh1541.html">XH1541 hybrid cable</A> at all as it was designed to
+bring the most out of old PC hardware only. It has been superseded years ago
+by the <A HREF="xp1541.html">XP1541 parallel cable</A> that gives you higher
+speed on a modern PC and can be used along with all serial cables.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="60%">
+<TR ALIGN="CENTER"><TH WIDTH="40%"> <B>Serial cable/parallel cable</B><TH WIDTH="10%">XH1541<TH WIDTH="10%">XP1541<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">      <A HREF="x1541.html">X1541 cable</A>          <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">  <A HREF="xe1541.html">XE1541 extended cable</A>    <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">  <A HREF="xm1541.html">XM1541 multitask cable</A>   <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">    <A HREF="xa1541.html">XA1541 active cable</A>    <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<H4>Compatibility with PC parallel port modes</H4>
+
+<P ALIGN="JUSTIFY">For most integrated parallel ports on modern PC's, the mode
+of your parallel port can be viewed and changed in the BIOS setup. For old
+parallel port cards, you may have to use jumpers or its own software. It may
+be possible that the BIOS setup or the parallel port software calls parallel
+port modes differently: "Standard", "Compatible" or "Normal" usually stand for
+SPP; "BPP" or "Extended" for PS/2. Some BIOS'es display the parallel port mode
+incorrectly so, after having changed it, check the correct mode as reported by
+<A HREF="dosprg.html#xctest">XCTest</A> or
+<A HREF="sc.html">The Star Commander</A>.</P>
+
+<P ALIGN="JUSTIFY">The very old <A HREF="x1541.html">X1541 cable</A> does not
+work with the integrated parallel ports of modern PC's, therefore, you should
+choose it only if you want to use it with an old software and have an old PC
+for this purpose. The <A HREF="xe1541.html">XE1541 extended cable</A> and the
+<A HREF="xm1541.html">XM1541 multitask cable</A> have better compatibility
+with modern PC's but they may have problems with laptops and a few desktop
+motherboards (more details on the info pages).</P>
+
+<P ALIGN="JUSTIFY">The <A HREF="xa1541.html">XA1541 active cable</A> has the
+best compatibility with parallel ports. Also, the integrated parallel port of
+modern PC's are all compatible with the <A HREF="xp1541.html">XP1541 parallel
+cable</A>. If you concentrate on hardware compatibility, these two cables are
+the best choices.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="35%">      <B>Cable/port mode</B>     <TH WIDTH="15%">    <B>SPP</B>     <TH WIDTH="15%">   <B>PS/2</B>    <TH WIDTH="15%">  <B>EPP/ECP</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">     <A HREF="x1541.html">X1541 cable</A> [1]      <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    no     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"> <A HREF="xe1541.html">XE1541 extended cable</A> [2]<TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xm1541.html">XM1541 multitask cable</A> [2]<TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">   <A HREF="xa1541.html">XA1541 active cable</A>    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">   <A HREF="xh1541.html">XH1541 hybrid cable</A>    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">  <A HREF="xp1541.html">XP1541 parallel cable</A>   <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">You can check if your parallel port is compatible with
+  the <A HREF="x1541.html">X1541 cable</A> with
+  <A HREF="scextprg.html#x1541test">X1541Test</A>.</P>
+
+<LI><P ALIGN="JUSTIFY">We found that the this cable doesn't work on certain
+  motherboards and laptops. See the info page more details. On incompatible
+  machines, it is recommended that you use the XA1541 active cable instead.
+  Unfortunately, there's no software that would be able to tell whether your
+  parallel port is compatible with this cable or not.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Following is a compatibility chart of possible combinations
+of serial and parallel cables with parallel port modes.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="35%">   <B>Cable combo/port mode</B>  <TH WIDTH="15%">    <B>SPP</B>     <TH WIDTH="15%">   <B>PS/2</B>    <TH WIDTH="15%">  <B>EPP/ECP</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xxh1541.html">XXH1541 = X1541 + XH1541</A>  <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    no     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xxp1541.html">XXP1541 = X1541 + XP1541</A>  <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    no     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xep1541.html">XEP1541 = XE1541 + XP1541</A> <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xmp1541.html">XMP1541 = XM1541 + XP1541</A> <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xap1541.html">XAP1541 = XA1541 + XP1541</A> <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">You may find more information about parallel port modes on
+<A HREF="parport.html">The PC parallel port</A> page.</P>
+
+<P ALIGN="JUSTIFY">If you are interested in the electronical details of PC
+parallel ports and the X1541-series cables, please, read the
+<A HREF="scdoc.html#section9">Technical background information</A> section in
+The Star Commander documentation.</P>
+
+<H4>Compatibility with PC software</H4>
+
+<P ALIGN="JUSTIFY">There are two categories for current software, according to
+the main functionality. A transfer software makes the PC act as a Commodore
+machine &ndash; the master of the serial bus &ndash;, letting you access the
+contents of disks in attached Commodore drives from the PC. A file server or
+emulator makes the PC act as a Commodore drive &ndash; a slave on the serial
+bus &ndash;, letting you access the contents of emulated disk drives from the
+Commodore machine.</P>
+
+<P ALIGN="JUSTIFY">In the past, the <A HREF="xe1541.html">XE1541 extended
+cable</A> was supported by the most software. However, this changed with the
+introduction of native GNU/Linux and Windows software which support the
+<A HREF="xm1541.html">XM1541 multitask cable</A> and the
+<A HREF="xa1541.html">XA1541 active cable</A> instead. NOTE: An XE1541
+extended cable can easily be converted into an XM1541 multitask cable (more
+details on the info page). Some of the software support the
+<A HREF="xp1541.html">XP1541 parallel cable</A>, as well.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">       <B>Software/cable</B>       <TH WIDTH="10%"> X1541<TH WIDTH="10%">XE1541<TH WIDTH="10%">XM1541<TH WIDTH="10%">XA1541<TH WIDTH="10%">XH15x1<TH WIDTH="10%">XP15x1<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#1541emu">1541EMU</A> [2]      <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#64hdd">64HDD</A>           <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">        <A HREF="http://phs-edv.de/Forum/viewforum.php?f=18">C64S Emulator</A> [1]   <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="linuxprg.html#cbm4linux">cbm4linux</A>         <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">       <A HREF="winprg.html#cbm4win">OpenCBM/cbm4win</A>      <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.fairlight.to/tools/pc.html">Disk64</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="dosprg.html#nibtools">nibtools</A>          <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <TD WIDTH="10%">no [3]<TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">         <A HREF="dosprg.html#mtap">mtap & ptap</A>        <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.hut.fi/Misc/cbm/xfer/prlink.html">prlink</A>           <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">     <A HREF="sc.html">The Star Commander</A>     <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#trans64">Trans64</A> [1]      <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#vc1541">VC1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#x1541">X1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">This software has been abandoned. It is not developed
+  anymore, therefore, you should not choose cables according to their
+  compatibility with it. Instead, use another software for the same purpose
+  and see the compatibility of the cables with that one.</P>
+
+<LI><P ALIGN="JUSTIFY">This software uses its own cable and it does not
+  support any of the X1541-series interfaces. It is included in the table only
+  for the sake of completeness.</P>
+
+<LI><P ALIGN="JUSTIFY">Support for this cable is currently not available in
+  this software but it is planned to be implemented later.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Also, a software compatibility chart for cable combos. Only
+those software are included that support, at least, one of the X1541-series
+parallel cables.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="90%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">    <B>Software/cable combo</B>    <TH WIDTH="10%">XXH1541<TH WIDTH="10%">XXP1541<TH WIDTH="10%">XEP1541<TH WIDTH="10%">XMP1541<TH WIDTH="10%">XAP1541<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="linuxprg.html#cbm4linux">cbm4linux</A>         <TD WIDTH="10%">  no   <TD WIDTH="10%">  no   <TD WIDTH="10%">  no   <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">       <A HREF="winprg.html#cbm4win">OpenCBM/cbm4win</A>      <TD WIDTH="10%">  no   <TD WIDTH="10%">  no   <TD WIDTH="10%">  no   <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="dosprg.html#nibtools">nibtools</A>          <TD WIDTH="10%">  no   <TD WIDTH="10%">  no   <TD WIDTH="10%">  YES  <TD WIDTH="10%">no [1] <TD WIDTH="10%">  YES  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">     <A HREF="sc.html">The Star Commander</A>     <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <TD WIDTH="10%">  YES  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Support for this cable combo is currently not available
+  in this software but it is planned to be implemented later.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Finally, a compatibility chart between software and
+non-X1541-series cables. Only those software are included that support, at
+least, one non-X1541-series cable. This cable is included only for the sake of
+completeness. You can find the descriptions of these cables on the
+<A HREF="cables.html">cables and adaptors page</A>.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="60%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">       <B>Software/cable</B>       <TH WIDTH="10%">1541EMU<TH WIDTH="10%">Power-<BR>                                      Loader<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#1541emu">1541EMU</A>          <TD WIDTH="10%">  YES  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#64hdd">64HDD</A>           <TD WIDTH="10%">  no   <TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.hut.fi/Misc/cbm/xfer/prlink.html">prlink</A> [1]       <TD WIDTH="10%">  no   <TD WIDTH="10%">  no  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">This software supports a wide variety of cables. See
+  the software documentation for more information.</P>
+</OL>
+
+<H4>Compatibility with PC operating systems</H4>
+
+<P ALIGN="JUSTIFY">Strictly speaking, the cable has nothing to do with the
+operating system. However, it is possible that the software, that runs under a
+given operating system, supports only a few cables, not all of them; or, vice
+versa, the software, supporting a given cable, may run under only a few
+operating systems, not all of them.</P>
+
+<P ALIGN="JUSTIFY">While transfer programs may or may not run properly in
+multi-tasking environments, such as GNU/Linux, OS/2 or any version of Windows,
+you must be prepared to boot real DOS on your PC to run file servers and
+emulators.</P>
+
+<P ALIGN="JUSTIFY">The following table shows the compatibility between PC
+software and PC operating systems. This table is for informational purposes
+only; because there are so many clones of the original MS-DOS and because
+there are so many versions of GNU/Linux and Windows, you should see the
+software documentation for more precise details on compatibility with
+different operating systems.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">  <B>Software/operating system</B>  <TH WIDTH="10%"> DOS  <TH WIDTH="10%">Linux <TH WIDTH="10%">W9X/ME<TH WIDTH="10%">NT/2K/XP<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#64hdd">64HDD</A>           <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">        <A HREF="http://phs-edv.de/Forum/viewforum.php?f=18">C64S Emulator</A> [1]   <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="linuxprg.html#cbm4linux">cbm4linux</A>         <TD WIDTH="10%">  no  <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">       <A HREF="winprg.html#cbm4win">OpenCBM/cbm4win</A>      <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">no [2]<TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.fairlight.to/tools/pc.html">Disk64</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="dosprg.html#nibtools">nibtools</A>          <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">         <A HREF="dosprg.html#mtap">mtap & ptap</A>        <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.hut.fi/Misc/cbm/xfer/prlink.html">prlink</A>           <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">     <A HREF="sc.html">The Star Commander</A>     <TD WIDTH="10%">  YES <TD WIDTH="10%">yes[4]<TD WIDTH="10%">YES[3]<TD WIDTH="10%">yes[4]<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#trans64">Trans64</A> [1]      <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#vc1541">VC1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#x1541">X1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">This software has been abandoned. It is not developed
+  anymore, therefore, you should not choose cables according to their
+  compatibility with it. Instead, use another software for the same purpose
+  and see the compatibility of the cables with that one.</P>
+
+<LI><P ALIGN="JUSTIFY">Support for this operating system is currently not
+  available in this software but it is planned to be implemented later.</P>
+
+<LI><P ALIGN="JUSTIFY">Steps have been taken in this software to support this
+  operating system. Read the software documentation for instructions and more
+  information.</P>
+
+<LI><P ALIGN="JUSTIFY">Steps have been taken in this software to support this
+  operating system but it is, unfortunately, not perfectly stable. Read the
+  software documentation for instructions and more information.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Joining the compatibility table of cables and software
+with that of software and operating systems, the result is a compatibility
+table between cables and operating systems.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">   <B>Cable/operating system</B>    <TH WIDTH="10%"> DOS  <TH WIDTH="10%">Linux <TH WIDTH="10%">W9X/ME<TH WIDTH="10%">NT/2K/XP<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">         <A HREF="x1541.html">X1541 cable</A>        <TD WIDTH="10%">  YES <TD WIDTH="10%">yes[2]<TD WIDTH="10%">YES[1]<TD WIDTH="10%">yes[2]<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">   <A HREF="xe1541.html">XE1541 extended cable</A>    <TD WIDTH="10%">  YES <TD WIDTH="10%">yes[2]<TD WIDTH="10%">YES[1]<TD WIDTH="10%">yes[2]<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">   <A HREF="xm1541.html">XM1541 multitask cable</A>   <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">YES[1]<TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">    <A HREF="xa1541.html">XA1541 active cable</A>     <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">YES[1]<TD WIDTH="10%">  YES <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">    <A HREF="xh1541.html">XH1541 hybrid cable</A>     <TD WIDTH="10%">  YES <TD WIDTH="10%">yes[2]<TD WIDTH="10%">YES[1]<TD WIDTH="10%">yes[2]<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">   <A HREF="xp1541.html">XP1541 parallel cable</A>    <TD WIDTH="10%">  YES <TD WIDTH="10%">  YES <TD WIDTH="10%">YES[1]<TD WIDTH="10%">  YES <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="JUSTIFY">Notes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Steps have been taken in <A HREF="sc.html">The Star
+  Commander</A> to support Windows 95/98/ME DOS shells. Read the software
+  documentation for instructions and more information. Also, support for
+  Windows 95/98/ME is currently not available in
+  <A HREF="winprg.html#cbm4win">openbm/cbm4win</A> but it is planned to be
+  implemented later.</P>
+
+<LI><P ALIGN="JUSTIFY">Steps have been taken in <A HREF="sc.html">The Star
+  Commander</A> to support GNU/Linux dosemu and Windows NT/2000/XP DOS shells
+  but it is, unfortunately, not perfectly stable. Read the software
+  documentation for instructions and more information.</P>
+</OL>
+
+<H4>Compatibility with Commodore drives and machines</H4>
+
+<P ALIGN="JUSTIFY">Don't let the "1541" in the names of the cables fool you:
+all the serial cables &ndash; <A HREF="x1541.html">X1541</A>,
+<A HREF="xe1541.html">XE1541</A>, <A HREF="xm1541.html">XM1541</A> and
+<A HREF="xa1541.html">XA1541</A> &ndash; are compatible with all Commodore
+drives that have the usual serial port; this includes 1541, 1570, 1571 and
+1581 drives and compatible clones and other Commodore drives, too. Also, the
+serial cable can be plugged into the serial port of a Commodore machine, as
+well, making the PC emulate Commodore drives; this includes all C64 and C128
+flavors. However, it is up to the software whether it can transfer from/to a
+particular drive or whether it can emulate it. As the 1541 drive is the most
+popular of all, you can expect all transfer and emulator software to support
+or emulate it; see the software documentation about support of other
+drives.</P>
+
+<P ALIGN="JUSTIFY">As for hardware compatibility, the XA1541 cable simulates
+the circuitry found in the serial bus ports of Commodore machines and drives.
+For this reason, it can cope with multiple devices on the same serial bus,
+daisy chained with plain Commodore serial cables from the first one that the
+X1541-series cable is connected to. On the other hand, the XE1541 and XM1541
+cables cannot drive the serial bus strong enough in such cases: the result is
+unreliable data transfer, damaged or lost data. But, for a single Commodore
+machine or drive connected to the PC, any of the serial cables will do.</P>
+
+<P ALIGN="JUSTIFY">The parallel cables are available in two flavors each: the
+<A HREF="xh1541.html">XH1541</A> and <A HREF="xp1541.html">XP1541</A> cables
+are for 1541 drives, the <A HREF="xh1541.html">XH1571</A> and
+<A HREF="xp1541.html">XP1571</A> cables are for 1570 and 1571 drives. The
+1541 and 1570/1571 flavors are identical in concept and usage, only their
+implementation differs, because of the hardware differences between 1541 and
+1570/1571 drives. There are no known similar implementations of parallel
+cables for 1581 drives or other Commodore drives. If you need an additional
+parallel cable between the PC and a Commodore machine, use the
+<A HREF="pwrload.html">Power-Loader cable</A> instead.</P>
+
+<P ALIGN="JUSTIFY">The following cable shows the compatibility between
+the transfer software and different Commodore drives; "+P" means that an
+additional parallel connection, via an <A HREF="xp1541.html">XP1541/XP1571
+parallel cable</A> is also supported. The Commodore drives are supposed to be
+running in their native mode; the 1541 emulation mode of 1570 and 1571 drives
+is considered to be identical to genuine 1541 drives.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">   <B>Transfer software/drive</B>  <TH WIDTH="10%"> 1541 <TH WIDTH="10%"> 1570 <TH WIDTH="10%"> 1571 <TH WIDTH="10%"> 1581 <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="linuxprg.html#cbm4linux">cbm4linux</A>         <TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">       <A HREF="winprg.html#cbm4win">OpenCBM/cbm4win</A>      <TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.fairlight.to/tools/pc.html">Disk64</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">          <A HREF="dosprg.html#nibtools">nibtools</A>          <TD WIDTH="10%"> YES+P<TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">         <A HREF="dosprg.html#mtap">mtap & ptap</A> [2]    <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="http://www.hut.fi/Misc/cbm/xfer/prlink.html">prlink</A>           <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">     <A HREF="sc.html">The Star Commander</A>     <TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%">YES[3]<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#trans64">Trans64</A> [1]      <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#x1541">X1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">This software has been abandoned. It is not developed
+  anymore, therefore, you should not choose cables according to their
+  compatibility with it. Instead, use another software for the same purpose
+  and see the compatibility of the cables with that one.</P>
+
+<LI><P ALIGN="JUSTIFY">This software has been designed to transfer data
+  from/to Commodore datasettes, therefore, it does not support any Commodore
+  drive. It is included in the table only for the sake of completeness.</P>
+
+<LI><P ALIGN="JUSTIFY">Not all functions, related to this drive, have been
+  implemented in this software. See the software documentation for the current
+  implementation status.</P>
+</OL>
+
+<P ALIGN="JUSTIFY">The following table show which drives file server or
+emulator software can emulate; "+P" means that an additional parallel
+connection, via a <A HREF="pwrload.html">Power-Loader cable</A> is also
+supported; "+T" means that (most!) disk turbos are also supported.</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="40%">    <B>Server software/drive</B>   <TH WIDTH="10%"> 1541 <TH WIDTH="10%"> 1570 <TH WIDTH="10%"> 1571 <TH WIDTH="10%"> 1581 <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#1541emu">1541EMU</A> [2]      <TD WIDTH="10%"> YES+T<TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">            <A HREF="dosprg.html#64hdd">64HDD</A>           <TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<TD WIDTH="10%"> YES+P<BR>
+<TR ALIGN="CENTER"><TD WIDTH="40%">           <A HREF="dosprg.html#vc1541">VC1541</A> [1]       <TD WIDTH="10%">  YES <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <TD WIDTH="10%">  no  <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">This software has been abandoned. It is not developed
+  anymore, therefore, you should not choose cables according to their
+  compatibility with it. Instead, use another software for the same purpose
+  and see the compatibility of the cables with that one.</P>
+
+<LI><P ALIGN="JUSTIFY">This software uses its own cable and it does not
+  support any of the X1541-series interfaces. It is included in the table only
+  for the sake of completeness.</P>
+</OL>
+
+<H4>Compatibility with Commodore software and disks</H4>
+
+<P ALIGN="JUSTIFY">The serial cables are intentionally of simple design and do
+not aim at achieving the highest transfer speeds possible.</P>
+
+<P ALIGN="JUSTIFY">Transfer programs, that use the serial cables, should be
+able to transfer a single side of a 1541 disk in a few minutes, depending on
+the transfer mode (the disk turbo and the data transfer protocol) used.</P>
+
+<P ALIGN="JUSTIFY">Emulator and file server programs, that use the serial
+cables, cannot and, therefore, do not support disk turbos, only the standard
+Commodore IEC transfer speed. It may be possible, though, that the emulator
+software itself contains its own disk turbo (in a routine that invisibly
+autoloads and autostarts before the actual program being loaded) or it can
+detect GEOS running in the Commodore machine and can tell GEOS how to use the
+emulated drive at a higher speed. See the software documentation for such
+information. If you need a cable that lets software emulate Commodore drives
+at a very low level and support (some!) disk turbos, use the (more
+complicated) <A HREF="1541emu.html">1541EMU cable</A> instead.</P>
+
+<P ALIGN="JUSTIFY">With an <A HREF="xp1541.html">XP1541/XP1571 parallel
+cable</A> added to the serial cable, you can not only raise the transfer speed
+but also make it possible to transfer the disk contents at a lower level: read
+more data more precisely off the disk. The only current example for the latter
+is <A HREF="dosprg.html#nibtools">nibtools</A>, which is a nibbler software
+for 1541 drives that runs on a PC.</P>
+
+<H4>Compatibility with Commodore disk-based copy protections</H4>
+
+<P ALIGN="JUSTIFY">With a transfer software and a serial cable only, you may
+be able to transfer simple copy protections: intentional disk errors and
+intentionally damaged sector contents. However, for more sophisticated ones,
+you need an <A HREF="xp1541.html">XP1541/XP1571 parallel cable</A> and
+<A HREF="dosprg.html#nibtools">nibtools</A>.</P>
+
+<P ALIGN="JUSTIFY">There is currently no file server and emulator software
+that would be able to emulate copy protections, with or without a parallel
+cable.</P>
+
+<H4><A NAME="conclusion">Conclusion</A></H4>
+
+<P ALIGN="JUSTIFY"><B>Not all software may support the cable of your
+choice.</B> As you can see above, not all software support all cables (or
+cable combos). If you make your choice according to hardware compatibility but
+your favorite software does not support the chosen cable (or cable combo) then
+you may want to ask the author to incorporate support. However, if the
+software is not developed anymore or your request for support is rejected or
+ignored then you have to make a compromise between hardware and software
+compatibility. Also, your cable choice may be based on the fact that your goal
+can be achieved with a single software only.</P>
+
+<P ALIGN="JUSTIFY"><B>The XM1541 multitask cable is the best compromise.</B>
+On a modern PC, the best compromise for software and hardware compatibility is
+the <A HREF="xm1541.html">XM1541 multitask cable</A> because:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">it is easy to build (and cheap to buy);</P>
+
+<LI><P ALIGN="JUSTIFY">it works with most parallel ports (only very few
+  strange desktop motherboards and certain laptops do not support it);</P>
+
+<LI><P ALIGN="JUSTIFY">it is supported by most software currently being
+  developed;</P>
+
+<LI><P ALIGN="JUSTIFY">the software, that support it, run on a wide range of
+  operating systems.</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>You can convert an XE1541 extended cable into an XM1541
+multitask cable easily.</B> If you already have an
+<A HREF="xe1541.html">XE1541 extended cable</A>, you can easily convert it
+into an XM1541 multitask cable, by <A HREF="xm1541c3.html">rewiring it</A> or
+with the compact <A HREF="xem1541a.html">XE/M1541 adaptor</A>.
+
+<P ALIGN="JUSTIFY"><B>The XA1541 active cable has the best hardware
+compatibility.</B> If hardware compatibility (including possible compatibility
+with future PC's) is your absolute priority, the <A HREF="xa1541.html">XA1541
+active cable</A> is for you. Its advantage over the XM1541 multitask cable is
+that:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">it works with all parallel ports (until now, only one
+  &ndash; probably, misdesigned or buggy &ndash; motherboard is known to not
+  support it);</P>
+
+<LI><P ALIGN="JUSTIFY">it works with multiple Commodore devices attached to
+  the same serial bus (while the XM1541 cable can't drive the serial bus
+  strong enough in such cases).</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Its disadvantage is that:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">it is difficult to build (and expensive to buy).</P>
+</UL>
+
+<P ALIGN="JUSTIFY">It is similar to the XM1541 multitask cable in that:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">it is supported by most software currently being
+  developed;</P>
+
+<LI><P ALIGN="JUSTIFY">the software, that support it, run on a wide range of
+  operating systems.</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Add the XP1541/XP1571 parallel cable for higher transfer
+speeds or for copying protected disks.</B> If you want higher speeds or want
+to be able to transfer (some!) copy protected disks, add the
+<A HREF="xp1541.html">XP1541/XP1571 parallel cable</A> to your serial
+cable.</P>
+
+<P ALIGN="JUSTIFY">There are, of course, other solutions for transferring
+data from/to Commodore drives and machines or emulating Commodore drives on
+the PC but, as those use different cables, they are out of the scope of this
+page.</P>
+
+<H4>Cable construction</H4>
+
+<P ALIGN="JUSTIFY">If you're not very good at soldering, you can buy all
+these cables in <A HREF="x1541shop.html">The X1541 Shop</A>, for low
+prices.</P>
+
+<P ALIGN="JUSTIFY">If you decided that you need an
+<A HREF="xp1541.html">XP1541/XP1571 parallel cable</A> then you should not
+build it as it is: this cable is a concept rather than an actual cable. It is
+recommended that you build a <A HREF="cbmpar.html">Commodore parallel
+cable</A> instead, which you can either plug into a Commodore machine &ndash;
+thus establishing an additional parallel connection between the Commodore
+drive and the Commodore machine &ndash; or into an
+<A HREF="xep1541a.html">XEP1541 adaptor</A> or an
+<A HREF="xap1541a.html">XAP1541 adaptor</A> &#150 for a parallel connection
+between the Commodore drive and a PC.</P>
+
+<P ALIGN="JUSTIFY">The XEP1541 adaptor is a small circuit board that has a
+port for the usual <A HREF="cbmser.html">Commodore serial cable</A> and a card
+edge for the Commodore parallel cable. Plug the Commodore serial cable onto
+the adaptor, plug the adaptor itself into the PC parallel port and you get an
+XE1541 cable; if you need an XM1541 cable, use a
+<A HREF="cbmsertc.html">twisted Commodore serial cable</A> instead of the
+normal Commodore serial cable (the XMP1541 adaptor has not been implemented);
+when an XA1541 cable is needed, use the XAP1541 adaptor instead. If you also
+plug the Commodore parallel cable onto the adaptor, you get an additional
+XP1541/XP1571 parallel cable.</P>
+
+<H3>Similar cables</H3>
+
+<P ALIGN="JUSTIFY">The following cables are similar, in design concept and/or
+purpose, to the X1541-series interfaces. They are not discussed further on
+this page as they are out of scope.</P>
+
+<H4>Commodore-PC cables</H4>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="1541emu.html">1541EMU cable</A>. Serial cable
+  to connect a Commodore machine to a PC, the latter acting as a low level
+  1541 emulator. Its concept is similar to the X1541-series serial cables but
+  it concentrates on a better emulation of the Commodore serial bus.<BR>
+  <B>Advantage:</B> supports the emulation of fast loaders.<BR>
+  <B>Disadvantage:</B> more difficult to build.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="pwrload.html">Power-Loader cable</A>.
+  Additional parallel cable to connect a Commodore machine to a PC, the latter
+  acting as a drive emulator or file server. Companion cable for the
+  X1541-series serial cables. Its concept is similar to the XP1541/XP1571
+  parallel cables but it is used for Commodore machines rather than Commodore
+  drives.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="x1531.html">X1531 cable</A>. Serial cable to
+  connect a Commodore 1531 datasette to a PC. Its concept is similar to
+  X1541-series serial cables but it is used for Commodore datasettes rather
+  than Commodore machines/drives.</P>
+</UL>
+
+<H4>Amiga-Commodore cables</H4>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="easy1541.html">Easy1541 cable</A>. Serial
+  cable to connect a Commodore drive to an Amiga. Its concept is similar to
+  the X1541-series serial cables but it is for Amigas rather than PC's.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="frodoiec.html">Frodo IEC cable</A>. Serial
+  cable to connect a Commodore drive to an Amiga. Its concept is similar to
+  the X1541-series serial cables but it is for Amigas rather than PC's.</P>
+</UL>
+
+<H4>Commodore cables</H4>
+
+<UL>
+<LI><P ALIGN="JUSTIFY"><A HREF="cbmser.html">Commodore serial cable</A>.
+  Serial cable to connect Commodore peripherals (drives, printers) to
+  Commodore machines.<BR>
+  <B>Note:</B> When plugged into an X1541-series adaptor, this cable acts as
+  an X1541-series serial cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="cbmpar.html">Commodore parallel cable</A>.
+  Additional parallel cable to connect Commodore drives to Commodore machines.
+  Companion to the Commodore serial cable.<BR>
+  <B>Note:</B> When plugged into an X1541-series adaptor, this cable acts as
+  an X1541-series parallel cable.</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="cbmcross.html">Commodore cross cable</A>.
+  Parallel cable to connect two Commodore machines together.<BR>
+  <B>Note:</B> When plugged into an X1541-series adaptor, this cable acts as
+  a Power-Loader cable.</P>
+</UL>
+
+<H3>Copyright and license</H3>
+
+<P ALIGN="JUSTIFY">The X1541-series cables are copyrighted by the following
+individuals:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The X1541 cable is &copy; by <B>Leopoldo
+  Ghielmetti</B>, 1992.</P>
+
+<LI><P ALIGN="JUSTIFY">The XE1541 extended cable is &copy; by <B>Nicolas
+  Welte</B> and <B>Wolfgang Moser</B>, 1997.</P>
+
+<LI><P ALIGN="JUSTIFY">The XM1541 multitask cable is &copy; by <B>Michael
+  Klein</B> and <B>Nicolas Welte</B>, 2000.</P>
+
+<LI><P ALIGN="JUSTIFY">The XA1541 active cable is &copy; by <B>Michael
+  Klein</B> and <B>Nicolas Welte</B>, 2000.</P>
+
+<LI><P ALIGN="JUSTIFY">The XH1541/XH1571 hybrid cables are &copy; by
+  <B>Bigfoot</B>, 1997.</P>
+
+<LI><P ALIGN="JUSTIFY">The XP1541/XP1571 parallel cables are &copy; by <B>Joe
+  Forster/STA</B>, 1997.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">If you produce and sell cables or adaptors that are
+compatible with these cables &ndash; except for the original X1541 cable
+&ndash;, you must give credits to the respective copyright owner or copyright
+owners. If your adaptors are built onto printed circuit boards then you must
+also make the complete layout available in a format and resolution that is
+suitable for high quality reproduction so that people may build the adaptors
+themselves, if they want.</P>
+
+<P ALIGN="JUSTIFY">This common license for the cables is an agreement among
+the cable authors. However, because the author of the original X1541 cable
+couldn't be contacted for an inquiry, this license does not apply to the
+original X1541 cable.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

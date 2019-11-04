@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The PC parallel port</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The PC parallel port</H2>
+</CENTER>
+
+<H3>Port modes</H3>
+
+<P ALIGN="JUSTIFY">The most important feature of the parallel port of your PC
+is its mode. Possible modes are <B>SPP</B>, <B>PS/2</B>, <B>EPP</B> and
+<B>ECP</B>.</P>
+
+<P ALIGN="JUSTIFY">On 286, 386 and older 486 machines, the parallel port is on
+a separate card (e.g. I/O card, parallel port card, Hercules video card with a
+built-in parallel port) and it is SPP or PS/2. If it isn't then you might find
+jumpers on the card to set the mode. Refer to the documentation of your card
+for more details.</P>
+
+<P ALIGN="JUSTIFY">On newer 486 and all Pentium (and above) machines, the
+parallel port is integrated onto the motherboard and you can set its mode in
+the BIOS setup. The usual aliases for the SPP mode are "Compatible", "Normal"
+or "Standard". "BPP" and "Extended" usually stands for the PS/2 mode and
+"Enhanced" for either the EPP or the ECP mode.</P>
+
+<P ALIGN="JUSTIFY">However, on most Pentium and above motherboards, setting
+the parallel port to SPP mode won't give you a true SPP port because of the
+slight changes in the electronical layout of the parallel port.</P>
+
+<P ALIGN="JUSTIFY">Don't rely on what port mode your BIOS setup shows. Rather
+check the real mode of your parallel port with
+<A HREF="scextprg.html#lptdetect">LPTDetect</A> or <A HREF="sc.html">The Star
+Commander</A>.</P>
+
+<P ALIGN="JUSTIFY">SPP mode means bidirectional control lines and
+unidirectional data lines. The <A HREF="x1541.html">X1541 cable</A> makes use
+of the bidirectional control lines. PS/2 differs from SPP in that its data
+lines are also bidirectional. EPP and ECP offers several enhanced features,
+that PC software can make use of, but the control lines are not bidirectional
+anymore in these modes.</P>
+
+<P ALIGN="JUSTIFY">If you are interested in the electronical details of PC
+parallel ports and the X1541-series cables, please, read the
+<A HREF="scdoc.html#section9">Technical background information</A> section in
+The Star Commander documentation.</P>
+
+<H3>Compatibility</H3>
+
+<P ALIGN="JUSTIFY">Here's a compatibility chart between cables and parallel
+ports of different modes.</P>
+
+<H4>X1541-series cables</H4>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="35%">          <B>Cable</B>           <TH WIDTH="15%">    <B>SPP</B>     <TH WIDTH="15%">   <B>PS/2</B>    <TH WIDTH="15%">  <B>EPP/ECP</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">     <A HREF="x1541.html">X1541 cable</A> [1]      <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    no     <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"> <A HREF="xe1541.html">XE1541 extended cable</A> [2]<TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%"><A HREF="xm1541.html">XM1541 multitask cable</A> [2]<TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">   <A HREF="xa1541.html">XA1541 active cable</A>    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">   <A HREF="xh1541.html">XH1541 hybrid cable</A>    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">  <A HREF="xp1541.html">XP1541 parallel cable</A>   <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">You can check if your parallel port is compatible with
+  the <A HREF="x1541.html">X1541 cable</A> with
+  <A HREF="scextprg.html#x1541test">X1541Test</A>.</P>
+
+<LI><P ALIGN="JUSTIFY">We found that the this cable doesn't work on certain
+  motherboards and laptops. See the info page more details. On incompatible
+  machines, it is recommended that you use the XA1541 active cable instead.
+  Unfortunately, there's no software that would be able to tell whether your
+  parallel port is compatible with this cable or not.</P>
+</OL>
+
+<H4>Other Commodore-PC cables</H4>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="80%">
+<TR ALIGN="CENTER"><TH WIDTH="35%">          <B>Cable</B>           <TH WIDTH="15%">    <B>SPP</B>     <TH WIDTH="15%">   <B>PS/2</B>    <TH WIDTH="15%">  <B>EPP/ECP</B> <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">      <A HREF="1541emu.html">1541EMU cable</A>       <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">        <A HREF="pc64.html">PC64 cable</A>        <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">    <A HREF="pwrload.html">Power-Loader cable</A>    <TD WIDTH="15%">    no     <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+<TR ALIGN="CENTER"><TD WIDTH="35%">       <A HREF="x1531.html">X1531 cable</A>        <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <TD WIDTH="15%">    YES    <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

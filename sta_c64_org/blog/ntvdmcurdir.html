@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Integration of cmd.exe and ntvdm.exe current directories</TITLE>
+</HEAD>
+
+<BODY>
+
+<H4>Integration of cmd.exe and ntvdm.exe current directories</H4>
+
+<P ALIGN="JUSTIFY">Changing directories in a DOS program, running in a console window of Windows NT and above, is reflected in the console, too. This is made possible by interaction between <A HREF="http://wikipedia.org/wiki/NTVDM">NTVDM</A> and <A HREF="https://en.wikipedia.org/wiki/cmd.exe">CMD</A> via two undocumented functions in <A HREF="https://en.wikipedia.org/wiki/Microsoft_Windows_library_files#KERNEL32.DLL">kernel32.dll</A>:</P>
+<UL>
+<LI><P ALIGN="JUSTIFY"><CODE>BOOL <B>SetVDMCurrentDirectories(</B>DWORD <I>cchCurDirs</I>, PCHAR <I>lpszzCurDirs</I>)</B></CODE>: Sets NTVDM current directory list. Called by NTVDM upon exit, to return its current directories to its parent CMD process.<BR>
+  <B>Input</B>:<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>cchCurDirs</I></B></CODE>: Length of current directory list, in bytes.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>lpszzCurDirs</I></B></CODE>: Current directory list. Similarly to environment variable blocks, it consists of zero-terminated ASCII strings in the form of <CODE>X:\PATH</CODE> (where <CODE>X:</CODE> is the drive letter and <CODE>\PATH</CODE> its current directory) concatenated after each other, with an extra zero byte (an empty string) terminating the list. Usually, only those drives are listed which were actually used in NTVDM, in alphabetical order, but the first element in the list must belong to the current drive: CMD changes to that drive and directory.<BR>
+  <B>Output</B>: <CODE>TRUE</CODE>, if the current directory list was successfully updated; <CODE>FALSE</CODE>, if an error occurred.</P>
+<LI><P ALIGN="JUSTIFY"><CODE>DWORD <B>GetVDMCurrentDirectories(</B>DWORD <I>cchCurDirs</I>, PCHAR <I>lpszzCurDirs</I>)</B></CODE>: Gets current directory list. Called by CMD upon exit of of its child NTVDM process, to fetch its final state of current directories.<BR>
+  <B>Input</B>:</BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>cchCurDirs</I></B></CODE>: (Maximum) length of buffer, in bytes.<BR>
+    &nbsp;&nbsp;&nbsp;&nbsp;<CODE><B><I>lpszzCurDirs</I></B></CODE>: Buffer to receive current directory list.<BR>
+  <B>Output</B>: Actual length of current directory list, in bytes; <CODE>0</CODE>, if the list is empty or an error occurred.</P>
+<LI><P ALIGN="JUSTIFY">Notes about non-trivial behavior:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">These functions are each called only once, when NTVDM exits. NTVDM and CMD don't interact with each other upon every change of the current directory.</P>
+  <LI><P ALIGN="JUSTIFY">Not only NTVDM but its direct child processes, native Windows console programs launched from it, can also fetch and change current directories via these functions.</P>
+  <LI><P ALIGN="JUSTIFY">When NTVDM starts, the current directories list doesn't exist so <CODE>GetVDMCurrentDirectories</CODE> will return an empty list to it and its child processes. NTVDM actually fetches the current directories from the dynamically generated environment variables <CODE>=X:</CODE> (where <CODE>X</CODE> is the drive letter; the equation mark and the colon are part of the name!). If no such variable exists for a given drive then that drive hasn't been accessed in NTVDM yet or it doesn't exist at all.</P>
+  <LI><P ALIGN="JUSTIFY">What will <U>not</U> work:</P>
+  <UL>
+    <LI><P ALIGN="JUSTIFY">Changes via <CODE>SetVDMCurrentDirectories</CODE> are not reflected in NTVDM because it maintains its own list and never calls <CODE>GetVDMCurrentDirectories</CODE>.</P>
+    <LI><P ALIGN="JUSTIFY">Changes by setting the <CODE>=X:</CODE> variables are not possible because these variables don't actually exist.</P>
+    <LI><P ALIGN="JUSTIFY">Changes via <CODE>SetCurrentDirectory</CODE> in a child process are not reflected in its parent NTVDM because they are separate processes.</P>
+    <LI><P ALIGN="JUSTIFY">Changes via <CODE>SetVDMCurrentDirectories</CODE> are not reflected in CMD because they are undone when NTVDM sets its own current directories upon exit. If you remove the call to <CODE>SetVDMCurrentDirectories</CODE> in <CODE>ntvdm.exe</CODE> then, upon its exit, changes by its child processes &#150; and only those &#150; will become visible to CMD.</P>
+  </UL>
+  <LI><P ALIGN="JUSTIFY">It is possible to inject code to the NTVDM process and thus call system functions in its name but that's beyond the scope of this document.</P>
+  </UL>
+</UL>
+<P ALIGN="JUSTIFY">More documentation:</P>
+<UL>
+<LI><P ALIGN="JUSTIFY">ReactOS sources: <A HREF="http://doxygen.reactos.org/d7/dc5/dll_2win32_2kernel32_2client_2vdm_8c_source.html#l01767">GetVDMCurrentDirectories</A> and <A HREF="http://doxygen.reactos.org/d7/dc5/dll_2win32_2kernel32_2client_2vdm_8c_source.html#l01943">SetVDMCurrentDirectories</A>.</P>
+</UL>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="../contact.html">Contact</A> |
+<A HREF="../copyright.html">Copyright and license</A> |
+<A HREF="./">Blog page</A> | <A HREF="../updates.html">Recent updates</A> |
+<A HREF="../">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

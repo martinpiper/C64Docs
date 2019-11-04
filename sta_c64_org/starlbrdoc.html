@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Star Library</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>Star Library</H2></CENTER>
+
+<P ALIGN="JUSTIFY">This program was designed to create Library archives out of disk images and
+extract them into disk images. It cannot handle the completely different CP/M
+Library format. Star Library is an external utility of The Star Commander but
+is also distributed separately.</P>
+
+<H3><A NAME="section1">1. Usage</A></H3>
+
+<PRE>
+   STARLBR [-]A &lt;filename&gt; [-|/C|D|Y] [&lt;lbrname&gt;] 
+STARLBR [-]L &lt;lbrname&gt;
+   STARLBR [-]X &lt;lbrname&gt; [-|/4|7|8|C|D|X[D|P|S]|Y] [&lt;diskname&gt;] 
+</PRE>
+<P ALIGN="JUSTIFY">Commands:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">A: Puts files into archives. (Add)</P>
+
+<LI><P ALIGN="JUSTIFY">L: Lists the contents of archives. (List)</P>
+
+<LI><P ALIGN="JUSTIFY">X: Extracts the contents of archives. (eXtract)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">&lt;diskname&gt;:</P>
+
+<P ALIGN="JUSTIFY">Type the path and the name of the disk images here (the extension is always
+".d64" for 1541, ".d71" for 1571 and ".d81" for 1581 disk images). Leave this
+parameter blank to extract the archives into disk images with the same name.
+You can use wildcards to add multiple disk images and you can use long
+filenames, too.</P>
+
+<P ALIGN="JUSTIFY">&lt;lbrname&gt;:</P>
+
+<P ALIGN="JUSTIFY">Type the path, the name and the extension of the archives here (the default
+extension of Library archives is ".lbr"). You may leave it blank and the names
+of the archives will be those of the original disk images. You can use
+wildcards to list or extract multiple archives and you may use long filenames,
+too.</P>
+
+<P ALIGN="JUSTIFY">Options:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">4: Extracts data into 1541 disk images (default).</P>
+
+<LI><P ALIGN="JUSTIFY">7: Extracts data into 1571 disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">8: Extracts data into 1581 disk images.</P>
+
+<LI><P ALIGN="JUSTIFY">C: Asks for your confirmation about extracting each file.</P>
+
+<LI><P ALIGN="JUSTIFY">D: Deletes successfully processed source files.</P>
+
+<LI><P ALIGN="JUSTIFY">L: Displays Commodore filenames with the lowercase/uppercase character set
+(default).</P>
+
+<LI><P ALIGN="JUSTIFY">U: Displays Commodore filenames with the uppercase/graphics character set.</P>
+
+<LI><P ALIGN="JUSTIFY">X: Extracts data into 40-track 1541 disk images. You can choose the offset
+of the additional BAM entries by adding "S" (Speed DOS, default), "D"
+(Dolphin DOS) or "P" (Prologic DOS) to this option.</P>
+
+<LI><P ALIGN="JUSTIFY">Y: Assumes "Yes" to all queries, good for running from batch files.</P>
+</UL>
+
+<H3><A NAME="section2">2. Error messages</A></H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Unknown command<BR>
+The command is unknown.</P>
+
+<LI><P ALIGN="JUSTIFY">Invalid option<BR>
+The option is unknown or the syntax of its argument is wrong.</P>
+
+<LI><P ALIGN="JUSTIFY">FILENAME.EXT not found<BR>
+The file does not exist.</P>
+
+<LI><P ALIGN="JUSTIFY">Cannot create FILENAME.EXT<BR>
+The file could not be created for some reason.</P>
+
+<LI><P ALIGN="JUSTIFY">Cannot add "filename" correctly<BR>
+The file could not be fully added into the archive. It is possible that
+the disk is full or the source disk image is corrupted.</P>
+
+<LI><P ALIGN="JUSTIFY">"filename" exists...<BR>
+It is not recommended to put two files with the same name into disk
+images. You can skip, rename the file or extract it with its original
+name.</P>
+
+<LI><P ALIGN="JUSTIFY">Cannot extract "filename" correctly<BR>
+The file could not be fully extracted from the archive. It is possible
+that the disk is full or the archive is corrupted, e.g. some bytes are
+missing from its end.</P>
+
+<LI><P ALIGN="JUSTIFY">DISKNAME.D64 is not a valid disk image<BR>
+The disk image is corrupted.</P>
+
+<LI><P ALIGN="JUSTIFY">DISKNAME.D64 has an invalid BAM<BR>
+The BAM of the disk image is corrupted. Try validating the disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">Directory is full in DISKNAME.D64<BR>
+The directory of the disk image is full. You can store a maximum of 144
+files in a 1541 or 1571 disk image and 296 files in a 1581 disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">DISKNAME.D64 is full<BR>
+The disk image is full. You can store a maximum of 664 blocks in a 1541,
+749 blocks in an extended 1541, 1328 blocks in a 1571 and 3160 blocks in a
+1581 disk image.</P>
+</UL>
+
+<H3><A NAME="section3">3. Copyright and legal issues</A></H3>
+
+<P ALIGN="JUSTIFY">This program is freeware. You may use it as long as you wish and you may
+give it to any individual, provided that it's in the original, unmodified
+archive. It is highly recommended that you download distribution packages from
+the homepage or other official distribution sites. If you get a package from
+somewhere else then make sure that the package has the author's authentic
+verification stamped on it.</P>
+
+<P ALIGN="JUSTIFY">The source of this program is distributed under a license that is similar to
+the GNU Public License but is more restrictive, for the protection of the
+users and the author. You may distribute only those modified versions or
+derived softwares that satisfy all restrictions in the license. When you
+distribute this program, modified versions of it or softwares derived from it,
+you may not ask for money above the normal fee of the distribution media
+itself. Furthermore, you may not publish this program or its source on floppy
+disks, CD-ROM's, FTP sites, WWW pages or any other distribution media, include
+it in a software compilation or bundle it with other software or hardware
+without prior permission of the author.</P>
+
+<P ALIGN="JUSTIFY">Note that public distribution of the beta releases of this program is
+prohibited. The only place where you can find them is the homepage.</P>
+
+<P ALIGN="JUSTIFY">This program is provided "as is", without a warranty of any kind. You are
+using it at your own risk. The author is not liable for any damage or data
+loss caused by the software.</P>
+
+<H3><A NAME="section4">4. The author</A></H3>
+
+<P ALIGN="JUSTIFY">If you're interested in some similarly useful utilities then contact me at
+the E-mail address <A HREF="mailto:sta.ANTI@SPAM.c64.org">sta.ANTI@SPAM.c64.org</A> or visit my homepage at <A HREF="http://sta.c64.org">http://sta.c64.org</A>.</P>
+
+<P ALIGN="JUSTIFY">Joe Forster/STA<BR>
+11th January, 2010</P>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

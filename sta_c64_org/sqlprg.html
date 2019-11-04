@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Useful SQL software</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Useful SQL software</H2>
+last updated on 2010-08-15
+</CENTER>
+
+<H3>Microsoft SQL</H3>
+
+All software below are for MS-SQL 7.0 and 2000; they may or may not work on
+older and newer versions.
+
+<H4>SQL scripts</H4>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">
+  <A NAME="fixusers" HREF="sqlprg/fixusers.zip">FixUsers</A> (2005-06-01),
+  drops "phantom" users &ndash; those not connected to any login &ndash; from a
+  database (&copy; by <B>Joe Forster/STA</B>, 2002-2005) [fixusers.zip, 863
+  bytes]</P>
+
+<LI><P ALIGN="JUSTIFY"><A NAME="listobj" HREF="sqlprg/listobj.zip">ListObj</A>
+  0.12 beta (2004-07-28), lists the definitions and contents of tables, views
+  and stored procedures, including encrypted ones (&copy; by <B>Joe
+  Forster/STA</B>, 2004) [listobj.zip, 38.012 bytes]</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY"><B>WARNING:</B> To use this from the command line,
+    you will also need "sed" and "tr" from
+    <A HREF="http://gnuwin32.sourceforge.net">GnuWin32</A> or
+    <A HREF="http://unxutils.sourceforge.net">UnxUtils</A>.</P>
+
+  <LI><P ALIGN="JUSTIFY"><B>CREDIT:</B> Parts of this software have been taken
+    from <A HREF="#spdecrypt7">sp_decrypt_7</A>.</P>
+  </UL>
+
+<LI><P ALIGN="JUSTIFY">
+  <A NAME="spdecrypt7" HREF="sqlprg/sp_decrypt_7.zip">sp_decrypt_7</A>
+  (2002-06-26), decrypts the definitions of encrypted views and stored
+  procedures (&copy; by <B>Martin Rakhmanov</B> aka <B>jimmers</B>, 2002)
+  [sp_decrypt_7.zip, 3.022 bytes]
+  (<A HREF="http://jimmers.narod.ru/sp_decrypt_7.sql">original
+  download</A>)</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY"><B>ALTERNATIVE:</B>
+    <A HREF="sqlprg.html#listobj">ListObj</A> can do what this software can
+    and more.</P>
+
+  <LI><P ALIGN="JUSTIFY"><B>WARNING:</B> The script must be run in MS-SQL 2000
+    as it uses the 64-bit "bigint" type during decryption. However, it can
+    only decrypt the definition of objects that have been encrypted by MS-SQL
+    7.0.</P>
+  </UL>
+</UL>
+
+<H4>External software</H4>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">
+  <A NAME="dsqlsrvd" HREF="sqlprg/dsqlsrvd.zip">dSQLSRVD</A> 1.1 (2001-06-27),
+  decrypts the definitions of encrypted views and stored procedures (&copy; by
+  <B>dOMNAR</B>, 2001) [dsqlsrvd.zip, 1.045.555 bytes]</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY"><B>ALTERNATIVE:</B>
+    <A HREF="sqlprg.html#listobj">ListObj</A> can do most of what this
+    software can and more.</P>
+
+  <LI><P ALIGN="JUSTIFY"><B>NOTE:</B> This software connects to both MS-SQL
+    7.0 and 2000 and supports the decryption of object definitions encrypted
+    by either MS-SQL version.</P>
+  </UL>
+</UL>
+
+<H3>Copyright and license</H3>
+
+<P ALIGN="JUSTIFY">Please, read the accompanying or embedded documentation of
+each software for the copyright and license.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Frequently Asked Questions about The Star Commander</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>Frequently Asked Questions about The Star Commander</H2></CENTER>
+
+<P ALIGN="JUSTIFY">Here are some questions I was asked many times and my answers to them. I'd
+like to mention that the Commander was not meant to be a multi-purpose utility
+with lots of goodies; that the main executable file is already too big and it
+eats up a lot of memory; and that I simply have no time to implement all
+ideas. And to advertize my favorite Commander, The Volkov Commander: one of
+the features I just love in it is that there are no redundant functions in it,
+it is as simple as possible.</P>
+
+<P ALIGN="JUSTIFY">Before you'd read specific questions and answers, you should have a look at
+the "Usage", "Troubleshooting" and "Known problems and limitations" section of
+the documentation.</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Q: I'm desperately trying to make the Commander access my Commodore drive
+but it just displays "Drive #8 not present", "Timeout detected" or
+simply locks up. What shall I do?</P>
+
+<P ALIGN="JUSTIFY">A: Please, read the "Troubleshooting" section in the documentation. This
+should cover all common mistakes.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I found few bugs in the Commander and there are many functions in it.
+Why is it then that the public releases are still 0.xx versions?</P>
+
+<P ALIGN="JUSTIFY">A: The reason is that I hate version numbers like 12.3 or 1.2.34 and I
+only want to call 1.0 the final version. On the other hand, many people
+have the prejudice of thinking that beta releases are buggy. Don't
+worry, the public releases of the Commander are as bugfree and complete
+as any other non-beta software.</P>
+
+<P ALIGN="JUSTIFY">But to make you happy, starting with Version 0.73, the Commander is not
+called "beta" anymore. Not that this would make any real difference.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Does the Commander support non-1541 drives: 1571, 1581, SFD-1001,
+FD-2000, FD-4000 drives and CMD hard disks?</P>
+
+<P ALIGN="JUSTIFY">A: Currently, only the 1541 drive family, 1541 compatible drives, and both
+the 1541 emulation mode and the native mode of 1570 and 1571 drives.
+Support for 1581 drives will be implemented in the next release. I
+can't implement support for other drives because I don't have any of
+them.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Can the Commander copy protected disks?</P>
+
+<P ALIGN="JUSTIFY">A: Not really. Fortunately, there's now a well-documented standard for a
+GCR-coded disk image format. However, reading enough data from a
+Commodore disk is quite hard. Currently, you should use warp transfer
+mode because it can duplicate simple copy protections, those involving
+intentional read errors on the disk. Copy the source disk into a
+sixpacked ZipCode archive and then further convert the archive into a
+GCR-coded disk image.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Can the Commander work the other way around, that is, act as a
+Commodore drive, connected to a Commodore machine?</P>
+
+<P ALIGN="JUSTIFY">A: No, and I'm not planning to implement that. The Commander acts as a
+Commodore machine, to make the drive think it's communicating with the
+real thing. To implement the idea above, it would have to simulate a
+Commodore drive which is just the opposite and a more sophisticated
+problem. There exist file servers running on the PC, try those instead.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: How do I access the built-in drive of my C128D or SX64?</P>
+
+<P ALIGN="JUSTIFY">A: Please, read the "Usage" section in the documentation.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: After having accessed my Commodore drive, I noticed that the DOS clock
+is late. How is that possible?</P>
+
+<P ALIGN="JUSTIFY">A: There are two separate clocks: one is the CMOS clock, updated by the
+hardware, the other is the DOS clock, updated by a software interrupt.
+While accessing a Commodore drive, all interrupts are disabled so that
+they don't interfere with the synchronization. In these intervals, the
+DOS clock is not updated, therefore it gets late.</P>
+
+<P ALIGN="JUSTIFY">Don't worry, if you reboot your machine, the DOS clock will be back to
+normal.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I tried to extract LHA archives using the Commander and I saw a file
+name at the beginning of the uncompressed files and some of their last
+bytes were chopped off. How is this possible?</P>
+
+<P ALIGN="JUSTIFY">A: You are using LHA 2.13 or an older version. The Commander and Star LHA
+are using the "print" command instead of the usual "extract" command.
+The reason for this is that when specifying the name of files to
+extract, a file name with a space inside (not unlikely for a Commodore
+file name) would make LHA assume it to be two separate file names.</P>
+
+<P ALIGN="JUSTIFY">Therefore, all the files in the archive are printed, as one continuous
+stream, into a single file and then the necessary parts are picked out.
+Unfortunately, LHA 2.13 and older versions prepend the file name to
+each printout which is garbage for the Commander and Star LHA. Get the
+official LHA 2.55 English release to solve this problem.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: My Commodore drive makes so awful noises when I format disks with the
+Commander. Can I avoid this?</P>
+
+<P ALIGN="JUSTIFY">A: Yes, you can, but make sure that your drive is not misaligned. When you
+format a disk, the original format command bangs the head against the
+bump, to make sure that it's the outermost track being named "track 1"
+during the actual format. To be compatible with the original way, the
+Commander also does that in turbo and warp command execution mode.</P>
+
+<P ALIGN="JUSTIFY">However, you can switch this feature off in the configuration menu and
+the disk formatter will only seek onto track 1 instead of the head
+rattle. But remember, if you used a misaligned disk before formatting
+another then the misalignment will spread onto the freshly formatted
+disk.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Why does the Commander not work in GNU/Linux, OS/2 and Windows?</P>
+
+<P ALIGN="JUSTIFY">A: Please, read the "Usage" section in the documentation. It contains
+information on the extra requirements under multi-tasking operating
+systems.</P>
+
+<P ALIGN="JUSTIFY">In all cases, get prepared for timeouts and lockups because Commodore
+drives expect a tighter synchronization than the Commander can keep
+under a multi-tasking system. You get the best results by running the
+Commander under plain DOS.</P>
+
+<P ALIGN="JUSTIFY">Also, if there exists a native transfer software for your favorite
+operating system then use that one instead for transferring and use the
+Commander for conversion only.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Will you do a GNU/Linux, OS/2, or Windows version of the Commander?</P>
+
+<P ALIGN="JUSTIFY">A: No, I won't. Although the routines of the Borland Pascal run-time
+library rely on being run under DOS, I did take my time with extending
+them with the capability of handling Windows-style long file names.
+Unfortunately, there are some more aspects &#150; keyboard, file and screen
+handling and some quirks &#150; that are related to DOS too much.</P>
+
+<P ALIGN="JUSTIFY">I'm not willing to create a native version of the Commander for these
+platforms, especially not one with a graphical user interface. You can
+use all features of the Commander under the DOS emulator or DOS shell
+of these operating systems, perhaps, even access external Commodore
+drives with more or less success.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I would like an OS/2 version of the Commander for another reason:
+running on HPFS, it could use the original long Commodore file names
+and I could forget the 8.3 file name limitation of DOS. What do you
+think?</P>
+
+<P ALIGN="JUSTIFY">A: Such a capability has already been implemented for Windows. There are
+no plans to do the same for OS/2 since I don't have it installed and
+have no documentation about accessing OS/2 long file names in its DOS
+emulator either.</P>
+
+<P ALIGN="JUSTIFY">However, there is some kind of solution: you can keep the files in TAR
+or ZIP archives as these formats support long file names and there are
+TAR and ZIP archivers for OS/2 as well as other operating systems.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I've edited the directory of a disk and then copied it onto my PC with
+the option "BAM disk copy" checked. The end of the directory was lost.
+Why?</P>
+
+<P ALIGN="JUSTIFY">Q: I've edited the directory of a disk image and then cleaned it with the
+"Clean" option in the user menu of disk image panels. Why did I lose
+the end of the directory?</P>
+
+<P ALIGN="JUSTIFY">A: There's a serious problem with early versions of Dir Master (by Wim
+Taymans), which is the most wide-spread directory editor around. When
+you insert some phantom files into the directory (e.g. deleted files
+whose names make up the logo of your group) then the size of the
+directory grows. When you save it back onto your disk or disk image
+then some new sectors are filled up with the new data.</P>
+
+<P ALIGN="JUSTIFY">However, the software forgets to allocate these new sectors: the BAM
+disk copier won't copy them and the disk image cleaner will destroy all
+data inside them.</P>
+
+<P ALIGN="JUSTIFY">Validate your BAM with the "Validate" function in the user menu or
+manually in the disk editor before copying or cleaning. Alternatively,
+you can switch to "Safe BAM disk copy" mode and the directory track
+will be fully copied during a BAM disk copy. Similarly, use "Safe
+clean" for cleaning disk images and not a single byte will be harmed on
+the directory track.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I know that a diskpacked ZipCode archive contains all the data found on
+a 35 track disk. How is it possible then that there are archives that
+don't work if I unzip them on my PC and then transfer the resulting
+disk image onto my disk?</P>
+
+<P ALIGN="JUSTIFY">A: There is one difference between unzipping the archive on your PC and
+your Commodore machine. The second two bytes of the first ZipCode
+archive hold the ID in all the sector headers of the original disk (not
+to be mixed with the one in the BAM). When you extract the archive on a
+Commodore machine, the ZipCode software reformats the disk on the fly
+with that ID. This way, e.g. the disk identifier routine of "Test Drive
+2" recognizes the master, car and scenario disks on basis of the sector
+header ID's being "MD", "CD" and "SD".</P>
+
+<P ALIGN="JUSTIFY">All you can do is look into the first ZipCode archive and reformat the
+destination disk with those two bytes as an ID before transferring the
+disk image. However, if the ZipCode archive was created on a PC, not on
+a real Commodore machine, you will possibly find an invalid ID there,
+e.g. "64". In this case. you will have to find out the correct ID
+yourself.</P>
+
+<P ALIGN="JUSTIFY">Please, note that the Commander will always keep sector header ID's,
+when converting disks, provided that both the source and destination
+formats support them.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I switched to "EGA Lines" in the Commander and saved the setup. How is
+it possible then that the next time I launched the Commander it didn't
+automatically change to "EGA Lines" upon startup?</P>
+
+<P ALIGN="JUSTIFY">A: The Commander changes the screen mode only if it has to: the screen is
+in graphical mode. This is similar to how other Commanders also work.
+The state of the "EGA Lines" option is not even saved into the setup
+file.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Why can't I copy all the files on the disk of my favorite demo?</P>
+
+<P ALIGN="JUSTIFY">A: Probably some files on that disk are phantom files (directory entries
+with no real file data) or have non-standard characters in their name
+(graphical characters or characters that are not allowed in file names,
+e.g. comma, colon, asterisk, question mark etc.). The Commander uses
+the Commodore drive's DOS to open files so it doesn't support such
+file names either. Rename those files using the disk editor or, even
+better, copy the whole disk instead.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: Why is it that, although I have defined several standard viewers in
+SCVIEW.EXT, the Commander still can't use them like The Norton
+Commander does?</P>
+
+<P ALIGN="JUSTIFY">A: Perhaps, you are using the viewers of The Norton Commander 5.0, which
+need the file NCVIEW.MSG to be able to run &#150; put this file into the
+directory where the viewers are. However, these viewers support the
+parameter passing convention differently than the ones that came with
+an earlier version (3.0, 4.0 or 4.5) of The Norton Commander, so don't
+be alarmed if they e.g. launch in color mode although the Commander has
+been set to black &amp; white.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: There are some minor but annoying differences between your Commander
+and The Norton Commander. Why?</P>
+
+<P ALIGN="JUSTIFY">A: A personal opinion: when I started using The Volkov Commander, I began
+to hate The Norton Commander. Consider that The Volkov Commander is
+written fully in assembly, not a high-level language. It's a lot
+smaller, still it can do most of what The Norton Commander can,
+sometimes even more. It's not the overgrown fatware that The Norton
+Commander has become (not to mention that now it has nothing to do with
+Peter Norton &#150; who is said to be the best PC programmer ever) and
+that's why I make my Commander to be similar to The Volkov Commander.</P>
+
+<P ALIGN="JUSTIFY">Admit it, after some hours, you got used to the new features, maybe,
+now you even miss some of them from The Norton Commander...</P>
+
+<LI><P ALIGN="JUSTIFY">Q: I hate the colors the Commander uses. Can I change them?</P>
+
+<P ALIGN="JUSTIFY">A: Yes, you can. There is a full color configuration menu in the setup for
+all screen modes (black &amp; white, color, laptop and monochrome). You
+can also try the prepared palette files that make the Commander look
+similar to the "Color 2" scheme of The Norton Commander and to DOS
+Navigator.</P>
+
+<LI><P ALIGN="JUSTIFY">Q: What language is the Commander written in?</P>
+
+<P ALIGN="JUSTIFY">A: I started coding it in Turbo Pascal 7.0 with Turbo Vision 2.0 but
+changed to Borland Pascal 7.0 a bit later since it had a better IDE and
+online help. When I got the sources of the Borland Pascal run-time
+libraries, at once I began to rewrite the user interface so that it
+looks competely like that of The Norton Commander. Many of the original
+Turbo Vision routines were deleted or changed during this process.</P>
+
+<P ALIGN="JUSTIFY">The source of the Commander, the viewer and the editor takes up more
+than 70.000 lines and 2 Mbytes, not counting the little utilities for
+compiling the online help, creating the sample Commander screens for
+the palette setup and other purposes. There are also many assembly
+routines in the source, mainly for data transfer and data conversion
+where speed is very important.</P>
+
+<P ALIGN="JUSTIFY">By the way, the full source is available, under a GPL-style license, on
+the homepage.</P>
+</UL>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

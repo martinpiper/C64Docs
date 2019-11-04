@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The 1541 parallel port</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The 1541 parallel port</H2>
+for Commodore 1541 drives
+</CENTER>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Because you will solder a cable onto some pins of the
+  VIA#1 chip inside the drive, you will have to first make sure that these
+  pins are not used for any other purpose. What you need to do depends on the
+  version of the drive you have:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">In original Commodore 1541 drives, nothing is defined
+    to any of the bits of Port A. You can solder the cable without any
+    problem.</P>
+
+  <LI><P ALIGN="JUSTIFY">In 1541C drives, bit 0 of Port A is used for the
+    detection of the head being over track 1. After stripping this connection
+    off of the chip, you will have to replace the DOS ROM with that of the
+    1541 or the 1541-II. Otherwise you'll get strange results when the drive
+    is seeking: the DOS tries to rely on the detector line which doesn't exist
+    anymore.</P>
+
+  <LI><P ALIGN="JUSTIFY">In 1541-II drives, bit 0 of Port A is grounded, strip
+    this connection off of the chip.</P>
+  </UL>
+
+<LI><P ALIGN="JUSTIFY">On circuit diagrams, plugs are displayed as viewed from
+  the back side, the solder side. Chips are displayed as viewed from above;
+  also, see the small semicircular cut for finding the correct orientation.
+  When in doubt, see the corresponding description on the
+  <A HREF="legend.html">legend page</A>.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">You need the following parts to build this port:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">One solderable 15-pin female port (PC game port)</P>
+
+<LI><P ALIGN="JUSTIFY">An unshielded 10-wire cable of about 10-20
+  centimeters</P>
+</UL>
+
+<P ALIGN="JUSTIFY"><B>Step 1.</B> Solder one end of the cable right onto the
+<A HREF="legend.html#viachip">VIA#1 periphery chip</A> inside the drive.</P>
+
+<P ALIGN="JUSTIFY"><B>Step 2.</B> Cut a hole on the case of the drive, glue or
+screw the <A HREF="legend.html#gameport">game port</A> into it and solder the
+other end of the cable onto the port. You should have the following
+connections:</P>
+
+<PRE><TABLE ALIGN="LEFT" BORDER=1 WIDTH="40%">
+<TR ALIGN="CENTER"><TH WIDTH="20%">     <B>VIA#1</B>     <TH WIDTH="20%">   <B>Game port</B>   <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     2, PA0    <TD WIDTH="20%">       1       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     3, PA1    <TD WIDTH="20%">       2       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     4, PA2    <TD WIDTH="20%">       3       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     5, PA3    <TD WIDTH="20%">       4       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     6, PA4    <TD WIDTH="20%">       5       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     7, PA5    <TD WIDTH="20%">       6       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     8, PA6    <TD WIDTH="20%">       7       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">     9, PA7    <TD WIDTH="20%">       8       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    18, CB1    <TD WIDTH="20%">       9       <BR>
+<TR ALIGN="CENTER"><TD WIDTH="20%">    39, CA2    <TD WIDTH="20%">      10       <BR>
+</TABLE></PRE><BR CLEAR=ALL>
+
+<H4>Circuit diagram</H4>
+
+<A HREF="parport41.png"><IMG BORDER=1 SRC="parport41.png" ALT="[Parallel port for 1541 drives]"></A>
+
+<P ALIGN="JUSTIFY">You can find the description of all parts used on the
+diagrams at the <A HREF="legend.html">legend page</A>.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

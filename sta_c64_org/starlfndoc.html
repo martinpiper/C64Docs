@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Star LFN</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER><H2>Star LFN</H2></CENTER>
+
+<P ALIGN="JUSTIFY">WARNING: This is far from being a complete program or documentation! This is
+a test release, use it with great care! Keep visiting the Star LFN homepage at
+<A HREF="http://sta.c64.org/starlfn.html">http://sta.c64.org/starlfn.html</A> for further releases.</P>
+
+<P ALIGN="JUSTIFY">Currently, the program has only experimental read-only support for VFAT, the
+way file names are stored by Windows 95/98! This means that, if VFAT support
+is enabled and you're writing files with long names onto the disk, the long
+names will be destroyed because the program can't write VFAT yet!</P>
+
+<H3><A NAME="section1">1. Introduction</A></H3>
+
+<P ALIGN="JUSTIFY">This program is being designed to emulate the long file name functions that
+are present in the DOS shells of Windows 95/98 but under plain DOS 4.0 or
+above.</P>
+
+<P ALIGN="JUSTIFY">Because of the intensive disk access, a disk cache in write-back mode is
+highly recommended!</P>
+
+<P ALIGN="JUSTIFY">Programs similar to this one are the following:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">DOSLFN, by Henrik Haftmann and Jason Hood, is the best you can get
+(download it from <A HREF="http://adoxa.altervista.org/doslfn/">http://adoxa.altervista.org/doslfn/</A>). If you want support for
+VFAT, FAT32 and national code pages, this is the program you need!</P>
+
+<LI><P ALIGN="JUSTIFY">LFNDOS, by Chris Jones, was the one in the lead before (the old homepage
+is not available anymore) but it is obsolete now because it has inferior
+functionality and it contains some apparent bugs that may cause data loss
+and which, as the program is abandoned, will, probably, be never fixed.</P>
+
+<P ALIGN="JUSTIFY">A proven bug is that, two directories with potentially the same short
+alias &ndash; except for the numeric tail &ndash; will, eventually, get the same short
+alias. E.g. if you create "LONGNAMEDIR1" and "LONGNAMEDIR2" in an empty
+directory, both will get the short alias "LONGNA~1" which confuses DOS and
+CHKDSK will destroy one of the directories!</P>
+
+<LI><P ALIGN="JUSTIFY">LONGNAME, in Caldera OpenDOS, refuses to run under original MS-DOS or DOS
+clones other than OpenDOS &ndash; unless patched &ndash; and contains some annoying
+bugs.</P>
+
+<LI><P ALIGN="JUSTIFY">DOSLFN, in Nuts &amp; Bolts 2.0, runs under DOS 7.x (the DOS of Windows 95/98)
+only, has several bugs and locks up quite often.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">There is a collection of such programs at <A HREF="http://sta.c64.org/lfnemu.html">http://sta.c64.org/lfnemu.html</A>.</P>
+
+<P ALIGN="JUSTIFY">This program has initially been tested in a less risky environment (see the
+file access mode below), therefore its core is, probably, more robust and
+stable than any of the programs mentioned above. In this program, you can
+choose between two operational modes:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">File access: Long file names are stored in a hidden system file called
+"longname.dat" in each directory. This is the default mode, which is
+compatible with any operating system that has an able DOS shell because
+it involves significantly less hacking.</P>
+
+<LI><P ALIGN="JUSTIFY">Disk access: Long file names are stored in the disk area allocated for
+the directory. This is VFAT, the method Windows uses. In VFAT mode, this
+program supports uncompressed FAT12 and FAT16 partitions only and has
+been reported to fail on SCSI hard disks. WARNING: This mode is currently
+experimental and read-only!</P>
+</OL>
+
+<P ALIGN="JUSTIFY">Both modes work with ASSIGN'ed, JOIN'ed and SUBST'ed drives. Disk access
+mode refuses to show long file names on CD drives and network drives because
+these are stored with a completely different method, not VFAT.</P>
+
+<P ALIGN="JUSTIFY">The only way to exchange long file names between these two modes is putting
+the files into an archive, with a LFN-aware archiver, in one operational mode
+and extracting the files in the other mode.</P>
+
+<H3><A NAME="section2">2. Usage</A></H3>
+
+<P ALIGN="JUSTIFY">The parameter syntax is the following:</P>
+
+<P ALIGN="JUSTIFY">STARLFN [-|/]&lt;options&gt;</P>
+
+<P ALIGN="JUSTIFY">&lt;options&gt;:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">I: Installs the program. As a secondary parameter, you can specify the
+operational mode: D for disk access (VFAT), F for file access (hidden
+system file, default).</P>
+
+<LI><P ALIGN="JUSTIFY">U: Uninstalls the program.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Without any options specified, the program will show usage information.</P>
+
+<H3><A NAME="section3">3. Technical background</A></H3>
+
+<P ALIGN="JUSTIFY">The following INT 21h functions have already been implemented:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Flush buffers and cache (AX=710Dh and CX=0/1).</P>
+
+<LI><P ALIGN="JUSTIFY">Make directory (AX=7139h). Uses and updates data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Remove directory (AX=713Ah). Uses and updates data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Change directory (AX=713Bh). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Delete file (AX=7141h or AH=41h). Uses and updates data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get/set file attributes (AX=7143h and BL=0/1). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get current directory (AX=7147h). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Find first matching file (AX=714Eh). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Find next matching file (AX=714Fh). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Rename file (AX=7156h or AH=56h). Uses and updates data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get true name of file (AX=7160h and CL=0). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get short name of file (AX=7160h and CL=1). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get long name of file (AX=7160h and CL=2). Uses data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Create or open file (AX=716Ch). Uses and updates data base.</P>
+
+<LI><P ALIGN="JUSTIFY">Get volume info (AX=71A0h).</P>
+
+<LI><P ALIGN="JUSTIFY">Close file search (AX=71A1h).</P>
+
+<LI><P ALIGN="JUSTIFY">Generate short alias (AX=71A8h).</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Fake INT 21h functions:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Convert date stamps (AX=71A7h and BL=0/1). Does no conversion at all.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Some nice features worth mentioning:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">For certain programs, the emulators returns a false DOS version number of
+7 and a false Windows version number of 4 because they refuse to use long
+file names otherwise (currently, 4DOS and ARJ).</P>
+
+<LI><P ALIGN="JUSTIFY">The data base looks just like the DESCRIPT.ION files of 4DOS, the file
+name was only changed to avoid confusion.</P>
+
+<LI><P ALIGN="JUSTIFY">The data base is hidden from the directory list if the client program uses
+long file name functions to read the directory.</P>
+
+<LI><P ALIGN="JUSTIFY">The ordinary "remove directory", "delete file" and "rename file" functions
+are redirected to their long file name counterparts so that no redundant
+long file name entry remains when a LFN-unaware program deletes or renames
+files or directories using their short file name.</P>
+
+<LI><P ALIGN="JUSTIFY">Several other DOS functions, such as "make directory", "change directory",
+"create file", "open file", "get/set file attributes" and "extended open
+file" are also redirected so that several LFN-unaware programs will be
+able to use long file names without any modification.</P>
+
+<LI><P ALIGN="JUSTIFY">The search handles used by a process are automatically closed when the
+process exits.</P>
+
+<LI><P ALIGN="JUSTIFY">The end-of-line mark in the data base can be any combination of carriage
+returns and line feeds.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The following features still have to be implemented:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Support for 64-bit date stamps in "find first matching file" and "find
+next matching file".</P>
+
+<LI><P ALIGN="JUSTIFY">A true "convert date stamps" function (AX=71A7h and BL=0/1). Until this is
+finished, running the program under Windows 95/98 will mess up date stamps
+in the directory list and also when files are touched.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Some features that do not follow the behavior of Windows 95/98 exactly and
+are unlikely to change (they would be either hard or useless to change):</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">"Flush buffers and cache" flushes buffers for all drives, can only flush
+SmartDrive, Norton Cache or compatible cache programs and cannot remount
+DriveSpace volumes (AX=710Dh and CX=2).</P>
+
+<LI><P ALIGN="JUSTIFY">"Get/set file attributes" can't get compressed file size (AX=7143h and
+BL=2).</P>
+
+<LI><P ALIGN="JUSTIFY">"Get current directory" always returns a full long form path.</P>
+
+<LI><P ALIGN="JUSTIFY">"Get true file name" always returns a full long form absolute file name,
+actually, it is done by the "get long file name" function.</P>
+
+<LI><P ALIGN="JUSTIFY">None of the file name conversion routines return any error code, even if
+only a drive letter or a bad path is given or the drive letter is invalid.</P>
+
+<LI><P ALIGN="JUSTIFY">The functions "get file info" (AX=71A6h), "server create or open file"
+(AX=71A9h) and "create/terminate/query SUBST" (AX=71AAh and BH=0-2) are
+not implemented at all.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Some problems that are solved when VFAT support is enabled:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The data base is easy to tamper, there are no checksums in it, you can
+even create multiple files with the same long file name.</P>
+
+<LI><P ALIGN="JUSTIFY">Short file names may not contain spaces because the first space on a line
+of the data base separates the short and long file names.</P>
+
+<LI><P ALIGN="JUSTIFY">The line feed inserted into the data base is always CR/LF, independently
+from the end-of-line mark actually used.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Some problems that will be solved when VFAT support is finished:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">"Get/set file attributes" can't get or set Windows 95/98-specific file
+date stamps (AX=7143h and BL=3-8).</P>
+
+<LI><P ALIGN="JUSTIFY">"Find first matching file" and "find next matching file" can only return
+DOS-style file date stamps and know nothing about Unicode either.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">A problem which is probably impossible to overcome is that the original DOS
+COMMAND.COM and external DOS commands cannot handle long file names so you
+won't be able to pass long file names as parameters to them. By the way, this
+is the reason why Caldera included a modified OpenDOS COMMAND.COM along with
+their long file name support program: to smarten up, at least, the internal
+DOS commands. A good solution is using 4DOS or booting DOS 7, which comes with
+Windows 95/98, because their internal DOS commands are also capable of using
+long file names, when available.</P>
+
+<P ALIGN="JUSTIFY">However, with this program and a DOS-based LFN-aware file manager, you'll be
+able to copy, rename, delete files and directories with long names under plain
+DOS. You may even backup and restore your entire Windows 95/98 partition, file
+by file, easily. Just, please, be patient until VFAT support is finished.</P>
+
+<H3><A NAME="section4">4. Compatibility</A></H3>
+
+<P ALIGN="JUSTIFY">The following programs have been tested and seem to work fine, without any
+changes, in file access mode:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">4DOS 7.01</P>
+
+<LI><P ALIGN="JUSTIFY">ARJ 2.71</P>
+
+<LI><P ALIGN="JUSTIFY">Info-ZIP 2.2 and 2.3, 32-bit DOS version</P>
+
+<LI><P ALIGN="JUSTIFY">OpenDOS 7.01 COMMAND.COM</P>
+
+<LI><P ALIGN="JUSTIFY">PKUNZIP 2.04g</P>
+
+<LI><P ALIGN="JUSTIFY">The Star Commander 0.82</P>
+
+<LI><P ALIGN="JUSTIFY">The Volkov Commander 4.99 alphas</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The following programs have been tested but they have to be forced to use
+Windows 95/98 long file name functions even under plain DOS:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">4DOS 6.0x: Specifying "Win95LFN=Yes" in 4DOS.INI doesn't help because
+"dir", which is correctly aliased to "dir *", only lists files without
+extension, as if 4DOS were running under plain DOS! Note: This bug has
+been fixed in 4DOS 7.0.</P>
+
+<LI><P ALIGN="JUSTIFY">ARJ 2.60: It has to be fooled to be running under DOS 7.0 and Windows 4.0,
+otherwise it won't use long file names at all. Note: This bug has been
+fixed in ARJ 2.61.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">The following programs have severe problems:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">HVSC_2 for Windows 95/98 (High Voltage SID Collection 1.6 &ndash;&gt; 2.0 update):
+It keeps opening several hundred directory search records without closing
+any of them. This is a bug in DJGPP: although opendir() and readdir() both
+close the LFN search handle automatically when there are no more directory
+entries to read, closedir() never does.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">I haven't tested the programs above extensively, please, tell me if you find
+some problems. Try this program with other LFN-aware programs, too, and tell
+me about incompatibilities.</P>
+
+<H3><A NAME="section5">5. History</A></H3>
+
+<P ALIGN="JUSTIFY">0.01 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">First release.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.02 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing the "rename" function, the ordinary DOS "rename" function is
+redirected to this function.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "volume info" function.</P>
+
+<LI><P ALIGN="JUSTIFY">Short file names are recognized in a smart way and no long file name entry
+is created for them.</P>
+
+<LI><P ALIGN="JUSTIFY">No more strange effects when trying to read the root directory of a drive
+under VC 4.99 alphas.</P>
+
+<LI><P ALIGN="JUSTIFY">Improved compatibility with VC 4.99 alphas, 4DOS 6.01 and ARJ 2.60.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.03 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing the comparation of file names against the search file name
+pattern in "find first matching file" and "find next matching file". Now
+4DOS 6.01 does find external programs and ARJ 2.60 doesn't decompress all
+files in the current directory upon startup.</P>
+
+<LI><P ALIGN="JUSTIFY">4DOS is not fooled to be running under Windows 95/98 because it has an
+option to force the usage of Windows 95/98 long file name functions
+anyway.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.10 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">First public release.</P>
+
+<LI><P ALIGN="JUSTIFY">4DOS is fooled again to be running under Windows 95/98, otherwise "dir",
+that is, "dir *" will only list files without extension, as if 4DOS were
+running under plain DOS.</P>
+
+<LI><P ALIGN="JUSTIFY">Now "delete file" accepts wildcards and search attributes.</P>
+
+<LI><P ALIGN="JUSTIFY">The maximum number of search records available at a time has been raised
+from 4 to 16.</P>
+
+<LI><P ALIGN="JUSTIFY">Several bugs, related to problems with the High Voltage SID Collection
+1.6 &ndash;&gt; 2.0 update program, have been fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">If the client program uses long file name functions to read the directory
+then the entry of the data base (the short file name is "longname.dat")
+will be hidden.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.11 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing the redirection of several other DOS functions, such as "make
+directory", "change directory", "create file", "open file", "get/set file
+attributes" and "extended open file".</P>
+
+<LI><P ALIGN="JUSTIFY">Several small bugfixes.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.12 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing a standalone program, LFNDIR, that contains physical disk
+access routines and can read Windows 95/98-style long file names off the
+disk.</P>
+
+<LI><P ALIGN="JUSTIFY">The tilde and number are now appended to short file names by default
+because leaving them caused problems with the High Voltage SID Collection.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.20 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">The compatibility with the Windows 95/98 alias generation algorithm has
+been improved: only those aliases get a tilde and a number, whose long
+file name counterpart is too long and/or contains invalid characters. The
+aliases of long file names conforming to the 8.3 format but containing
+mixed case characters are simply the uppercase form of the long file name.</P>
+
+<LI><P ALIGN="JUSTIFY">Fully lowercase long file names can now be created.</P>
+
+<LI><P ALIGN="JUSTIFY">Now there are no problems if you only change the case of characters while
+renaming a file.</P>
+
+<LI><P ALIGN="JUSTIFY">You're not allowed to create two files whose names are basically the same
+because only the case of some of the characters are different.</P>
+
+<LI><P ALIGN="JUSTIFY">File names that conform to the 8.3 format but whose name and extension
+part is in different case are now recognized as long file names.</P>
+
+<LI><P ALIGN="JUSTIFY">Only the first three characters of the extension is copied from the long
+file name to its short equivalent.</P>
+
+<LI><P ALIGN="JUSTIFY">The check for the validity of long file names is more thorough in LFNDIR.</P>
+
+<LI><P ALIGN="JUSTIFY">LFNDIR displays long file names of a length of a multiple of 13 correctly.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.21 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">LFNDOS runs under Windows 95/98 and DOS 7.x, as well.</P>
+
+<LI><P ALIGN="JUSTIFY">When browsing through the directory of Novell Netware drives, LFNDOS also
+returns entries having the Shareable attribute set.</P>
+
+<LI><P ALIGN="JUSTIFY">In the LFNDOS source, you can also change the file attribute of
+LONGNAME.DAT files created by the program. Switching the system and hidden
+attributes off helps with getting rid of "unmovable files" in disk
+defragmenter programs.</P>
+
+<LI><P ALIGN="JUSTIFY">LFNDIR shows no volume labels and deleted files anymore, it displays the
+short name of files in lowercase and that of directories in uppercase and
+it displays file names starting with an E5h character correctly.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.22 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Files with exactly nine characters in the name part of their file name are
+now handled correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">When a client program reads through the directory using FindFirst and
+FindNext, LFNDOS checks for the existence of LONGNAME.DAT only once and if
+if not present, no checks are done during the remainder of the directory.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.23 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Long file names starting with a space are now handled correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">Long file names that contain lowercase characters only and conform to the
+DOS 8.3 file naming convention are not converted to full uppercase
+anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">The "get true/short/long name of file" functions support the SUBST
+expansion flag.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing the "generate short alias" function.</P>
+
+<LI><P ALIGN="JUSTIFY">Introducing support for the alias hint in the "create or open file"
+function.</P>
+
+<LI><P ALIGN="JUSTIFY">A problem with the "LONGNAME.DAT exists" flag, introduced in 0.22 beta,
+that prevented Info-ZIP from archiving files with long names, has been
+fixed.</P>
+
+<LI><P ALIGN="JUSTIFY">LFNDIR prints out no startup message anymore, only the list of files.</P>
+
+<LI><P ALIGN="JUSTIFY">A new compilation directive in LFNDIR allows you to make it list file
+names in the format of LONGNAME.DAT files.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.24 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">File accesses in the root directory of drives are now handled correctly.</P>
+
+<LI><P ALIGN="JUSTIFY">Ctrl-Break presses are not swallowed when the resident core is active, the
+original interrupt handler is signalled upon exit from the core.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.25 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Renamed the program to "Star LFN" so that its name doesn't conflict with
+Chris Jones' LFNDOS anymore.</P>
+
+<LI><P ALIGN="JUSTIFY">Uninstallation is now done by specifying the option '/U'.</P>
+
+<LI><P ALIGN="JUSTIFY">No LFN entries are created anymore for file names that belong to a
+standard device.</P>
+
+<LI><P ALIGN="JUSTIFY">You get no more "File not found" error when opening standard devices
+because they are assumed to "exist" in any directory, just like under
+plain DOS.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.26 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Instead of a fixed list of devices, the chain of actually installed
+devices is walked through when checking file names. As a result, the last
+two fixes of the previous release now apply to all actually installed
+devices rather than standard devices only.</P>
+
+<LI><P ALIGN="JUSTIFY">LFNDIR no more compares the first non-space character of the short and
+long file names, that was an extra check to make sure the two file names
+belong together.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.27 beta:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">LFNDIR considers all LFN entries with their first byte having the 7th bit
+set as deleted, rather than only entries with their first byte being E5h.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.30 beta (2002-03-10):</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Introducing experimental read-only VFAT support.</P>
+
+<LI><P ALIGN="JUSTIFY">When started without any command line parameter, the program displays
+usage information rather that installing itself at once.</P>
+
+<LI><P ALIGN="JUSTIFY">Installation is now done by specifying the option '/I'.</P>
+
+<LI><P ALIGN="JUSTIFY">Replaced a huge amount of magic numbers with named constants in the
+source.</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.31 beta (2002-09-08):</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Moved the history into the main documentation.</P>
+
+<LI><P ALIGN="JUSTIFY">Fixed the lockup that occurred in VFAT mode when copying a directory
+structure with long file names (the long file names are still not written
+onto the disk though so you will get an error message anyway).</P>
+</UL>
+
+<P ALIGN="JUSTIFY">0.32 beta (2004-01-31):</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Updated the list about other similar programs in the documentation.</P>
+</UL>
+
+<H3><A NAME="section6">6. Thanks to</A></H3>
+
+<P ALIGN="JUSTIFY">Thanks go to the following people:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Malcom Dew-Jones for his LFNUTILS package</P>
+
+<LI><P ALIGN="JUSTIFY">Chris Jones for discussion and for his LFNDOS</P>
+
+<LI><P ALIGN="JUSTIFY">Duncan J. Murdoch for general help with LFN's and for his LFNSORT</P>
+
+<LI><P ALIGN="JUSTIFY">Les Williams for discussion of LFN's on CD-ROM's</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Fucks go to PC Magazine, the copyright owner of Rick Knoblaugh's LFNDir, for
+having published the source along with a ridiculous license that only allows
+others to make personal use of the source but distribute no derivative works
+at all! This program contains nothing at all from their lame intellectual
+property!</P>
+
+<H3><A NAME="section7">7. Error messages</A></H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">This program needs DOS 4.0 or later</P>
+
+<P ALIGN="JUSTIFY">The program uses several features, part of which are undocumented, that
+are available only in DOS 4.0 and newer versions. You cannot use it with
+older DOS versions.</P>
+
+<LI><P ALIGN="JUSTIFY">Out of memory</P>
+
+<P ALIGN="JUSTIFY">The program could not allocate memory for its own purposes. Try freeing up
+memory by uninstalling some resident programs.</P>
+
+<LI><P ALIGN="JUSTIFY">Star LFN cannot be uninstalled &ndash; you've installed some programs after it.</P>
+
+<P ALIGN="JUSTIFY">One or more programs, installed afterwards, have hooked onto the same
+interrupts, therefore the program can't uninstall itself. Uninstall those
+other programs in a reverse order of their installation and try again.</P>
+</UL>
+
+<H3><A NAME="section8">8. Copyright and legal issues</A></H3>
+
+<P ALIGN="JUSTIFY">The source of this program is public domain and provided here "as is" &ndash; I
+don't feel like commenting it more but if you have problems then feel free to
+ask me. If you derive your own program from the source or put a part of the
+source into your own program, please, give me a credit and send a copy to me.</P>
+
+<H3><A NAME="section9">9. The author</A></H3>
+
+<P ALIGN="JUSTIFY">If you're interested in some similarly useful utilities you can contact me
+at <A HREF="mailto:sta.ANTI@SPAM.c64.org">sta.ANTI@SPAM.c64.org</A> or visit my homepage at <A HREF="http://sta.c64.org">http://sta.c64.org</A>.</P>
+
+<P ALIGN="JUSTIFY">Joe Forster/STA<BR>
+31st January, 2004</P>
+
+<CENTER><P><FONT SIZE=-1>(This page best viewed with any browser)</FONT></P></CENTER>
+
+</BODY>
+</HTML>

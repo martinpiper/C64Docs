@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 datasette functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 datasette functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$F179<TD WIDTH="85%"><P ALIGN="JUSTIFY">Read byte from
+  datasette (data files only).<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$F1DD<TD><P ALIGN="JUSTIFY">Write byte to datasette.<BR>
+  Input: Carry = 1; A = Byte to write; 0 = End of file.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$F22A<TD><P ALIGN="JUSTIFY">Define datasette as default input.<BR>
+  Input: A = 1.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$F26F<TD><P ALIGN="JUSTIFY">Define datasette as default output.<BR>
+  Input: A = 1.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.</P>
+<TR VALIGN=TOP><TD>$F2C8<TD><P ALIGN="JUSTIFY">Close file on datasette (data file only);
+  write $00, end of file first. (Must push logical number into stack
+  beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F38B<TD><P ALIGN="JUSTIFY">Open file on datasette (data file only);
+  display "ILLEGAL DEVICE NUMBER" error code if datasette buffer pointer, at
+  memory addresses $00B2-$00B3, is below $0200.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F72C<TD><P ALIGN="JUSTIFY">Read header from datasette.<BR>
+  Input: &ndash;<BR>
+  Output: X = Header type; Carry = 1 and Zero = 1: Interrupted by Stop key
+  having been pressed; Carry = 1 and Zero = 0: Interrupted by having reached
+  end of tape.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F76A<TD><P ALIGN="JUSTIFY">Generate and write header to
+  datasette.<BR>
+  Input: A = Header type.<BR>
+  Output: Carry = 1 and Zero = 1: Interrupted by Stop key having been
+  pressed.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F7D0<TD><P ALIGN="JUSTIFY">Fetch pointer to datasette buffer.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 0: Pointer below $0200; X/Y = Pointer.<BR>
+  Used registers: X, Y.</P>
+<TR VALIGN=TOP><TD>$F7EA<TD><P ALIGN="JUSTIFY">Find file on datasette. (Must call SETLFS
+  and SETNAM beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: X = Header type; Carry = 1 and Zero = 1: Interrupted by Stop key
+  having been pressed; Carry = 1 and Zero = 0: Interrupted by having reached
+  end of tape<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F80D<TD><P ALIGN="JUSTIFY">Increase datasette buffer pointer.<BR>
+  Input: &ndash;<BR>
+  Output: Zero = 1: Buffer is full; Carry = 1 and Zero = 0: Buffer overflow
+  occurred.<BR>
+  Used registers: X, Y.</P>
+<TR VALIGN=TOP><TD>$F817<TD><P ALIGN="JUSTIFY">Wait for the PLAY button to be pressed on
+  datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1: Interrupted by Stop key having been pressed.<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$F82E<TD><P ALIGN="JUSTIFY">Detect button presses on datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Zero: 0 = No button is pressed, 1 = One or more of PLAY, RECORD,
+    F.FWD or REW pressed.<BR>
+  Used registers: &ndash;</P>
+<TR VALIGN=TOP><TD>$F838<TD><P ALIGN="JUSTIFY">Wait for the RECORD button to be pressed
+  on datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1: Interrupted by Stop key having been pressed.<BR>
+  Used registers: A, Y.</P>
+<TR VALIGN=TOP><TD>$F841<TD><P ALIGN="JUSTIFY">Read block from datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1 and Zero = 1: Interrupted by Stop key having been
+  pressed.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F84A<TD><P ALIGN="JUSTIFY">Read program file from datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1 and Zero = 1: Interrupted by Stop key having been
+  pressed.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F864<TD><P ALIGN="JUSTIFY">Write block to datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1 and Zero = 1: Interrupted by Stop key having been
+  pressed.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$F86B<TD><P ALIGN="JUSTIFY">Write program file to datasette.<BR>
+  Input: &ndash;<BR>
+  Output: Carry = 1 and Zero = 1: Interrupted by Stop key having been
+  pressed.<BR>
+  Used registers: A, X, Y.</P>
+<TR VALIGN=TOP><TD>$FC93<TD><P ALIGN="JUSTIFY">Switch off datasette motor; switch screen
+  back; restore execution address of interrupt service routine from memory
+  addresses $029F-$02A0.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+<TR VALIGN=TOP><TD>$FCCA<TD><P ALIGN="JUSTIFY">Switch off datasette motor.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 BASIC data conversion functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 BASIC data conversion functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$A96B<TD WIDTH="85%"><P ALIGN="JUSTIFY">Fetch line number
+  from BASIC program and put result to memory addresses $0014-$0015; if first
+  character not a digit then the result is 0; if result is 64000 or above then
+  display "SYNTAX ERROR". (Must call $0073, CHRGET beforehands.)</P>
+<TR VALIGN=TOP><TD>$A9C4<TD><P ALIGN="JUSTIFY">Assign value to integer variable; convert
+  FAC to integer and write into variable pointed by memory addresses
+  $0049-$004A.</P>
+<TR VALIGN=TOP><TD>$A9DA<TD><P ALIGN="JUSTIFY">Assign value to string variable, including
+  TI$. (Also see $AA2C.)</P>
+<TR VALIGN=TOP><TD>$A9E0<TD><P ALIGN="JUSTIFY">Assign value to TI$, set Time of Day; read
+  value from string pointed by memory addresses $0064-$0065.</P>
+<TR VALIGN=TOP><TD>$AA2C<TD><P ALIGN="JUSTIFY">Assign value to string variable, excluding
+  TI$; read value from string pointed by memory addresses $0064-$0065; write
+  value into string variable pointed by memory addresses $0049-$004A.</P>
+<TR VALIGN=TOP><TD>$AD8A<TD><P ALIGN="JUSTIFY">Fetch value of numerical expression from
+  BASIC program into FAC.</P>
+<TR VALIGN=TOP><TD>$AD8D<TD><P ALIGN="JUSTIFY">Check whether expression is numerical; if
+  not, display "TYPE MISMATCH".</P>
+<TR VALIGN=TOP><TD>$AD8F<TD><P ALIGN="JUSTIFY">Check whether expression is string; if
+  not, display "TYPE MISMATCH".</P>
+<TR VALIGN=TOP><TD>$AD9E<TD><P ALIGN="JUSTIFY">Fetch value of expression from BASIC
+  program; for numerical expressions, value is written into FAC; for string
+  expressions, length of value is written to memory address $0061, address of
+  value to memory addresses $0062-$0063.</P>
+<TR VALIGN=TOP><TD>$AEF1<TD><P ALIGN="JUSTIFY">Fetch value of expression, enclosed into
+  parentheses, from BASIC program. (Also see $AD9E).</P>
+<TR VALIGN=TOP><TD>$AF28<TD><P ALIGN="JUSTIFY">Fetch name of variable from BASIC program
+  and load its value; address of variable is written into memory addresses
+  $0064-$0065; for numerical variables, the value is written into FAC, in
+  floating-point format; for ST, TI and TI$, get variable value from system
+  area; for variables that do not exist, return empty value (0 for numerical
+  or empty string for string variables).</P>
+<TR VALIGN=TOP><TD>$AF48<TD><P ALIGN="JUSTIFY">Compute value of TI$.</P>
+<TR VALIGN=TOP><TD>$AF61<TD><P ALIGN="JUSTIFY">Load value of integer variable pointed by
+  memory addresses $0064-$0065 into FAC, in floating-point format.</P>
+<TR VALIGN=TOP><TD>$AF6E<TD><P ALIGN="JUSTIFY">Load value of floating-point variable,
+  including ST and TI, into FAC. (Also see $AFA0.)</P>
+<TR VALIGN=TOP><TD>$AF7B<TD><P ALIGN="JUSTIFY">Compute value of TI into FAC.</P>
+<TR VALIGN=TOP><TD>$AF9A<TD><P ALIGN="JUSTIFY">Compute value of ST into FAC.</P>
+<TR VALIGN=TOP><TD>$AFA0<TD><P ALIGN="JUSTIFY">Load value of floating-point variable,
+  excluding ST and TI, pointed by memory addresses $0064-$0065 into FAC.</P>
+<TR VALIGN=TOP><TD>$B08B<TD><P ALIGN="JUSTIFY">Fetch name of variable from BASIC program
+  and find it; if found, address of variable is written into memory addresses
+  $005F-$0060, address of value into memory addressesd $0047-$0048; if not
+  found and the caller was $AF28, return empty value (0 for numerical or empty
+  string for string variables), otherwise create new variable with empty
+  value.</P>
+<TR VALIGN=TOP><TD>$B128<TD><P ALIGN="JUSTIFY">Create new variable with empty value (0
+  for numerical or empty string for string variables); name of variable is in
+  memory addresses $0045-$0046.</P>
+<TR VALIGN=TOP><TD>$B1B2<TD><P ALIGN="JUSTIFY">Fetch integer value from BASIC program
+  into memory addresses $0064-$0065; if value is not withing [-32768, 32767]
+  range, display "ILLEGAL QUANTITY".</P>
+<TR VALIGN=TOP><TD>$B391<TD><P ALIGN="JUSTIFY">Write integer in A/Y into FAC, in
+  floating-point format.</P>
+<TR VALIGN=TOP><TD>$B3A2<TD><P ALIGN="JUSTIFY">Write integer in Y into FAC, in
+  floating-point format.</P>
+<TR VALIGN=TOP><TD>$B794<TD><P ALIGN="JUSTIFY">Write integer in A into FAC, in
+  floating-point format.</P>
+<TR VALIGN=TOP><TD>$B79B<TD><P ALIGN="JUSTIFY">Fetch byte value from BASIC program into
+  X; if value is not withing [0, 255] range, display "ILLEGAL QUANTITY".</P>
+<TR VALIGN=TOP><TD>$B7EB<TD><P ALIGN="JUSTIFY">Fetch word and byte, separated by a comma,
+  from BASIC program into memory addresses $0014-$0015 and X.</P>
+<TR VALIGN=TOP><TD>$B7F7<TD><P ALIGN="JUSTIFY">Convert FAC into unsigned integer value at
+  memory addresses $0014-$0015; if value is not withing [0, 65535] range,
+  display "ILLEGAL QUANTITY".</P>
+<TR VALIGN=TOP><TD>$B849<TD><P ALIGN="JUSTIFY">FAC := FAC + 0.5.</P>
+<TR VALIGN=TOP><TD>$B850<TD><P ALIGN="JUSTIFY">FAC := (floating-point value pointed by
+  A/Y) &ndash; FAC.</P>
+<TR VALIGN=TOP><TD>$B853<TD><P ALIGN="JUSTIFY">FAC := ARG &ndash; FAC.</P>
+<TR VALIGN=TOP><TD>$B867<TD><P ALIGN="JUSTIFY">FAC := (floating-point value pointed by
+  A/Y) + FAC.</P>
+<TR VALIGN=TOP><TD>$B86A<TD><P ALIGN="JUSTIFY">FAC := ARG + FAC. (Must do "LDA $61"
+  beforehands.)</P>
+<TR VALIGN=TOP><TD>$B947<TD><P ALIGN="JUSTIFY">FAC := Two_Complement(FAC); invert FAC
+  mantissa.</P>
+<TR VALIGN=TOP><TD>$BA28<TD><P ALIGN="JUSTIFY">FAC := (floating-point value pointed by
+  A/Y) * FAC.</P>
+<TR VALIGN=TOP><TD>$BA2B<TD><P ALIGN="JUSTIFY">FAC := ARG * FAC. (Must do "LDA $61"
+  beforehands.)</P>
+<TR VALIGN=TOP><TD>$BA8C<TD><P ALIGN="JUSTIFY">ARG := (floating-point value pointed by
+  A/Y).</P>
+<TR VALIGN=TOP><TD>$BAE2<TD><P ALIGN="JUSTIFY">FAC := FAC * 10.</P>
+<TR VALIGN=TOP><TD>$BAFE<TD><P ALIGN="JUSTIFY">FAC := FAC / 10.</P>
+<TR VALIGN=TOP><TD>$BB0F<TD><P ALIGN="JUSTIFY">FAC := (floating-point value pointed by
+  A/Y) / FAC.</P>
+<TR VALIGN=TOP><TD>$BB12<TD><P ALIGN="JUSTIFY">FAC := ARG / FAC; if FAC = 0, display
+  "DIVISION BY ZERO". (Must do "LDA $61" beforehands.)</P>
+<TR VALIGN=TOP><TD>$BBA2<TD><P ALIGN="JUSTIFY">FAC := (floating-point value pointed by
+  A/Y).</P>
+<TR VALIGN=TOP><TD>$BBC7<TD><P ALIGN="JUSTIFY">Arithmetic register #4 := FAC.</P>
+<TR VALIGN=TOP><TD>$BBCA<TD><P ALIGN="JUSTIFY">Arithmetic register #4 := FAC.</P>
+<TR VALIGN=TOP><TD>$BBD0<TD><P ALIGN="JUSTIFY">Write FAC into floating-point variable
+  pointed by memory addresses $0049-$004A.</P>
+<TR VALIGN=TOP><TD>$BBD4<TD><P ALIGN="JUSTIFY">Write FAC into floating-point variable
+  pointed by X/Y.</P>
+<TR VALIGN=TOP><TD>$BBFC<TD><P ALIGN="JUSTIFY">FAC := ARG.</P>
+<TR VALIGN=TOP><TD>$BC0C<TD><P ALIGN="JUSTIFY">ARG := Integer(FAC).</P>
+<TR VALIGN=TOP><TD>$BC0F<TD><P ALIGN="JUSTIFY">ARG := FAC.</P>
+<TR VALIGN=TOP><TD>$BC1B<TD><P ALIGN="JUSTIFY">FAC := Integer(FAC).</P>
+<TR VALIGN=TOP><TD>$BC2B<TD><P ALIGN="JUSTIFY">Fetch sign of FAC into A: 1 = Positive, 0
+  = Zero, 255 = Negative.</P>
+<TR VALIGN=TOP><TD>$BC5B<TD><P ALIGN="JUSTIFY">Compare floating-point value pointed by
+  A/Y with FAC, put result into A: 1 = FAC less, 0 = Equal, 255 = FAC
+  greater.</P>
+<TR VALIGN=TOP><TD>$BC9B<TD><P ALIGN="JUSTIFY">Convert FAC into integer value at memory
+  addresses $0064-$0065.</P>
+<TR VALIGN=TOP><TD>$BCF3<TD><P ALIGN="JUSTIFY">Fetch floating-point value from BASIC
+  program into FAC.</P>
+<TR VALIGN=TOP><TD>$BDCD<TD><P ALIGN="JUSTIFY">Write integer value in A/X onto screen, in
+  floating-point format.</P>
+<TR VALIGN=TOP><TD>$BDDD<TD><P ALIGN="JUSTIFY">Convert FAC to zero-terminated string
+  representation at memory addresses $0100-$010A.</P>
+<TR VALIGN=TOP><TD>$BF71<TD><P ALIGN="JUSTIFY">FAC := Square_Root(FAC).</P>
+<TR VALIGN=TOP><TD>$BF78<TD><P ALIGN="JUSTIFY">FAC := ARG ^ (floating-point value pointed
+  by A/Y).</P>
+<TR VALIGN=TOP><TD>$BF7B<TD><P ALIGN="JUSTIFY">FAC := ARG ^ FAC.</P>
+<TR VALIGN=TOP><TD>$BFB4<TD><P ALIGN="JUSTIFY">FAC := &ndash;FAC.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The PC64 cable with SIDPlay for Windows</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The PC64 cable</H2>
+(using with SIDPlay for Windows)
+</CENTER>
+
+<H3>Usage</H3>
+
+<P ALIGN="JUSTIFY">Don't get the latest SIDPlay for Windows because its
+<A HREF="pc64.html">PC64 cable</A> support is broken. Get the older
+<A HREF="winprg.html#sidplay_old">SIDPlay for Windows 2000-04-10</A> release
+instead.</P>
+
+<P ALIGN="JUSTIFY">Make sure that the parallel port, you want to plug your
+PC64 cable into, is configured to the port address $0378 because SIDPlay can't
+use a parallel port at any different address. If needed, rejumper the port
+&ndash; for older I/O-controller cards and parallel port cards &ndash; or enter
+the BIOS setup and change the address in the "Integrated peripherals" menu
+&ndash; for newer, integrated controllers.</P>
+
+<P ALIGN="JUSTIFY">Alternatively, under Windows 95/98, launch the "System"
+icon of the Windows Control Panel, go to the "Device Manager" tab, open the
+"Ports (COM &amp; LPT)" tree, select the appropriate "Printer Port" and press
+"Properties". In the property sheet, go to the "Resources" tab, uncheck "Use
+automatic settings" and select that item from the "Setting based on" list
+which shows "0378-037F" as "Input/Output Range". Press OK. Beware, as the
+warning also says, disabling the automatic settings may cause conflicts either
+right away or in the future, when you plug a new card into your PC.</P>
+
+<P ALIGN="JUSTIFY">Launch SIDPlay and configure it for your needs. Remember to
+enter the "Settings"/"Device" menu and select the "Commodore 64" output
+device. To its right, select "PC64" from the "Type of connection" list. Exit
+SIDPlay.</P>
+
+<P ALIGN="JUSTIFY">Extract "sidloader_pc64.prg" from the SIDPlay distribution
+package and copy it onto a Commodore disk or tape.</P>
+
+<P ALIGN="JUSTIFY">Switch your Commodore machine off. Connect the user port
+plug of the PC64 cable onto the user port of your Commodore machine, being
+very careful not to do it upside down, otherwise you may kill your PC parallel
+port within a second. Connect the parallel plug into the parallel port of your
+PC.</P>
+
+<P ALIGN="JUSTIFY">Switch your Commodore machine back on, load
+"sidloader_pc64.prg", and run it. You will see a blank grey screen. Don't
+start the program if SIDPlay is already running.</P>
+
+<P ALIGN="JUSTIFY">Launch SIDPlay again. The Commodore's screen will show
+stripes for a split second, while the player is being uploaded to the
+Commodore, and then become black.</P>
+
+<P ALIGN="JUSTIFY">In SIDPlay, select the music you want to load. Beware, not
+all musics can be played on a real C64. In particular, digital samples don't
+work and, if the music data overwrites the player, the Commodore will lock
+up.</P>
+
+<H3>Copyright</H3>
+
+<P ALIGN="JUSTIFY">The PC64 cable is &copy; by <B>Wolfgang Lorenz</B>,
+1994-1996. SIDPlay for Windows is &copy; by <B>Michael Schwendt</B>,
+1994-1998, and <B>Adam Lorentzon</B>, 1997-2002.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

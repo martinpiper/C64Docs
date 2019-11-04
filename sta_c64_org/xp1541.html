@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>The XP1541 and XP1571 parallel cables</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>The XP1541 and XP1571 parallel cables</H2>
+</CENTER>
+
+<H3>Description</H3>
+
+<P ALIGN="JUSTIFY">The <B>XP1541 parallel cable</B> and the <B>XP1571 parallel
+cable</B> are companion cables for the <A HREF="x1541.html">X1541 cable</A>,
+the <A HREF="xe1541.html">XE1541 extended cable</A>, the
+<A HREF="xm1541.html">XM1541 multitask cable</A> and the
+<A HREF="xa1541.html">XA1541 active cable</A>, to get the most possible out of
+<A HREF="parport.html">PS/2</A>, <A HREF="parport.html">EPP</A> and
+<A HREF="parport.html">ECP</A> ports, creating an additional parallel
+connection between a Commodore 1541, 1570 or 1571 drive and the PC parallel
+port. This parallel connection speeds up both transfer directions to about
+triple speed (the actual value depends on the transfer software, as well).
+They are compatible with PS/2, EPP and ECP parallel ports and come in two
+flavors: the XP1541 parallel cable for 1541 drives and the XP1571 parallel
+cable for 1570 and 1571 drives.</P>
+
+<H3>Hardware requirements</H3>
+
+<P ALIGN="JUSTIFY">You need the following hardware to make use of this
+cable:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">A PC with a <A HREF="parport.html">PS/2</A>,
+  <A HREF="parport.html">EPP</A> or <A HREF="parport.html">ECP</A> parallel
+  port</P>
+
+<LI><P ALIGN="JUSTIFY">A Commodore 1541, 1570 or 1571 drive or 
+  compatible clone</P>
+
+<LI><P ALIGN="JUSTIFY">An <A HREF="x1541.html">X1541 cable</A>,
+  <A HREF="xe1541.html">XE1541 extended cable</A>,
+  <A HREF="xm1541.html">XM1541 multitask cable</A> or
+  <A HREF="xa1541.html">XA1541 active cable</A> between the drive and the
+  PC</P>
+</UL>
+
+<H3>Software support</H3>
+
+<P ALIGN="JUSTIFY">The cable is supported by the following PC software:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">
+  <A HREF="http://www.lb.shuttle.de/puffin/cbm4linux/">cbm4linux</A> (&copy;
+  by <B>Michael Klein</B>, 1999-2002) (<A HREF="linuxprg.html#cbm4linux">local
+  copy</A>)</P>
+
+<LI><P ALIGN="JUSTIFY">
+  <A HREF="http://opencbm.sourceforge.net">OpenCBM/cbm4win</A> (&copy; by
+  <B>Spiro Trikaliotis</B>, 2001-2007, and <B>Michael Klein</B>, 1999-2004)
+  (<A HREF="winprg.html#cbm4win">local copy</A>)</P>
+
+<LI><P ALIGN="JUSTIFY">
+  <A HREF="http://c64preservation.com/nibtools">nibtools</A> (&copy; by
+  <B>Markus Brenner</B>, 2000-2004, and <B>Peter Rittwage & the C64
+  Preservation Project team</B>, 2004-2013)
+  (<A HREF="dosprg.html#nibtools">local copy</A> for DOS and
+  <A HREF="winprg.html#nibtools">local copy</A> for Windows)</P>
+
+<LI><P ALIGN="JUSTIFY"><A HREF="sc.html">The Star Commander</A> (&copy; by
+  <B>Joe Forster/STA</B>, 1994-2005)</P>
+</UL>
+
+<H3>Important notes</H3>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Don't let the name "XP1571" fool you. This cable flavor
+  also works with Commodore 1570 drives, not only Commodore 1571 drives. The
+  other "XP1541" flavor is for Commodore 1541 drives only.</P>
+
+<LI><P ALIGN="JUSTIFY">This cable needs modifications in your Commodore drive.
+  If you're not good at hardware hacking, don't try doing it yourself but ask
+  for an expert's help instead.</P>
+
+<LI><P ALIGN="JUSTIFY">This cable is rather a concept than an actual cable.
+  If you build it as described in methods #1 and #2, you will be able to use
+  the parallel capabilities of your Commodore drive only from a PC, but not
+  from a Commodore machine. Method #3 is solves this problem but you would
+  still need two parallel ports &ndash; one for the serial cable and one for
+  this cable &ndash;, unless you build one of the
+  <A HREF="xcables.html#combo">X1541-series cable combos</A> instead.</P>
+
+  <P ALIGN="JUSTIFY">Your best choice is method #4, which implements the
+  concept as a <A HREF="cbmpar.html">Commodore parallel cable</A> plugged into
+  an <A HREF="xcables.html#combo">X1541-series adaptor</A>. This way, the
+  drive can be connected to a Commodore machine, via the Commodore parallel
+  cable alone, as well as to a PC, via the cable plugged into the adaptor
+  which needs only one parallel port.</P>
+
+<LI><P ALIGN="JUSTIFY">Although the recommended implementation of this cable
+  is a Commodore parallel cable and an X1541-series adaptor, this cable does
+  not connect the hardware handshake lines (PC2 and FLAG2) of the Commodore
+  parallel cable to any pin on the PC parallel port. As the software emulation
+  of hardware handshake is quite impossible on a PC, software handshake is
+  used on the accompanying X1541-series serial cable instead.</P>
+
+<LI><P ALIGN="JUSTIFY">This cable is a companion, it doesn't work alone. On a
+  <A HREF="parport.html">PS/2</A> port, you can use it along with any of the
+  four serial cables; on an <A HREF="parport.html">EPP</A> or
+  <A HREF="parport.html">ECP</A> port, the <A HREF="x1541.html">X1541
+  cable</A> is ruled out becuase it doesn't work on such ports.</P>
+
+<LI><P ALIGN="JUSTIFY">This cable contains no GND connection because the
+  serial cable already has one. Multiple GND connections may result in a
+  "ground loop", when current is flowing between the two machines via the GND
+  lines. This can cause not only unreliable behavior but also damage to your
+  equipment. It may be possible to filter the GND lines so that they fulfill
+  their primary purpose but not create a ground loop, however, such solutions
+  may be relatively complicated and expensive.</P>
+</UL>
+
+<H3>Construction</H3>
+
+<P ALIGN="JUSTIFY">There are several methods to build this cable. You may
+share the parallel port between this cable and any of the four serial cables
+&ndash; <A HREF="x1541.html">X1541 cable</A>, <A HREF="xe1541.html">XE1541
+extended cable</A>, <A HREF="xm1541.html">XM1541 multitask cable</A> or
+<A HREF="xa1541.html">XA1541 active cable</A> &ndash; by building a Y-shaped
+cable and soldering the extra connections of this cable onto the parallel port
+plug you already have. See the <A HREF="xep1541.html">XEP1541 cable combo</A>,
+the <A HREF="xmp1541.html">XMP1541 cable combo</A> or the
+<A HREF="xap1541.html">XAP1541 cable combo</A> for more details.</P>
+
+<P ALIGN="JUSTIFY"><B>Method 1.</B> Your drive has no parallel capabilities
+yet and you want to connect the cable directly onto the periphery chip in the
+drive. If possible, you shouldn't use this method because, this way, you won't
+be able to make use of it with a Commodore machine. You can find the details
+on how to build this cable at the <A HREF="xp1541c.html">construction page for
+1541 drives</A> and the <A HREF="xp1571c.html">construction page for 1570 and
+1571 drives</A>.</P>
+
+<P ALIGN="JUSTIFY"><B>Method 2.</B> Your drive has no parallel capabilities
+yet and you want to create a parallel port on your drive and then connect the
+cable to it. This is the preferred method because you can also make use of it
+with a Commodore machine. You can find the details on how to build this cable
+at the <A HREF="xp1541c2.html">construction page</A>.</P>
+
+<P ALIGN="JUSTIFY">If you have successfully finished the parallel port on your
+drive then you can also build the <A HREF="cbmpar.html">Commodore parallel
+cable</A>, to use the parallel capabilities with a Commodore machine.</P>
+
+<P ALIGN="JUSTIFY"><B>Method 3.</B> Your drive already has a
+<A HREF="cbmpar.html">Commodore parallel cable</A> and you want to make use of
+it. In this case, you'll have to build an adaptor, through which you can
+connect the cable to the PC parallel port. You can find the details on how to
+build this adaptor at the <A HREF="xp1541ac.html">construction page</A>.</P>
+
+<P ALIGN="JUSTIFY"><B>Method 4.</B> The <A HREF="xep1541a.html">XEP1541
+adaptor</A>, besides serving as an <A HREF="xe1541.html">XE1541 extended
+cable</A>, adapts a <A HREF="cbmpar.html">Commodore parallel cable</A> for use
+with a PC. So do the <A HREF="xmp1541a.html">XMP1541 adaptor</A> and the
+<A HREF="xap1541a.html">XAP1541 adaptor</A>.</P>
+
+<H3>Usage</H3>
+
+<P ALIGN="JUSTIFY">If you built a cable and you created or already have a
+parallel port on your Commodore drive then you can connect one end of the
+cable into it; otherwise the cable is, probably, just hanging out of the
+drive. If you built an adaptor then connect the user port plug onto it, being
+very careful to exactly do it upside down, that is, the top side of the user
+port plug should be leveled with that side of the adaptor without circuitry.
+In any case, connect the parallel plug of your cable or adaptor into the
+parallel port of your PC.</P>
+
+<P ALIGN="JUSTIFY"><B>Important!</B> Do not plug or unplug cables while your
+equipment is switched on. Make sure that all components of your equipment are
+connected to the same, properly grounded power outlet. Put your equipment far
+away from monitors, TV sets and other devices with strong emission, otherwise
+cables may pick up interference and you may experience data loss or
+corruption. Never leave this cable connected alone, only if the serial cable
+is also connected, otherwise the lack of GND connection may severely damage
+your equipment.</P>
+
+<H3>Copyright and license</H3>
+
+<P ALIGN="JUSTIFY">The XP1541 and XP1571 parallel cables are &copy; by <B>Joe
+Forster/STA</B>, 1997. If you produce and sell cables or adaptors that are
+compatible with this cable then you must give credits to the copyright owner.
+If your adaptors are built onto printed circuit boards then you must also make
+the complete layout available in a format and resolution that is suitable for
+high quality reproduction.</P>
+
+<P ALIGN="CENTER"><FONT SIZE=-1><A HREF="contact.html">Contact</A> |
+<A HREF="copyright.html">Copyright and license</A> |
+<A HREF="blog/">Blog page</A> | <A HREF="updates.html">Recent updates</A> |
+<A HREF="./">Title page</A><BR>
+(This page best viewed with any browser)</FONT></P>
+
+</BODY>
+</HTML>

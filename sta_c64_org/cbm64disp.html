@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 display modes</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 display modes</H2>
+</CENTER>
+
+<H3>Standard character mode</H3>
+
+<P ALIGN="JUSTIFY">Screen based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+
+<LI><P ALIGN="JUSTIFY">Character ROM ($D000-$DFFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Colors based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Background Color ($D021)</P>
+
+<LI><P ALIGN="JUSTIFY">Color RAM ($D800-$DBFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Character shape and color:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Fetch screen byte from Screen RAM, multiply it by
+  8.</P>
+
+<LI><P ALIGN="JUSTIFY">If charset is in lowercase/uppercase mode, add 2048
+  ($0800).</P>
+
+<LI><P ALIGN="JUSTIFY">Fetch 8 bytes from this offset of the Character ROM 
+  and use it as a bitmap:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit = 0: Pixel has background color.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit = 1: Pixel color is determined by the
+    corresponding color byte in Color RAM.</P>
+  </UL>
+</OL>
+
+<H3>Multicolor character mode</H3>
+
+<P ALIGN="JUSTIFY">Screen based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+
+<LI><P ALIGN="JUSTIFY">Character ROM ($D000-$DFFF)</P>
+
+<LI><P ALIGN="JUSTIFY">Color RAM ($D800-$DBFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Colors based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Background color ($D021)</P>
+
+<LI><P ALIGN="JUSTIFY">Extra Background Color #1 ($D022)</P>
+
+<LI><P ALIGN="JUSTIFY">Extra Background Color #2 ($D023)</P>
+
+<LI><P ALIGN="JUSTIFY">Color RAM ($D800-$DBFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Character shape and color:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Fetch color byte from Color RAM. If bit #3 = 0, the
+  character is single color, see "Standard character mode".</P>
+
+<LI><P ALIGN="JUSTIFY">If color byte bit #3 = 1, the character is multicolor.
+  Fetch screen byte, multiply it by 8.</P>
+
+<LI><P ALIGN="JUSTIFY">If charset is in lowercase/uppercase mode, add 2048
+  ($0800).</P>
+
+<LI><P ALIGN="JUSTIFY">Fetch 8 bytes from this offset of the Character ROM and
+  use it as a bitmap:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit pair = %00: Pixel has background color.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %01: Pixel has extra background color
+    #1.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %02: Pixel has extra background color
+    #2.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %11: Pixel color is determined by bits
+    #0-#2 of the color byte.</P>
+  </UL>
+</OL>
+
+<H3>Extended background color character mode</H3>
+
+<P ALIGN="JUSTIFY">Screen based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+
+<LI><P ALIGN="JUSTIFY">Character ROM ($D000-$DFFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Colors based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+
+<LI><P ALIGN="JUSTIFY">Background Color ($D021)</P>
+
+<LI><P ALIGN="JUSTIFY">Extra Background Color #1 ($D022)</P>
+
+<LI><P ALIGN="JUSTIFY">Extra Background Color #2 ($D023)</P>
+
+<LI><P ALIGN="JUSTIFY">Extra Background Color #3 ($D024)</P>
+
+<LI><P ALIGN="JUSTIFY">Color RAM ($D800-$DBFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Character shape and color:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Fetch screen byte from Screen RAM, keep only bits
+  #0-#5, multiply it by 8.</P>
+
+<LI><P ALIGN="JUSTIFY">If charset is in lowercase/uppercase mode, add 2048
+  ($0800).</P>
+
+<LI><P ALIGN="JUSTIFY">Fetch 8 bytes from this offset of the Character ROM and
+  use it as a bitmap:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit = 0: Pixel has background color which is
+    determined by bits #6-#7 of the screen byte:</P>
+
+    <UL>
+    <LI><P ALIGN="JUSTIFY">Bit pair = %00: Pixel has Background Color.</P>
+
+    <LI><P ALIGN="JUSTIFY">Bit pair = %01: Pixel has Extra Background Color
+      #1.</P>
+
+    <LI><P ALIGN="JUSTIFY">Bit pair = %10: Pixel has Extra Background Color
+      #2.</P>
+
+    <LI><P ALIGN="JUSTIFY">Bit pair = %11: Pixel has Extra Background Color
+      #3.</P>
+    </UL>
+
+  <LI><P ALIGN="JUSTIFY">Bit = 1: Pixel color is determined by the
+    corresponding color byte in Color RAM.
+  </UL>
+</OL>
+
+<H3>Standard bitmap mode</H3>
+
+<P ALIGN="JUSTIFY">Screen based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Bitmap RAM ($2000-$3FFF, configurable)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Colors based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Bitmap shape and color:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Fetch bitmap byte from Bitmap RAM:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit = 0: Pixel color is determined by bits #0-#3 of
+    the corresponding screen byte in Screen RAM.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit = 1: Pixel color is determined by bits #4-#7 of
+    the corresponding screen byte in Screen RAM.</P>
+  </UL>
+</OL>
+
+<H3>Multicolor bitmap mode</H3>
+
+<P ALIGN="JUSTIFY">Screen based on:</P>
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Bitmap RAM ($2000-$3FFF, configurable)</P>
+</UL>
+
+Colors based on:
+
+<UL>
+<LI><P ALIGN="JUSTIFY">Screen RAM ($0400-$07FF, configurable)</P>
+
+<LI><P ALIGN="JUSTIFY">Background Color ($D021)</P>
+
+<LI><P ALIGN="JUSTIFY">Color RAM ($D800-$DBFF)</P>
+</UL>
+
+<P ALIGN="JUSTIFY">Bitmap shape and color:</P>
+
+<OL>
+<LI><P ALIGN="JUSTIFY">Fetch bitmap byte from Bitmap RAM:</P>
+
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit pair = %00: Pixel has Background Color.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %01: Pixel color is determined by bits
+    #4-#7 of the corresponding screen byte in Screen RAM.
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %10: Pixel color is determined by bits
+    #0-#3 of the corresponding screen byte in Screen RAM.</P>
+
+  <LI><P ALIGN="JUSTIFY">Bit pair = %11: Pixel color is determined by the
+    corresponding color byte in Color RAM.</P>
+  </UL>
+</OL>
+
+</BODY>
+</HTML>

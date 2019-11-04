@@ -1,0 +1,837 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 1541 drive memory map</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 1541 drive memory map</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Description
+
+<A NAME="page00"></A><A NAME="zeropage"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$0000-$00FF<BR>Zero page</B>
+
+<TR VALIGN=TOP><TD WIDTH="15%">$0000<TD WIDTH="85%"><P ALIGN="JUSTIFY">Buffer #0 command
+  and status registers. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#6: Status or command code.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 0 = Job finished, register contains status
+    code; 1 = Job to be executed, register contains command code.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: "24,READ ERROR" (only during disk format).</P>
+  <LI><P ALIGN="JUSTIFY">$01: "00,OK" (no error).</P>
+  <LI><P ALIGN="JUSTIFY">$02: "20,READ ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$03: "21,READ ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$04: "22,READ ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$05: "23,READ ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$06: "24,READ ERROR" (may not occur).</P>
+  <LI><P ALIGN="JUSTIFY">$07: "25,WRITE ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$08: "26,WRITE PROTECT ON".</P>
+  <LI><P ALIGN="JUSTIFY">$09: "27,READ ERROR".</P>
+  <LI><P ALIGN="JUSTIFY">$0A: "28,READ ERROR" (may not occur).</P>
+  <LI><P ALIGN="JUSTIFY">$0B: "29,DISK ID MISMATCH".</P>
+  <LI><P ALIGN="JUSTIFY">$0F: "74,DRIVE NOT READY".</P>
+  </UL>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$80: Read sector.
+  <LI><P ALIGN="JUSTIFY">$90: Write sector.</P>
+  <LI><P ALIGN="JUSTIFY">$A0: Verify sector.</P>
+  <LI><P ALIGN="JUSTIFY">$B0: Read in sector header and fetch header ID.</P>
+  <LI><P ALIGN="JUSTIFY">$C0: Bump head.</P>
+  <LI><P ALIGN="JUSTIFY">$D0: Execute code in buffer.</P>
+  <LI><P ALIGN="JUSTIFY">$E0: Read in sector header and then execute code in
+    buffer.</P>
+  <LI><P ALIGN="JUSTIFY">$F0: Read in sector header.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0001<TD><P ALIGN="JUSTIFY">Buffer #1 command and status register.</P>
+<TR VALIGN=TOP><TD>$0002<TD><P ALIGN="JUSTIFY">Buffer #2 command and status register.</P>
+<TR VALIGN=TOP><TD>$0003<TD><P ALIGN="JUSTIFY">Buffer #3 command and status register.</P>
+<TR VALIGN=TOP><TD>$0004<TD><P ALIGN="JUSTIFY">Buffer #4 command and status register.</P>
+<TR VALIGN=TOP><TD>$0005<TD><P ALIGN="JUSTIFY">Unused. (Command and status register of
+  not existing buffer #5.)</P>
+<TR VALIGN=TOP><TD>$0006-$0007<TD><P ALIGN="JUSTIFY">Buffer #0 track and sector
+  register.</P>
+<TR VALIGN=TOP><TD>$0008-$0009<TD><P ALIGN="JUSTIFY">Buffer #1 track and sector
+  register.</P>
+<TR VALIGN=TOP><TD>$000A-$000B<TD><P ALIGN="JUSTIFY">Buffer #2 track and sector
+  register.</P>
+<TR VALIGN=TOP><TD>$000C-$000D<TD><P ALIGN="JUSTIFY">Buffer #3 track and sector
+  register.</P>
+<TR VALIGN=TOP><TD>$000E-$000F<TD><P ALIGN="JUSTIFY">Buffer #4 track and sector
+  register.</P>
+<TR VALIGN=TOP><TD>$0010-$0011<TD><P ALIGN="JUSTIFY">Unused. (Track and sector register
+  of not existing buffer #5.)</P>
+<TR VALIGN=TOP><TD>$0012-$0013<TD><P ALIGN="JUSTIFY">Unit #0 expected sector header
+  ID.</P>
+<TR VALIGN=TOP><TD>$0014-$0015<TD><P ALIGN="JUSTIFY">Unused. (Expected sector header ID
+  of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0016-$0017<TD><P ALIGN="JUSTIFY">Header ID from header of sector last
+  read from disk.</P>
+<TR VALIGN=TOP><TD>$0018-$0019<TD><P ALIGN="JUSTIFY">Track and sector number from header
+  of sector last read from disk.</P>
+<TR VALIGN=TOP><TD>$001A<TD><P ALIGN="JUSTIFY">Header checksum from header of sector last
+  read from disk.</P>
+<TR VALIGN=TOP><TD>$001B<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$001C<TD><P ALIGN="JUSTIFY">Unit #0 disk change indicator. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #1: 1 = Status of write protect photocell has
+    changed.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$001D<TD><P ALIGN="JUSTIFY">Unused. (Disk change indicator of not
+  existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$001E<TD><P ALIGN="JUSTIFY">Previous status of unit #0 write protect
+  photocell (in bit #4).</P>
+<TR VALIGN=TOP><TD>$001F<TD><P ALIGN="JUSTIFY">Unused. (Previous status of write protect
+  photocell of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0020<TD><P ALIGN="JUSTIFY">Unit #0 disk controller internal command
+  register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #4: 1 = Switch motor off.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #5: 1 = Idle.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Seeking in progress.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Waiting for motor to spin up.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0021<TD><P ALIGN="JUSTIFY">Unused. (Disk controller internal command
+  register of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0022<TD><P ALIGN="JUSTIFY">Unit #0 current track number.</P>
+<TR VALIGN=TOP><TD>$0023<TD><P ALIGN="JUSTIFY">Serial bus communication speed switch.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: C64, lower speed, extra waits are needed.
+    (Compensation for the delays caused by sprite DMA in the host.)</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: VIC20, higher speed.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0024-$002B<TD><P ALIGN="JUSTIFY">Header of sector last read from or
+  next to be written onto disk, in GCR-encoded form.</P>
+<TR VALIGN=TOP><TD>$002C-$002D<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$002E-$002F<TD><P ALIGN="JUSTIFY">Pointer to current byte in buffer
+  during GCR-encoding/decoding.</P>
+<TR VALIGN=TOP><TD>$0030-$0031<TD><P ALIGN="JUSTIFY">Pointer to beginning of current
+  buffer.</P>
+<TR VALIGN=TOP><TD>$0032-$0033<TD><P ALIGN="JUSTIFY">Pointer to track and sector
+  registers of current  buffer.</P>
+<TR VALIGN=TOP><TD>$0034<TD><P ALIGN="JUSTIFY">GCR-byte counter during
+  GCR-encoding/decoding.</P>
+<TR VALIGN=TOP><TD>$0035<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$0036<TD><P ALIGN="JUSTIFY">Byte counter during
+  GCR-encoding/decoding.</P>
+<TR VALIGN=TOP><TD>$0037<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$0038<TD><P ALIGN="JUSTIFY">Data block signature byte of sector last
+  read from disk.</P>
+<TR VALIGN=TOP><TD>$0039<TD><P ALIGN="JUSTIFY">Expected value of sector header signature
+  byte.<BR>
+  Default: $08.</P>
+<TR VALIGN=TOP><TD>$003A<TD><P ALIGN="JUSTIFY">Computed checksum of data in buffer.</P>
+<TR VALIGN=TOP><TD>$003B-$003C<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$003D<TD><P ALIGN="JUSTIFY">Disk controller current unit number.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Unit #0.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Unit #1. (Makes no sense, will not work.)</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $00, 0.</P>
+<TR VALIGN=TOP><TD>$003E<TD><P ALIGN="JUSTIFY">Disk controller previous unit number.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Unit #0.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Unit #1. (Makes no sense, will not work.)</P>
+  <LI><P ALIGN="JUSTIFY">$FF: Motor is off, must spin it up before
+    seeking.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $00, 0.</P>
+<TR VALIGN=TOP><TD>$003F<TD><P ALIGN="JUSTIFY">Disk controller current buffer number.</P>
+<TR VALIGN=TOP><TD>$0040<TD><P ALIGN="JUSTIFY">Current track number.</P>
+<TR VALIGN=TOP><TD>$0041<TD><P ALIGN="JUSTIFY">Buffer number that needs seeking.</P>
+<TR VALIGN=TOP><TD>$0042<TD><P ALIGN="JUSTIFY">Number of tracks to move during
+  seeking.</P>
+<TR VALIGN=TOP><TD>$0043<TD><P ALIGN="JUSTIFY">Number of sectors on current track.</P>
+<TR VALIGN=TOP><TD>$0044<TD><P ALIGN="JUSTIFY">Data density (in bits #5-#6).<BR>
+  Temporary register for buffer command.</P>
+<TR VALIGN=TOP><TD>$0045<TD><P ALIGN="JUSTIFY">Disk controller buffer command
+  register.</P>
+<TR VALIGN=TOP><TD>$0046<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$0047<TD><P ALIGN="JUSTIFY">Expected value of data block header
+  signature byte.<BR>
+  Default: $07.</P>
+<TR VALIGN=TOP><TD>$0048<TD><P ALIGN="JUSTIFY">Motor spin up/down delay counter.</P>
+<TR VALIGN=TOP><TD>$0049<TD><P ALIGN="JUSTIFY">Original value of stack pointer before
+  execution of disk controller interrupt.</P>
+<TR VALIGN=TOP><TD>$004A<TD><P ALIGN="JUSTIFY">Number of halftracks to move during
+  seeking.</P>
+<TR VALIGN=TOP><TD>$004B<TD><P ALIGN="JUSTIFY">Retry counter for reading sector
+  header.<BR>
+  Temporary area during seeking.</P>
+<TR VALIGN=TOP><TD>$004C<TD><P ALIGN="JUSTIFY">On current track, the distance of the
+  sector, that matches the sector of a buffer and is nearest to the one last
+  read from disk. (The execution of the command whose sector is optimal in
+  time?)</P>
+<TR VALIGN=TOP><TD>$004D<TD><P ALIGN="JUSTIFY">On current track, the sector that is two
+  sectors away from the one last read from disk. (Apparently, the optimization
+  takes about two sectors worth of time.)</P>
+<TR VALIGN=TOP><TD>$004E-$004F<TD><P ALIGN="JUSTIFY">Pointer to beginning of auxiliary
+  buffer during GCR-encoding (byte swapped).</P>
+<TR VALIGN=TOP><TD>$0050<TD><P ALIGN="JUSTIFY">Indicator of buffer data currently being
+  in GCR-encoded form. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Data in normal form.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Data in GCR-encoded form. Upon exiting the
+    disk controller interrupt, data must be decoded.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0051<TD><P ALIGN="JUSTIFY">Current track number during formatting.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 0 = Disk is currently being formatted; 1 =
+    Formatting has not started yet.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0052-$0055<TD><P ALIGN="JUSTIFY">Temporary area for data bytes during
+  GCR-encoding/decoding.</P>
+<TR VALIGN=TOP><TD>$0056-$005D<TD><P ALIGN="JUSTIFY">Temporary area for data nybbles and
+  GCR bytes during GCR-encoding/decoding.</P>
+<TR VALIGN=TOP><TD>$005E<TD><P ALIGN="JUSTIFY">Number of halftracks to
+  accelerate/decelerate through during accelerated seeking.<BR>
+  (Twice this value must be less than value of address $0064.)</P>
+<TR VALIGN=TOP><TD>$005F<TD><P ALIGN="JUSTIFY">Acceleration/deceleration factor during
+  accelerated seeking.<BR>
+  (Value of address $1C07 plus/minus value of address $005E times this value
+  must not be too low &ndash; below about 12-20, depends on drive mechanics
+  &ndash; or too high &ndash; above 255.)</P>
+<TR VALIGN=TOP><TD>$0060<TD><P ALIGN="JUSTIFY">Delay counter after seeking. (So that head
+  stops vibrating.)<BR>
+  Halftrack counter for acceleration/deceleration during accelerated
+  seeking.</P>
+<TR VALIGN=TOP><TD>$0061<TD><P ALIGN="JUSTIFY">Halftrack counter for full speed during
+  accelerated seeking.</P>
+<TR VALIGN=TOP><TD>$0062-$0063<TD><P ALIGN="JUSTIFY">Pointer to routine next to be
+  executed during seeking.</P>
+<TR VALIGN=TOP><TD>$0064<TD><P ALIGN="JUSTIFY">Lower distance limit of accelerated
+  seeking, in halftracks.<BR>
+  (When moving to a track further than this many halftracks, seeking will be
+  accelerated.)<BR>
+  Default: $C8, 200.</P>
+<TR VALIGN=TOP><TD>$0065-$0066<TD><P ALIGN="JUSTIFY">Pointer to warm reset ("UI" command)
+  routine.<BR>
+  Default: $EB22.</P>
+<TR VALIGN=TOP><TD>$0067<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$0068<TD><P ALIGN="JUSTIFY">Automatic disk initialization switch.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: When initializing units upon processing
+    commands, the BAM must be loaded.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Unit initialization does not include loading
+    the BAM.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $00.</P>
+<TR VALIGN=TOP><TD>$0069<TD><P ALIGN="JUSTIFY">Soft interleave. (Distance, in sectors,
+  for allocating the next sector for files.)<BR>
+  Default: $0A, 10.</P>
+<TR VALIGN=TOP><TD>$006A<TD><P ALIGN="JUSTIFY">Number of retries on disk commands.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#5: Number of retries.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Do not retry on adjacent halftracks.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Do not bump head.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $05, 5.</P>
+<TR VALIGN=TOP><TD>$006B-$006C<TD><P ALIGN="JUSTIFY">Pointer to "Ux" user command pointer
+  table.<BR>
+  Default: $FFEA.</P>
+<TR VALIGN=TOP><TD>$006D-$006E<TD><P ALIGN="JUSTIFY">Temporary pointer for BAM
+  operations.</P>
+<TR VALIGN=TOP><TD>$006F-$0070<TD><P ALIGN="JUSTIFY">Temporary pointer for various
+  operations.</P>
+<TR VALIGN=TOP><TD>$0071-$0074<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$0075-$0076<TD><P ALIGN="JUSTIFY">Pointer to current byte during
+  memory test upon startup.<BR>
+  Execution address of current "Ux" user command.</P>
+<TR VALIGN=TOP><TD>$0077<TD><P ALIGN="JUSTIFY">Serial bus LISTEN command to accept.
+  (Device number OR $20.)</P>
+<TR VALIGN=TOP><TD>$0078<TD><P ALIGN="JUSTIFY">Serial bus TALK command to accept. (Device
+  number OR $40.)</P>
+<TR VALIGN=TOP><TD>$0079<TD><P ALIGN="JUSTIFY">Serial bus LISTEN command indicator.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No LISTEN command active.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: LISTEN command currently active.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$007A<TD><P ALIGN="JUSTIFY">Serial bus TALK command indicator.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No TALK command active.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: TALK command currently active.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$007B<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$007C<TD><P ALIGN="JUSTIFY">Serial bus ATN arrival indicator.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: ATN inactive.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: ATN signal arrived.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$007D<TD><P ALIGN="JUSTIFY">End of command indicator. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Command fully arrived, ATN became inactive.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Command still transferring.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$007E<TD><P ALIGN="JUSTIFY">Track number of previously opened file.
+  (Used when opening "*".) Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No file has been opened yet.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Track number of previously opened file.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$007F<TD><P ALIGN="JUSTIFY">Current unit. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Unit #0.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Unit #1. (Makes no sense, will not work.)</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $00, 0.</P>
+<TR VALIGN=TOP><TD>$0080-$0081<TD><P ALIGN="JUSTIFY">Track and sector number for various
+  operations.</P>
+<TR VALIGN=TOP><TD>$0082<TD><P ALIGN="JUSTIFY">Current channel number. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00-$04: Buffers #0-#4.</P>
+  <LI><P ALIGN="JUSTIFY">$05: Error message buffer.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0083<TD><P ALIGN="JUSTIFY">Current secondary address (only bits
+  #0-#3).</P>
+<TR VALIGN=TOP><TD>$0084<TD><P ALIGN="JUSTIFY">Current secondary address.</P>
+<TR VALIGN=TOP><TD>$0085<TD><P ALIGN="JUSTIFY">Data byte read from serial bus.<BR>
+  Data byte read from buffer or to be written into buffer.</P>
+<TR VALIGN=TOP><TD>$0086-$0087<TD><P ALIGN="JUSTIFY">Pointer to current byte in directory
+  buffer when writing entries into directory.<BR>
+  Pointer to current byte of error message.<BR>
+  $0086: Counter of files deleted during "SCRATCH" command.<BR>
+  Start switch during "&amp;" command ($01-$FF: Execute code.)<BR>
+  Temporary unit number during job processing.<BR>
+  $0087: Computed block checksum during "&amp;" command.</P>
+<TR VALIGN=TOP><TD>$0088-$0089<TD><P ALIGN="JUSTIFY">Pointer to current byte during "&amp;"
+  command.<BR>
+  Execution address of user code during "&amp;" command.</P>
+<TR VALIGN=TOP><TD>$008A<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$008B-$008D<TD><P ALIGN="JUSTIFY">Temporary area for integer division.
+  (Used to compute the side sector of relative files.)</P>
+<TR VALIGN=TOP><TD>$008E-$0093<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$0094-$0095<TD><P ALIGN="JUSTIFY">Pointer to current directory
+  entry.</P>
+<TR VALIGN=TOP><TD>$0096-$0097<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$0098<TD><P ALIGN="JUSTIFY">Bit counter during serial bus
+  input/output.</P>
+<TR VALIGN=TOP><TD>$0099-$009A<TD><P ALIGN="JUSTIFY">Pointer to buffer #0.<BR>
+  Default: $0300.</P>
+<TR VALIGN=TOP><TD>$009B-$009C<TD><P ALIGN="JUSTIFY">Pointer to buffer #1.<BR>
+  Default: $0400.</P>
+<TR VALIGN=TOP><TD>$009D-$009E<TD><P ALIGN="JUSTIFY">Pointer to buffer #2.<BR>
+  Default: $0500.</P>
+<TR VALIGN=TOP><TD>$009F-$00A0<TD><P ALIGN="JUSTIFY">Pointer to buffer #3.<BR>
+  Default: $0600.</P>
+<TR VALIGN=TOP><TD>$00A1-$00A2<TD><P ALIGN="JUSTIFY">Pointer to buffer #4.<BR>
+  Default: $0700.</P>
+<TR VALIGN=TOP><TD>$00A3-$00A4<TD><P ALIGN="JUSTIFY">Pointer to input buffer.<BR>
+  Default: $0200.</P>
+<TR VALIGN=TOP><TD>$00A5-$00A6<TD><P ALIGN="JUSTIFY">Pointer to error message buffer.<BR>
+  Default: $02D5.</P>
+<TR VALIGN=TOP><TD>$00A7-$00AD<TD><P ALIGN="JUSTIFY">Primary buffer number assigned to
+  channels. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#6: Buffer number.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = No buffer assigned to channel.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00AE-$00B4<TD><P ALIGN="JUSTIFY">Secondary buffer number assigned to
+  channels. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#6: Buffer number.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = No buffer assigned to channel.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00B5-$00BA<TD><P ALIGN="JUSTIFY">Length of file assigned to channels,
+  low byte. For relative files, number of records, low byte.</P>
+<TR VALIGN=TOP><TD>$00BB-$00C0<TD><P ALIGN="JUSTIFY">Length of file assigned to channels,
+  high byte. For relative files, number of records, high byte.</P>
+<TR VALIGN=TOP><TD>$00C1-$00C6<TD><P ALIGN="JUSTIFY">Offset of current byte in buffer
+  assigned to channels.</P>
+<TR VALIGN=TOP><TD>$00C7-$00CC<TD><P ALIGN="JUSTIFY">Record length of relative file
+  assigned to channels.</P>
+<TR VALIGN=TOP><TD>$00CD-$00D2<TD><P ALIGN="JUSTIFY">Buffer number holding side sector of
+  relative file assigned to channels. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#6: Buffer number.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = No buffer assigned to channel.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00D3<TD><P ALIGN="JUSTIFY">Comma counter during fetching unit numbers
+  from command.</P>
+<TR VALIGN=TOP><TD>$00D4<TD><P ALIGN="JUSTIFY">Offset of current byte in relative file
+  record.</P>
+<TR VALIGN=TOP><TD>$00D5<TD><P ALIGN="JUSTIFY">Side sector number belonging to current
+  relative file record.</P>
+<TR VALIGN=TOP><TD>$00D6<TD><P ALIGN="JUSTIFY">Offset of track and sector number of
+  current relative file record in side sector.</P>
+<TR VALIGN=TOP><TD>$00D7<TD><P ALIGN="JUSTIFY">Offset of record in relative file data
+  sector.</P>
+<TR VALIGN=TOP><TD>$00D8-$00DC<TD><P ALIGN="JUSTIFY">Sector number of directory entry of
+  files.</P>
+<TR VALIGN=TOP><TD>$00DD-$00E1<TD><P ALIGN="JUSTIFY">Offset of directory entry of
+  files.</P>
+<TR VALIGN=TOP><TD>$00E2-$00E6<TD><P ALIGN="JUSTIFY">Unit number of files. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #0: Unit number.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = No valid unit number has been specified
+    in command, must try both units.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00E7-$00EB<TD><P ALIGN="JUSTIFY">File type and flags of files.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#2: File type; 0 = DEL; 1 = SEQ; 2 = PRG; 3 =
+    USR; 4 = REL.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #5: 0 = File has been closed.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = File is write protected.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Wildcards are present in the file
+    name.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00EC-$00F1<TD><P ALIGN="JUSTIFY">Unit number, file type and flags of
+  files assigned to channels. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #0: Unit number.</P>
+  <LI><P ALIGN="JUSTIFY">Bits #1-#3: File type; 0-4: Usual file types; 7 =
+    "#", direct disk access.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #5: 1 = End of record.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = End of file.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Directory entry of file must be
+    updated.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00F2-$00F7<TD><P ALIGN="JUSTIFY">Input/output flags of channels.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #0: 1 = Write allowed.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #3: 0 = End of file.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Read allowed.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00F8<TD><P ALIGN="JUSTIFY">End of file indicator of current channel.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: End of file.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: File has not ended yet.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$00F9<TD><P ALIGN="JUSTIFY">Current buffer number.</P>
+<TR VALIGN=TOP><TD>$00FA-$00FE<TD><P ALIGN="JUSTIFY">Unknown.</P>
+<TR VALIGN=TOP><TD>$00FF<TD><P ALIGN="JUSTIFY">Unit #0 BAM input/output error indicator.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No error.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: An error occurred while reading/writing the
+    BAM.</P>
+  </UL>
+
+<A NAME="page01"></A><A NAME="cpustack"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$0100-$01FF<BR>Processor stack</B>
+
+<TR VALIGN=TOP><TD>$0100<TD><P ALIGN="JUSTIFY">Reserved, do not use. (BAM input/output
+  error indicator of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0101<TD><P ALIGN="JUSTIFY">Unit #0 BAM version code. (Byte at offset
+  #$02 in sector 18;00.)<BR>
+  Expected: $41, "A".</P>
+<TR VALIGN=TOP><TD>$0102<TD><P ALIGN="JUSTIFY">Reserved, do not use. (BAM version code of
+  not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0103-$0145<TD><P ALIGN="JUSTIFY">Actual processor stack.</P>
+<TR VALIGN=TOP><TD>$0146-$01B9<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$01BA-$01FF<TD><P ALIGN="JUSTIFY">Auxiliary buffer for
+  GCR-encoding/decoding.</P>
+
+<A NAME="page02"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$0200-$02FF</B>
+
+<TR VALIGN=TOP><TD>$0200-$0229<TD><P ALIGN="JUSTIFY">Input buffer (42 bytes). (Used for
+  accepting commands from host.)</P>
+<TR VALIGN=TOP><TD>$022A<TD><P ALIGN="JUSTIFY">DOS command number. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: OPEN.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$0B: DOS commands.</P>
+  <LI><P ALIGN="JUSTIFY">$0C: OPEN "$".</P>
+  <LI><P ALIGN="JUSTIFY">$80-$FE: "B-x" commands.</P>
+  <LI><P ALIGN="JUSTIFY">$FF: Command too long.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$022B-$023D<TD><P ALIGN="JUSTIFY">Channel number assigned to secondary
+  addresses. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00-$FE: Channel number.</P>
+  <LI><P ALIGN="JUSTIFY">$FF: No channel assigned.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$023E-$0242<TD><P ALIGN="JUSTIFY">Temporary area of next data byte to
+  be written from buffers #0-#4 to serial bus.</P>
+<TR VALIGN=TOP><TD>$0243<TD><P ALIGN="JUSTIFY">Temporary area of next data byte to be
+  written from error message buffer to serial bus.</P>
+<TR VALIGN=TOP><TD>$0244-$0248<TD><P ALIGN="JUSTIFY">Offset of last data byte in buffers
+  #0-#4.</P>
+<TR VALIGN=TOP><TD>$0249<TD><P ALIGN="JUSTIFY">Offset of last data byte in error message
+  buffer.</P>
+<TR VALIGN=TOP><TD>$024A<TD><P ALIGN="JUSTIFY">File type of current file.</P>
+<TR VALIGN=TOP><TD>$024B<TD><P ALIGN="JUSTIFY">Length of name of current file.</P>
+<TR VALIGN=TOP><TD>$024C<TD><P ALIGN="JUSTIFY">Temporary area for secondary address.</P>
+<TR VALIGN=TOP><TD>$024D<TD><P ALIGN="JUSTIFY">Temporary area for disk controller
+  command.</P>
+<TR VALIGN=TOP><TD>$024E<TD><P ALIGN="JUSTIFY">Number of sectors on current track.</P>
+<TR VALIGN=TOP><TD>$024F-$0250<TD><P ALIGN="JUSTIFY">Buffer allocation register.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#4: 1 = Buffer #x is being used.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #5: 1 = Error message buffer is being used.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $FFE0, all existing buffers are free.</P>
+<TR VALIGN=TOP><TD>$0251<TD><P ALIGN="JUSTIFY">Unit #0 BAM change indicator. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No changes.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: BAM has been changed, must be written onto
+    disk.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0252<TD><P ALIGN="JUSTIFY">Reserved, do not use. (BAM change
+  indicator of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$0253<TD><P ALIGN="JUSTIFY">File found indicator during searching for
+  a file name in directory. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#2: Current entry number.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 0 = A file matching the name has been found
+    in the directory.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0254<TD><P ALIGN="JUSTIFY">LOAD channel directory indicator.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Data file is being LOAD'ed.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Disk directory is being LOAD'ed.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0255<TD><P ALIGN="JUSTIFY">End of command indicator. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Command is still arriving.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Command fully arrived.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0256<TD><P ALIGN="JUSTIFY">Channel allocation register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#6: 1 = Channel #x is being used.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0257<TD><P ALIGN="JUSTIFY">Temporary area for channel number.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00-$06: Assigned buffer number in primary table
+    ($00A7-$00AD).</P>
+  <LI><P ALIGN="JUSTIFY">$07-$0D: Assigned buffer number in secondary table
+    ($00AE-$00B4).</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0258<TD><P ALIGN="JUSTIFY">Record length of current relative
+  file.</P>
+<TR VALIGN=TOP><TD>$0259-$025A<TD><P ALIGN="JUSTIFY">Track and sector number of first
+  side sector of current relative file.</P>
+<TR VALIGN=TOP><TD>$025B-$025F<TD><P ALIGN="JUSTIFY">Original disk controller commands of
+  buffers #0-#4.</P>
+<TR VALIGN=TOP><TD>$0260-$0265<TD><P ALIGN="JUSTIFY">Sector number of directory entry of
+  files specified in command.</P>
+<TR VALIGN=TOP><TD>$0266-$026B<TD><P ALIGN="JUSTIFY">Offset of directory entry of files
+  specified in command.</P>
+<TR VALIGN=TOP><TD>$026C<TD><P ALIGN="JUSTIFY">Switch for displaying warning messages of
+  relative files. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Always display "00,OK" instead.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Display warning messages.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Delay counter for LED blinking that indicates hardware
+  problem upon startup.</P>
+<TR VALIGN=TOP><TD>$026D<TD><P ALIGN="JUSTIFY">Unit #0 LED bit. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Switch LED off.</P>
+  <LI><P ALIGN="JUSTIFY">$08: Switch unit #0 LED on.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$026E<TD><P ALIGN="JUSTIFY">Unit number of previously opened file.
+  (Used when opening "*".)</P>
+<TR VALIGN=TOP><TD>$026F<TD><P ALIGN="JUSTIFY">Sector number of previously opened file.
+  (Used when opening "*".)</P>
+<TR VALIGN=TOP><TD>$0270<TD><P ALIGN="JUSTIFY">Temporary area for channel number.</P>
+<TR VALIGN=TOP><TD>$0271<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$0272-$0273<TD><P ALIGN="JUSTIFY">BASIC line number for entries sent
+  to host during LOAD'ing "$". (For header, unit number; for files, length of
+  file, in blocks; for footer, number of free blocks.)</P>
+<TR VALIGN=TOP><TD>$0274<TD><P ALIGN="JUSTIFY">Length of command.</P>
+<TR VALIGN=TOP><TD>$0275<TD><P ALIGN="JUSTIFY">First character of command.<BR>
+  Character to search for in input buffer.</P>
+<TR VALIGN=TOP><TD>$0276<TD><P ALIGN="JUSTIFY">Offset of first character after file name
+  in command.</P>
+<TR VALIGN=TOP><TD>$0277<TD><P ALIGN="JUSTIFY">Temporary area for number of commas in
+  command.</P>
+<TR VALIGN=TOP><TD>$0278<TD><P ALIGN="JUSTIFY">Number of commas or unit numbers in
+  command.</P>
+<TR VALIGN=TOP><TD>$0279<TD><P ALIGN="JUSTIFY">Number of commas before equation mark in
+  command.<BR>
+  Number of current file in command during searching for files specified in
+  command.</P>
+<TR VALIGN=TOP><TD>$027A<TD><P ALIGN="JUSTIFY">Offset of character before colon in
+  command. (Probably, the character resembles a unit number.)</P>
+<TR VALIGN=TOP><TD>$027B-$027F<TD><P ALIGN="JUSTIFY">Offset of file names in command.
+  (Last offset specifies end of command.)</P>
+<TR VALIGN=TOP><TD>$0280-$0284<TD><P ALIGN="JUSTIFY">Track number of files specified in
+  command. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: File not yet found in directory.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Track number of first sector of file.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">For "B-x" commands, upper byte of parameters.</P>
+<TR VALIGN=TOP><TD>$0285-$0289<TD><P ALIGN="JUSTIFY">Sector number of files specified in
+  command. For "B-x" commands, lower byte of parameters.</P>
+<TR VALIGN=TOP><TD>$028A<TD><P ALIGN="JUSTIFY">Number of wildcards found in current file
+  name.</P>
+<TR VALIGN=TOP><TD>$028B<TD><P ALIGN="JUSTIFY">Command syntax flags. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #0: 0 = Equation marks are present in the
+    command.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #1: 1 = Equation marks are present in the
+    command.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #2: 1 = Commas after equation marks are present
+    in the command.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #3: 1 = Wildcards after equation marks are
+    present in the command.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Commas before equation marks are present
+    in the command.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 1 = Wildcards before equation marks are
+    present in the command.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$028C<TD><P ALIGN="JUSTIFY">Number of units to process during reading
+  the directory. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Only one unit.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Both units.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$028D<TD><P ALIGN="JUSTIFY">Current unit number during reading the
+  directory. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Unit previously used.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Switch to inactive unit.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$028E<TD><P ALIGN="JUSTIFY">Previous unit number during reading the
+  directory.</P>
+<TR VALIGN=TOP><TD>$028F<TD><P ALIGN="JUSTIFY">Indicator to keep searching in the
+  directory. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: More files are to be searched for.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: All files have been found, no need to
+    continue search.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0290<TD><P ALIGN="JUSTIFY">Current directory sector number.</P>
+<TR VALIGN=TOP><TD>$0291<TD><P ALIGN="JUSTIFY">Directory sector number to read.
+  Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: First directory sector is to be read.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: Sector number of next directory to read.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0292<TD><P ALIGN="JUSTIFY">Offset of current directory entry in
+  directory sector.</P>
+<TR VALIGN=TOP><TD>$0293<TD><P ALIGN="JUSTIFY">End of directory indicator. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Current directory sector is the last.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$FF: More directory sectors are present.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0294<TD><P ALIGN="JUSTIFY">Offset of current directory entry in
+  directory sector.</P>
+<TR VALIGN=TOP><TD>$0295<TD><P ALIGN="JUSTIFY">Number of remaining directory entries in
+  directory sector minus 1. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00-$07: Number of remaining directory entries.</P>
+  <LI><P ALIGN="JUSTIFY">$FF: No more entries left.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0296<TD><P ALIGN="JUSTIFY">File type of file being searched in
+  directory. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No file type has been given, any file type will
+    match.</P>
+  <LI><P ALIGN="JUSTIFY">$01-$04: File type specified in command.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0297<TD><P ALIGN="JUSTIFY">File open mode. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: "R", Read or LOAD.</P>
+  <LI><P ALIGN="JUSTIFY">$01: "W", Write or SAVE.</P>
+  <LI><P ALIGN="JUSTIFY">$02: "A", Append.</P>
+  <LI><P ALIGN="JUSTIFY">$03: "M", Modify, salvage improperly closed file.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0298<TD><P ALIGN="JUSTIFY">Message display switch for disk errors.
+  Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 0 = Silently ignore "26,WRITE PROTECT ON",
+    "29,DISK ID MISMATCH" and "74,DRIVE NOT READY" errors when executing disk
+    commands; 1 = Display error message.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$0299<TD><P ALIGN="JUSTIFY">Offset of current byte in halftrack seek
+  table during retrying disk operations on adjacent halftracks.</P>
+<TR VALIGN=TOP><TD>$029A<TD><P ALIGN="JUSTIFY">Direction of seeking back to original
+  halftrack during retrying disk operations on adjacent halftracks.</P>
+<TR VALIGN=TOP><TD>$029B<TD><P ALIGN="JUSTIFY">Unit #0 track number of current BAM
+  entry.</P>
+<TR VALIGN=TOP><TD>$029C<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Track number of
+  current BAM entry of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$029D-$029E<TD><P ALIGN="JUSTIFY">Unit #0 track numbers of two cached
+  BAM entries.</P>
+<TR VALIGN=TOP><TD>$029F-$02A0<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Track numbers
+  of two cached BAM entries of not existing unit #1).</P>
+<TR VALIGN=TOP><TD>$02A1-$02A8<TD><P ALIGN="JUSTIFY">Unit #0 two cached BAM entries.</P>
+<TR VALIGN=TOP><TD>$02A9-$02B0<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Two cached
+  BAM entries of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$02B1-$02CB<TD><P ALIGN="JUSTIFY">Buffer for constructing current
+  entry (BASIC line) while LOAD'ing "$".</P>
+<TR VALIGN=TOP><TD>$02CC-$02D4<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$02D5-$02F8<TD><P ALIGN="JUSTIFY">Error message buffer.</P>
+<TR VALIGN=TOP><TD>$02F9<TD><P ALIGN="JUSTIFY">Disk update upon BAM change switch.
+  Different BAM-related operations expect different values here.</P>
+<TR VALIGN=TOP><TD>$02FA<TD><P ALIGN="JUSTIFY">Unit #0 number of free blocks, low
+  byte.</P>
+<TR VALIGN=TOP><TD>$02FB<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Number of free
+  blocks, low byte, of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$02FC<TD><P ALIGN="JUSTIFY">Unit #0 number of free blocks, high
+  byte.</P>
+<TR VALIGN=TOP><TD>$02FD<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Number of free
+  blocks, high byte, of not existing unit #1.)</P>
+<TR VALIGN=TOP><TD>$02FE<TD><P ALIGN="JUSTIFY">Unit #0 direction of seeking of adjacent
+  halftrack. Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: No seeking.</P>
+  <LI><P ALIGN="JUSTIFY">$01: Seek a halftrack upwards.</P>
+  <LI><P ALIGN="JUSTIFY">$02: Halftrack seeking complete.</P>
+  <LI><P ALIGN="JUSTIFY">$FF: Seek a halftrack downwards.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$02FF<TD><P ALIGN="JUSTIFY">Reserved, do not use. (Direction of
+  seeking of adjacent halftrack of not existing unit #1.)</P>
+
+<A NAME="page03"></A><A NAME="buffers"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$0300-$07FF<BR>Data buffers</B>
+
+<TR VALIGN=TOP><TD>$0300-$03FF<TD><P ALIGN="JUSTIFY">Buffer #0.</P>
+<TR VALIGN=TOP><TD>$0400-$04FF<TD><P ALIGN="JUSTIFY">Buffer #1.</P>
+<TR VALIGN=TOP><TD>$0500-$05FF<TD><P ALIGN="JUSTIFY">Buffer #2.</P>
+<TR VALIGN=TOP><TD>$0600-$06FF<TD><P ALIGN="JUSTIFY">Buffer #3.</P>
+<TR VALIGN=TOP><TD>$0700-$07FF<TD><P ALIGN="JUSTIFY">Buffer #4.</P>
+
+<A NAME="page18"></A><A NAME="via1chip"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$1800-$180F<BR>VIA #1; serial bus
+  access</B>
+
+<TR VALIGN=TOP><TD>$1800<TD><P ALIGN="JUSTIFY">Port B, serial bus. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #0: DATA IN; 0 = Low; 1 = High.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #1: DATA OUT; 0 = Low; 1 = High.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #2: CLOCK IN; 0 = Low; 1 = High.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #3: CLOCK OUT; 0 = Low; 1 = High.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #4: ATNA OUT; 1 = Enable device presence
+    detection by automatically acknowledging ATN IN signals on DATA OUT.</P>
+  <LI><P ALIGN="JUSTIFY">Bits #5-#6: Device number, set with jumper, minus 8;
+    %00 = 8; %01 = 9; %10 = 10; %11 = 11. Default: %00, 8.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: ATN IN; 0 = Low; 1 = High.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1801<TD><P ALIGN="JUSTIFY">Port A. Read to acknowledge interrupt
+  generated by ATN IN going high.</P>
+<TR VALIGN=TOP><TD>$1802<TD><P ALIGN="JUSTIFY">Port B data direction register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #x: 0 = Bit #x in port B can only be read; 1 =
+    Bit #x in port B can be read and written.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $1A, %00011010.</P>
+<TR VALIGN=TOP><TD>$1803<TD><P ALIGN="JUSTIFY">Port A data direction register.<BR>
+  Default: $FF, %11111111.</P>
+<TR VALIGN=TOP><TD>$1804-$1805<TD><P ALIGN="JUSTIFY">Timer. Read low byte or write high
+  byte to start timer or restart timer upon underflow.</P>
+<TR VALIGN=TOP><TD>$1806-$1807<TD><P ALIGN="JUSTIFY">Timer latch. Read/write starting
+  value of timer from/to here.</P>
+<TR VALIGN=TOP><TD>$1808-$180A<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$180B<TD><P ALIGN="JUSTIFY">Timer control register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 0 = Stop timer; 1 = Start timer.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$180C<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$180D<TD><P ALIGN="JUSTIFY">Interrupt status register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #1: 1 = ATN IN went high.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Timer underflow occurred.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$180E<TD><P ALIGN="JUSTIFY">Interrupt control register. Read bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #7: An interrupt has been generated.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Write bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #1: 1 = Enable interrupts generated by ATN IN
+   going high.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: Fill bit; bits #0-#6, that are set to 1, get
+    their values from this bit; bits #0-#6, that are set to 0, are left
+    unchanged.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$180F<TD><P ALIGN="JUSTIFY">Unused.</P>
+
+<A NAME="page1c"></A><A NAME="via2chip"></A>
+<TR VALIGN=TOP><TD ALIGN="CENTER" COLSPAN=2><B>$1C00-$1C0F<BR>VIA #2; drive control</B>
+
+<TR VALIGN=TOP><TD>$1C00<TD><P ALIGN="JUSTIFY">Port B. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bits #0-#1: Head step direction. Decrease value
+    (%00-%11-%10-%01-%00...) to move head downwards; increase value
+    (%00-%01-%10-%11-%00...) to move head upwards.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #2: Motor control; 0 = Off; 1 = On.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #3: LED control; 0 = Off; 1 = On.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #4: Write protect photocell status; 0 = Write
+    protect tab covered, disk protected; 1 = Tab uncovered, disk not
+    protected.</P>
+  <LI><P ALIGN="JUSTIFY">Bits #5-#6: Data density; %00 = Lowest; %11 =
+    Highest.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: 0 = Data bytes are being currently read from
+    disk; 1 = SYNC marks are being read.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C01<TD><P ALIGN="JUSTIFY">Port A. Data byte last read from or to be
+  next written onto disk.</P>
+<TR VALIGN=TOP><TD>$1C02<TD><P ALIGN="JUSTIFY">Port B data direction register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #x: 0 = Bit #x in port B can only be read; 1 =
+    Bit #x in port B can be read and written.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Default: $6F, %01101111.</P>
+<TR VALIGN=TOP><TD>$1C03<TD><P ALIGN="JUSTIFY">Port A data direction register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #x: 0 = Bit #x in port A can only be read; 1 =
+    Bit #x in port A can be read and written.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Values:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">$00: Read from disk.</P>
+  <LI><P ALIGN="JUSTIFY">$FF: Write onto disk.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C04-$1C05<TD><P ALIGN="JUSTIFY">Timer. Read low byte or write high
+  byte to start timer or restart timer upon underflow.</P>
+<TR VALIGN=TOP><TD>$1C06-$1C07<TD><P ALIGN="JUSTIFY">Timer latch. Read/write starting
+  value of timer from/to here.</P>
+<TR VALIGN=TOP><TD>$1C08-$1C0A<TD><P ALIGN="JUSTIFY">Unused.</P>
+<TR VALIGN=TOP><TD>$1C0B<TD><P ALIGN="JUSTIFY">Timer control register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 0 = Stop timer; 1 = Start timer.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C0C<TD><P ALIGN="JUSTIFY">Auxiliary control register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #1: 1 = Attach Byte Ready line to oVerflow
+    processor flag. (Whenever a data byte has been successfully read from or
+    written to disk, V flag is set to 1.)</P>
+  <LI><P ALIGN="JUSTIFY">Bit #5: Head control; 0 = Read; 1 = Write.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C0D<TD><P ALIGN="JUSTIFY">Interrupt status register. Bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Timer underflow occurred.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C0E<TD><P ALIGN="JUSTIFY">Interrupt control register. Read bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #7: An interrupt has been generated.</P>
+  </UL>
+  <P ALIGN="JUSTIFY">Write bits:</P>
+  <UL>
+  <LI><P ALIGN="JUSTIFY">Bit #6: 1 = Enable interrupts generated by timer
+    underflow.</P>
+  <LI><P ALIGN="JUSTIFY">Bit #7: Fill bit; bits #0-#6, that are set to 1, get
+    their values from this bit; bits #0-#6, that are set to 0, are left
+    unchanged.</P>
+  </UL>
+<TR VALIGN=TOP><TD>$1C0F<TD><P ALIGN="JUSTIFY">Unused.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>

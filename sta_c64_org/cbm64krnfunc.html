@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG="EN">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<TITLE>Commodore 64 standard KERNAL functions</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H2>Commodore 64 standard KERNAL functions</H2>
+</CENTER>
+
+<TABLE ALIGN="LEFT" BORDER=1 WIDTH="100%">
+<TR ALIGN="CENTER" VALIGN="MIDDLE"><TH WIDTH="15%"><B>Address</B><TH WIDTH="85%">Function
+<TR VALIGN=TOP><TD WIDTH="15%">$FF81<TD WIDTH="85%"><P ALIGN="JUSTIFY">SCINIT. Initialize
+  VIC; restore default input/output to keyboard/screen; clear screen; set
+  PAL/NTSC switch and interrupt timer.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $FF5B.</P>
+<TR VALIGN=TOP><TD>$FF84<TD><P ALIGN="JUSTIFY">IOINIT. Initialize CIA's, SID volume;
+  setup memory configuration; set and start interrupt timer.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: $FDA3.</P>
+<TR VALIGN=TOP><TD>$FF87<TD><P ALIGN="JUSTIFY">RAMTAS. Clear memory addresses $0002-$0101
+  and $0200-$03FF; run memory test and set start and end address of BASIC work
+  area accordingly; set screen memory to $0400 and datasette buffer to
+  $033C.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $FD50.</P>
+<TR VALIGN=TOP><TD>$FF8A<TD><P ALIGN="JUSTIFY">RESTOR. Fill vector table at memory
+  addresses $0314-$0333 with default values.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FD15.</P>
+<TR VALIGN=TOP><TD>$FF8D<TD><P ALIGN="JUSTIFY">VECTOR. Copy vector table at memory
+  addresses $0314-$0333 from or into user table.<BR>
+  Input: Carry: 0 = Copy user table into vector table, 1 = Copy vector table
+  into user table; X/Y = Pointer to user table.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, Y.<BR>
+  Real address: $FD1A.</P>
+<TR VALIGN=TOP><TD>$FF90<TD><P ALIGN="JUSTIFY">SETMSG. Set system error display switch at
+  memory address $009D.<BR>
+  Input: A = Switch value.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FE18.</P>
+<TR VALIGN=TOP><TD>$FF93<TD><P ALIGN="JUSTIFY">LSTNSA. Send LISTEN secondary address to
+  serial bus. (Must call LISTEN beforehands.)<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDB9.</P>
+<TR VALIGN=TOP><TD>$FF96<TD><P ALIGN="JUSTIFY">TALKSA. Send TALK secondary address to
+  serial bus. (Must call TALK beforehands.)<BR>
+  Input: A = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDC7.</P>
+<TR VALIGN=TOP><TD>$FF99<TD><P ALIGN="JUSTIFY">MEMBOT. Save or restore start address of
+  BASIC work area.<BR>
+  Input: Carry: 0 = Restore from input, 1 = Save to output; X/Y = Address
+  (if Carry = 0).<BR>
+  Output: X/Y = Address (if Carry = 1).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $FE25.</P>
+<TR VALIGN=TOP><TD>$FF9C<TD><P ALIGN="JUSTIFY">MEMTOP. Save or restore end address of
+  BASIC work area.<BR>
+  Input: Carry: 0 = Restore from input, 1 = Save to output; X/Y = Address
+  (if Carry = 0).<BR>
+  Output: X/Y = Address (if Carry = 1).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $FE34.</P>
+<TR VALIGN=TOP><TD>$FF9F<TD><P ALIGN="JUSTIFY">SCNKEY. Query keyboard; put current matrix
+  code into memory address $00CB, current status of shift keys into memory
+  address $028D and PETSCII code into keyboard buffer.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $EA87.</P>
+<TR VALIGN=TOP><TD>$FFA2<TD><P ALIGN="JUSTIFY">SETTMO. Unknown. (Set serial bus
+  timeout.)<BR>
+  Input: A = Timeout value.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FE21.</P>
+<TR VALIGN=TOP><TD>$FFA5<TD><P ALIGN="JUSTIFY">IECIN. Read byte from serial bus. (Must
+  call TALK and TALKSA beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A.<BR>
+  Real address: $EE13.</P>
+<TR VALIGN=TOP><TD>$FFA8<TD><P ALIGN="JUSTIFY">IECOUT. Write byte to serial bus. (Must
+  call LISTEN and LSTNSA beforehands.)<BR>
+  Input: A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $EDDD.</P>
+<TR VALIGN=TOP><TD>$FFAB<TD><P ALIGN="JUSTIFY">UNTALK. Send UNTALK command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDEF.</P>
+<TR VALIGN=TOP><TD>$FFAE<TD><P ALIGN="JUSTIFY">UNLSTN. Send UNLISTEN command to serial
+  bus.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $EDFE.</P>
+<TR VALIGN=TOP><TD>$FFB1<TD><P ALIGN="JUSTIFY">LISTEN. Send LISTEN command to serial
+  bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $ED0C.</P>
+<TR VALIGN=TOP><TD>$FFB4<TD><P ALIGN="JUSTIFY">TALK. Send TALK command to serial bus.<BR>
+  Input: A = Device number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A.<BR>
+  Real address: $ED09.</P>
+<TR VALIGN=TOP><TD>$FFB7<TD><P ALIGN="JUSTIFY">READST. Fetch status of current
+  input/output device, value of ST variable. (For RS232, status is
+  cleared.)<BR>
+  Input: &ndash;<BR>
+  Output: A = Device status.<BR>
+  Used registers: A.<BR>
+  Real address: $FE07.</P>
+<TR VALIGN=TOP><TD>$FFBA<TD><P ALIGN="JUSTIFY">SETLFS. Set file parameters.<BR>
+  Input: A = Logical number; X = Device number; Y = Secondary address.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FE00.</P>
+<TR VALIGN=TOP><TD>$FFBD<TD><P ALIGN="JUSTIFY">SETNAM. Set file name parameters.<BR>
+  Input: A = File name length; X/Y = Pointer to file name.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $FDF9.</P>
+<TR VALIGN=TOP><TD>$FFC0<TD><P ALIGN="JUSTIFY">OPEN. Open file. (Must call SETLFS and
+  SETNAM beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: ($031A), $F34A.</P>
+<TR VALIGN=TOP><TD>$FFC3<TD><P ALIGN="JUSTIFY">CLOSE. Close file.<BR>
+  Input: A = Logical number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: ($031C), $F291.</P>
+<TR VALIGN=TOP><TD>$FFC6<TD><P ALIGN="JUSTIFY">CHKIN. Define file as default input. (Must
+  call OPEN beforehands.)<BR>
+  Input: X = Logical number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: ($031E), $F20E.</P>
+<TR VALIGN=TOP><TD>$FFC9<TD><P ALIGN="JUSTIFY">CHKOUT. Define file as default output.
+  (Must call OPEN beforehands.)<BR>
+  Input: X = Logical number.<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: ($0320), $F250.</P>
+<TR VALIGN=TOP><TD>$FFCC<TD><P ALIGN="JUSTIFY">CLRCHN. Close default input/output files
+  (for serial bus, send UNTALK and/or UNLISTEN); restore default input/output
+  to keyboard/screen.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: ($0322), $F333.</P>
+<TR VALIGN=TOP><TD>$FFCF<TD><P ALIGN="JUSTIFY">CHRIN. Read byte from default input (for
+  keyboard, read a line from the screen). (If not keyboard, must call OPEN and
+  CHKIN beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A, Y.<BR>
+  Real address: ($0324), $F157.</P>
+<TR VALIGN=TOP><TD>$FFD2<TD><P ALIGN="JUSTIFY">CHROUT. Write byte to default output. (If
+  not screen, must call OPEN and CHKOUT beforehands.)<BR>
+  Input: A = Byte to write.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: ($0326), $F1CA.</P>
+<TR VALIGN=TOP><TD>$FFD5<TD><P ALIGN="JUSTIFY">LOAD. Load or verify file. (Must call
+  SETLFS and SETNAM beforehands.)<BR>
+  Input: A: 0 = Load, 1-255 = Verify; X/Y = Load address (if secondary address
+  = 0).<BR>
+  Output: Carry: 0 = No errors, 1 = Error; A = KERNAL error code (if Carry =
+  1); X/Y = Address of last byte loaded/verified (if Carry = 0).<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $F49E.</P>
+<TR VALIGN=TOP><TD>$FFD8<TD><P ALIGN="JUSTIFY">SAVE. Save file. (Must call SETLFS and
+  SETNAM beforehands.)<BR>
+  Input: A = Address of zero page register holding start address of memory
+  area to save; X/Y = End address of memory area plus 1.<BR>
+  Output: Carry: 0 = No errors, 1 = Error; A = KERNAL error code (if Carry =
+  1).<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $F5DD.</P>
+<TR VALIGN=TOP><TD>$FFDB<TD><P ALIGN="JUSTIFY">SETTIM. Set Time of Day, at memory address
+  $00A0-$00A2.<BR>
+  Input: A/X/Y = New TOD value.<BR>
+  Output: &ndash;<BR>
+  Used registers: &ndash;<BR>
+  Real address: $F6E4.</P>
+<TR VALIGN=TOP><TD>$FFDE<TD><P ALIGN="JUSTIFY">RDTIM. read Time of Day, at memory address
+  $00A0-$00A2.<BR>
+  Input: &ndash;<BR>
+  Output: A/X/Y = Current TOD value.<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: $F6DD.</P>
+<TR VALIGN=TOP><TD>$FFE1<TD><P ALIGN="JUSTIFY">STOP. Query Stop key indicator, at memory
+  address $0091; if pressed, call CLRCHN and clear keyboard buffer.<BR>
+  Input: &ndash;<BR>
+  Output: Zero: 0 = Not pressed, 1 = Pressed; Carry: 1 = Pressed.<BR>
+  Used registers: A, X.<BR>
+  Real address: ($0328), $F6ED.</P>
+<TR VALIGN=TOP><TD>$FFE4<TD><P ALIGN="JUSTIFY">GETIN. Read byte from default input. (If
+  not keyboard, must call OPEN and CHKIN beforehands.)<BR>
+  Input: &ndash;<BR>
+  Output: A = Byte read.<BR>
+  Used registers: A, X, Y.<BR>
+  Real address: ($032A), $F13E.</P>
+<TR VALIGN=TOP><TD>$FFE7<TD><P ALIGN="JUSTIFY">CLALL. Clear file table; call CLRCHN.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: ($032C), $F32F.</P>
+<TR VALIGN=TOP><TD>$FFEA<TD><P ALIGN="JUSTIFY">UDTIM. Update Time of Day, at memory
+  address $00A0-$00A2, and Stop key indicator, at memory address $0091.<BR>
+  Input: &ndash;<BR>
+  Output: &ndash;<BR>
+  Used registers: A, X.<BR>
+  Real address: $F69B.</P>
+<TR VALIGN=TOP><TD>$FFED<TD><P ALIGN="JUSTIFY">SCREEN. Fetch number of screen rows and
+  columns.<BR>
+  Input: &ndash;<BR>
+  Output: X = Number of columns (40); Y = Number of rows (25).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $E505.</P>
+<TR VALIGN=TOP><TD>$FFF0<TD><P ALIGN="JUSTIFY">PLOT. Save or restore cursor position.<BR>
+  Input: Carry: 0 = Restore from input, 1 = Save to output; X = Cursor column
+  (if Carry = 0); Y = Cursor row (if Carry = 0).<BR>
+  Output: X = Cursor column (if Carry = 1); Y = Cursor row (if Carry = 1).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $E50A.</P>
+<TR VALIGN=TOP><TD>$FFF3<TD><P ALIGN="JUSTIFY">IOBASE. Fetch CIA #1 base address.<BR>
+  Input: &ndash;<BR>
+  Output: X/Y = CIA #1 base address ($DC00).<BR>
+  Used registers: X, Y.<BR>
+  Real address: $E500.</P>
+</TABLE><BR CLEAR=ALL>
+
+</BODY>
+</HTML>
