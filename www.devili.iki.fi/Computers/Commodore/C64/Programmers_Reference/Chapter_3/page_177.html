@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_176.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_178.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Spritemaking">SPRITEMAKING NOTES</a></h3>
+
+<table border="1" cellspacing="0">
+<caption align="top"> Alternative Sprite Memory Pointers and Memory Locations Using Cassette Buffer </caption>
+<tr><th>Put in Memory (Set pointers)</th><td nowrap>SPRITE 0<br>2040,13</td><td nowrap>SPRITE 1<br>2041,14</td><td nowrap>SPRITE 2<br>2042,15</td>
+    <td rowspan="2"> If you're using 1 to 3 sprites you can use these memory locations in the cassette buffer (832 to 1023) but for more than 3 sprites we suggest using locations from 12288 to 12798 (see chart). </td></tr>
+<tr><th>Sprite Pixel Locations for Blocks 13-15</th><td> 823 to 894 </td><td> 896 to 958 </td><td> 960 to 1022 </td></tr>
+</table>
+
+<h4>TURNING ON SPRITES:</h4>
+
+<p> You can turn on any individual sprite by using POKE V+21 and the number
+ from the chart... BUT... turning on just ONE sprite will turn OFF any
+ others. To turn on TWO OR MORE sprites, ADD TOGETHER the numbers of the
+ sprites you want to turn on (Example: POKE V+21, 6 turns on sprites 1 and
+ 2). Here is a method you can use to turn one sprite off and on without
+ affecting any of the others (useful for animation).
+
+<h4>EXAMPLE:</h4>
+
+<p> To turn off just sprite 0 type: POKE V+21,PEEK V+21AND(255-1). Change
+ the number 1 in (255-1) to 1,2,4,8,16,32,64, or 128 (for sprites 0-7). To
+ re-enable the sprite and not affect the other sprites currently turned
+ on, POKE V+21, PEEK(V+21)OR 1 and change the OR 1 to OR 2 (sprite 2), OR
+ 4 (sprite 3), etc.
+
+<h4>X POSITION VALUES BEYOND 255:</h4>
+
+<p>   X positions run from 0 to 255... and then START OVER from 0 to 255. To
+ put a sprite beyond X position 255 on the far right side of the screen,
+ you must first POKE V+ 16 as shown, THEN POKE a new X valve from 0 to 63,
+ which will place the sprite in one of the X positions at the right side
+ of the screen. To get back to positions 0-255, POKE V+16,0 and POKE in an
+ X value from 0 to 255.
+
+<h4>Y POSITION VALUES:</h4>
+
+<p>   Y positions run from 0 to 255, including 0 to 49 off the TOP of the
+ viewing area, 50 to 229 IN the,viewing area, and 230 to 255 off the
+ BOTTOM of the viewing area.
+
+<hr>
+<a href="page_176.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_178.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 11, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Hexadecimal notation</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_216.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_218.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   Let's look at it another way; here's an example of how a base 10
+ (decimal number) is constructed:
+<pre>
+   Base raised by
+   increasing powers:... 10^3 10^2 10^1 10^0
+                        ---------------------
+   Equals:.............. 1000  100   10    1
+                        ---------------------
+
+   Consider 4569 (base 10)  4    5    6    9 = (4*1000)+(5*100)+(6*10)+9
+</pre>
+<p> Now look at an example of how a base 16 (hexadecimal number) is
+ constructed:
+<pre>
+   Base raised by
+   increasing powers:... 16^3 16^2 16^1 16^0
+                        ---------------------
+   Equals:.............. 4096  256   16    1
+                        ---------------------
+
+   Consider 11D9 (base 16)  1    1    D    9 = 1*4096+1*256+13*16+9
+</pre>
+
+<p>Therefore, 4569 (base 10) = 11D9 (base 16)
+<p>The range for addressable memory locations is 0-65535 (as was stated
+ earlier). This range is therefore 0-FFFF in hexadecimal notation.
+
+<p>Usually hexadecimal numbers are prefixed with a dollar sign ($). This
+ is to distinguish them from decimal numbers. Let's look at some "hex"
+ numbers, using 64MON, by displaying the contents of some memory by
+ typing:
+
+<pre>
+   SYS 8*4096   (or SYS 12*4096)
+   B*
+      PC  SR AC XR YR SP
+   .;0401 32 04 5E 00 F6 (these may be different)
+</pre>
+<p>Then if you type in:
+<pre>
+ .M 0000 0020 (and press &lt;RETURN&gt;).
+</pre>
+<p>you will see rows of 9 hex numbers. The first 4-digit number is the 
+ address of the first byte of memory being shown in that row, and the 
+ other eight numbers are the actual contents of the memory locations 
+ beginning at that start address.
+ 
+<hr>
+<a href="page_216.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_218.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a>
+<a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

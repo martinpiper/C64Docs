@@ -1,0 +1,333 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Disk Tricks</title>
+    <meta name="description" content="Article from COMPUTE!'s Gazette issue 15 (September 1984 -- Many operations with your 1540 or 1541 disk drive can be tedious and difficult. This article discusses how your drive works and then demonstrates some nifty tricks to help you get the most out of it. Included are programs which allow you to change a disk name, change a disk ID, unscratch, and scratch disk files.">
+    <meta name="keywords" content="Commodore 1541, Commodore 64, C64, C1541, 1541, computer, 8-bit, hardware, disk drive, Commodore 1540, C1540, 1540, VIC, VIC-20, VIC20, Commodore DOS">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><small>A side story: <a href="hexed_by_numbers.html">Hexed By Numbers</a></small>
+
+<center><h1>Disk Tricks</h1>
+<p>Gerald E. Sanders
+</center>
+
+<p><strong>Many operations with your 1540 or 1541 disk drive can be tedious
+    and difficult. This article discusses how your drive works and then
+    demonstrates some nifty tricks to help you get the most out of it.
+    Included are <a href="programs.html">programs</a> which allow you to
+    change a disk name, change a disk ID, unscratch, and scratch disk
+    files.</strong>
+
+<p> Have you ever needed to unscratch a program or file on a Commodore
+    1540/1541 disk? Did you ever want to rename an old disk or give it a
+    new disk ID without erasing the other files? Have you ever saved a
+    program to disk and then seen a funny-looking title when you listed the
+    directory? Or found you couldn't determine the right combination of
+    characters to scratch the unwanted file? And then, did you search the
+    disk manual in vain to find the commands to rescue you from your
+    predicament?
+
+<p> While there are no neat, one-word commands to solve these types of
+    problems, all the necessary information is there in the manual,
+    although it's somewhat scattered and cryptic. All that's really
+    necessary to do some effective tricks with disks is a rudimentary
+    knowledge of the hexadecimal number system, the disk drive manual, a
+    chart of ASCII (CHR$) codes, and the "Display T&amp;S" program from the
+    <i>TEST/DEMO DISK</i> which comes with the drive.
+
+<h2>DOS Knows Where To Look</h2>
+
+<p> The 1540 and 1541 are called intelligent devices because each has its
+    own microprocessor, RAM, and ROM. Like the VIC and 64, the drives
+    contain an <i>operating system</i> program in ROM. For the drives the
+    program is called, simply enough, the <i>disk operating system</i>, or
+    DOS for short. The DOS controls all the operations of the drive.
+
+<p> To understand the operation of the drives, we first need to understand
+    how the DOS knows where to look for a particular program. Data is
+    stored on the disk in a series of concentric circular paths called
+    <i>tracks</i>. These tracks are referred to by number, starting with
+    track 1 at the outside edge of the disk, to track 35 near the inside
+    edge. The tracks are further subdivided into <i>sectors</i>, or areas
+    for storage. Sectors are synonymous with <i>blocks</i>, which you see
+    on the left when you list a directory. Each sector can store 256
+    characters, or bytes, of data. A track can have 17 - 21 sectors, with
+    tracks near the outside of the disk having the most sectors and tracks
+    near the inside of the disk the fewest.
+
+<p> DOS reserves all of track 18 (the center track) to scribble notes to
+    itself. Track 18 consists of 19 sectors (numbered 0 - 18), but let's
+    look at the really significant sections of this track.
+
+<p> Sector 0 of this track contains the Block Availability Map, or BAM,
+    which the DOS uses to keep track of the status of all the other
+    sectors. Among other things stored in that sector are the 16-character
+    disk name and the 2-character disk ID. These are stored in bytes 144 -
+    159 and bytes 162 - 163, respectively, as a series of binary numbers.
+    Each number corresponds to the ASCII (CHR$) value of a character of the
+    name or ID. If the name you gave the disk when it was formatted was
+    shorter than 16 characters, the DOS added shifted spaces, CHR$(160), to
+    get the total to 16. If your name was longer than 16 characters, it was
+    truncated after the 16th one.
+
+<p> To see this, LOAD and RUN the Display T&amp;S program from the
+    <i>TEST/DEMO</i> disk. (For the VIC, this program requires at least 8K
+    of memory expansion.) The program will ask if you want results printed
+    to the screen or printer. Although printing to the screen works fine
+    for most needs, sending the results to the printer makes studying the
+    process much easier.
+
+<p> The program then asks you to enter a track and sector number. Enter 18
+    for the track and 0 for the sector, and the program will begin to dump
+    the contents of that sector to the chosen device. If dumped to the
+    screen, the display will scroll. To slow down the scrolling, hold down
+    the CTRL key. Pressing RUN/STOP will stop the dump, but it will also
+    take you out of the pro- gram and you'll have to start all over to get
+    the complete dump.
+
+<p> The contents of the sector (see the accompanying figure) are displayed
+    as hexadecimal (hex) numbers, a common way of representing binary
+    values. If you're not yet familiar with the hexadecimal numbering
+    system, see "Hexed By Numbers," which accompanies this article. Hex
+    numbers are usually prefixed with a dollar sign ($) to distinguish them
+    from decimal numbers, but dollar signs aren't used in the dumps.
+
+<p> Printed to the right of each line of the dump is the ASCII equivalent
+    of the characters in that line. Here you'll see both graphics symbols
+    and alphanumeric characters. The first two bytes of any block (sector)
+    tell DOS where to look for the next block to read. On track 18, sector
+    0, these bytes should always be $12 (18) and $01 (1) to direct DOS to
+    find the disk directory beginning at track 18, sector 1.
+
+<h2>Name And ID</h2>
+
+<p> Continuing into the last 128 bytes (beginning at hex $80) of track 18,
+    sector 0, we find other important information. Bytes 144 - 159 ($90 -
+    9F) hold the name we gave the disk when it was formatted. If the title
+    contained less than 16 characters, you'll see shifted spaces, $A0,
+    filling in the remaining characters. At bytes 162 and 163 ($A2 and
+    $A3), you'll see the two alphanumeric characters used as the disk ID.
+    The disk name is for your convenience and is not used by the DOS,
+    unlike the ID, which is extremely important to the DOS.
+
+<p> After any read or write operation, including a SAVE or LOAD, the DOS
+    places the current disk ID in the working storage area of its built-in
+    memory. Whenever a new write command is sent to the drive, the DOS
+    checks the ID on the current disk to see if it is the same as the one
+    in memory from the previous operation.
+
+<p> If the ID from the current disk doesn't match the one stored in memory
+    from the last operation, the DOS assumes it is working with a new disk
+    and automatically executes an INITIALIZE disk command before it stores
+    the data. During the INITIALIZE process, the BAM (bytes 4 - 143 of
+    track 18, sector 0) of the new disk is loaded into the drive's internal
+    memory so DOS can determine just where on the new disk it can put data.
+    However, if the ID is the same, the DOS assumes it is still operating
+    on the same disk and uses the copy of the BAM currently stored in its
+    memory to determine which blocks are available to store the incoming
+    data. This is part of the intelligence of the drive, but it works
+    correctly only if you understand the process, and take advantage of it
+    by giving every disk a unique ID.
+
+<p> Suppose you've saved a word processing program on a disk titled
+    UTILITIES 001, and you store the text files you create with this word
+    processor on another disk called TEXT FILES 001. To use the word
+    processor, you load it from the utilities disk. You then remove that
+    disk from the drive and insert the disk with the text files. If these
+    two disks had different IDs, you'd have no problems. However, since
+    they have the same ID, trouble is ahead if you forgot to INITIALIZE the
+    drive.
+
+<p> When you try to write to the text disk, the DOS will check the ID and
+    find it's the same as the one currently in its memory. Since the IDs
+    are the same, the DOS thinks it is dealing with the same disk. It will
+    use the BAM currently in memory to determine which blocks are available
+    for text storage. As a result, DOS is likely to overwrite some or all
+    of your text files, irretrievably destroying that data. Unique disk IDs
+    prevent this kind of mistake.
+
+<p> Using all possible combinations of the letters A - Z and
+    numbers 0 - 9 in a systematic way will give you 1,296 possible
+    combinations. I started mine at AA and will go to AZ, then A0 to A9,
+    then start over with BA. This works well, since Commodore's
+    <i>TEST/DEMO DISK</i> has an ID of ZZ. You can also use the graphics
+    characters available when you press SHIFT or the Commodore key, which
+    gives you an even greater number of possibilities.
+
+<h2>Handling Piles</h2>
+
+<p> The remaining sectors of track 18 list the programs by name and
+    indicate where they are located. Use the Display T&amp;S program to dump
+    the contents of track 18, sector 1, the first block of the directory.
+    Here's an example arrangement of a directory sector.
+
+<p> As with track 18, sector 0, the first two bytes of the block point to
+    the next block to be read. Notice that the directory does not use the
+    sectors of track 18 sequentially, The first two bytes are $12 and $04,
+    indicating that track 18, sector 4 is the next directory block. This
+    staggered arrangement allows the drive to read the directory more
+    swiftly. The last block of the directory will have $00 as the first
+    byte in the block. Since there is no track 0 on the disk, this signals
+    DOS that the end of the directory has been reached, and no more
+    directory blocks will be read.
+
+<p> DOS scans the next byte to determine if the directory entry is valid,
+    and if so, what kind of file the entry is. An $81 indicates a
+    sequential (SEQ) data file, while $82, $83, $84 indicate program (PRG),
+    user (USR), and relative (REL) files, respectively. A value of $80 or
+    less signals a deleted or improperly closed file, and the DOS will
+    treat this entry as if it doesn't exist.
+
+<p> Each directory sector can hold information on eight files. The other
+    entries start at bytes 34, 66, 98, 130, 162, 194, and 226 ($22, $42,
+    $62, $82, $A2, $C2, and $F2) in the block. In the previous figure, all
+    these bytes are $82, so all the files in the example sector are
+    programs. Storing eight entries per block in each of the 18 directory
+    sectors allows a maximum of 144 entries in the directory.
+
+<p> The next two bytes (the fourth and fifth) tell the DOS where to look
+    for this file. These two numbers give the track and sector of the first
+    data block of the file. For the first entry in the previous figure,
+    these bytes are $14 and $01, so the first file in the example
+    directory, TESTCARD, is stored on the disk beginning at track 20,
+    sector 1. The first two bytes of that block will, in turn, point to the
+    second data block, and so on. As with the directory sectors, the file
+    will be stored in staggered rather than sequentially numbered sectors,
+    and the last block in the file will have $00 as the first byte of the
+    sector.
+
+<p> Occasionally, these pointers may be disturbed, by turning off the drive
+    while a disk is still inside, for example, resulting in spurious data
+    being written to the disk. Knowing how the DOS finds its way around the
+    disk, you may be able to locate and relink the program, thereby saving
+    a precious original which otherwise might he lost forever.
+
+<p> The next 16 bytes of each directory entry contain the characters for
+    the name of the file, padded with shifted spaces ($A0) if the name is
+    less than 16 characters. The rest of the information contained in the
+    directory entry is important for other applications, but space limits a
+    full discussion.
+
+<h2>Altering Disk Tracks</h2>
+
+<p> Now that we know how and where all the important information is stored,
+    we can begin to perform the tricks mentioned earlier. <a
+    href="programs.html#1">Program 1</a>, "<a href="programs.html#1">Change
+    Disk Name</a>," allows you to change the name of a disk without erasing
+    the disk as a NEW command will. <a href="programs.html#2">Program 2</a>
+    changes the disk ID without affecting disk contents. <a
+    href="programs.html#1">Program 3</a> helps you recover any previously
+    scratched files, provided the DOS has not already overwritten them with
+    another file. This program is 100% effective if used immediately after
+    an erroneous SCRATCH command, but the likelihood of success diminishes
+    rapidly as the number of files written to the disk after the SCRATCH
+    increases.
+
+<p> When a file is scratched, the DOS updates the BAM to show that the
+    blocks which were previously allocated to that file are now free to be
+    overwritten. With luck, those blocks will not be used for some time;
+    without luck, the next write may destroy part or all of the old file.
+    And, finally, <a href="programs.html#4">Program 4</a> allows you to
+    scratch a file which cannot be deleted from BASIC. You have the option
+    of permanently scratching the file and dropping it from the disk
+    directory, or deleting the file, but leaving the name listed on the
+    directory.
+
+<p> These <a href="programs.html">programs</a> operate directly on data
+    stored on the disk. They can do no permanent harm to the drive, DOS, or
+    the disk itself; but, if the <a href="programs.html">programs</a> are
+    not typed in carefully, they may destroy data stored on the disk. Such
+    damage is usually repairable if you make a printout of the block on
+    which you are working before you make any changes. If necessary, you
+    can use these techniques to completely rewrite an entire block; I've
+    done it before. But some mistakes can't be corrected, especially errors
+    created on track 18, sector 0.
+
+<p> You don't have to understand how these <a
+    href="programs.html">programs</a> work to use them, but let's look at a
+    brief explanation. The computer sends information to the drive as fast
+    as the drive can accept it. This means the computer may send one or two
+    characters at a time, or it may send several thousand, depending on the
+    situation. However, the DOS writes information to the disk only in
+    whole 256-byte blocks. This means the drive must store incoming
+    information in a buffer. The DOS maintains eight buffers in its
+    built-in RAM. You can read a sector from the disk into a buffer using
+    the block read (U1) command (see <a href="programs.html#1050">line
+    1050</a> of <a href="programs.html#1">Program 1</a>), and you can write
+    the contents of the buffer back to the disk with the block write (U2)
+    command (<a href="programs.html#1080">line 1080</a>).
+
+<p> For a direct access operation, you gain access to a buffer by adding
+    "#" after the OPEN statement for the data channel (see <a
+    href="programs.html#1040">line 1040</a> of <a
+    href="programs.html#1">Program 1</a>). The DOS will keep track of which
+    buffer to use. Once a direct access channel is open to the disk, you
+    can directly manipulate the contents of the buffer. Data may be read
+    from or written to any byte of the buffer. The key to selecting a
+    particular byte is the buffer pointer (B   P) command (<a
+    href="programs.html#1060">line 1060</a>). By setting the buffer pointer
+    to the byte you wish to change, or the starting byte of a series, you
+    can determine where in the buffer the PRINT# statement will place the
+    data.
+
+<p> The programs are written so that they may be used alone. However, they
+    will be much more useful if appended to the Display T&amp;S program. If you
+    chose to do this, simply remove the REM that begins the first and last
+    line of each program (just the first occurrence of the word REM, not
+    the whole line). The special features can then be accessed by RUN xxxx
+    or GOTO xxxx, where xxxx is the second line of the appended program.
+    For example, RUN <a href="programs.html#1000">1000</a> would start the
+    change disk name feature, and GOTO <a
+    href="programs.html#3000">3000</a> would start the unscratch feature.
+    The programs are numbered so that you can add all four together to the
+    Display T&amp;S program to provide a versatile disk editing program.
+
+<p> <a href="programs.html#3">Programs 3</a> and <a href="programs.html#4">4</a> require that you know the number of the byte where the
+    directory entry starts. You can obtain the address of the target byte
+    using the DISPLAY T&amp;S program, convert that hex value into the correct
+    decimal value, and supply this to the programs whenever they prompt for
+    a buffer pointer value.
+
+<p><i>See <a href="programs.html">program listings</a> on <a href="programs.html">page 149</a>.</i>
+
+<p><hr width="50%">
+
+<center>
+<p>Published in COMPUTE!'s Gazette, Issue 15, September 1984. Copyright &copy;
+1984 COMPUTE! Publications, Inc.
+</center>
+
+<hr>
+ <a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

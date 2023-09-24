@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Overview</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_103.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_105.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> on the keyboard. One of the features of the Commodore 64 is the 
+ ability to use patterns located in RAM memory. These RAM patterns are 
+ created by you, and that means that you can have an almost infinite 
+ set of symbols for games, business applications, etc.
+
+<p> A normal character set contains 256 characters in which each 
+ character is defined by 8 bytes of data. Since each character takes 
+ up 8 bytes this means that a full character set is 256*8=2K bytes of 
+ memory. Since the VIC-II chip looks at 16K of memory at a time, there 
+ are 8 possible locations for a complete character set. Naturally, you 
+ are free to use less than a full character set. However, it must 
+ still start at one of the 8 possible starting locations.
+   
+<p> The location of character memory is controlled by 3 bits of the 
+ VIC-II control register located at 53272 ($D018 in HEX notation). 
+ Bits 3,2, and 1 control where the characters' set is located in 2K 
+ blocks. Bit 0 is ig- nored. Remember that this is the same register 
+ that determines where screen memory is located so avoid disturbing 
+ the screen memory bits. To change the location of character memory, 
+ the following BASIC statement can be used:
+<pre>
+   POKE 53272,(PEEK(53272)AND240)OR A
+</pre>
+<p>Where A is one of the following values:
+
+<table border="1" cellspacing="0" align="center">
+<tr><th rowspan="2">VALUE of A</th><th rowspan="2">BITS</th><th colspan="2">LOCATION OF CHARACTER MEMORY*</th></tr>
+<tr>                                               <th>DECIMAL</th><th>HEX</th></tr>
+<tr><td>  0 </td><td> XXXX000X </td><td>     0 </td><td> $0000-$07FF                                       </td></tr>
+<tr><td>  2 </td><td> XXXX001X </td><td>  2048 </td><td> $0800-$0FFF                                       </td></tr>
+<tr><td>  4 </td><td> XXXX010X </td><td>  4096 </td><td> $1000-$17FF ROM IMAGE in BANK 0 &amp; 2 (default) </td></tr>
+<tr><td>  6 </td><td> XXXX011X </td><td>  6144 </td><td> $1800-$1FFF ROM IMAGE in BANK 0 &amp; 2           </td></tr>
+<tr><td>  8 </td><td> XXXX100X </td><td>  8192 </td><td> $2000-$27FF                                       </td></tr>
+<tr><td> 10 </td><td> XXXX101X </td><td> 10240 </td><td> $2800-$2FFF                                       </td></tr>
+<tr><td> 12 </td><td> XXXX110X </td><td> 12288 </td><td> $3000-$37FF                                       </td></tr>
+<tr><td> 14 </td><td> XXXX111X </td><td> 14336 </td><td> $3800-$3FFF                                       </td></tr>
+</table>
+
+<table border="1" cellspacing="0" align="center">
+<tr><td><b class="blue">*Remember</b> to add in the BANK address.</td></tr>
+</table>
+
+<hr>
+<a href="page_103.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_105.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

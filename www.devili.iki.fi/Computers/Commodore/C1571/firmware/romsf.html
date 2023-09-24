@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: ROM start</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    ROM Start</h3>
+</center>
+
+<pre>
+        .page
+	.subttl 'romsf.src'
+
+	*=rom   	; +$300 rom patch area
+cchksm  *=*+1		; &lt;&lt;&lt;&lt;&lt; TO BE DETERMINED
+
+	.byte '(C)1985 COMMODORE ELECTRONICS LTD., ALL RIGHTS RESERVED'
+
+ptch0a	and  #$ff-3
+	ora  tmp
+	sta  dskcnt	
+ptch0b	lda  pcr2	; disable SO
+	and  #$ff-2
+	sta  pcr2
+	rts
+
+	  ; track cutoffs	
+trackn  .byte 41,31,25,18
+	
+worktable ; table of track densities extras for those who address tracks &gt; 35
+	.byte $60,$60,$60,$60,$60,$60,$60,$60,$60,$60
+	.byte $60,$60,$60,$60,$60,$60,$60
+	.byte $40,$40,$40,$40,$40,$40,$40
+	.byte $20,$20,$20,$20,$20,$20
+	.byte $00,$00,$00,$00,$00
+	.byte $00,$00,$00,$00,$00,$00
+
+ptch0c	sta cmd		; save off cmd for DOS
+	pha
+	lda #1		; trk one
+	sta hdrs,x
+	pla
+	rts		; return
+
+ptch0d  sei		; no irq's
+	lda  pcr2
+	ora  #$0e
+	sta  pcr2	; enable SO
+	jsr  jclear	; clear track (val in .x)
+	jsr  kill	; disable write
+	lda  pcr2
+	and  #$ff-$0e
+	sta  pcr2	; disable SO
+	cli
+	rts
+
+	
+*=rom+256        	; c0 patch space
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

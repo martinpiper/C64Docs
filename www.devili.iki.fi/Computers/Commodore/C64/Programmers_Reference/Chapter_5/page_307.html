@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Manual: BASIC to Machine Language - Using Machine Language from BASIC</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_306.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_308.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Using">USING MACHINE LANGUAGE FROM BASIC</a></h3>
+
+<p>There are several methods of using BASIC and machine language on the
+ Commodore 64, including special statements as part of CBM BASIC as well
+ as key locations in the machine. There are five main ways to use machine
+ language routines from BASIC on the Commodore 64. They are:</p>
+
+
+<table align=center>
+<tr><td>1) </td><td>The BASIC SYS statement                     </td></tr>
+<tr><td>2) </td><td>The BASIC USR function                      </td></tr>
+<tr><td>3) </td><td>Changing one of the RAM I/O vectors         </td></tr>
+<tr><td>4) </td><td>Changing one of the RAM interrupt vectors   </td></tr>
+<tr><td>5) </td><td>Changing the CHRGET routine                 </td></tr>
+</table>
+<p>
+<table align=center>
+<tr valign=top><td>1) </td><td>
+      The BASIC statement <b>SYS X</b> causes a <b>JUMP</b> to a machine language
+      subroutine located at address X. The routine must end with an <b>RTS</b>
+      (ReTurn from Subroutine) instruction. This will transfer control
+      back to BASIC.
+    <p> Parameters are generally passed between the machine language
+      routine and the BASIC program using the BASIC PEEK and POKE
+      statements, and their machine language equivalents.
+    <p> The SYS command is the most useful method of combining BASIC with
+      machine language. PEEKs and POKEs make multiple parameter passing
+      easy. There can be many SYS statements in a program, each to a
+      different (or even the same) machine language routine.</td></tr>
+<tr valign=top><td>2) </td><td>
+      The BASIC function <b>USR(X)</b> transfers control to the machine language
+      subroutine located at the address stored in locations 785 and 786.
+      (The address is stored in standard low-byte/high-byte format.) The
+      value X is evaluated and passed to the machine language subroutine
+      through floating point accumulator #1, located beginning at address
+      $61 (see memory map for more details). A value may be returned back
+      to the BASIC program by placing it in the floating point
+      accumulator. The machine language routine must end with an RTS
+      instruction to return to BASIC.
+    <p> This statement is different from the <b>SYS</b>, because you have to set
+      up an indirect vector. Also different is the format through which
+      the variable is passed (floating point format). The indirect vector
+      must be changed if more than one machine language routine is used.</td></tr>
+</table>
+
+<hr>
+<a href="page_306.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_308.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 17, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

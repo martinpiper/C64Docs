@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page61.html"> 
+     <link rel=next href="page63.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page61.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page63.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4><a name="2.3.7.5">2.3.7.5</a> <u>65CE02 Instruction Set</u></h4>
+    
+<p><b>Add memory to accumulator with carry <code>&nbsp; ADC</code></b>
+
+<pre>
+  A=A+M+C
+</pre>
+    
+<p><table border="0">
+<tr><th align="left">Addressing Mode</th><th align="left">Abbrev.</th><th align="left">Opcode</th></tr>
+<tr><td>immediate                       </td><td><code>IMM     </code></td><td><code>69</code></td></tr>
+<tr><td>base page                       </td><td><code>BP      </code></td><td><code>65</code></td></tr>
+<tr><td>base page indexed X             </td><td><code>BP,X    </code></td><td><code>75</code></td></tr>
+<tr><td>absolute                        </td><td><code>ABS     </code></td><td><code>6D</code></td></tr>
+<tr><td>absolute indexed X              </td><td><code>ABS,X   </code></td><td><code>7D</code></td></tr>
+<tr><td>absolute indexed Y              </td><td><code>ABS,Y   </code></td><td><code>79</code></td></tr>
+<tr><td>base page indexed indirect X    </td><td><code>(BP,X)  </code></td><td><code>61</code></td></tr>
+<tr><td>base page indirect indexed Y    </td><td><code>(BP),Y  </code></td><td><code>71</code></td></tr>
+<tr><td>base page indirect indexed Z    </td><td><code>(BP),Z  </code></td><td><code>72</code></td></tr>
+</table>
+
+<p><table border="0">
+<tr><th align="left">Bytes </th><th align="left">Cycles </th><th align="left">Mode</th></tr>
+<tr><td align="center">2</td><td align="center">2</td><td>immediate
+<tr><td align="center">2</td><td align="center">3</td><td>base page non-indexed, or indexed X or Y
+<tr><td align="center">3</td><td align="center">4</td><td>absolute non-indexed, or indexed X or Y
+<tr><td align="center">2</td><td align="center">5</td><td>base page indexed indirect X, or indirect indexed Y or Z
+</table>
+
+<p> The ADC instructions add data fetched from memory and carry to the
+    contents of the accumulator. The results of the add are then stored in
+    the accumulator. If the "D" or Decimal Mode flag, in the processor
+    status register, then a Binary Coded Decimal (BCD) add is performed.
+    
+<p>   The "N" or Negative flag will be set if the sum is negative, otherwise
+    it is cleared. The "V" or Overflow flag will be set if the sign of the sum
+    is different from the sign of both addends, indicating a signed overflow.
+    Otherwise, it is cleared. The "Z" or Zero flag is set if the sum (stored into
+    the accumulator) is zero, otherwise, it is cleared. The "C" or carry is set
+    if the sum of the unsigned addends exceeds 255 (binary mode) or 99 (decimal
+    mode).
+
+<pre>
+        Flags
+  N V E B D I Z C
+  N V - - - - Z C
+</pre>
+
+<p>
+<hr>
+  <a href="page61.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page63.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 29, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

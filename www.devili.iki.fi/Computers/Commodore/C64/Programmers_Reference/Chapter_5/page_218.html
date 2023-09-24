@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Hexadecimal notation</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_217.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_219.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>You should really try to learn to "think" in hexadecimal. It's not too
+ difficult, because you don't have to think about converting it back into
+ decimal. For example, if you said that a particular value is stored at
+ $14ED instead of 5357, it shouldn't make any difference.
+
+<h3><a name="Your">YOUR FIRST MACHINE LANGUAGE INSTRUCTION</a></h3>
+
+<h4><a name="LDA">LDA - LOAD THE ACCUMULATOR</a></h3>
+
+<p>In 6510 assembly language, mnemonics are always three characters. LDA
+ represents "load accumulator with...", and what the accumulator should be
+ loaded with is decided by the parameter(s) associated with that
+ instruction. The assembler knows which token is represented by each
+ mnemonic, and when it "assembles" an instruction, it simply puts into
+ memory (at whatever address has been specified), the token, and what
+ parameters, are given. Some assemblers give error messages, or warnings
+ when you try to assemble something that either the assembler, or the 6510
+ microprocessor, cannot do.
+   
+<p>If you put a "#" symbol in front of the parameter associated with the
+ instruction, this means that you want the register specified in the
+ instruction to be loaded with the "value" after the "#". For example:
+<pre>
+   LDA #$05  &lt;----[ $=HEX ]
+</pre>
+<p>This instruction will put $05 (decimal 5) into the accumulator register.
+ The assembler will put into the specified address for this instruction,
+ $A9 (which is the token for this particular instruction, in this mode),
+ and it will put $05 into the next location after the location containing
+ the instruction ($A9).
+ 
+<p>If the parameter to be used by an instruction has "#" before it; i.e.,
+ the parameter is a "value," rather than the contents of a memory 
+ location, or another register, the instruction is said to be in the
+ "immediate" mode. To put this into perspective, let's compare this 
+ with another mode:
+
+<p>If you want to put the contents of memory location $102E into the
+ accumulator, you're using the "absolute" mode of instruction:
+<pre>
+   LDA $102E
+</pre>
+<p>The assembler can distinguish between the two different modes because the
+ latter does not have a "#" before the parameter. The 6510 microprocessor
+<hr>
+<a href="page_217.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_219.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - MCS6510 Microprocessor Instruction Set</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_246.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_248.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="ORA">ORA</a></h3></td>
+    <td align="center" colspan="2">
+        <b>ORA</b><i>
+        "OR" memory with accumulator
+        </i></td>
+    <td align="right">
+        <h3>ORA</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation:  A &or; M &rarr; A </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>/ / _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 2.2.3.1)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Immediate     </td><td> ORA #Oper      </td><td> 09 </td><td> 2 </td><td> 2  </td></tr>
+<tr><td> Zero Page     </td><td> ORA  Oper      </td><td> 05 </td><td> 2 </td><td> 3  </td></tr>
+<tr><td> Zero Page, X  </td><td> ORA  Oper, X   </td><td> 15 </td><td> 2 </td><td> 4  </td></tr>
+<tr><td> Absolute      </td><td> ORA  Oper      </td><td> 0D </td><td> 3 </td><td> 4  </td></tr>
+<tr><td> Absolute, X   </td><td> ORA  Oper, X   </td><td> 1D </td><td> 3 </td><td> 4* </td></tr>
+<tr><td> Absolute, Y   </td><td> ORA  Oper, Y   </td><td> 19 </td><td> 3 </td><td> 4* </td></tr>
+<tr><td> (Indirect, X) </td><td> ORA  (Oper, X) </td><td> 01 </td><td> 2 </td><td> 6  </td></tr>
+<tr><td> (Indirect), Y </td><td> ORA  (Oper), Y </td><td> 11 </td><td> 2 </td><td> 5* </td></tr>
+</table>
+    </td></tr>
+<tr><td colspan="4">
+    * Add 1 on page crossing
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="PHA">PHA</a></h3></td>
+    <td align="center" colspan="2">
+        <b>PHA</b><i>
+        Push accumulator on stack
+        </i></td>
+    <td align="right">
+        <h3>PHA</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation: A &darr; </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 8.5)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Implied </td><td> PHA </td><td> 48 </td><td> 1 </td><td> 3 </td></tr>
+</table>
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="PHP">PHP</a></h3></td>
+    <td align="center" colspan="2">
+        <b>PHP</b><i>
+        Push processor status on stack
+        </i></td>
+    <td align="right">
+        <h3>PHP</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation: P&darr; </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 8.11)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Implied </td><td> PHP </td><td> 08 </td><td> 1 </td><td> 3 </td></tr>
+</table>
+    </td></tr>
+</table>
+
+<hr>
+<a href="page_246.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_248.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 07, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

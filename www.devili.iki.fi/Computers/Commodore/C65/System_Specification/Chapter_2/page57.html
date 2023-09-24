@@ -1,0 +1,119 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page56.html"> 
+     <link rel=next href="page58.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page56.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page58.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4><a name="2.3.7.2">2.3.7.2</a> <u>CPU Operation</u></h4>
+    
+<p>The 4502 has the following 8 user registers:
+    
+    A                   accumulator
+    X                   index-X
+    Y                   index-Y
+    Z                   index-Z
+
+    B                   Base-page
+    P                   Processor status
+    SP                  Stack pointer
+    PC                  Program counter
+    
+<p>Accumulator
+    
+    <p>  The accumulator is the only general purpose computational register. It
+    can be used for arithmetic functions add, subtract shift, rotate, negate,
+    and for Boolean functions and, or, exclusive-or, and bit operations. it
+    cannot, however, be used as an index register.
+    
+<p>Index X
+    
+    <p> The index register X has the largest number of opcodes pertaining to,
+    or using it. It can be incremented, decremented, or compared, but not used
+    for arithmetic or logical (Boolean) operations. It differs from other index
+    registers in that it is the only register that can be used in indexed-indirect
+    or (bp,X) operations. It cannot be used in indi rect-indexed or (bp),Y mode.
+    
+<p>Index Y
+    
+    <p> The index register Y has the same computational constraints as the X
+    register, but finds itself in a lot less of the opcodes, making it less
+    generally used. But the index Y has one advantage over index X, in that it
+    can be us-ld in indirect-indexed operations or (bp),Y mode.
+    
+<p>Index Z
+    
+    <p> The index register 2 is the most unique, in that it is used in the
+    smallest number of opcodes. It also has the same computation limitations as
+    the X and Y registers, but has am extra feature. Upon reset, the Z register
+    is cleared so that the STZ (store zero ) opcodes and non-indexed indirect
+    opcodes from previous 65C02 designs are emulated. The Z-register can also
+    be used in indirect-indexed or (bp),Z operations.
+    
+<p>Base page B register
+    
+    <p> Early versions of 6502 microprocessors had a special subset of
+    instructions that required less code and less time to execute. These were
+    referred to as the "zero page" instructions. Since the addressing page
+    was always known, and known to be zero, addresses could be specified as
+    a single byte, instead of two bytes.
+    
+    <p> The CSG4502 also implements this same "zero page" set of instructions,
+    but goes one step further by allowing the programmer to specify which page
+    is to be the "zero page". Now that the programmer can program this page, it
+    is now, not necessarily page zero, but instead, the "selected page". The term
+    "base page" is used, however.
+    
+    <p> The B register selects which page will be the "base page", and the user
+    sets it by transferring t he contents of the accumulator to it. At reset, the
+    B register is cleared, giving initially a true "zero page".
+
+<p>
+<hr>
+  <a href="page56.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page58.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 28, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

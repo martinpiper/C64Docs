@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_082.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_084.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="sgn">SGN</a></h3>
+
+ <big><b class=blue>TYPE: Integer Function<br>
+ FORMAT: SGN (&lt;numeric&gt;)
+
+   </b></big><p><b class=blue>Action:</b> SGN gives you an integer value depending upon the sign of the
+ &lt;numeric&gt; argument. If the argument is positive the result is 1, if zero
+ the result is also 0, if negative the result is -1.
+
+ </p><b class=blue>EXAMPLE of SGN Function:</b>
+<pre>
+   90 ON SGN(DV)+2 GOTO 100, 200, 300
+   (jump to 100 if DV=negative, 200 if DV=0, 300 if DV=positive)
+</pre>
+
+<h3><a name="sin">SIN</a></h3>
+
+ <big><b class=blue>TYPE: Floating-Point Function<br>
+ FORMAT: SIN (&lt;numeric&gt;)
+
+   </b></big><p><b class=blue>Action:</b> SIN gives you the sine of the &lt;numeric&gt; argument, in radians.
+ The value of COS(X) is equal to SIN(x+3.14159265/2).
+
+ </p><b class=blue>EXAMPLE of SIN Function:</b>
+<pre>
+   235 AA=SIN(1.5):PRINT AA
+    .997494987
+</pre>
+
+<h3><a name="spc">SPC</a></h3>
+
+ <big><b class=blue>TYPE: String Function<br>
+ FORMAT: SPC (&lt;numeric&gt;)
+
+   </b></big><p><b class=blue>Action:</b> The SPC function is used to control the formatting of data, as
+ either an output to the screen or into a logical file. The number of
+ SPaCes given by the &lt;numeric&gt; argument are printed, starting at the first
+ available position. For screen or tape files the value of the argument
+ is in the range of 0 to 255 and for disk files up to 254. For printer
+ files, an automatic carriage-return and line-feed will be performed by
+ the printer if a SPaCe is printed in the last character position of a
+ line. No SPaCes are printed on the following line.
+<hr>
+<a href="page_082.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_084.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 08, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

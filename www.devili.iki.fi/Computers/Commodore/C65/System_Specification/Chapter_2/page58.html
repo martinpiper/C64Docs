@@ -1,0 +1,119 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page57.html"> 
+     <link rel=next href="page59.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page57.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page59.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p>Processor status P register
+    
+    <p> The Processor status register is an 8-bit register which is used to
+    indicate the status of the microprocessor. It contains 8 processor "flags".
+    Some of the flags are set or reset based on the results of various types
+    of operations. Others are more specific. The flags are ...
+
+<p><table border="0" align="center">
+<tr><th>Flag</th><th>Name</th><th>Typical idication</th></tr>
+<tr><td><code>N</code></td><td>Negative </td><td>result of operation is negative                 </td></tr>
+<tr><td><code>V</code></td><td>Overflow </td><td>result of add or subtract causes signed overflow</td></tr>
+<tr><td><code>E</code></td><td>Extend   </td><td>disables stack pointer extension                </td></tr>
+<tr><td><code>B</code></td><td>Break    </td><td>interrupt was caused by BRK opcode              </td></tr>
+<tr><td><code>D</code></td><td>Decimal  </td><td>perform add/subtract using BCD math             </td></tr>
+<tr><td><code>I</code></td><td>Interrupt</td><td>disable IRQ interrupts                          </td></tr>
+<tr><td><code>Z</code></td><td>Zero     </td><td>result of operation is zero                     </td></tr>
+<tr><td><code>C</code></td><td>Carry    </td><td>operation caused a carry                        </td></tr>
+</table>
+    
+<p>Stack Pointer SP
+    
+    <p> The stack pointer is a 16 bit register that has two modes. It can be
+    programmed to be either an 8-bit page Programmable pointer, or a full 16-bit
+    pointer. The processor status E bit selects which mode will be used. When
+    set, the E bit selects the 8-bit mode. When reset, the E bit selects the
+    16-bit mode.
+    
+    <p> Upon reset, the CSG 4502 will come up in the 8-bit page-programmable
+    mode, with the stack page set to 1. This makes it compatible with earlier
+    6502 products. The programmer can quickly change the default stack page by
+    loading the Y register with the desired page and transferring its contents
+    to the stack pointer high byte, using the TYS,opcode. The 8-bit stack pointer
+    can be set by loading the X register with the desired value, and transferring
+    its contents to the stack pointer low byte, using the TXS opcode.
+    
+    <p> To select the 16-bit stack poinler mode, the user must execute a CLE
+    (for CLear Extend disable) opcode. Setting the 16-bit pointer is done by
+    loading the X and Y registers with the desired stack pointer low and high
+    bytes, respectively, and then transferring their contents to the stack
+    pointer using TXS and TYS. To return to 8-bit page mode, simple execute a
+    SEE (SEt Extend disable) opcode.
+
+<p><table align="center" width="80%" border="1" cellspacing="0"><tr><td>
+
+<center>WARNING</center>
+    
+    <p>If you are using Non-Maskable-Interrupts, or Interrupt
+    Request is enabled, and you want to change BOTH stack
+    pointer bytes, do not put any code between the TXSsand
+    TYS opcodes Taking this precaution will prevent any
+    interrupt s irom occuring between the setting of the two
+    stack pointer bytes, causing a potential for writing
+    stack data to an unwanted area.
+</td></tr></table>
+    
+<p>Program Counter PC
+    
+    <p> The program counter is a 16-bit up-only counter that determines what
+    area of memory that program information will be fetched from. The user
+    generally only modifies it using jumps, branches, subroutine calls, or
+    returns. it is set initially, and by interrupts, from vectors at memory
+    addresses FFFA through FFFF (hex). See "Interrupts" below.
+    
+<p>
+<hr>
+  <a href="page57.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page59.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 29, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

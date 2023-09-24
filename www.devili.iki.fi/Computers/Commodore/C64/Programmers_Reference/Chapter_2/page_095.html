@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Screen Editor (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_094.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_096.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p>   The text is then passed to the Interpreter to be tokenized and stored
+ in the program. The edited line replaces the old version of that line in
+ memory. An additional copy of any line of text can be created simply by
+ changing the line-number and pressing <kbd>&lt;RETURN&gt;</kbd>.
+<p>   If you use keyword abbreviations which cause a program line to exceed
+ 80 characters, the excess characters will be lost when that line is
+ edited, because the EDITOR will read only two physical screen lines. This
+ is also why using <a href="page_054.html#input">INPUT</a> for more than a total of 80 characters is not
+ possible. Thus, for all practical purposes, the length of a line of BASIC
+ text is limited to 80 characters as displayed on the screen.
+<p>   Under certain conditions the SCREEN EDITOR treats the cursor control
+ keys differently from their normal mode of handling. If the CuRSoR is
+ positioned to the right of an odd number of double-quote marks (") the
+ EDITOR operates in what is known as the QUOTE-MODE.
+<p>   In quote mode data characters are entered normally but the cursor
+ controls no longer move the CuRSoR, instead reversed characters are
+ displayed which actually stand for the cursor control being entered. The
+ same is true of the color control keys. This allows you to include cursor
+ and color controls inside string data items in programs. You will find
+ that this is a very important and powerful feature. That's because when
+ the text inside the quotes is printed to the screen it performs the
+ cursor positioning and color control functions automatically as part of
+ the string. An example of using cursor controls in strings is:</p>
+<pre>
+   You type --&gt;         10 PRINT"A(R)(R)B(L)(L)(L)C(R)(R)D": REM(R)=CRSR
+                           RIGHT, (L)=CRSR LEFT
+
+   Computer prints --&gt;  AC BD
+
+</pre>
+<p>    The <kbd>&lt;DEL&gt;</kbd> key is the only cursor control NOT affected by quote mode.
+  Therefore, if an error is made while keying in quote mode, the
+  <kbd>&lt;CRSR LEFT&gt;</kbd> key can't be used to back up and strike over the error -
+  even the <kbd>&lt;INST&gt;</kbd> key produces a reverse video character. Instead, finish
+  entering the line, and then, after hitting the <kbd>&lt;RETURN&gt;</kbd> key, you can
+  edit the line normally. Another alternative, if no further cursor-controls
+  are needed in the string, is to press the <kbd>&lt;RUN/STOP&gt;</kbd> and
+  <kbd>&lt;RESTORE&gt;</kbd> keys which will cancel QUOTE MODE. The cursor control keys
+  that you can use in strings are shown in <a href="page_096.html#2-2">Table 2-2</a>.
+
+<hr>
+<a href="page_094.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_096.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

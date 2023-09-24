@@ -1,0 +1,92 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_058.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_060.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="load">LOAD</a></h3>
+
+
+ <big><b class=blue>TYPE: Command<br>
+
+ FORMAT: LOAD["&lt;file-name&gt;"][,&lt;device&gt;][,&lt;address&gt;]
+
+   </b></big><p><b class=blue>Action:</b> The LOAD statement reads the contents of a program file from
+ tape or disk into memory. That way you can use the information LOADed
+ or change the information in some way. The device number is optional,
+ but when it is left out the computer will automatically default to 1, the
+ cassette unit. The disk unit is normally device number 8. The LOAD closes
+ all open files and, if it is used in direct mode, it performs a <a href="page_039.html#clr">CLR</a>
+ (clear) before reading the program. If LOAD is executed from within a
+ program, the program is <a href="page_081.html#run">RUN</a>. This means that you can use LOAD to "chain"
+ several programs together. None of the variables are cleared during a
+ chain operation.
+<p>   If you are using file-name pattern matching, the first file which
+ matches the pattern is loaded. The asterisk in quotes by itself ("*")
+ causes the first file-name in the disk directory to be loaded. if the
+ filename used does not exist or if it is not a program file, the BASIC
+ error message <b><a href="../Appendices/page_400.html#file_not_found">?FILE NOT FOUND</a></b> occurs.
+<p>   When LOADing programs from tape, the &lt;file-name&gt; can be left out, and
+ the next program file on the tape will be read. The Commodore 64 will
+ blank the screen to the border color after the PLAY key is pressed. When
+ the program is found, the screen clears to the background color and the
+ "FOUND" message is displayed. When the <kbd>&lt;C=&gt;</kbd> key, <kbd>&lt;CTRL&gt;</kbd> key, <kbd>&lt;ARROW LEFT&gt;</kbd>
+ key, or <kbd>&lt;SPACE BAR&gt;</kbd> is pressed, the file will be loaded. Programs will
+ LOAD starting at memory location 2048 unless a secondary &lt;address&gt; of 1
+ is used. If you use the secondary address of 1 this will cause the
+ program to LOAD to the memory location from which it was saved.
+
+
+<hr>
+<a href="page_058.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_060.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

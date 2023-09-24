@@ -1,0 +1,148 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 CP/M: Z80 bootstrap routine source code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore CP/M v2.2 for the C64<br>
+    Z80 Bootstrap Routine</h3>
+</center>
+
+<pre>
+;
+;	Z80 BOOTSTRAP ROUTINE FOR THE COMMODORE 64
+;
+;	COPYRIGHT (C) 1982
+;       COMMODORE INTERNATIONAL
+;
+;
+;
+;	THIS ROUTINE IS LOADED FROM TRACK 1, SECTOR 5
+;	OF THE COMMODORE 64 CP/M DISK BY A ROUTINE IN
+; 	BIOS65.
+;
+;	THE LOAD ADDRESS IS 0000H (WITH RESPECT TO THE 
+;	Z80 CPU).  WHEN THE Z80 IS ENABLED, THIS PROGRAM
+;	LOADS THE Z80 BIOS AND CCP AND BDOS INTO RAM AND
+;	JUMPS TO IT.
+;
+CCP	EQU	3400H
+;CCP	EQU	0000H	;FOR MAKING BOOT0.HEX
+;CCP	EQU	0100H	;FOR MAKING BOOT1.HEX
+NSECTS	EQU	1CH
+TRACK	EQU	0F903H
+SECTOR	EQU	0F902H
+DISKNO  EQU	0F904H
+IOTYPE	EQU	0FCFFH	;IO SETUP BYTE IN BIOS65
+KYBDMD	EQU	CCP+1633H	;CAPS LOCK FLAG
+VICRD	EQU	0
+CMD	EQU	0F900H
+OFF	EQU	01H
+MODESW	EQU	0CE00H
+DATA	EQU	0F901H
+BUFFER	EQU	0F800H
+BOOT	EQU	CCP+1600H
+;
+	ORG	0000H	;Z80 RESET LOCATION
+;
+	NOP		;NOP REQUIRED FOR HARDWARE
+	LXI	D,CCP	;START OF LOAD ADDRESS
+	MVI	A,0
+	STA	DISKNO	;LOAD IN FROM DRIVE A
+	MVI	H,1	;READ BEGINNING TRK 1, SEC 6
+	MVI	L,6
+LOAD1	MOV	A,H
+	STA	TRACK
+	MOV	A,L
+	STA	SECTOR
+	MVI	A,VICRD	;SECTOR READ COMMAND
+	STA	CMD
+	MVI	A,OFF
+	STA	MODESW	;TURN OFF SELF
+	NOP
+	LDA	DATA	;WAS TRANSFER OK?
+	ORA	A
+	JNZ	LOAD1	;JUMP IF NO
+;
+;	OUTPUT '*' TO SHOW LOADING
+;
+	MVI	A,'*'
+	STA	DATA
+	MVI	A,3
+	STA	CMD
+	MVI	A,OFF
+	STA	MODESW
+	NOP
+;
+;	MOVE SECTOR TO MEMORY
+;
+	LXI	B,BUFFER
+LOAD2:	LDAX	B
+	STAX	D
+	INR	C
+	INR	E
+	JNZ	LOAD2
+;
+;	UPDATE POINTERS
+;
+	INR	D
+	INR	L
+	MOV	A,L
+;
+;	CHECK FOR END OF TRACK
+;
+	CPI	17
+	JC	LOAD3
+	INR	H
+	MVI	L,0
+LOAD3:	MOV	A,H
+;
+;	DONE IF H POINTS AT TRACK 3
+;
+	CPI	3
+	JNZ	LOAD1
+;
+	LDA	IOTYPE	;POKE UPPER/LOWER CASE
+	ANI	20H
+	JNZ	LOAD4
+	MVI	A,1
+	STA	KYBDMD
+;
+LOAD4:	;GO TO BOOT PORTION OF BIOS
+	JMP	BOOT
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

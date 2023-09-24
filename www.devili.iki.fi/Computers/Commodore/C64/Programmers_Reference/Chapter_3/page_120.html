@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Extended background color mode</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_119.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_121.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Extended">EXTENDED BACKGROUND COLOR MODE</a></h2>
+
+<p> Extended background color mode gives you control over the background
+ color of each individual character, as well as over the foreground color.
+ For example, in this mode you could display a blue character with a
+ yellow background on a white screen.
+
+<p> There are 4 registers available for extended background color mode.
+ Each of the registers can be set to any of the 16 colors.
+
+<p> Color memory is used to hold the foreground color in extended back-
+ ground mode. It is used the same as in standard character mode.
+
+<p> Extended character mode places a limit on the number of different
+ characters you can display, however. When extended color mode is on, only
+ the first 64 characters in the character ROM (or the first 64 characters
+ in your programmable character set) can be used. This is because two of
+ the bits of the character code are used to select the background color.
+ It might work something like this:
+
+<p> The character code (the number you would POKE to the screen) of the
+ letter "A" is a 1. When extended color mode is on, if you POKED a 1 to
+ the screen, an "A" would appear. If you POKED a 65 to the screen
+ normally, you would expect the character with character code (CHR$) 129
+ to appear, which is a reversed "A." This does NOT happen in extended
+ color mode. Instead you get the same unreversed "A" as before, but on a
+ different background color. The following chart gives the codes:
+
+<p><table border="1" cellspacing="0" align="center">
+<tr><th colspan="3">CHARACTER CODE</th><th colspan="2">BACKGROUND COLOR REGISTER</th></tr>
+<tr><th>RANGE</th><th>BIT 7</th><th>BIT 6</th><th>NUMBER</th><th>ADDRESS</th></tr>
+<tr><td>   0- 63 </td><td> 0 </td><td> 0 </td><td> 0 </td><td> 53281 ($D021) </td></tr> 
+<tr><td>  64-127 </td><td> 0 </td><td> 1 </td><td> 1 </td><td> 53282 ($D022) </td></tr> 
+<tr><td> 128-191 </td><td> 1 </td><td> 0 </td><td> 2 </td><td> 53283 ($D023) </td></tr> 
+<tr><td> 192-255 </td><td> 1 </td><td> 1 </td><td> 3 </td><td> 53284 ($D024) </td></tr>
+</table>
+
+<p> Extended color mode is turned ON by setting bit 6 of the VIC-II regis-
+ ter to a 1 at location 53265 ($D011 in HEX). The following POKE does it:
+<pre>
+   POKE 53265,PEEK(53265)OR 64
+</pre>
+<hr>
+<a href="page_119.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_121.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

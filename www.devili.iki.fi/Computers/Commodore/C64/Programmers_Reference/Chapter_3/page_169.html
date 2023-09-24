@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<body>
+<a href="page_168.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_170.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table border="0">
+<tr><th colspan="2" align="left">LINE 20:</th></tr>
+<tr><td> FORS1=12288 TO 12350 </td>
+                    <td>We are going to use ONE SPRITE (sprite 0) in this
+                       animation, but we are going to use THREE sets of
+                       sprite data to define three separate shapes. To
+                       get our animation, we will switch the POINTERS
+                       for sprite 0 to the three places in memory where
+                       we have stored the data which defines our three
+                       different shapes. The same sprite will be redefined
+                       rapidly over and over again as 3 different
+                       shapes to produce the dancing mouse animation.
+                       You can define dozens of sprite shapes in DATA
+                       STATEMENTS, and rotate those shapes through
+                       one or more sprites. So you see, you don't have to
+                       limit one sprite to one shape or vice-versa. One
+                       sprite can have many different shapes, simply by
+                       changing the POINTER SETTING FOR THAT SPRITE to
+                       different places in memory where the sprite data
+                       for different shapes is stored. This line means we
+                       have put the DATA for "sprite shape 1" at memory
+                       locations 12288 to 12350.</td></tr>
+<tr><td> READ Q1 </td><td>
+                       Reads 63 numbers in order from the DATA statements
+                       which begin at line 100. Q1 is an arbitrary
+                       variable name. It could just as easily be A, Z1 or
+                       another numeric variable.</td></tr>
+<tr><td> POKES1,Q1 </td><td>
+                       Pokes the first number from the DATA statements
+                       (the first "Q1" is 30) into the first memory
+                       location (the first memory location is 12288). This
+                       is the same as POKE12288,30. </td></tr>
+<tr><td> NEXT </td><td>This tells the computer to look BETWEEN the FOR and
+                       NEXT parts of the loop and perform those in-between
+                       commands (READQ1 and POKES1,Q1 using the NEXT
+                       numbers in order). In other words, the NEXT
+                       statement makes the computer READ the NEXT Q1 from
+                       the DATA STATEMENTS, which is 0, and also
+                       increments S1 by 1 to the next value, which is
+                       12289. The result is POKE12289,0... the NEXT
+                       command makes the loop keep going back until the
+                       last values in the series, which are POKE 12350,0.
+                       </td></tr>
+</table>
+
+<hr>
+<a href="page_168.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_170.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

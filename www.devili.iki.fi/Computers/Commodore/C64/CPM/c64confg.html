@@ -1,0 +1,653 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 CP/M: I/O configuration utility source code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore CP/M v2.2 for the C64<br>
+    I/O Configuration Utility</h3>
+</center>
+
+<pre>
+;
+;	IO CONFIGURATION UTILITY FOR COMMODORE 64
+;
+;	COPYRIGHT (C) 1982
+;       COMMODORE INTERNATIONAL
+;
+;
+;	EQUATES
+;
+BUFFER	EQU	0F800H
+IOMEM	EQU	0FC00H
+IOTYPE	EQU	0FCFFH
+FNBASE	EQU	0FC10H
+KYBASE	EQU	0FD00H
+VICWR	EQU	1
+CMD	EQU	0F900H
+DATA	EQU	0F901H
+SECTOR	EQU	0F902H
+TRACK	EQU	0F903H
+DISKNO	EQU	0F904H
+KYCHAR	EQU	0F905H
+KYBDMD	EQU	33H
+CRPOS	EQU	1
+SHFTST	EQU	0F28DH
+LASTKY	EQU	63H
+MSGPTR	EQU	66H
+CONINV	EQU	09H
+OFF	EQU	01H
+MODESW	EQU	0CE00H
+;
+BOOT	EQU	0000H
+BDOS	EQU	0005H
+CLS	EQU	0CH
+CR	EQU	0DH
+LF	EQU	0AH
+	ORG	100H
+;
+START:	LXI	SP,STACK	;INITIALIZE STACK PTR
+	LXI	D,IOMSG
+	CALL	PRINT
+;
+	LDA	IOTYPE
+	ANI	01H	;# OF DISKS
+	ADI	'1'	;FORM ASCII
+	MOV	E,A
+	CALL	CONOUT
+;
+	LXI	D,PRTMSG
+	CALL	PRINT
+;
+	LXI	D,P1515
+	LDA	IOTYPE
+	ANI	02H	;CHECK PRINTER TYPE
+;
+	JZ	ST1	;1515 IF = 0
+;
+	LXI	D,P4022	;4022 IF = 1
+;
+ST1:	CALL	PRINT
+;
+	LXI	D,CAPMSG
+	CALL	PRINT
+;
+	LXI	D,ONMSG	;ASSUME ON
+	LDA	IOTYPE
+	ANI	20H	;BIT 5
+;
+	JZ	ST2
+	LXI	D,OFFMSG
+;
+ST2:	CALL	PRINT
+;
+	LXI	D,MENU
+	CALL	PRINT
+;
+ST3:	CALL	KEYIN
+	CPI	'1'
+	JZ	CHGDRV
+;
+	CPI	'2'
+	JZ	CHGPRT
+;
+	CPI	'3'
+	JZ	CHGCAP
+;
+	CPI	'4'
+	JZ	CHGFNC
+;
+	CPI	'5'
+	JZ	CHGKEY
+;
+	CPI	'6'
+	JZ	SAVDSK
+;
+	CPI	'7'
+	JZ	BOOT
+;
+	JMP	ST3	;NOT A VALID RESPONCE
+;
+PRINT:	MVI	C,9
+	JMP	BDOS
+;
+CONOUT:	MVI	C,2
+	JMP	BDOS
+;
+KEYIN:	MVI	E,0FFH
+	MVI	C,6
+	JMP	BDOS
+;
+CONIN:	LHLD	BOOT+1
+	MVI	L,CONINV
+	PCHL
+;
+IO6510:	STA	CMD
+	MVI	A,OFF
+	STA	MODESW
+	NOP
+	RET
+;
+CHGDRV:	LDA	IOTYPE
+	XRI	01H
+	STA	IOTYPE
+	JMP	START
+;
+CHGPRT:	LXI	H,IOTYPE
+	MOV	A,M
+	ANI	02H
+	JZ	CHGP1
+;
+	MOV	A,M	;GET IOTYPE
+	ANI	0F1H	;CLEAR BITS FOR 1515 PRINTER
+	MOV	M,A
+	JMP	START
+;
+CHGP1:	MOV	A,M	;GET IOTYPE
+	ANI	0FBH	;CLEAR BIT 2
+	ORI	0AH	;SET BITS FOR 4022 PRINTER
+	MOV	M,A
+	JMP	START
+;
+CHGCAP:	LXI	H,IOTYPE
+	MOV	A,M
+	XRI	20H	;INVERT BIT
+	MOV	M,A
+	JMP	START
+;
+CHGFNC:	LXI	D,FNKMSG
+	CALL	PRINT
+;
+	MVI	A,0
+	STA	KYMODE
+FNNEXT:LXI	D,FM1
+	CALL	PRINT
+	LDA	KYMODE
+	ADI	'1'
+	MOV	E,A
+	CALL	CONOUT
+	LXI	D,FM2
+	CALL	PRINT
+;
+	CALL	CALCAD
+;
+FN2:	MOV	A,M
+	INX	H
+	CPI	20H
+	JC	CONTRL
+;
+	MOV	E,A
+	PUSH	H
+	CALL	CONOUT
+	POP	H
+	JMP	FN2
+;
+CONTRL:	PUSH	PSW
+	MVI	E,'"'
+	CALL	CONOUT
+	POP	PSW
+	CPI	0
+	JZ	CRLF
+;
+	LXI	D,CRM
+	CALL	PRINT
+CRLF:	LXI	D,CRLFM
+	CALL	PRINT
+;
+	LXI	H,KYMODE
+	INR	M
+	MOV	A,M
+	CPI	8
+	JNZ	FNNEXT
+;
+	LXI	D,FNINST
+	CALL	PRINT
+;
+ASKAGN:CALL	KEYIN
+	SUI	'1'
+	JC	ASKAGN
+;
+	CPI	8
+	JZ	START
+	JNC	ASKAGN
+;
+	STA	KYMODE
+;
+	LXI	D,FM3
+	CALL	PRINT
+;
+	LXI	D,FM1
+	CALL	PRINT
+;
+	LDA	KYMODE	;GET CURRENT FN #
+	ADI	'1'	;FORM ASCII
+	MOV	E,A
+	CALL	CONOUT
+	LXI	D,FM2
+	CALL	PRINT
+	CALL	CALCAD
+	SHLD	KYADDR
+;
+	MVI	A,0
+	STA	NUMCHR
+;
+INLOOP:	CALL	KEYIN
+	CPI	0DH
+	JZ	ITSCR
+;
+	CPI	08H
+	JZ	ITSBS
+;	
+	CPI	1AH
+	JZ	ITSCZ
+;
+	CPI	20H
+	JC	INLOOP
+;
+	CPI	80H
+	JNC	INLOOP
+;
+	MOV	B,A	;SAVE CHAR
+	LDA	NUMCHR
+	CPI	15	;IF ALREADY 15 CHAR,
+	JNC	INLOOP	;  NO ROOM FOR 00H
+;
+	PUSH	B
+	MOV	E,B
+	CALL	CONOUT
+	POP	B
+;
+	CALL	OUTPUT
+	JMP	INLOOP	;GO FOR MORE
+;
+ITSCR:	MOV	B,A	;SAVE CHAR
+	LDA	NUMCHR
+	CPI	15	;NO ROOM IF 15 CHAR
+	JNC	INLOOP
+;
+	CALL	OUTPUT
+;
+ITSCZ:	MVI	B,0
+	CALL	OUTPUT
+	JMP	CHGFNC
+;
+OUTPUT:	LHLD	KYADDR
+	LDA	NUMCHR
+	INR	A
+	STA	NUMCHR
+	DCR	A
+	ADD	L	;ADD IN OFFSET
+	MOV	L,A
+	MOV	M,B
+	RET
+;
+CALCAD:	LXI	H,FNBASE
+	MVI	D,0
+	LDA	KYMODE
+	RAL
+	RAL
+	RAL
+	RAL
+	ANI	0F0H
+	MOV	E,A
+	DAD	D
+	RET
+;
+ITSBS:	LDA	NUMCHR
+	CPI	0
+	JZ	INLOOP	;IF 0 JUST GO TO LOOP
+;
+	DCR	A
+	STA	NUMCHR
+	MVI	E,08H	;BACKSPACE
+	CALL	CONOUT
+	JMP	INLOOP
+;
+;
+;
+CHGKEY:	LXI	D,KYINST
+	CALL	PRINT
+;
+CK0:	LXI	D,PRSMSG
+	CALL	PRINT
+;
+	CALL	CONIN
+	LHLD	BOOT+1
+	MVI	L,KYBDMD ;UNSHIFT=0, CAPS=1
+	MOV	B,M
+	LDA	SHFTST	;GET MODIFIER STATUS
+	ANI	01H	;IS SHIFT KEY DOWN?
+	JZ	CK1	;JUMP IF NO
+;
+	MVI	B,2	;SHIFT=2
+CK1:	LDA	SHFTST
+	ANI	04H	;IS THE CONTROL KEY DOWN?
+	JZ	CK2	;JUMP IF NO
+;
+	MVI	B,3	;CONTROL=3
+CK2:	LHLD	BOOT+1
+	MVI	L,LASTKY
+	MOV	A,M
+	STA	KYCHK	;SAVE FOR EXIT TEST
+	ADD	A	;*2
+	ADD	A	;*4
+	ADD	B	;ADD IN OFFSET
+	LXI	H,KYBASE
+	ADD	L
+	MOV	L,A	;HL NOW HAS ADDRESS OF KEY
+;
+	SHLD	KYADDR	;ADDRESS OF KEY
+	MOV	A,B	;B IS THE MODE
+	STA	KYMODE
+;
+	LHLD	BOOT+1
+	MVI	L,MSGPTR
+	MVI	M,0
+	INX	H
+	MVI	M,0	;DISABLE MESSAGE MODE IF ANY
+;
+	LXI	D,ISMSG
+	CALL	PRINT
+;
+	LHLD	KYADDR
+	MOV	A,M	;GET KEY CODE
+	CALL	PHEX	;  AND PRINT IN HEX
+;
+	LXI	D,INMSG
+	CALL	PRINT
+;
+	LDA	KYMODE
+	LXI	D,UNSH	;UNSHIFT MODE IF 0
+	CPI	0
+	JZ	PMODE
+;
+	LXI	D,CAPS
+	CPI	1
+	JZ	PMODE	;CAPS MODE IF 1
+;
+	LXI	D,SHIFT	
+	CPI	2
+	JZ	PMODE	;SHIFT MODE IF 2
+;
+	LXI	D,CONT	;MUST BE CONTROL MODE
+;
+PMODE:	CALL	PRINT
+;
+	LXI	D,MODE
+	CALL	PRINT
+;
+	CALL	GHEX
+;
+	JNZ	ASGKEY
+;
+	LDA	KYCHK	;NO CHARACTERS, 2 CR'S?
+	CPI	CRPOS	;IS IT CR KEY POSITION?
+	JZ	START	;RESTART IF 2 CR'S
+;
+	JMP	CK0	;NEXT KEY
+ASGKEY:	LHLD	KYADDR
+	MOV	M,A	;PUT NEW CHARACTER IN MEMORY
+	JMP	CK0
+;
+PHEX:	PUSH	PSW	;SAVE CHARACTER
+	RRC
+	RRC
+	RRC
+	RRC
+	CALL	HEX	;PRINT TOP NIBBLE
+;
+	POP	PSW	;PRINT LOWER NIBBLE
+;
+HEX:	ANI	0FH	;4 BITS
+	CPI	10	;LETTER OR NUMBER?
+	JC	NUMBER
+;
+	ADI	'A'-10	;MAKE HEX LETTER
+	MOV	E,A
+	JMP	CONOUT
+;
+NUMBER:	ADI	'0'	;MAKE ASCII NUMBER
+	MOV	E,A
+	JMP	CONOUT
+;
+GHEX:	MVI	A,0
+	STA	NUMCHR
+;
+GH0:	CALL	CONIN
+	CPI	0DH
+	JNZ	GH1
+;
+	LDA	NUMCHR
+	CPI	0
+	RZ
+;
+	CPI	2
+	JNZ	GH0
+;
+	MVI	A,0FFH
+	ANA	A
+	LDA	HEXIN
+	RET
+;
+GH1:	CPI	08H
+	JNZ	GH4	;JUMP NOT BACKSPACE
+;
+	LDA	NUMCHR
+	CPI	0
+	JZ	GH0
+;
+	DCR	A
+	STA	NUMCHR
+	LDA	HEXIN
+	RRC
+	RRC
+	RRC
+	RRC
+	ANI	0FH
+	STA	HEXIN
+	MVI	E,08H
+	CALL	CONOUT
+	JMP	GH0
+;
+GH4:	MOV	B,A
+	LDA	NUMCHR
+	CPI	2
+	JZ	GH0
+;
+	MOV	A,B
+	CPI	'0'
+	JC	GH0
+	CPI	'9'+1
+	JC	GOTNUM
+;
+	CPI	'A'
+	JC	GH0
+;
+	CPI	'F'+1
+	JC	GOTLET
+;
+	CPI	'a'
+	JC	GH0
+;
+	CPI	'f'+1
+	JNC	GH0
+;
+GOTLET:	PUSH	PSW
+	MOV	E,A
+	CALL	CONOUT
+	POP	PSW
+	ANI	0FH
+	ADI	9
+	JMP	MAKNUM
+;
+GOTNUM:	PUSH	PSW
+	MOV	E,A
+	CALL	CONOUT
+	POP	PSW
+;
+MAKNUM:	ANI	0FH
+	MOV	B,A
+	LDA	HEXIN
+	ADD	A
+	ADD	A
+	ADD	A
+	ADD	A
+	ADD	B
+	STA	HEXIN
+;
+	LXI	H,NUMCHR
+	INR	M
+	JMP	GH0
+;
+;
+;
+SAVDSK:	LXI	H,IOMEM
+	MVI	A,3
+	STA	SECTOR
+SAV2:	LXI	D,BUFFER
+;
+SAV1:	MOV	A,M
+	STAX	D
+	INX	H
+	INX	D
+	MOV	A,L
+	ANA	A
+	JNZ	SAV1	;256 TIMES
+;
+	MVI	A,0
+	STA	DISKNO
+;
+	INR	A
+	STA	TRACK
+;
+	MVI	A,VICWR
+	CALL	IO6510
+	LDA	DATA
+	ANA	A
+	JNZ	WRERR
+;
+	LDA	SECTOR
+	INR	A
+	STA	SECTOR
+	CPI	5
+	JNZ	SAV2	;WRITE SECTORS 3 AND 4
+;
+	JMP	START
+;
+WRERR:	LXI	D,WERMSG
+	CALL	PRINT
+	CALL	CONIN
+	JMP	START
+;
+;
+;	MESSAGES
+;
+IOMSG:	DB	CLS,LF,'COMMODORE 64 I/O CONFIGURATION UTILITY',CR,LF,LF
+	DB	'THE CURRENT I/O ASSIGNMENTS ARE:',CR,LF,LF
+	DB	'  NUMBER OF DRIVES:  $'
+;
+PRTMSG:	DB	CR,LF
+	DB	'  PRINTER TYPE:  $'
+;
+P1515:	DB	'1515',CR,LF,'$'
+P4022:	DB	'4022',CR,LF,'$'
+;
+CAPMSG:	DB	'  INITIAL CAPS MODE:  $'
+;
+ONMSG:	DB	'ON',CR,LF,'$'
+OFFMSG:	DB	'OFF',CR,LF,'$'
+;
+MENU:	DB	LF,LF
+	DB	'DO YOU WISH TO:',CR,LF,LF
+	DB	'  1.  CHANGE NUMBER OF DISK DRIVES',CR,LF
+	DB	'  2.  CHANGE PRINTER TYPE',CR,LF
+	DB	'  3.  CHANGE INITIAL CAPS MODE',CR,LF
+	DB	'  4.  CHANGE FUNCTION KEY ASSIGNMENTS',CR,LF
+	DB	'  5.  CHANGE KEY CODES',CR,LF
+	DB	'  6.  SAVE CURRENT I/O SETUP ON DISK',CR,LF
+	DB	'  7.  RETURN TO CP/M',CR,LF,LF
+	DB	'PLEASE ENTER SELECTION (1-7) $'
+;
+WERMSG:	DB	CR,LF,LF,'DISK WRITE ERROR',CR,LF
+	DB	'PRESS ANY KEY TO CONTINUE $'
+KYINST:	DB	CLS,LF
+	DB	'PRESS KEY TO EXAMINE KEY CODE',CR,LF,LF
+	DB	'TO CHANGE KEY CODE, ENTER DATA IN',CR,LF
+	DB	'   HEXADECIMAL AFTER "CHANGE TO"',CR,LF,LF
+	DB	'TO EXIT KEY CODE MODE, TYPE "RETURN"',CR,LF
+	DB	'   TWICE AFTER "PRESS KEY"',CR,LF,LF
+	DB	'TO KEEP CURRENT KEY CODE, TYPE',CR,LF
+	DB	'   "RETURN" AFTER "CHANGE TO"',CR,LF,LF
+	DB	'$'
+;
+PRSMSG:	DB	CR,LF,'PRESS KEY $'
+;
+ISMSG:	DB	CR,'IS $'
+;
+INMSG:	DB	' IN $'
+CAPS:	DB	'CAPS   $'
+SHIFT:	DB	'SHIFT  $'
+CONT:	DB	'CONTROL$'
+UNSH:	DB	'UNSHIFT$'
+MODE:	DB	' MODE - CHANGE TO $'
+;
+FNKMSG:	DB	CLS,LF,'THE FUNCTION KEY ASSIGNMENTS ARE:',CR,LF,LF
+	DB	'$'
+FM1	DB	'  F$'
+;
+FM2	DB	':  "$'
+;
+CRM	DB	'&lt;CR&gt;$'
+CRLFM	DB	CR,LF,'$'
+;
+FNINST	DB	LF,'ENTER FUNCTION KEY NUMBER (1-8)',CR,LF
+	DB	'  TO CHANGE PRESET VALUES.',CR,LF,LF
+	DB	'ENTER 9 TO LEAVE FUNCTION',CR,LF
+	DB	'  KEY UTILITY.  $'
+;
+FM3	DB	CR,LF,LF,'TYPE IN TEXT, USING "RETURN"',CR,LF
+	DB	'  OR "CTRL-Z" AS TERMINATOR.',CR,LF,LF,'$'
+;
+KYADDR	DS	2	;KEYBOARD LOOKUP ADDRESS
+KYMODE	DS	1	;KEYBOARD MODE
+KYCHK	DS	1
+HEXIN	DS	1
+NUMCHR	DS	1
+	DS	32
+STACK	EQU	$
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

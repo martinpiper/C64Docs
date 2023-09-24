@@ -1,0 +1,124 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page148.html"> 
+     <link rel=next href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page150.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page148.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page150.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p>    This command should be used before and BASIC command that has an
+    address parameter. The address parameters are limited to the range
+    (0-65535, $0000-$FFFF hex). The BANK command tells the computer
+    which 64K byte memory bank the location you want is in.
+    
+<p>    The memory__bank parameter is number from 0-255. Refer to the System
+    memory map to see what is in each bank. A BANK number greater t1fan
+    127 (i.e., has its most significant bit set) means "use the current
+    system configuration", and must be used to access an 1/0 location.
+    BASIC defaults to BANK 128.
+    
+<p>    For examples, see PEEK, POKE, etc.
+    
+<h4>    BEGIN/BEND - Extend an IF clause over more than one line</h4>
+    
+<p>    BEGIN/BEND are used to define a block of code which is considered
+    by the IF statement to be one statement.
+    
+<p>    The normal usage of IF/THEN/ELSE would be along the following lines:
+<pre>
+    IF boolean THEN statement(s) : ELSE statement(s)
+</pre>
+<p>    The main restriction is that the entire body of the IF/THEN/ELSE
+    construct can only occupy one line. BEGIN/BEND allows either the
+    'THEN' or the 'ELSE' clause to run on for more than one line.
+<pre>
+    IF boolean THEN BEGIN ;
+    
+    statements ....
+    statements ...
+    statements ... BEND : ELSE BEGIN
+    statements ...
+    statements ... BEND
+</pre>
+<p>    Remember, however, that this is only a way to extend the body for
+    more than one line: all other 'IF/THEN' rules apply. For example:
+<pre>
+    100 IF x=1 THEN BEGIN : a=5
+    110 b=6
+    120 c=7
+    130 BEND : print "ah-ha!"
+</pre>
+<p>    In the above example, "ah-ha!" would be printed ONLY if the expression
+    expression 'x=1' is TRUE, because the print statement is on the same
+    logical line as the THEN clause.
+    
+<p>    It is bad practice to GOTO a line in the middle of a BEGIN-BEND block.
+    If BEGIN or BEND is encountered outside of an active IF,statement, it
+    is ignored.
+    
+<h4>    BLOAD - loads a binary disk file into memory</h4>
+    
+<pre>
+           BLOAD "filename" [,Bbank] [,Paddress] [&lt;ON|,&gt;Udevice]
+</pre>
+
+<p>    Used to load a machine language program or other binary data (such
+    as display pictures or sprite data) into memory. If a load address is
+    not given, the load address given in the disk file will be used. If a
+    bank number is not given, the bank given in the last BANK statement
+    will be used. If a load overflows a bank (that is, the load address
+    exceeds 65535 ($FFFF), an 'OUT OF MEMORY' error is reported.
+    Also see the LOAD command.
+<pre>
+    BLOAD "sprites", P(dec("600")), BO
+</pre>
+
+<h4>BOOT - Load and execute a program</h4>
+
+<p>
+<hr>
+  <a href="page148.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page150.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

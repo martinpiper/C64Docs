@@ -1,0 +1,129 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code</title>
+    <meta name="author" content="Sami Rautiainen">
+    <meta name="description" content="The source code of the Commodore 1571 disk drive's firmware. Also known as Commdore DOS v3.0.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#000080" alink="#0000C0">
+
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table align="right"><tr><td align="right"><img src="../../images/Commodore_1571.gif" alt="" border="0"><br><img src="../../images/Firmware.gif" alt="" border="0"></td></tr></table>
+<h2>Commodore 1571 firmware source code</h2>
+
+<p> The entire source code can be downloaded from the
+    <a href="https://www.devili.iki.fi/pub/Commodore/sources/1571.zip">local file library</a>
+    or from the
+    <a href="http://www.nic.funet.fi/pub/cbm/src/drives/1571.zip">Funet archive</a>.
+
+<ul>
+<li><code><a href="addfil.html">addfil.src</a></code>       Add file to a directory
+<li><code><a href="addrel.html">addrel.src</a></code>       Add blocks to a relative file
+<li><code><a href="block.html">block.src</a></code>         Block and user commands
+<li><code><a href="burst.html">burst.src</a></code>         Burst routines
+<li><code><a href="close.html">close.src</a></code>         Close routine
+<li><code><a href="com.html">com.src</a></code>             Copyright
+<li><code><a href="copall.html">copall.src</a></code>       Copy all
+<li><code><a href="copset.html">copset.src</a></code>       Diskcopy setup
+<li><code><a href="dskintsf.html">dskintsf.src</a></code>   Drive initialization
+<li><code><a href="duplct.html">duplct.src</a></code>       Duplicate a disk
+<li><code><a href="duplct1.html">duplct1.src</a></code>     Duplicate a disk - additional routines
+<li><code><a href="erproc.html">erproc.src</a></code>       Error processing
+<li><code><a href="fastld.html">fastld.src</a></code>       Fast load
+<li><code><a href="fastutl.html">fastutl.src</a></code>     Burst commands
+<li><code><a href="fndrel.html">fndrel.src</a></code>       Find relative file
+<li><code><a href="gcr7.html">gcr7.src</a></code>           GCR decoding tables
+<li><code><a href="gcr8.html">gcr8.src</a></code>           GCR decoding tables
+<li><code><a href="gcr9.html">gcr9.src</a></code>           GCR decoding tables
+<li><code><a href="gcrtable.html">gcrtable.src</a></code>   GCR decoding tables
+<li><code><a href="getact.html">getact.src</a></code>       Get active buffer
+<li><code><a href="idlesf.html">idlesf.src</a></code>       Idle loop
+<li><code><a href="irq.html">irq.src</a></code>             Master IRQ
+<li><code><a href="irq1541.html">irq1541.src</a></code>     1541 mode IRQ
+<li><code><a href="irq1571.html">irq1571.src</a></code>     1571 mode IRQ
+<li><code><a href="jobssf.html">jobssf.src</a></code>       Job control
+<li><code><a href="lccbingc.html">lccbingc.src</a></code>   Fast binary to GCR
+<li><code><a href="lcccntrl.html">lcccntrl.src</a></code>   Main controller loop
+<li><code><a href="lccconhd.html">lccconhd.src</a></code>   Header conversion
+<li><code><a href="lccend.html">lccend.src</a></code>       Motor and stepper control
+<li><code><a href="lccfmt1.html">lccfmt1.src</a></code>     Format routine
+<li><code><a href="lccfmt2.html">lccfmt2.src</a></code>     Format routine
+<li><code><a href="lccfmt2a.html">lccfmt2a.src</a></code>   Format routine
+<li><code><a href="lccfmt3.html">lccfmt3.src</a></code>     Formverify routine
+<li><code><a href="lccfmt3a.html">lccfmt3a.src</a></code>   Formverify routine
+<li><code><a href="lccfmt4.html">lccfmt4.src</a></code>     Format routine
+<li><code><a href="lccfmt4a.html">lccfmt4a.src</a></code>   Format routine
+<li><code><a href="lccgcrbi.html">lccgcrbi.src</a></code>   Fast GCR to binary conversion
+<li><code><a href="lccgcrbn.html">lccgcrbn.src</a></code>   Even faster GCR to binary conversion
+<li><code><a href="lccinit.html">lccinit.src</a></code>     Controller initialization
+<li><code><a href="lccio.html">lccio.src</a></code>         Defs for Low Cost Controller
+<li><code><a href="lccread.html">lccread.src</a></code>     Read in a track
+<li><code><a href="lccread1.html">lccread1.src</a></code>   Read in a track
+<li><code><a href="lccseek.html">lccseek.src</a></code>     Seek
+<li><code><a href="lccseek1.html">lccseek1.src</a></code>   Seek
+<li><code><a href="lccutil.html">lccutil.src</a></code>     Utility routines
+<li><code><a href="lccutil1.html">lccutil1.src</a></code>   Utility routines
+<li><code><a href="lccwrt.html">lccwrt.src</a></code>       Write job
+<li><code><a href="lccwrt1.html">lccwrt1.src</a></code>     Write job
+<li><code><a href="leds.html">leds.src</a></code>           LED control
+<li><code><a href="lookup.html">lookup.src</a></code>       Lookup files on the stream
+<li><code><a href="lstdir.html">lstdir.src</a></code>       Load directory
+<li><code><a href="map.html">map.src</a></code>             Build a new map on diskette
+<li><code><a href="master.html">master.src</a></code>       Link everything
+<li><code><a href="memrw.html">memrw.src</a></code>         Memory access commands
+<li><code><a href="mfmcntrl.html">mfmcntrl.src</a></code>   MFM control
+<li><code><a href="mfmsubr.html">mfmsubr.src</a></code>     MFM subroutines
+<li><code><a href="mfmsubr1.html">mfmsubr1.src</a></code>   MFM subroutines
+<li><code><a href="mfmsubr2.html">mfmsubr2.src</a></code>   MFM subroutines
+<li><code><a href="mfmsubr3.html">mfmsubr3.src</a></code>   MFM subroutines
+<li><code><a href="new.html">new.src</a></code>             Initialize a disk
+<li><code><a href="newss.html">newss.src</a></code>         Generates a new ss
+<li><code><a href="newvec.html">newvec.src</a></code>       Vector table
+<li><code><a href="notes.html">notes.src</a></code>         Revision history
+<li><code><a href="nulbuf.html">nulbuf.src</a></code>       Set null records
+<li><code><a href="open.html">open.src</a></code>           Open channel
+<li><code><a href="opnchnl.html">opnchnl.src</a></code>     Open read channel
+<li><code><a href="parsex.html">parsex.src</a></code>       Parse & execute
+<li><code><a href="patchn.html">patchn.src</a></code>       Patches
+<li><code><a href="record.html">record.src</a></code>       Relative file record
+<li><code><a href="rel1.html">rel1.src</a></code>           Relative file
+<li><code><a href="rel2.html">rel2.src</a></code>           Relative file
+<li><code><a href="rel3.html">rel3.src</a></code>           Relative file
+<li><code><a href="rel4.html">rel4.src</a></code>           Relative file
+<li><code><a href="romsf.html">romsf.src</a></code>         ROM start
+<li><code><a href="romtblsf.html">romtblsf.src</a></code>   ROM tables
+<li><code><a href="signatur.html">signatur.src</a></code>   ROM test and signature check
+<li><code><a href="system.html">system.src</a></code>
+<li><code><a href="wd1770.html">wd1770.src</a></code>       Few macros
+</ul>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 13, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

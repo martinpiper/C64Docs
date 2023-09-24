@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_061.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_063.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="new">NEW</a></h3>
+
+ <big><b class=blue>TYPE: Command<br>
+ FORMAT: NEW
+
+   </b></big><p><b class=blue>Action:</b> The NEW command is used to delete the program currently in
+ memory and clear all variables. Before typing in a new program, NEW
+ should be used in direct mode to clear memory. NEW can also be used in
+ a program, but you should be aware of the fact that it will erase
+ everything that has gone before and is still in the computer's memory.
+ This can be particularly troublesome when you're trying to debug your
+ program.
+
+<p><table border=1 cellspacing=0 class=blue align=center><tr><td>
+   <b class=blue>BE CAREFUL:</b> Not clearing out an old program before typing a new one
+   can result in a confusing mix of the two programs.
+</td></tr></table>
+
+<p><b class=blue>EXAMPLES of NEW Command:</b>
+<pre>
+   NEW             (Clears the program and all variables)
+   10 NEW          (Performs a NEW operation and STOPs the program.)
+</pre>
+
+<h3><a name="next">NEXT</a></h3>
+
+ <big><b class=blue>TYPE: Statement<br>
+ FORMAT: NEXT[&lt;counter&gt;][,&lt;counter&gt;]...
+
+   </b></big><p><b class=blue>Action:</b> The NEXT statement is used with <a href="page_047.html#for">FOR</a> to establish the end of a
+ FOR...NEXT loop. The NEXT need not be physically the last statement
+ in the loop, but it is always the last statement executed in a loop. The
+ &lt;counter&gt; is the loop index's variable name used with <a href="page_047.html#for">FOR</a> to start the
+ loop. A single NEXT can stop several nested loops when it is followed by
+ each <a href="page_047.html#for">FOR's</a> &lt;counter&gt; variable name(s). To do this each name must appear
+ in the order of inner-most nested loop first, to outer-most nested loop
+ last. When using a single NEXT to increment and stop several variable
+ names, each variable name must be separated by commas. Loops can be
+ nested to 9 levels. If the counter variable(s) are omitted, the counter
+ associated with the <a href="page_047.html#for">FOR</a> of the current level (of the nested loops) is
+ incremented.
+
+<hr>
+<a href="page_061.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_063.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

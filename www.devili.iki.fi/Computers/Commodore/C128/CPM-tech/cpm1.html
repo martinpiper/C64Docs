@@ -1,0 +1,595 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+
+
+<head>
+    <title>An Introduction to C-128 CP/M</title>
+    
+    
+    <link rel=contents href="index.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="Commodore CP/M, CP/M Plus, CP/M+, DRI, C128, Commodore 128">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table border=1 cellspacing=0 align="center" width="50%">
+    <tr><td nowrap>
+        <a href="http://www.herne.com/cpm/cpm1.zip">CPM1.TXT</a> rev 1a 96-11-01
+    </td></tr><tr><td>
+        THIS DOCUMENT IS COPYRIGHT (C) 1988, 1996 BY HERNE DATA
+        SYSTEMS LTD.  THE MATERIAL CONTAINED HEREIN MAY BE FREELY
+        USED FOR PERSONAL INFORMATION ONLY.  IF YOU REPRODUCE IT,
+        THIS COPYRIGHT NOTICE MUST NOT BE REMOVED.  THIS MATERIAL
+        MAY NOT BE EXPLOITED FOR COMMERCIAL PURPOSES.
+    </td></tr><tr><td nowrap>
+        Herne Data Systems Ltd.,<br>
+        PO Box 250, Tiverton, ON N0G 2T0 CANADA.<br>
+        Voice/fax 519-366-2732,<br>
+        e-mail <a href="mailto:herne@herne.com">herne@herne.com</a><br>
+        internet: <a href="http://www.herne.com">http://www.herne.com</a>
+    </td></tr>
+</table>
+
+<h1>An Introduction to C-128 CP/M</h1>
+
+<h2><a name="What_is_CPM">What is CP/M?</a></h2>
+
+<p> CP/M stands for 'Control Program/Monitor'.  It is not a
+programming language, the way BASIC or Fortran is, but a micro
+computer operating system, much like the KERNAL used in C-128
+native mode and other 6502 based Commodore computers.  CP/M was
+developed in the 1970's by Digital Research Inc.  (DRI) for Intel
+8080 micro processor based computers that allows a given program
+to run on a wide variety hardware configurations with little or
+no changes.  It was later extended to run on Zilog Z80 based
+computers as well as others.  (The Z80 used in the C-128 is
+'upwardly compatible' with the 8080.  That is, its machine
+language instruction set includes everything that the 8080 has
+and more.)  With CP/M, a software developer has a uniform set of
+basic operating system functions to work with (such as screen
+output, keyboard input and disk access routines).  To the end
+user, these system functions remained fixed, no matter what
+computer the program is actually running on, thus providing a
+very high degree of portability.  (You need only develop one
+version of a program which operates under the CP/M system instead
+of having a different version for brand x, y, and z computers.) 
+For those who may be interested, there is also a 16-bit version
+of CP/M designed to run on 8086/88 type computers called CP/M-86,
+a multi user version called MP/M and a 16/32 bit version for the
+MC68000 chip series called CP/M-68k.
+
+<p> CP/M is divided up into four main components:  the BIOS (Basic
+Input Output System); the BDOS (Basic Disk Operating System), the
+CCP (Console Command Processor) and the TPA (Transient Program
+Area).  Each of these parts will be discussed in later chapters. 
+Of the four parts, only the BIOS is hardware dependent.  It acts
+as the messenger between the other parts of the system and the
+actual hardware.  That is, a separate custom BIOS must be created
+for each system that runs CP/M.
+
+
+<h2><a name="CPM_on_the_C-128">CP/M on the C-128</a></h2>
+
+<p> The version of CP/M used on the C-128 is termed 'CP/M Plus' or
+'CP/M version 3'.  This is the latest 8-bit CP/M version, and is
+also used on other recent CP/M based computers such as the Epson
+QX-10, and TRS-80 Model 4.
+
+<p> The minimum configuration for running CP/M on the C-128 is the C-
+128, one disk drive, and a 40 or 80 column monitor.  For speed
+and ease of use, a fast disk drive (i.e. the 1571 or 1581) is
+recommended along with the 80 column monitor.  For disk intensive
+programs (many CP/M programs are), a 1700 or 1750 RAM expansion
+unit is highly recommended as it can be used as a super fast RAM
+disk.  A printer (device 4 or 5) along with a modem will round
+out your system.  (Use of the modem requires CP/M release dated
+DEC 85 or later.)
+
+<p> To start up CP/M on the C-128 or 128 D, put the CP/M BOOT disk in
+disk drive device 8 and turn on the drive and then the computer
+(in that order).  If the computer and drive are already on,
+insert the boot disk, then press the reset button on the C-128 or
+type in BOOT followed by pressing the &lt;return&gt; key.  After a few
+moments and some sign-on status message screens, you will see a
+prompt on the screen in the form of the letter A followed by a
+'greater than' sign and a flashing cursor.  (A&gt;_)
+
+<p> Congratulations!  You have just started up CP/M successfully and
+are ready to enter your first CP/M command.  Just for fun, type
+in the letters D I R then press the key marked &lt;return&gt; at the
+right side of the main keyboard.  A 'directory' or 'catalog' of
+the contents of the boot disk should be displayed on the screen.
+
+<h2><a name="The_Status_Line">The Status Line</a></h2>
+
+<p> The bottom line of the screen display (i.e. the 25th line) on
+either the 40 column or 80 column screen is used by CP/M as a
+status line to display various system messages.  These are outlined
+below.
+
+
+<h3>Disk Status</h3>
+
+<p>C-128 CP/M has an optional disk status window displayed at the
+bottom right corner of the screen.  The format of the status window
+is as follows:
+
+<table>
+<caption>                                   O Dtt ss</caption
+<tr><td>where:      </td><td>O     </td><td>=Operation, either R or W indicating a Read or Write</td></tr>
+<tr><td>&nbsp;      </td><td>D     </td><td>=the logical drive (A,B,C,D, etc)                   </td></tr>
+<tr><td>&nbsp;      </td><td>tt    </td><td>=the track number currently being read or written   </td></tr>
+<tr><td>&nbsp;      </td><td>ss    </td><td>=the sector number currently being read or written  </td></tr>
+</table>
+
+<p> Normally,  the track and sector numbers are separated by a space.
+If the disk is formatted in MFM,  and the track and sector are
+separated by a '-', then the second side of the disk is currently
+being accessed.
+
+<p> You  can toggle this status window on or off by typing  the
+&lt;CONTOL&gt;-&lt;RUN/STOP&gt;  key key combination.  Note that window is also
+erased temporarily, i.e. until the next disk access, when you (or
+your application program) perform a screen clear.  
+
+<p> The disk status window is not used for RAM disk operations (i.e.
+1700/1750 RAM expansion unit).  You may also note that, due to a
+bug in the fast bus GCR sector translation routine, the sector
+numbers displayed during reading and writing of both single and
+double sided C-128 native GCR type CP/M disks are incorrect when
+using a 1571 drive.  Correct numbers are, however, displayed when
+using a 1541 drive to access these disks.
+
+
+<h3>MFM Disk Type Selection</h3>
+
+<p> C-128 CP/M supports a number of industry standard MFM disk types
+(such as KayPro, Osborne, IBM, Epson, etc.) when used with a 1571
+disk drive.  However, CP/M sometimes cannot automatically
+distinguish between two very similar disk types such as KayPro II
+and KayPro IV.  For example, although the KayPro II is a single
+sided disk and the KayPro IV is a double sided one, CP/M can
+confuse the two because both have ten sectors of 512 bytes per
+track, numbered 0 to 9 on side 0.  CP/M looks at the physical
+format of side 0 to determine the foreign disk type.  When two or
+more matches are found in its internal parameter table, you are
+asked to manually chose which one you want.
+
+<p> When CP/M cannot uniquely identify the foreign disk format being
+accessed, the program will pause momentarily and the disk type
+window will open up at the center of the bottom line of the screen
+to display the name of the first match, such as KayPro II, in
+reverse video.  At this point there are several things that you can
+do.  
+
+<p> First, if you are sure that the disk is of the type displayed,
+simply press &lt;return&gt; or &lt;enter&gt;.  This will select the currently
+displayed entry.  If you change disks, you will have to go through
+the selection process over again.
+
+<p> Second, if you are going to be using this disk format repeatedly
+and do not wish to re-select each time you change disks, you can
+'lock in' the selected type by pressing &lt;control&gt;-&lt;return&gt;.  This
+action has the effect of performing a burst mode 'forced login' on
+the drive each time you change disks.  If you insert a new type of
+disk while locked in, you will go back to the selection window.  
+
+<table><tr valign=top><td>
+Note:       </td><td>The forced login commands are different for the 1571 and
+            1581 drives and therefore, &lt;control&gt;-&lt;return&gt; should not
+            be used with a 1581 drive.  If you do use it on a 1581
+            and change disks, the results may be unpredicatble, even
+            resulting in system crash.
+</td></tr></table>
+
+<p>The third option is used to display and select the alternate disk
+choices.  Use the cursor left and cursor right keys in the cursor
+control keypad (above the main keyboard) to scroll through the list
+of choices.  In the example used above, the display should change
+between KayPro II and KayPro IV.  When the correct entry is
+highlighted, you can use either of the two methods outlined above
+for making the selection.  Note that because you are in a suspended
+program loop, nothing else can be done until you make a selection.
+
+
+<h3>PAUSE</h3>
+
+<p> The  key  labelled NO SCROLL executes a PAUSE function.  Although
+this key appears to have the same effect as typing &lt;control&gt;-s
+(stop) and &lt;control&gt;-q (start) for pausing to read screen dumps, it
+is not actually related in terms of the internal workings of the
+operating system.  Using NO SCROLL sends the program into an
+endless loop while displaying the message 'PAUSE' on the status
+line.   Because of this, NO SCROLL cannot be used to pause a
+display before pressing &lt;control&gt;-p to toggle the printer, or
+&lt;control&gt;-c to abort execution of a program.
+
+<p> To resume execution after a PAUSE function, press NO SCROLL again
+(for AUG or DEC release only) or RETURN (for MAY release only).   
+
+
+<h2><a name="Disk_Drives">Disk Drives</a></h2>
+
+<p> C-128 CP/M supports a variety of different disk drives (virtually
+any serial bus drive is either supported directly or can be easily
+adapted).  However, since CP/M tends to be a disk intensive
+operating system (i.e. it makes heavy use of temporary disk files,
+overlay files, working files, etc.), a fast bus drive (i.e. a 1571
+or 1581) is highly recommended for maximum disk access speed.
+
+<p> CP/M in general can support up to 16 disk drives, usually labelled
+A: to P:.  On the C-128 implementation, normally only a maximum of
+6 drives are actually supported.  In the default system
+configuration, these are:
+
+<table>
+<tr><th>DRIVE             </th><th>DEVICE   </th></tr>
+
+<tr><td>A:          </td><td>serial port device 8, drive 0                                  </td></tr>
+<tr><td>B:          </td><td>serial port device 9, drive 0                                  </td></tr>
+<tr><td>C:          </td><td>serial port device 10, drive 0                                 </td></tr>
+<tr><td>D:          </td><td>serial port device 11, drive 0                                 </td></tr>
+<tr><td>E:          </td><td>serial port device 8, drive 0  (see '<a href="cpm1.html#Virtual_Disk_Drive">Virtual Disk Drive</a>' below)</td></tr>
+<tr><td>M:          </td><td>17xx RAM expansion unit  (see '<a href="cpm1.html#RAM_Disk">RAM Disk</a>' below)                </td></tr>
+</table>
+
+
+<h3><a name="Virtual_Disk_Drive">Virtual Disk Drive</a></h3>
+
+<p> The  physical disk drive A can be used as logical drive A or as the
+'virtual' or 'phantom' logical  disk drive E.  Whenever  you 
+access drive E (for example by doing DIR E:, or PIP E:=A:FILE1), 
+the system will display a prompt on the status line asking you to
+insert the diskette for drive E (respond by putting whatever
+diskette you want into physical drive A,  then type &lt;return&gt;).
+The next time you access logical drive A,  the  system will prompt
+you to insert the A diskette in drive A.  Again, insert the desired
+diskette and type &lt;return&gt;.  Note that CP/M does not actually check
+to see if you in fact changed the disk.  It will accept whatever is
+in the drive when you press &lt;return&gt; as being the correct disk.
+
+
+<h3><a name="RAM_Disk">RAM Disk</a></h3>
+
+<p> When the 1700 (128k byte) or 1750 (512k byte) RAM expansion unit
+(REU) is connected to the C-128 in CP/M mode, it becomes an ultra
+fast RAM disk, normally assigned to CP/M drive M:.  That is, any
+CP/M command or transient utility can access the REU as drive M:,
+just like it can any other 'disk drive' connected to the system. 
+Note that this is totally separate from the virtual disk drive
+discussed above. 
+
+<p> Unlike a physical disk drive, the contents of the RAM disk are not
+preserved when the C-128 is turned off.  However, the contents are
+preserved when the reset button is pressed momentarily to re-boot
+the system, even if you enter C-128 native mode or C-64 mode before
+returning to CP/M mode (providing, of course, you do not alter the
+contents either accidentally or intentionally by running some other
+program while in one of these other operating modes).
+
+<p> Note that in order to use the RAM disk, you must have the C-128
+CP/M release dated 6 DEC 85 or later.
+
+
+<h2><a name="The_Screen">The Screen</a></h2>
+
+<p> C-128 CP/M supports both the 40 column and 80 column display
+screens.  The screen which is initially active is determined by the
+position of the 40/80 switch on boot up.  After booting, the screen
+can be selected using the DEVICE utility (see Chapter 3) or
+equivalent.  The screen can be changed during the execution of a
+user program by setting the CONOUT redirection flag in the system
+control block (see Chapter 9).
+
+<p> The 40 column screen is configured as a window on a larger 80
+column 'virtual' screen.  This allows commands and programs to
+think that they are dealing with an 80 column wide screen (the
+default width for most CP/M programs). Use &lt;control&gt;-&lt;left arrow&gt;
+and &lt;control&gt;-&lt;right arrow&gt; to scroll the window across the virtual
+screen (see Arrow Keys, below).
+
+
+<h2><a name="Printer_Support">Printer Support</a></h2>
+      
+<p> C-128 CP/M can support two printers, serial port devices 4 and 5.
+In its default configuration, device 4 (CP/M physical device
+PRT1) is assigned to the logical LIST device with a secondary
+address of 7 and ASCII to PET-ASCII translation enabled.  To
+change to a device 5 printer, use the DEVICE utility (see Chapter
+3).  To disable ASCII to PET-ASCII translation, use the CONF
+utility.
+ 
+
+<h2><a name="The_Keyboard">The Keyboard</a></h2>
+
+<p> The operation of the C-128 keyboard is slightly different in CP/M
+mode than it is in native mode.  For one thing, it uses the
+standard 7 bit ASCII character set rather than the PET-ASCII set
+used in native mode.  In addition, each key is completely
+programmable as to its character codes or other special 
+functions.   Other differences in keyboard operation are outlined
+below.
+
+
+<h3>Alpha Keys</h3>
+
+<p> The alpha keys on the main keyboard (e.g. A, B, C, D, etc.)
+generate the standard lower case,  upper case, CAPS LOCK and
+control values.  The CAPS LOCK value defaults to the upper case
+value and is used as a software shift lock.  It is not related to
+either the SHIFT LOCK key or the CAPS LOCK key.  To turn the CAPS
+LOCK mode on, press the Commodore logo C= key at the lower left
+of the main keyboard.  Pressing the same key again, will turn off
+CAPS LOCK mode.
+
+
+<h3>Numeric Keys</h3>
+
+<p> The numeric keys (the row of keys above the alpha keys) produce
+the appropriate number as the unshifted value and the CAPS LOCK
+value,  the symbol above the number on the key as the shifted
+value and the color on the side of the key (the top one of the 
+two colors shown) as the control value.   These colors are
+defined as 80 column foreground colors.   The control value
+produced by the numbers on  the numeric keypad are defined the
+same as those on the numeric keys,  except that they generate 80
+column background colors.
+
+  
+<h3>Arrow Keys</h3>
+
+<p> The arrow keys are located in the cursor keypad above the top
+right portion of the main keyboard.  The functions and character
+codes assigned to these keys in CP/M mode are different to those
+assigned to the cursor control keys at the lower right of the
+main keyboard.  The default values for the arrow  keys are those
+use used by most application programs which feature full screen
+cursor movement, such as text editors, etc.  
+
+<p> The up arrow key generates the value 05 (&lt;control&gt;-e) as the
+unshifted, shifted and  CAPS LOCK  values;   it generates the
+hexadecimal  12  (&lt;control&gt;-r) as the control value.
+
+<p> The down arrow key generates the hexadecimal value 18 (&lt;control&gt;-
+x) as the unshifted,  shifted and CAPS LOCK values; it generates
+the value 03 (&lt;control&gt;-c) as the control value.
+
+<p> The left arrow key generates the hexadecimal value 14 (&lt;control&gt;-
+s) as the unshifted,  shifted and CAPS LOCK values;  it executes
+the 40 column screen left function as the control value.
+
+<p> The right arrow  key generates the value 04 (&lt;control&gt;-d) as the
+unshifted,  shifted and CAPS LOCK values;  it executes the 40
+column screen right functions as the control value.
+
+
+<h3>Additional ASCII Characters</h3>
+
+<p> The  key labelled as a British pound sign generates the character
+'#' as  the unshifted, shifted and CAPS LOCK values.   The
+reverse apostrophe character ` is generated as the control value.
+  
+<p> The  up arrow key next to the &lt;RESTORE&gt; key generates the caret
+character '^' as the shifted and control values.   The pipe
+character '|' is generated as the  unshifted and CAPS LOCK
+values.  
+
+<p> The  '='  key  generates  the character '='  as  the  unshifted,
+shifted and CAPS LOCK values.  The tilde character '~' is
+generated as the control value.
+
+<p> The  '/'  key  generates  the character '/'  as  the  unshifted,
+shifted and CAPS LOCK values.  The back slash character '\' is
+generated as the control value.
+
+<p> The  key labelled 'INST DEL' generates the hexadecimal value 7f
+(ASCII rubout) as the unshifted, shifted and CAPS LOCK values;
+the hexadecimal value 16 (&lt;control&gt;-v) is generated as the
+control value.
+
+
+<h3>Special Key Functions</h3>
+
+<p> The  key  labelled NO SCROLL executes a PAUSE function.  To
+resume execution, press NO SCROLL again (for AUG or DEC version
+only) or RETURN (for MAY version only).   The control value of 
+the  NO  SCROLL key toggles between two modes (on/off) of
+automatically tracking the CP/M screen on a 40 column monitor.
+
+<p> The  right and left arrows at the top of the keyboard initiate
+the special functions screen right  and  screen  left 
+respectively  (40  column  screen tracking) as their control
+values.
+
+<p> The key labelled &lt;ENTER&gt; generates a Carriage Return as the
+unshifted, shifted and CAPS LOCK values.   The control value
+initiates the special function boot, which reboots the system as
+if the reset button has been pressed.  If a CP/M boot disk is in
+drive A:, the CP/M system will be re-started, otherwise normal C-
+128 native mode will be started.
+
+<p> The key labelled &lt;RUN/STOP&gt; is undefined as its unshifted,
+shifted and CAPS LOCK values,  and  toggles the
+display/nondisplay of the disk status window as its control
+value.
+
+<p> The  key  labelled  CRSR with up and down arrows (bottom right on
+main keyboard) generates  the hex value 17 (&lt;control&gt;-w) which
+causes the latest CP/M command line to be re-typed on the screen. 
+The key next to this (CRSR with right and left arrows) allows you
+to move right (&lt;control&gt;-f) and left (&lt;control&gt;-a) (unshifted and
+shifted, respectively) through a command line to edit it. 
+
+<p> The key labelled F1/F2 generates the two character string 'F1' in
+the unshifted and CAPS LOCK modes and the string 'F2' in the
+shifted and control modes.
+
+<p> The key labelled F3/F4 generates the four character string 'dir
+&lt;return&gt;' in the unshifted and CAPS LOCK modes and the string
+'dir' in the shifted and control modes.
+
+<p> The key labelled F5/F6 generates the two character string 'F5' in
+the unshifted and CAPS LOCK modes and the string 'F6' in the
+shifted and control modes.
+
+<p> The key labelled F7/F8 generates the two character string 'F7' in
+the unshifted and CAPS LOCK modes and a string representing the
+date that the system files were assembled in the shifted and
+control modes (i.e. the date which is displayed in the sing-on
+message).
+
+<p> The key labelled HELP generates the string 'Help' in all modes.
+
+
+      
+
+
+
+<h2><a name="The_Command_Line">The Command Line</a></h2>
+  
+<p> CP/M commands and transient programs are accessed from the system
+prompt by typing in a sequence of characters called a command
+line.   A CP/M command line is composed of a command,  an
+optional command tail, and a carriage return.  The command is the
+name or filename of a program to be executed.  The optional
+command tail can consist of a drive specification, one or more
+file specifications, and some options or parameters.
+
+<pre>
+        A&gt;COMMAND {command tail} &lt;cr&gt;
+</pre>
+
+               
+<h3>Command Conventions</h3>
+
+<p>The following special symbols define the syntax of a normal
+command line.
+
+<table>
+<tr><td>      {}          </td><td>surrounds an optional item.                           </td></tr>
+<tr><td>      |           </td><td>separates alternative items in a command line.        </td></tr>
+<tr><td>      &lt;cr&gt;  </td><td>indicates a carriage return.                    </td></tr>
+<tr><td>      ^           </td><td>indicates the Control Key.                            </td></tr>
+<tr><td>      n           </td><td>substitute a number for n.                            </td></tr>
+<tr><td>      s           </td><td>substitute a string (group) of characters for s.      </td></tr>
+<tr><td>      o           </td><td>substitute an option or option list for o.            </td></tr>
+<tr><td>      []          </td><td>type square brackets to enclose an option list.       </td></tr>
+<tr><td>      ()          </td><td>type parentheses to enclose a range of options        </td></tr>
+<tr><td>                  </td><td>within an option list.                                </td></tr>
+<tr><td>      RW          </td><td>Read-Write attribute - opposite of RO                 </td></tr>
+<tr><td>      RO          </td><td>Read-Only attribute - opposite of RW                  </td></tr>
+<tr><td>      SYS         </td><td>System attribute - opposite of DIR                    </td></tr>
+<tr><td>      DIR         </td><td>Directory attribute - opposite of SYS                 </td></tr>
+<tr><td>       ...        </td><td>preceding element can be repeated as many times as desired.                                              </td></tr>
+<tr><td>      *           </td><td>wildcard: replaces all or part of a filename and/or filetype.                                      </td></tr>
+<tr><td>      ?           </td><td>wildcard: replaces any single character in the same position of a filename and/or filetype.          </td></tr>
+</table>
+
+<h3>Command Line Editing</h3>
+
+<p>The resident CP/M command interpretter (CCP) allows a certain
+degree of editing of the CP/M command line before pressing the
+&lt;return&gt; key.  The editing keys are outlined below along with
+their usage.  It should be noted that these editing keys are
+totally independent from the control codes used by the terminal
+emulation for the video display.
+
+<table>
+<tr><th>  Control Character           </th><th>Function </th></tr>
+<tr valign=top><td>  CTRL-A </td><td>moves cursor one character to the left. </td></tr>
+<tr valign=top><td>  CTRL-B </td><td>moves cursor from beginning to end of command line and back without affecting command. </td></tr>
+<tr valign=top><td>  CTRL-C </td><td>stops executing program  when  entered  at the system prompt or after CTRL-S. </td></tr>
+<tr valign=top><td>  CTRL-E </td><td>forces a physical carriage return without sending command. </td></tr>
+<tr valign=top><td>  CTRL-F </td><td>moves cursor one character to the right. </td></tr>
+<tr valign=top><td>  CTRL-G </td><td>deletes character at current cursor position if in  the middle of a line. </td></tr>
+<tr valign=top><td>  CTRL-H </td><td>delete character to the left of cursor. </td></tr>
+<tr valign=top><td>  CTRL-I </td><td>same as the TAB key. </td></tr>
+<tr valign=top><td>  CTRL-J </td><td>moves cursor to the left of the command line and sends command to  CP/M.  Line  feed,  has same effect as carriage return. </td></tr>
+<tr valign=top><td>  CTRL-K </td><td>deletes character at cursor and all characters to the right. </td></tr>
+<tr valign=top><td>  CTRL-M </td><td>same as carriage return. </td></tr>
+<tr valign=top><td>  CTRL-P </td><td>echoes console output to the list device. </td></tr>
+<tr valign=top><td>  CTRL-Q </td><td>restarts screen scrolling after a CTRL-S. </td></tr>
+<tr valign=top><td>  CTRL-R </td><td>retypes the characters to the left of the cursor on a new line; updates the command line buffer. </td></tr>
+<tr valign=top><td>  CTRL-S </td><td>stops screen scrolling. </td></tr>
+<tr valign=top><td>  CTRL-U </td><td>updates the command line buffer to contain the characters to the left of the cursor; deletes current line. </td></tr>
+<tr valign=top><td>  CTRL-W </td><td>recalls previous command line if current line is empty; otherwise moves cursor to end of line.  CTRL-J,-M,-R,-U and RETURN update the command line  buffer  for  recall  with CTRL-W. </td></tr>
+<tr valign=top><td>  CTRL-X </td><td>deletes all characters to the left of the cursor. </td></tr>
+</table>
+
+<h3>Filespec</h3>
+
+<p>CP/M identifies every file by its unique file specification,
+which can consist of four parts: 
+<center>
+            the drive specification,<br>
+            the filename,<br>
+            the filetype and<br>
+            the password.   
+</center>
+<p>The term "filespec" indicates any valid combination of the four
+parts of a file specification, all separated by their appropriate
+delimiters.  A colon must follow a drive letter.  A period must
+precede a filetype.  A semicolon must precede a password.
+
+<p>The general symbols and rules for the parts of a file
+specification follow:
+<pre>
+  d:              drivespec   optional    single alpha character (A-P)
+  filename        filename                1-8 letters and/or numbers
+  typ             filetype    optional    0-3 letters and/or numbers
+  password        password    optional    0-8 letters and/or numbers
+</pre>
+<p>If you do not include a drive specifier, CP/M automatically uses
+the default drive. Valid combinations of the elements of a CP/M
+file specification are:
+<pre>
+                filename
+                d:filename
+                filename.typ
+                d:filename.typ
+                filename;password
+                d:filename;password
+                filename.typ;password
+                d:filename.typ;password
+</pre>
+
+<p>Some CP/M commands accept wildcard (* and ?) characters in the
+filename and/or filetype parts of the command tail.  A wildcard
+in the command line can in one command reference many  matching
+files  on  the  default  or specified user number and drive.  
+This is sometimes refferred to as an 'afn' or amibiguous
+filename.  If no wildcards are present, an 'ufn' or unambiguous
+filename results.
+
+<br>
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+
+</html>

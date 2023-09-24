@@ -1,0 +1,80 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Techtopics: C128 ROM RELEASE</title>
+    <meta name="description" content="Commodore 128 ROM upgrade release announcement">
+    <link rel=next href="page_02.html">
+    <link rel=stylesheet href="techtopics.css">
+    <link rev=made href="mailto:rtiainen@devili.iki.fi">
+<link rel=contents href="../index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+<body>
+<img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"> <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<h1><img src="../logo.gif" alt="COMMODORE TECHTOPICS" align="right"></h1><br clear="all">
+
+<h2>C128 ROM RELEASE</h2>
+
+<p>Modifications have been made to 318018-02 BASIC LOW, 218019-02 BASIC HIGH, 218020-03
+Editor, Code. The new ROM part numbers are as follows:
+
+<ul>
+    <li>16KB ROM Set (Socket number valid for original PCBs)
+    <ol>
+	<li>318018-04 BASIC LOW $4000-$7FFF, U33 CHKSUM=9A40
+	<li>318019-04 BASIC HIGH, Monitor $8000-$BFFF, U34 CKSUM =6F80
+	<li>318020-05 EDITOR, KERNEL, CP/M $C000-$FFFF, U35 CKSUM=EEC4
+	<li>315078-03 DIN ED, KERNEL, CP/M $C000-$FFFF, U35 CKSUM=E4C4
+    </ol>
+    <li><br>32KB ROM Set (#2 below contains C64 Code)
+    <ol>
+	<li>318022-02 BASIC, Monitor $4000-$BFFF, U34 CKSUM=09C0
+	<li>318023-02 EDITOR, KERNEL, CP/M $C000-$FFFF, U32 CKSUM=F324
+    </ol>
+</ul>
+
+<p>This ROM set replaces the current set entirely, they are not to be mixed. Each ROM contains
+a revision status byte (at $7FFE, $BFFE, $CFFE). Original ROMs contain $00 in these locations,
+the update ROMs contain $01.
+
+<p>The following changes have been implemented:
+
+<h3>PART NUMBER 318018-04 --BASIC LOW ($4000-$7FFF)</h3>
+<ol>
+    <li>LIST and DELETE commands.  Previosly they didi not report as errors certain non-numeric characters passed as arguments, such as 'LIST A'. This has been corrected totally in-line by adjusting an erroneus relative branch in the 'RANGE' subroutine.
+    <li>CIRCLE command.  Previosly an unspecified Y-radius defaulted to the X-radius (as it should), but the X-radius value had already been scaled for the X-axis and not the Y-axis. This has been corrected totally in-line by scaling the radii after the defaults have been established.
+    <li>RS-232 STatus.	Previosly accessing ST after RS-232 I/O resulted in an incorrect status being returned from, and a zero written to, location $10A14, possibly corrupting the BASIC variable area. This was a result of BASIC calling the Kernel routine 'READSS' with the incorrect RAM bank in context. This has been corrected totally in-line by substituting the correct BASIC subroutine call.
+    <li>CHAR command.  Previosly using CHAR with the 80-column text screen (GRAPHIC mode 5) resulted in RAM corruption at locations $D600 and $D601 of RAM bank 0 (the BASIC text bank) due to BASIC calling the Editor PLOT routine without the I/O block in context. This has been corrected utilizing two patch subroutines.
+    <li>RENUMBER command.  Previosly the pass 2 routine, which was to pre-scan BASIC text and report 'out of memory' errors prior to actually changing anything, was seriosly flawed. This has been corrected utilizing a patch subroutine.
+    <li>DELETE command.  Previosly did not limit-check itself when moving down BASIC text, therefore it was possible to crash when DELETEing lines at or near the top of memory (near the MMU configuration registers). This has been corrected utilizing a patch subroutine. Also, DELETE previosly exited to MAIN via 'JMP', effectively ending the avaluation of the current command string. This has been corrected by substituting an 'RTS', allowing direct commands like 'DELETE 10:PRINT"DELETED LINE 10", to work correctly.
+</ol>
+
+<hr>
+<img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"> <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

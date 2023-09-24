@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Programmable characters</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_108.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_110.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<ol type="1" start="2">
+    <li> Your character set takes memory space away from your BASIC 
+         program. Of course, with 38K available for a BASIC program, 
+         most applications won't have problems.
+</ol>
+
+<p><table border="1" cellspacing="0">
+<tr><td><b class="blue">WARNING:</b> You must be careful to protect 
+  the character set from being  overwritten by your BASIC program, 
+  which also uses the RAM.           
+</td></tr></table>
+
+<p>There are two locations in the Commodore 64 to start your character set
+ that should NOT be used with BASIC: location 0 and location 2048. The
+ first should not be used because the system stores important data on
+ page 0. The second can't be used because that is where your BASIC program
+ starts! However, there are 6 other starting positions for your custom
+ character set.
+
+<p>The best place to put your character set for use with BASIC while
+ experimenting is beginning at 12288 ($3000 in HEX). This is done by
+ <a href="../Chapter_2/page_069.html#poke">POKEing</a> the low 4 bits of location <a href="../Chapter_5/page_320.html#53272">53272</a> with 12. Try the <a href="../Chapter_2/page_069.html#poke">POKE</a> now,
+ like this:
+<pre>
+   POKE 53272,(PEEK(53272)AND240)+12
+</pre>
+<p> Immediately, all the letters on the screen turn to garbage, This is
+ because there are no characters set up at location 12288 right now...
+ only random bytes. Set the Commodore 64 back to normal by hitting the
+ &lt;RUN/STOP&gt; key and then the &lt;RESTORE&gt; key.
+
+<p> Now let's begin creating graphics characters. To protect your char-
+ acter set from BASIC, you should reduce the amount of memory BASIC
+ thinks it has. The amount of memory in your computer stays the same...
+ it's just that you've told BASIC not to use some of it. Type:
+<pre>
+   PRINT FRE(0)-(SGN(FRE(0))&lt;0)*65535
+</pre>
+   The number displayed is the amount of memory space left unused. Now
+ type the following:
+<pre>
+   POKE 52,48:POKE56,48:CLR
+</pre>
+ Now type:
+<pre>
+   PRINT FRE(0)-(SGN(FRE(0))&lt;0)*65535
+</pre>
+<hr>
+<a href="page_108.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_110.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 22, 2004.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

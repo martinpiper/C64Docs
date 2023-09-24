@@ -1,0 +1,109 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - User Port (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_360.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_362.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> The <strong>DATA DIRECTION REGISTER</strong> has its location at 56579
+    ($DD03 hex). Each of the eight lines in the PORT has a BIT in the
+    eight-bit DATA DIRECTION REGISTER (DDR) which controls whether that
+    line will be an input or an output. If a bit in the DDR is a ONE, the
+    corresponding line of the PORT will be an OUTPUT. If a bit in the DDR
+    is a ZERO, the corresponding line of the PORT will be an INPUT. For
+    example, if bit 3 of the DDR is set to 1, then line 3 of the PORT will
+    be an output. A further example:
+
+<p>If the DDR is set like this:
+<pre>
+			 BIT #: 7 6 5 4 3 2 1 0
+			 VALUE: 0 0 1 1 1 0 0 0
+</pre>
+<p> You can see that lines 5,4, and 3 will be outputs since those bits are
+    ones. The rest of the lines will be inputs, since those lines are zeros.
+
+<p> To PEEK or POKE the USER port, it is necessary to use both the DDR and
+    the PORT itself.
+
+<p> Remember that the PEEK and POKE statements want a number from 0-255.
+    The numbers given in the example must be translated into decimal before
+    they can be used. The value would be:
+
+<pre>
+		    2^5 + 2^4 + 2^3 = 32 + 16 + 8 = 56
+</pre>
+
+<p> Notice that the bit # for the DDR is the same number that = 2 raised to
+    a power to turn the bit value on.
+
+<pre>
+		     (16 = 2^4=2*2*2*2, 8 = 2^3=2*2*2)
+</pre>
+
+<p> The two other lines, FLAG1 and PA2 are different from the rest of the
+    USER PORT. These two lines are mainly for HANDSHAKING, and are programmed
+    differently from port B.
+
+<p> Handshaking is needed when two devices communicate. Since one device
+    may run at a different speed than another device it is necessary to
+    give the devices some way of knowing what the other device is doing.
+    Even when the devices are operating at the same speed, handshaking is
+    necessary to let the other know when data is to be sent, and if it has
+    been received. The <strong>FLAG1</strong> line has special
+    characteristics which make it well suited for handshaking.
+
+<p> FLAG1 is a negative edge sensitive input which can be used as a general
+    purpose interrupt input. Any negative transition on the FLAG line will
+    set the FLAG interrupt bit. If the FLAG interrupt is enabled, this will
+
+<hr>
+<a href="page_360.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_362.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 25, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page102.html"> 
+     <link rel=next href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page104.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page102.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page104.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>Limitations of the C4567R6 and How to Avoid Them</h4>
+
+<p>    Watch carefully, when particular mode changes take effect. You may
+    change PAL, H1280, V400, BPM, ATTR, and H640 modes anytime. However, the
+    new mode selection will not take effect until after the last line of the
+    current character row. This is intended to simplify split-screen programming.
+    But, if you are using the DAT to access bitmaps or bitplanes, you must wait
+    long enough after selecting a new H640 or V400 mode to guarantee that the
+    C4567R6 is in the mode you intended before doing.any DAT accesses. The DAT uses
+    these bits to determine how to draw the image.
+
+<p>    If you want to use all four 640x4OO bitplanes, you will be limited to
+    a maximum of 5 sprites having unique data. You can have more sprites, if they
+    are permitted to share data. This limitation is due to the fact that'sprite
+    pointers and data must be fetched from the 16K video matrix which must also be
+    shared with one of the bitplanes. The bitplane will use 16000 of the 16384
+    bytes. This leaves 384 bytes, which would support 6 sprite data blocks of
+    64 bytes, each. But the sprite pointers must come out of the highest
+    addressed block, thus leaving only 5 sprite data blocks available.
+    
+<p>    if you really need 8 unique sprites, you can use four 640x384 pixel
+    bitplanes. This is done by setting the row select bit to 24 row mode.
+    This will give you a total of 16 blocks of 64. This is more than enough, so
+    you can even have alternate sprite data blocks.
+    
+<p>    Note that Sprites and Sprite coordinates are unaffected by screen
+    resolution, meaning that in 640x4OO screens, for example, the sprites are
+    still the same size on the screen and are still positioned as if the display
+    map were 320x2OO. In an 80-column text, or 640-wide bitplane, screen a "dot"
+    on a sprite will cover 2 pixels.
+    
+<p>    Note also that, in bitplane.mode, sprites will only collide with
+    "background" data which has bits "on" in bitplane 2. All other bitplanes
+    will NOT cause a sprite-to-background-data collision.
+
+<p>
+<hr>
+  <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page102.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page104.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

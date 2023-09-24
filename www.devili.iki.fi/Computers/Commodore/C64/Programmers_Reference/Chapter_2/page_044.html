@@ -1,0 +1,93 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_043.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_045.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+ <b class=blue>EXAMPLES of FN Use:</b>
+<pre>
+   40 PRINT FN A(9)
+   50 R=FN AA(9)
+   60 G=G+FN A9(10)
+</pre>
+<p>   In line 50 above, the number 9 inside the parentheses does not affect
+ the outcome of the function, because the function definition in line 20
+ doesn't use the variable in the parentheses. The result is Y times Z,
+ regardless of the value of X. In the other two functions, the value in
+ parentheses does affect the result.
+
+
+<h3><a name="dim">DIM</a></h3>
+
+ <big><b class=blue>TYPE: Statement<br>
+ FORMAT: DIM &lt;variable&gt; ( &lt;subscripts&gt; )[, &lt;variable&gt; ( &lt;subscripts&gt; )...]
+
+
+   </b></big><p><b class=blue>Action:</b> This statement defines an array or matrix of variables. This
+ allows you to use the variable name with a subscript. The subscript
+ points to the element being used. The lowest element number in an array
+ is zero, and the highest is the number given in the DIM statement, which
+ has a maximum of 32767.
+<p>   The DIM statement must be executed once and only once for each array.
+ A <b><a href="../Appendices/page_400.html#redim'd_array">REDIM'D ARRAY</a></b> error occurs if this line is re-executed. Therefore,
+ most programs perform all DIM operations at the very beginning.
+<p>   There may be any number of dimensions and 255 subscripts in an array,
+ limited only by the amount of RAM memory which is available to hold the
+ variables. The array may be mode up of normal numeric variables, as shown
+ above, or of strings or integer numbers. If the variables are other than
+ normal numeric, use the $ or % signs after the variable name to indicate
+ string or integer variables,
+
+<hr>
+<a href="page_043.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_045.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

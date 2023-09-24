@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Programmable characters</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_109.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_111.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>See the change? BASIC now thinks it has less memory to work with. The
+ memory you just claimed from BASIC is where you are going to put your
+ character set, safe from actions of BASIC.
+
+<p> The next step is to put your characters into RAM. When you begin, there
+ is random data beginning at 12288 ($3000 HEX). You must put character
+ patterns in RAM (in the same style as the ones in ROM) for the VIC-II
+ chip to use.
+
+<p> The following program moves 64 characters from ROM to your character
+ set RAM:
+<pre>
+ 5 PRINTCHR$(142)               :REM SWITCH TO UPPER CASE
+ 10 POKE52,48:POKE 56,48:CLR    :REM RESERVE MEMORY FOR CHARACTERS
+ 20 POKE56334,PEEK(56334)AND254 :REM TURN OFF KEYSCAN INTERRUPT TIMER
+ 30 POKE1,PEEK(1)AND251         :REM SWITCH IN CHARACTER
+ 40 FORI=0TO511:POKEI+12288,PEEK(I+53248):NEXT
+ 50 POKE1,PEEK(1)OR4            :REM SWITCH IN I/O
+ 60 POKE56334,PEEK(56334)OR1    :REM RESTART KEYSCAN INTERRUPT TIMER
+ 70 END                                                             
+</pre>
+<p> Now <a href="../Chapter_2/page_069.html#poke">POKE</a> location <a href="../Chapter_5/page_320.html#53272">53272</a> with (<a href="../Chapter_2/page_069.html#peek">PEEK</a>(<a href="../Chapter_5/page_320.html#53272">53272</a>)<a href="../Chapter_2/page_035.html#and">AND</a>240)+12. Nothing happens,
+ right? Well, almost nothing. The Commodore 64 is now getting it's
+ character information from your RAM, instead of from ROM. But since we
+ copied the characters from ROM exactly, no difference can be seen... yet.
+  
+<p> You can easily change the characters now. Clear the screen and type
+ an @ sign. Move the cursor down a couple of lines, then type:
+<pre>
+ FOR I=12288 TO 12288+7:POKE I,255-PEEK(I):NEXT
+</pre>
+ You just created a reversed @ sign!
+
+<p><table border="1" cellspacing="0">
+<tr><td><b class="blue">TIP:</b> Reversed characters are just 
+ characters with their bit patterns  in character memory reversed.                                         
+ </td></tr></table>
+
+<p> Now move the cursor up to the program again and hit &lt;RETURN&gt; again to
+ re-reverse the character (bring it back to normal). By looking at the
+ table of screen display codes, you can figure out where in RAM each
+ character is. Just remember that each character takes eight memory
+ locations to store. Here's a few examples just to get you started:
+
+<hr>
+<a href="page_109.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_111.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 23, 2004.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

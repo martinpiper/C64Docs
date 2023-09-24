@@ -1,0 +1,52 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 Service Manual: RAM Control Logic</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="Page_07.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_09.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2>C64 CIRCUIT THEORY</h2>
+<a href="large/Page_08.gif"><img src="small/Page_08.gif" alt="[RAM control logic schematic]"></a>
+
+<h5>RAM Control Logic.</h5>
+
+U13 and U25 are multiplexers. The address output from the microprocessor are passed to RAM via
+U13 and U25 when the output Address Enable Control (AEC) from the VIC IC is "high". When AEC
+is "low" the VIC IC outputs refresh addresses on pins 24 - 31. AEC goes "low" when the system
+clock, phase 2, is "low". Since all I/O decoding occurs when phase 2 is "high", refresh is transparent
+to the processor.
+
+<p> Eight 4164 DRAMS provide 64k bytes of memory. One 2114 RAM (U6) provides 512 bytes of memory
+allocated for screen color data storage.
+
+<hr>
+<a href="Page_07.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_09.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

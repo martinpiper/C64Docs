@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Screen Editor (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_095.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_097.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table align=center>
+<caption><a name="2-2">Table 2-2. Cursor Control Characters in QUOTE MODE</a></caption>
+<tr><th>                 Control Key                      </th><th>Appearance</th></tr>
+<tr><td>             <kbd>&lt;CRSR UP&gt;</kbd>    </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;CRSR DOWN&gt;</kbd>  </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;CRSR LEFT&gt;</kbd>  </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;CRSR RIGHT&gt;</kbd> </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;CLR&gt;</kbd>        </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;HOME&gt;</kbd>       </td><td>   </td></tr>
+<tr><td>             <kbd>&lt;INST&gt;</kbd>       </td><td>   </td></tr>
+</table>
+<p>   When you are NOT in quote mode, holding down the <kbd>&lt;SHIFT&gt;</kbd> key and then
+ pressing the INSerT <kbd>&lt;INST&gt;</kbd> key shifts data to the right of the cursor to
+ open up space between two characters for entering data between them. The
+ Editor then begins operating in INSERT MODE until all of the space opened
+ up is filled.
+<p>   The cursor controls and color controls again show as reversed characters in insert mode. The only difference occurs on the DELete and
+ INSerT <kbd>&lt;INST/DEL&gt;</kbd> key. The <kbd>&lt;DEL&gt;</kbd> instead of operating normally as in
+ the quote mode, now creates the reversed T. The <kbd>&lt;INST&gt;</kbd> key, which
+ created a reverse character in quote mode, inserts spaces normally.
+<p>   This means that a <a href="page_070.html#print">PRINT</a> statement can be created, containing DELetes,
+ which can't be done in quote mode. The insert mode is cancelled by
+ pressing the <kbd>&lt;RETURN&gt;</kbd>, <kbd>&lt;SHIFT&gt;</kbd> and <kbd>&lt;RETURN&gt;, or &lt;RUN/STOP&gt;</kbd> and <kbd>&lt;RESTORE&gt;</kbd>
+ keys. Or you can cancel the insert mode by filling all the inserted
+ spaces. An example of using DEL characters in strings is:</p>
+<pre>
+   10 PRINT"HELLO"&lt;DEL&gt;&lt;INST&gt;&lt;INST&gt;&lt;DEL&gt;&lt;DEL&gt;P"
+  (Keystroke sequence shown above, appearance when listed below)
+  10 PRINT"HELP"
+</pre>
+<p>   When the example is <a href="page_081.html#run">RUN</a>, the word displayed will be HELP, because the
+ letters LO are deleted before the P is printed. The DELete character in
+ strings will work with <a href="page_058.html#list">LIST</a> as well as <a href="page_081.html#run">RUN</a>. You can use this to "hide"
+ part or all of a line of text using this technique. However, trying to
+ edit a line with these characters will be difficult if not impossible.
+
+<hr>
+<a href="page_095.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_097.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

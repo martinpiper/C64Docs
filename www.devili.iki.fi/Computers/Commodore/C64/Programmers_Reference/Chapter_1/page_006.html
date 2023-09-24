@@ -1,0 +1,108 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Numbers and Variables (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_005.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_007.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>the numbers are rounded to nine digits when results are printed. Some
+ examples of simple floating-point numbers are:
+
+<p align=center>
+1.23<br>
+-.998877<br>
++3.1459<br>
+.7777777<br>
+-333.<br>
+.01<br>
+
+<p>Numbers smaller than .01 or larger than 999999999. will be printed in
+ scientific notation. In scientific notation a floating-point constant is
+ made up of three parts:
+
+<ol>
+<li>THE MANTISSA
+<li>THE LETTER E
+<li>THE EXPONENT
+</ol>
+
+<p>The mantissa is a simple floating-point number. The letter E is used to
+ tell you that you're seeing the number in exponential form. In other
+ words E represents * 10 (eg., 3E3 = 3*10^3 = 3000). And the exponent is
+ what multiplication power of 10 the number is raised to.
+<p>Both the mantissa and the exponent are signed (+ or -) numbers. The
+ exponent's range is from -39 to +38 and it indicates the number of places
+ that the actual decimal point in the mantissa would be moved to the left
+ (-) or right (+) if the value of the constant were represented as a
+ simple number.
+<p>There is a limit to the size of floating-point numbers that BASIC can
+ handle, even in scientific notation: the largest number is
+ +1.70141183E+38 and calculations which would result in a larger number
+ will display the BASIC error message <b><a href="../Appendices/page_400.html#overflow">?OVERFLOW ERROR</a></b>. The smallest
+ floating-point number is +2.93873588E-39 and calculations which result
+ in a smaller value give you zero as an answer and NO error message. Some
+ examples of floating-point numbers in scientific notation (and their
+ decimal values) are:
+
+<center><table cellspacing=0>
+<tr><td>     235.988E-3         </td><td>(.235988)          </td></tr>
+<tr><td>        2359E6          </td><td>(2359000000.)      </td></tr>
+<tr><td>        -7.09E-12       </td><td>(-.00000000000709) </td></tr>
+<tr><td>     -3.14159E+5        </td><td>(-314159.)         </td></tr>
+</table></center>
+
+   <p>String constants are groups of alphanumeric information like letters,
+ numbers and symbols. When you enter a string from the keyboard, it
+ can have any length up to the space available in an 80-character line
+
+<hr>
+<a href="page_005.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_007.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 13, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

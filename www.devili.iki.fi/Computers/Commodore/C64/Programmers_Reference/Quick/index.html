@@ -1,0 +1,179 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Quick Reference Card</title>
+      <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel=next href="../Schematic/index.html">
+    <link rel=prev href="../Chapter_6/last.html">
+</head>
+
+<body>
+<a href="../page_483.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Schematic/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center><h2>COMMODORE 64 QUICK REFERENCE CARD</h2></center>
+
+<h3>SIMPLE VARIABLES</h3>
+
+<table>
+<tr align=left valign=top><th>  Type     </th><th>Name     </th><th>Range                                             </th></tr>
+<tr align=left valign=top><td>  Real     </td><td>XY       </td><td>&plusmn;1.70141183E+38<br>&plusmn;2.93873588E-39  </td></tr>
+<tr align=left valign=top><td>  Integer  </td><td>XY%      </td><td>&plusmn;32767                                     </td></tr>
+<tr align=left valign=top><td>  String   </td><td>XY$      </td><td>0 to 255 characters                               </td></tr>
+</table>
+
+<p>X is a letter (A-Z), Y is a letter or number (0-9). Variable names
+  can be more than 2 characters, but only the first two are recognized.
+
+<h3>ARRAY VARIABLES</h3>
+
+<table>
+<tr align=left valign=top><th>  Type                  </th><th>Name      </th></tr>
+<tr align=left valign=top><td>  Single Dimension      </td><td>XY(5)     </td></tr>
+<tr align=left valign=top><td>  Two-Dimension         </td><td>XY(5,5)   </td></tr>
+<tr align=left valign=top><td>  Three-Dimension       </td><td>XY(5,5,5) </td></tr>
+</table>
+
+<p>Arrays of up to eleven elements (subscripts 0-10) can be used
+  where needed. Arrays with more than eleven elements need to be
+  DIMensioned.
+
+<h3>ALGEBRAIC OPERATORS</h3>
+
+<table>
+<tr align=left valign=top><td>  = </td><td>Assigns value to variable  </td></tr>
+<tr align=left valign=top><td>  - </td><td>Negation                   </td></tr>
+<tr align=left valign=top><td>  ^ </td><td>Exponentiation             </td></tr>
+<tr align=left valign=top><td>  * </td><td>Multiplication             </td></tr>
+<tr align=left valign=top><td>  / </td><td>Division                   </td></tr>
+<tr align=left valign=top><td>  + </td><td>Addition                   </td></tr>
+<tr align=left valign=top><td>  - </td><td>Substraction               </td></tr>
+</table>
+
+<h3>RELATIONAL AND LOGICAL OPERATIONS</h3>
+
+<table>
+<tr align=left valign=top><td> =  </td><td> Equal                     </td></tr>
+<tr align=left valign=top><td> &lt;&gt; </td><td> Not Equal To              </td></tr>
+<tr align=left valign=top><td> &lt;  </td><td> Less Than                 </td></tr>
+<tr align=left valign=top><td> &gt;  </td><td> Greater Than              </td></tr>
+<tr align=left valign=top><td> &lt;= </td><td> Less Than or Equal To     </td></tr>
+<tr align=left valign=top><td> &gt;= </td><td> Greater Than or Equal To  </td></tr>
+<tr align=left valign=top><td> NOT</td><td> Logical "Not"             </td></tr>
+<tr align=left valign=top><td> AND</td><td> Logical "And"             </td></tr>
+<tr align=left valign=top><td> OR </td><td> Logical "Or"              </td></tr>
+<tr align=left valign=top><td colspan=2> Expression equals 1 if true, 0 if false  </td></tr>
+</table>
+
+<h3>SYSTEM COMMANDS</h3>
+<table>
+<tr align=left valign=top><td>  LOAD"NAME"    </td><td>Loads a program from tape  </td></tr>
+<tr align=left valign=top><td>  SAVE"NAME"    </td><td>Saves a program on tape    </td></tr>
+<tr align=left valign=top><td>  LOAD"NAME",8  </td><td>Loads a program from disk  </td></tr>
+<tr align=left valign=top><td>  SAVE"NAME",8  </td><td>Saves a program to disk    </td></tr>
+<tr align=left valign=top><td>  VERIFY"NAME"  </td><td>Verifies that program was SAVEd without errors </td></tr>
+<tr align=left valign=top><td>  RUN           </td><td>Executes a program         </td></tr>
+<tr align=left valign=top><td>  RUN xxx       </td><td>Executes program starting at line xxx </td></tr>
+<tr align=left valign=top><td>  STOP          </td><td>Halts execution            </td></tr>
+<tr align=left valign=top><td>  END           </td><td>Ends execution             </td></tr>
+<tr align=left valign=top><td>  CONT          </td><td>Continues program execution from line where program was halted </td></tr>
+<tr align=left valign=top><td>  PEEK(X)       </td><td>Returns contents of memory location X          </td></tr>
+<tr align=left valign=top><td>  POKE X,Y      </td><td>Changes contents of location X to value Y      </td></tr>
+<tr align=left valign=top><td>  SYS xxxxx     </td><td>Jumps to execute a machine language program, starting at xxxxx </td></tr>
+<tr align=left valign=top><td>  WAIT X,Y,Z    </td><td>Program waits until contents of location X, when EORed with Z and ANDed with Y, is nonzero. </td></tr>
+<tr align=left valign=top><td>  USR(X)        </td><td>Passes value of X to a machine language subroutine.                                         </td></tr>
+</table>
+<h3>EDITING AND FORMATTING COMMANDS</h3>
+<table>
+<tr align=left valign=top><td>  LIST          </td><td> Lists entire program
+<tr align=left valign=top><td>  LIST A-B      </td><td> Lists from line A to line B
+<tr align=left valign=top><td>  REM Message   </td><td> Comment message can be listed but is ignored during program execution </td></tr>
+<tr align=left valign=top><td>  TAB(X)        </td><td> Used in PRINT statement. Spaces X positions on screen                 </td></tr>
+<tr align=left valign=top><td>  SPC(X)        </td><td> PRINTs X blanks on line                                               </td></tr>
+<tr align=left valign=top><td>  POS(X)        </td><td> Returns current cursor position                                       </td></tr>
+<tr align=left valign=top><td>  CLR/HOME      </td><td> Positions cursor to left corner of screen                             </td></tr>
+<tr align=left valign=top><td>  SHIFT+CLR/HOME</td><td> Clears screen and places cursor in "Home" position                    </td></tr>
+<tr align=left valign=top><td>  SHIFT+INST/DEL</td><td> Inserts space at current cursor position                              </td></tr>
+<tr align=left valign=top><td>  INST/DEL      </td><td> Deletes character at current cursor position                          </td></tr>
+<tr align=left valign=top><td>  CTRL          </td><td> When used with numeric color key, selects text color. May be used in PRINT statement. </td></tr>
+<tr align=left valign=top><td>  CRSR keys     </td><td> Moves cursor up, down, left, right on screen                                          </td></tr>
+<tr align=left valign=top><td>  Commodore Key </td><td> When used with SHIFT selects between upper/lower case and graphic display mode. When used with numeric color key, selects optional text color </td></tr>
+</table>
+<h3>ARRAYS AND STRINGS</h3>
+<table>
+<tr align=left valign=top><td>  DIM A(X,Y,Z)  </td><td>Sets maximum subscripts for A; reserves space for (X+1)*(Y+1)*(Z+1) elements starting at A(0,0,0) </td></tr>
+<tr align=left valign=top><td>  LEN(X$)       </td><td>Returns number of characters in X$                                                                </td></tr>
+<tr align=left valign=top><td>  STR$(X)       </td><td>Returns numeric value of X, converted to a string                                                 </td></tr>
+<tr align=left valign=top><td>  VAL(X$)       </td><td>Returns numeric value of X$, up to first non-numeric character                                    </td></tr>
+<tr align=left valign=top><td>  CHR$(X)       </td><td>Returns ASCII character whose code is X                                                           </td></tr>
+<tr align=left valign=top><td>  ASC(X$)       </td><td>Returns ASCII code for first character of X$                                                      </td></tr>
+<tr align=left valign=top><td>  LEFT$(A$,X)   </td><td>Returns leftmost X characters of A$                                                               </td></tr>
+<tr align=left valign=top><td>  RIGHT$(A$,X)  </td><td>Returns rightmost X characters of A$                                                              </td></tr>
+<tr align=left valign=top><td>  MID$(A$,X,Y)  </td><td>Returns Y characters of A$ starting at character X                                                </td></tr>
+</table>
+<h3>INPUT/OUTPUT COMMANDS</h3>
+<table>
+<tr align=left valign=top><td>  INPUT A$ or A </td><td>PRINTs "?" on screen and waits for user to enter a string or value                                </td></tr>
+<tr align=left valign=top><td>  INPUT "ABC";A </td><td>PRINTs message and waits for user to enter value. Can also INPUT A$                               </td></tr>
+<tr align=left valign=top><td>  GET A$ or A   </td><td>Waits for user to type one-character value; no RETURN needed                                      </td></tr>
+<tr align=left valign=top><td>  DATA A,"B",C  </td><td>Initializes a set of values that can be used by READ statement                                    </td></tr>
+<tr align=left valign=top><td>  READ A$ or A  </td><td>Assigns next DATA value to A$ or A                                                                </td></tr>
+<tr align=left valign=top><td>  RESTORE       </td><td>Resets data pointer to start READing the DATA list again                                          </td></tr>
+<tr align=left valign=top><td>  PRINT"A= ";A  </td><td>PRINTs string "A=" and value of A ";" suppresses spaces - "," tabs data to next field             </td></tr>
+</table>
+<h3>PROGRAM FLOW</h3>
+<table>
+<tr align=left valign=top><td>  GOTO X                </td><td>Branches to line X </td></tr>
+<tr align=left valign=top><td>  IF A=1 TO 10          </td><td>IF assertion is true THEN execute following part of statement. IF false, execute next line number </td></tr>
+<tr align=left valign=top><td>  FOR A=1 TO 10 STEP 2  </td><td>Executes all statements between FOR and  corresponding NEXT, with A going from 1 to 10 by 2. Step size is 1 unless specified </td></tr>
+<tr align=left valign=top><td>  NEXT A                </td><td>Defines end of loop. A is optional                                                                                           </td></tr>
+<tr align=left valign=top><td>  GOSUB 2000            </td><td>Branches to subtoutine starting at line 2000                                                                                 </td></tr>
+<tr align=left valign=top><td>  RETURN                </td><td>Marks end of subroutine. Returns to statement following most recent GOSUB                                                    </td></tr>
+<tr align=left valign=top><td>  ON X GOTO A,B         </td><td>Branches to Xth line number on list. If X=1 branches to A, etc.                                                              </td></tr>
+<tr align=left valign=top><td>  ON X GOSUB A,B        </td><td>Branches to subroutine at Xth line number in list                                                                            </td></tr>
+</table>
+<hr>
+<a href="../page_483.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Schematic/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 09, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

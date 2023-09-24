@@ -1,0 +1,136 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - MCS6510 Microprocessor Instruction Set</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_248.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_250.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="ROR">ROR</a></h3></td>
+    <td align="center" colspan="2">
+        <b>ROR</b><i>
+        Rotate one bit right (memory or accumulator)
+        </i></td>
+    <td align="right">
+        <h3>ROR</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code> Operation: &rarr; C &rarr; 7|6|5|4|3|2|1|0 &rarr; </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>/ / / _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 10.4)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Accumulator  </td><td> ROR A       </td><td> 6A </td><td> 1 </td><td> 2 </td></tr>
+<tr><td> Zero Page    </td><td> ROR Oper    </td><td> 66 </td><td> 2 </td><td> 5 </td></tr>
+<tr><td> Zero Page, X </td><td> ROR Oper, X </td><td> 76 </td><td> 2 </td><td> 6 </td></tr>
+<tr><td> Absolute     </td><td> ROR Oper    </td><td> 6E </td><td> 3 </td><td> 6 </td></tr>
+<tr><td> Absolute, X  </td><td> ROR Oper, X </td><td> 7E </td><td> 3 </td><td> 7 </td></tr>
+</table>
+    </td></tr>
+<tr><td colspan="4">
+    Note: ROR instruction is available on MCS650x microprocessors after June, 1976.
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="RTI">RTI</a></h3></td>
+    <td align="center" colspan="2">
+        <b>RTI</b><i>
+        Return from interrupt
+        </i></td>
+    <td align="right">
+        <h3>RTI</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation: P&uarr; PC&uarr; </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code> From stack</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 9.6)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Implied </td><td> RTI </td><td> 40 </td><td> 1 </td><td> 6 </td></tr>
+</table>
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="RTS">RTS</a></h3></td>
+    <td align="center" colspan="2">
+        <b>RTS</b><i>
+        Return from subroutine
+        </i></td>
+    <td align="right">
+        <h3>RTS</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation: PC&uarr;, PC + 1 &rarr; PC </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 8.2)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Implied </td><td> RTS </td><td> 60 </td><td> 1 </td><td> 6 </td></tr>
+</table>
+    </td></tr>
+</table>
+
+<hr>
+<a href="page_248.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_250.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 08, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

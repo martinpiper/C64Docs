@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_060.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_062.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="log">LOG</a></h3>
+
+ <big><b class=blue>TYPE: Floating-Point Function<br>
+ FORMAT: LOG(&lt;numeric&gt;)
+
+   </b></big><p><b class=blue>Action:</b> Returns the natural logarithm (log to the base of e) of the
+ argument. If the value of the argument is zero or negative the BASIC
+ error message <b><a href="../Appendices/page_400.html#illegal_quantity">?ILLEGAL QUANTITY</a></b> will occur.
+
+ </p><b class=blue>EXAMPLES of LOG Function:</b>
+<pre>
+   25 PRINT LOG(45/7)
+    1.86075234
+
+   10 NUM=LOG(ARG)/LOG(10)  (Calculates the LOG of ARG to the base 10)
+</pre>
+
+<h3><a name="mid$">MID$</a></h3>
+
+ <big><b class=blue>TYPE: String Function<br>
+ FORMAT: MID$(&lt;string&gt;,&lt;numeric-1&gt;[,&lt;numeric-2&gt;])
+
+   </b></big><p><b class=blue>Action:</b> The MID$ function returns a sub-string which is taken from
+ within a larger &lt;string&gt; argument. The starting position of the sub-string is defined by the &lt;numeric-1&gt; argument and the length of the
+ sub-string by the &lt;numeric-2&gt; argument. Both of the numeric arguments
+ can have values ranging from 0 to 255.
+<p>   If the &lt;numeric-1&gt; value is greater than the length of the &lt;string&gt;,
+ or if the &lt;numeric-2&gt; value is zero, then MID$ gives a null string value.
+ If the &lt;numeric-2&gt; argument is left out, then the computer will assume
+ that a length of the rest of the string is to be used. And if the source
+ string has fewer characters than &lt;numeric-2&gt;, from the starting position
+ to the end of the string argument, then the whole rest of the string is
+ used.
+
+ </p><b class=blue>EXAMPLE of MID$ Function:</b>
+<pre>
+   10 A$="GOOD"
+   20 B$="MORNING EVENING AFTERNOON"
+   30 PRINT A$ + MID$(B$,8,8)
+
+   GOOD EVENING
+</pre>
+<hr>
+<a href="page_060.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_062.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 22, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page99.html"> 
+     <link rel=next href="page103.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page99.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page103.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p>
+<table align="center" border="1" cellspacing="0">
+<caption><u>VIC-II MODE REGISTERS</u></caption>
+<tr><td colspan="8">&nbsp;</td><td>$D000+</td></tr>
+<tr><td>KEY7</td><td>KEY6</td><td>KEY5</td><td>KEY4</td><td>KEY3</td><td>KEY2</td><td>KEY1</td><td>KEY0</td><td nowrap>2F KEY</td></tr>
+<tr valign="top"><td>ROM @E000</td><td>CROM @9000</td><td>ROM @C000</td><td>ROM @A000</td><td>ROM @8000</td><td>PAL</td><td>EXT SYNC</td><td>CRAM @DC00</td><td nowrap>30 CONTROL A</td></tr>
+<tr><td>H640</td><td>FAST</td><td>ATTR</td><td>BPM</td><td>V400</td><td>H1280</td><td>MONO</td><td>INT</td><td nowrap>31 CONTROL B</td></tr>
+<tr><td>BP7EN</td><td>BP6EN</td><td>BP5EN</td><td>BP4EN</td><td>BP3EN</td><td>BP2EN</td><td>BP1EN</td><td>BP0EN</td><td nowrap>32 BP ENABS</td></tr
+<tr valign="top"><td>B0AD15 ODD</td><td>B0AD14 ODD</td><td>B0AD13 ODD</td><td>&nbsp;</td><td>B0AD15 EVEN</td><td>B0AD14 EVEN</td><td>B0AD13 EVEN</td><td>&nbsp;</td><td nowrap>33 BITPLANE 0 ADDRESS</td></tr>
+<tr valign="top"><td>B1AD15 ODD</td><td>B1AD14 ODD</td><td>B1AD13 ODD</td><td>&nbsp;</td><td>B1AD15 EVEN</td><td>B1AD14 EVEN</td><td>B1AD13 EVEN</td><td>&nbsp;</td><td nowrap>34 BITPLANE 1 ADDRESS</td></tr>
+<tr valign="top"><td>B2AD15 ODD</td><td>B2AD14 ODD</td><td>B2AD13 ODD</td><td>&nbsp;</td><td>B2AD15 EVEN</td><td>B2AD14 EVEN</td><td>B2AD13 EVEN</td><td>&nbsp;</td><td nowrap>35 BITPLANE 2 ADDRESS</td></tr>
+<tr valign="top"><td>B3AD15 ODD</td><td>B3AD14 ODD</td><td>B3AD13 ODD</td><td>&nbsp;</td><td>B3AD15 EVEN</td><td>B3AD14 EVEN</td><td>B3AD13 EVEN</td><td>&nbsp;</td><td nowrap>36 BITPLANE 3 ADDRESS</td></tr>
+<tr valign="top"><td>B4AD15 ODD</td><td>B4AD14 ODD</td><td>B4AD13 ODD</td><td>&nbsp;</td><td>B4AD15 EVEN</td><td>B4AD14 EVEN</td><td>B4AD13 EVEN</td><td>&nbsp;</td><td nowrap>37 BITPLANE 4 ADDRESS</td></tr>
+<tr valign="top"><td>B5AD15 ODD</td><td>B5AD14 ODD</td><td>B5AD13 ODD</td><td>&nbsp;</td><td>B5AD15 EVEN</td><td>B5AD14 EVEN</td><td>B5AD13 EVEN</td><td>&nbsp;</td><td nowrap>38 BITPLANE 5 ADDRESS</td></tr>
+<tr valign="top"><td>B6AD15 ODD</td><td>B6AD14 ODD</td><td>B6AD13 ODD</td><td>&nbsp;</td><td>B6AD15 EVEN</td><td>B6AD14 EVEN</td><td>B6AD13 EVEN</td><td>&nbsp;</td><td nowrap>39 BITPLANE 6 ADDRESS</td></tr>
+<tr valign="top"><td>B7AD15 ODD</td><td>B7AD14 ODD</td><td>B7AD13 ODD</td><td>&nbsp;</td><td>B7AD15 EVEN</td><td>B7AD14 EVEN</td><td>B7AD13 EVEN</td><td>&nbsp;</td><td nowrap>3A BITPLANE 7 ADDRESS</td></tr>
+<tr><td>BP7COMP</td><td>BP6COMP</td><td>BP5COMP</td><td>BP4COMP</td><td>BP3COMP</td><td>BP2COMP</td><td>BP1COMP</td><td>BP0COMP</td><td nowrap>3B BP COMPS</td></tr>
+<tr><td>BPY8</td><td>BPX6</td><td>BPX5</td><td>BPX4</td><td>BPX3</td><td>BPX2</td><td>BPX1</td><td>BPX0</td><td nowrap>3C BITPLANE X</td></tr>
+<tr><td>BPY7</td><td>BPY6</td><td>BPY5</td><td>BPY4</td><td>BPY3</td><td>BPY2</td><td>BPY1</td><td>BPY0</td><td nowrap>3D BITPLANE Y</td></tr>
+<tr><td>HPOS7</td><td>HPOS6</td><td>HPOS5</td><td>HPOS4</td><td>HPOS3</td><td>HPOS2</td><td>HPOS1</td><td>HPOS0</td><td nowrap>3E HORIZ POS</td></tr>
+<tr><td>VPOS7</td><td>VPOS6</td><td>VPOS5</td><td>VPOS4</td><td>VPOS3</td><td>VPOS2</td><td>VPOS1</td><td>VPOS0</td><td nowrap>3F VERT POS</td></tr>
+</table>
+<p>
+<hr>
+  <a href="page99.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page103.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

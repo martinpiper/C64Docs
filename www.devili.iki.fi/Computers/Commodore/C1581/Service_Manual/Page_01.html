@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: General Specifications</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXTCOLOR="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Contents.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_02.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<H2 ALIGN=CENTER>GENERAL SPECIFICATIONS</H2>
+
+<P><B>1. CHARACTERISTICS</B></P>
+
+<UL>
+<LI>3.5 inch, +800K storage
+
+<LI>Increased buffers, fixed BAM locations
+
+<LI>Expanded controller commands
+
+<LI>Track cache buffer
+
+<LI>Configurable auto boot file
+
+<LI>User alterable physical/logical track and sector translation
+
+<LI>Fully vectored jump table
+
+<LI>Partition capabilities
+
+<LI>Wild card enhancements
+
+<LI>Standard, fast and burst serial capabilities
+
+<LI>Expanded burst command set
+</UL>
+
+<A NAME="hw"></A>
+<B>2. HARDWARE SUMMARY</B><BR>
+
+<UL>
+<TABLE>
+<TR>
+<TD ALIGN=RIGHT>
+<I>
+PROCESSOR:<BR>
+ROM:<BR>
+RAM:<BR>
+I/O:<BR>
+</I>
+</TD>
+
+<TD>
+6502A, WD1770<BR>
+32K<BR>
+8K<BR>
+8520A<BR>
+</TD>
+</TR>
+</TABLE>
+
+</UL>
+
+<A NAME="spec"></A>
+<B>3. SPECIFICATIONS</B>
+
+<UL>
+
+<P><I>GROSS DATA ORGANIZATION:</I></P>
+<UL>
+<LI>3.5 Inch Disk
+<LI>Double-Sided
+<LI>80 Cylinders/160 Tracks
+</UL>
+
+<P><I>PER TRACK ORGANIZATION:</I></P>
+<UL>
+Hex 4E written as a gap, with 10 sectors of data, with full gaps written
+for motor speed variation.
+</UL>
+
+<P><I>PER SECTOR ORGANIZATION:</I></P>
+<UL>
+MFM Encoding<BR>
+12 Bytes of Hex 00<BR>
+3 Bytes of Hex A1 (Data Hex A1, Clock Hex 0A)<BR>
+1 Byte of Hex FE (ID Address Mark)<BR>
+1 Byte (Track Number)<BR>
+1 Byte (Side Number)<BR>
+1 Byte (Sector Number)<BR>
+1 Byte (Sector Length, 02 for 512 Byte Sectors)<BR>
+2 Bytes CRC (Cyclic Redundancy Check)<BR>
+22 Bytes of Hex 22<BR>
+12 Bytes of Hex 00<BR>
+3 Bytes of Hex A1 (Data Hex A1, Clock Hex 0A)<BR>
+1 Byte of Hex FB (Data Address Mark)<BR>
+512 Bytes of Data<BR>
+2 Bytes of CRC (Cyclic Redundancy Check)<BR>
+38 Bytes of Hex 4E<BR>
+</P>
+</UL>
+</UL>
+
+<HR>
+
+<A HREF="Contents.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_02.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+
+</BODY>
+</HTML>

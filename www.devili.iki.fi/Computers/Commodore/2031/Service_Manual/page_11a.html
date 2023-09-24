@@ -1,0 +1,107 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 2031 Service Manual: Circuit Theory - Microprocessor/VIA Logic, Varying Frequency Clock</title>
+     <link rel=prev href="page_10.html"> 
+     <link rel=next href="page_12a.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_10.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_12a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2 align=right>2031 HP CIRCUIT THEORY</h2>
+
+<h3>Microprocessor/VIA Logic</h3>
+
+<p> U3J is a VIA, Versatile Interface Adapter. During a write operation,
+    the microprocessor passes the data to be recorded to Port A of U3J. The
+    data is loaded into the shift register U3L. It is converted from
+    parallel to serial data and output to the write amplifier circuit.
+    During a read operation, serial data is received from the read
+    amplifier circuit.
+
+<p> The stepper motor is controlled by two outputs on port B of U3J, STP0,
+    and STP1. A binary four count is developed from these two lines by U1P,
+    see <a href="page_14b.html">Sheet 4</a>. The MTR output on pin 12
+    controls the spindle motor, refer to the motor control schematic on
+    page 18. The write protect switch, WPS, is monitored at pin 14 of U3J
+    and the red activity LED is controlled at pin 13.
+
+<h3>Varying Frequency Clock</h3>
+
+<p> The DS0 and DS1 outputs of U3J, pins 15 and 16, are input at pins 1 and
+    15 of U5M U5M is a programmable counter (&divide; 16, &divide; 15,
+    &divide; 14, &divide; 13) that outputs a varying frequency clock used
+    to compensate for the difference in recording area/sector for sectors
+    on inner tracks (Trks 1,2,3) as compared to sectors on out most tracks
+    (Trks 33,34,35). The area/sector for inner tracks is less than the
+    area/sector for outer tracks, so the recording clock frequency is
+    increased when writing on inner tracks to keep the flux density
+    constant. This clock output is on pin 12 of U5M and is used to clock
+    the data from the read amplifier circuits.
+
+<center><table>
+<tr><th>    Tracks  </th><th>Clock Frequency	 </th><th>Divide By</th></tr>
+<tr><td>    1-17    </td><td>1.2307 MHz 	 </td><td>13</td></tr>
+<tr><td>    18-24   </td><td>1.1428 MHz 	 </td><td>14</td></tr>
+<tr><td>    25-30   </td><td>1.0666 MHz 	 </td><td>15</td></tr>
+<tr><td>    31-35   </td><td>1 MHz		 </td><td>16</td></tr>
+</table></center>
+
+<h3>Read/Write Control Logic</h3>
+
+<p> During a write operation, U3L converts parallel data into serial data.
+    The output on pin 9 is input to 'NAND' gate U6M pin 5. U6M outputs the
+    serial data on pin 6 at the clock rate determined by the input signal
+    on pin 4. The output clocks the D flip flop U5N (see <a
+    href="page_14b.html">Sheet 4</a>). The outputs of U5N, Q and Q, drive
+    the write amplifiers.
+
+<p> During a read operation, data from the read amplifiers is applied to
+    the CLR input of counter U2N. The outputs, C and D, are shaped by the
+    'NOR' gate U2M. U2M. outputs the serial data on pin 1, then it is
+    converted to parallel data by U2K. The output of U2K is latched by U3K.
+    The serial bits are counted by U5L. When 8 bits have been counted, U6K
+    pin 6 goes "low", U5J pin 6 goes "high", and U6K pin 8 goes "low"
+    indicating byte is ready to be read by the processor. U2L monitors the
+    parallel output of U2K. When all 8 bits are "1", the output pin 9
+    goes "low" indicating a sync bit has been read.
+
+<p>
+<hr>
+  <a href="page_10.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_12a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

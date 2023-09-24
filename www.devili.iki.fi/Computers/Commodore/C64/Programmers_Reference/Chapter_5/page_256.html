@@ -1,0 +1,93 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - MCS6510 Microprocessor Instruction Set (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_255.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_5/page_257.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<pre>
+
+       00 - BRK                        20 - JSR
+       01 - ORA - (Indirect,X)         21 - AND - (Indirect,X)
+       02 - Future Expansion           22 - Future Expansion
+       03 - Future Expansion           23 - Future Expansion
+       04 - Future Expansion           24 - BIT - Zero Page
+       05 - ORA - Zero Page            25 - AND - Zero Page
+       06 - ASL - Zero Page            26 - ROL - Zero Page
+       07 - Future Expansion           27 - Future Expansion
+       08 - PHP                        28 - PLP
+       09 - ORA - Immediate            29 - AND - Immediate
+       0A - ASL - Accumulator          2A - ROL - Accumulator
+       0B - Future Expansion           2B - Future Expansion
+       0C - Future Expansion           2C - BIT - Absolute
+       0D - ORA - Absolute             2D - AND - Absolute
+       0E - ASL - Absolute             2E - ROL - Absolute
+       0F - Future Expansion           2F - Future Expansion
+       10 - BPL                        30 - BMI
+       11 - ORA - (Indirect),Y         31 - AND - (Indirect),Y
+       12 - Future Expansion           32 - Future Expansion
+       13 - Future Expansion           33 - Future Expansion
+       14 - Future Expansion           34 - Future Expansion
+       15 - ORA - Zero Page,X          35 - AND - Zero Page,X
+       16 - ASL - Zero Page,X          36 - ROL - Zero Page,X
+       17 - Future Expansion           37 - Future Expansion
+       18 - CLC                        38 - SEC
+       19 - ORA - Absolute,Y           39 - AND - Absolute,Y
+       1A - Future Expansion           3A - Future Expansion
+       1B - Future Expansion           3B - Future Expansion
+       1C - Future Expansion           3C - Future Expansion
+       1D - ORA - Absolute,X           3D - AND - Absolute,X
+       1E - ASL - Absolute,X           3E - ROL - Absolute,X
+       1F - Future Expansion           3F - Future Expansion
+
+</pre>
+<hr>
+<a href="page_255.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_5/page_257.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 06, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

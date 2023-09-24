@@ -1,0 +1,132 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - The Expansion Port</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_365.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_368.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Serial_clk">SERIAL CLK IN/OUT: (SERIAL CLOCK IN/OUT)</a></h3>
+
+<p>This signal is used for timing the data sent on the serial bus. (See <a href="page_364.html">Figure 6-4</a>).
+
+<h3><a name="Serial_data">SERIAL DATA IN/OUT:</a></h3>
+
+<p>Data on the serial bus is transmitted one bit at a time on this line. (See <a href="page_364.html">Figure 6-4</a>).
+
+<h2><a name="Expansion">THE EXPANSION PORT</a></h2>
+
+<p>The expansion connector is a 44-pin (22/22) female edge connector on
+ the back of the Commodore 64. With the Commodore 64 facing you, the
+ expansion connector is on the far right of the back of the computer. To
+ use the connector, a 44-pin (22/22) male edge connector is required.
+
+<p>This port is used for expansions of the Commodore 64 system which
+ require access to the address bus or the data bus of the computer.
+ Caution is necessary when using the expansion bus, because it's possible
+ to damage the Commodore 64 by a malfunction of your equipment.
+   The expansion bus is arranged as follows:</p>
+
+<center>
+    <img src="page_366.gif" alt="[Expansion port pinout]">
+</center>
+
+<p>The signals available on the connector are as follows:
+<center><table border=1 cellspacing=0>
+<tr><th>    NAME  </th><th>PIN                       </th><th>DESCRIPTION</th></tr>
+<tr><td>    GND    </td><td> 1   </td><td>System ground </td></tr>
+<tr><td>    +5VDC  </td><td> 2   </td><td rowspan=2>(Total USER PORT and CARTRIDGE devices can draw no more than 450 mA.) </td></tr>
+<tr><td>    +5VDC  </td><td> 3   </td></tr>
+<tr><td>    /IRQ   </td><td> 4   </td><td>Interrupt Request line to 6502 (active low)</td></tr>
+<tr><td>     R/W   </td><td> 5   </td><td>Read/Write (write active low)              </td></tr>
+<tr><td>  DOT CLOCK</td><td> 6   </td><td>8.18 MHz video dot clock                   </td></tr>
+<tr><td>    /I/O1  </td><td> 7   </td><td>I/O block 1 @ $ DE00-$DEFF (active low) unbuffered I/O</td></tr>
+<tr><td>    /GAME  </td><td> 8   </td><td>active low ls ttl input                               </td></tr>
+<tr><td>    /EXROM </td><td> 9   </td><td>active low ls ttl input                               </td></tr>
+<tr><td>    /I/O2  </td><td>10   </td><td>I/O block 2 @ $DF00-$DFFF (active low) buff'ed ls ttl output</td></tr>
+<tr><td>    /ROML  </td><td>11   </td><td>8K decoded RAM/ROM block @ $8000 (active low) buffered ls ttl output</td></tr>
+<tr><td>     BA    </td><td>12   </td><td>Bus available signal from the VIC-II chip unbuffered 1 Is load max.</td></tr>
+<tr><td>    /DMA   </td><td>13   </td><td>Direct memory access request line (active low input) ls ttl input</td></tr>
+<tr><td>     D7    </td><td>14   </td><td>Data bus bit 7 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D6    </td><td>15   </td><td>Data bus bit 6 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D5    </td><td>16   </td><td>Data bus bit 5 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D4    </td><td>17   </td><td>Data bus bit 4 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D3    </td><td>18   </td><td>Data bus bit 3 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D2    </td><td>19   </td><td>Data bus bit 2 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D1    </td><td>20   </td><td>Data bus bit 1 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     D0    </td><td>21   </td><td>Data bus bit 0 - unbuffered, 1 ls ttl load max </td></tr>
+<tr><td>     GND   </td><td>22   </td><td>System ground</td></tr>
+<tr><td>     GND   </td><td> A   </td><td>&nbsp;       </td></tr>
+<tr><td>    /ROMH  </td><td> B   </td><td>8K decoded RAM/ROM block @ $E000 buffered</td></tr>
+<tr><td>    /RESET </td><td> C   </td><td>6502 RESET pin(active low) buff'ed ttl out/unbuff'ed in</td></tr>
+<tr><td>    /NMI   </td><td> D   </td><td>6502 Non Maskable Interrupt (active low) buff'ed ttl out, unbuff'ed in</td></tr>
+<tr><td>     02    </td><td> E   </td><td>Phase 2 system clock</td></tr>
+<tr><td>     A15   </td><td> F   </td><td>Address bus bit 15 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A14   </td><td> H   </td><td>Address bus bit 14 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A13   </td><td> J   </td><td>Address bus bit 13 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A12   </td><td> K   </td><td>Address bus bit 12 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A11   </td><td> L   </td><td>Address bus bit 11 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A10   </td><td> M   </td><td>Address bus bit 10 - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A9    </td><td> N   </td><td>Address bus bit 9  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A8    </td><td> P   </td><td>Address bus bit 8  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A7    </td><td> R   </td><td>Address bus bit 7  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A6    </td><td> S   </td><td>Address bus bit 6  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A5    </td><td> T   </td><td>Address bus bit 5  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A4    </td><td> U   </td><td>Address bus bit 4  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A3    </td><td> V   </td><td>Address bus bit 3  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A2    </td><td> W   </td><td>Address bus bit 2  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A1    </td><td> X   </td><td>Address bus bit 1  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     A0    </td><td> Y   </td><td>Address bus bit 0  - unbuffered, 1 ls ttl load max</td></tr>
+<tr><td>     GND   </td><td> Z   </td><td>System ground</td></tr>
+</table></center>
+
+<hr>
+<a href="page_365.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_368.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page39.html"> 
+     <link rel=next href="page41.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page39.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page41.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h3><a name="2.3.5">2.3.5</a> <u>Peripheral Control Functions</u></h3>
+<h4><a name="2.3.5.1">2.3.5.1</a> <u>I/O Ports</u></h4>
+    
+<p>       Ports A, B and D each consist of an 8-bit Peripheral Data Register (PR)
+    and an 8-bit Data Direction Register (DDR). Port E consists of a 2-bit PR
+    and DDR registers. If a bit in the DDR is set to one, the corresponding
+    bit in the PR is an output, if a DDR bit is set to a zero, the corresponding
+    PR bit is defined as an input. On a READ, the PR bit reflects the information
+    present on the actual port pins (PRA0-PRA7,PRB0-PRB7,PRC2,PRD0-PRD7,
+    PRE0-PRE1) for both input and output bits. All ports have passive pull-up
+    devices as well as active pull-ups, providing both CMOS and TTL
+    compatibility. in addition to normal I/O operation, PRB6,PRB7,PRD6 and PRD7 also
+    provide timer output functions (refer to Control Register section, 2.5.8).
+    
+<p>       Only bit PC2 and DPC2 of PORT C meet the above description. The other
+    bits function as described in the following.</p>
+
+<table align=center>
+<tr valign=top><td>PC0,PC1 </td><td>These signals are simply a register bits. When read, they will
+         reflect the value previously written to the PRC register.</td></tr>
+<tr valign=top><td>    PC4 </Td><td>This bit is a "high" if it's configured as input (DPC4 is a
+        "low").
+        <p>If configured as output (DPC4 is a "high"), the bit will
+        reflect its previous written value when PORT C is read. Then
+        the PRC46 pin is pulled "low" if PC4 is "high"; otherwise,
+        PRC46 is pulled-up through passive resistor.</td></tr>
+<tr valign=top><td>    PC5 </td><td>This bit is a "high" if it's configured as input (DPC5 is a
+        "low").
+        <p>If configured as output (DPC3 is a "high"), the bit
+        reflect its previous written value when PORT C is read. Then
+        the PRC57 pin is pulled "low" if PCs is "high"; otherwise,
+        PRC57 is pulled-up through passive resistor.</td></tr>
+<tr valign=top><td>   PC6,PC7</td><td>These bits are always configured as inputs. When PORT C (PRC)
+         is read, PC6 and PC7 will reflect the values on the PRC46 and
+         PRC57 pins, respectively.</td></tr>
+</table><p>
+    
+<h4><a name="2.3.5.2">2.3.5.2</a> <u>Handshaking</u></h4>
+    
+<p> Handshaking on data transfers can be accomplished using the PC/ output
+    pin and either the FLAGA/ or FLAGB/ input pin. The PC/ line will go low
+    and stay low for two cycles, two cycles after a read or write to PORT D.
+    This is required to meet Centronics Parallel Interface specs. The PC/ line
+    can be used to indicate "data ready" at PORT D or "data accepted" from PORT
+    D. Handshaking on 16-bit data transfers (using either PORT A or B and then
+    PORT D) is possible by always reading or writing PORT A or PORT B first.
+    The FLAG/ lines are negative edge sensitive inputs which can be used for
+    receiving the PC/ output from other 4510 devices, or as general purpose
+    interrupt inputs. A negative transition on FLAGA/ or FLAGB/ will set the
+    FLAGA or FLAGB interrupt bits, respectively.
+
+<p>
+<hr>
+  <a href="page39.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page41.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_064.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_066.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="open">OPEN</a></h3>
+
+ <big><b class=blue>TYPE: I/O Statement<br>
+ FORMAT: OPEN &lt;file-num&gt;,[&lt;device&gt;][,&lt;address&gt;]
+          [,"&lt;File-name&gt; [,&lt;type&gt;] [,&lt;mode&gt;]"]
+
+   </b></big><p><b class=blue>Action:</b> This statement OPENs a channel for input and/or output to a
+ peripheral device. However, you may NOT need all those parts for every
+ OPEN statement. Some OPEN statements require only 2 codes:
+<ol>
+   <li>LOGICAL FILE NUMBER
+   <li>DEVICE NUMBER
+</ol>
+
+<p>   The &lt;file-num&gt; is the logical file number, which relates the OPEN,
+ <a href="page_039.html#close">CLOSE</a>, <a href="page_040.html#cmd">CMD</a>, <a href="page_050.html#get">GET#</a>, <a href="page_055.html#input">INPUT#</a>, and <a href="page_075.html#print">PRINT#</a> statements to each other and
+ associates them with the file-name and the piece of equipment being used.
+ The logical file number can range from 1 to 255 and you can assign it any
+ number you want in that range.</p>
+
+<table border=1 cellspacing=0 class=blue align=center><tr><td>
+  <b class=blue>NOTE:</b> File numbers over 128 were really designed for other uses so
+  it's good practice to use only numbers below 127 for file numbers.
+</td></tr></table>
+
+<p>   Each peripheral device (printer, disk drive, cassette) in the system
+ has its own number which it answers to. The &lt;device&gt; number is used with
+ OPEN to specify on which device the data file exists. Peripherals like
+ cassette decks, disk drives or printers also answer to several secondary
+ addresses. Think of these as codes which tell each device what operation
+ to perform. The device logical file number is used with every <a href="page_050.html#get">GET#</a>,
+ <a href="page_055.html#input">INPUT#</a>, and <a href="page_075.html#print">PRINT#</a>.
+<p>   If the &lt;device&gt; number is left out the computer will automatically
+ assume that you want your information to be sent to and received from
+ the Datassette<sup><small>TM</small></sup>, which is device number 1. The file-name can also be
+ left out, but later on in your program, you can NOT call the file by name
+ if you have not already given it one. When you are storing files on cassette tape, the computer will assume that the secondary &lt;address&gt; is
+ zero (0) if you omit the secondary address (a READ operation).
+
+<hr>
+<a href="page_064.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_066.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - RS-323 Interface Description (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_349.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_351.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<pre>
+                  +-+-+-+ +-+ +-+-+-+-+
+                  |7|6|5| |4| |3|2|1|0|
+                  +-+-+-+ +-+ +-+-+-+-+   BAUD RATE
+                   | | |   |  +-+-+-+-+----------------+
+     STOP BITS ----+ | |   |  |0|0|0|0| USER RATE  [NI]|
+                     | |   |  +-+-+-+-+----------------+
+  0 - 1 STOP BIT     | |   |  |0|0|0|1|       50 BAUD  |
+  1 - 2 STOP BITS    | |   |  +-+-+-+-+----------------+
+                     | |   |  |0|0|1|0|       75       |
+                     | |   |  +-+-+-+-+----------------+
+                     | |   |  |0|0|1|1|      110       |
+                     | |   |  +-+-+-+-+----------------+
+    WORD LENGTH -----+-+   |  |0|1|0|0|      134.5     |
+                           |  +-+-+-+-+----------------+
+ +---+-----------+         |  |0|1|0|1|      150       |
+ |BIT|           |         |  +-+-+-+-+----------------+
+ +-+-+    DATA   |         |  |0|1|1|0|      300       |
+ |6|5|WORD LENGTH|         |  +-+-+-+-+----------------+
+ +-+-+-----------+         |  |0|1|1|1|      600       |
+ |0|0|  8 BITS   |         |  +-+-+-+-+----------------+
+ +-+-+-----------+         |  |1|0|0|0|     1200       |
+ |0|1|  7 BITS   |         |  +-+-+-+-+----------------+
+ +-+-+-----------+         |  |1|0|0|1|    (1800)  2400|
+ |1|0|  6 BITS   |         |  +-+-+-+-+----------------+
+ +-+-+-----------+         |  |1|0|1|0|     2400       |
+ |1|1|  5 BITS   |         |  +-+-+-+-+----------------+
+ +-+-+-----------+         |  |1|0|1|1|     3600   [NI]|
+                           |  +-+-+-+-+----------------+
+                           |  |1|1|0|0|     4800   [NI]|
+       UNUSED -------------+  +-+-+-+-+----------------+
+                              |1|1|0|1|     7200   [NI]|
+                              +-+-+-+-+----------------+
+         Figure 6-1.          |1|1|1|0|     9600   [NI]|
+    Control Register Map.     +-+-+-+-+----------------+
+                              |1|1|1|1|    19200   [NI]|
+                              +-+-+-+-+----------------+
+</pre>
+   <strong><code>&lt;control register&gt;</code></strong>- Is a single byte character (see Figure 6-1, Control
+ Register Map) required to specify the baud rates. If the lower 4 bits of
+ the baud rate is equal to zero (0), the <code>&lt;opt baud low&gt;&lt;opt baud high&gt;</code>
+ characters give you a rate based on the following:
+<pre>
+   &lt;opt baud low&gt;=&lt;system frequency/rate/2-100-&lt;opt baud high&gt;*256
+   &lt;opt baud high&gt;=INT((system frequency/rate/2-100)/256
+</pre>
+<hr>
+<a href="page_349.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_351.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page146.html"> 
+     <link rel=next href="page148.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page146.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page148.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h3><a name="3.1.3">3.1.3</a>  <u>BASIC 10.0 COMMAND AND FUNCTION DESCRIPTION</u></h3>
+    
+<h4>ABS - Absolute value function</h4>
+    
+<pre>
+                              ABS (expression)
+</pre>
+    
+<p> The ABSolute value function returns the unsigned value of the numeric
+    expression.
+<pre>
+                    X = ABS (1)             Result is X = 1
+                    X = ABS (-1)            Result is X = 1
+</pre>
+
+<h4>AND - Boolean operator</h4>
+    
+<pre>
+                         expression AND expression
+</pre>
+    
+<p>    The AND operator returns a numeric value equal to the logical AND of
+    two numeric expressions, operating on the binary value of signed
+    16-bit integers in the range (-32768 to 32767). Numbers outside this
+    range result in an 'ILLEGAL QUANTITY' error.
+<pre>
+                    X = 4 AND 12            Result is X=4
+                    X = 8 AND 12            Result is X=8
+                    X = 2 AND 12            Result is X=0
+</pre>
+<p>    In the case of logical comparisons, the numeric value of a true .
+    situation is -1 (equivalent to 65535 or $FFFF hex) and the numeric
+    value of a false situation is zero.
+<pre>
+      X = ("ABC"="ABC") AND ("DEF"="DEF")   Result is X=-l (true)
+      X = ("ABC"="ABC") AND ("DEF"="XYZ")   Result is X= 0 (false)
+</pre>
+
+<h4>APPEND - open a disk file and prepare to append data to it</h4>
+    
+<pre>
+     APPEND# logical-file-number, "filename" [,Ddrive] [&lt;ON|,&gt;Udevice]
+</pre>
+
+<p>    Opens filename for writing, and positions the file pointer at the end
+    of the file. Subsequent PRINT# statements to the logical file number
+    will cause data to be appended to the end of this file. If the file
+    does not exist, it will be created.
+<pre>
+            APPEND#1, "filename"
+            APPEND#1, (file$), ON U(unit)
+</pre>
+
+<h4>    ASC - PETSCII value function</h4>
+    
+<pre>
+                                ASC (string)
+</pre>
+    
+<p>    This function returns the PETSCII numeric value of the first character
+    of a string. The PETSCII value of an empty (null) string is zero.
+    This function is the opposite of the CHR$ function. Refer to the
+    Table of PETSCII Character Codes.
+<pre>
+                    X = ASC("ABC")          Result is X=65
+                    X = ASC("")             Result is X=0
+</pre>
+
+<h4>    ATN - Arc tangent function</h4>
+    
+<pre>
+                              ATN (expression)
+</pre>
+
+<p>
+<hr>
+  <a href="page146.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page148.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

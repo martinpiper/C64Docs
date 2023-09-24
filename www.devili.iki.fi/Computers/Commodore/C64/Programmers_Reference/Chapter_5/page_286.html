@@ -1,0 +1,117 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - User Callable KERNAL Routines</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_285.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_287.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Load">B-15. Function Name: LOAD</a></h3>
+
+<p><b class="blue">Purpose:</b>                 Load RAM from device
+<br><b class="blue">Call address:</b>           $FFD5 (hex) 65493 (decimal)
+<br><b class="blue">Communication registers:</b>A, X, Y
+<br><b class="blue">Preparatory routines:</b>   SETLFS, SETNAM
+<br><b class="blue">Error returns:</b>          0,4,5,8,9, READST
+<br><b class="blue">Stack requirements:</b>     None
+<br><b class="blue">Registers affected:</b>     A, X, Y
+
+<p><b class="blue">Description:</b> This routine LOADs data bytes from any input device di-
+ rectly into the memory of the Commodore 64. It can also be used for a
+ verify operation, comparing data from a device with the data already in
+ memory, while leaving the data stored in RAM unchanged.
+<p>   The accumulator (.A) must be set to 0 for a LOAD operation, or 1 for a
+ verify, If the input device is OPENed with a secondary address (SA) of 0
+ the header information from the device is ignored. In this case, the X
+ and Y registers must contain the starting address for the load. If the
+ device is addressed with a secondary address of 1, then the data is
+ loaded into memory starting at the location specified by the header. This
+ routine returns the address of the highest RAM location loaded.
+<p>   Before this routine can be called, the KERNAL SETLFS, and SETNAM
+ routines must be called.
+
+<table cellspacing="0" border="0" class="blue">
+<tr><td><b class="blue">NOTE:</b> You can NOT LOAD from the keyboard (0), RS-232 (2), or the screen (3). </td></tr>
+</table>
+
+<p><b class="blue">How to Use:</b>
+<ol>
+   <li> Call the SETLFS, and SETNAM routines. If a relocated load is desired, use the SETLFS routine to send a secondary address of 0.
+   <li> Set the A register to 0 for load, 1 for verify.
+   <li> If a relocated load is desired, the X and Y registers must be set to the start address for the load.
+   <li> Call the routine using the JSR instruction.
+</ol>
+
+<p><b class="blue">EXAMPLE:</b>
+<pre>
+         ;LOAD   A FILE FROM TAPE
+
+          LDA #DEVICE1        ;SET DEVICE NUMBER
+          LDX #FILENO         ;SET LOGICAL FILE NUMBER
+          LDY CMD1            ;SET SECONDARY ADDRESS
+          JSR SETLFS
+          LDA #NAME1-NAME     ;LOAD A WITH NUMBER OF
+                              ;CHARACTERS IN FILE NAME
+          LDX #&lt;NAME          ;LOAD X AND Y WITH ADDRESS OF
+          LDY #&gt;NAME          ;FILE NAME
+          JSR SETNAM
+          LDA #0              ;SET FLAG FOR A LOAD
+          LDX #$FF            ;ALTERNATE START
+          LDY #$FF
+          JSR LOAD
+          STX VARTAB          ;END OF LOAD
+          STY VARTA B+1
+          JMP START
+  NAME    .BYT 'FILE NAME'
+  NAME1   ;
+</pre>
+
+<hr>
+<a href="page_285.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_287.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 16, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Techtopics: C128 ROM RELEASE (cont.)</title>
+    <meta name="description" content="Commodore 128 ROM upgrade release announcement, page 2 of 4">
+    <link rel=next href="page_02.html">
+    <link rel=stylesheet href="techtopics.css">
+    <link rev=made href="mailto:rtiainen@devili.iki.fi">
+<link rel=contents href="../index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+<body>
+<a href="index.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_03.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<ol start="7">
+    <li>PLAY command.  Previosly the SID frequency tables were not exactly NTSC concert pitch. Also, there was no provision for adjusting the frequency for PAL systems. This has been corrected by changing the (NTSC) frequency tables, creating new PAL tables, and utilizing patch code to select from the appropriate table as determined by the Kernel PAL NTSC flag.
+    <li>The BASIC ERROR handler previosly failed to clear pending string temporaries when an error was TRAPed. This has been corrected via patch code to reset TEMPT to TEMPST.
+    <li>The powerup copyright notice has been updated to 1986, which will serve as an immediate visual indication of the ROM update status. Also, a new notice has been placed at $7FC0.
+    <li>The ROM signature at location $7FFC and $7FFD (lo/hi) is $8DEF. (new since last release.)
+    <li>The ROM revision byte at location $7FFE, has incremented from $00 to $01.
+    <li>The ROM checksum byte at location $7FFF, has changed from $4C to $61.
+</ol>
+<h3>PART NUMBER 318019-04 --BASIC HIGH ($8000-$BFFF)</h3>
+<ol start="13">
+    <li>RSPRITE and RSPPOS functions.  Previosly they accepted as paramters sprite number in the range of 1-16, which is incorrect. This has been corrected totally in-line by limiting the range check to 1-8, and reporting an illegal quantity error for sprite numbers outside this range.
+    <li>PRINT USING command.  Previosly there was an anomaly involving the use of floating money symbols ('$') and commas. The command 'PRINT USING "#,##$.##"; 123.45', for example, resulted in the output '$,123.45', which is incorrected. This has been fiex utilizing a patch subroutine which checks specifically for the '$', occurrence and substitutes a '_$' ('_' = fill character) whenever found.
+    <li>Relative Coordinates for all graphic commands (except MOVSPR) were incorrectly processed. The problem was apparent when negative relative coordinates were used, which resulted in an illegal qantity error. This has been corrected totally in-line by susbstituting a different subroutine call to pre-existing code. This change affectes the BASIC commands LOCATE, DRAW, PAINT, BOX, CIRCLE, GSHAPE, and SSHAPE. This change also allows negative absolute coordinates to be accepted (previosly they resulted in an illegal quantity error), although the legal range remains a 16-bit value: 0-65535 (unsigned) or -32768 to 32767 (signed: i.e., -1 is equivalent to 65535).
+    <li>DOPEN and APPEND commands.  Previosly it was possible to open two or more disk channels with the same logical file number without incurring an error report. This has been corrected totally in-line.
+    <li>MATH package.  An original bug fix (ref: double zero bug) to the (F)MULT routine has been found to result in small errors (such as 2^15 = 32768.0001). This has been corrected totally in-line by fixing the original (dbl-0) problem in a different way.
+    <li>A copyright notice has been placed, starting at $BDC0.
+    <li>The ROM signature at location $BFFC and $BFFD (lo/hi) is $CDC8. (new since last release.)
+    <li>The ROM revision byte at location $BFFE, has incremented from $00 to $01.
+    <li>The ROM checksum byte at location $BFFF, has changed from $3A to $C5.
+</ol>
+
+<hr>
+<a href="index.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_03.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

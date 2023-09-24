@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: General Specifications (cont.)</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXTCOLOR="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Page_02.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_04.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<H2 ALIGN=CENTER>GENERAL SPECIFICATIONS (CONTINUED)</H2>
+
+<B>7. COMMODORE SERIAL INTERFACE</B>
+
+<P>The 1581 supports Standard, Fast, and Fast Serial communication like the 1571.
+
+<P>A HRF (Host Request Fast) command places the drive in fast serial mode. The 1581 remains in fast serial mode until an Unlisten, Untalk, or serial bus error. The 1581 will also source a DRF (Device Request Fast) message. This message lets the host know that the addressed peripheral can receive bytes fast (or slow).
+
+<P>The bus consists of the following:
+
+<UL>
+<I>PIN 1 &nbsp;&#151;&nbsp; SRQ (Service Request)</I><BR>
+Unused by the current serial bus. Fast serial will use this line as a bi-direction fast clock line.<BR>
+<BR>
+
+<I>PIN 2 &nbsp;&#151;&nbsp; GND</I><BR>
+Chassis ground.<BR>
+<BR>
+
+<I>PIN 3 &nbsp;&#151;&nbsp; ATN (in)</I><BR>
+The host brings this signal low which then generates an interrupt on the controller board. The attention sequence is followed by an address. If the device does not respond within a preset time, the host will assume the device is not on the bus.<BR>
+<BR>
+
+<I>PIN 4 &nbsp;&#151;&nbsp; CLK (in/out)</I><BR>
+This signal is used for timing the data sent on the serial bus (software clocked).<BR>
+<BR>
+
+<I>PIN 5 &nbsp;&#151;&nbsp; DATA (in/out)</I><BR>
+Data on the serial bus is transmitted one bit at a time (software toggled). In addition, this line is wire 'ored' and used as a FAST DATA line to compliment the FAST CLOCK on the SRQ line.<BR>
+<BR>
+
+<I>PIN 6 &nbsp;&#151;&nbsp; RESET</I><BR>
+This line will reset the peripheral upon host reset.<BR>
+</UL>
+
+<HR>
+
+<A HREF="Page_02.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_04.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+</BODY>
+</HTML>

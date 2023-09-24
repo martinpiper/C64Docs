@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_091.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_093.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="wait">WAIT</a></h3>
+<b class=blue><big>
+ TYPE: Statement<br>
+ FORMAT: WAIT &lt;location&gt;,&lt;mask-1&gt;[,&lt;mask-2&gt;]
+</big></b>
+<p><b class=blue>Action: </b>The WAIT statement causes program execution to be suspended
+ until a given memory address recognizes a specified bit pattern. In other
+ words WAIT can be used to halt the program until some external event has
+ occurred. This is done by monitoring the status of bits in the input/
+ output registers, The data items used with WAIT can be any numeric
+ expressions, but they will be converted to integer values. For most
+ programmers, this statement should never be used. It causes the program
+ to halt until a specific memory location's bits change in a specific way.
+ This is used for certain I/O operations and almost nothing else.
+<p>   The WAIT statement takes the value in the memory location and performs
+ a logical <a href="page_035.html#and">AND</a> operation with the value in mask-1. If there is a mask-2 in
+ the statement, the result of the first operation is exclusive-ORed with
+ mask-2. In other words mask-1 "filters out" any bits that you don't want
+ to test. Where the bit is 0 in mask-1, the corresponding bit in the
+ result will always be 0. The mask-2 value flips any bits, so that you
+ can test for an off condition as well as an on condition, Any bits being
+ tested for a 0 should have a I in the corresponding position in mask-2.
+<p>   If corresponding bits of the &lt;mask-1&gt; and &lt;mask-2&gt; operands differ, the
+ exclusive-OR operation gives a bit result of 1. If corresponding bits get
+ the same result the bit is 0. It is possible to enter an infinite pause
+ with the WAIT statement, in which case the <kbd>&lt;RUN/STOP&gt;</kbd> and <kbd>&lt;RESTORE&gt;</kbd> keys
+ can be used to recover. Hold down the <kbd>&lt;RUN/STOP&gt;</kbd> key and then press
+ <kbd>&lt;RESTORE&gt;</kbd>. The first example below WAITs until a key is pressed on the
+ tape unit to continue with the program. The second example will WAIT
+ until a sprite collides with the screen background.</p>
+
+<b class=blue> EXAMPLES of WAIT Statement:</b>
+<pre>
+   WAIT 1,32,32
+   WAIT 53273,6,6
+   WAIT 36868,144,16         (144 &amp; 16 are masks. 144=10010000 in binary
+                              and 16=10000 in binary. The WAIT statement
+                              will halt the program until the 128 bit is
+                              on or until the 16 bit is off)
+</pre>
+<hr>
+<a href="page_091.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_093.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

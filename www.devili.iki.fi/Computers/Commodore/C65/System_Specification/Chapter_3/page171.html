@@ -1,0 +1,114 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page170.html"> 
+     <link rel=next href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page172.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page170.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page172.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p> The INPUT statement can only be executed from within a program.
+    
+<p> LINE INPUT allows the program to input a string which includes any
+    PETSCII character (including colons, commas, imbedded spaces, etc.)
+    up to but not including a null or return character. There should be
+    only one string-type variable name in the variable list in this case,
+    but if there are more the computer prompts as usual with two question
+    marks for more data to assign to the additional variables.
+
+<pre>
+    10 INPUT "WHAT'S YOUR FIRST NAME AND AGE"; NA$,A
+    20 PRINT "YOUR NAME IS ";NA$;' AND YOU ARE';A," YEARS OLD"
+</pre>
+
+    The above INPUT is the traditional BASIC form.
+
+<pre>
+    10 LINE INPUT "WHAT'S YOUR ADDRESS"; ADS
+    20 PRINT "YOUR ADDRESS IS: ";AD$
+</pre>
+    
+    The above INPUT allows an entire line of data to be assigned to a
+    string variable, including commas and other common punctuation marks.
+
+<pre>
+    10 INPUT "ENTER YOUR NAME HERE: ", NA$
+</pre>
+    
+    The above INPUT suppresses the traditional '?' prompt by using a comma
+    instead of a semicolon after the prompt string. To suppress the '?'
+    without a prompt string, make the prompt string null.
+    
+<h4>INPUT# - Input data from an 1/0 channel (file)</h4>
+
+<pre>
+    [LINE] INPUT#logical_channel-number, variable-list
+</pre>
+    
+<p> The INPUT# command works like the INPUT command, except no prompt
+    string is allowed and input is gathered from a previously OPENed
+    channel or file. This command can only be used in a program.
+    
+<p> The logical - channel number is the number assigned to the device (file)
+    in an OPEN (or DOPEN) statement. Items in the variable list must
+    agree with the type of data input, or a 'FILE DATA ERROR' will result.
+    
+<p> On the C64DX, an End Of File (EOF) condition or bad I/O status will
+    terminate input, as if a return character was received. It's good
+    practice to examine the I/O status byte (and the DS disk status for
+    file I/O) after every I/O instruction to check for problems or errors.
+
+<pre>
+    10 DOPEN#1,"FILE"                                   This program will
+    20 C=0                                              count the number of
+    30 DO: LINEINPUT#1,A$: C=C+l: LOOP UNTIL ST         lines in FILE
+    40 DCLOSE#1
+    50 PRINT"FILE CONTAINS";C;" LINES."
+</pre>
+
+<p>
+<hr>
+  <a href="page170.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page172.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 11, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

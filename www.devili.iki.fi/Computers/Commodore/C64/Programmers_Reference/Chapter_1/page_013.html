@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Expressions and Operations (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_012.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_014.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><b class=blue>EXAMPLES:</b>
+
+<center><table>
+<tr><td><code>     "A" &lt; "B"       </code></td><td>result true (-1)  </td></tr>
+<tr><td><code>     "X" = "YY"         </code></td><td>result false (0)  </td></tr>
+<tr><td><code>     BB$ &lt;&gt; CC$   </code></td></tr>
+</table></center>
+
+<p>Numeric data items can only be compared (or assigned) to other numeric
+ items. The same is true when comparing strings, otherwise the BASIC error
+ message <b><a href="../Appendices/page_400.html#type_mismatch">?TYPE MISMATCH</a></b> will occur. Numeric operands are compared by first
+ converting the values of either or both operands from integer to
+ floating-point form, as necessary. Then the relationship of the floating-
+ point values is evaluated to give a true/false result.
+<p>At the end of all comparisons, you get an integer no matter what data
+ type the operand is (even if both are strings). Because of this,
+ a comparison of two operands can be used as an operand in performing
+ calculations. The result will be - 1 or 0 and can be used as anything but
+ a divisor, since division by zero is illegal.
+
+<h3><a name="Logical">LOGICAL OPERATORS</a></h3>
+
+<p>The logical operators (<a href="../Chapter_2/page_035.html#and">AND</a>, <a href="../Chapter_2/page_068.html#or">OR</a>, <a href="../Chapter_2/page_063.html#not">NOT</a>) can be used to modify the meanings
+ of the relational operators or to produce an arithmetic result. Logical
+ operators can produce results other than -1 and 0, though any nonzero
+ result is considered true when testing for a true/false condition.
+<p>The logical operators (sometimes called Boolean operators) can also be
+ used to perform logic operations on individual binary digits (bits) in
+ two operands. But when you're using the <a href="../Chapter_2/page_063.html#not">NOT</a> operator, the operation is
+ performed only on the single operand to the right. The operands must be
+ in the integer range of values (-32768 to +32767) (floating-point
+ numbers are converted to integers) and logical operations give an integer
+ result.
+<p>Logical operations are performed bit-by-corresponding-bit on the two
+ operands. The logical <a href="../Chapter_2/page_035.html#and">AND</a> produces a bit result of 1 only if both operand
+ bits are 1. The logical <a href="../Chapter_2/page_068.html#or">OR</a> produces a bit result of I if either operand
+ bit is 1. The logical <a href="../Chapter_2/page_063.html#not">NOT</a> is the opposite value of each bit as a single
+ operand. In other words, it's really saying, "if it's <a href="../Chapter_2/page_063.html#not">NOT</a> 1 then it is 0.
+ If it's <a href="../Chapter_2/page_063.html#not">NOT</a> 0 then it is 1."
+<p>The exclusive OR (XOR) doesn't have a logical operator but it is performed
+ as part of the <a href="../Chapter_2/page_092.html#wait">WAIT</a> statement. Exclusive OR means that if the bits
+ of two operands are equal then the result is 0 otherwise the result is 1.
+<p>Logical operations are defined by groups of statements which, taken
+ together, constitute a Boolean "truth table" as shown in <a href="page_014.html#1-2">Table 1-2</a>.
+
+<hr>
+<a href="page_012.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_014.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 13, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Bit mapped graphics</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_122.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_124.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> screen is filled with programmable characters, and you make your changes
+ directly into the memory that the programmable characters get their
+ patterns from.
+
+<p> Each of the locations in screen memory that were used to control what
+ character was displayed, are now used for color information. For example,
+ instead of POKEing a I in location 1024 to make an "A" appear in the top
+ left hand corner of the screen, location 1024 now controls the colors of
+ the bits in that top left space.
+
+<p> Colors of squares in bit map mode do not come from color memory, as
+ they do in the character modes. Instead, colors are taken from screen
+ memory. The upper 4 bits of screen memory become the color of any bit
+ that is set to 1 in the 8 by 8 area controlled by that screen memory
+ location. The lower 4 bits become the color of any bit that is set to
+ a 0.
+
+<p> EXAMPLE: Type the following:
+
+<pre>
+ 5 BASE=2*4096:POKE53272,PEEK(53272)OR8:REM PUT BIT MAP AT 8192
+ 10 POKE53265,PEEK(53265)OR32:REM ENTER BIT MAP MODE
+</pre>
+
+ Now RUN the program.
+
+<p> Garbage appears on the screen, right? Just like the normal screen mode,
+ you have to clear the HIGH-RESOLUTION (HI-RES) screen before you use it.
+ Unfortunately, printing a CLR won't work in this case. Instead you have
+ to clear out the section of memory that you're using for your
+ programmable characters. Hit the &lt;RUN/STOP&gt; and &lt;RESTORE&gt; keys, then add
+ the following lines to your program to clear the HI-RES screen:
+
+<pre>
+ 20 FORI=BASETOBASE+7999:POKEI,0:NEXT:REM CLEAR BIT
+ 30 FORI=1024TO2023:POKEI,3:NEXT:REM SET COLOR TO CYAN AND BLACK
+</pre>
+
+<p> Now RUN the program again. You should see the screen clearing, then the
+ greenish blue color, cyan, should cover the whole screen. What we want to
+ do now is to turn the dots on and off on the HI-RES screen.
+
+<hr>
+<a href="page_122.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_124.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

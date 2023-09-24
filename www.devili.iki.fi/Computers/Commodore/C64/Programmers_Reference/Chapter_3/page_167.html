@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_166.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_168.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<pre>
+ 5 S=54272:POKES+24,15:POKES,220:POKES+1,68:POKES+5,15:POKES+6,215
+ 10 POKES+7,120:POKES+8,100:POKES+12,15:POKES+13,215
+ 15 PRINT"{CLEAR}":V=53248:POKEV+21,1
+ 20 FORS1=12288TO12350:READQ1:POKES1,Q1:NEXT
+ 25 FORS2=12352TO12414:READQ2:POKES2,Q2:NEXT
+ 30 FORS3=12416TO12478:READQ3:POKES3,Q3:NEXT
+ 35 POKEV+39,15:POKEV+1,68
+ 40 PRINTTAB(160)"{WHITE}I AM THE DANCING MOUSE!{LIGHT BLUE}"
+ 45 P=192
+ 50 FORX=0TO347STEP3
+ 55 RX=INT(X/256):LX=X-RX*256
+ 60 POKEV,LX:POKEV+16,RX
+ 70 IFP=192THENGOSUB200
+ 75 IFP=193THENGOSUB300
+ 80 POKE2040,P:FORT=1TO60:NEXT
+ 85 P=P+1:IFP&GT;194THENP=192
+ 90 NEXT
+ 95 END
+ 100 DATA30,0,120,63,0,252,127,129,254,127,129,254,127,189,254,127,255,254
+ 101 DATA63,255,252,31,187,248,3,187,192,1,255,128,3,189,192,1,231,128,1,
+ 102 DATA255,0,31,255,0,0,124,0,0,254,0,1,199,32,3,131,224,7,1,192,1,192,0
+ 103 DATA3,192,0,30,0,120,63,0,252,127,129,254,127,129,254,127,189,254,127
+ 104 DATA255,254,63,255,252,31,221,248,3,221,192,1,255,128,3,255,192,1,195
+ 105 DATA128,1,231,3,31,255,255,0,124,0,0,254,0,1,199,0,7,1,128,7,0,204,1
+ 106 DATA128,124,7,128,5630,0,120,63,0,252,127,129,254,127,129,254,127,189
+ 107 DATA254,127,255,25463,255,252,31,221,248,3,221,192,1,255,134,3,189
+ 108 DATA204,1,199,152,1,255,48,1,255,224,1,252,0,3,254,0
+ 109 DATA7,14,0,204,14,0,248,56,0,112,112,0,0,60,0,-1
+ 200 POKES+4,129:POKES+4,128:RETURN
+ 300 POKES+11,129:POKES+11,128:RETURN
+</pre>
+
+<hr>
+<a href="page_166.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_168.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

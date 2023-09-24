@@ -1,0 +1,121 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page98.html"> 
+     <link rel=next href="page101.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page98.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page101.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h3><a name="2.4.5">C4567R6 Registers</a></h3>
+
+<center>
+<p><u>MEMORY MAP SELECT AND ENABLE REGISTERS</u><br>
+   (EN BIT MUST BE 1 FOR SELECT TO BE 0)
+</center>
+
+<p>
+<table align="center" border="1" cellspacing="0" cellpadding="0">
+<caption>"4510" PORT</caption>
+<tr><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>EN2</td><td>EN1</td><td>EN0</td><th>0000</th></tr>
+<tr><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>CHRGEN</td><td>HIRAM</td><td>LORAM</td><th>0001</th></tr>
+</table>
+
+<p>
+<table align="center" border="1" cellspacing="0">
+<caption><u>VIC-II MODE REGISTERS</u></caption>
+<tr><td colspan="8">&nbsp;</td><td>$D000+</td></tr>
+<tr><td>S0X7</td><td>S0X6</td><td>S0X5</td><td>S0X4</td><td>S0X3</td><td>S0X2</td><td>S0X1</td><td>S0X0</td><td nowrap>00 SPRITE 0 X</td></tr>
+<tr><td>S0Y7</td><td>S0Y6</td><td>S0Y5</td><td>S0Y4</td><td>S0Y3</td><td>S0Y2</td><td>S0Y1</td><td>S0Y0</td><td nowrap>01 SPRITE 0 Y</td></tr>
+<tr><td>S1X7</td><td>S1X6</td><td>S1X5</td><td>S1X4</td><td>S1X3</td><td>S1X2</td><td>S1X1</td><td>S1X0</td><td nowrap>02 SPRITE 1 X</td></tr>
+<tr><td>S1Y7</td><td>S1Y6</td><td>S1Y5</td><td>S1Y4</td><td>S1Y3</td><td>S1Y2</td><td>S1Y1</td><td>S1Y0</td><td nowrap>03 SPRITE 1 Y</td></tr>
+<tr><td>S2X7</td><td>S2X6</td><td>S2X5</td><td>S2X4</td><td>S2X3</td><td>S2X2</td><td>S2X1</td><td>S2X0</td><td nowrap>04 SPRITE 2 X</td></tr>
+<tr><td>S2Y7</td><td>S2Y6</td><td>S2Y5</td><td>S2Y4</td><td>S2Y3</td><td>S2Y2</td><td>S2Y1</td><td>S2Y0</td><td nowrap>05 SPRITE 2 Y</td></tr>
+<tr><td>S3X7</td><td>S3X6</td><td>S3X5</td><td>S3X4</td><td>S3X3</td><td>S3X2</td><td>S3X1</td><td>S3X0</td><td nowrap>06 SPRITE 3 X</td></tr>
+<tr><td>S3Y7</td><td>S3Y6</td><td>S3Y5</td><td>S3Y4</td><td>S3Y3</td><td>S3Y2</td><td>S3Y1</td><td>S3Y0</td><td nowrap>07 SPRITE 3 Y</td></tr>
+<tr><td>S4X7</td><td>S4X6</td><td>S4X5</td><td>S4X4</td><td>S4X3</td><td>S4X2</td><td>S4X1</td><td>S4X0</td><td nowrap>08 SPRITE 4 X</td></tr>
+<tr><td>S4Y7</td><td>S4Y6</td><td>S4Y5</td><td>S4Y4</td><td>S4Y3</td><td>S4Y2</td><td>S4Y1</td><td>S4Y0</td><td nowrap>09 SPRITE 4 Y</td></tr>
+<tr><td>S5X7</td><td>S5X6</td><td>S5X5</td><td>S5X4</td><td>S5X3</td><td>S5X2</td><td>S5X1</td><td>S5X0</td><td nowrap>0A SPRITE 5 X</td></tr>
+<tr><td>S5Y7</td><td>S5Y6</td><td>S5Y5</td><td>S5Y4</td><td>S5Y3</td><td>S5Y2</td><td>S5Y1</td><td>S5Y0</td><td nowrap>0B SPRITE 5 Y</td></tr>
+<tr><td>S6X7</td><td>S6X6</td><td>S6X5</td><td>S6X4</td><td>S6X3</td><td>S6X2</td><td>S6X1</td><td>S6X0</td><td nowrap>0C SPRITE 6 X</td></tr>
+<tr><td>S6Y7</td><td>S6Y6</td><td>S6Y5</td><td>S6Y4</td><td>S6Y3</td><td>S6Y2</td><td>S6Y1</td><td>S6Y0</td><td nowrap>0D SPRITE 6 Y</td></tr>
+<tr><td>S7X7</td><td>S7X6</td><td>S7X5</td><td>S7X4</td><td>S7X3</td><td>S7X2</td><td>S7X1</td><td>S7X0</td><td nowrap>0E SPRITE 7 X</td></tr>
+<tr><td>S7Y7</td><td>S7Y6</td><td>S7Y5</td><td>S7Y4</td><td>S7Y3</td><td>S7Y2</td><td>S7Y1</td><td>S7Y0</td><td nowrap>0F SPRITE 7 Y</td></tr>
+<tr><td>S7X8</td><td>S6X8</td><td>S5X8</td><td>S4X8</td><td>S3X8</td><td>S2X8</td><td>S1X8</td><td>S0X8</td><td nowrap>10 SPRITE X 8</td></tr>
+<tr><td>RC8 </td><td>ECM </td><td>BMM </td><td>BLNK</td><td>RSEL</td><td>YSCL2</td><td>YSCL1</td><td>YSCL0</td><td nowrap>11 Y SCROLL</td></tr>
+<tr><td>RC7 </td><td>RC6 </td><td>RC5 </td><td>RC4 </td><td>RC3 </td><td>RC2 </td><td>RC1 </td><td>RC0 </td><td nowrap>12 RASTER CNT</td></tr>
+<tr><td>LPX7</td><td>LPX6</td><td>LPX5</td><td>LPX4</td><td>LPX3</td><td>LPX2</td><td>LPX1</td><td>LPX0</td><td nowrap>13 LITEPEN X</td></tr>
+<tr><td>LPY7</td><td>LPY6</td><td>LPY5</td><td>LPY4</td><td>LPY3</td><td>LPY2</td><td>LPY1</td><td>LPY0</td><td nowrap>14 LITEPEN Y</td></tr>
+<tr><td>SE7 </td><td>SE6 </td><td>SE5 </td><td>SE4 </td><td>SE3 </td><td>SE2 </td><td>SE1 </td><td>SE0 </td><td nowrap>15 SPRITE ENA</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>RST</td><td>MCM</td><td>CSEL</td><td>XSCL2</td><td>XSCL1</td><td>XCL0</td><td nowrap>16 X SCROLL</td></tr>
+<tr><td>SEXY7 </td><td>SEXY6 </td><td>SEXY5 </td><td>SEXY4 </td><td>SEXY3 </td><td>SEXY2 </td><td>SEXY1 </td><td>SEXY0 </td><td nowrap>17 SPR EXP Y</td></tr>
+<tr><td>VS13  </td><td>VS12  </td><td>VS11  </td><td>VS10  </td><td>CB13  </td><td>CB12  </td><td>CB11  </td><td>&nbsp;</td><td nowrap>18 VS/CB BASES</td></tr>
+<tr><td>IRQ   </td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>LPIRQ </td><td>ISSC  </td><td>ISBC  </td><td>RIRQ  </td><td nowrap>18 INTERRUPTS</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>MLPI  </td><td>MISSC </td><td>MISBC </td><td>MRIRQ </td><td nowrap>1A INT MASKS</td></tr>
+<tr><td>BSP7  </td><td>BSP6  </td><td>BSP5  </td><td>BSP4  </td><td>BSP3  </td><td>BSP2  </td><td>BSP1  </td><td>BSP0  </td><td nowrap>1B BK/SPR PRI</td></tr>
+<tr><td>SCM7  </td><td>SCM6  </td><td>SCM5  </td><td>SCM4  </td><td>SCM3  </td><td>SCM2  </td><td>SCM1  </td><td>SCM0  </td><td nowrap>1C MC SPR</td></tr>
+<tr><td>SEXX7 </td><td>SEXX6 </td><td>SEXX5 </td><td>SEXX4 </td><td>SEXX3 </td><td>SEXX2 </td><td>SEXX1 </td><td>SEXX0 </td><td nowrap>1D SPR EXP X</td></tr>
+<tr><td>SSC7  </td><td>SSC6  </td><td>SSC5  </td><td>SSC4  </td><td>SSC3  </td><td>SSC2  </td><td>SSC1  </td><td>SSC0  </td><td nowrap>1E SPR-SPR COL</td></tr>
+<tr><td>SBC7  </td><td>SBC6  </td><td>SBC5  </td><td>SBC4  </td><td>SBC3  </td><td>SBC2  </td><td>SBC1  </td><td>SBC0  </td><td nowrap>1F SPR-BK COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>BORD3 </td><td>BORD2 </td><td>BORD1 </td><td>BORD0 </td><td nowrap>20 EXT COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>BK0C3 </td><td>BK0C2 </td><td>BK0C1 </td><td>BK0C0 </td><td nowrap>21 BK0 COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>BK1C3 </td><td>BK1C2 </td><td>BK1C1 </td><td>BK1C0 </td><td nowrap>22 BK1 COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>BK2C3 </td><td>BK2C2 </td><td>BK2C1 </td><td>BK2C0 </td><td nowrap>23 BK2 COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>BK3C3 </td><td>BK3C2 </td><td>BK3C1 </td><td>BK3C0 </td><td nowrap>24 BK3 COL</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>SM0C3 </td><td>SM0C2 </td><td>SM0C1 </td><td>SM0C0 </td><td nowrap>25 SPR MC0</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>SM1C3 </td><td>SM1C2 </td><td>SM1C1 </td><td>SM1C0 </td><td nowrap>26 SPR MC1</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S0C3  </td><td>S0C2  </td><td>S0C1  </td><td>S0C0  </td><td nowrap>27 SPR0 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S1C3  </td><td>S1C2  </td><td>S1C1  </td><td>S1C0  </td><td nowrap>28 SPR1 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S2C3  </td><td>S2C2  </td><td>S2C1  </td><td>S2C0  </td><td nowrap>29 SPR2 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S3C3  </td><td>S3C2  </td><td>S3C1  </td><td>S3C0  </td><td nowrap>2A SPR3 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S4C3  </td><td>S4C2  </td><td>S4C1  </td><td>S4C0  </td><td nowrap>2B SPR4 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S5C3  </td><td>S5C2  </td><td>S5C1  </td><td>S5C0  </td><td nowrap>2C SPR5 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S6C3  </td><td>S6C2  </td><td>S6C1  </td><td>S6C0  </td><td nowrap>2D SPR6 COLOR</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>S7C3  </td><td>S7C2  </td><td>S7C1  </td><td>S7C0  </td><td nowrap>2E SPR7 COLOR</td></tr>
+</table>
+<p>
+<hr>
+  <a href="page98.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page101.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

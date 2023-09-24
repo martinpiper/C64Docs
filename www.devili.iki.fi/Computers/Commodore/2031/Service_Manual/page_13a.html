@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 2031 Service Manual: 2031 HP Circuit Theory - Microprocessor Control of RAM and ROM, the Clock Circuit and the Power Supply</title>
+     <link rel=prev href="page_12a.html"> 
+     <link rel=next href="page_14a.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_12a.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_14a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2 align=right>2031 HP CIRCUIT THEORY</h2>
+
+<h3>Microprocessor Control of RAM and ROM</h3>
+
+<p> U5F and U5H are 8192 x 8 bit ROMS that store the Disk Operating System
+    (DOS). U5F resides at memory locations $C000-$DFFF. U5H resides at
+    memory locations $E000-$FFFF. U5J and U5K decode the addresses output
+    from the microprocessor when selecting these ROMS.
+
+<p> U3B, C, D and E are 2114 Static RAMS (24 x 4). They reside at memory
+    locations $0000-$07FF. This memory is used for processor stack
+    operations, general processor housekeeping, user program storage, and 4
+    temporary buffer areas. U5J, U5K, and U6J decode the addresses output
+    from the processor when selecting RAM. U6J also decodes the address
+    selection of the VlAs, U3J and U3H.
+
+<h3>The Clock Circuit</h3>
+
+<p> The clock circuit outputs a 16 MHz clock signal at U4C pin 11. This is
+    input to U4D on pin 5. U4D is configured as a - 16 frequency divider.
+    The output of U4D pin 7 is a 1 MHz clock signal used as the system
+    clock (Phase 0) for the microprocessor. The 16 MHz clock signal is also
+    used for the varying frequency clock circuit, see <a
+    href="page_11b.html">Sheet 1</a>.
+
+<h3>The Power Supply</h3>
+
+<p> THE CHASSIS: When the switch is closed, the AC voltage input is applied
+    to the primary winding of the transformer. Circuit protection is
+    provided by a .5 amp fuse. The transformer steps down the AC input
+    voltage into two smaller AC voltages: One secondary output (approx.
+    16VRMS) is applied at connector P3 pins 1 and 4, the other secondary
+    output (approx. 9VRMS) is applied at P3 pins 2 and 3.
+
+<p> THE PCB: The 16VRMS AC applied between pins 1 and 4 is converted to DC
+    by the full wave bridge rectifier CR1. The DC output of CR1. is
+    regulated at + 12VDC by VR2. High frequency filtering is provided by
+    C6, low frequency filtering by C2 and C4. The 9VRMS AC applied between
+    pins 2 and 3 is converted to DC by the full wave bridge rectifier CR2.
+    The DC output is regulated at +5VDC by VR1. High frequency filtering is
+    provided by C5, low frequency filtering by C1 and C3.
+
+<p>
+<hr>
+  <a href="page_12a.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_14a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 17, 1998.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

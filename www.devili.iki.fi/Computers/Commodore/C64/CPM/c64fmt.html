@@ -1,0 +1,250 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 CP/M: Format utility source code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore CP/M v2.2 for the C64<br>
+    Format Utility</h3>
+</center>
+
+<pre>
+;
+;	FORMAT UTILITY FOR COMMODORE 64   CP/M
+;
+;	COPYRIGHT (C) 1982
+;       COMMODORE INTERNATIONAL
+;
+;
+;	EQUATES
+;
+BOOT	EQU	0000H	;RESTART VECTOR
+BDOS	EQU	0005H	;BDOS ENTRY POINT
+CMD	EQU	0F900H	;COMMAND REGISTER
+DATA	EQU	0F901H	;STATUS REGISTER
+SECTOR	EQU	0F902H	;SECTOR REGISTER
+TRACK	EQU	0F903H	;TRACK REGISTER
+DISKNO	EQU	0F904H	;DISK NUMBER
+BUFFER 	EQU	0F800H	;SECTOR BUFFER
+VICWR	EQU	1	;WRITE COMMAND
+VICFMT	EQU	6	;FORMAT COMMAND
+OFF	EQU	1	;Z80 TURN-OFF DATA
+MODESW	EQU	0CE00H	;Z80 TURN-OFF ADDRESS
+NIMAGE	EQU	0400H	;NORMAL FORMAT DATA IMAGE
+SIMAGE	EQU	2000H	;SPECIAL FORMAT DATA IMAGE
+;
+;
+	ORG	0100H		;START OF TPA
+;
+	LXI	SP,STACK	;SET LOCAL STACK
+	LXI	D,NAME	
+	CALL	PRINT		;PRINT TITLE MESSAGE
+;
+	MVI	A,0
+	STA	DISKNO		;SELECT DRIVE 0
+;
+;
+LOOP:	LXI	SP,STACK	;READJUST STACK POINTER
+	LXI	D,INSMSG	;INSERT DISK MESSAGE
+	CALL	PRINT
+;
+CIN:	CALL	CONIN		;GET NEXT KEYBOARD CHARACTER
+	CPI	0DH		;IS IT CARRIAGE RETURN?
+	JZ	NORMAL		;NORMAL FORMAT
+;
+	CPI	03H		;IS IT RUN/STOP KEY?
+	JZ	BOOT
+;
+	CPI	'*'		;IS IT '*'?
+	JZ	SPCL		;SPECIAL FORMAT
+;
+	JMP	CIN		;ELSE TRY AGAIN
+;
+NORMAL:	CALL	FORMAT		;DO 1540 FORMAT FIRST
+	LXI	H,NIMAGE		;NORMAL FORMAT DATA STARTS HERE
+	CALL	WRSYS		;WRITE SYSTEM TRACKS
+	JMP	AGAIN
+;
+SPCL:	CALL	FORMAT		;DO 1540 FORMAT FIRST
+	LXI	H,SIMAGE		;SPECIAL FORMAT DATA IS PLACED
+	CALL	WRSYS		;  HERE BY USER
+;
+AGAIN:	LXI	D,DONE		;REMOVE DISK MESSAGE
+	CALL	PRINT
+;
+AGAIN0:	LXI	D,CONT		;PRESS SPACE MESSAGE
+	CALL	PRINT
+;
+AGAIN1:	CALL	CONIN		;WAIT FOR SPACE BAR
+	CPI	' '
+	JNZ	AGAIN1
+;
+	JMP	LOOP
+;
+FORMAT:	LXI	D,FMTMSG
+	CALL	PRINT
+;
+	MVI	A,VICFMT	;FORMAT COMMAND
+	STA	CMD
+	MVI	A,OFF		;TURN OFF Z80
+	STA	MODESW
+	NOP
+	LDA	DATA		;DATA=0 IF OK
+	ANA	A
+	JNZ	ERROR
+	RET
+;
+WRSYS:	MVI	A,0	;WRITE SYSTEM TRACKS
+	STA	DISKNO
+;
+	PUSH	H	;SAVE POINT
+	MVI	A,1
+	STA	TRACK
+;
+	MVI	A,0
+	STA	SECTOR
+;
+	CALL	WRSEC	;DO FAKE WRITE
+	POP	H	;GET READY FOR REAL THING
+;
+	MVI	A,1
+	STA	TRACK
+;
+	MVI	A,0
+WRSYS1:	STA	SECTOR
+;
+	CALL	WRSEC
+;
+	LDA	SECTOR	;TRACK 1, SECTORS 0-4
+	INR	A
+	CPI	5
+	JC	WRSYS1	;CY=1 IF A&lt;5
+;
+	MVI	A,18
+	STA	TRACK	;DIRECTORY TRACK
+	MVI	A,0
+WRSYS2:	STA	SECTOR
+;
+	CALL	WRSEC
+;
+	LDA	SECTOR	;TRACK 18, SECTORS 0-1
+	INR	A
+	CPI	2
+	JC	WRSYS2	;CY=1 IF A&lt;2
+;
+	LXI	H,BUFFER
+	MVI	A,0E5H		;BLANK DIRECTORY DATA
+WRDIR0:	MOV	M,A
+	INR	L
+	JNZ	WRDIR0		;256 TIMES
+;
+	MVI	A,3
+	STA	TRACK
+	MVI	A,0
+WRDIR1:	STA 	SECTOR
+	MVI	A,VICWR
+	STA	CMP
+	MVI	A,OFF
+	STA	MODESW
+	NOP
+	LDA	DATA
+	ANA	A
+	JNZ	ERROR
+;
+	LDA	SECTOR
+	INR	A
+	CPI	8
+	JC	WRDIR1	;TRACK3,SECTORS 0-7
+;
+	RET	;DONE WITH SYSTEM TRACKS
+;
+WRSEC:	MVI	D,BUFFER/256	;DE POINTS TO SECTOR BUFFER
+	MVI	E,0
+;
+WR1:	MOV	A,M		;GET NEXT DATA BYTE
+	STAX	D		;PUT IN BUFFER
+	INX	H		;NEXT DATA
+	INR	E		;NEXT BUFFER
+	JNZ	WR1		;UNTIL E=0
+;
+	MVI	A,VICWR		;SET UP WRITE COMMAND
+	STA	CMD
+	MVI	A,OFF
+	STA	MODESW
+	NOP
+	LDA	DATA	;DATA=0 IF NO ERROR
+	ANA	A
+	JNZ	ERROR
+	RET
+;
+ERROR:	LXI	D,ERRMSG
+	CALL	PRINT
+;
+	JMP	AGAIN0	;WAIT FOR SPACE AND CONTINUE
+;
+PRINT:
+	MVI	C,9	;PRINT FUNCTION #
+	CALL	BDOS
+	RET
+;
+CONIN:	MVI	C,6	;DIRECT CONSOLE I/O #
+	MVI	E,0FFH	;INPUT MODE
+	CALL	BDOS
+	RET
+;
+;
+;	MESSAGES
+;
+NAME:	DB	0DH,0DH,'Commodore 64 CP/M Format Utility 1.0'
+	DB	0DH,0DH,'$'
+;
+INSMSG:	DB	'Insert disk to be formatted into ',0DH
+	DB	'  drive A and close door.',0DH,0DH
+	DB	'Press RETURN key to format (or RUN/STOP',0DH
+	DB	'  key to reboot system)',0DH,0DH,'$'
+;
+FMTMSG:	DB	'FORMATTING DISKETTE.  PLEASE WAIT...',0DH,0DH,'$'
+;
+ERRMSG:	DB	'I cannot format this disk!',0DH,0DH,'$'
+;
+DONE:	DB	'FORMAT complete.  Please remove disk.',0DH,0DH,'$'
+;
+CONT:	DB	'Press SPACEBAR to continue',0DH,0DH,'$'
+	DS	64	;SPACE FOR STACK
+STACK 	EQU	$
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

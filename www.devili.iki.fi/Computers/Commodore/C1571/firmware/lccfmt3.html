@@ -1,0 +1,151 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Format/Verify</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Format/Verify Routine</h3>
+</center>
+
+<pre>
+        .page
+	.subttl 'lccfmt3.src'      
+;
+;
+;
+;*   format done, now verify it
+;
+;
+;
+        lda  #200       ;  look at 200 syncs
+        sta  trys        
+;
+comp    lda  #0         ;  pointer into headers
+        sta  bufpnt      
+;
+        lda  #>buff0     
+        sta  bufpnt+1    
+;
+        lda  sectr      ;  sector counter
+        sta  sect        
+;
+cmpr10  jsr  sync       ;  find sync
+;
+        ldx  #10         
+        ldy  #0          
+;
+cmpr15  bvc  *          ;  get header byte
+        clv      
+;
+        lda  data2       
+        cmp  (bufpnt),y ;  compare gcr
+;
+        bne  cmpr20     ; error
+;
+        iny      
+        dex      
+        bne  cmpr15     ;  test all bytes
+;
+        clc     	;  update headr pointer
+        lda  bufpnt      
+        adc  #10         
+        sta  bufpnt      
+;
+        jmp  tstdat     ;  now test data
+;
+cmpr20  dec  trys       ;  test if too many errors
+        bne  comp        
+;
+        lda  #notfnd    ;  too many error
+        jmp  fmterr      
+;
+tstdat  jsr  sync       ;  find data sync
+;
+        ldy  #256-topwrt         
+;
+tst05   bvc  *   
+        clv      
+;
+        lda  data2      ;  compare gcr
+        cmp  ovrbuf,y    
+;
+        bne  cmpr20     ;  error
+;
+        iny      
+        bne  tst05      ;  do all ovrbuf
+;
+        ldx  #255-3     ;  now do buffer, dont test off bytes
+;
+tst10   bvc  *   
+        clv      
+;
+        lda  data2       
+        cmp  buff2,y     
+        bne  cmpr20      
+;
+        iny      
+        dex      
+        bne  tst10       
+;
+;
+        dec  sect       ;  more sectors to test?
+        bne  cmpr10     ;  yes
+;
+;
+;  all sectors done ok
+;
+        inc  ftnum      ;  goto next track
+        lda  ftnum       
+        cmp  #36        ;  #tracks max
+        bcs  fmtend      
+;
+        jmp  end        ;  more to do
+;
+;
+fmtend  lda  #$ff       ;  clear ftnum
+        sta  ftnum       
+;
+        lda  #$0        ;  clear gcr buffer flag
+        sta  gcrflg      
+;
+        lda  #1         ;  return ok code
+        jmp  errr        
+;
+;
+;
+;.end
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

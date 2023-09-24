@@ -1,0 +1,106 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Maps (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page18.html"> 
+     <link rel=next href="page20.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page18.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page20.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<p>  What does this Mean ? Here is what the 64K memory map looks like in various configurations
+    (i.e., as seen by the processor):</p>
+
+<table align=center>
+<tr><th rowspan=5 valign=top align=left><u>C64 mode:</u></th>
+    <td>$E000-$FFFF </td><td>Kernel, Editor, BASIC overflow area    </td></tr>
+<tr><td>$D000-$DFFF </td><td>I/O and Color Nybbles, Character ROM   </td></tr>
+<tr><td>$C000-$CFFF </td><td>Application RAM                        </td></tr>
+<tr><td>$A000-$BFFF </td><td>BASIC 2.2                              </td></tr>
+<tr><td>$0002-$9FFF </td><td>RAMLO. VIC screen at $0400-$7FF.<br> BASIC program & vars from $0800-$9FFF</td></tr>
+<tr><th rowspan=6 valign=top align=left><u>C65 mode:</u></th>
+    <td>$E000-$FFFF </td><td>Kernel, Editor ROM code        </td></tr>
+<tr><td>$D000-$DFFF </td><td>I/O and Color Bytes (CHRROM at $29000)   </td></tr>
+<tr><td>$C000-$CFFF </td><td>Kernel Interface, DOS ROM overflow area  </td></tr>
+<tr><td>$8000-$BFFF </td><td>BASIC 10.0 Graphics & Sprite ROM code    </td></tr>
+<tr><td>$2000-$7FFF </td><td>BASIC 10.0 ROM code                      </td></tr>
+<tr><td>$0002-$1FFF </td><td>RAMLO. Vic screen at $0800-$0FFF<br> BASIC prgs mapped from $02000-$0FF00<br> BASIC vars mapped from $12000-$1F7FF</td></tr>
+<tr><th rowspan=6 valign=top align=left><u>C65 DOS mode:</u></th>
+    <td>$E000-$FFFF </td><td>Kernel, Editor ROM code                </td></tr>
+<tr><td>$D000-$DFFF </td><td>I/O (CIA's mapped out), Color Bytes    </td></tr>
+<tr><td>$C800-$CFFF </td><td>Kernel Interface                       </td></tr>
+<tr><td>$8000-$C3FF </td><td>DOS ROM code                           </td></tr>
+<tr><td>$2000-$7FFF </td><td> [don't care]                          </td></tr>
+<tr><td>$0000-$lFFF </td><td>DOS RAMHI                              </td></tr>
+<tr><th rowspan=6 valign=top align=left><u>C65 Monitor:</u></th>
+    <td>$E000-$FFFF    </td><td>Kernel, Editor ROM code                       </td></tr>
+<tr><td>$D000-$DFFF    </td><td>I/O and Color Bytes                           </td></tr>
+<tr><td>$C000-$CFFF    </td><td>Kernel Interface                              </td></tr>
+<tr><td>$8000-$BFFF    </td><td>  [don't care]                                </td></tr>
+<tr><td>$6000-$7FFF    </td><td>Monitor ROM code                              </td></tr>
+<tr><td>$0002-$5FFF    </td><td>RAMLO.                                        </td></tr>
+</table>
+
+<p> It's done this way for a reason. The CPU MAPPER restricts the programmer to
+    one offset for each 32K-byte half of a 64K-byte segment. For one chuck of
+    ROM to MAP in another chuck with a different offset, it must do so into the
+    other half of memory from which it is executing. The OS does this by never
+    mapping the chunk of ROM at $C000-$DFFF, which allows this chunk to contain
+    the Interface/MAP code and I/O (having I/O in context is usually desireable,
+    and you can't map I/O anyhow). The Interface/MAP ROM can be turned on and off
+    via VIC register $30, bit 5 (ROM@$C000), and therefore does not need to be
+    mapped itself. Generally, OS functions (such as the Kernel, Editor, and DOS)
+    live in the upper 32K half of memory, and applications (such as BASIC or the
+    Monitor) live in the lower 32K half. For example, when Monitor mode is
+    entered, the OS maps out BASIC and maps in the Monitor.     Each has ready
+    access to the OS, but no built-in access to each other.     When a DOS call is
+    made, the OS overlays itself with the DOS (except for the magical $C000 code)
+    in the upper 32K half of memory, and overlays the application area with DOS
+    RAM in the lower 32K half of memory.
+
+<p>
+<hr>
+  <a href="page18.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page20.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 06, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

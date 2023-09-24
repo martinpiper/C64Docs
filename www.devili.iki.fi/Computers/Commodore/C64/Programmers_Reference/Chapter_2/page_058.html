@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_057.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_059.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="list">LIST</a></h3>
+
+ <big><b class=blue>TYPE: Command<br>
+ FORMAT: LIST [[&lt;first-line&gt;]-[&lt;last-line&gt;]]
+
+   </b></big><p><b class=blue>Action:</b> The LIST command allows you to look at lines of the BASIC
+ program currently in the memory of your Commodore 64. This lets you use
+ your computer's powerful screen editor, to edit programs which you've
+ LISTed both quickly and easily.
+<p>   The LIST system command displays all or part of the program that is
+ currently in memory on the default output device. The LIST will normally
+ be directed to the screen and the <a href="page_040.html#cmd">CMD</a> statement can be used to switch
+ output to an external device such as a printer or a disk. The LIST command can appear in a program, but BASIC always returns to the system
+ READY message after a LIST is executed.
+<p>   When you bring the program LIST onto the screen, the "scrolling" of
+ the display from the bottom of the screen to the top can be slowed by
+ holding down the ConTRoL <kbd>&lt;CTRL&gt;</kbd> key. LIST is aborted by typing the
+ <kbd>&lt;RUN/STOP&gt;</kbd> key.
+<p>   If no line-numbers are given the entire program is listed. If only the
+ first-line number is specified, and followed by a hyphen (-), that line
+ and all higher-numbered lines are listed. If only the last line-number is
+ specified, and it is preceded by a hyphen, then all lines from the
+ beginning of the program through that line are listed. If both numbers
+ are specified, the entire range, including the line-numbers LISTed, is
+ displayed.
+
+ </p><b class=blue>EXAMPLES of LIST Command:</b>
+<pre>
+   LIST            (Lists the program currently in memory.)
+
+   LIST 500        (Lists line 500 only.)
+
+   LIST 150-       (Lists all lines from 150 to the end.)
+
+   LIST -1000      (Lists all lines from the lowest through 1000.)
+
+   LIST 150-1000   (Lists lines 150 through 1000, inclusive.)
+
+   10 PRINT "THIS  IS LINE 10"
+   20 LIST                             (LIST used in Program Mode)
+   30 PRINT "THIS  IS LINE 30"
+</pre>
+<hr>
+<a href="page_057.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_059.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

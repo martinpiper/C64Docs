@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page91.html"> 
+     <link rel=next href="page93.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page91.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page93.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>80 Column (character) or 640 Pixel (bitmap or bitplane) Mode</h4>
+    
+<p>    You can put the C4567R6 into "80 Column Mode" or "640 horizontal pixel
+    mode by setting the H640 bit in control register "B". The normal: horizontal
+    rendering is 40 columns or 320 pixels.
+    
+<p>    In 80 column character mode, several things change. The Video Matrix
+    becomes 2K bytes long, where it used to be IK in 40 column mode. The character
+    color RAM also becomes 2K bytes long. The locations of these areas do
+    not change from the prior convention, except that the low order video matrix
+    address bit is not used in 80 column mode. where the programmer used to have
+    16 choices for locating the Video Matrix within a video bank, in 80 column
+    mode there are only 8 choices.
+    
+<p>     Although the color RAM doubles in size to 2K bytes, the area provided
+    for color RAM in the 1/0 map only allows for 1K of color RAM.-To read or write
+    the second 1K of color RAM requires that you move CIA1, CIA2, I/O1, and I/O2
+    out of the way. To do this, set the "COLOR RAM @DC00" bit in Control Register
+    "A".
+    
+<p>   In 640 pixel bitmap mode, similar changes occur. The video matrix and
+    color RAM double in size and are positioned in the memory map exactly as is
+    done in 80 column character mode. The bitmap must now also double in size
+    from 8K to 16K bytes. Because the total memory that the video matrix and the
+    bitmap would require now exceeds the normal 16K byte video bank size, the
+    video bank size has been doubled from 16K to 32K for the bitmap only. The
+    least significant video bank bit is ignored, and the high order character
+    generator bank bit selects which half of the 32K video bank that bitmaps
+    will be fetched from. The video matrix is still fetched from the normal 16K
+    video bank.
+    
+<p>    In 80 column or 640 pixel mode, the sprite pointers are at the end
+    of the 2K byte video matrix, where they used to be at the end of the 1K byte
+    video matrix, in 40 column or 320 pixel mode. The size, location, and
+    resolution of sprites are not affected by any of the mode switches.
+    
+<p>
+<hr>
+  <a href="page91.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page93.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,521 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Touring the Commodore 128 Keyboard</title>
+    <meta name="description" content="Article from Ahoy! issue 21 (September 1985) -- Last month we presented an inside view of the C-128. Starting this month we will take a closeup look at some of the specific features which make this new machine a significant improvement over its predecessors.">
+    <meta name="keywords" content="Commodore 128, C128, computer, 8-bit, keyboard, programming">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center><h1>Touring the Commodore 128 Keyboard</h1>
+
+<p>By Morton Kevelson</p>
+
+<p><strong>Last month we presented an inside view of the C-128. Starting
+    this month we will take a closeup look at some of the specific features
+    which make this new machine a significant improvement over its
+    predecessors.</strong>
+</center>
+
+<p>
+<table align="right" width="250">
+<tr><td><img src="a.gif" alt="[C128 keyboard - rightmost special keys]"></td></tr>
+<tr><td><img src="b.gif" alt="[C128 keyboard - middle special keys]"></td></tr>
+<tr><td><img src="c.gif" alt="[C128 keyboard - cursor keys]"></td></tr>
+<tr><td><b>Above the main keyboard of the 128 are (top) Esc, Tab, Alt, Caps
+        Lock, (middle) Help, Line Feed, 40/80, No Scroll, and (bottom)
+        cursor keys).</b></td></tr>
+</table>
+
+    The ergonomic considerations in the design of the C-128 keyboard are
+    readily apparent. The keyboard's low profile should help reduce
+    fatigue by allowing the user's wrists to rest comfortably on the
+    table. Touch typists will welcome the raised dimples on the F and J
+    home keys, as well as on the 5 key of the numeric keypad. The 2&189; inch
+    wide clear space between the keys and the cooling vents is sure to
+    become a haven for all sorts of keyboard overlays. All in all, there
+    are 92 keys to bewilder the novice.
+
+<p> Observant readers will also note that the main part of the keyboard is
+    nearly an exact duplicate of the Commodore 64's. The only notable
+    change is the relocation of the function keys to a horizontal
+    configuration at the right of the top row. Present 64 owners should
+    have very little trouble becoming comfortable with the C-128 layout.
+
+<p> Physical attributes aside, there is a lot more to the C-128 keyboard
+    than meets the eye. Hidden beneath the tactile array, under control of
+    the new operating system, lurks a multitude of functions designed to
+    ease the user's sojourn into the realm of computing with the C-128.
+
+<p> If you have been using a VIC 20 or a C-64, you will already be familiar
+    with a good portion of the key- board's capabilities. The full screen
+    editor functions in the same way as these machines'. The INST/DEL key
+    still eats characters to the left, or when shifted opens spaces to the
+    right. The quote and insert modes still operate in the same fashion
+    which non-Commodorists find so thoroughly befuddling. The CLR/HOME key
+    still moves the cursor to the top left corner of the screen, or when
+    shifted clears the entire screen. As with the C-64, text can be
+    displayed in 16 colors, as the labels on the 1 to 8 keys indicate.
+    These colors are still accessed by holding down the CONTROL key or the
+    Commodore logo key. Unlike the C-64, the labels on the number keys now
+    indicate both colors which are available for that key. As before, text
+    display can be reversed with a CONTROL/9 and restored with a CONTROL/0.
+
+<p> The real power of the C-128 keyboard is in the new editing and control
+    features which have been incorporated into the BASIC 7.0 operating
+    system. For convenience, we have classified these features into three
+    categories: the function keys, the ESCape key sequences, and the
+    CONTROL key sequences. Let's take a close look at each in turn.
+
+<h2>THE FUNCTION KEYS</h2>
+
+<p> On power up, eight useful BASIC phrases are preassigned to the C-128
+    function keys. These phrases can be viewed by executing BASIC 7.0's new
+    KEY command without any parameters. The following list should appear
+    on the display.
+
+<pre>
+    KEY 1,"GRAPHIC"
+    KEY 2,"DLOAD"+CHR$(34)
+    KEY 3,"DIRECTORY"+CHR$(13)
+    KEY 4,"SCNCLR"+CHR$(13)
+    KEY 5,"DSAVE"+CHR$(34)
+    KEY 6,"RUN"+CHR$(13)
+    KEY 7,"LIST"+CHR$(13)
+    KEY 8,"MONITOR'+CHR$(13)
+</pre>
+
+<p> Getting this list on the screen serves two purposes. First, it reminds
+    you what is programmed into the keys. Secondly, it gives you the
+    opportunity to easily change the contents in any of the eight function
+    keys. For example, if you are not planning to do any graphic
+    programming, you may want to redefine f1. Just cursor up to the "3" in
+    KEY 3 and change it to a "1". Hit RETURN and the directory will now be
+    displayed by f1. Enter
+
+<pre>
+    KEY 3,"OPEN 4,4:CMD4"+CHR$(13)
+</pre>
+
+    followed by
+
+<pre>
+    KEY 4,"PRINT#4:CLOSE4"+CHR$(13)
+</pre>
+
+    and you will be all set for easy printer listing. Note how the numbers
+    1 through 8 which immediately follow the KEY statement refer only to
+    the function keys. No other keys are affected by this command.
+
+<p> There is one possible disadvantage to having the function keys
+    preprogrammed. BASIC programs written for the C-64 do not expect to
+    find a lengthy message when examining the function keys. This can be
+    easily remedied by reprogramming all eight keys with the following:
+
+<pre>
+    FOR I=1 TO 8:KEY I,CHR$(I+132):NEXT
+</pre>
+
+    This will place the traditional (for VIC 20 and C-64 users) CHR$ codes
+    into the function keys. You will probably want to do this in every
+    program which uses the function keys to control program operation.
+
+<h2>ESCape KEY SEQUENCES</h2>
+
+<p> The C-128 has the powerful full screen editor that a veteran Commodore
+    user will not feel at home without. This editor has been greatly
+    enhanced with the addition of a series of ESCape key commands. The
+    result is that the C-128 screen editor approaches the capabilities of a
+    full blown text editor. Writing and editing BASIC programs has never
+    been easier.
+
+<p> There are 21 ESCape key sequences implemented on the C-128,
+    almost one for every letter of the alphabet. These sequences are so
+    useful that you will probably want to become familiar with them in a
+    hurry. The best way to become acquainted with them is just to use them
+    while writing a program. Afterwards, if you really want to see how
+    dependent you have become on the new features, just GO 64 and enter the
+    same program. Be forewarned, you may be in for a frustrating experience.
+
+<p> Each of the ESCape sequence commands are executed
+    by pressing and releasing the ESC key followed by the appropriate
+    letter key. Do not hold down both keys at once. For example, pressing
+    the ESC key followed by the "A" key places the editor in automatic
+    insert mode. Anything you type will automatically push the remainder of
+    the display ahead of it. This is a tremendous convenience for
+    rearranging text between quotes or for adding temporary commands during program debugging. It is especially useful when you keep
+    in mind that the C-128 permits entry of up to 160 characters (four 40
+    column lines or two 80 column lines) into a BASIC program line. Note
+    that this is not the same as opening a gap by using the INST/DEL key.
+    All of the keyboard control functions, such as the cursor keys and the
+    CLR/HOME key as well as the INST/DEL key, retain their usual functions.
+    In other words, insert mode does not place the screen editor into quote
+    mode.
+
+<p> The screen parser has been enhanced in other ways as well. It will now
+    link up to a full screen of text at one time. By comparison, the C-64
+    is limited to only two screen lines and the VIC 20 handles four screen
+    lines. However, trying to enter more than 160 screen characters into a
+    single BASIC program line results in a ?STRING TOO LONG ERROR. By
+    comparison, exceeding the C-64's two line limit simply resets the
+    screen linker to the next two lines. This full screen linking on the
+    C-128 must be kept in mind when using the ESCape functions. The erase to end of
+    line command (ESC Q) will remove all text from the current cursor
+    position to the end of screen text or the next carriage return,
+    whichever comes first. The erase to beginning of line command (ESC J)
+    works analogously but in the opposite direction. The same is true of
+    the move to end of line (ESC K) and move to beginning of line (ESC J).
+    On the other hand, the insert a line (ESC I) command is a screen line
+    function. Use of this command within a BASIC line opens up one screen
+    line while maintaining the line links for BASIC editing.
+
+<p> All of these functions can also be obtained under program control. The
+    following sample program illustrates some of the effects which can be
+    easily obtained by using the ESCape sequences in PRINT statements:
+
+<pre>
+    10 PRINT CHR$(147):REM CLEAR SCREEN
+    20 CHAR,14,11,"OFF THE TOP"
+    30 CHAR,12,12,"DOWN THE BOTTOM"
+    40 CHAR,0,12
+    50 FOR I=0TO12
+    60 PRINT CHR$(27)"I"CHR$(27)"I";:REM INSERT TWO LINES
+    70 PRINT CHR$(27)"V";:REM MOVE SCREEN UP ONE LINE
+    80 NEXT
+</pre>
+
+<p> Note that CHR$(27) is the ESCape key. Several keystrokes can be saved
+    by programming PRINT" &lt; reverse [ &gt; X" where the reversed left bracket
+    is obtained by simultaneously pressing CONTROL, SHIFT, and the colon
+    keys while in quote mode. The reverse left bracket between quotes in a
+    BASIC statement will generate a CHR$(27). This is a useful trick to
+    keep in mind for sending escape codes to a printer with a PRINT#
+    statement. Note that the ESCape key commands only work when sent to the
+    screen. If you want to see how the program works try adding the
+    following lines:
+
+<pre>
+    65 SLEEP 1
+    75 SLEEP 1
+</pre>
+
+    The SLEEP command pauses program execution for the specified number of
+    seconds. Also note the use of the CHAR command to conveniently position
+    the cursor on the screen. The CHAR command is really meant to display
+    text on a graphic screen. In this context it is being used as a PRINT
+    AT command.
+
+<p> One of the more interesting capabilities of BASIC 7.0 is
+    the ability to define windows. Once a window is set, all subsequent
+    screen output is restricted to this area. Try the following program:
+
+<pre>
+    10 PRINT CHR$(147)
+    20 CHAR,10,10,CHR$(27)"T"
+    30 CHAR,10,10,CHR$(27)"B"
+    40 LIST
+</pre>
+
+<p> This will define a screen window whose upper left hand corner is at the
+    tenth row and tenth column position. The lower right hand corner will
+    be at twentieth row and column position. Note the use of the CHAR
+    statement to position the cursor as well as to set the window
+    coordinates. Also note the coordinates in the CHAR statement of line
+    30.
+
+<p> These are correct as shown. The CHAR statement
+    references its coordinates from the upper left hand corner of the
+    currently active screen window. Since this has been already defined by
+    line 20, we have to take this into consideration for line 30.
+
+<p> To help keep track of the current screen window, BASIC 7.0 includes the
+    RWINDOW function. The following sequence of commands:
+
+<pre>
+    R=RWINDOW(0)
+    C=RWINDOW(1)
+</pre>
+
+    will place the number of rows and columns into the variables R and C.
+
+<p> While entering a BASIC program, the window commands can be used to
+    partition the screen into a message area and a text area. Just write
+    yourself some notes at the top of the screen and set the screen window.
+    Continue to enter BASIC program lines. All screen control functions,
+    such as clear or home, will not affect the message area. To cancel a
+    window just hit the HOME key twice.
+
+<p> Under program control, a window can be used to eliminate the need to
+    continuously rePRINT a screen layout. The message area in the window
+    can be manipulated as desired without affecting the remainder of the
+    screen. Note that only one window can be active at any time.
+
+<p> A word about the scroll commands. Turning scrolling off, with an ESC M,
+    causes the cursor to wrap from the bottom of the screen to the top of
+    the screen. There is also a NO SCROLL key which according to the
+    preliminary documentation is supposed to perform the same function.
+    This is not so. We found this key to work as a pause as described
+    below.
+
+<h2>CONTROL KEY SEQUENCES</h2>
+
+<p> Turn on your C-128, hold down the CONTROL key, and press G. Surprise!
+    If you had the volume turned up on your television or monitor, you were
+    rewarded with a pleasant bell tone. This may not seem like much, but if
+    I had a nickel for every time someone asked me for a simple way to make
+    that noise on a C-64, I would have retired a wealthy man some time ago.
+    Commodore has finally implemented the traditional teletype "bell" in
+    the C-128 console. The same tone can be produced with a PRINT CHR$(7).
+
+<p> In general the CONTROL functions are not unique to the C-128. Most of
+    them will be familiar to present users of the VIC 20 or the C-64. The
+    C-128 does have some significant changes and additions to this
+    keystroke sequence. Note that unlike the ESCape key sequence you have
+    to hold down the CONTROL key while pressing the second key. Also,
+    CONTROL key commands can be placed into PRINT statements while the
+    screen editor is in quote mode. In contrast, pressing the ESCape key
+    while in quote mode will activate the ESCape key sequence.
+
+<p> As mentioned above, a CONTROL left bracket will send an ESCape
+    character. Try it. If the editor is not in quote mode, this key
+    sequence will initiate the ESCape mode. This little-known key sequence
+    will also generate a CHR$(27) on the C-64 and the VIC 20. Of course,
+    this has no direct effect on these two machines.
+
+<p> The C-128 has a TAB key on its keyboard right next to the ESCape key.
+    Pressing this key generates a CHR$(9), which moves the cursor to the
+    next tab stop on the screen. The CONTROL I key combination will have
+    the same effect. On the VIC 20 or the C-64, a CHR$(9) will enable the
+    character set switch capability. On the C-128 this has been moved to
+    CONTROL K ( CHR$(11) ). The disable-character-set-change command has
+    also been changed to CONTROL L ( CHR$(12) ), although the old CONTROL H
+    ( CHR$(8) ) has no unique C-128 function. Programmers accustomed to
+    these codes on the VIC 20 or C-64 should take note.
+
+<p> Getting back to the tab functions, the CONTROL X ( CHR$(24) ) will set
+    or clear a tab at the current cursor position. However, to clear all
+    tabs you have to use the ESCape Z sequence. The best way to learn about
+    the tab stops is just to play with them. Note that a TAB command does
+    not wrap the cursor to the following screen line. Tabbing to the end of
+    a line simply leaves the cursor at that position.
+
+<p> Another change is worth noting. The CONTROL J ( CHR$(10) ) code
+    generates a linefeed without a carriage return. On the C-64 and VIC 20
+    both a linefeed and carriage return will be produced.
+
+<p> The remaining unique C-128 CONTROL codes are associated with
+    the 80 column display. CONTROL B ( CHR$(2) ) turns underline on.
+    However, there is no corresponding CONTROL sequence to turn it off. You
+    will have to PRINT CHR$(130) to cancel underline mode. The 80 column
+    characters can be set to flash by using a CONTROL 0 ( CHR$(15) ). As
+    with underline mode, there is no CONTROL sequence to turn flash off.
+    Use PRINT CHR$(143) .
+
+<center><p><table>
+<tr><th colspan="3">TABLE OF CONTROL KEY FUNCTIONS</th><tr>
+<tr><td>    CONTROL B </td><td> CHR$(2)   </td><td> Turn underline on in 80 column display      </td></tr>
+<tr><td>    CONTROL G </td><td> CHR$(7)   </td><td> Produce bell tone                           </td></tr>
+<tr><td>    CONTROL H </td><td> CHR$(8)   </td><td> No effect                                   </td></tr>
+<tr><td>    CONTROL I </td><td> CHR$(9)   </td><td> Move cursor to next tab stop                </td></tr>
+<tr><td>    CONTROL J </td><td> CHR$(10)  </td><td> Send a linefeed without a carriage return   </td></tr>
+<tr><td>    CONTROL K </td><td> CHR$(11)  </td><td> Enable character set change                 </td></tr>
+<tr><td>    CONTROL L </td><td> CHR$(12)  </td><td> Disable character set change                </td></tr>
+<tr><td>    CONTROL O </td><td> CHR$(15)  </td><td> Turn flash on in 80 column display          </td></tr>
+<tr><td>    CONTROL X </td><td> CHR$(24)  </td><td> Tab set or clear                            </td></tr>
+<tr><td>    CONTROL [ </td><td> CHR$(27)  </td><td> Send an ESCape character                    </td></tr>
+<tr><td>              </td><td> CHR$(130) </td><td> Cancel  80 column underline                 </td></tr>
+<tr><td>              </td><td> CHR$(143) </td><td> Cancel 80 column flash                      </td></tr>
+</table></center>
+
+<h2>THE REST OF THE KEYS</h2>
+
+<p> The top row of the keyboard has a total of 16 keys in groups of four.
+    The four function keys on the right have been described above. The
+    leftmost grouping includes the ESCape and the TAB keys as well as an
+    ALT key and a CAPS LOCK key. The ALT key is intended for use with
+    alternate character sets under program control. This will be a topic
+    for future discussion. The CAPS LOCK key acts as a SHIFT key only on
+    the letter keys. As with the SHIFT LOCK key. the CAPS LOCK key includes
+    a mechanical latch to hold it down.
+
+<p> The next group starts with a HELP key. If this key is pressed
+    immediately after a BASIC program error, the offending BASIC line will
+    be displayed. Starting with the point in the line at which the error
+    occurred, the remainder of the line will he displayed in reverse on the
+    40 column display and underlined on the 8O column display.
+
+<p> The LINE FEED key moves the cursor down without a carriage return. This
+    is the same as the CONTROL J ( CHR$(10) ) described above. The 40/80
+    DISPLAY key is another mechanically latched button. It determines the
+    display mode on power up or when the reset hutton is depressed.
+    Latching it down defaults to the 80 column display. It has no effect
+    once the computer is up and running. The NO SCROLL key acts as a pause
+    hutton. It comes in handy for freezing a program or directory listing
+    in its tracks. Hitting a key a second time restarts the listing. In a
+    similar fashion, it also pauses program execution.
+
+<p> The next group consists of four independent cursor keys. These
+    duplicate the operation of the cursor keys at the bottom of the
+    keyboard. The notable exception is that it is not necessary to SHIFT
+    for a cursor up or a cursor right. I found that I have grown so
+    accustomed to the old cursor keys that I almost never used the new
+    ones. Perhaps the need to reach to the top of the keyboard discourages
+    their use.
+
+<p> Finally, a 14-key numeric keypad duplicates the function of the number,
+    plus, minus, period/decimal point, and RETURN/ENTER keys. The numeric
+    keypad and the four independent cursor keys are electrically different
+    from the number keys and the cursor keys on the Commodore 64 subset of
+    the keyboard. Although they return the same CHR$ code with a GET
+    statement, it is possible to distinguish them by PEEKing an appropriate
+    location. (See sidebar on page 52 for details.)
+
+<p> This hardware separation of the keypad from the rest of the keyboard is
+    a minor disappointment to C-64 upgraders. If the keypad had been kept
+    electrically identical to the number keys on the keyboard it would have
+    been usable in C-64 mode as well. This would have allowed the use of
+    all existing Commodore 64 programs with the numeric keypad. Keeping the
+    keypad compatible could have been easily accomplished by simply
+    paralleling the existing contacts. Actually, this would have been
+    cheaper to implement than the scheme used. Apparently, Commodore felt
+    the extra flexibility offered by the electrical separation was worth
+    the extra effort.
+
+<h2>LAST BUT NOT LEAST</h2>
+
+<p> Tucked away on the right side of the C-128. next to the on/off switch.
+    is a small square push hutton. It is mounted flush with the surface.
+    making accidental activation unlikely. This is a true hardware reset
+    button. Pressed on its own, it will bring the C-128 back to its initial
+    power up state in the current mode. In conjunction with the Commodore
+    logo key, it will force a reset to C-64 mode. 1f the RUN/STOP key is
+    held down, the C-128 will come up in the machine language monitor with
+    the current BASIC program in memory intact!
+
+<hr width="50%">
+
+<p><table>
+<tr><td>    ESC             </td><td>72 </td><td>   7              </td><td> 24 </td><td>   RESTORE         </td><td>-- </td><td>   N               </td><td>39 </td></tr>
+<tr><td>    TAB             </td><td>67 </td><td>   8              </td><td> 27 </td><td>   RUN/STOP        </td><td>63 </td><td>   M               </td><td>36 </td></tr>
+<tr><td>    ALT             </td><td>-- </td><td>   9              </td><td> 32 </td><td>   SHIFT LOCK      </td><td>-- </td><td>   &lt;            </td><td>47 </td></tr>
+<tr><td>    CAPS LOCK       </td><td>-- </td><td>   0              </td><td> 35 </td><td>   A               </td><td>10 </td><td>   &gt;            </td><td>44 </td></tr>
+<tr><td>    HELP            </td><td>64 </td><td>   +              </td><td> 40 </td><td>   S               </td><td>13 </td><td>   ?               </td><td>55 </td></tr>
+<tr><td>    LINE FEED       </td><td>75 </td><td>   -              </td><td> 43 </td><td>   D               </td><td>18 </td><td>   SHIFT (RIGHT)   </td><td>-- </td></tr>
+<tr><td>    40/80           </td><td>-- </td><td>   (pound)        </td><td> 48 </td><td>   F               </td><td>21 </td><td>   CRSR UP/DOWN    </td><td>7  </td></tr>
+<tr><td>    NO SCROLL       </td><td>87 </td><td>   CLR/HOME       </td><td> 51 </td><td>   G               </td><td>26 </td><td>   CRSR LEFT/RIGHT </td><td>2  </td></tr>
+<tr><td>    CRSR UP         </td><td>83 </td><td>   INST/DEL       </td><td> 0  </td><td>   H               </td><td>29 </td><td colspan="2"> KEYPAD            </td></tr>
+<tr><td>    CRSR DOWN       </td><td>84 </td><td>   CTRL           </td><td> -- </td><td>   J               </td><td>34 </td><td>   7               </td><td>70 </td></tr>
+<tr><td>    CRSR LEFT       </td><td>85 </td><td>   Q              </td><td> 62 </td><td>   K               </td><td>37 </td><td>   8               </td><td>65 </td></tr>
+<tr><td>    CRSR RIGHT      </td><td>86 </td><td>   W              </td><td> 9  </td><td>   L               </td><td>42 </td><td>   9               </td><td>78 </td></tr>
+<tr><td>    F1              </td><td>4  </td><td>   E              </td><td> 14 </td><td>   [               </td><td>45 </td><td>   +               </td><td>73 </td></tr>
+<tr><td>    F3              </td><td>5  </td><td>   R              </td><td> 17 </td><td>   ]               </td><td>50 </td><td>   4               </td><td>69 </td></tr>
+<tr><td>    F5              </td><td>6  </td><td>   T              </td><td> 22 </td><td>   =               </td><td>53 </td><td>   5               </td><td>66 </td></tr>
+<tr><td>    F7              </td><td>3  </td><td>   Y              </td><td> 25 </td><td>   RETURN          </td><td>1  </td><td>   6               </td><td>77 </td></tr>
+<tr><td>    LEFT ARROW      </td><td>57 </td><td>   U              </td><td> 30 </td><td>   COMMODORE       </td><td>-- </td><td>   --              </td><td>74 </td></tr>
+<tr><td>    1               </td><td>56 </td><td>   I              </td><td> 33 </td><td>   SHIFT(LEFT)     </td><td>-- </td><td>   1               </td><td>71 </td></tr>
+<tr><td>    2               </td><td>59 </td><td>   O              </td><td> 38 </td><td>   Z               </td><td>12 </td><td>   2               </td><td>68 </td></tr>
+<tr><td>    3               </td><td>8  </td><td>   P              </td><td> 41 </td><td>   X               </td><td>23 </td><td>   3               </td><td>79 </td></tr>
+<tr><td>    4               </td><td>11 </td><td>   @              </td><td> 46 </td><td>   C               </td><td>20 </td><td>   0               </td><td>81 </td></tr>
+<tr><td>    5               </td><td>16 </td><td>   *              </td><td> 49 </td><td>   V               </td><td>31 </td><td>   .               </td><td>82 </td></tr>
+<tr><td>    6               </td><td>19 </td><td>   UP ARROW       </td><td> 54 </td><td>   B               </td><td>28 </td><td>   ENTER           </td><td>76 </td></tr>
+<tr><th colspan="8">The table (at left) shows the values generated in location 212 by the keys of the C-128 keyboard. (See C-128 Keyboard Distinctions below for explanation.)
+</table>
+
+<h1>C128 KEYBOARD DISTINCTIONS</h1>
+
+<p> The C-128 sports numeric keypad which should greatly speed up data
+    entry in numerically intensive applications, most notably spreadsheets.
+    These keys, as well as the discrete cursor keys, duplicate existing
+    keys on the main keyboard. There are applications where a numeric
+    keypad may be of little or no interest. Instead, various program
+    control functions could be assigned to the new keys.
+
+<p> For such applications it would be desirable to distinguish the keypad
+    from the number keys on the main keyboard. The traditional ASCII code
+    check following a GET will not work, since the same ASCII code wi1l be
+    returned by the corresponding keys. For example, pressing a "1" on the
+    keyboard or keypad returns an ASCII value of 49. Fortunately, there is
+    a simple way for BASIC to distinguish which physical key has been
+    pressed.
+
+<p> Locations 211 and 212 are used by the operating system for this
+    purpose. The values stored here every sixtieth of a second are unique
+    for every key. At address 211
+    the SHIFT, Commodore logo, and CONTROL keys are identified. These keys
+    will set bits zero, one, and two respectively at this address. If you
+    PRINT PEEK(211) a zero will normally be returned. The SHIFT key changes
+    this to a one. The logo key returns a two and the CONTROL key results
+    in a four. These values are additive, so holding all three keys down
+    gives a seven.
+
+<p> The remainder of the keys, with the exception of the RUN/STOP, RESTORE,
+    ALT, and 40/80 keys, place a unique value in address 212 when pressed.
+    On the C-128 this location contains an 88 when no key is pressed. Press
+    any other valid key and a value between 0 and 87 will appear. The table
+    above shows the values generated in location 212 by the keys on the
+    C-128 keyboard. The following program can be used to reproduce these
+    results:
+
+<pre>
+    10 DO:GETKEY A$
+    20 PRINT ASC(A$);PEEK(212)
+    30 LOOP
+</pre>
+
+    The same program in BASIC 2.0 on the C-64 or VIC 20 would be:
+
+<pre>
+    10 GET A$:IFA$=""THEN10
+    20 PRINT ASC(A$);PEEK(203)
+    30 GOTO 10
+</pre>
+
+<p> Note the change in the PEEKed address. The operating systems on all
+    Commodore machines have many similarities. Addresses 203 and 653 on the
+    VIC 20 and the C-64 are equivalent to 212 and 211 on the C-128. The
+    values in 203 for the C-64 will be the same for the corresponding keys
+    in 212 on the C-128. However, the results on the VIC 20 are quite
+    different. The shift flag values are the same for all three computers.
+    You may want to use the KEY statement on the C-128 to clear the
+    function keys before RUNning this program, or strange things may
+    result.
+
+<p><hr width="50%">
+
+<center>
+<p>Published in Ahoy!, Issue 21, September 1985. Copyright &copy;
+1985 Ion International, Inc.
+</center>
+
+<hr>
+ <a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

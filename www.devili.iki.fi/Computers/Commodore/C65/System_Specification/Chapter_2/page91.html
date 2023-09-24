@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page90.html"> 
+     <link rel=next href="page92.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page90.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page92.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h3><a name="2.4.4">2.4.4</a> <u>Programming the new VIC (4567)</u></h3>
+    
+<p>    The C4567R6 is a high performance single chip video controller
+    designed to bring exceptional graphics to low cost computer and game
+    systems. It presently is available in NTSC and PAL versions to match
+    European and North American television standards.
+    
+<p>    The following are new features that are added as a superset of the
+    old VIC-II video controller functions incorporated in the C4567R6.
+
+<ol type="a">
+<li> New-Vic mode
+<li> 80 column character and 640 horizontal pixel mode
+<li> Scan interlace and 400 line mode
+<li> Character attributes (blink, highlight, underline, reverse),
+<li> Fast clock mode (3.58 vs. 1.02 MHz)
+<li> Bitplane mode
+<li> Color palettes
+<li> Additional ROM
+<li> 1280H pixel mode
+<li> Display Address Translator (DAT)
+<li> Horizontal and vertical positioning
+<li> External sync (Genlock)
+<li> Alternate character set
+<li> Chroma killer
+<li> NewVic Mode
+</ol>
+    
+<p>     After power-up and reset, the C4567R6 performs as if it were the "old"
+    VIC chip. In this mode, none of the new features are accessible. The old
+    VIC II registers appear at addresses $D000-$D3FF, echoed 16 times every
+    64 addresses, and any new registers within the 64 byte block will not exist.
+    
+<p>    To put the C4567R6 into "NewVic" mode, the user must write first an
+    $A5 and then a $96 to the KEY register. Once these values have been entered
+    the C4567R6 will be in "NewVic" mode, and access to the "NewVic" registers
+    and modes will be possible.
+    
+<p>    To take the C4567R6 out of "NewVic" mode, simply write any value to the
+    KEY register. After doing this, all of the new modes will be disabled. The
+    registers that were programmed in "NewVic" mode will retain their current
+    values. It should be noted, however, that since all old modes are available
+    in new mode, there is little reason to exit new mode.
+    
+<p>
+<hr>
+  <a href="page90.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page92.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

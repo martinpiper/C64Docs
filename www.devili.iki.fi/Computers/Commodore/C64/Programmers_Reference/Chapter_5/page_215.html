@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Hexadecimal notation</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_214.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_216.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>programs, you must use either a program to do this, or write for yourself
+ a BASIC program that "allows" you to write machine language.
+
+<p>The most common methods used to write machine language programs are
+ assembler programs. These packages allow you to write machine language
+ instructions in a standardized mnemonic format, which makes the machine
+ language program a lot more readable than a stream of numbers! Let's
+ review: A program that allows you to write machine language programs in
+ mnemonic format is called an assembler. Incidentally, a program that
+ displays a machine language program in mnemonic format is called a
+ disassembler. Available for your Commodore 64 is a machine language
+ monitor cartridge (with assembler/disassembler, etc.) made by Commodore:
+
+<h3><a name="64MON">64MON</a></h3>
+
+<p>The 64MON cartridge available from your local dealer, is a program 
+ that allows you to escape from the world of CBM BASIC, into the land 
+ of machine language. It can display the contents of the internal 
+ registers in the 6510 microprocessor, and it allows you to display 
+ portions of memory, and change them on the screen, using the screen 
+ editor. It also has a built-in assembler and disassembler, as well as 
+ many other features that allow you to write and edit machine language 
+ programs easily. You don't HAVE to use an assembler to write machine 
+ language, but the task is considerably easier with it. If you wish to 
+ write machine language programs, it is strongly suggested that you 
+ purchase an assembler of some sort. Without an assembler you will 
+ probably have to "POKE" the machine language program into memory, 
+ which is totally unadvisable. This manual will give its examples in 
+ the format that 64MON uses, from now on. Nearly all assembler formats 
+ are the same, therefore the machine language examples shown will 
+ almost certainly be compatible with any assembler. But before 
+ explaining any of the other features of 64MON, the hexadecimal
+ numbering system must be explained.
+
+
+<h2><a name="Hexadecimal">HEXADECIMAL NOTATION</a></h2>
+
+<p>Hexadecimal notation is used by most machine language programmers 
+ when they talk about a number or address in a machine language 
+ program.
+
+<p>Some assemblers let you refer to addresses and numbers in decimal
+ (base 10), binary (base 2), or even octal (base 8) as well as 
+ hexadecimal
+
+<hr>
+<a href="page_214.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_216.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

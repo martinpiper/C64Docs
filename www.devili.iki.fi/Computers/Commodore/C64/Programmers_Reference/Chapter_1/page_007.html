@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Numbers and Variables (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_006.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_008.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>(that is, any character spaces NOT taken up by the line number and other
+ required parts of the statement).
+  <p>A string constant can contain blanks, letters, numbers, punctuation
+ and color or cursor control characters in any combination. You can even
+ put commas between numbers. <i>The only character which cannot be included
+ in a string is the double quote mark (").</i> This is because the double
+ quote mark is used to define the beginning and end of the string.
+ A string can also have a null value - which means that it can contain no
+ character data. You can leave the ending quote mark off of a string if
+ it's the last item on a line or if it's followed by a colon (:). Some
+ examples of string constants are:</p>
+
+<center><table>
+<tr><td>                         ""         </td><td>( a null string)</td></tr>
+<tr><td colspan=2>               "HELLO"                             </td></tr>
+<tr><td colspan=2>               "$25,000.00"                        </td></tr>
+<tr><td colspan=2>               "NUMBER OF EMPLOYEES"               </td></tr>
+</table>
+<br>
+<table border=1 cellspacing=0 class=blue>
+<tr><td> <b class=blue>NOTE:</b> Use <a href="../Chapter_2/page_038.html#chr$">CHR$(34)</a> to include quotes (") in strings. </td></tr>
+</table></center>
+
+<h3><a name="Integer">INTEGER, FLOATING-POINT AND STRING VARIABLES</a></h3>
+
+   <p>Variables are names that represent data values used in your BASIC
+ statements. The value represented by a variable can be assigned by setting
+ it equal to a constant, or it can be the result of calculations in the
+ program. Variable data, like constants, can be integers, floating-point
+ numbers, or strings. If you refer to a variable name in a program before a
+ value has been assigned, the BASIC Interpreter will automatically create
+ the variable with a value of zero if it's an integer or floating-point
+ number. Or it will create a variable with a null value if you're using
+ strings.
+
+   <p>Variable names can be any length but only the first two characters are
+ considered significant in CBM BASIC. This means that all names used for
+ variables must NOT have the same first two characters. <i>Variable names may
+ NOT be the same as BASIC keywords and they may NOT contain keywords in the
+ middle of variable names.</i> Keywords include all BASIC commands, statements,
+ function names and logical operator names. If you accidentally use a
+ keyword in the middle of a variable name, the BASIC error message
+ <b><a href="../Appendices/page_400.html#syntax_error">?SYNTAX ERROR</a></b> will show up on your screen.
+
+   <p>The characters used to form variable names are the alphabet and the
+ numbers 0-9. The first character of the name must be a letter. Data
+
+<hr>
+<a href="page_006.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_008.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 03, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

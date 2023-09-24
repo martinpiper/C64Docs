@@ -1,0 +1,329 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Commodore 64 Input/Output Assignments</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+    <link rel=stylesheet href="../default.css">
+</head>
+
+<body>
+<a href="page_311.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Chapter_6/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2>COMMODORE 64 INPUT/OUTPUT ASSIGNMENTS</h2>
+
+<table cellspacing=0 border=1 align=center>
+<tr><th>HEX	 </th><th>DECIMAL	 </th><th>BITS		       </th><th>DESCRIPTION</th></tr>
+<tr valign=top><td> 0000 </td><td>0 </td><td>7-0 </td><td>MOS 6510 Data Direction
+				    Register (xx101111)<br>
+				    Bit= 1: Output, Bit=0:
+				    Input, x=Don't Care</td></tr>
+<tr valign=top><td rowspan=8> 0001 </td><td rowspan=8>1 <td>&nbsp;</td><td>MOS 6510 Micro-Processor
+				    On-Chip I/O Port</td></tr>
+<tr valign=top><td>			      0      </td><td>/LORAM Signal (0=Switch BASIC ROM Out)  </td></tr>
+<tr valign=top><td>			      1      </td><td>/HIRAM Signal (0=Switch Kernal ROM Out) </td></tr>
+<tr valign=top><td>			      2      </td><td>/CHAREN Signal (0=Switch Char. ROM In)  </td></tr>
+<tr valign=top><td>			      3      </td><td>Cassette Data Output Line 	      </td></tr>
+<tr valign=top><td>			      4      </td><td>Cassette Switch Sense: 1 = Switch Closed</td></tr>
+<tr valign=top><td>			      5      </td><td>Cassette Motor Control 0 = ON, 1 = OFF  </td></tr>
+<tr valign=top><td>			      6-7    </td><td>Undefined 			      </td></tr>
+<tr valign=top><td><b class=blue>D000-D02E</b></td><td><b class=blue>53248-54271</b></td><td rowspan=18>&nbsp;</td><td><b class=blue>MOS 6566 VIDEO INTERFACE CONTROLLER (VIC)</b></td></tr>
+<tr valign=top><td><a name="D000">D000</a></td><td><a name="53248">53248</a></td><td>Sprite 0 X Pos </td></tr>
+<tr valign=top><td> D001       </td><td>53249		      </td><td>Sprite 0 Y Pos </td></tr>
+<tr valign=top><td> D002       </td><td>53250		      </td><td>Sprite 1 X Pos </td></tr>
+<tr valign=top><td> D003       </td><td>53251		      </td><td>Sprite 1 Y Pos </td></tr>
+<tr valign=top><td> D004       </td><td>53252		      </td><td>Sprite 2 X Pos </td></tr>
+<tr valign=top><td> D005       </td><td>53253		      </td><td>Sprite 2 Y Pos </td></tr>
+<tr valign=top><td> D006       </td><td>53254		      </td><td>Sprite 3 X Pos </td></tr>
+<tr valign=top><td> D007       </td><td>53255		      </td><td>Sprite 3 Y Pos </td></tr>
+<tr valign=top><td> D008       </td><td>53256		      </td><td>Sprite 4 X Pos </td></tr>
+<tr valign=top><td> D009       </td><td>53257		      </td><td>Sprite 4 Y Pos </td></tr>
+<tr valign=top><td> D00A       </td><td>53258		      </td><td>Sprite 5 X Pos </td></tr>
+<tr valign=top><td> D00B       </td><td>53259		      </td><td>Sprite 5 Y Pos </td></tr>
+<tr valign=top><td> D00C       </td><td>53260		      </td><td>Sprite 6 X Pos </td></tr>
+<tr valign=top><td> D00D       </td><td>53261		      </td><td>Sprite 6 Y Pos </td></tr>
+<tr valign=top><td> D00E       </td><td>53262		      </td><td>Sprite 7 X Pos </td></tr>
+<tr valign=top><td> D00F       </td><td>53263		      </td><td>Sprite 7 Y Pos </td></tr>
+<tr valign=top><td> D010       </td><td>53264		      </td><td>Sprites 0-7 X Pos (msb of X coord.) </td></tr>
+<tr valign=top><td rowspan=7> D011 </td><td rowspan=7>53265 </td><td>&nbsp; </td><td>VIC Control Register </td></tr>
+<tr valign=top><td>			      7      </td><td>Raster Compare: (Bit 8) See 53266 	  </td></tr>
+<tr valign=top><td>			      6      </td><td>Extended Color Text Mode: 1 = Enable    </td></tr>
+<tr valign=top><td>			      5      </td><td>Bit Map Mode: 1 = Enable		      </td></tr>
+<tr valign=top><td>			      4      </td><td>Blank Screen to Border Color: 0 = Blank </td></tr>
+<tr valign=top><td>			      3      </td><td>Select 24/25 Row Text Display: 1=25 Rows</td></tr>
+<tr valign=top><td>			      2-0    </td><td>Smooth Scroll to Y Dot-Position (0-7)   </td></tr>
+<tr valign=top><td> D012       </td><td>53266 </td><td rowspan=4>&nbsp;</td><td>Read Raster/Write Raster Value for Compare IRQ</td></tr>
+<tr valign=top><td> D013       </td><td>53267		      </td><td>Light-Pen Latch X Pos</td></tr>
+<tr valign=top><td> D014       </td><td>53268		      </td><td>Light-Pen Latch Y Pos</td></tr>
+<tr valign=top><td> D015       </td><td>53269		      </td><td>Sprite display Enable: 1 = Enable</td></tr>
+<tr valign=top><td rowspan=6> D016 </td><td rowspan=6>53270 </td><td>&nbsp; </td><td>VIC Control Register</td></tr>
+<tr valign=top><td>			      7-6    </td><td>Unused					 </td></tr>
+<tr valign=top><td>			      5      </td><td>ALWAYS SET THIS BIT TO 0 !		 </td></tr>
+<tr valign=top><td>			      4      </td><td>Multi-Color Mode: 1 = Enable (Text or Bit-Map)</td></tr>
+<tr valign=top><td>			      3      </td><td>Select 38/40 Column Text Display: 1 = 40 Cols </td></tr>
+<tr valign=top><td>			      2-0    </td><td>Smooth Scroll to X Pos</td></tr>
+<tr valign=top><td> D017</td><td>53271	 </td><td>&nbsp;</td><td>Sprites 0-7 Expand 2x Vertical (Y)			</td></tr>
+<tr valign=top><td rowspan=4><a name="D018">D018</a></td><td rowspan=4><a name="53272">53272</a></td><td>&nbsp;</td><td>VIC Memory Control Register</td></tr>
+<tr valign=top><td>			      7-4    </td><td>Video Matrix Base Address (inside VIC)		     </td></tr>
+<tr valign=top><td>			      3-1    </td><td>Character Dot-Data Base Address (inside VIC) </td></tr>
+<tr valign=top><td>			      0      </td><td>Select upper/lower Character Set			     </td></tr>
+<tr valign=top><td rowspan=6> D019</td><td rowspan=6>53273</td><td>&nbsp;</td><td>VIC Interrupt Flag Register (Bit = 1: IRQ Occurred)	 </td></tr>
+<tr valign=top><td>			      7      </td><td>Set on Any Enabled VIC IRQ Condition		     </td></tr>
+<tr valign=top><td>			      3      </td><td>Light-Pen Triggered IRQ Flag			     </td></tr>
+<tr valign=top><td>			      2      </td><td>Sprite to Sprite Collision IRQ Flag		     </td></tr>
+<tr valign=top><td>			      1      </td><td>Sprite to Background Collision IRQ Flag		     </td></tr>
+<tr valign=top><td>			      0      </td><td>Raster Compare IRQ Flag				     </td></tr>
+<tr valign=top><td> D01A       </td><td>53274</td><td rowspan=25>&nbsp; </td><td>IRQ Mask Register: 1 = Interrupt Enabled		</td></tr>
+<tr valign=top><td> D01B       </td><td>53275		      </td><td>Sprite to Background Display Priority: 1 = Sprite      </td></tr>
+<tr valign=top><td> D01C       </td><td>53276		      </td><td>Sprites 0-7 Multi-Color Mode Select: 1 = M.C.M.	      </td></tr>
+<tr valign=top><td> D01D       </td><td>53277		      </td><td>Sprites 0-7 Expand 2x Horizontal (X)		      </td></tr>
+<tr valign=top><td> D01E       </td><td>53278		      </td><td>Sprite to Sprite Collision Detect		      </td></tr>
+<tr valign=top><td> D01F       </td><td>53279		      </td><td>Sprite to Background Collision Detect		      </td></tr>
+<tr valign=top><td> D020       </td><td>53280		      </td><td>Border Color					      </td></tr>
+<tr valign=top><td> D021       </td><td>53281		      </td><td>Background Color 0				      </td></tr>
+<tr valign=top><td> D022       </td><td>53282		      </td><td>Background Color 1				      </td></tr>
+<tr valign=top><td> D023       </td><td>53283		      </td><td>Background Color 2				      </td></tr>
+<tr valign=top><td> D024       </td><td>53284		      </td><td>Background Color 3				      </td></tr>
+<tr valign=top><td> D025       </td><td>53285		      </td><td>Sprite Multi-Color Register 0			      </td></tr>
+<tr valign=top><td> D026       </td><td>53286		      </td><td>Sprite Multi-Color Register 1			      </td></tr>
+<tr valign=top><td> D027       </td><td>53287		      </td><td>Sprite 0 Color					      </td></tr>
+<tr valign=top><td> D028       </td><td>53288		      </td><td>Sprite 1 Color					      </td></tr>
+<tr valign=top><td> D029       </td><td>53289		      </td><td>Sprite 2 Color					      </td></tr>
+<tr valign=top><td> D02A       </td><td>53290		      </td><td>Sprite 3 Color					      </td></tr>
+<tr valign=top><td> D02B       </td><td>53291		      </td><td>Sprite 4 Color					      </td></tr>
+<tr valign=top><td> D02C       </td><td>53292		      </td><td>Sprite 5 Color					      </td></tr>
+<tr valign=top><td> D02D       </td><td>53293		      </td><td>Sprite 6 Color					      </td></tr>
+<tr valign=top><td><a name="D02E">D02E</a></td><td><a name="53294">53294</a></td><td>Sprite 7 Color</td></tr>
+<tr valign=top><td><b class=blue> D400-D7FF</b></td><td><b class=blue>54272-55295</b></td><td><b class=blue>MOS 6581 SOUND INTERFACE DEVICE (SID)</b></td></tr>
+<tr valign=top><td> D400       </td><td>54272		      </td><td>Voice 1: Frequency Control - Low-Byte		      </td></tr>
+<tr valign=top><td> D401       </td><td>54273		      </td><td>Voice 1: Frequency Control - High-Byte		      </td></tr>
+<tr valign=top><td> D402       </td><td>54274		      </td><td>Voice 1: Pulse Waveform Width - Low-Byte 	      </td></tr>
+<tr valign=top><td rowspan=2> D403 </td><td rowspan=2>54275</td><td> 7-4    </td><td>Unused						    </td></tr>
+<tr valign=top><td>				       3-0    </td><td>Voice 1: Pulse Waveform Width - High-Nybble	      </td></tr>
+<tr valign=top><td rowspan=9> D404 </td><td rowspan=9>54276</td><td>&nbsp;</td><td>Voice 1: Control Register				  </td></tr>
+<tr valign=top><td>			      7      </td><td>Select Random Noise Waveform, 1 = On		     </td></tr>
+<tr valign=top><td>			      6      </td><td>Select Pulse Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      5      </td><td>Select Sawtooth Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      4      </td><td>Select Triangle Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Test Bit: 1 = Disable Oscillator 1		     </td></tr>
+<tr valign=top><td>			      2      </td><td>Ring Modulate Osc. 1 with Osc. 3 Output, 1 = On	     </td></tr>
+<tr valign=top><td>			      1      </td><td>Synchronize Osc.1 with Osc.3 Frequency, 1 = On	     </td></tr>
+<tr valign=top><td>			      0      </td><td>Gate Bit: 1 = Start Att/Dec/Sus, 0 = Start Release     </td></tr>
+<tr valign=top><td rowspan=3> D405 </td><td rowspan=3>54277</td><td>&nbsp;</td><td>Envelope Generator 1: Attack/Decay Cycle Control	  </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Attack Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Decay Cycle Duration: 0-15 		     </td></tr>
+<tr valign=top><td rowspan=3> D406 </td><td rowspan=3>54278</td><td>&nbsp;</td><td>Envelope Generator 1: Sustain/Release Cycle Control	  </td></tr>
+<tr valign=top><td>			     7-4    </td><td>Select Sustain Cycle Duration: 0-15		    </td></tr>
+<tr valign=top><td>			     3-0    </td><td>Select Release Cycle Duration: 0-15		    </td></tr>
+<tr valign=top><td> D407       </td><td>54279</td><td rowspan=3>&nbsp;</td><td>Voice 2: Frequency Control - Low-Byte		      </td></tr>
+<tr valign=top><td> D408       </td><td>54280		      </td><td>Voice 2: Frequency Control - High-Byte		      </td></tr>
+<tr valign=top><td> D409       </td><td>54281		      </td><td>Voice 2: Pulse Waveform Width - Low-Byte 	      </td></tr>
+<tr valign=top><td rowspan=2> D40A </td><td rowspan=2>54282</td><td> 7-4    </td><td>Unused						    </td></tr>
+<tr valign=top><td>				       3-0    </td><td>Voice 2: Pulse Waveform Width - High-Nybble	      </td></tr>
+<tr valign=top><td rowspan=9> D40B </td><td rowspan=9>54283</td><td>&nbsp;</td><td>Voice 2: Control Register				  </td></tr>
+<tr valign=top><td>			      7      </td><td>Select Random Noise Waveform, 1 = On		     </td></tr>
+<tr valign=top><td>			      6      </td><td>Select Pulse Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      5      </td><td>Select Sawtooth Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      4      </td><td>Select Triangle Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Test Bit: 1 = Disable Oscillator 1		     </td></tr>
+<tr valign=top><td>			      2      </td><td>Ring Modulate Osc. 2 with Osc. 1 Output, 1 = On	     </td></tr>
+<tr valign=top><td>			      1      </td><td>Synchronize Osc.2 with Osc. 1 Frequency, 1 = On	     </td></tr>
+<tr valign=top><td>			      0      </td><td>Gate Bit: 1 = Start Att/Dec/Sus, 0 = Start Release     </td></tr>
+<tr valign=top><td rowspan=3> D40C </td><td rowspan=3>54284 </td><td>&nbsp;</td><td>Envelope Generator 2: Attack / Decay Cycle Control	   </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Attack Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Decay Cycle Duration: 0-15 		     </td></tr>
+<tr valign=top><td rowspan=3> D40D </td><td rowspan=3>54285 </td><td>&nbsp;</td><td>Envelope Generator 2: Sustain / Release Cycle Control  </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Sustain Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Release Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td> D40E       </td><td>54286</td><td rowspan=3>&nbsp; </td><td>Voice 3: Frequency Control - Low-Byte		       </td></tr>
+<tr valign=top><td> D40F       </td><td>54287		      </td><td>Voice 3: Frequency Control - High-Byte		      </td></tr>
+<tr valign=top><td> D410       </td><td>54288		      </td><td>Voice 3: Pulse Waveform Width - Low-Byte 	      </td></tr>
+<tr valign=top><td rowspan=2> D411 </td><td rowspan=2>54289</td><td> 7-4</td><td>Unused 						</td></tr>
+<tr valign=top><td>				       3-0    </td><td>Voice 3: Pulse Waveform Width - High-Nybble	      </td></tr>
+<tr valign=top><td rowspan=9> D412 </td><td rowspan=9>54290</td><td>&nbsp;</td><td>Voice 3: Control Register				  </td></tr>
+<tr valign=top><td>			      7      </td><td>Select Random Noise Waveform, 1 = On		     </td></tr>
+<tr valign=top><td>			      6      </td><td>Select Pulse Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      5      </td><td>Select Sawtooth Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      4      </td><td>Select Triangle Waveform, 1 = On			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Test Bit: 1 = Disable Oscillator 1		     </td></tr>
+<tr valign=top><td>			      2      </td><td>Ring Modulate Osc. 3 with Osc. 2 Output, 1 = On	     </td></tr>
+<tr valign=top><td>			      1      </td><td>Synchronize Osc. 3 with Osc.2 Frequency, 1 = On	     </td></tr>
+<tr valign=top><td>			      0      </td><td>Gate Bit: 1 = Start Att/Dec/Sus, 0 = Start Release     </td></tr>
+<tr valign=top><td rowspan=3> D413 </td><td rowspan=3>54291</td><td>&nbsp;</td><td>Envelope Generator 3: Attack/Decay Cycle Control	  </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Attack Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Decay Cycle Duration: 0-15 		     </td></tr>
+<tr valign=top><td rowspan=3> D414 </td><td rowspan=3>54285</td><td>&nbsp;</td><td>Envelope Generator 3: Sustain / Release Cycle Control  </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Sustain Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Release Cycle Duration: 0-15		     </td></tr>
+<tr valign=top><td> D415       </td><td>54293</td><td rowspan=2>&nbsp;</td><td>Filter Cutoff Frequency: Low-Nybble (Bits 2-0)	      </td></tr>
+<tr valign=top><td> D416       </td><td>54294		      </td><td>Filter Cutoff Frequency: High-Byte		      </td></tr>
+<tr valign=top><td rowspan=6> D417 </td><td rowspan=6>54295</td><td>&nbsp;</td><td>Filter Resonance Control / Voice Input Control	  </td></tr>
+<tr valign=top><td>			      7-4    </td><td>Select Filter Resonance: 0-15			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Filter External Input: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td>			      2      </td><td>Filter Voice 3 Output: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td>			      1      </td><td>Filter Voice 2 Output: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td>			      0      </td><td>Filter Voice 1 Output: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td rowspan=6> D418 </td><td rowspan=6>54296</td><td>&nbsp;</td><td>Select Filter Mode and Volume			  </td></tr>
+<tr valign=top><td>			      7      </td><td>Cut-Off Voice 3 Output: 1 = Off, 0 = On		     </td></tr>
+<tr valign=top><td>			      6      </td><td>Select Filter High-Pass Mode: 1 = On		     </td></tr>
+<tr valign=top><td>			      5      </td><td>Select Filter Band-Pass Mode: 1 = On		     </td></tr>
+<tr valign=top><td>			      4      </td><td>Select Filter Low-Pass Mode: 1 = On		     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Select Output Volume: 0-15			     </td></tr>
+<tr valign=top><td> D419       </td><td>54297</td><td rowspan=7>&nbsp;</td><td>Analog/Digital Converter: Game Paddle 1 (0-255)	      </td></tr>
+<tr valign=top><td> D41A       </td><td>54298		      </td><td>Analog/Digital Converter: Game Paddle 2 (0-255)	      </td></tr>
+<tr valign=top><td> D41B       </td><td>54299		      </td><td>Oscillator 3 Random Number Generator		      </td></tr>
+<tr valign=top><td> D41C       </td><td>54230		      </td><td>Envelope Generator 3 Output			      </td></tr>
+<tr valign=top><td><b class=blue> D500-D7FF</b>  </td><td><b class=blue>54528-55295</b> 	  </td><td><b class=blue>SID IMAGES				    </b>	    </td></tr>
+<tr valign=top><td><b class=blue><a name="D800">D800-DBFF</a></b>  </td><td><b class=blue><a name="55296">55296-56319</a></b>           </td><td><b class=blue>Color RAM (Nybbles)                        </b>            </td></tr>
+<tr valign=top><td><b class=blue> DC00-DCFF</b>  </td><td><b class=blue>56320-56575</b> 	  </td><td><b class=blue>MOS 6526 Complex Interface Adapter (CIA) #1</b>	    </td></tr>
+<tr valign=top><td rowspan=6> DC00 </td><td rowspan=6>56320  </td><td>&nbsp;</td><td>Data Port A (Keyboard, Joystick, Paddles, Light-Pen)   </td></tr>
+<tr valign=top><td>			      7-0    </td><td>Write Keyboard Column Values for Keyboard Scan	     </td></tr>
+<tr valign=top><td>			      7-6    </td><td>Read Paddles on Port A / B (01 = Port A, 10 = Port B)  </td></tr>
+<tr valign=top><td>			      4      </td><td>Joystick A Fire Button: 1 = Fire			     </td></tr>
+<tr valign=top><td>			      3-2    </td><td>Paddle Fire Buttons				     </td></tr>
+<tr valign=top><td>			      3-0    </td><td> Joystick A Direction (0-15)			     </td></tr>
+<tr valign=top><td rowspan=7> DC01	 </td><td rowspan=7>56321</td><td>&nbsp;</td><td>Data Port B (Keyboard, Joystick, Paddles): Game Port 1 </td></tr>
+<tr valign=top><td>			      7-0    </td><td>Read Keyboard Row Values for Keyboard Scan	     </td></tr>
+<tr valign=top><td>			      7      </td><td>Timer B Toggle/Pulse Output			     </td></tr>
+<tr valign=top><td>			      6      </td><td>Timer A: Toggle/Pulse Output			     </td></tr>
+<tr valign=top><td>			      4      </td><td>Joystick 1 Fire Button: 1 = Fire			     </td></tr>
+<tr valign=top><td>			      3-2    </td><td>Paddle Fire Buttons				     </td></tr>
+<tr valign=top><td>			      3-0    </td><td>Joystick 1 Direction				     </td></tr>
+<tr valign=top><td> DC02       </td><td>56322</td><td rowspan=11>&nbsp;</td><td>Data Direction Register - Port A (56320)	       </td></tr>
+<tr valign=top><td> DC03       </td><td>56323		      </td><td>Data Direction Register - Port B (56321) 	      </td></tr>
+<tr valign=top><td> DC04       </td><td>56324		      </td><td>Timer A: Low-Byte				      </td></tr>
+<tr valign=top><td> DC05       </td><td>56325		      </td><td>Timer A: High-Byte				      </td></tr>
+<tr valign=top><td> DC06       </td><td>56326		      </td><td>Timer B: Low-Byte				      </td></tr>
+<tr valign=top><td> DC07       </td><td>56327		      </td><td>Timer B: High-Byte				      </td></tr>
+<tr valign=top><td> DC08       </td><td>56328		      </td><td>Time-of-Day Clock: 1/10 Seconds			      </td></tr>
+<tr valign=top><td> DC09       </td><td>56329		      </td><td>Time-of-Day Clock: Seconds			      </td></tr>
+<tr valign=top><td> DC0A       </td><td>56330		      </td><td>Time-of-Day Clock: Minutes			      </td></tr>
+<tr valign=top><td> DC0B       </td><td>56331		      </td><td>Time-of-Day Clock: Hours + AM/PM Flag (Bit 7)	      </td></tr>
+<tr valign=top><td> DC0C       </td><td>56332		      </td><td>Synchronous Serial I/O Data Buffer		      </td></tr>
+<tr valign=top><td rowspan=7> DC0D </td><td rowspan=7>56333 </td><td>&nbsp;</td><td>CIA Interrupt Control Register (Read IRQs/Write Mask)  </td></tr>
+<tr valign=top><td>			      7      </td><td>IRQ Flag (1 = IRQ Occurred) / Set-Clear Flag	     </td></tr>
+<tr valign=top><td>			      4      </td><td>FLAG1 IRQ (Cassette Read / Serial Bus SRQ Input)	     </td></tr>
+<tr valign=top><td>			      3      </td><td>Serial Port Interrupt				     </td></tr>
+<tr valign=top><td>			      2      </td><td>Time-of-Day Clock Alarm Interrupt 		     </td></tr>
+<tr valign=top><td>			      1      </td><td>Timer B Interrupt 				     </td></tr>
+<tr valign=top><td>			      0      </td><td>Timer A Interrupt 				     </td></tr>
+<tr valign=top><td rowspan=9> DC0E </td><td rowspan=9>56334</td><td>&nbsp;</td><td>CIA Control Register A				  </td></tr>
+<tr valign=top><td>			      7      </td><td>Time-of-Day Clock Frequency: 1 = 50 Hz, 0 = 60 Hz      </td></tr>
+<tr valign=top><td>			      6      </td><td>Serial Port I/O Mode Output, 0 = Input		     </td></tr>
+<tr valign=top><td>			      5      </td><td>Timer A Counts: 1 = CNT Signals, 0 = System 02 Clock   </td></tr>
+<tr valign=top><td>			      4      </td><td>Force Load Timer A: 1 = Yes			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Timer A Run Mode: 1 = One-Shot, 0 = Continuous	     </td></tr>
+<tr valign=top><td>			      2      </td><td>Timer A Output Mode to PB6: 1 = Toggle, 0 = Pulse      </td></tr>
+<tr valign=top><td>			      1      </td><td>Timer A Output on PB6: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td>			      0      </td><td>Start/Stop Timer A: 1 = Start, 0 = Stop		     </td></tr>
+<tr valign=top><td rowspan=4> DC0F </td><td rowspan=4>56335 </td><td>&nbsp;</td><td>CIA Control Register B				   </td></tr>
+<tr valign=top><td>			      7      </td><td>Set Alarm/TOD-Clock: 1 = Alarm, 0 = Clock 	     </td></tr>
+<tr valign=top><td>			      6-5    </td><td>Timer B Mode Select:				     <br>
+				    00 = Count System 02 Clock Pulses			 <br>
+				    01 = Count Positive CNT Transitions 		 <br>
+				    10 = Count Timer A Underflow Pulses 		 <br>
+				    11 = Count Timer A Underflows While CNT Positive	 </td></tr>
+<tr valign=top><td>			      4-0    </td><td>Same as CIA Control Reg. A - for Timer B		     </td></tr>
+<tr valign=top><td><b class=blue>DD00-DDFF  </b></td><td><b class=blue>56576-56831</b></td><td>&nbsp;</td><td><b class=blue>MOS 6526 Complex Interface Adapter (CIA) #2</b></td></tr>
+<tr valign=top><td rowspan=8><a name="DD00">DD00</a></td><td rowspan=8><a name="56576">56576</a></td><td>&nbsp;</td><td>Data Port A (Serial Bus, RS-232, VIC Memory Control)</td></tr>
+<tr valign=top><td>			      7      </td><td>Serial Bus Data Input				     </td></tr>
+<tr valign=top><td>			      6      </td><td>Serial Bus Clock Pulse Input			     </td></tr>
+<tr valign=top><td>			      5      </td><td>Serial Bus Data Output				     </td></tr>
+<tr valign=top><td>			      4      </td><td>Serial Bus Clock Pulse Output			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Serial Bus ATN Signal Output			     </td></tr>
+<tr valign=top><td>			      2      </td><td>RS-232 Data Output (User Port)			     </td></tr>
+<tr valign=top><td>			      1-0    </td><td>VIC Chip System Memory Bank Select (Default = 11)      </td></tr>
+<tr valign=top><td rowspan=9> DD01 </td><td rowspan=9>56577</td><td>&nbsp;</td><td>Data Port B (User Port, RS-232)			  </td></tr>
+<tr valign=top><td>			      7      </td><td>User / RS-232 Data Set Ready			     </td></tr>
+<tr valign=top><td>			      6      </td><td>User / RS-232 Clear to Send			     </td></tr>
+<tr valign=top><td>			      5      </td><td>User						     </td></tr>
+<tr valign=top><td>			      4      </td><td>User / RS-232 Carrier Detect			     </td></tr>
+<tr valign=top><td>			      3      </td><td>User / RS-232 Ring Indicator			     </td></tr>
+<tr valign=top><td>			      2      </td><td>User / RS-232 Data Terminal Ready 		     </td></tr>
+<tr valign=top><td>			      1      </td><td>User / RS-232 Request to Send			     </td></tr>
+<tr valign=top><td>			      0      </td><td>User / RS-232 Received Data			     </td></tr>
+<tr valign=top><td><a name="DD02">DD02</a></td><td><a name="56578">56578</a></td><td rowspan=11>&nbsp;</td><td>Data Direction Register - Port A</td></tr>
+<tr valign=top><td> DD03       </td><td>56579		      </td><td>Data Direction Register - Port B 		      </td></tr>
+<tr valign=top><td> DD04       </td><td>56580		      </td><td>Timer A: Low-Byte				      </td></tr>
+<tr valign=top><td> DD05       </td><td>56581		      </td><td>Timer A: High-Byte				      </td></tr>
+<tr valign=top><td> DD06       </td><td>56582		      </td><td>Timer B: Low-Byte				      </td></tr>
+<tr valign=top><td> DD07       </td><td>56583		      </td><td>Timer B: High-Byte				      </td></tr>
+<tr valign=top><td> DD08       </td><td>56584		      </td><td>Time-of-Day Clock: 1/10 Seconds			      </td></tr>
+<tr valign=top><td> DD09       </td><td>56585		      </td><td>Time-of-Day Clock: Seconds			      </td></tr>
+<tr valign=top><td> DD0A       </td><td>56586		      </td><td>Time-of-Day Clock: Minutes			      </td></tr>
+<tr valign=top><td> DD0B       </td><td>56587		      </td><td>Time-of-Day Clock: Hours + AM/PM Flag (Bit 7)	      </td></tr>
+<tr valign=top><td> DD0C       </td><td>56588		      </td><td>Synchronous Serial I/O Data Buffer		      </td></tr>
+<tr valign=top><td rowspan=6> DD0D </td><td rowspan=6>56589</td><td>&nbsp;</td><td>CIA Interrupt Control Register (Read NMls/Write Mask)  </td></tr>
+<tr valign=top><td>			      7      </td><td>	NMI Flag (1 = NMI Occurred) / Set-Clear Flag	     </td></tr>
+<tr valign=top><td>			      4      </td><td>	FLAG1 NMI (User/RS-232 Received Data Input)	     </td></tr>
+<tr valign=top><td>			      3      </td><td>	Serial Port Interrupt				     </td></tr>
+<tr valign=top><td>			      1      </td><td>	Timer B Interrupt				     </td></tr>
+<tr valign=top><td>			      0      </td><td>	Timer A Interrupt				     </td></tr>
+<tr valign=top><td rowspan=9> DD0E </td><td rowspan=9>56590</td><td>&nbsp;</td><td>CIA Control Register A				  </td></tr>
+<tr valign=top><td>			      7      </td><td>Time-of-Day Clock Frequency: 1 = 50 Hz, 0 = 60 Hz      </td></tr>
+<tr valign=top><td>			      6      </td><td>Serial Port I/O Mode Output, 0 = Input		     </td></tr>
+<tr valign=top><td>			      5      </td><td>Timer A Counts: 1 = CNT Signals,	0 = System 02 Clock  </td></tr>
+<tr valign=top><td>			      4      </td><td>Force Load Timer A: 1 = Yes			     </td></tr>
+<tr valign=top><td>			      3      </td><td>Timer A Run Mode: 1 = One-Shot, 0 = Continuous	     </td></tr>
+<tr valign=top><td>			      2      </td><td>Timer A Output Mode to PB6: 1 = Toggle, 0 = Pulse      </td></tr>
+<tr valign=top><td>			      1      </td><td>Timer A Output on PB6: 1 = Yes, 0 = No		     </td></tr>
+<tr valign=top><td>			      0      </td><td>Start/Stop Timer A: 1 = Start, 0 = Stop		     </td></tr>
+<tr valign=top><td rowspan=4> DD0F </td><td rowspan=4>56591 </td><td>&nbsp;</td><td>CIA Control Register B				   </td></tr>
+<tr valign=top><td>			      7      </td><td>Set Alarm/TOD-Clock: 1 = Alarm, 0 = Clock 	     </td></tr>
+<tr valign=top><td>			      6-5    </td><td>Timer B Mode Select:				     <br>
+				    00 = Count System 02 Clock Pulses			 <br>
+				    01 = Count Positive CNT Transitions 		 <br>
+				    10 = Count Timer A Underflow Pulses 		 <br>
+				    11 = Count Timer A Underflows While CNT Positive	 </td></tr>
+<tr valign=top><td>			      4-0    </td><td>Same as CIA Control Reg. A - for Timer B		     </td></tr>
+<tr valign=top><td><b class=blue> DE00-DEFF</b>  </td><td><b class=blue>56832-57087 </b></td><td>&nbsp;</td><td><b class=blue>Reserved for Future I/O Expansion</b></td></tr>
+<tr valign=top><td><b class=blue> DF00-DFFF</b>  </td><td><b class=blue>57088-57343 </b></td><td>&nbsp;</td><td><b class=blue>Reserved for Future I/O Expansion </b></td></tr>
+</table>
+
+<hr>
+<a href="page_311.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Chapter_6/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	January 10, 2003.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Overview</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page9.html"> 
+     <link rel=next href="page11.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page9.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page11.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h2>1.2 <u>System Overview</u></h2>
+
+<ul>
+    <li> CPU --    Commodore CSG4510 running at 1.02 or 3.5 Mhz
+    <ul>
+        <li> New instructions, including Rockwell and GTE extensions
+        <li> Memory Mapper supporting up to 1 Megabyte address space
+        <li> R6511-type UART (3-wire RS-232) device, programmable baud
+             rate (50-56K baud, MIDI-capable), parity, word size, sync
+             and async. modes. XD/RD wire ORed/ANDed with user port.
+        <li> Two CSG6526-type CIA devices, each with 2 I/O ports,
+             programmable TOD clocks, interval timers, interrupt control
+    </ul>
+
+    <li> Memory
+    <ul>
+        <li> RAM--  128K bytes (DRAM)
+        <ul>
+            <li> Externally expandable from additional 512K bytes to 4MB
+                 using dedicated RAM expansion port.
+        </ul>
+        <li> ROM -- 128K bytes
+        <ul>
+            <li> C64 Kernel and BASIC 2.2
+            <li> C65 Kernel, Editor, BASIC 10.0, ML Monitor (like C128)
+            <li> DOS v10- (1581 subset)
+            <li> Multiple character sets: 40 and 80 column versions
+            <li> National keyboards/charsets for foreign language systems
+            <li> Externally expandable by conventional C64 ROM cartridges
+                 via cartridge/expansion port using C64 decodes.
+            <li> Externally expandable by additional 128K bytes or more
+                 via cartridge/expansion port using new system decodes.
+        </ul>
+        <li> DMA -- Custom DMAgic controller chip built-in
+        <ul>
+            <li> Absolute address access to entire 81-M system map,
+                 including 1/0 devices, both ROM & RAM expansion ports.
+            <li> List-based DMA structures, can be chained together
+            <li> Copy (up,down,invert), Fill, Swap, Mix(boolean Minterms)
+                 Hold, Modulus (window), Interrupt, and Resume modes
+            <li> Block operations from 1 byte to 64K bytes
+            <li> DRQ handshaking for I/O devices
+            <li> Built-in support for (optional) expansion RAM controller
+        </ul>
+    </ul>
+</ul>
+<p>
+<hr>
+  <a href="page9.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page11.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 23, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

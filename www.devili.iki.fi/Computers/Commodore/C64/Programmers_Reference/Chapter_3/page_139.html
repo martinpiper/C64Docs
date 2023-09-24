@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_138.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_3/page_140.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>There are 200 different dot positions that can be individually pro-
+ grammed onto your TV screen in the Y direction. The sprite Y position
+ registers can handle numbers up to 255. This means that you have more
+ than enough register locations to handle moving a sprite up and down. You
+ also want to be able to smoothly move a sprite on and off the screen.
+ More than 200 values are needed for this.
+
+<p>The first on-screen value from the top of the screen, and in the Y
+ direction for an unexpanded sprite is 30. For a sprite expanded in the Y
+ direction it would be 9. (Since each dot is twice as tall, this makes a
+ certain amount of sense, as the initial position is STILL calculated from
+ the top left corner of the sprite.)
+
+<p> The first Y value in which a sprite (expanded or not) is fully on the
+ screen (all 21 possible lines displayed) is 50.
+
+<p> The last Y value in which an unexpanded sprite is fully on the screen
+ is 229. The last Y value in which an expanded sprite is fully on the
+ screen is 208.
+
+<p> The first Y value in which a sprite is fully off the screen is 250.
+
+<p><b class="blue">EXAMPLE:</b>
+
+<pre>
+ 10 PRINT"{CLEAR}"                :REM CLEAR SCREEN
+ 20 POKE 2040,13                  :REM GET SPRITE 0 DATA FROM BLOCK 13
+ 30 FORI=0TO62:POKE832+I,129:NEXT :REM POKE SPRITE DATA INTO BLOCK 13
+ 40 V=53248                       :REM SET BEGINNING OF VIDEO CHIP
+ 50 POKEV+21,1                    :REM ENABLE SPRITE 0
+ 60 POKEV+39,1                    :REM SET SPRITE 0 COLOR
+ 70 POKEV+1,100                   :REM SET SPRITE 0 Y POSITION
+ 80 POKEV+16,0:POKEV,100          :REM SET SPRITE 0 X POSITION
+</pre>
+
+<h3><a name="Horizontal">HORIZONTAL POSITIONING</a></h3>
+
+<p> Positioning in the horizontal direction is more complicated because
+ there are more than, 256 positions. This means that an extra bit, or 9th
+ bit is used to control the X position. By adding the extra bit when
+ necessary a sprite now has 512 possible positions in the left/right, X,
+ direction. This makes more possible combinations than can be seen on the
+ visible part of the screen. Each sprite can have a position from 0 to
+ 511. However, only those values between 24 and 343 are visible on the
+ screen. If the X position of a sprite is greater than 255 (on the right
+ side of the screen), the bit in the X MOST SIGNIFICANT BIT POSITION
+
+<hr>
+<a href="page_138.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_3/page_140.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Multi-color mode graphics</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_116.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_118.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table border="1" cellspacing="0" align="center">
+<tr><th>BIT PAIR</th><th>COLOR REGISTER</th><th>LOCATION</th></tr>
+<tr><td> 00 </td><td> Background #0 color (screen color)  </td><td> 53281 ($D021) </td></tr>
+<tr><td> 01 </td><td> Background #l color                 </td><td> 53282 ($D022) </td></tr>
+<tr><td> 10 </td><td> Background #2 color                 </td><td> 53283 ($D023) </td></tr>
+<tr><td> 11 </td><td> Color specified by the lower 3 bits in color memory </td><td> color RAM     </td></tr>
+</table>
+
+<p>Type NEW and then type this demonstration program:
+
+<pre>
+ 100 POKE 53281,1: REM SET BACKGROUND COLOR #0 TO WHITE
+ 110 POKE 53282,3: REM SET BACKGROUND COLOR #1 TO CYAN
+ 120 POKE 53282,8: REM SET BACKGROUND COLOR #2 TO ORANGE
+ 130 POKE 53270,PEEK(53270)OR16: REM TURN ON MULTICOLOR MODE
+ 140 C=13*4096+8*256: REM SET C TO POINT TO COLOR MEMORY
+ 150 PRINTCHR$(147)"AAAAAAAAAA"
+ 160 FORL=0TO9
+ 170 POKEC+L,8: REM USE MULTI BLACK
+ 180 NEXT
+</pre>
+
+<p> The screen color is white, the character color is black, one color
+ register is cyan (greenish blue), the other is orange. You're not really
+ putting color codes in the space for character color, you're actually
+ using references to the registers associated with those colors. This
+ conserves memory, since 2 bits can be used to pick 16 colors (background)
+ or 8 colors (character). This also makes some neat tricks possible.
+ Simply changing one of the indirect registers will change every dot drawn
+ in that color. Therefore everything drawn in the screen and background
+<hr>
+<a href="page_116.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_118.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

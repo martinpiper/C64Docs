@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Expressions and Operations (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_015.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_017.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> an order of precedence (or hierarchy of operations) within themselves. On
+ the other hand, relational operators do not have an order of precedence
+ and will be performed as the expression is evaluated from left to right.
+<p>If all remaining operators in an expression have the same level of
+ precedence then operations happen from left to right. When performing
+ operations on expressions within parentheses, the normal order of
+ precedence is maintained. The hierarchy of arithmetic and logical
+ operations is shown in Table 1-3 from first to last in order of
+ precedence.</p>
+
+<center>
+<table border="1" cellspacing=0>
+<caption><a name="1-3">Table 1-3. Hierarchy of Operations Performed on Expressions</a></caption>
+<tr><th>OPERATOR   </th><th>    DESCRIPTION  </th><th>    EXAMPLE       </th></tr>
+<tr><td>        ^       </td><td>    Exponentiation               </td><td>      BASE ^ EXP   </td></tr>
+<tr><td>        -       </td><td>    Negation (Unary Minus)       </td><td>         -A        </td></tr>  
+<tr><td>        *       </td><td>    Multiplication               </td><td>       AB * CD     </td></tr>  
+<tr><td>        /       </td><td>    Division                     </td><td>       EF / GH     </td></tr>  
+<tr><td>        +       </td><td>    Addition                     </td><td>       CNT + 2     </td></tr>  
+<tr><td>        -       </td><td>    Subtraction                  </td><td>       JK - PQ     </td></tr>  
+<tr><td>  &gt; = &lt;   </td><td>    Relational Operations        </td><td>       A &lt;= B   </td></tr>
+<tr><td>       NOT      </td><td>    Logical NOT <br> (Integer Two's Complement)                </td><td>        NOT K%     </td></tr>  
+<tr><td>       AND      </td><td>    Logical AND                  </td><td>      JK AND 128   </td></tr>  
+<tr><td>       OR       </td><td>    Logical OR                   </td><td>       PQ OR 15    </td></tr>  
+</table>
+</center>
+
+<h3><a name="String">STRING OPERATIONS</a></h3>
+
+<p>Strings are compared using the same relational operators (=, &lt;&gt;,
+ &lt;=, &gt;=, &lt;, &gt;) that are used for comparing numbers. String comparisons are mode by taking one character at a time (left-to-right) from
+ each string and evaluating each character code position from the PET/
+ CBM character set. If the character codes are the same, the characters
+ are equal. If the character codes differ, the character with the lower
+ code number is lower in the character set. The comparison stops when
+
+<hr>
+<a href="page_015.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_017.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 13, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

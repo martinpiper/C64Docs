@@ -1,0 +1,110 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 128 CP/M Plus: Build instructions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table align=center width="100%">
+<tr><td align=left>MAKESYS.DOC                                 </td>
+    <td align=center>08May87 CP/M 3.0 on the Commodore 128     </td>
+    <td align=right>28May87                                    </td></tr>
+</table>
+
+<p> To generate a new  CPM+.SYS file used by CP/M on the Commodore 128
+    follow the procedure listed below.  You will need a 1581 disk drive for
+    this task.  Without a 1581,  you will have to make modifications to the
+    procedure to suit your system (refer to the MAKESYS instructions on the
+    5.25" diskette that accompanies the DRI manual offer).  If you're lucky
+    enough to possess a 1750 RAM expander,  you could use it  (drive M:) in
+    place of the 1581 work disk. This procedure requires a 400K work space.
+
+<ol>
+<li> Create a 1581 work diskette, using the FORMAT  utility,  or  start
+     with an empty RAMdisk (drive M:).
+
+<li> Copy the following files to the work disk,  using the PIP utility:
+
+     <p>From USER 0: (these are the utilities you will need)
+        <ul>
+                <li>RMAC.COM
+                <li>MAC.COM
+                <li>LINK.COM
+                <li>GENCPM.COM
+                <li>ADDBIOS.COM
+                <li>SUBMIT.COM
+        </ul>
+
+     <p>From USER 1: (these are the data files)
+        <ul>
+                <li>CX80.ASM
+                <li>CXDISK.ASM
+                <li>CXEM.ASM
+                <li>CXEXT.ASM
+                <li>CXINTR.ASM
+                <li>CXIO.ASM
+                <li>CXKEY.ASM
+                <li>CXKRNL.ASM
+                <li>CXKYCODE.ASM
+                <li>CXPRINTE.ASM
+                <li>CXRAMDSK.ASM
+                <li>CXSCB.ASM
+                <li>CXVT.ASM
+                <li>FAST8502.ASM<br>
+
+                <li>CPM3.LIB
+                <li>CXEQU.LIB
+                <li>MODEBAUD.LIB
+                <li>X6502.LIB
+                <li>Z80.LIB<br>
+
+                <li>BNKBDOS3.SPR
+                <li>RESBDOS3.SPR<br>
+
+                <li>CZ.SUB
+                <li>GENCPM.DAT
+        </ul>
+
+<li> Enter 'SUBMIT CZ' and the rest is almost automatic.  Just  answer
+     'Y'  to  all  the  ERASE?  prompts.
+
+<li> When the process is complete,  you will have a CPM+.SYS file that
+     you can copy to any disk from which you want to be able to  boot.
+     You also need to copy the  Console  Command  Processor  (CCP.COM)
+     from USER 0 to the disk from which you want to boot.
+
+<li> Details  regarding  System  Generation  can  be  found in the DRI
+     System Guide. There are several differences to be noted, however,
+     such as somewhat different module names and the implementation of
+     system utilities such as COPYSYS and CPMLDR.
+</ol>
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

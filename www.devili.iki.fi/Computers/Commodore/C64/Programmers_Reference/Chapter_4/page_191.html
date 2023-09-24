@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Using Multiple Voices (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_190.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_192.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   The note number from the note table is added to the duration above.
+ Then each note can be entered using only one number which is decoded by
+ your program. This is only one method of coding note values. You may be
+ able to come up with one with which you are more comfortable. The formula
+ used here for encoding a note is as follows:
+
+<ol>
+   <li> The duration (number of 1/16ths of a measure) is multiplied by 8.
+   <li> The result of step 1 is added to the octave you've chosen (0-7).
+   <li> The result of step 2 is then multiplied by 16.
+   <li> Add your note choice (0-11) to the result of the operation in step 3.
+</ol>
+
+<p> In other words:
+<pre>
+                           ((((D*8)+O)*16)+N)
+</pre>
+Where D = duration, O = octave, and N = note
+
+<p>   A silence is obtained by using the negative of the duration number
+ (number of 1/16ths of a measure * 128).
+
+<h3><a name="Controlling">CONTROLLING MULTIPLE VOICES</a></h3>
+
+<p>   Once you have gotten used to using more than one voice, you will find
+ that the timing of the three voices needs to be coordinated. This is accomplished in this program by:
+<ol>
+   <li> Divide each musical measure into 16 parts.
+   <li> Store the events that occur in each 1/16th measure interval in three separate arrays.
+</ol>
+<p>   The high and low frequency bytes are calculated by dividing the frequencies of the highest octave by two (lines 180 and 190). The waveform
+ control byte is a start signal for beginning a note or continuing a note
+ that is already playing. It is a stop signal to end a note. The waveform
+ choice is made once for each voice in line 40.
+
+<p>   Again, this is only one way to control multiple voices. You may come
+ up with your own methods. However, you should now be able to take any
+ piece of sheet music and figure out the notes for all three voices.
+
+<hr>
+<a href="page_190.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_192.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

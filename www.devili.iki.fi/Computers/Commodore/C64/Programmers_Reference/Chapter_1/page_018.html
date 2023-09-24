@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Techniques</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_017.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_019.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h2><a name="Programming">PROGRAMMING TECHNIQUES</a></h2>
+
+<h3><a name="Data">DATA CONVERSIONS</a></h3>
+
+<p>When necessary, the CBM BASIC Interpreter will convert a numeric
+ data item from an integer to floating-point. or vice-versa, according to
+ the following rules:
+
+<ul>
+<li> All arithmetic and relational operations are performed in floating
+     point format. Integers are converted to floating-point form for
+     evaluation of the expression, and the result is converted back to
+     integer. logical operations convert their operands to integers an
+     return an integer result.
+<li> If a numeric variable name of one type is set equal to a numeric
+     data item of a different type, the number will be converted and
+     stored as the data type declared in the variable name.
+<li> When a floating-point value is converted to an integer, the fractional portion is truncated (eliminated) and the integer result is
+     less than or equal to the floating-point value. If the result is
+     outside the range of +32767 thru -32768, the BASIC error message
+     <b><a href="../Appendices/page_400.html#illegal_quantity">?ILLEGAL QUANTITY</a></b> will occur.
+</ul>
+
+<h3><a name="Using">USING THE INPUT STATEMENT</a></h3>
+
+<p> Now that you know what variables are, let's take that information an
+ put it together with the <a href="../Chapter_2/page_054.html#input">INPUT</a> statement for some practical programming applications.
+<p> In our first example, you can think of a variable as a "storage compartment" where the Commodore 64 stores the user's response to your
+ prompt question. To write a program which asks the user to type in a
+ name, you might assign the variable N$ to the name typed in. Now
+ every time you PRINT N$ in your program, the Commodore 64 will
+ automatically <a href="../Chapter_2/page_070.html#print">PRINT</a> the name that the user typed in.
+<p> Type the word <a href="../Chapter_2/page_062.html#new">NEW</a> on your Commodore 64. Hit the <kbd>&lt;RETURN&gt;</kbd> key
+ and try this example:
+
+<pre>
+   10 PRINT"YOUR NAME": INPUT N$
+   20 PRINT"HELLO",N$
+</pre>
+
+<hr>
+<a href="page_017.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_019.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

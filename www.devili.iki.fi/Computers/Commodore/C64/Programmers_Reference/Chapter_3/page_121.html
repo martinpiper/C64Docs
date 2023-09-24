@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Bit mapped graphics</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_120.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_122.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>Extended color mode is turned OFF by setting bit 6 of the VIC-II regis-
+ ter to a 0 at location 53265 ($D011). The following statement will do
+ this:
+<pre>
+   POKE 53265,PEEK(53265)AND 191
+</pre>
+
+<h2><a name="Bit">BIT</a> MAPPED GRAPHICS</h2>
+
+<p>When writing games, plotting charts for business applications, or other
+ types of programs, sooner or later you get to the point where you want
+ high-resolution displays.
+  
+<p>The Commodore 64 has been designed to do just that: high resolution is
+ available through bit mapping of the screen. Bit mapping is the method in
+ which each possible dot (pixel) of resolution on the screen is assigned
+ its own bit (location) in memory. If that memory bit is a one, the dot it
+ is assigned to is on. If the bit is set to zero, the dot is off.
+
+<p>High-resolution graphic design has a couple of drawbacks, which is why
+ it is not used all the time. First of all, it takes lots of memory to bit
+ map the entire screen. This is because every pixel must have a memory bit
+ to control it. You are going to need one bit of memory for each pixel
+ (or one byte for 8 pixels). Since each character is 8 by 8, and there are
+ 40 lines with 25 characters in each line, the resolution is 320 pixels
+ (dots) by 200 pixels for the whole screen. That gives you 64000 separate
+ dots, each of which requires a bit in memory. In other words, 8000 bytes
+ of memory are needed to map the whole screen.
+
+<p>Generally, high-resolution operations are made of many short, 
+ simple, repetitive routines. Unfortunately, this kind of thing is 
+ usually rather slow if you are trying to write high-resolution 
+ routines in BASIC. However, short, simple, repetitive routines are 
+ exactly what machine language does best. The solution is to either 
+ write your programs entirely in machine language, or call machine 
+ language, high-resolution sub- routines from your BASIC program using 
+ the SYS command from BASIC. That way you get both the ease of writing 
+ in BASIC, and the speed of machine language for graphics. The VSP 
+ cartridge is also available to add high-resolution commands to 
+ COMMODORE 64 BASIC.
+
+<p> All of the examples given in this section will be in BASIC to make them
+ clear. Now to the technical details.
+
+<p> BIT MAPPING is one of the most popular graphics techniques in the
+ computer world. It is used to create highly detailed pictures. Basically,
+ when the Commodore 64 goes into bit map mode, it directly displays an
+
+<hr>
+<a href="page_120.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_122.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

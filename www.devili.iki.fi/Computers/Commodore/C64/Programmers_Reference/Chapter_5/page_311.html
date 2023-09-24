@@ -1,0 +1,269 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Commodore 64 Memory Map</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_310.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_320.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Commodore">COMMODORE 64 MEMORY MAP</a></h2>
+
+<table border=1 cellspacing=0 align=center>
+<tr><th>LABEL</th><th>HEX<br>ADDRESS</th><th>DECIMAL<br>LOCATION</th><th>DESCRIPTION</th></tr>
+<tr valign=top align=left><td> D6510   </td><td>0000       </td><td>     0        </td><td>6510 On-Chip Data-Direction Register
+<tr valign=top align=left><td> R6510   </td><td>0001       </td><td>     1        </td><td>6510 On-Chip 8-Bit Input/Output Register
+<tr valign=top align=left><td> &nbsp;  </td><td>0002       </td><td>     2        </td><td>Unused
+<tr valign=top align=left><td> ADRAY1  </td><td>0003-0004  </td><td>     3-4      </td><td>Jump Vector: Convert Floating-Integer
+<tr valign=top align=left><td> ADRAY2  </td><td>0005-0006  </td><td>     5-6      </td><td>Jump Vector: Convert Integer--Floating
+<tr valign=top align=left><td> CHARAC  </td><td>0007       </td><td>     7        </td><td>Search Character
+<tr valign=top align=left><td> ENDCHR  </td><td>0008       </td><td>     8        </td><td>Flag: Scan for Quote at End of String
+<tr valign=top align=left><td> TRMPOS  </td><td>0009       </td><td>     9        </td><td>Screen Column From Last TAB
+<tr valign=top align=left><td> VERCK   </td><td>000A       </td><td>    10        </td><td>Flag: 0 = Load, 1 = Verify
+<tr valign=top align=left><td> COUNT   </td><td>000B       </td><td>    11        </td><td>Input Buffer Pointer / No. of Subscripts
+<tr valign=top align=left><td> DIMFLG  </td><td>000C       </td><td>    12        </td><td>Flag: Default Array DiMension
+<tr valign=top align=left><td> VALTYP  </td><td>000D       </td><td>    13        </td><td>Data Type: $FF = String, $00 = Numeric
+<tr valign=top align=left><td> INTFLG  </td><td>000E       </td><td>    14        </td><td>Data Type: $80 = Integer, $00 = Floating
+<tr valign=top align=left><td> GARBFL  </td><td>000F       </td><td>    15        </td><td>Flag: DATA scan/LIST quote/Garbage Coll
+<tr valign=top align=left><td> SUBFLG  </td><td>0010       </td><td>    16        </td><td>Flag: Subscript Ref / User Function Call
+<tr valign=top align=left><td> INPFLG  </td><td>0011       </td><td>    17        </td><td>Flag: $00 = INPUT, $40 = GET, $98 = READ
+<tr valign=top align=left><td> TANSGN  </td><td>0012       </td><td>    18        </td><td>Flag TAN sign / Comparison Result
+<tr valign=top align=left><td> &nbsp;  </td><td>0013       </td><td>    19        </td><td>Flag: INPUT Prompt
+<tr valign=top align=left><td> LINNUM  </td><td>0014-0015  </td><td>    20-21     </td><td>Temp: Integer Value
+<tr valign=top align=left><td> TEMPPT  </td><td>0016       </td><td>    22        </td><td>Pointer Temporary String
+<tr valign=top align=left><td> LASTPT  </td><td>0017-0018  </td><td>    23-24     </td><td>Last Temp String Address
+<tr valign=top align=left><td> TEMPST  </td><td>0019-0021  </td><td>    25-33     </td><td>Stack for Temporary Strings
+<tr valign=top align=left><td> INDEX   </td><td>0022-0025  </td><td>    34-37     </td><td>Utility Pointer Area
+<tr valign=top align=left><td> RESHO   </td><td>0026-002A  </td><td>    38-42     </td><td>Floating-Point Product of Multiply
+<tr valign=top align=left><td> TXTTAB  </td><td>002B-002C  </td><td>    43-44     </td><td>Pointer: Start of BASIC Text
+<tr valign=top align=left><td> VARTAB  </td><td>002D-002E  </td><td>    45-46     </td><td>Pointer: Start of BASIC Variables
+<tr valign=top align=left><td> ARYTAB  </td><td>002F-0030  </td><td>    47-48     </td><td>Pointer: Start of BASIC Arrays
+<tr valign=top align=left><td> STREND  </td><td>0031-0032  </td><td>    49-50     </td><td>Pointer End of BASIC Arrays (+1)
+<tr valign=top align=left><td> FRETOP  </td><td>0033-0034  </td><td>    51-52     </td><td>Pointer: Bottom of String Storage
+<tr valign=top align=left><td> FRESPC  </td><td>0035-0036  </td><td>    53-54     </td><td>Utility String Pointer
+<tr valign=top align=left><td> MEMSIZ  </td><td>0037-0038  </td><td>    55-56     </td><td>Pointer: Highest Address Used by BASIC
+<tr valign=top align=left><td> CURLIN  </td><td>0039-003A  </td><td>    57-58     </td><td>Current BASIC Line Number
+<tr valign=top align=left><td> OLDLIN  </td><td>003B-003C  </td><td>    59-60     </td><td>Previous BASIC Line Number
+<tr valign=top align=left><td> OLDTXT  </td><td>003D-003E  </td><td>    61-62     </td><td>Pointer: BASIC Statement for CONT
+<tr valign=top align=left><td> DATLIN  </td><td>003F-0040  </td><td>    63-64     </td><td>Current DATA Line Number
+<tr valign=top align=left><td> DATPTR  </td><td>0041-0042  </td><td>    65-66     </td><td>Pointer: Current DATA Item Address
+<tr valign=top align=left><td> INPPTR  </td><td>0043-0044  </td><td>    67-68     </td><td>Vector: INPUT Routine
+<tr valign=top align=left><td> VARNAM  </td><td>0045-0046  </td><td>    69-70     </td><td>Current BASIC Variable Name
+<tr valign=top align=left><td> VARPNT  </td><td>0047-0048  </td><td>    71-72     </td><td>Pointer: Current BASIC Variable Data
+<tr valign=top align=left><td> FORPNT  </td><td>0049-004A  </td><td>    73-74     </td><td>Pointer: Index Variable for FOR/NEXT
+<tr valign=top align=left><td> &nbsp;  </td><td>004B-0060  </td><td>    75-96     </td><td>Temp Pointer / Data Area
+<tr valign=top align=left><td> FACEXP  </td><td>0061       </td><td>    97        </td><td>Floating-Point Accumulator #1: Exponent
+<tr valign=top align=left><td> FACHO   </td><td>0062-0065  </td><td>    98-101    </td><td>Floating Accum. #1: Mantissa
+<tr valign=top align=left><td> FACSGN  </td><td>0066       </td><td>   102        </td><td>Floating Accum. #1: Sign
+<tr valign=top align=left><td> SGNFLG  </td><td>0067       </td><td>   103        </td><td>Pointer: Series Evaluation Constant
+<tr valign=top align=left><td> BITS    </td><td>0068       </td><td>   104        </td><td>Floating Accum. #1: Overflow Digit
+<tr valign=top align=left><td> ARGEXP  </td><td>0069       </td><td>   105        </td><td>Floating-Point Accumulator #2: Exponent
+<tr valign=top align=left><td> ARGHO   </td><td>006A-006D  </td><td>   106-109    </td><td>Floating Accum. #2: Mantissa
+<tr valign=top align=left><td> ARGSGN  </td><td>006E       </td><td>   110        </td><td>Floating Accum. #2: Sign
+<tr valign=top align=left><td> ARISGN  </td><td>006F       </td><td>   111        </td><td>Sign Comparison Result: Accum. # 1 vs #2
+<tr valign=top align=left><td> FACOV   </td><td>0070       </td><td>   112        </td><td>Floating Accum. #1. Low-Order (Rounding)
+<tr valign=top align=left><td> FBUFPT  </td><td>0071-0072  </td><td>   113-114    </td><td>Pointer: Cassette Buffer
+<tr valign=top align=left><td> CHRGET  </td><td>0073-008A  </td><td>   115-138    </td><td>Subroutine: Get Next Byte of BASIC Text
+<tr valign=top align=left><td> CHRGOT  </td><td>0079       </td><td>   121        </td><td>Entry to Get Same Byte of Text Again
+<tr valign=top align=left><td> TXTPTR  </td><td>007A-007B  </td><td>   122-123    </td><td>Pointer: Current Byte of BASIC Text
+<tr valign=top align=left><td> RNDX    </td><td>008B-008F  </td><td>   139-143    </td><td>Floating RND Function Seed Value
+<tr valign=top align=left><td> STATUS  </td><td>0090       </td><td>   144        </td><td>Kernal I/O Status Word: ST
+<tr valign=top align=left><td> STKEY   </td><td>0091       </td><td>   145        </td><td>Flag: STOP key / RVS key
+<tr valign=top align=left><td> SVXT    </td><td>0092       </td><td>   146        </td><td>Timing Constant for Tape
+<tr valign=top align=left><td> VERCK   </td><td>0093       </td><td>   147        </td><td>Flag: 0 = Load, 1 = Verify
+<tr valign=top align=left><td> C3PO    </td><td>0094       </td><td>   148        </td><td>Flag: Serial Bus-Output Char. Buffered
+<tr valign=top align=left><td> BSOUR   </td><td>0095       </td><td>   149        </td><td>Buffered Character for Serial Bus
+<tr valign=top align=left><td> SYNO    </td><td>0096       </td><td>   150        </td><td>Cassette Sync No.
+<tr valign=top align=left><td> &nbsp;  </td><td>0097       </td><td>   151        </td><td>Temp Data Area
+<tr valign=top align=left><td> LDTND   </td><td>0098       </td><td>   152        </td><td>No. of Open Files / Index to File Table
+<tr valign=top align=left><td> DFLTN   </td><td>0099       </td><td>   153        </td><td>Default Input Device (0)
+<tr valign=top align=left><td> DFLTO   </td><td>009A       </td><td>   154        </td><td>Default Output (CMD) Device (3)
+<tr valign=top align=left><td> PRTY    </td><td>009B       </td><td>   155        </td><td>Tape Character Parity
+<tr valign=top align=left><td> DPSW    </td><td>009C       </td><td>   156        </td><td>Flag: Tape Byte-Received
+<tr valign=top align=left><td> MSGFLG  </td><td>009D       </td><td>   157        </td><td>Flag: $80 = Direct Mode, $00 = Program
+<tr valign=top align=left><td> PTR1    </td><td>009E       </td><td>   158        </td><td>Tape Pass 1 Error Log
+<tr valign=top align=left><td> PTR2    </td><td>009F       </td><td>   159        </td><td>Tape Pass 2 Error Log
+<tr valign=top align=left><td> TIME    </td><td>00A0-00A2  </td><td>   160-162    </td><td>Real-Time Jiffy Clock (approx) 1/60 Sec
+<tr valign=top align=left><td> &nbsp;  </td><td>00A3-00A4  </td><td>   163-164    </td><td>Temp Data Area
+<tr valign=top align=left><td> CNTDN   </td><td>00A5       </td><td>   165        </td><td>Cassette Sync Countdown
+<tr valign=top align=left><td> BUFPNT  </td><td>00A6       </td><td>   166        </td><td>Pointer: Tape I/O Buffer
+<tr valign=top align=left><td> INBIT   </td><td>00A7       </td><td>   167        </td><td>RS-232 Input Bits / Cassette Temp
+<tr valign=top align=left><td> BITCI   </td><td>00A8       </td><td>   168        </td><td>RS-232 Input Bit Count / Cassette Temp
+<tr valign=top align=left><td> RINONE  </td><td>00A9       </td><td>   169        </td><td>RS-232 Flag: Check for Start Bit
+<tr valign=top align=left><td> RIDATA  </td><td>00AA       </td><td>   170        </td><td>RS-232 Input Byte Buffer/Cassette Temp
+<tr valign=top align=left><td> RIPRTY  </td><td>00AB       </td><td>   171        </td><td>RS-232 Input Parity / Cassette Short Cnt
+<tr valign=top align=left><td> SAL     </td><td>00AC-00AD  </td><td>   172-173    </td><td>Pointer: Tape Buffer/ Screen Scrolling
+<tr valign=top align=left><td> EAL     </td><td>00AE-00AF  </td><td>   174-175    </td><td>Tape End Addresses/End of Program
+<tr valign=top align=left><td> CMP0    </td><td>00B0-00B1  </td><td>   176-177    </td><td>Tape Timing Constants
+<tr valign=top align=left><td> TAPE1   </td><td>00B2-00B3  </td><td>   178-179    </td><td>Pointer: Start of Tape Buffer
+<tr valign=top align=left><td> BITTS   </td><td>00B4       </td><td>   180        </td><td>RS-232 Out Bit Count / Cassette Temp
+<tr valign=top align=left><td> NXTBIT  </td><td>00B5       </td><td>   181        </td><td>RS-232 Next Bit to Send/ Tape EOT Flag
+<tr valign=top align=left><td> RODATA  </td><td>00B6       </td><td>   182        </td><td>RS-232 Out Byte Buffer
+<tr valign=top align=left><td> FNLEN   </td><td>00B7       </td><td>   183        </td><td>Length of Current File Name
+<tr valign=top align=left><td> LA      </td><td>00B8       </td><td>   184        </td><td>Current Logical File Number
+<tr valign=top align=left><td> SA      </td><td>00B9       </td><td>   185        </td><td>Current Secondary Address
+<tr valign=top align=left><td> FA      </td><td>00BA       </td><td>   186        </td><td>Current Device Number
+<tr valign=top align=left><td> FNADR   </td><td>00BB-00BC  </td><td>   187-188    </td><td>Pointer: Current File Name
+<tr valign=top align=left><td> ROPRTY  </td><td>00BD       </td><td>   189        </td><td>RS-232 Out Parity / Cassette Temp
+<tr valign=top align=left><td> FSBLK   </td><td>00BE       </td><td>   190        </td><td>Cassette Read / Write Block Count
+<tr valign=top align=left><td> MYCH    </td><td>00BF       </td><td>   191        </td><td>Serial Word Buffer
+<tr valign=top align=left><td> CAS1    </td><td>00C0       </td><td>   192        </td><td>Tape Motor Interlock
+<tr valign=top align=left><td> STAL    </td><td>00C1-00C2  </td><td>   193-194    </td><td>I/O Start Address
+<tr valign=top align=left><td> MEMUSS  </td><td>00C3-00C4  </td><td>   195-196    </td><td>Tape Load Temps
+<tr valign=top align=left><td> LSTX    </td><td>00C5       </td><td>   197        </td><td>Current Key Pressed: CHR$(n) 0 = No Key
+<tr valign=top align=left><td> NDX     </td><td>00C6       </td><td>   198        </td><td>No. of Chars. in Keyboard Buffer (Queue)
+<tr valign=top align=left><td> RVS     </td><td>00C7       </td><td>   199        </td><td>Flag: Reverse Chars. - 1=Yes, 0=No Used
+<tr valign=top align=left><td> INDX    </td><td>00C8       </td><td>   200        </td><td>Pointer: End of Logical Line for INPUT
+<tr valign=top align=left><td> LXSP    </td><td>00C9-00CA  </td><td>   201-202    </td><td>Cursor X-Y Pos. at Start of INPUT
+<tr valign=top align=left><td> SFDX    </td><td>00CB       </td><td>   203        </td><td>Flag: Print Shifted Chars.
+<tr valign=top align=left><td> BLNSW   </td><td>00CC       </td><td>   204        </td><td>Cursor Blink enable: 0 = Flash Cursor
+<tr valign=top align=left><td> BLNCT   </td><td>00CD       </td><td>   205        </td><td>Timer: Countdown to Toggle Cursor
+<tr valign=top align=left><td> GDBLN   </td><td>00CE       </td><td>   206        </td><td>Character Under Cursor
+<tr valign=top align=left><td> BLNON   </td><td>00CF       </td><td>   207        </td><td>Flag: Last Cursor Blink On/Off
+<tr valign=top align=left><td> CRSW    </td><td>00D0       </td><td>   208        </td><td>Flag: INPUT or GET from Keyboard
+<tr valign=top align=left><td> PNT     </td><td>00D1-00D2  </td><td>   209-210    </td><td>Pointer: Current Screen Line Address
+<tr valign=top align=left><td> PNTR    </td><td>00D3       </td><td>   211        </td><td>Cursor Column on Current Line
+<tr valign=top align=left><td> QTSW    </td><td>00D4       </td><td>   212        </td><td>Flag: Editor in Quote Mode, $00 = NO
+<tr valign=top align=left><td> LNMX    </td><td>00D5       </td><td>   213        </td><td>Physical Screen Line Length
+<tr valign=top align=left><td> TBLX    </td><td>00D6       </td><td>   214        </td><td>Current Cursor Physical Line Number
+<tr valign=top align=left><td> &nbsp;  </td><td>00D7       </td><td>   215        </td><td>Temp Data Area
+<tr valign=top align=left><td> INSRT   </td><td>00D8       </td><td>   216        </td><td>Flag: Insert Mode, &gt;0 = # INSTs
+<tr valign=top align=left><td> LDTB1   </td><td>00D9-00F2  </td><td>   217-242    </td><td>Screen Line Link Table / Editor Temps
+<tr valign=top align=left><td> USER    </td><td>00F3-00F4  </td><td>   243-244    </td><td>Pointer: Current Screen Color RAM loc.
+<tr valign=top align=left><td> KEYTAB  </td><td>00F5-00F6  </td><td>   245-246    </td><td>Vector Keyboard Decode Table
+<tr valign=top align=left><td> RIBUF   </td><td>00F7-00F8  </td><td>   247-248    </td><td>RS-232 Input Buffer Pointer
+<tr valign=top align=left><td> ROBUF   </td><td>00F9-00FA  </td><td>   249-250    </td><td>RS-232 Output Buffer  Pointer
+<tr valign=top align=left><td> FREKZP  </td><td>00FB-00FE  </td><td>   251-254    </td><td>Free 0-Page Space for User Programs
+<tr valign=top align=left><td> BASZPT  </td><td>00FF       </td><td>   255        </td><td>BASIC Temp Data Area
+<tr valign=top align=left><td> &nbsp;  </td><td>0100-01FF  </td><td>   256-511    </td><td>Micro-Processor System Stack Area
+<tr valign=top align=left><td> &nbsp;  </td><td>0100-010A  </td><td>   256-266    </td><td>Floating to String Work Area
+<tr valign=top align=left><td> BAD     </td><td>0100-013E  </td><td>   256-318    </td><td>Tape Input Error Log
+<tr valign=top align=left><td> BUF     </td><td>0200-02S8  </td><td>   512-600    </td><td>System INPUT Buffer
+<tr valign=top align=left><td> LAT     </td><td>0259-0262  </td><td>   601-610    </td><td>KERNAL Table: Active Logical File No's.
+<tr valign=top align=left><td> FAT     </td><td>0263-026C  </td><td>   611-620    </td><td>KERNAL Table: Device No. for Each File
+<tr valign=top align=left><td> SAT     </td><td>026D-0276  </td><td>   621-630    </td><td>KERNAL Table: Second Address Each File
+<tr valign=top align=left><td> KEYD    </td><td>0277-0280  </td><td>   631-640    </td><td>Keyboard Buffer Queue (FIFO)
+<tr valign=top align=left><td> MEMSTR  </td><td>0281-0282  </td><td>   641-642    </td><td>Pointer: Bottom of Memory for O.S.
+<tr valign=top align=left><td> MEMSIZ  </td><td>0283-0284  </td><td>   643-644    </td><td>Pointer: Top of Memory for O.S.
+<tr valign=top align=left><td> TIMOUT  </td><td>0285       </td><td>   645        </td><td>Flag: Kernal Variable for IEEE Timeout
+<tr valign=top align=left><td> COLOR   </td><td>0286       </td><td>   646        </td><td>Current Character Color Code
+<tr valign=top align=left><td> GDCOL   </td><td>0287       </td><td>   647        </td><td>Background Color Under Cursor
+<tr valign=top align=left><td> HIBASE  </td><td>0288       </td><td>   648        </td><td>Top of Screen Memory (Page)
+<tr valign=top align=left><td> XMAX    </td><td>0289       </td><td>   649        </td><td>Size of Keyboard Buffer
+<tr valign=top align=left><td> RPTFLG  </td><td>028A       </td><td>   650        </td><td>Flag: REPEAT Key Used, $80 = Repeat
+<tr valign=top align=left><td> KOUNT   </td><td>028B       </td><td>   651        </td><td>Repeat Speed Counter
+<tr valign=top align=left><td> DELAY   </td><td>028C       </td><td>   652        </td><td>Repeat Delay Counter
+<tr valign=top align=left><td> SHFLAG  </td><td>028D       </td><td>   653        </td><td>Flag: Keyboard SHIFT Key/CTRL Key/C= Key
+<tr valign=top align=left><td> LSTSHF  </td><td>028E       </td><td>   654        </td><td>Last Keyboard Shift Pattern
+<tr valign=top align=left><td> KEYLOG  </td><td>028F-0290  </td><td>   655-656    </td><td>Vector: Keyboard Table Setup
+<tr valign=top align=left><td> MODE    </td><td>0291       </td><td>   657        </td><td>Flag: $00=Disable SHIFT Keys, $80=Enable
+<tr valign=top align=left><td> AUTODN  </td><td>0292       </td><td>   658        </td><td>Flag: Auto Scroll Down, 0 = ON
+<tr valign=top align=left><td> M51CTR  </td><td>0293       </td><td>   659        </td><td>RS-232: 6551 Control Register Image
+<tr valign=top align=left><td> MS1CDR  </td><td>0294       </td><td>   660        </td><td>RS-232: 6551 Command Register Image
+<tr valign=top align=left><td> M51AJB  </td><td>0295-0296  </td><td>   661-662    </td><td>RS-232 Non-Standard BPS (Time/2-100) USA
+<tr valign=top align=left><td> RSSTAT  </td><td>0297       </td><td>   663        </td><td>RS-232: 6551 Status Register Image
+<tr valign=top align=left><td> BITNUM  </td><td>0298       </td><td>   664        </td><td>RS-232 Number of Bits Left to Send
+<tr valign=top align=left><td> BAUDOF  </td><td>0299-029A  </td><td>   665-666    </td><td>RS-232 Baud Rate: Full Bit Time (us)
+<tr valign=top align=left><td> RIDBE   </td><td>029B       </td><td>   667        </td><td>RS-232 Index to End of Input Buffer
+<tr valign=top align=left><td> RIDBS   </td><td>029C       </td><td>   668        </td><td>RS-232 Start of Input Buffer (Page)
+<tr valign=top align=left><td> RODBS   </td><td>029D       </td><td>   669        </td><td>RS-232 Start of Output Buffer (Page)
+<tr valign=top align=left><td> RODBE   </td><td>029E       </td><td>   670        </td><td>RS-232 Index to End of Output Buffer
+<tr valign=top align=left><td> IRQTMP  </td><td>029F-02A0  </td><td>   671-672    </td><td>Holds IRQ Vector During Tape I/O
+<tr valign=top align=left><td> ENABL   </td><td>02A1       </td><td>   673        </td><td>RS-232 Enables
+<tr valign=top align=left><td> &nbsp;  </td><td>02A2       </td><td>   674        </td><td>TOD Sense During Cassette I/O
+<tr valign=top align=left><td> &nbsp;  </td><td>02A3       </td><td>   675        </td><td>Temp Storage For Cassette Read
+<tr valign=top align=left><td> &nbsp;  </td><td>02A4       </td><td>   676        </td><td>Temp D1 IRQ Indicator For Cassette Read
+<tr valign=top align=left><td> &nbsp;  </td><td>02A5       </td><td>   677        </td><td>Temp For Line Index
+<tr valign=top align=left><td> &nbsp;  </td><td>02A6       </td><td>   678        </td><td>PAL/NTSC Flag, 0= NTSC, 1 = PAL
+<tr valign=top align=left><td> &nbsp;  </td><td>02A7-02FF  </td><td>   679-767    </td><td>Unused
+<tr valign=top align=left><td> IERROR  </td><td>0300-0301  </td><td>   768-769    </td><td>Vector: Print BASIC Error Message
+<tr valign=top align=left><td> IMAIN   </td><td>0302-0303  </td><td>   770-771    </td><td>Vector: BASIC Warm Start
+<tr valign=top align=left><td> ICRNCH  </td><td>0304-0305  </td><td>   772-773    </td><td>Vector: Tokenize BASIC Text
+<tr valign=top align=left><td> IQPLOP  </td><td>0306-0307  </td><td>   774-775    </td><td>Vector: BASIC Text LIST
+<tr valign=top align=left><td> IGONE   </td><td>0308-0309  </td><td>   776-777    </td><td>Vector: BASIC Char. Dispatch
+<tr valign=top align=left><td> IEVAL   </td><td>030A-030B  </td><td>   778-779    </td><td>Vector: BASIC Token Evaluation
+<tr valign=top align=left><td> SAREG   </td><td>030C       </td><td>   780        </td><td>Storage for 6502 .A Register
+<tr valign=top align=left><td> SXREG   </td><td>030D       </td><td>   781        </td><td>Storage for 5502 .X Register
+<tr valign=top align=left><td> SYREG   </td><td>030E       </td><td>   782        </td><td>Storage for 6502 .Y Register
+<tr valign=top align=left><td> SPREG   </td><td>030F       </td><td>   783        </td><td>Storage for 6502 .SP Register
+<tr valign=top align=left><td> USRPOK  </td><td>0310       </td><td>   784        </td><td>USR Function Jump Instr (4C)
+<tr valign=top align=left><td> USRADD  </td><td>0311-0312  </td><td>   785-786    </td><td>USR Address Low Byte / High Byte
+<tr valign=top align=left><td> &nbsp;  </td><td>0313       </td><td>   787        </td><td>Unused
+<tr valign=top align=left><td> CINV    </td><td>0314-0315  </td><td>   788-789    </td><td>Vector: Hardware Interrupt
+<tr valign=top align=left><td> CBINV   </td><td>0316-0317  </td><td>   790-791    </td><td>Vector: BRK Instr. Interrupt
+<tr valign=top align=left><td> NMINV   </td><td>0318-0319  </td><td>   792-793    </td><td>Vector: Non-Maskable Interrupt
+<tr valign=top align=left><td> IOPEN   </td><td>031A-031B  </td><td>   794-795    </td><td>KERNAL OPEN Routine Vector
+<tr valign=top align=left><td> ICLOSE  </td><td>031C-031D  </td><td>   796-797    </td><td>KERNAL CLOSE Routine Vector
+<tr valign=top align=left><td> ICHKIN  </td><td>031E-031F  </td><td>   798-799    </td><td>KERNAL CHKIN Routine
+<tr valign=top align=left><td> ICKOUT  </td><td>0320-0321  </td><td>   800-801    </td><td>KERNAL CHKOUT Routine
+<tr valign=top align=left><td> ICLRCH  </td><td>0322-0323  </td><td>   802-803    </td><td>KERNAL CLRCHN Routine Vector
+<tr valign=top align=left><td> IBASIN  </td><td>0324-0325  </td><td>   804-805    </td><td>KERNAL CHRIN Routine
+<tr valign=top align=left><td> IBSOUT  </td><td>0326-0327  </td><td>   806-807    </td><td>KERNAL CHROUT Routine
+<tr valign=top align=left><td> ISTOP   </td><td>0328-0329  </td><td>   808-809    </td><td>KERNAL STOP Routine Vector
+<tr valign=top align=left><td> IGETIN  </td><td>032A-032B  </td><td>   810-811    </td><td>KERNAL GETIN Routine
+<tr valign=top align=left><td> ICLALL  </td><td>032C-032D  </td><td>   812-813    </td><td>KERNAL CLALL Routine Vector
+<tr valign=top align=left><td> USRCMD  </td><td>032E-032F  </td><td>   814-815    </td><td>User-Defined Vector
+<tr valign=top align=left><td> ILOAD   </td><td>0330-0331  </td><td>   813-817    </td><td>KERNAL LOAD Routine
+<tr valign=top align=left><td> ISAVE   </td><td>0332-0333  </td><td>   818-819    </td><td>KERNAL SAVE Routine Vector
+<tr valign=top align=left><td> &nsbp;  </td><td>0334-033B  </td><td>   820-827    </td><td>Unused
+<tr valign=top align=left><td> TBUFFR  </td><td>033C-03FB  </td><td>   828-1019   </td><td>Tape I/O Buffer
+<tr valign=top align=left><td> &nbsp;  </td><td>03FC-03FF  </td><td>  1020-1023   </td><td>Unused
+<tr valign=top align=left><td> VICSCN  </td><td>0400-07FF  </td><td>  1024-2047   </td><td>1024 Byte Screen Memory Area
+<tr valign=top align=left><td> &nbsp;  </td><td>0400-07E7  </td><td>  1024-2023   </td><td>Video Matrix: 25 Lines X 40 Columns
+<tr valign=top align=left><td> &nbsp;  </td><td>07F8-07FF  </td><td>  2040-2047   </td><td>Sprite Data Pointers
+<tr valign=top align=left><td> &nbsp;  </td><td>0800-9FFF  </td><td> 2048-40959   </td><td>Normal BASIC Program Space
+<tr valign=top align=left><td> &nbsp;  </td><td>8000-9FFF  </td><td>32768-40959   </td><td>VSP Cartridge ROM - 8192 Bytes
+<tr valign=top align=left><td> &nbsp;  </td><td>A000-BFFF  </td><td>40960-49151   </td><td>BASIC ROM - 8192 Bytes (or 8K RAM)
+<tr valign=top align=left><td> &nbsp;  </td><td>C000-CFFF  </td><td>49152-53247   </td><td>RAM - 4096 Bytes
+<tr valign=top align=left><td> &nbsp;  </td><td>D000-DFFF  </td><td>53248-57343   </td><td>Input/Output Devices and Color RAM or Character Generator ROM or RAM - 4096 Bytes
+<tr valign=top align=left><td> &nbsp;  </td><td>E000-FFFF  </td><td>57344-65535   </td><td>KERNAL ROM - 8192 Bytes (or 8K RAM)
+</table>
+<hr>
+<a href="page_310.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_320.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 07, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

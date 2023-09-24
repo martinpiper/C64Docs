@@ -1,0 +1,111 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_153.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_155.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> of memory). The first sprite (sprite 0) is "addressed" at memory
+ locations 832 to 894.
+
+<p><b class="blue">LINE 40</b> sets the variable "V" equal to 53248, the starting address of
+ the VIDEO CHIP. This entry lets us use the form (V+number) for sprite
+ settings. 're using the form (V+number) when POKEing sprite settings
+ because this format conserves memory and lets us work with smaller
+ numbers. For example, in line 50 we typed POKE V+21. This is the same as
+ typing POKE 53248+21 or POKE 53269... but V+21 requires less space than
+ 53269, and is easier to remember.
+
+<p><b class="blue">LINE 50</b> enables or "turns on" sprite 0. There are 8 sprites, numbered
+ from 0 to 7. To turn on an individual sprite, or a combination of
+ sprites, all you have to do is POKE V+21 followed by a number from 0
+ (turn all sprites off) to 255 (turn all 8 sprites on). You can turn on
+ one or more sprites by POKEing the following numbers:
+
+<p><table border="1" align="center" cellspacing="0">
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><th>ALL ON    </th></tr><tr><td>V+21,255  </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE0   </th></tr><tr><td>V+21,1    </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE1   </th></tr><tr><td>V+21,2    </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE2   </th></tr><tr><td>V+21,4    </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE3   </th></tr><tr><td>V+21,8    </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE4   </th></tr><tr><td>V+21,16   </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE5   </th></tr><tr><td>V+21,32   </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE6   </th></tr><tr><td>V+21,64   </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>SPRITE7   </th></tr><tr><td>V+21,128  </td></tr></table></td>
+<td><table border="0" cellspacing="0" cellpadding="0"><tr><th>ALL OFF   </th></tr><tr><td>V+21,0    </td></tr></table></td></tr>
+</table>
+
+<p> POKE V+21,1 turns on sprite 0. POKE V+21,128 turns on sprite 7. You
+ can also turn on combinations of sprites. For example, POKE V+21,129
+ turns on both sprite 0 and sprite 7 by adding the two "turn on" numbers
+ (1+128) together. (See SPRITEMAKING CHART, Page 176.)
+
+<p><b class="blue">LINE 60</b> sets the COLOR of sprite 0. There are 16 possible sprite
+ colors, numbered from 0 (black) to 15 (grey). Each sprite requires a
+ different POKE to set its color, from V+39 to V+46. POKE V+39,1 colors
+ sprite 0 white. POKE V+46,15 colors sprite 7 grey. (See the SPRITEMAKING
+ CHART for more information.)
+
+<p>When you create a sprite, as you just did, the sprite will STAY IN
+ MEMORY until you POKE it off, redefine it, or turn off your computer.
+ This lets you change the color, position and even shape of the sprite in
+ DIRECT or IMMEDIATE mode, which is useful for editing purposes. As an
+ example, RUN the program above, then type this line in DIRECT mode
+ (without a line number) and hit the &lt;RETURN&gt; key:
+<pre>
+   POKE V+39,8
+</pre>
+   The sprite on the screen is now ORANGE. Try POKEing some other numbers
+ from 0 to 15 to see the other sprite colors. Because you did this in
+
+<hr>
+<a href="page_153.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_155.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

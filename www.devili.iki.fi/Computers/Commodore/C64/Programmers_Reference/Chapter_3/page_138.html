@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_137.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_139.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> Next comes the X register for sprite 1, the Y register for sprite 1, and
+ so on. After all 16 X and Y registers comes the most significant bit in
+ the X position (X MSB) located in its own register.
+
+<p> The chart below lists the locations of each sprite position register.
+ You use the locations at their appropriate time through POKE statements:
+
+<p><table border="1" cellspacing="0" align="center">
+<tr><th colspan="2">LOCATION</th><th rowspan="2">DESCRIPTION</th></tr>
+<tr><th>DECIMAL</th><th>HEX</th></tr>
+<tr><td> 53248 </td><td> ($D000) </td><td> SPRITE 0 X POSITION REGISTER </td></tr>
+<tr><td> 53249 </td><td> ($D001) </td><td> SPRITE 0 Y POSITION REGISTER </td></tr>
+<tr><td> 53250 </td><td> ($D002) </td><td> SPRITE 1 X POSITION REGISTER </td></tr>
+<tr><td> 53251 </td><td> ($D003) </td><td> SPRITE 1 Y POSITION REGISTER </td></tr>
+<tr><td> 53252 </td><td> ($D004) </td><td> SPRITE 2 X POSITION REGISTER </td></tr>
+<tr><td> 53253 </td><td> ($D005) </td><td> SPRITE 2 Y POSITION REGISTER </td></tr>
+<tr><td> 53254 </td><td> ($D006) </td><td> SPRITE 3 X POSITION REGISTER </td></tr>
+<tr><td> 53255 </td><td> ($D007) </td><td> SPRITE 3 Y POSITION REGISTER </td></tr>
+<tr><td> 53256 </td><td> ($D008) </td><td> SPRITE 4 X POSITION REGISTER </td></tr>
+<tr><td> 53257 </td><td> ($D009) </td><td> SPRITE 4 Y POSITION REGISTER </td></tr>
+<tr><td> 53258 </td><td> ($D00A) </td><td> SPRITE 5 X POSITION REGISTER </td></tr>
+<tr><td> 53259 </td><td> ($D00B) </td><td> SPRITE 5 Y POSITION REGISTER </td></tr>
+<tr><td> 53260 </td><td> ($D00C) </td><td> SPRITE 6 X POSITION REGISTER </td></tr>
+<tr><td> 53261 </td><td> ($D00D) </td><td> SPRITE 6 Y POSITION REGISTER </td></tr>
+<tr><td> 53262 </td><td> ($D00E) </td><td> SPRITE 7 X POSITION REGISTER </td></tr>
+<tr><td> 53263 </td><td> ($D00F) </td><td> SPRITE 7 Y POSITION REGISTER </td></tr>
+<tr><td> 53264 </td><td> ($D010) </td><td> SPRITE X MSB REGISTER        </td></tr>
+</table>
+
+<p> The position of a sprite is calculated from the TOP LEFT corner of the
+ 24 dot by 21 dot area that your sprite can be designed in. It does NOT
+ matter how many or how few dots you use to make up a sprite. Even if only
+ one dot is used as a sprite, and you happen to want it in the middle of
+ the screen, you must still calculate the exact positioning by starting at
+ the top left corner location.
+
+<h3><a name="Vertical">VERTICAL POSITIONING</a></h3>
+
+<p> Setting up positions in the horizontal direction is a little more
+ difficult than vertical positioning, so we'll discuss vertical (Y)
+ positioning first.
+
+<hr>
+<a href="page_137.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_139.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

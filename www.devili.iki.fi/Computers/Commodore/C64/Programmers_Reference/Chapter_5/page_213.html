@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Introduction</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_212.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_214.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   If you don't understand what the description of each part of memory
+ means right now, this will become clear from other parts of this manual.
+
+<p>   Machine language programs consist of instructions which may or may not
+ have operands (parameters) associated with them. Each instruction takes
+ up one memory location, and any operand is contained in one or two
+ locations following the instruction.
+
+<p>   In your BASIC programs, words like PRINT and GOTO do, in fact, 
+ only take up one memory location, rather than one for each character 
+ of the word. The contents of the location that represents a 
+ particular BASIC keyword is called a token. In machine language, 
+ there are different tokens for different instructions, which also 
+ take up just one byte (memory location=byte).
+
+<p>   Machine language instructions are very simple. Therefore, each 
+ individual instruction cannot achieve a great deal. Machine language 
+ instructions either change the contents of a memory location, or 
+ change one of the internal registers (special storage locations) 
+ inside the microprocessor. The internal registers form the very basis 
+ of machine language.
+
+
+<h2><a name="Registers">THE REGISTERS INSIDE THE 6510 MICROPROCESSOR</a></h2>
+
+<h3><a name="Accumulator">THE ACCUMULATOR</a></h3>
+
+<p>This is THE most important register in the microprocessor. Various 
+ machine language instructions allow you to copy the contents of a 
+ memory location into the accumulator, copy the contents of the 
+ accumulator into a memory location, modify the contents of the 
+ accumulator or some other register directly, without affecting any 
+ memory. And the accumulator is the only register that has 
+ instructions for performing math.
+ 
+<h3><a name="X">THE X INDEX REGISTER</a></h3>
+
+<p>This is a very important register. There are instructions for 
+ nearly all of the transformations you can make to the accumulator. 
+ But there are other instructions for things that only the X register 
+ can do. Various machine language instructions allow you to copy the 
+ contents of a memory location into the X register, copy the contents 
+ of the X register into a memory location, and modify the contents of 
+ the X, or some other register directly.
+
+<hr>
+<a href="page_212.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_214.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 08, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Maps</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page15.html"> 
+     <link rel=next href="page17.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page15.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page17.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h2><a name="1.5">1.5</a>    <u>System maps</u></h2>
+<h3><a name="1.5.1">1.5.1</a> <u>Composite System memory Map</u></h3>
+
+<table border=1 cellspacing=0 align=center>
+<tr><td>&nbsp;  </td><th>C64 CATRIDGES  </th><th>C64        </th><th>C65        </th><th>RAM-LO     </th><th>RAM-HI     </th></tr>
+<tr align=center valign="middle"><th valign=top align=right>$FFFF   </th>
+    <td nowrap rowspan=2>GAME<br>&nbsp;<br>CARD        </td>
+    <td nowrap rowspan=2>KERNEL<br>&<br> EDITOR  </td>
+    <td nowrap rowspan=2>KERNEL<br>&<br>EDITOR  </td>
+    <td nowrap rowspan=5>C65 EVEN<br>BITPLANES<br><p>C65 BASIC<br> TEXT<br> $2000-$FEFF</td>
+    <td nowrap>          COLOR NYBS</td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$F800   </th>
+    <td nowrap rowspan=7>C65 ODD<br> BITPLANES<br><p>C65 VARS &<br> STRINGS<br> $2000-$FEFF</td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$E000   </th>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>COLOR NYBS<br> I/O & CHARS </td>
+    <td nowrap>COLOR NYBS<br> I/O & CHARS </td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$D000<br>&nbsp;   </th>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>KERNEL </td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$C000<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;   </th>
+    <td nowrap>APPLICATION<br>CARD _ HI</td>
+    <td nowrap>BASIC</td>
+    <td nowrap rowspan=2>BASIC<br> GRAPHICS<br><p>DOS<br> (MAPPED) </td>
+<tr align=center valign="middle"><th valign=top align=right>$A000<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;   </th>
+    <td nowrap>APPLICATION<br> CARD _ LOW</td>
+    <td nowrap>&nbsp;</td>
+    <td nowrap rowspan=3>C64 VAR &<br> STRINGS<br> TEXT-$BFFF<br><p>C64 BASIC<br> TEXT<br> $0800-VARS</td>
+<tr align=center valign="middle"><th valign=top align=right>$8000   </th>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>MONITOR<br> (MAPPED) </td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$6000<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;   </th>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>BASIC </td></tr>
+<tr align=center valign="middle"><th valign=top align=right>$2000<br>$0000</th>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>&nbsp;           </td>
+    <td nowrap>C65 SYSTEM<br>TEXT SCREENS </td>
+    <td nowrap>C64 & C65<br> DOS </td></tr>
+</table>
+
+<p>
+<hr>
+  <a href="page15.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page17.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 11, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_146.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_148.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<pre>
+ 10 REM SPRITE EXAMPLE 2...
+ 20 REM THE HOT AIR BALLOON AGAIN
+ 30 VIC=13*4096:REM THIS IS WHERE THE VIC REGISTERS BEGIN
+ 35 POKEVIC+21,63:REM ENABLE SPRITES 0 THRU 5
+ 36 POKEVIC+33,14:REM SET BACKGROUND COLOR TO LIGHT BLUE
+ 37 POKEVIC+23,3:REM EXPAND SPRITES 0 AND 1 IN Y
+ 38 POKEVIC+29,3:REM EXPAND SPRITES 0 AND 1 IN X
+ 40 POKE2040,192:REM SET SPRITE 0'S POINTER
+ 50 POKE2041,193:REM SET SPRITE 1'S POINTER
+ 60 POKE2042,192:REM SET SPRITE 2'S POINTER
+ 70 POKE2043,193:REM SET SPRITE 3'S POINTER
+ 80 POKE2044,192:REM SET SPRITE 4'S POINTER
+ 90 POKE2045,193:REM SET SPRITE 5'S POINTER
+ 100 POKEVIC+4,30:REM SET SPRITE 2'S X POSITION
+ 110 POKEVIC+5,58:REM SET SPRITE 2'S Y POSITION
+ 120 POKEVIC+6,65:REM SET SPRITE 3'S X POSITION
+ 130 POKEVIC+7,58:REM SET SPRITE 3'S Y POSITION
+ 140 POKEVIC+8,100:REM SET SPRITE 4'S X POSITION
+ 150 POKEVIC+9,58:REM SET SPRITE 4'S Y POSITION
+ 160 POKEVIC+10,100:REM SET SPRITE 5'S X POSITION
+ 170 POKEVIC+11,58:REM SET SPRITE 5'S Y POSITION
+ 175 PRINT"{WHITE}{CLEAR}"TAB(15)"THIS IS TWO HIRES SPRITES";
+ 176 PRINTTAB(55)"ON TOP OF EACH OTHER"
+ 180 POKEVIC+0,100:REM SET SPRITE 0'S X POSITION
+ 190 POKEVIC+1,100:REM SET SPRITE 0'S Y POSITION
+ 200 POKEVIC+2,100:REM SET SPRITE 1'S X POSITION
+ 210 POKEVIC+3,100:REM SET SPRITE 1'S Y POSITION
+ 220 POKEVIC+39,1:REM SET SPRITE 0'S COLOR
+ 230 POKEVIC+41,1:REM SET SPRITE 2'S COLOR
+ 240 POKEVIC+43,1:REM SET SPRITE 4'S COLOR
+ 250 POKEVIC+40,6:REM SET SPRITE 1'S COLOR
+ 260 POKEVIC+42,6:REM SET SPRITE 3'S COLOR
+ 270 POKEVIC+44,6:REM SET SPRITE 5'S COLOR
+ 280 FORX=192TO193:REM THE START OF THE LOOP THAT DEFINES THE SPRITES
+ 290 FORY=0TO63:REM BYTE COUNTER WITH SPRITE LOOP
+ 300 READA:REM READ IN A BYTE
+ 310 POKEX*64+Y,A:REM STORE THE DATA IN SPRITE AREA
+ 320 NEXTY,X:REM CLOSE LOOPS
+ 330 DX=1:DY=1
+ 340 X=PEEK(VIC):REM LOOK AT SPRITE 0'S X POSITION
+ 350 Y=PEEK(VIC+1):REM LOOK AT SPRITE 0'S Y POSITION
+ 360 IFY=50ORY=208THENDY=-DY:REM IF Y IS ON THE EDGE OF THE...
+ 370 REM SCREEN, THEN REVERSE DELTA Y
+ 380 IFX=24AND(PEEK(VIC+16)AND1)=0THENDX=-DX:REM IF SPRITE IS...
+ 390 REM TOUCHING THE LEFT EDGE, THEN REVERSE IT
+ 400 IFX=40AND(PEEK(VIC+16)AND1)=1THENDX=-DX:REM IF SPRITE IS...
+ 410 REM TOUCHING THE RIGHT EDGE, THEN REVERSE IT
+ 420 IFX=255ANDDX=1THENX=-1:SIDE=3
+ 430 REM SWITCH TO OTHER SIDE OF THE SCREEN
+ 440 IFX=0ANDDX=-1THENX=256:SIDE=0
+ 450 REM SWITCH TO OTHER SIDE OF THE SCREEN
+ 460 X=X+DX:REM ADD DELTA X TO X
+ 470 X=XAND255:REM MAKE SURE X IS IN ALLOWED RANGE
+ 480 Y=Y+DY:REM ADD DELTA Y TO Y
+ 485 POKEVIC+16,SIDE
+ 490 POKEVIC,X:REM PUT NEW X VALUE INTO SPRITE 0'S X POSITION
+ 500 POKEVIC+2,X:REM PUT NEW X VALUE INTO SPRITE 1'S X POSITION
+ 510 POKEVIC+1,Y:REM PUT NEW Y VALUE INTO SPRITE 0'S Y POSITION
+ 520 POKEVIC+3,Y:REM PUT NEW Y VALUE INTO SPRITE 1'S Y POSITION
+ 530 GOTO340
+ 600 REM ***** SPRITE DATA *****
+ 610 DATA0,255,0,3,153,192,7,24,224,7,56,224,14,126,112,14,126,112,14,126
+ 620 DATA112,6,126,96,7,56,224,7,56,224,1,56,128,0,153,0,0,90,0,0,56,0
+ 630 DATA0,56,0,0,0,0,0,0,0,0,126,0,0,42,0,0,84,0,0,40,0,0
+ 640 DATA0,0,0,0,102,0,0,231,0,0,195,0,1,129,128,1,129,128,1,129,128
+ 650 DATA1,129,128,0,195,0,0,195,0,4,195,32,2,102,64,2,36,64,1,0,128
+ 660 DATA1,0,128,0,153,0,0,153,0,0,0,0,0,84,0,0,42,0,0,20,0,0
+</pre>
+
+<hr>
+<a href="page_146.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_148.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

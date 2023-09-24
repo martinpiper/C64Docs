@@ -1,0 +1,114 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page33.html"> 
+     <link rel=next href="page35.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page33.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page35.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4><a name="2.3.3.3">2.3.3.3</a> <u>Register Description</u></h4>
+    
+<p> This device contains a total of 41 I/O peripheral registers which
+    can be accessed after the following conditions are met. In an access
+    cycle, the device must be in a non-mapped mode (MAP/ line is not
+    asserted), the IO/ line must be in an active low state and the A0-A3,
+    A8 and A9 address-lines must contain the valid address of the register
+    to be accessed. In addition, the state of the R/W line will indicate
+    whether a read (R/W is "high") write (R/W is "low") cycle is under way.</p>
+    
+<table align=center cellspacing=0 border=1>
+<tr valign=top><th> A9   </th><th>A8 ...</th><th>A3 </th><th>A2 </th><th>A1 </th><th>A0   </th><th>HEX ADDR</th><th>REG SYMBOL</th><th>REGISTER NAME</th></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>0  </td><td>0  </td><td>0    </td><td>0X0  </td><td>PRA        </td><td>Peripheral Data Reg A       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>0  </td><td>0  </td><td>1    </td><td>0X1  </td><td>PRB        </td><td>Peripheral Data Reg B       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>0  </td><td>1  </td><td>0    </td><td>0X2  </td><td>DDRA       </td><td>Data Direction Reg A        </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>0  </td><td>1  </td><td>1    </td><td>0X3  </td><td>DDRB       </td><td>Data Direction Reg B        </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>1  </td><td>0  </td><td>0    </td><td>0X4  </td><td>TA LO      </td><td>Timer A Low Register        </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>1  </td><td>0  </td><td>1    </td><td>0X5  </td><td>TA HI      </td><td>Timer A High Register       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>1  </td><td>1  </td><td>0    </td><td>0X6  </td><td>TB LO      </td><td>Timer B Low Register        </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>0  </td><td>1  </td><td>1  </td><td>1    </td><td>0X7  </td><td>TB HI      </td><td>Timer B High Register       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>0  </td><td>0  </td><td>0    </td><td>0X8  </td><td>TODATS     </td><td>TODA 10ths Sec Register     </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>0  </td><td>0  </td><td>1    </td><td>0X9  </td><td>TODAS      </td><td>TODA Seconds Register       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>0  </td><td>1  </td><td>0    </td><td>0XA  </td><td>TODAM      </td><td>TODA Minutes Register       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>0  </td><td>1  </td><td>1    </td><td>0XB  </td><td>TODAH      </td><td>TODA Hours-AM/PM Reg        </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>1  </td><td>0  </td><td>0    </td><td>0XC  </td><td>SDRA       </td><td>SERIALA Data Register       </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>1  </td><td>0  </td><td>1    </td><td>0XD  </td><td>ICRA       </td><td>INTERRUPTA Control Reg.     </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>1  </td><td>1  </td><td>0    </td><td>0XE  </td><td>CRA        </td><td>Control Register A          </td></tr>
+<tr valign=top><td>    0    </td><td>0  </td><td>1  </td><td>1  </td><td>1  </td><td>1    </td><td>0XF  </td><td>CRB        </td><td>Control Register B          </td></tr>
+<tr valign=top><td colspan=9>&nbsp;                                                                                                                              </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>0  </td><td>0  </td><td>0    </td><td>1X0  </td><td>PRC        </td><td>Peripheral Data Reg C       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>0  </td><td>0  </td><td>1    </td><td>1X1  </td><td>PRD        </td><td>Peripheral Data Reg D       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>0  </td><td>1  </td><td>0    </td><td>1X2  </td><td>DDRC       </td><td>Data Direction Reg C        </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>0  </td><td>1  </td><td>1    </td><td>1X3  </td><td>DDRD       </td><td>Data Direction Reg D        </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>1  </td><td>0  </td><td>0    </td><td>1X4  </td><td>TC LO      </td><td>Timer C Low Register        </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>1  </td><td>0  </td><td>1    </td><td>1X5  </td><td>TC HI      </td><td>Timer C High Register       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>1  </td><td>1  </td><td>0    </td><td>1X6  </td><td>TD LO      </td><td>Timer D Low Register        </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>0  </td><td>1  </td><td>1  </td><td>1    </td><td>1X7  </td><td>TD HI      </td><td>Timer D High Register       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>0  </td><td>0  </td><td>0    </td><td>1X8  </td><td>TODBTS     </td><td>TODB 10ths of Sec Reg.      </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>0  </td><td>0  </td><td>1    </td><td>1X9  </td><td>TODBS      </td><td>TODB Seconds Register       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>0  </td><td>1  </td><td>0    </td><td>1XA  </td><td>TODBM      </td><td>TODB Minutes Register       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>0  </td><td>1  </td><td>1    </td><td>1XB  </td><td>TODBH      </td><td>TODB Hours-AM/PM Reg.      </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>1  </td><td>0  </td><td>0    </td><td>1XC  </td><td>SDRB       </td><td>SERIALB Data Register       </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>1  </td><td>0  </td><td>1    </td><td>1XD  </td><td>ICRB       </td><td>INTERRUPTB Control Reg.     </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>1  </td><td>1  </td><td>0    </td><td>1XE  </td><td>CRC        </td><td>Control Register C          </td></tr>
+<tr valign=top><td>    0    </td><td>1  </td><td>1  </td><td>1  </td><td>1  </td><td>1    </td><td>1XF  </td><td>CRD        </td><td>Control Register D          </td></tr>
+<tr valign=top><td colspan=9>&nbsp;                                                                                                                              </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>0  </td><td>0  </td><td>0    </td><td>2X0  </td><td>DREG       </td><td>Receive/Transmit Data Reg   </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>0  </td><td>0  </td><td>1    </td><td>2X1  </td><td>URSR       </td><td>UART Status Register        </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>0  </td><td>1  </td><td>0    </td><td>2X2  </td><td>URCR       </td><td>UART Control Register       </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>0  </td><td>1  </td><td>1    </td><td>2X3  </td><td>BRLO       </td><td>Baud Rate Timer LO Reg.     </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>1  </td><td>0  </td><td>0    </td><td>2X4  </td><td>BRHI       </td><td>Baud Rate Timer HI Reg.     </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>1  </td><td>0  </td><td>1    </td><td>2X5  </td><td>URIEN      </td><td>UART IRQ/NMI Enable Reg.    </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>1  </td><td>1  </td><td>0    </td><td>2X6  </td><td>URIFG      </td><td>UART IRQ/NMI Flag Reg.      </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>0  </td><td>1  </td><td>1  </td><td>1    </td><td>2X7  </td><td>PRE        </td><td>Peripheral Data Reg. E      </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>1  </td><td>0  </td><td>0  </td><td>0    </td><td>2X8  </td><td>DDRE       </td><td>Data Direction E            </td></tr>
+<tr valign=top><td>    1    </td><td>0  </td><td>1  </td><td>0  </td><td>0  </td><td>1    </td><td>2X9  </td><td>FSERIAL    </td><td>Fast Serial Bus Control     </td></tr>
+</table><p>
+
+<p>
+<hr>
+  <a href="page33.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page35.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

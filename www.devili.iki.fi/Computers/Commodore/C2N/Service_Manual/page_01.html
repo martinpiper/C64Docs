@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore C2N/1530/1531 Service Manual: Specifications and overview</title>
+     <link rel=prev href="contents.html"> 
+     <link rel=next href="page_02.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="contents.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center><h2>SPECIFICATIONS</h2></center>
+
+<h3>SPEED</h3>
+
+<p> 300 baud throughput, programs saved twice for internal error checking,
+    check-summing for data files.
+
+<h3>CONTROLS</h3>
+
+<p> Keys for play, record, fast-forward, rewind, and stop. Sensor for
+    software detection of key press. Counter for tape location.
+
+<h3>FORMAT</h3>
+
+<p> Commodore propriety format using pulse-width modulation and square
+    waves. Allows naming of programs and files, verification of programs,
+    end of tape marker sensing.
+
+<h3>TAPES</h3>
+
+<p> Uses standard audio cassette tapes. Digital tapes not required.
+
+<h3>COMPATABILITY</h3>
+<ul>
+    <li>C2N/1530 - VIC20, C64, PET Series Computer
+    <li>1531 - PLUS 4, C16
+</ul>
+
+<center><h2><a name="Overview">DATASETTE OVERVIEW</a></h2></center>
+
+<p> The electronics of the datasette contains read/write circuits that
+    replace the audio-type circuits in a standard audio tape recorder.
+
+<p> <strong><i>Status/Motor Control</i></strong> - When the play switch
+    is depressed, a ground potential is applied to the cassette enable line
+    of the microprocessor. It, in turn, signals the cassette drive motor
+    through a transistor switch located on the main computer board. The
+    cassette is then ready for read/write operation.
+
+<p> <strong><i>Write/Record Amplifier</i></strong> - The computer outputs
+    a square wave signal to the datasette. These TTL logic-level shifts are
+    converted by the pre-amplifier and power amplifier to a proportional
+    current output. This current output is then applied to the read/write
+    coil of the head. Through induction, magnetic fields are produced on
+    the tape representing the data.
+
+<p> <strong><i>Read/Playback Amplifier</i></strong> - The read amplifier
+    circuit takes the reproduced transition signals from the tape and
+    converts them back to TTL logic-level shifts. This is accomplished by
+    an amplifier limiter which removes the amplitude variations and a
+    switching circuit that toggles the output data between 0 and 5 volts.
+    The signal is then ready for output to the computer.
+
+<p>
+<hr>
+  <a href="contents.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	June 08, 1998.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,422 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 CP/M: Copy utility source code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore CP/M v2.2 for the C64<br>
+    Copy Utility v1.0</h3>
+</center>
+
+<pre>
+;
+;	COMMODORE 64 COPY UTILITY 1.0
+;
+;	COPYRIGHT (C) 1982
+;       COMMODORE INTERNATIONAL
+;
+;
+	ORG	100H
+;
+;	EQUATES
+;
+BUFFER	EQU	0F800H
+CMD	EQU	0F900H
+DATA	EQU	0F901H
+SECTOR	EQU	0F902H
+TRACK	EQU	0F903H
+DISKNO	EQU	0F904H
+OFF	EQU	1
+MODESW	EQU	0CE00H
+VICRD	EQU	0
+VICWR	EQU	1
+VICFMT	EQU	6
+BDOS	EQU	0005H
+BOOT	EQU	0000H
+CR	EQU	0DH	;CARRIAGE RETURN
+LF	EQU	0AH	;LINE FEED
+CLS	EQU	0CH	;CLEAR SCREEN
+;
+START:	LXI	SP,STACK
+	LXI	D,COPMSG
+	CALL	PRINT	;PROGRAM NAME, ETC.
+;
+IN1TO4:	CALL	CONIN
+;
+	CPI	'1'
+	JZ	FORMAT
+;
+	CPI	'2'
+	JZ	BACKUP
+;
+	CPI	'3'
+	JZ	SYSTEM
+;
+	CPI	'4'
+	JZ	BOOT
+;
+	JMP	IN1TO4
+;
+FORMAT:	LXI	D,FMTMSG	;FORMAT A DISK
+	CALL	PRINT
+;
+	CALL	CRORRS	;GET KEYBOARD INPUT
+	JZ	START	;IF RUN/STOP, GO TO MENU
+;
+	LXI	D,FMTING	;FORMATTING MESSAGE
+	CALL	PRINT
+;
+	MVI	A,VICFMT
+	CALL	IO6510	;SEND FORMAT COMMAND TO 6510
+;
+	LDA	DATA	;CHECK FOR ERROR
+	ANA	A
+	JNZ	FMTERR
+;
+	LXI	H,BUFFER	;FILL DISK BUFFER WITH E5'S
+	MVI	A,0E5H		;  FOR DIRECTORY SECTORS
+FMT0:	MOV	M,A
+	INR	L
+	JNZ	FMT0		;DO THIS 256 TIMES
+;
+	MVI	A,3
+	STA	TRACK		;DIRECTORY TRACK
+;
+	MVI	A,0
+	STA	DISKNO		;FORCE DRIVE 0
+;
+	MVI	A,0		;INITIAL SECTOR
+;
+FMT1:	STA	SECTOR		;SET SECTOR
+	MVI	A,VICWR		;GET READY FOR WRITE
+	CALL	IO6510		;GO DO IT
+	LDA	DATA		;A=0 IF OK
+	ANA	A
+	JNZ	FMTERR
+;
+	LDA	SECTOR
+	INR	A
+	CPI	8		;DO ONLY SECTORS 0-7
+	JNZ	FMT1		;LOOP UNTIL DONE
+;
+	LXI	D,FMTDON
+	JMP	DONE
+;
+FMTERR:	LXI	D,FMTERM
+	JMP	DONE
+;
+SYSTEM:	LXI	D,SYSMSG	;SYSTEM TRACKS ONLY
+	CALL	PRINT
+;
+	LXI	D,SRCMSG
+	CALL	PRINT
+;
+	LXI	D,PRSMSG
+	CALL	PRINT
+	CALL	CRORRS
+	JZ	START	;IF SPACEBAR, GO TO MENU
+;
+	CALL	CRLF
+;
+	LXI	H,MEM	;BEGINNING OF MEMORY SPACE ***
+;
+	MVI	A,1
+	CALL	RDTRK	;READ TRACK 1
+;	
+	MVI	A,2
+	CALL	RDTRK	;READ TRACK 2
+;
+	MVI	A,18
+	CALL	RDTRK	;READ TRACK 18
+;
+	LXI	D,DSTMSG	;PRINT DESTINATION MESSAGE
+	CALL	PRINT
+;
+	LXI	D,RTNMSG
+	CALL	PRINT
+;
+SYS1:	CALL	CONIN
+	CPI	CR	;WAIT FOR CARRIAGE RETURN
+	JNZ	SYS1
+;
+	CALL	CRLF
+;
+	LXI	H,MEM	;SETUP FOR WRITE ***
+;
+	MVI	A,1
+	CALL	WRTRK
+;
+	MVI	A,2
+	CALL	WRTRK
+;
+	MVI	A,18
+	CALL	WRTRK
+;
+	LXI	D,SYSDON
+	JMP	DONE
+;
+BACKUP:	LXI	D,BAKMSG	;BACKUP DISK
+	CALL	PRINT
+;
+	LXI	D,PRSMSG
+	CALL	PRINT
+	CALL	CRORRS
+	JZ	START
+	CALL	CRLF
+;
+	MVI	A,1	;START WITH TRACK 1
+	STA	TRACK
+;
+	MVI	A,5	;DO OUTER LOOP 5 TIMES
+	STA	OUTER
+;
+BKLP:	LDA	TRACK	
+	STA	WTRACK	;SAVE FOR WRITE TRACK
+;
+	MVI	A,7
+	STA	INNER	;INNER LOOP COUNTER
+;
+	LXI	D,SRCMSG
+	CALL	PRINT
+;
+	LXI	D,RTNMSG
+	CALL	PRINT
+;
+BKRD1:	CALL	CONIN
+	CPI	CR
+	JNZ	BKRD1
+;
+	LXI	H,MEM	;START OF AVAILABLE MEMORY
+;
+BKRD:	LDA	TRACK
+	CALL	RDTRK
+	LDA	TRACK
+	INR	A
+	STA	TRACK
+	LDA	INNER
+	DCR	A
+	STA	INNER
+	JNZ	BKRD
+;
+	LDA	WTRACK
+	STA	TRACK	;RESTORE TRACK POINTER
+	MVI	A,7
+	STA	INNER	;INNER COUNTER
+;
+	LXI	D,DSTMSG
+	CALL	PRINT
+	LXI	D,RTNMSG
+	CALL	PRINT
+;
+BKWR1:	CALL	CONIN
+	CPI	0DH
+	JNZ	BKWR1
+;
+	LXI	H,MEM	;START OF MEMORY AGAIN
+;
+BKWR:	LDA	TRACK
+	CALL	WRTRK
+	LDA	TRACK
+	INR	A
+	STA	TRACK
+	LDA	INNER
+	DCR	A
+	STA	INNER
+	JNZ	BKWR
+;
+	LXI	H,OUTER
+	DCR	M
+	JNZ	BKLP
+;
+;
+	LXI	D,BAKDON
+	JMP	DONE
+;
+DONE:	CALL	PRINT	;PRINT DONE MESSAGE
+;
+	LXI	D,ANYKEY
+	CALL	PRINT
+	CALL	CONIN	;WAIT FOR ANY KEY
+	JMP	START
+;
+RDTRK:	STA	TRACK	;A=TRACK ON ENTRY
+	MVI	A,0	;START WITH SECTOR 0
+;
+RD1:	STA	SECTOR
+	MVI	A,VICRD	;READ SECTOR COMMAND
+	CALL	IO6510	;GO DO IT
+	LDA	DATA
+	ANA	A
+	JNZ	RDERR	;READ ERROR IF &lt;&gt;0
+;
+	LXI	D,BUFFER
+RD2:	LDAX	D	;GET CHARACTER FROM BUFFER
+	MOV	M,A	;  AND PUT IN MEMORY
+	INX	D
+	INX	H	;BUMP POINTERS
+	MOV	A,E	;DONE 256 YET?
+	ANA	A
+	JNZ	RD2	;JUMP IF NO
+;
+	LDA	SECTOR
+	INR	A
+	CPI	17	;17=LAST SECTOR+1
+	JNZ	RD1
+;
+	RET
+;
+WRTRK:	STA	TRACK	;A=TRACK ON ENTRY
+	MVI	A,0
+;
+WR1:	STA	SECTOR
+	LXI	D,BUFFER
+WR2:	MOV	A,M
+	STAX	D	;PUT CHAR IN BUFFER
+	INX	H
+	INX	D	;INCREMENT POINTERS
+	MOV	A,E	;DONE 256 YET?
+	ANA	A
+	JNZ	WR2	;JUMP IF NO
+;
+	MVI	A,VICWR	;SECTOR WRITE COMMAND
+	CALL	IO6510	;GO DO IT
+;
+	LDA	DATA
+	ANA	A
+	JNZ	WRERR	;JUMP IF WRITE ERROR
+	LDA	SECTOR
+	INR	A
+	CPI	17	;17=LAST SECTOR+1
+	JNZ	WR1	;KEEP READING
+;
+	RET
+;
+CR1:	CPI	20H	;SPACEBAR?
+	RZ
+;
+CRORRS:	CALL	CONIN
+	CPI	CR	;CARRIAGE RETURN
+	JNZ	CR1
+;
+	ANA	A	;KILL ZERO FLAG
+	RET
+;
+CONOUT:	MVI	C,2
+	JMP	BDOS
+;
+CRLF:	MVI	E,CR
+	CALL	CONOUT
+	MVI	E,LF
+	JMP	CONOUT
+;
+WRERR:	LXI	D,WRMSG
+	JMP	DONE
+;
+RDERR:	LXI	D,RDMSG
+	JMP	DONE
+;
+CONIN:	MVI	C,1
+	JMP	BDOS
+;
+PRINT:	MVI	C,9
+	JMP	BDOS
+;
+IO6510:	STA	CMD	;PUT A IN 6510 COMMAND REGISTER
+	MVI	A,OFF
+	STA	MODESW	;TURN OFF Z80
+	NOP
+	RET
+;
+;
+;	TEXT AND MESSAGES:
+;
+COPMSG:	DB	CLS,LF,'COMMODORE 64 COPY UTILITY 1.0'
+	DB	CR,LF,LF
+	DB	'  1.  FORMAT DISK',CR,LF
+	DB	'  2.  BACKUP DISK',CR,LF
+	DB	'  3.  COPY SYSTEM TRACKS ONLY',CR,LF
+	DB	'  4.  EXIT',CR,LF,LF
+	DB	'PLEASE CHOOSE FUNCTION (1-4) $'
+;
+FMTMSG:	DB	CLS,LF,'FORMAT DISK UTILITY',CR,LF,LF
+	DB	'INITIALIZES DISK FOR CP/M',CR,LF
+	DB	LF,'CAUTION!  FORMAT ERASES ALL DATA',CR,LF,LF
+	DB	'PLACE DISK TO BE FORMATTED IN',CR,LF
+	DB	'DRIVE 0 AND PRESS ENTER',CR,LF,LF
+	DB	'    OR',CR,LF,LF
+	DB	'PRESS SPACEBAR TO RETURN TO MENU $'
+;
+FMTING:	DB	CR,LF,LF,'FORMATTING DISK, PLEASE WAIT...'
+	DB	CR,LF,LF,'$'
+;
+FMTDON:	DB	'FORMAT COMPLETE',CR,LF,LF,'$'
+;
+FMTERM:	DB	'I CANNOT FORMAT THIS DISK!',CR,LF,LF,'$'
+;
+ANYKEY:	DB	'PRESS ANY KEY TO CONTINUE $'
+;
+SYSMSG:	DB	CLS,LF,'SYSTEM TRACK COPY UTILITY',CR,LF,LF
+	DB	'COPIES SYSTEM TRACKS FROM MASTER DISK',CR,LF
+	DB	'TO SLAVE DISK',CR,LF,LF,'$'
+;
+SRCMSG:	DB	'INSERT MASTER DISK IN DRIVE 0',CR,LF,'$'
+DSTMSG:	DB	'INSERT SLAVE  DISK IN DRIVE 0',CR,LF,'$'
+PRSMSG:	DB	'PRESS RETURN (OR SPACEBAR FOR MENU) $'
+;
+SYSDON:	DB	'SYSTEM TRACK COPY COMPLETE',CR,LF,LF,'$'
+;
+BAKMSG:	DB	CLS,LF,'DISK BACKUP UTILITY',CR,LF,LF
+	DB	'THE ENTIRE MASTER DISK IS ',CR,LF
+	DB	'COPIED TO THE SLAVE DISK',CR,LF,LF
+	DB	'$'
+;
+BAKDON:	DB	'BACKUP COMPLETE',CR,LF,LF,'$'
+;
+RTNMSG:	DB	'PRESS RETURN $'
+;
+WRMSG:	DB	CR,LF,LF,'DISK WRITE ERROR',CR,LF,'$'
+;
+RDMSG:	DB	CR,LF,LF,'DISK READ ERROR',CR,LF,'$'
+;
+WTRACK	DS	1
+INNER	DS	1
+OUTER	DS	1
+	DS	32
+STACK	EQU	$
+MEM	EQU	$	;***
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

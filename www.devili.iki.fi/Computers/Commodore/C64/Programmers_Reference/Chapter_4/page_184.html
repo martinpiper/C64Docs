@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Introduction</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_183.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_185.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Introduction">INTRODUCTION</a></h2>
+
+<p>   Your Commodore computer is equipped with one of the most sophisticated
+ electronic music synthesizers available on any computer. It comes
+ complete with three voices, totally addressable, ATTACK/DECAY/SUSTAIN/
+ RELEASE (ADSR), filtering, modulation, and "white noise." All of these
+ capabilities are directly available for you through a few easy to use
+ BASIC and/or assembly language statements and functions. This means that
+ you can make very complex sounds and songs using programs that are
+ relatively simple to design.
+<p>   This section of your Programmer's Reference Guide has been created to
+ help you explore all the capabilities of the 6581 "SID" chip, the sound
+ and music synthesizer inside your Commodore computer. We'll explain both
+ the theory behind musical ideas and the practical aspects of turning
+ those ideas into real finished songs on your Commodore computer.
+<p>   You need not be an experienced programmer nor a music expert to achieve
+ exciting results from the music synthesizer. This section is full of
+ programming examples with complete explanations to get you started.
+<p>   You get to the sound generator by POKEing into specified memory
+ locations. A full list of the locations used is provided in Appendix O.
+ We will go through each concept, step by step. By the end you should be
+ able to create an almost infinite variety of sounds, and be ready to
+ perform experiments with sound on your own.
+<p>   Each section of this chapter begins by giving you an example and a full
+ line-by-line description of each program, which will show you how to use
+ the characteristic being discussed. The technical explanation is for you
+ to read whenever you are curious about what is actually going on. The
+ workhorse of your sound programs is the <a href="../Chapter_2/page_069.html#poke">POKE</a> statement. <a href="../Chapter_2/page_069.html#poke">POKE</a> sets the
+ indicated memory location (MEM) equal to a specified value (NUM).
+
+<pre>
+
+   POKE MEM,NUM
+
+</pre>
+
+<p>   The memory locations (MEM) used for music synthesis start at 54272
+ ($D400) in the Commodore 64. The memory locations 54272 to 54296
+ inclusive are the <a href="../Chapter_2/page_069.html#poke">POKE</a> locations you need to remember when you're using
+ the 6581 (SID) chip register map. Another way to use the locations above
+ is to remember only location 54272 and then add a number from 0 through
+ 24 to it. By doing this you can <a href="../Chapter_2/page_069.html#poke">POKE</a> all the locations from 54272 to
+ 54296 that you need from the SID chip. The numbers (NUM) that you use in
+ your <a href="../Chapter_2/page_069.html#poke">POKE</a> statement must be between 0 and 255, inclusive.
+
+<hr>
+<a href="page_183.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_185.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

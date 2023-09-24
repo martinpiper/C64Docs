@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_157.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_159.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> To display a sprite in a given location, You must POKE the X and Y
+ settings for each SPRITE... remembering that every sprite has its own
+ unique X POKE and Y POKE. The X and Y settings for ail 8 sprites are
+ shown here:
+
+<p><b class="blue">POKE THESE VALUES TO SET X-Y SPRITE POSITIONS</b>
+
+<table border="1" align="center" cellspacing="1">
+<tr><td>&nbsp;</td><th>SPRITE0</th><th>SPRITE1</th><th>SPRITE2</th><th>SPRITE3</th><th>SPRITE4</th><th>SPRITE5</th><th>SPRITE6</th><th>SPRITE7</th></tr>
+<tr><th> SET X </th><td>V,X    </td><td>V+2,X  </td><td>V+4,X  </td><td>V+6,X  </td><td>V+8,X  </td><td>V+10,X </td><td>V+12,X </td><td>V+14,X  </td></tr>
+<tr><th> SET Y </th><td>V+1,Y  </td><td>V+3,Y  </td><td>V+5,Y  </td><td>V+7,Y  </td><td>V+9,Y  </td><td>V+11,Y </td><td>V+13,Y </td><td>V+15,Y  </td></tr>
+<tr><th> RIGHTX</th><td>V+16,1 </td><td>V+16,2 </td><td>V+16,4 </td><td>V+16,8 </td><td>V+16,16</td><td>V+16,32</td><td>V+16,64</td><td>V+16,128</td></tr>
+</table>
+
+<p><b class="blue">POKEING AN X POSITION:</b> The possible values of X are 0 to 255, counting
+ from left to right. Values 0 to 23 place all or part of the sprite OUT OF
+ THE VIEWING AREA off the left side of the screen... values 24 to 255
+ place the sprite IN THE VIEWING AREA up to the 255th position (see next
+ paragraph for settings beyond the 255th X position). To place the sprite
+ at one of these positions, just type the X-POSITION POKE for the sprite
+ you're using. For example, to POKE sprite I at the farthest left X
+ position IN THE VIEWING AREA, type: POKE V+2,24.
+
+<p><b class="blue">X VALUES BEYOND THE 255TH POSITION:</b> To get beyond the 255th position
+ across the screen, you need to make a SECOND POKE using the numbers in
+ the "RIGHT X" row of the chart (Figure 3-5). Normally, the horizontal (X)
+ numbering would continue past the 255th position to 256, 257, etc., but
+ because registers only contain 8 bits we must use a "second register" to
+ access the RIGHT SIDE of the screen and start our X numbering over again
+ at 0. So to get beyond X position 255, you must POKE V+16 and a number
+ (depending on the sprite). This gives you 65 additional X positions
+ (renumbered from 0 to 65) in the viewing area on the RIGHT side of the
+ viewing screen. (You can actually POKE the right side X value as high as
+ 255, which takes you off the right edge of the viewing screen.)
+
+<p><b class="blue">POKEING A Y POSITION:</b> The possible values of Y are 0 to 255, counting
+ from top to bottom. Values 0 to 49 place all or part of the sprite OUT
+ OF THE VIEWING AREA off the TOP of the screen. Values 50 to 229 place the
+ sprite IN THE VIEWING AREA. Values 230 to 255 place all or part of the
+ sprite OUT OF THE VIEWING AREA off the BOTTOM of the screen.
+
+<hr>
+<a href="page_157.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_159.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

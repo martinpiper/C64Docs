@@ -1,0 +1,88 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page97.html"> 
+     <link rel=next href="page99.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page97.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page99.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>Color Palette</h4>
+    
+<p>    The C4567R6, allows the programmer to use the sixteen standard "C64"
+    colors, or define up to 256 custom colors and/or use the palette to perform
+    boolean operations on the bitplane data. The C4567R6 incorporates a 16 word
+    palette ROM and a has a 256 word palette RAM. Each palette location is an
+    index, which can specify one of sixtten possible intensity values (4 bits)
+    each, of Red, Green, and Blue primary colors, plus a single control bit (FGBG)
+    which can be used for foreground/background control for video mixing applications,
+    or to drive a separate monochrome screen.
+    
+<p>    The first 16 locations of the palette default to the C64 colors in ROM.
+    The remaining 240 locations are programmable RAM. The first 16 locations can
+    also be replaced with RAM, however, by setting the PAL bit in control register
+    "B". All old video modes, including sprites and exterior, can only access the
+    lowest 16 palette locations (except hilite cells), so you may want to reserve
+    these indices for such features.
+    
+<p>     Only bitplane mode can make full use of all palette locations. Even when
+    less than eight bitplanes are used, the bitplane complement bits of the unused
+    bitplanes can be used to specify which part of the palette is to be used. This
+    feature allows the programmer to define multiple sub-palettes, which can be
+    switched between quicklyr or to specify an offset in the color table for
+    the bitplanes, allowing separate colors for exterior and sprites.
+    
+<p>     To set the color palette, the user must simply write to the color palette
+    RAM. Addresses D100-DlFF (hex) program the 256 Red values, addresses D200-D2FF
+    (hex) program the 256 Green values, and addresses D300-D3FF (hex) program the
+    256 Blue values. All 256 locations of both the blue and green palettes are only
+    4 bits wide, so the upper four data bits do nothing. Bit 4 of every red palette
+    location is the FGBG programming bit, the remaining 3 bits are not used. The
+    palette locations are not readable by the CPU.
+    
+<p>
+<hr>
+  <a href="page97.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page99.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Changing Waveforms (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_193.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_195.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   It is a rectangular wave and you determine the length of the pulse
+ cycle by defining the proportion of the wave which will be high. This is
+ accomplished for voice 1 by using registers 2 and 3: Register 2 is the
+ low byte of the pulse width (Lpw = 0 through 255). Register 3 is the high
+ 4 bits (Hpw = 0 through 15).
+<p>   Together these registers specify a 12-bit number for your pulse width,
+ which you can determine by using the following formula:
+<pre>
+                       PWn = Hpw*256 + Lpw
+</pre>
+<p> The pulse width is determined by the following equation:
+<pre>
+                      PWout = (PWn/40.95) %
+</pre>
+<p>   When PWn has a value of 2048, it will give you a square wave. That
+ means that register 2 (Lpw) = 0 and register 3 (Hpw) = 8.
+   Now try adding this line to your program:
+<pre>
+   15 POKES+3,8:POKES+2,0
+</pre>
+<p> Then change the start number in line 70 to 65 and the stop number in fine
+ 90 to 64, and <a href="../Chapter_2/page_081.html#run">RUN</a> the program. Now change the high pulse width (register
+ 3 in line 15) from an 8 to a 1. Notice how dramatic the difference in
+ sound quality is?
+<p>   The last waveform available to you is white noise (shown here).
+
+<p><img align="center" src="../../../../../images/no_picture.gif">
+
+<p> It is used mostly for sound effects and such. To hear how it sounds, try
+ changing the start number in line 70 to 129 and the stop number in line
+ 90 to 128.
+
+<h3><a name="Understanding">UNDERSTANDING WAVEFORMS</a></h3>
+
+<p>   When a note is played, it consists of a sine wave oscillating at the
+ fundamental frequency and the harmonics of that wave.
+
+<hr>
+<a href="page_193.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_195.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

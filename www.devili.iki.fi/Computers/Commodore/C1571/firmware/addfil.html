@@ -1,0 +1,150 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Add file to a directory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Add file to a directory</h3>
+</center>
+
+<pre>
+        .page  
+        .subttl 'addfil.src'          
+; add file to directory
+
+addfil  lda  sa         ; save variables 
+        pha      
+        lda  lindx       
+        pha      
+        lda  sector      
+        pha      
+        lda  track       
+        pha      
+        lda  #irsa       
+        sta  sa          
+        jsr  curblk     ; use last accessed search
+        lda  type        
+        pha      
+        lda  fildrv      
+        and  #1          
+        sta  drvnum      
+        ldx  jobnum      
+        eor  lstjob,x    
+        lsr  a   
+        bcc  af08       ; same drive as required
+
+        ldx  #1          
+        stx  delind     ; look for deleted entry
+        jsr  srchst      
+        beq  af15       ; all full, new sector 
+        bne  af20       ; found one
+
+af08    lda  delsec      
+        beq  af10       ; deleted entry not located
+        cmp  sector      
+        beq  af20       ; sector is resident
+        sta  sector      
+        jsr  drtrd      ; read sector in
+        jmp  af20        
+
+af10    lda  #1         ; find deleted entry
+        sta  delind      
+        jsr  search      
+        bne  af20        
+af15    jsr  nxdrbk     ; all full, new sector
+        lda  sector      
+        sta  delsec      
+        lda  #2          
+        sta  delind      
+af20    lda  delind      
+        jsr  setpnt      
+        pla      
+        sta  type       ; set type
+        cmp  #reltyp     
+        bne  af25        
+        ora  #$80        
+af25             
+        jsr  putbyt      
+        pla      
+        sta  filtrk     ; ...table & entry
+        jsr  putbyt      
+        pla      
+        sta  filsec     ; set sector link in...
+        jsr  putbyt     ; ...table & entry
+        jsr  getact      
+        tay      
+        lda  filtbl      
+        tax      
+        lda  #16         
+        jsr  trname     ; transfer name
+        ldy  #16         
+        lda  #0         ; clear # of blocks &...
+af30    sta  (dirbuf),y ; ...& replace links
+        iny      
+        cpy  #27         
+        bcc  af30        
+        lda  type       ; a relative file ?
+        cmp  #reltyp     
+        bne  af50       ; no
+        ldy  #16        ; yes
+        lda  trkss      ; get ss track
+        sta  (dirbuf),y ; put in directory
+        iny      
+        lda  secss      ; get ss sector
+        sta  (dirbuf),y ; put in
+        iny      
+        lda  rec        ; get record size
+        sta  (dirbuf),y          
+af50    jsr  drtwrt     ; write it out
+        pla      
+        sta  lindx       
+        tax      
+        pla      
+        sta  sa          
+        lda  delsec      
+        sta  entsec      
+        sta  dsec,x      
+        lda  delind      
+        sta  entind      
+        sta  dind,x      
+        lda  type        
+        sta  pattyp      
+        lda  drvnum      
+        sta  fildrv      
+        rts
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

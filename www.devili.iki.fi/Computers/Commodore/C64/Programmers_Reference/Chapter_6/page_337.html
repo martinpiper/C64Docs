@@ -1,0 +1,109 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - Output to the TV (cont.) and to Other Devices </title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_336.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_338.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>(replaces) the RETURN character that is normally <code>PRINT</code>ed at
+the end of the line.
+
+<p>The comma (<code>,</code>) separates items into columns. The Commodore
+64 has 4 columns of 10 characters each on the screen. When the computer
+<code>PRINT</code>s a comma, it moves the cursor right to the start of the
+next column. If it is past the last column of the line, it moves the cursor
+down to the next line. Like the semicolon, if it is the last item on a line
+the RETURN is suppressed.
+
+<p>The quote marks (<code>" "</code>) separate literal text from variables.
+The first quote mark on the line starts the literal area, and the next
+quote mark ends it. By the way, you don't have to have a final quote mark
+at the end of the line.
+
+<p>The RETURN code (<code>CHR$</code> code of 13) makes the cursor go to
+the next <em>logical</em> line on the screen. This is not always the very
+next line. When you type past the end of a line, that line is linked to the
+next line. The computer knows that both lines are really one long line. The
+links are held in the <em>line link table</em>(see the memory map for how
+this is set up).
+
+<p>A logical line can be 1 or 2 screen lines long, depending on what was
+typed or <code>PRINT</code>ed. The logical line the cursor is on determines
+where the <kbd>RETURN</kbd> key sends it. The logical line at the top of
+the screen determines if the screen scrolls 1 or 2 lines at a time.
+
+<p>There are other ways to use the TV as an output device. The chapter on
+graphics describes the commands to create objects that move across the
+screen. The VIC chip section tells how the screen and border color and
+sizes are changed. And the sound chapter tells how the TV speaker creates
+music and special effects.
+
+<h2><a name="Output">OUTPUT TO OTHER DEVICES</a></h2>
+
+<p>It is often necessary to send output to devices other than the screen,
+like a cassette deck, printer, disk drive, or modem. The <code>OPEN</code>
+statement in BASIC creates a "channel" to talk one of these devices. Once
+the channel is <code>OPEN</code>, the <code>PRINT#</code> statement will
+send characters to that device.
+
+<p><strong>EXAMPLE of <code>OPEN</code> and <code>PRINT#</code>
+Statements:</strong>
+
+<pre>
+100 OPEN 4, 4: PRINT# 4,"WRITING ON PRINTER"
+110 OPEN 3, 8, 3, "0:DISK-FILE,S,W": PRINT# 3, "SEND TO DISK"
+120 OPEN 1, 1, 1, "TAPE-FILE": PRINT# 1, "WRITE ON TAPE"
+130 OPEN 2, 2, 0, CHR$(10): PRINT# 2, "SEND TO MODEM"
+</pre>
+
+<hr>
+<a href="page_336.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_338.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

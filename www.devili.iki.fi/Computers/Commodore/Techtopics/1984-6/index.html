@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Techtopics, Issue 6, 1984: Computer 3 - Model PLUS 4</title>
+    <meta name="description" content="Troubleshooting aides for the Plus/4">
+    <link rel=next href="page_02.html">
+    <link rel=stylesheet href="../techtopics2.css">
+    <link rev=made href="mailto:rtiainen@devili.iki.fi">
+<link rel=contents href="../index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body>
+<img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"> <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<h1><img src="../logo.gif" alt="COMMODORE TECHTOPICS" align="right"></h1>
+<pre>
+
+ISSUE 6, 1984 : Computer 3
+
+
+MODEL : PLUS 4
+
+
+
+                    <u>Troubleshooting Aides</u>
+
+NOTE: Visual inspection is critical in this unit!
+The upright position of many of the components used on the
+board can create problems. It is possible for them to be 
+shorted to the shield or to each other. Make sure they are
+evently spaced and do not contact the shield.
+       Areas of the PCB particulary vulnerable to this
+problem are:
+          Bottom right corner - caps
+          Bottom center - J1-J6
+          Bottom left - Q3 shorted to FB57
+          Top left - ferrite beads
+          Center - Twisted caps (just outside of RF can)
+
+1) NO VIDEO - Absolutely no video on screen
+       A) Check for 5 volts
+          O.K.      If not: 1) Check fuse
+                            2) Check for twisted or bent caps
+                               ( 5 V. short to ground )
+                            3) Check L1
+       B) Check for oscillation at pin 14 of U1
+          O.K.      If not: 1) Check for good connection at
+                               pin 14 of U1
+                            2) Check for good connection at
+                               R1 thru R7
+       C) Check for LUM signal at pin 23 of of U1, at pin 4 of
+          the modulator, at pin 8 of the modulator, at FB3
+          and at pin1 of CN7
+          O.K.      If not: 1) Check for LUM signal shorted
+                               to ground
+                            2) Check for open traces
+                            3) Check modulator
+       D) Check for reset
+          O.K.
+
+
+       E) Check for control signals
+
+          Signal  I.C   Pin             Signal  I.C    Pin
+            AEC    U1    35               R/W    U1     7
+            AEC    U2     4                 O    U1    12
+            CAS    U1    11               MUX    U1     9
+            CS1    U1     6               IRQ    U1     8
+            CS1    U20   15               RDY    U2     2
+            CS0    U1     5               BA     U1    34
+            CS0    U20    1               RAS    U1    10
+</pre>
+<hr>
+<img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"> <a href="page_02.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	January 19, 2006.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

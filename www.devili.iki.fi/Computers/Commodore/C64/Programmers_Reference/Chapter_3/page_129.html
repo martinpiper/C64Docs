@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Smooth scrolling</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_128.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_130.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<ol type="1">
+    <li>Shrink the screen (the border will expand).
+    <li>Set the scrolling register to maximum (or minimum value depending upon the direction of your scroll).
+    <li>Place the new data on the proper (covered) portion of the screen.
+    <li>Increment (or decrement) the scrolling register until it reaches the maximum (or minimum) value.
+    <li>At this point, use your machine language routine to shift the entire screen one entire character in the direction of the scroll.
+    <li>Go back to step 2.
+</ol>
+
+<p>To go into 38 column mode, bit 3 of location 53270 ($D016) must be set
+ to a 0. The following POKE does this:
+<pre>
+   POKE 53270,PEEK(53270)AND 247
+</pre>
+   To return to 40 column mode, set bit 3 of location 53270 ($D016) to a
+ 1. The following POKE does this:
+<pre>
+   POKE 53270,PEEK(53270)OR 8
+</pre>
+   To go into 24 row mode, bit 3 of location 53265 ($D011) must be set to
+ a 0. The following POKE will do this:
+<pre>
+   POKE 53265,PEEK(53265)AND 247
+</pre>
+   To return to 25 row mode, set bit 3 of location 53265 ($D011) to a 1.
+ The following POKE does this:
+<pre>
+   POKE 53265,PEEK(53265)OR 8
+</pre>
+
+<p>When scrolling in the X direction, it is necessary to place the VIC-II
+ chip into 38 column mode. This gives new data a place to scroll from.
+ When scrolling LEFT, the new data should be placed on the right. When
+ scrolling RIGHT the new data should be placed on the left. Please note
+ that there are still 40 columns to screen memory, but only 38 are
+ visible.
+
+<p>When scrolling in the Y direction, it is necessary to place the VIC-II
+ chip into 24 row mode. When scrolling UP, place the new data in the LAST
+ row. When scrolling DOWN, place the new data on the FIRST row. Unlike X
+ scrolling, where there are covered areas on each side of the screen,
+ there is only one covered area in Y scrolling. When the Y scrolling
+<hr>
+<a href="page_128.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_130.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

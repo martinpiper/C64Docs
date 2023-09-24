@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Standard character mode</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_106.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_108.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Standard">STANDARD</a> CHARACTER MODE</h2>
+
+<p>Standard character mode is the mode the Commodore 64 is in when you
+ first turn it on. It is the mode you will generally program in.
+
+<p> Characters can be taken from ROM or from RAM, but normally they are
+ taken from ROM. When you want special graphics characters for a program,
+ all you have to do is define the new character shapes in RAM, and tell
+ the VIC-II chip to get its character information from there instead of
+ the character ROM. This is covered in more detail in the next section.
+
+<p> In order to display characters on the screen in color, the VIC-II chip
+ accesses the screen memory to determine the character code for that
+ location on the screen. At the same time, it accesses the color memory to
+ determine what color you want for the character displayed. The character
+ code is translated by the VIC-II into the starting address of the 8-byte
+ block holding your character pattern. The 8-byte block is located in
+ character memory.
+
+<p> The translation isn't too complicated, but a number of items are com-
+ bined to generate the desired address. First the character code you use
+ to <a href="../Chapter_2/page_069.html#poke">POKE</a> screen memory is multiplied by 8. Next add the start of char-
+ acter memory (see <a href="page_103.html#Character">CHARACTER MEMORY</a> section). Then the Bank Select Bits
+ are taken into account by adding in the base address (see <a href="page_101.html#Video">VIDEO BANK SELECTION</a>
+ section). Below is a simple formula to illustrate what happens:
+
+<pre>
+ CHARACTER ADDRESS = SCREEN CODE*8+(CHARACTER SET*2048)+(BANK*16384)
+</pre>
+
+<h3><a name="Character">CHARACTER</a> DEFINITIONS</h3>
+
+<p> Each character is formed in an 8 by 8 grid of dots, where each dot may
+ be either on or off. The Commodore 64 character images are stored in the
+ Character Generator ROM chip. The characters are stored as a set of 8
+ bytes for each character, with each byte representing the dot pattern of
+ a row in the character, and each bit representing a dot. A zero bit means
+ that dot is off, and a one bit means the dot is on.
+
+<p> The character memory in ROM begins at location 53248 (when the I/O
+ is switched off). The first 8 bytes from location 53248 ($D000) to 53255
+ ($D007) contain the pattern for the @ sign, which has a character code
+ value of zero in the screen memory. The next 8 bytes, from location
+
+<hr>
+<a href="page_106.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_108.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 23, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

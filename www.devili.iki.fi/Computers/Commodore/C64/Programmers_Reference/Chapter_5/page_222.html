@@ -1,0 +1,96 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Addressing modes</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_221.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_223.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> with the addressing of memory locations in page zero. These addresses,
+ therefore, ALWAYS have a high order byte of zero. The zero page mode of
+ addressing only expects one byte to describe the address, rather than two
+ when using an absolute address. The zero page addressing mode tells the
+ microprocessor to assume that the high order address is zero. Therefore
+ zero page addressing can reference memory locations whose addresses are
+ between $0000 and $00FF. This may not seem too important at the moment,
+ but you'll need the principles of zero page addressing soon.
+
+<h3><a name="Stack">THE STACK</a></h3>
+
+<p>The 6510 microprocessor has what is known as a stack. This is used by
+ both the programmer and the microprocessor to temporarily remember
+ things, and to remember, for example, an order of events. The GOSUB
+ statement in BASIC, which allows the programmer to call a subroutine,
+ must remember where it is being called from, so that when the RETURN
+ statement is executed in the subroutine, the BASIC interpreter "knows"
+ where to go back to continue executing. When a GOSUB statement is
+ encountered in a program by the BASIC interpreter, the BASIC interpreter
+ "pushes" its current position onto the stack before going to do the
+ subroutine, and when a RETURN is executed, the interpreter "pulls" off
+ the stack the information that tells it where it was before the
+ subroutine call was made. The interpreter uses instructions like PHA,
+ which pushes the contents of the accumulator onto the stack, and PLA (the
+ reverse) which pulls a value off the stack and into the accumulator. The
+ status register can also be pushed and pulled with the PHP and PLP,
+ respectively.
+
+<p>The stack is 256 bytes long, and is located in page one of memory. It
+ is therefore from $01 00 to $01 FF. It is organized backwards in memory.
+ In other words, the first position in the stack is at $01 FF, and the
+ last is at $0100. Another register in the 651 0 microprocessor is called
+ the stack pointer, and it always points to the next available location in
+ the stack. When something is pushed onto the stack, it is placed where
+ the stack pointer points to, and the stack pointer is moved down to the
+ next position (decremented). When something is pulled off the stack, the
+ stack pointer is incremented, and the byte pointed to by the stack
+ pointer is placed into the specified register.
+
+<hr>
+<a href="page_221.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_223.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

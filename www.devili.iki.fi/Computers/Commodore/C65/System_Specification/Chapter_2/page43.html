@@ -1,0 +1,90 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page42.html"> 
+     <link rel=next href="page44.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page42.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page44.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<p>    generated, SPA bit is set in register ICRA. After 8 CNTB pulses , the data
+    in the shift register is dumped into the SERIALB Data Register (SDRB) and an
+    interrupt is generated, SPB bit is set in register ICRB.
+    
+<p>       In the output mode, TIMER A is used for the baud rate generator of
+    serial port A, Timer C for serial port B. Data is shifted on an SP pin at
+    half the underflow rate of the TIMER used. The maximum baud rate possible
+    is ClMHz divided by four, but the maximum useable baud rate will be
+    determined by line loading and the speed at which the receiver responds to input
+    data. Transmission will start following a write to Serial Data Register
+    (provided the proper TIMER used is running and in continuous mode). The
+    clock signal derived from TIMER A would appear as an output on the CNTA pin;
+    the one from TIMER C would appear otn the CNTB pin. The data in the Serial
+    Data Register will be loaded into its corresponding shift register then
+    shift out to the SPA or SPB pin when a CNTA or CNTB pulse occurs,
+    respectively. Data shifted out becomes valid on the falling edge of its CNT clock
+    and remains valid until the next falling edge. After 6 CNT pulses, an
+    interrupt is generated to indicate more data can be-sent. If the Serial
+    Data Register was loaded with new information prior to this interrupt, the
+    new data will automatically be loaded into the shift register and
+    transmission will continue. If the microprocessor stays one byte ahead of the shift
+    register, transmission will be continuous. If no further data is to be
+    transmitted, after the 8th CNT pulse, CNT will return high and SP will
+    remain at the level of the last data bit transmitted. SDR data is shifted
+    out MSB first and serial input data should also appear on this format.
+    
+<p>       The bidirectional capability of each of the Serial Ports and CNT clocks
+    allows many 4510 to be connected to a common serial communication bus on
+    which one Serial Port would act as a master, sourcing data and shift clock,
+    while the other Serial Port (and all other ports from other 4510 devices)
+    would3ect as slaves. All the CNT and SP outputs are open drain to allow
+    such a common bus. Protocol for master/slave selection can be transmitted
+    over the serial bus, or via dedicated handshaking lines.
+    
+<p>
+<hr>
+  <a href="page42.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page44.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

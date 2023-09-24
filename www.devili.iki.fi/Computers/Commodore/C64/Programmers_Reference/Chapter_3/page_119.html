@@ -1,0 +1,90 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Multi-color mode graphics</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_118.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_120.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+   
+<p>Here is an example of a program using multi-color programmable
+ characters:
+
+<pre>
+ 10 REM * EXAMPLE 2 *
+ 20 REM CREATING MULTI COLOR PROGRAMMABLE CHARACTERS
+ 31 POKE 56334,PEEK(56334)AND254:POKE1,PEEK(1)AND251
+ 35 FORI=0TO63:REM CHARACTER RANGE TO BE COPIED FROM ROM
+ 36 FORJ=0TO7:REM COPY ALL 8 BYTES PER CHARACTER
+ 37 POKE 12288+I*8+J,PEEK(53248+I*8+J):REM COPY A BYTE
+ 38 NEXT J,I:REM GOTO NEXT BYTE OR CHARACTER
+ 39 POKE 1,PEEK(1)OR4:POKE 56334,PEEK(56334)OR1:REM TURN ON I/O AND KB
+ 40 POKE 53272,(PEEK(53272)AND240)+12:REM SET CHAR POINTER TO MEM. 12288
+ 50 POKE 53270,PEEK(53270)OR16
+ 51 POKE 53281,0:REM SET BACKGROUND COLOR #0 TO BLACK
+ 52 POKE 53282,2:REM SET BACKGROUND COLOR #1 TO RED
+ 53 POKE 53283,7:REM SET BACKGROUND COLOR #2 TO YELLOW
+ 60 FOR CHAR=60TO63:REM PROGRAM CHARACTERS 60 THRU 63
+ 80 FOR BYTE=0TO7:REM DO ALL 8 BYTES OF A CHARACTER
+ 100 READ NUMBER:REM READ 1/8TH OF THE CHARACTER DATA
+ 120 POKE 12288+(8*CHAR)+BYTE,NUMBER:REM STORE THE DATA IN MEMORY
+ 140 NEXT BYTE,CHAR
+ 150 PRINT"{CLEAR}"TAB(255)CHR$(60)CHR$(61)TAB(55)CHR$(62)CHR$(63)
+ 160 REM LINE 150 PUTS THE NEWLY DEFINED CHARACTERS ON THE SCREEN
+ 170 GET A$:REM WAIT FOR USER TO PRESS A KEY
+ 180 IF A$=""THEN170:REM IF NO KEYS WERE PRESSED, TRY AGAIN
+ 190 POKE53272,21:POKE53270,PEEK(53270)AND239:REM RETURN TO NORMAL CHARS
+ 200 DATA129,37,21,29,93,85,85,85: REM DATA FOR CHARACTER 60
+ 210 DATA66,72,84,116,117,85,85,85: REM DATA FOR CHARACTER 61
+ 220 DATA87,87,85,21,8,8,40,0: REM DATA FOR CHARACTER 62
+ 230 DATA213,213,85,84,32,32,40,0: REM DATA FOR CHARACTER 63
+ 240 END
+</pre>
+<hr>
+<a href="page_118.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_120.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

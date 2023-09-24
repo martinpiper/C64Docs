@@ -1,0 +1,140 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - MCS6510 Microprocessor Instruction Set</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_237.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_239.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="BNE">BNE</a></h3></td>
+    <td align="center" colspan="2">
+        <b>BNE</b><i>
+        Branch on result not zero
+        </i></td>
+    <td align="right">
+        <h3>BNE</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation:  Branch on Z = 0 </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 4.1.1.6)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Relative </td><td> BNE Oper </td><td> D0 </td><td> 2 </td><td> 2* </td></tr>
+</table>
+    </td></tr>
+<tr><td colspan="4">
+    * Add 1 if branch occurs to same page.<br>
+    * Add 2 if branch occurs to different page.
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="BPL">BPL</a></h3></td>
+    <td align="center" colspan="2">
+        <b>BPL</b><i>
+        Branch on result plus
+        </i></td>
+    <td align="right">
+        <h3>BPL</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation:  Branch on N = 0 </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ _ _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 4.1.1.2)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Relative </td><td> BPL Oper </td><td> 10 </td><td> 2 </td><td> 2* </td></tr>
+</table>
+    </td></tr>
+<tr><td colspan="4">
+    * Add 1 if branch occurs to same page.<br>
+    * Add 2 if branch occurs to different page.
+    </td></tr>
+</table>
+
+<p><table border="0" align="center">
+<tr><td align="left">
+        <h3><a name="BRK">BRK</a></h3></td>
+    <td align="center" colspan="2">
+        <b>BRK</b><i>
+        Force Break
+        </i></td>
+    <td align="right">
+        <h3>BRK</h3></td></tr>
+<tr><td align="left" colspan="2" valign="top">
+    <code>Operation:  Forced Interrupt PC + 2 &darr; P &darr; </code></td>
+    <td align="right" valign="top" colspan="2">
+                      <code>N Z C I D V</code><br>
+                      <code>_ _ _ 1 _ _</code></td></tr>
+<tr><td align="center" colspan="4">
+    (Ref: 9.11)</td></tr>
+<tr><td align="center" colspan="4">
+<table border="1" cellspacing="0" class="asmlang">
+<tr><th class="black">Addressing Mode</th><th>Assembly Language Form</th><th>OP CODE</th><th>No. Bytes</th><th>No. Cycles</th></tr>
+<tr><td> Implied </td><td> BRK </td><td> 00 </td><td> 2 </td><td> 7 </td></tr>
+</table>
+    </td></tr>
+<tr><td colspan="4">
+    1. A BRK command cannot be masked by setting I.
+    </td></tr>
+</table>
+
+<hr>
+<a href="page_237.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_239.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 06, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

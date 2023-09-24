@@ -1,0 +1,107 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page25.html"> 
+     <link rel=next href="page28.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page25.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page28.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h3><a name="2.3.3">2.3.3</a> <u>Functional Description</u></h3>
+<h4><a name="2.3.3.1">2.3.3.1</a> <u>Pin Description</u></h4>
+
+<p><table align=center>
+<tr valign=bottom align=left><th>PIN<br><u>NAME</u></th><th>PIN<br><u>NUMBER</u></th><th>SIGNAL<br><u>DIRECTION</u></th><th align=center><u>DESCRIPTION</u></th></tr>
+<tr valign=top><td>VSS     </td><td>1       </td><td>IN </td><td> This is the power ground signal (0 volts).</td></tr>
+<tr valign=top><td>VCC     </td><td>2,42    </td><td>IN </td><td> This is the power supply signal (+5 volts).</td></tr>
+<tr valign=top><td>SPB,<br>SPA</td><td>3<br>5</td><td>I/O<br>I/O</td><td>
+                        The SPA and SPB signals are open-drain and
+                        bi-directional, each with a 3K ohm (min.) passive
+                        pull-up. The SPA and SPB signals are the data lines
+                        used by the two 8-bit synchronous serial port
+                        registers. In input mode, SPA and SPB are clocked
+                        into the device on the rising edge of the CNTA and
+                        CNTB clocks, respectively. In the output mode, SPA
+                        and SPB change on the falling edge of the CNTA and
+                        CNTB clocks, respectively.</td></tr>
+<tr valign=top><td>CNTB,<br>CNTA,</td><td>4<br>6</td><td>I/O<br>I/O</td><td>
+                        The CNTA and CNTB signals are open-drain and
+                        bi-directional, each with a 3K ohm (min.) passive
+                        pull-up. These pins are internally synchronized to
+                        the RH0 clock and then used to clock the
+                        synchronous serial registers, in input mode. In
+                        output mode, each pin will reflect the clock signal
+                        derived from the corresponding timer.</td></tr>
+<tr valign=top><td>FLAGA/<br>FLAGB/  </td><td>7<br>8    </td><td>I/O<br>IN</td><td>
+                        The FLAGA/ and FLAGB/ inputs are negative edge
+                        sensitive input signals. A passive pull-up (3K ohm
+                        min) is tied on each of these pins. They are
+                        internally synchronized to the RH0 clock and are
+                        used as general purpose interrupt inputs; Any
+                        negative transition on either of these signals will
+                        cause the device to start an interrupt sequence,
+                        provided that the proper bit is set in each of the
+                        interrupt mask registers. The device will drop the
+                        IRQ/ line to indicate that an interrupt sequence is
+                        underway.</td></tr>
+<tr valign=top><td>&nbsp;</td><td colspan=3> *** When the FAST SERIAL MODE is enabled the CNTA, SPA and FLAGA/ lines
+    will not function as described above. See section 2.5.6 for FAST SERIAL MODE
+    description. *** </td></tr>
+<tr valign=top><td>A0-A19   </td><td>9 thru 28   </td><td>I/O</td><td>
+           Address Bus - This is a 20 bit bi-directional bus with tri-state outputs.
+           The output of each address line is TTL compatible, capable of driving
+           two standard TTL loads and 55 pf. When the AEC or DMA/ line goes
+           low, the bus goes tri-state. If AEC only is low, A17, A18 and A19 will
+           each reflect the state of the A16 line. During an 1/0 access (10/ is low),
+           A0-A3, AS and A9 are used to select an internal 1/0 register. If AEC is
+           high, the bus will be driven by the CPU and A16-A19 will point to a
+           mapped memory location (if MAP/ is low). If memory is not mapped
+           (MAP/ is high), A16-A19 will be low.</td></tr>
+</table>
+
+<p>
+<hr>
+  <a href="page25.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page28.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

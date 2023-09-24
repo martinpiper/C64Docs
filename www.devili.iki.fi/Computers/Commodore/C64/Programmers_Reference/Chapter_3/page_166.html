@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_165.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_167.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> Here's a line which moves the sprite BACK AND FORTH:
+<pre>
+   50 POKE V+5,100:FOR X=24TO255:POKE V+4,X:NEXT:POKE V+16,4:
+      FOR X=0TO65: POKE V+4,X: NEXT X
+   55 FOR X=65TO0 STEP-1:POKE V+4,X:NEXT:POKE V+16,0: FOR
+      X=255TO24 STEP-1: POKE V+4,X:NEXT
+   60 GOTO 50
+</pre>
+<p> Do you see how these programs work? This program is the same as the
+ previous one, except when it reaches the end of the right side of the
+ screen, it REVERSES ITSELF and goes back in the other direction. That is
+ what the STEP-1 accomplishes... it tells the program to POKE the sprite
+ into X values from 65 to 0 on the right side of the screen, then from 255
+ to 0 on the left side of the screen, STEPping backwards minus-1 position
+ at a time.
+
+<h3><a name="Vertical">VERTICAL SCROLLING</a></h3>
+
+<p> This type of sprite movement is called "scrolling." To scroll your
+ sprite up or down in the Y position, you only have to use ONE LINE. ERASE
+ LINES 50 and 55 by typing the line numbers by themselves and hitting
+ &lt;RETURN&gt; like this:
+<pre>
+   50 &lt;RETURN&gt;
+   60 &lt;RETURN&gt;
+</pre>
+ Now enter LINE 50 again as follows:
+<pre>
+   50 POKE V+4,24:FOR Y=0TO255:POKE V+5,Y:NEXT
+</pre>
+
+<h3><a name="Dancing">THE DANCING MOUSE-A SPRITE PROGRAM EXAMPLE</a></h3>
+
+<p>Sometimes the techniques described in a programmer's reference manual
+ are difficult to understand, so we've put together a fun sprite program
+ called "Michael's Dancing Mouse." This program uses three different
+ sprites in a cute animation with sound effects-and to help you understand
+ how it works we've included an explanation of EACH COMMAND so you can see
+ exactly how the program is constructed:
+
+<hr>
+<a href="page_165.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_167.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

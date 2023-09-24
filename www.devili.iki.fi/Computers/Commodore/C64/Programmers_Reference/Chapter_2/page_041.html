@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_040.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_042.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   Any system error (like <b><a href="../Appendices/page_400.html#syntax_error">?SYNTAX ERROR</a></b>) will cause output to return to
+ the screen. Devices aren't un-listened by this, so you should send a
+ blank line after an error condition. (See your printer or disk manual for
+ more details.)
+
+ </p><b class=blue>EXAMPLES of CMD Statement:</b>
+<pre>
+   OPEN 4,4: CMD 4,"TITLE" : LIST: REM LISTS PROGRAM ON PRINTER
+   PRINT#4: CLOSE 4: REM UN-LISTENS AND CLOSES PRINTER
+
+   10 OPEN 1,1,1,"TEST" : REM CREATE SEQ FILE
+   20 CMD 1 : REM OUTPUT TO TAPE FILE, NOT SCREEN
+   30 FOR L = 1 TO 100
+   40 PRINT L: REM PUTS NUMBER IN TAPE BUFFER
+   50 NEXT
+   60 PRINT#1 : REM UNLISTEN
+   70 CLOSE 1 : REM WRITE UNFINISHED BUFFER, PROPERLY FINISH
+</pre>
+
+<h3><a name="cont">CONT</a></h3>
+
+ <big><b class=blue>TYPE: Command<br>
+ FORMAT: CONT
+
+   </b></big><p><b class=blue>Action:</b> This command re-starts the execution of a program which was
+ halted by a <a href="page_086.html#stop">STOP</a> or <a href="page_046.html#end">END</a> statement or the <kbd>&lt;RUN/STOP&gt;</kbd> key being pressed.
+ The program will re-start at the exact place from which it left off.
+   While the program is stopped, the user can inspect or change any
+ variables or look at the program. When debugging or examining a program,
+ <a href="page_086.html#stop">STOP</a> statements can be placed at strategic locations to allow examination
+ of variables and to check the flow of the program.
+   The error message <b><a href="../Appendices/page_400.html#can't_continue">CAN'T CONTINUE</a></b> will result from editing the program
+ (even just hitting <kbd>&lt;RETURN&gt;</kbd> with the cursor on an unchanged line), or if
+ the program halted due to an error, or if you caused an error before
+ typing CONT to re-start the program.
+
+ </p><b class=blue>EXAMPLE of CONT Command:</b>
+<pre>
+   10 PI=0:C=1
+   20 PI=PI+4/C-4/(C+2)
+   30 PRINT PI
+   40 C=C+4:GOTO 20
+</pre>
+<hr>
+<a href="page_040.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_042.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

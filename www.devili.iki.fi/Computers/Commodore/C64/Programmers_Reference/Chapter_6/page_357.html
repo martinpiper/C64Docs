@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - RS-323 Interface Description (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_356.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_358.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<pre>
+ 10 REM THIS PROGRAM SENDS AND RECEIVES TRUE ASCII DATA
+ 100 OPEN 5,2,3,CHR$(6)
+ 110 DIM F%(255),T%(255)
+ 200 FOR J=32 TO 64:T%(J)=J:NEXT
+ 210 T%(13)=13:T%(20)=8:RV=18:CT=0
+ 220 FOR J=65 TO 90:K=J+32:T%=(J)=K:NEXT
+ 230 FOR J=91 TO 95:T%(J)=J:NEXT
+ 240 FOR J=193 TO 218:K=J-128:T%(J)=K:NEXT
+ 250 T%(146)=16:T%(133)=16
+ 260 FOR J=0 TO 255
+ 270 K=T%(J)
+ 280 IF K&LT;&GT;0THEN F%(K)=J:F%(K+128)=J
+ 290 NEXT
+ 300 PRINT" "CHR$(147)
+ 310 GET#5,A$
+ 320 IF A$=""OR ST&LT;&GT;0 THEN 360
+ 330 PRINT" "CHR$(157);CHR$(F%(ASC(A$)));
+ 340 IF F%(ASC(A$))=34 THEN POKE212,0
+ 350 GOTO310
+ 360 PRINTCHR$(RV)" "CHR$(157);CHR$(146);:GET A$
+ 370 IF A$&LT;&GT;"" THEN PRINT#5,CHR$(T%(ASC(A$)));
+ 380 CT=CT+1
+ 390 IF CT=8 THENCT=0:RV=164-RV
+ 410 GOTO310
+</pre>
+
+<h3><a name="Receiver">RECEIVER/TRANSMITTER BUFFER BASE LOCATION POINTERS</a></h3>
+
+<ul>
+   <li><b>$00F7-REBUF</b> - A two-byte pointer to the Receiver Buffer base location.
+   <li><b>$00F9-ROBUF</b> - A two-byte pointer to the Transmitter Buffer base location.
+</ul>
+
+<p> The two locations above are set up by the OPEN KERNAL routine, each
+    pointing to a different 256-byte buffer. They are de-allocated by writing
+    a zero into the high order bytes ($00F8 and $00FA), which is done by the
+    CLOSE KERNAL entry. They may also be allocated/de-allocated by the
+    machine language programmer for his/her own purposes, removing/creating
+    only the buffer(s) required. When using a machine language program that
+    allocates these buffers, care must be taken to make sure that the top of
+    memory pointers stay correct, especially if BASIC programs are expected
+    to run at the same time.
+<hr>
+<a href="page_356.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_358.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 25, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

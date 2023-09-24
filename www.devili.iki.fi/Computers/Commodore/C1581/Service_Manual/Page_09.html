@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: WD1770 Floppy Disk Controller</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Page_08.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_10.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+
+<HR>
+
+<H2>WD1770 FLOPPY DISK CONTROLLER</H2>
+<BR>
+
+<IMG SRC="Page_09.gif" WIDTH="241" HEIGHT="278" ALT="PIN ASSIGNMENT">
+
+<BR><BR>
+
+<TABLE BORDER=1 WIDTH="98%" CELLPADDING=5>
+
+<TR>
+<TH WIDTH="7%" ALIGN=LEFT NOWRAP>PIN</TH>
+<TH WIDTH="8%" ALIGN=LEFT>DESC</TH>
+<TH WIDTH="21%" ALIGN=LEFT>DESC</TH>
+<TH WIDTH="62%" ALIGN=LEFT>FUNCTION</TH>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>1</TD>
+<TD VALIGN=TOP><IMG SRC="cs.gif" ALT="CS"></TD><TD VALIGN=TOP>CHIP SELECT</TD>
+<TD>A logic low on this input selects the chip and enable
+Host communication with the device.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>2</TD>
+<TD VALIGN=TOP><IMG SRC="rw.gif" ALT="R/W"></TD>
+<TD VALIGN=TOP>READ/WRITE</TD>
+<TD>A logic high on this input controls the placement of data
+on the D0-D7 lines from a selected register, while a logic
+low causes a write operation to a seleeted register.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>3,4</TD>
+<TD VALIGN=TOP>A0,A1</TD>
+<TD VALIGN=TOP>ADDRESS 0,1</TD>
+<TD>These two inputs select a register to Read/Write data:
+<CENTER>
+<TABLE WIDTH="75%">
+<TR>
+<TH><IMG src="csb.gif" ALT="CS"></TH>
+<TH>A1</TH>
+<TH>A0</TH>
+<TH></TH>
+<TH ALIGN=LEFT><IMG src="rwb.gif" ALT="R/W">=1</TH>
+<TH ALIGN=LEFT><IMG src="rwb.gif" ALT="R/W">=0</TH>
+</TR>
+<TR>
+<TD ALIGN=CENTER>0<BR>0<BR>0<BR>0</TD>
+<TD ALIGN=CENTER>0<BR>0<BR>1<BR>1</TD>
+<TD ALIGN=CENTER>0<BR>1<BR>0<BR>1</TD>
+<TD>&nbsp;&nbsp;</TD>
+<TD>Status Reg<BR>Track Reg<BR>Sector Reg<BR>Date Reg</TD>
+<TD>Command Reg<BR>Track Reg<BR>Sector Reg<BR>Data Reg</TD>
+</TR>
+</TABLE>
+</CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>5-12</TD>
+<TD VALIGN=TOP>DAL0-DAL7</TD>
+<TD VALIGN=TOP>DATA ACCESS LINES 0 THRU 7</TD>
+<TD>Eight bit bidirectional bus used for transfer of data, control, or status.
+This bus is enabled by <IMG SRC="cs.gif" ALT="CS"> and
+<IMG SRC="rw.gif" ALT="R/W">. Each line will drive one TTL load.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>13</TD>
+<TD VALIGN=TOP><IMG SRC="mr.gif" ALT="MR"></TD>
+<TD VALIGN=TOP>MASTER RESET</TD>
+<TD>A logic low pulse on this line resets the device
+and initializes the status register (internal pull-up).</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>14</TD>
+<TD VALIGN=TOP>GND</TD>
+<TD VALIGN=TOP>GROUND</TD><TD>GROUND.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>15</TD>
+<TD VALIGN=TOP>Vcc</TD>
+<TD VALIGN=TOP>POWER SUPPLY</TD>
+<TD>+5V &plusmn; 5% power supply input.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>16</TD>
+<TD VALIGN=TOP>STEP</TD>
+<TD VALIGN=TOP>STEP</TD>
+<TD>The STEP output contains a pulse for each step of the
+drive's R/W head. The WD 1770 and WD1772 offer different
+step rates.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>17</TD>
+<TD VALIGN=TOP>DIRC</TD>
+<TD VALIGN=TOP>DIRECTION</TD>
+<TD VALIGN=TOP>The DIRECTION output is high when stepping in
+towards the center of the diskette, and low when stepping out.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>18</TD>
+<TD VALIGN=TOP>CLK</TD>
+<TD VALIGN=TOP>CLOCK</TD>
+<TD>This input requires a free-running 50% duty cycle clock
+(for internal timing) at 8MHz &plusmn; 1%.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>19</TD>
+<TD VALIGN=TOP><IMG SRC="rd.gif" ALT="RD"></TD>
+<TD VALIGN=TOP>READ DATA</TD>
+<TD>This active low input is the raw data line containing
+both clock and data pulses from the drive.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>20</TD>
+<TD VALIGN=TOP>MO</TD>
+<TD VALIGN=TOP>MOTOR ON</TD>
+<TD>Active high output used to enable the spindle motor prior
+to read, write or stepping operations.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>21</TD>
+<TD VALIGN=TOP>WG</TD>
+<TD VALIGN=TOP>WRITE GATE</TD>
+<TD>This output is made valid prior to writing on the diskette.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>22</TD>
+<TD VALIGN=TOP>WD</TD>
+<TD VALIGN=TOP>WRITE DATA</TD>
+<TD>FM or MFM clock and data pulses are placed
+on this line to be written on the diskette.</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>23</TD>
+<TD VALIGN=TOP><IMG SRC="tr00.gif" ALT="TR00"></TD>
+<TD VALIGN=TOP>TRACK00</TD>
+<TD>This active low input informs the WD1770 that the drive's
+R/W heads are positioned over Track Zero (internal pull-up).</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>24</TD>
+<TD VALIGN=TOP><IMG SRC="ip.gif" ALT="IP"></TD>
+<TD VALIGN=TOP>INDEX PULSE</TD>
+<TD>This active low input informs the WD1770 when the physical Index
+Hole has been encountered on the diskette (internal pull-up).</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>25</TD>
+<TD VALIGN=TOP><IMG SRC="wprt.gif" ALT="WPRT"></TD>
+<TD VALIGN=TOP>WRITE PROTECT</TD>
+<TD>This input is sampled whenever a
+Write Command is received. A logic low on this line will prevent any Write Command from executing
+(internal pull-up).</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>26</TD>
+<TD VALIGN=TOP><IMG SRC="dden.gif" ALT="DDEN"></TD>
+<TD VALIGN=TOP>DOUBLE DENSITY ENABLE</TD>
+<TD>This input pin selects either single (FM) or double
+(MFM) density. When <IMG src="dden.gif" ALT="DDEN">=0, double density is selected
+(internal pull-up).</TD>
+</TR>
+
+<TR>
+<TD VALIGN=TOP>27</TD>
+<TD VALIGN=TOP>DRQ</TD>
+<TD VALIGN=TOP>DATA REQUEST</TD>
+<TD>This active high output indicates that the data register
+is full (on a READ) or empty (on a Write operation).
+</TD></TR>
+
+<TR>
+<TD VALIGN=TOP>28</TD>
+<TD VALIGN=TOP>INTRQ</TD>
+<TD VALIGN=TOP>INTERRUPT REQUEST</TD>
+<TD>This active high output is set at the completion of any
+command or reset or read of the status register.</TD>
+</TR>
+
+</TABLE>
+<BR>
+
+<HR>
+
+</CENTER>
+
+<A HREF="Page_08.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_10.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+</BODY>
+</HTML>

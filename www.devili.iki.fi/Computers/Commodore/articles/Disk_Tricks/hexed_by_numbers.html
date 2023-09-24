@@ -1,0 +1,121 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Hexed By Numbers</title>
+    <meta name="description" content="Article from COMPUTE!'s Gazette issue 15 (September 1984) -- Introduction to different numbering systems like binary and hexadecimal.">
+    <meta name="keywords" content="computer, programming, number, decimal, hexadecimal, binary, numbering system, base 2, base 16, base 10">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center><h1>Hexed By Numbers</h1>
+J. Blake Lambert, Assistant Editor
+</center>
+
+<p> Reading and writing bytes, and directly modifying disk tracks and
+    sectors is something like PEEKing and POKEing memory locations. You are
+    advancing beyond simple BASIC programs into the realm of machine
+    language. Sooner or later, you face the challenge of learning new, more
+    convenient, numbering systems. Since computers only understand binary
+    (base two) numbers and most people understand decimal (base ten)
+    numbers, it's advantageous to learn how to translate from one to the
+    other. To understand these number systems, let's think a minute about
+    our normal counting method.
+
+<p> Our decimal (base ten) system evolved simply because humans have ten
+    fingers. When we count in decimal, we start with zero and add ones
+    until we get to nine, at which point we're out of numbers. To get to
+    ten, we place a zero in the "ones" column and add a new column to the
+    left, called the "tens" column. The next column to the left is named
+    "hundreds," which is ten times ten (or 10^2),
+
+<p> Binary counting is the same, but we run out of digits faster, because
+    the computer has only two "fingers." That is, the electronic "switches"
+    with which it counts are either off (0) or on (1). We count zero then
+    one, and that's it. We start a new column called "twos," place a one in
+    it, and clear the "ones" column, The next number is 11 and we're out of
+    digits again. The "fours" column is created (two times two, or 2^2),
+    and we have the number 100, then 101, 110, 111 and 1000 (which equals
+    eight in decimal, 2^3). The problem with binary is that it takes too
+    much room to write even small numbers. For example, the decimal number
+    255 written in binary is 11111111.
+
+<p> It requires 16 ones and zeros to describe a memory location on a VIC or
+    64. (Decimal 49152 translates to the unwieldy binary number
+    1100000000000000.) This is why hexadecimal, called hex by most
+    computerists, is useful.
+
+<p> Hex is a simple shorthand for binary, but it requires learning a few
+    new numbers. Just as the decimal number system has ten digits available
+    (0 through 9), hex requires 16. These 16 digits are 0 through 9, then
+    A, 8, C, D, E, F, After counting to $F (the dollar sign represents
+    "hex," the F stands for decimal 15), we next count $10, by placing a
+    one in the "sixteens" column. The hex number $FF in decimal, then,
+    equals 15 times 16, plus 15. Conveniently, this turns out to be decimal
+    255, so the eight-column binary representation (1111 1111) can be
+    written using just two hex numerals ($FF). It's much easier to remember
+    shorter numbers, so hex is usually preferred.
+
+<p> Here's a counting table that should help you understand how the systems
+    work.
+
+<center><table>
+<tr><th>    Binary </th><th>Decimal </th><th>Hexadecimal </th></tr>
+<tr><td>    0      </td><td>0       </td><td>$0          </td></tr>
+<tr><td>    1      </td><td>1       </td><td>$1          </td></tr>
+<tr><td>    10     </td><td>2       </td><td>$2          </td></tr>
+<tr><td>    11     </td><td>3       </td><td>$3          </td></tr>
+<tr><td>    100    </td><td>4       </td><td>$4          </td></tr>
+<tr><td>    101    </td><td>5       </td><td>$5          </td></tr>
+<tr><td>    110    </td><td>6       </td><td>$6          </td></tr>
+<tr><td>    111    </td><td>7       </td><td>$7          </td></tr>
+<tr><td>    1000   </td><td>8       </td><td>$8          </td></tr>
+<tr><td>    1001   </td><td>9       </td><td>$9          </td></tr>
+<tr><td>    1010   </td><td>10      </td><td>$A          </td></tr>
+<tr><td>    1011   </td><td>11      </td><td>$B          </td></tr>
+<tr><td>    1100   </td><td>12      </td><td>$C          </td></tr>
+<tr><td>    1101   </td><td>13      </td><td>$D          </td></tr>
+<tr><td>    1110   </td><td>14      </td><td>$E          </td></tr>
+<tr><td>    1111   </td><td>15      </td><td>$F          </td></tr>
+<tr><td>    10000  </td><td>16      </td><td>$10         </td></tr>
+</table></center>
+
+<p><hr width="50%">
+
+<center>
+<p>Published in COMPUTE!'s Gazette, Issue 15, September 1984. Copyright &copy;
+1984 COMPUTE! Publications, Inc.
+</center>
+
+<hr>
+ <a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

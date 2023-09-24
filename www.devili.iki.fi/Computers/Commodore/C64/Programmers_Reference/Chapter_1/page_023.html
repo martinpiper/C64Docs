@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Techniques (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_022.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_024.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p> The Commodore 64 has a keyboard buffer that holds up to 10 characters.
+ This means that if the computer is busy doing some operation and it's
+ not reading the keyboard, you can still type in up to 10 characters,
+ which will be used as soon as the Commodore 64 finishes what it was
+ doing. To demonstrate this, type in this program on your Commodore 64:
+<pre>
+   NEW
+   10 TI$="000000"
+   20 IF TI$ &lt; "000015" THEN 20
+</pre>
+<p> Now type <a href="../Chapter_2/page_081.html#run">RUN</a>, hit <kbd>d&lt;RETURN&gt;</kbd>  and while the program is RUNning type in the
+ word HELLO.
+<p>Notice that nothing happened for about 15 seconds when the program
+ started. Only then did the message HELLO appear on the screen.
+<p>Imagine standing in line for a movie. The first person in the line is
+ the first to get a ticket and leave the line. The last person in line is
+ last for a ticket. The <a href="../Chapter_2/page_049.html#get">GET</a> statement acts like a ticket taker. First it
+ looks to see if there are any characters "in line." In other words have
+ any keys been typed. If the answer is yes then that character gets placed
+ in the appropriate variable. If no key was pressed then an empty value is
+ assigned to a variable,
+<p> At this point it's important to note that if you try to put more than
+ 10 characters into the buffer at one time, all those over the 10th
+ character will be lost.
+<p>Since the <a href="../Chapter_2/page_049.html#get">GET</a> statement will keep going even when no character is
+ typed, it is often necessary to put the <a href="../Chapter_2/page_049.html#get">GET</a> statement into a loop so that
+ it will have to wait until someone hits a key or until a character is
+ received through your program.
+   Below is the recommended form for the <a href="../Chapter_2/page_049.html#get">GET</a> statement. Type <a href="../Chapter_2/page_062.html#new">NEW</a> to erase
+ your previous program.
+
+<pre>
+   10 GET A$: IF A$ ="" THEN 10
+</pre>
+
+<p> Notice that there is NO SPACE between the quote marks("") on this line.
+ This indicates an empty value and sends the program back to the <a href="../Chapter_2/page_049.html#get">GET</a>
+ statement in a continuous loop until someone hits a key on the computer.
+ Once a key is hit the program will continue with the line following line
+ 10. Add this line to your program:
+<pre>
+   100 PRINT A$;: GOTO 10
+</pre>
+
+<hr>
+<a href="page_022.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_024.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

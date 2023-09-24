@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - User Port (cont.) and Serial Port</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_361.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_363.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> cause an INTERRUPT REQUEST. If the FLAG bit is not enabled, it can be
+    polled from the interrupt register under program control.
+
+<p> PA2 is bit 2 of PORT A of the CIA. It is controlled like any other bit
+    in the port. The port is located at 56576 ($DD00). The data direction
+    register is located at 56578 ($DD02.)
+
+<p> FOR MORE INFORMATION ON THE 6526 SEE THE CHIP SPECIFICATIONS IN
+    APPENDIX M.
+
+<h3><a name="Serial">THE SERIAL BUS</a></h3>
+
+<p> The serial bus is a daisy chain arrangement designed to let the Commodore 64 communicate with devices such as the VIC-1541 DISK DRIVE and
+ the VIC-1525 GRAPHICS PRINTER. The advantage of the serial bus is that
+ more than one device can be connected to the port. Up to 5 devices can be
+ connected to the serial bus at one time.
+
+<p> There are three types of operation over a serial bus-CONTROL, TALK, and
+ LISTEN. A CONTROLLER device is one which controls operation of the serial
+ bus. A TALKER transmits data onto the bus. A LISTENER receives data from
+ the bus.
+
+<p> The Commodore 64 is the controller of the bus. It also acts as a TALKER
+    (when sending data to the printer, for example) and as a LISTENER (when
+    loading a program from the disk drive, for example). Other devices may
+    be either LISTENERS (the printer), TALKERS, or both (the disk drive).
+    Only the Commodore 64 can act as the controller.
+
+<p> All devices connected on the serial bus will receive all the data
+    transmitted over the bus. To allow the Commodore 64 to route data to
+    its intended destination, each device has a bus ADDRESS. By using this
+    device address, the Commodore 64 can control access to the bus.
+    Addresses on the serial bus range from 4 to 31.
+
+<p> The Commodore 64 can COMMAND a particular device to TALK or LISTEN.
+    When the Commodore 64 commands a device to TALK, the device will begin
+    putting data onto the serial bus. When the Commodore 64 commands a
+    device to LISTEN, the device addressed will get ready to receive data
+    (from the Commodore 64 or from another device on the bus). Only one
+    device can TALK on the bus at a time; otherwise, the data will collide
+    and the system will crash in confusion. However, any number of devices
+    can LISTEN at the same time to one TALKER.
+
+<hr>
+<a href="page_361.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_363.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 06, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

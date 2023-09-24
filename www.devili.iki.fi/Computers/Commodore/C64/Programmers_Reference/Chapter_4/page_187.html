@@ -1,0 +1,146 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Using Multiple Voices</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_186.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_189.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> frequency other than the ones listed in the note table use "Fout"
+ (frequency output) and the following formula to represent the frequency
+ (Fn) of the sound you want to create. Remember that each note requires
+ both a high and a low frequency number.
+
+<pre>
+
+            Fn = Fout/.06097
+
+</pre>
+
+<p>   Once you've figured out what Fn is for your "new" note the next step is
+ to create the high and low frequency values for that note. To do this you
+ must first round off Fn so that any numbers to the right of the decimal
+ point are left off. You are now left with an integer value. Now you can
+ set the high frequency location (Fhi) by using the formula
+ Fhi=INT(Fn/256) and the low frequency location (Flo) should be
+ Flo=Fn-(256*Fhi).
+<p>   At this point you have already played with one voice of your computer.
+ If you wanted to stop here you could find a copy of your favorite tune
+ and become the maestro conducting your own computer orchestra in your "at
+ home" concert hall.
+
+<h2><a name="Using">USING MULTIPLE VOICES</a></h2>
+
+<p>   Your Commodore computer has three independently controlled voices
+ (oscillators). Our first example program used only one of them. later on,
+ you'll learn how to change the quality of the sound made by the voices.
+ But right now, let's get all three voices singing.
+<p>   This example program shows you one way to translate sheet music for
+ your computer orchestra. Try typing it in, and then SAVE it on your
+ DATASSETTE<sup><small>TM</small></sup> or disk. Don't forget to type NEW before typing in this
+ program.
+
+<p><b class=blue>EXAMPLE PROGRAM 2:</b>
+
+<pre>
+ 10 S=54272:FORL=STOS+24:POKEL,0:NEXT
+ 20 DIMH(2,200),L(2,200),C(2,200)
+ 30 DIMFQ(11)
+ 40 V(0)=17:V(1)=65:V(2)=33
+ 50 POKES+10,8:POKES+22,128:POKES+23,244
+ 60 FORI=0TO11:READFQ(I):NEXT
+ 100 FORK=0TO2
+ 110 I=0
+ 120 READNM
+ 130 IFNM=0THEN250
+ 140 WA=V(K):WB=WA-1:IFNM&LT;0THENNM=-NM:WA=0:WB=0
+ 150 DR%NM/128:OC%=(NM-128*DR%)/16
+ 160 NT=NM-128*DR%-16*OC%
+ 170 FR=FQ(NT)
+ 180 IFOC%=7THEN200
+ 190 FORJ=6TOOC%STEP-1:FR=FR/2:NEXT
+ 200 HF%=FR/256:LF%=FR-256*HF%
+ 210 IFDR%=1THENH(K,I)=HF%:L(K,I)=LF%:C(K,I)=WA:I=I+1:GOTO120
+ 220 FORJ=1TODR%-1:H(K,I)=HF%:L(K,I)=LF%:C(K,I)=WA:I=I+1:NEXT
+ 230 H(K,I)=HF%:L(K,I)=LF%:C(K,I)=WB
+ 240 I=I+1:GOTO120
+ 250 IFI&GT;IMTHENIM=I
+ 260 NEXT
+ 500 POKES+5,0:POKES+6,240
+ 510 POKES+12,85:POKES+13,133
+ 520 POKES+19,10:POKES+20,197
+ 530 POKES+24,31
+ 540 FORI=0TOIM
+ 550 POKES,L(0,I):POKES+7,L(1,I):POKES+14,L(2,I)
+ 560 POKES+1,H(0,I):POKES+8,H(1,I):POKES+15,H(2,I)
+ 570 POKES+4,C(0,I):POKES+11,C(1,I):POKES+18,C(2,I)
+ 580 FORT=1TO80:NEXT:NEXT
+ 590 FORT=1TO200:NEXT:POKES+24,0
+ 600 DATA34334,36376,38539,40830
+ 610 DATA43258,45830,48556,51443
+ 620 DATA54502,57743,61176,64814
+ 1000 DATA594,594,594,596,596,1618,587,592,587.585,331,336
+ 1010 DATA1097,583,585,585,585,587,587,1609,585,331,337,594,594,593
+ 1020 DATA1618,594,596,594,592,587,1616,587,585,331,336,841,327
+ 1999 DATA1607,0
+ 2000 DATA583,585,583,583,327,329,1611,583,585,578,578,578
+ 2010 DATA196,198,583,326,578,326,327,329,327,329,326,578,583
+ 2020 DATA1606,582,322,324,582,587,329,327,1606,583,327,329,587,331,329
+ 2999 DATA329,328,1609,578,834,324,322,327,585,1602,0
+ 3000 DATA567,566,567,304,306,308,310,1591,567,311,310,567
+ 3010 DATA306,304,299,308,304,171,176,306,291,551,306,308
+ 3020 DATA310,308,310,306,295,297,299,304,1586,562,567,310,315,311
+ 3030 DATA308,313,297,1586,567,560,311,309,308,309,306,308
+ 3999 DATA1577,299,295,306,310,311,304,562,546,1575,0
+</pre>
+
+<hr>
+<a href="page_186.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_189.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

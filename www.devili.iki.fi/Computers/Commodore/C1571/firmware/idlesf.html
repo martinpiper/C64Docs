@@ -1,0 +1,183 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Idle</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Idle loop</h3>
+</center>
+
+<pre>
+        .page 
+        .subttl 'idlesf.src'       
+
+; idle loop, waiting for something to do
+idle             
+        cli      
+
+;  release all bus lines
+
+        lda  pb         ; clock and data high
+        and  #$e5       ; clock high
+        sta  pb         ; data high,atna hi
+
+        lda  cmdwat     ; test for pending command
+        beq  idl1       ; no command waiting
+
+        lda  #0          
+        sta  cmdwat      
+
+	nop		; *** rom ds -06 ** fill
+	nop		; *** rom ds -06 ** fill
+;       sta  nmiflg     ; clear debounce
+
+;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+
+	jmp  ptch19	; *rom ds 85*
+;	jsr  parsxq     ; parse and xeq command
+
+rtch19			; return
+
+;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+
+idl1    cli     	; test for drive running or openfile
+        lda  atnpnd      
+        beq  idl01       
+
+;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+
+	jmp  ptch30	; *rom ds 85*
+;       jmp  atnsrv     ; service atn irq
+
+;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+
+idl01            
+        cli      
+        lda  #14         
+        sta  temp+3      
+        lda  #0         ; if file open, turn on act led
+        sta  temp        
+        sta  temp+1      
+idl2    ldx  temp+3     ; look thru lintab
+        lda  lintab,x   ; for active file
+        cmp  #$ff        
+        beq  idl3        
+
+        and  #$3f        
+        sta  lindx       
+	jsr  getact      
+        tax      
+        lda  lstjob,x   ; determine which drv it is on
+        and  #1          
+        tax      
+        inc  temp,x      
+idl3    dec  temp+3     ; set flag indicating drv
+        bpl  idl2       ; has file open
+        ldy  #bfcnt-1   ; look thru job que for
+idl4    lda  jobs,y     ; for jobs still running
+        bpl  idl5        
+        and  #1          
+        tax      
+        inc  temp,x     ; set flag indicating drive
+idl5    dey     	; is active
+        bpl  idl4        
+        sei      
+
+; dont allow irq when reading ledprt 
+
+        lda  ledprt      
+        and  #$ff-led0   
+        pha      
+        lda  drvnum      
+        sta  r0          
+        lda  #0          
+        sta  drvnum      
+        lda  temp        
+        beq  idl7        
+
+        lda  wpsw        
+        beq  idl6        
+
+	jsr  cldchn      
+
+idl6             
+        pla     	; turn on led if drive flag
+        ora  #led0      ;  if not 0
+        pha      
+idl7             
+        inc  drvnum      
+        lda  temp+1      
+        beq  idl9        
+
+        lda  wpsw+1      
+        beq  idl8        
+
+        jsr  cldchn      
+idl8             
+        pla      
+        ora  #led1       
+        pha      
+idl9             
+        lda  r0          
+        sta  drvnum      
+        pla      
+        ldx  erword      
+        beq  idl12      ; no error flashing
+
+        lda  ledprt     ; use current leds
+        cpx  #$80        
+        bne  idl10      ; not ist time
+
+        jmp  idl11       
+
+idl10            
+        ldx  timer1      
+        bmi  idl12      ; still timing
+
+        ldx  #$a0       ; count 8 msec
+        stx  timer1      
+idl11            
+        dec  erword     ; count units of 8 msec
+        bne  idl12      ; keep counting
+
+        eor  erled      ; toggle led
+        ldx  #16        ; count 16 units
+        stx  erword      
+idl12            
+        sta  ledprt     ; set leds
+        jmp  idl1       ; back to top of lop
+
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

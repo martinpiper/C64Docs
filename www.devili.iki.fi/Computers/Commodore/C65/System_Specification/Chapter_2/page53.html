@@ -1,0 +1,69 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page52.html"> 
+     <link rel=next href="page54.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page52.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page54.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4><a name="2.3.6.4">2.3.6.4</a> <u>Register Map</u></h4>
+
+<p><table align="center" cellpadding="5" cellspacing="0" border="1"><caption align="top">C65 UART</caption>
+<tr><th>R/W</th><th>REG</th><th>NAME</th><th>D7</th><th>D6</th><th>D5</th><th>D4</th><th>D3</th><th>D2</th><th>D1</th><th>D0</th></tr>
+<tr><td>R/W</td><td>0</td><td>DATA    </td><td>R/X7</td><td>R/X6</td><td>R/X5</td><td>R/X4</td><td>R/X3</td><td>R/X2</td><td>R/X1</td><td>R/X0</td></tr>
+<tr><td>R  </td><td>1</td><td>STATUS  </td><td>XMIT<br>DONE</td><td>XMIT<br>EMPTY</td><td>ENDT<br>(R/W)</td><td>IDLE<br>(R/W)</td><td>FRAME</td><td>PARITY</td><td>OVER<br>RUN</td><td>RCVR<br>FULL</td></tr>
+<tr><td>R/W</td><td>2</td><td>CONTROL </td><td>XMIT<br>ON</td><td>RCVR<br>ON</td><td colspan="2">UART MODE</td><td colspan="2">WORD LENGHT</td><td>PARITY<br>ODD</td><td>PARITY<br>EVEN</td></tr>
+<tr><td>R/W</td><td>3</td><td>BAUD LO </td><td>BRL7</td><td>BRL6</td><td>BRL5</td><td>BRL4</td><td>BRL3</td><td>BRL2</td><td>BRL1</td><td>BRL0</td></tr>
+<tr><td>R/W</td><td>4</td><td>BAUD HI </td><td>BRH7</td><td>BRH6</td><td>BRH5</td><td>BRH4</td><td>BRH3</td><td>BRH2</td><td>BRH1</td><td>BRH0</td></tr>
+<tr><td>R/W</td><td>5</td><td>INT MASK</td><td>XMIT<br>IRQ</td><td>RCVR<br>IRQ</td><td>XMIT<br>NMI</td><td>RCVR<br>NMI</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+<tr><td>R  </td><td>6</td><td>INT FLAG</td><td>XMIT<br>IRQ</td><td>RCVR<br>IRQ</td><td>XMIT<br>NMI</td><td>RCVR<br>NMI</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+</table>
+
+<p>
+<hr>
+  <a href="page52.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page54.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 28, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

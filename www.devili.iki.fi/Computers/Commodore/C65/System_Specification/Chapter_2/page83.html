@@ -1,0 +1,114 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page82.html"> 
+     <link rel=next href="page84.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page82.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page84.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h3><a name="2.4.3">2.4.3</a> <u>CSG 4567 Operation</u></h3>
+    
+<p>     The 4567 accesses two 8-bit memory blocks, which are up to 64K each,
+    via two 8-bit bidirectional busses. These are D0-D7 and E0-E7. The D0-D7
+    bus is common with the CPU chip, ROM, SID, and the expansion port, and is
+    used for system memory and bitplanes. The E0-E7 port is only conneted to
+    RAM. This RAM is used for COLOR RAM, attribute RAM, system memory, and
+    bitplanes.
+    
+<p>     To access these RAMsp the 4567 has two multiplexed address busses.
+    These are MA0-MA7, and MBS-MB7. Lines MA0-MA4 are common to both 64K banks
+    of RAM, but MA5-MA7 go only to bank A, and MB5-MB7 go only to bank B.
+    
+<p>    There are four types of DMA accesses which the 4567 can perform.
+    Remember that RAS* is asserted on every memory clock cycle. These are...
+
+<p><table border="0">
+<tr><th>mode</th><th>operation</th><th>CASA*</th><th>CASB*</th><th>ROM*</th></tr>
+<tr><td>1.</td><td>4567 reading both banks.</td><td>X</td><td>X</td><td>&nbsp;</td></tr>
+<tr><td>2.</td><td>4567 reading bank "A"</td><td>X</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>3.</td><td>4567 reading ROM</td><td>&nbsp;</td><td>&nbsp;</td><td>X</td></tr>
+<tr><td>4.</td><td>4567 doing refresh.</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+
+<p>    There are six types of CPU routings to RAM and peripheral devices that
+    are handled by the 4567.
+
+<p><table border="0">
+<tr><th>mode</th><th>operation</th><th>CASA*</th><th>CASB*</th><th>ROM*</th></tr>
+<tr><td>2.</td><td>CPU reading bank "A".</td><td>X</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>3.</td><td>CPU reading bank "B".</td><td>&nbsp;</td><td>X</td><td>&nbsp;</td></tr>
+<tr><td>4.</td><td>CPU writing bank "A".</td><td>X</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>5.</td><td>CPU writing bank "B".</td><td>&nbsp;</td><td>X</td><td>&nbsp;</td></tr>
+<tr><td>6.</td><td>CPU reading ROM      </td><td>&nbsp;</td><td>&nbsp;</td><td>X</td></tr>
+<tr><td>7.</td><td>CPU accessing 1/01, 1/02,  SID, ROMR, ROML </td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+    
+<p>    There are four basic data routings through the 4567 chip. Three internal
+    signals rout the data busses. WTREG (write 4567 register) enables routing the
+    external D0-D7 bus to the internal register data bus. It is normally a logic 1.
+    When it is brought low, the internal bus disconnects, and the D0-D7 bus output
+    drivers turn on. This is for CPU-reads of 4567 registers or "B" bank RAM.
+<p> DBMEM (read "B" bank memory) routs the E0-E7 data bus to the inputs of the
+    D0-D7 bus.output drivers when at logic level 1. This is for CPU reads of "B"
+    bank RAM. When 0, (normal) the internal register data bus is routed to the
+    D0-D7 bus output driver inputs, instead. WTBMEM (write B" bank memory) turns
+    on the E0-E7 bus drivers which directly routs the D0-D7 data bus to the E0-E7
+    bus when 1. This is for LPU writes to the "B" bank RAM. When 0, (normal) the
+    E0-E7 bus is input only.
+    
+<p><table border="0">
+<tr><th>mode</th><th>operation</th><th>Wtreg</th><th>RdBmem</th><th>WtBmem</th></tr>
+<tr><td>1.</td><td>CPU write 4567 register, CPU access external, 4567 DMA, etc</td><td>1</td><td>0</td><td>0 (default)</td></tr>
+<tr><td>2.</td><td>CPU read 4567 register</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3.</td><td>CPU read B RAM</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>4.</td><td>CPU write B RAM</td><td>1</td><td>0</td><td>1</td></tr>
+</table>
+    
+<p>
+<hr>
+  <a href="page82.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page84.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

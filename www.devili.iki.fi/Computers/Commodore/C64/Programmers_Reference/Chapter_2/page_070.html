@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_069.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_071.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+ <b class=blue>EXAMPLES of POKE Statement:</b>
+<pre>
+   POKE 1024, 1         (Puts an "A" at position 1 on the screen)
+   POKE 2040, PTR       (Updates Sprite #0 data pointer)
+   10 POKE RED,32
+   20 POKE 36879,8
+   2050 POKE A,B
+</pre>
+
+<h3><a name="pos">POS</a></h3>
+
+ <big><b class=blue>TYPE: Integer Function<br>
+ FORMAT: POS (&lt;dummy&gt;)
+
+   </b></big><p><b class=blue>Action:</b> Tells you the current cursor position which, of course, is in
+ the range of 0 (leftmost character) though position 79 on an 80-character
+ logical screen line. Since the Commodore 64 has a 40-column screen, any
+ position from 40 through 79 will refer to the second screen line. The
+ dummy argument is ignored.
+
+ </p><b class=blue>EXAMPLE of POS Function:</b>
+<pre>
+   1000 IF POS(0)&gt;38 THEN PRINT CHR$(13)
+</pre>
+
+<h3><a name="print">PRINT</a></h3>
+
+ <big><b class=blue>TYPE: Statement<br>
+ FORMAT: PRINT [&lt;variable&gt;][&lt;,/;&gt;&lt;variable&gt;]...
+
+   </b></big><p><b class=blue>Action:</b> The PRINT statement is normally used to write data items to
+ the screen. However, the <a href="page_040.html#cmd">CMD</a> statement may be used to re-direct that
+ output to any other device in the system. The &lt;variable(s)&gt; in the
+ output-list are expressions of any type. If no output-list is present, a
+ blank line is printed. The position of each printed item is determined by
+ the punctuation used to separate items in the output-list.
+<p>   The punctuation characters that you can use are blanks, commas, or
+ semicolons. The 80-character logical screen line is divided into 8 print
+ zones of 10 spaces each. In the list of expressions, a comma causes the
+ next value to be printed at the beginning of the next zone. A semicolon
+ causes the next value to be printed immediately following the previous
+ value. However, there are two exceptions to this rule:
+
+<hr>
+<a href="page_069.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_071.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

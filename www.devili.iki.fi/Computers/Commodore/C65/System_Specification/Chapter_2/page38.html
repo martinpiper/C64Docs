@@ -1,0 +1,96 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page37.html"> 
+     <link rel=next href="page39.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page37.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page39.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h3><a name="2.3.4">2.3.4</a> <u>Memory Mapper</u></h3>
+    
+<p> The microprocessor core is actually a C4502R1 with some additional
+    instructions, used to operate the memory mapper.
+
+<p> The former AUG (augment) opcode has been changed to MAP (mapper)
+    and the former NOP (no-operation), has been changed to EOM
+    (end-of-mapping-sequence).
+    
+<p> The 4510 memory mapper allows the microprocessor to access up to 1
+    megabyte of memory. Herel's how. The 6502 microprocessor can only
+    access up to 64K bytes of memory because it only uses addresses of 16
+    bits. The 4502 is no different, nor is the 4510. But the 4510 memory
+    mapper allows these addresses to be redirected to new physical
+    addresses to access different parts of a much larger memory, within the
+    64K byte confinement window.
+
+<p> The 64K window his been divided into eight blocks, and two regions,
+    with four blocks in each region. Blocks 0 through 3 are in the "lower"
+    region, and blocks 4 through 7 are in the "upper" region, as shown...
+
+<p align=center><img src="../images/page38.gif" alt="[Region and block configuration]"></p>
+    
+<p>       Each block can be Programmed to be "mapped", or "non-mapped" via
+    bits in the mapper's "mask"-registers. NON-MAPPED means, simply, address
+    out equals address in. Therefore, there are still only 64K bytes of
+    non-mapped memory. MAPPED means that address out equals address in plus some
+    offset. The offset is programmed via the mapper's "offset" registers.
+    There are two "offset" registers. One is for the lower region, and one is
+    for the upper region.
+    
+<p>       The low-order 8 addresses are never mapped. The offsets are only
+    added to the 12 high-order addresses. This means the smallest unit you can
+    map to is 256 bytes, or one page.
+    
+<p>       The 4510 has an output (NOMAP) which lets the outside world know
+    when the processor is accessing mapped (0) or non-mapped (1) address. This
+    is useful for systems where you may want I/O devices to be at fixed
+    (non-mapped) addresses, and only memory at mapped addresses.
+
+<p>
+<hr>
+  <a href="page37.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page39.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 09, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page144.html"> 
+     <link rel=next href="page146.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page144.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page146.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+<pre>
+    NEXT            Token = 82          end of for-next loop
+    NOT             Token = A8          logical complement function
+    OFF             Token = FE,24               (subcommand)
+    ON              Token = 91          multiple branch or subcommand
+    OPEN            Token = 9F          open 1/0 channel
+    OR              Token = B0          logical or function
+    PAINT           Token = DF          graphic flood-fill
+    PALETTE         Taken = FE,34       set palette color
+    PASTE           Token = E3          draw graphic area from cut buffer
+    PEEK            Token = C2          return memory byte function
+    PEN             Token = FE,33       set graphic pen color
+    PIC             Token = FE,37       graphic subcommand
+    PLAY            Token = FE,04       play musical notes from string
+    POINTER         Token = CE,0A       address of string var function
+    POKE            Token = 97          change memory byte
+    POLYGON         Token = FE,2F       draw graphic pologon
+    POS             Token = B9          text cursor position function
+    POT             Token = CE,02       return paddle position
+    PRINT           Token = 99          display data on text screen
+    PRINT#          Token = 98          send data to channel (file)
+    PUDEF           Token = D0          define print-using symbols
+    QUIT            Token = FE,1E               (currently unimplemented)
+    RCLR            Token = CD                  (currently unimplemented)
+    RDOT            Token = D0                  (currently unimplemented)
+    RF-AD           Token = 87          read Program pre-defined program data
+    RECORD          Token = FE,12       set Relative disk file record pointer
+    REM             Token = 8F          BASIC program comment
+    RENAME          Token = F5          rename disk file
+    RENUMBER        Token = F8          renumber BASIC program lines
+    RESTORE         Token = 8C          set DATA pointer, subcommand
+    RESUME          Token = D6          resume BASIC program after trap
+    RETURN          Token = 8E          end of subroutine call
+    RGR             Token = CC                  (currently unimplemented)
+    RIGHT$          Token = C9          rightmost substring function
+    RMOUSE          Token = FE,3F       read mouse position
+    RND             Token = BB          pseudo random number function
+    RREG            Token = FE,09       return processor registers after SYS
+    RSPCOLOR        Token = CE,07       return sprite color function
+    RSPPOS          Token = CE,05       return sprite position function
+    RSPRITE         Token = CE,06       return sprite parameter function
+    RUN             Token = 8A          run BASIC program from memory or disk
+    RWINDOW         Token = CE,09       return text window parameter function
+    SAVE            Token = 94          save BASIC program to disk
+    SCALE           Token = E9                  (currently unimplemented)
+    SCNCLR          Token = E8          erase text or graphic display
+    SCRATCH         Token = F2          delete disk file
+    SCREEN          Token = FE,2E       set parameters or open graphic screen
+    SET             Token = FE,2D       set system parameter, subcommand
+    SGN             Token = B4          return sign of number function
+    SIN             Token = BF          trigometric.sine function
+    SLEEP           Token = FE,0B       pause BASIC program for time period
+    SLOW            Token = FE,26       set system speed to minimum
+    SOUND           Token = DA          perform sound effects
+    SPC             Token = A6          skip spaces in printed output
+    SPRCOLOR        Token = FE,08       set multicolor sprite colors
+    SPRDEF          Token = FE,1D               (currently unimplemented)
+    SPRITE          Token = FE,07       set sprite parameters
+    SPRSAV          Token = FE,16       set or copy sprite definition
+</pre>
+<p>
+<hr>
+  <a href="page144.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page146.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

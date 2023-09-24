@@ -1,0 +1,81 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Maps (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page19.html"> 
+     <link rel=next href="../Chapter_2/page21.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page19.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="../Chapter_2/page21.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h3><a name="1.5.4">1.5.4</a>             <u>C65 System I/O Memory</u></h3>
+
+<p><table align=center>
+<tr><td>    $DF00   </td><td>IO-2                </td><td>EXTERNAL I/O SELECT</td></tr>
+<tr><td>    $DE00   </td><td>IO-1                </td><td>EXTERNAL I/O SELECT</td></tr>
+<tr><td>    $DD00   </td><td>CIA-2               </td><td>SERIAL, USER PORT</td></tr>
+<tr><td>    $DC00   </td><td>CIA-1               </td><td>KEYBOARD, JOYSTICK, MOUSE CONTROL  </td></tr>
+<tr><td>    $D800   </td><td>COLOR NYB           </td><td>COLOR MATRIX (*FROM $1F800-$FFFF)  </td></tr>
+<tr><td>    $D700   </td><td>DMA                 </td><td>*DMA CONTROLLER                    </td></tr>
+<tr><td>    $D600   </td><td>UART                </td><td>*RS-232, FAST SERIAL, NEW KEY LINES</td></tr>
+<tr><td>    $D440   </td><td>SID (L)             </td><td>AUDIO CONTROLLER (LEFT)  </td></tr>
+<tr><td>    $D400   </td><td>SID (R)             </td><td>AUDIO CONTROLLER (RIGHT) </td></tr>
+<tr><td>    $D300   </td><td>BLU PALETTE         </td><td rowspan=3>*COLOR PALETTES (NIBBLES)</td></tr>
+<tr><td>    $D200   </td><td>GRN PALETTE</td></tr>
+<tr><td>    $D100   </td><td>RED PALETTE</td></tr>
+<tr><td>    $D0A0   </td><td>REC                 </td><td>*RAM EXPANSION CTRL (OPTIONAL)</td></tr>
+<tr><td>    $D080   </td><td>FDC                 </td><td>*DISK CONTROLLER</td></tr>
+<tr><td>    $D0D0   </td><td>VIC-4567            </td><td>VIDEO CONTROLLER</td></tr>
+<tr><td colspan=3>&nbsp;</td></tr>
+<tr><td>    $0000   </td><td>4510                </td><td>MEMORY CONTROL FOR C64 MODE (this register is actually in the VIC-4567 in the C65)</td></tr>
+</table>
+
+<p align=center> *NOTE:  VIC must be in "new" mode to address these devices</p>
+    
+    
+    <p>
+<hr>
+  <a href="page19.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="../Chapter_2/page21.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 09, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

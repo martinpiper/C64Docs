@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Programmable characters</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_112.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_114.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> The Programmable Character Worksheet (Figure 3-1) will help you design
+ your own characters. There is an 8 by 8 matrix on the sheet, with row
+ numbers, and numbers at the top of each column. (if you view each row as
+ a binary word, the numbers are the value of that bit position. Each is a
+ power of 2. The leftmost bit is equal to 128 or 2 to the 7th power, the
+ next is equal to 64 or 2 to the 6th, and so on, until you reach the
+ rightmost bit (bit 0) which is equal to 1 or 2 to the 0 power.)
+
+<p> Place an X on the matrix at every location where you want a dot to be
+ in your character. When your character is ready you can create the <a href="../Chapter_2/page_042.html#data">DATA</a>
+ statement for your character.
+
+<p> Begin with the first row. Wherever you placed an X, take the number at
+ the top of the column (the power-of-2 number, as explained above) and
+ write it down. When you have the numbers for every column of the first
+ row, add them together. Write this number down, next to the row. This is
+ the number that you will put into the <a href="../Chapter_2/page_042.html#data">DATA</a> statement to draw this row.
+
+<p> Do the same thing with all of the other rows (1-7). When you are
+ finished you should have 8 numbers between 0 and 255. If any of your
+ numbers are not within range, recheck your addition. The numbers must be
+ in this range to be correct! If you have less than 8 numbers, you missed
+ a row. It's OK if some are 0. The 0 rows are just as important as the
+ other numbers.
+
+<p> Replace the numbers in the <a href="../Chapter_2/page_042.html#data">DATA</a> statement in line 20 with the numbers
+ you just calculated, and <a href="../Chapter_2/page_081.html#run">RUN</a> the program. Then type a T. Every time you
+ type it, you'll see your own character!
+
+<p> If you don't like the way the character turned out, just change the
+ numbers in the <a href="../Chapter_2/page_042.html#data">DATA</a> statement and <a href="../Chapter_2/page_081.html#run">re-RUN</a> the program until you are happy
+ with your character.
+
+<p> That's all there is to it!
+
+<p><table border="1" cellspacing="0">
+<tr><td><b class="blue">HINT:</b> For best results, always make any 
+ vertical lines in your characters at least 2 dots (bits) wide. This 
+ helps prevent CHROMA noise (color distortion) on your characters when 
+ they are displayed on a TV screen.                                                       
+ </td></tr></table>
+<hr>
+<a href="page_112.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_114.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 23, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

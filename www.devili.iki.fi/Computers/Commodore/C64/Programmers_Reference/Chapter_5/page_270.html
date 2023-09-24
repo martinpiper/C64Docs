@@ -1,0 +1,88 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - How to use the KERNAL</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_269.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_271.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="How">HOW TO USE THE KERNAL</a></h2>
+
+<p>   When writing machine language programs it is often convenient to use
+ the routines which are already part of the operating system for input/
+ output, access to the system clock, memory management, and other similar
+ operations. It is an unnecessary duplication of effort to write these
+ routines over and over again, so easy access to the operating system
+ helps speed machine language programming.
+<p>   As mentioned before, the KERNAL is a jump table. This is just a collection of <a href="page_244.html#jmp">JMP</a> instructions to many operating system routines.
+<p>   To use a KERNAL routine you must first make all of the preparations
+ that the routine demands. If one routine says that you must call another
+ KERNAL routine first, then that routine must be called. If the routine
+ expects you to put a number in the accumulator, then that number must be
+ there. Otherwise your routines have little chance of working the way you
+ expect them to work.
+<p>   After all preparations are made, you must call the routine by means of
+ the <a href="page_244.html#jsr">JSR</a> instruction. All KERNAL routines you can access are structured as
+ SUBROUTINES, and must end with an <a href="page_249.html#jmp">RTS</a> instruction. When the KERNAL
+ routine has finished its task, control is returned to your program at the
+ instruction after the <a href="page_244.html#jsr">JSR</a>.
+<p>   Many of the KERNAL routines return error codes in the status word or
+ the accumulator if you have problems in the routine. Good programming
+ practice and the success of your machine language programs demand that
+ you handle this properly. If you ignore an error return, the rest of your
+ program might "bomb."
+<p>   That's all there is to do when you're using the KERNAL. Just these
+ three simple steps:
+<p>
+   1) Set up<br>
+   2) Call the routine<br>
+   3) Error handling<br>
+<hr>
+<a href="page_269.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_271.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 02, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - The Envelope Generator (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_197.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_199.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>Here are the meanings of the values for ATTACK, DECAY, and RELEASE:
+
+<p><table align="center" border="1" cellspacing="0">
+<tr><th>VALUE</th><th>ATTACK RATE (TIME/CYCLE)</th><th>DECAY/RELEASE RATE (TIME/CYCLE)</th></tr>
+<tr><td>  0  </td><td>   2 ms </td><td>   6 ms </td></tr>
+<tr><td>  1  </td><td>   8 ms </td><td>  24 ms </td></tr>
+<tr><td>  2  </td><td>  16 ms </td><td>  48 ms </td></tr>
+<tr><td>  3  </td><td>  24 ms </td><td>  72 ms </td></tr>
+<tr><td>  4  </td><td>  38 ms </td><td> 114 ms </td></tr>
+<tr><td>  5  </td><td>  56 ms </td><td> 168 ms </td></tr>
+<tr><td>  6  </td><td>  68 ms </td><td> 204 ms </td></tr>
+<tr><td>  7  </td><td>  80 ms </td><td> 240 ms </td></tr>
+<tr><td>  8  </td><td> 100 ms </td><td> 300 ms </td></tr>
+<tr><td>  9  </td><td> 250 ms </td><td> 750 ms </td></tr>
+<tr><td> 10  </td><td> 500 ms </td><td> 1.5 s  </td></tr>
+<tr><td> 11  </td><td> 800 ms </td><td> 2.4 s  </td></tr>
+<tr><td> 12  </td><td>   1 s  </td><td>   3 s  </td></tr>
+<tr><td> 13  </td><td>   3 s  </td><td>   9 s  </td></tr>
+<tr><td> 14  </td><td>   5 s  </td><td>  15 s  </td></tr>
+<tr><td> 15  </td><td>   8 s  </td><td>  24 s  </td></tr>
+</table>
+
+<p>   Here are a few sample settings to try in your example program. Try
+ these and a few of your own. The variety of sounds you can produce is
+ astounding! For a violin type sound, try changing line 20 to read:
+<pre>
+   20 POKES+5,88:POKES+6,89:REM A=5;D=8;S=5;R=9
+</pre>
+<p> Change the waveform to triangle and get a xylophone type sound by using
+ these lines:
+<pre>
+   20 POKES+5,9:POKES+6,9:REM A=0;D=9;S=O;R=9
+   70 POKES+4,17
+   90 POKES+4,16:FORT=1TO50:NEXT
+</pre>
+
+<hr>
+<a href="page_197.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_199.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE>Commodore 1571 Service Manual: Gate Array Circuit Theory (cont.)
+</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<a href="Page_04.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_06.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<HR>
+
+<CENTER><H2>20 PIN GATE ARRAY (continued)</H2></CENTER>
+<BR>
+
+<P>It takes 2.56 to 2.62 usec to cancel the saddle. If the saddle
+should be longer than this length of time, the saddle can not be
+corrected and will result in a read error. Also, if the time for
+correcting the saddle is set for a longer time interval, the
+clear signal will not be set when the data is equal to 11. Therefore,
+approximately 2.6 usec the most suitable time setting for saddle
+correction.</P>
+
+<P>Note: The minimum bit rate for tracks 1 - 17 is equal to 2.6
+usec. If this time should become less due to motor speed,
+the SYNC signal cannot be recognized on the outer tracks
+resulting in error.</P>
+
+<P><B>3. MOTOR SPEED COMPENSATOR (PLL)</B></P>
+
+<P>This gate array detects the motor speed and generates an internal
+data sampling clock signal that matches with the motor speed
+(see below).</P>
+<BR><BR>
+
+<CENTER>
+<IMG SRC="Page_05a.gif">
+</CENTER>
+
+<P>When the SYNC signal goes to the low level, the LOCK signal goes
+false and the sampling clock is switched to the internal clock
+signal of the gate array. Once the PLL has sampled the data
+one's, the LOCK signal will go high to indicate that the output
+of the PLL is valid. If the PLL cannot lock on, the internal
+clock signal will be used and the LOCK signal will remain at the
+low level. This can occur when the stepper is still moving or the
+spindle motor is not up to speed yet. In short, this allows the
+reading of data independent of motor speed within the lock on
+limits of the PLL.</P>
+<BR><BR>
+
+<CENTER>
+<IMG SRC="Page_05b.gif">
+</CENTER>
+
+<P>The 1571 runs on the SYSTEM CLOCK and does not implement the LOCK
+signal.</P>
+<BR><BR>
+
+<HR>
+
+<a href="Page_04.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_06.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>
+Last updated May 17th, 1998.
+</CENTER>
+
+</BODY>
+</HTML>

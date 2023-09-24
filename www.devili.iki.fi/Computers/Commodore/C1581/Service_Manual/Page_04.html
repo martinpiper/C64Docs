@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: General Specifications (cont.)</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXTCOLOR="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Page_03.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_05.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<H2 ALIGN=CENTER>GENERAL SPECIFICATIONS (CONTINUED)</H2>
+
+<B>8. PROGRAMMABLE BAUD RATE GENERATOR</B>
+
+<P>The 8520 contains a programmable baud rate generator which is used for fast serial transfers. Timer A is used for the baud rate generator. In the output mode date is shifted out on SP at 1/2 the underflow rate of Timer A. The maximum baud rate possible is phi2 divided by 4, but the maximum usable baud rate will be determined by line loading and the speed at which the receiver responds to the input data. Transmission will start following a write to the Serial Data Register (provided Timer A is running and in continuous mode). The clock derived from Timer A appears on the CNT pin. The Data in the Serial Data Register will be loaded into the shift register the shifted out to the SP pin. After 8 pulses on the CNT pin, a bit in the ICR (interrupt control register) is set and if the desired, an interrupt may be generated. All incoming fast bytes generate an interrupt within the Fast Serial Drive. Bytes are shifted out; most significant bit first.</P>
+
+<P><B>NOTE:</B> When the 8520 is put in output mode the SP pin (data) will go low.</P>
+
+<CENTER>
+<TABLE BORDER=1 WIDTH="50%">
+<TR>
+<TH>
+Baud Rate
+</TH>
+<TH ROWSPAN=2>
+Hi<BR>Timer<BR>Value
+</TH>
+<TH ROWSPAN=2>
+Low<BR>Timer<BR>Value
+</TH>
+</TR>
+<TR>
+<TH>
+Phi2 = 2 MHz
+</TH>
+</TR>
+<TR>
+<TD ALIGN=CENTER>
+166k<BR>143k<BR>100k<BR>50k<BR>25k<BR>12.5k<BR>
+</TD>
+<TD ALIGN=CENTER>
+00<BR>00<BR>00<BR>00<BR>00<BR>00<BR>
+</TD>
+<TD ALIGN=CENTER>
+06<BR>07<BR>10<BR>20<BR>40<BR>80<BR></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<BR>
+<BR>
+
+<A NAME="self"></A>
+
+<B>9. SELF TEST DIAGNOSTICS</B>
+
+<P>
+The 1581 performs a self-test of RAM, ROM, and Controller. If an error is detected, the DOS will blink all LED's a specific number of times. The flash code is repeated continuously.</P>
+
+<CENTER>
+<TABLE WIDTH="60%">
+<TR>
+<TH>
+# OF FLASHES
+</TH>
+<TH ALIGN=LEFT>
+RESOURCE
+</TH>
+<TH ALIGN=LEFT>
+COMPONENT
+</TH>
+</TR>
+<TR><TD COLSPAN=3><HR></TD></TR>
+<TR>
+<TD ALIGN=CENTER>
+1<BR>2<BR>3<BR>
+</TD>
+<TD>
+Zero Page<BR>32K x 8 ROM<BR>$0100-$1FFF<BR>
+</TD>
+<TD>
+8K x 8 RAM<BR>25256<BR>8K x 8 RAM<BR>
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<BR>
+<HR>
+
+<A HREF="Page_03.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_05.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+
+</BODY>
+</HTML>

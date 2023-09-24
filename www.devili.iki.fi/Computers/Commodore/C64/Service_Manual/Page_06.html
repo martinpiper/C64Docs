@@ -1,0 +1,62 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 Service Manual: Clock Circuits</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="Page_05.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_07.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2>C64 CIRCUIT THEORY</h2>
+<a href="large/Page_06_a.gif"><img src="small/Page_06_a.gif" alt="[Clock circuit schematic]"></a>
+
+<h5>The C64 Clock Circuits.</h5>
+
+Crystal Y1 develops a 14.31818MHz fundamental frequency clock signal. U31 is a Dual Voltage Controlled
+Oscillator. The output on pin 10 is a 14.31818 MHz clock signal called the color clock. R27
+can be adjusted to obtain exact output frequency. U30 is a frequency divider that outputs a 2MHz
+signal on pin 6. U29 is a D flip flop which outputs a 1MHz signal on pin 9. U32 is a Phase/Frequency
+Detector which compares the output of the U29 to the phase 0 clock, and outputs a dc voltage on
+pin 8 that is proportional to the phase difference between the inputs. The second half of the Dual
+Voltage Controller Oscillator U31 generates an 8.1818MHz clock signal called the DOT Clock. The
+VIC IC divides the DOT clock by eight and outputs this as the phase 0 clock on pin 17. The output
+of the Phase/Frequency Detector is applied to the frequency control input pin 2 of U31. This causes
+tracking of the dot clock and the color clock because one input, pin 4 of U32, is the phase 0 clock
+which is derived from the dot clock, and the other pin 1 of U32, is derived from the color clock.
+
+<a href="large/Page_06_b.gif"><img src="small/Page_06_b.gif" alt="[Clock circuit (C64B) schematic]"></a>
+
+<h5>The C64B Clock Circuits. Refer to schematic 251469</h5>
+
+Crystal Y1 develops the fundamental 16Mhz clock signal. U31 is a Clock Generator IC that outputs
+the 8.1818MHz DOT clock on pin 6, and the 14.31818 MHz color clock on pin 8.
+
+<hr>
+<a href="Page_05.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_07.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - KERNAL Power-Up Activities</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_268.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_270.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> A good question at this point is why use the jump table at all? Why not
+ just <a href="page_244.html#jsr">JSR</a> directly to the KERNAL subroutine involved? The jump table is
+ used so that if the KERNAL or BASIC is changed, your machine language
+ programs will still work. In future operating systems the routines may
+ have their memory locations moved around to a different position in the
+ memory map . . . but the jump table will still work correctly!
+
+<h2><a name="Kernal">KERNAL POWER-UP ACTIVITIES</a></h2>
+
+<p><table align=center>
+<tr valign=top align=left><td> 1) </td><td>
+    On power-up, the KERNAL first resets the stack pointer, and clears
+    decimal mode.
+</td></tr><tr valign=top align=left><td> 2) </td><td>
+    The KERNAL then checks for the presence of an autostart ROM cartridge
+    at location $8000 HEX (32768 decimal). If this is present, normal
+    initialization is suspended, and control is transferred to the car-
+    tridge code. If an autostart ROM is not present, normal system ini-
+    tialization continues.
+</td></tr><tr valign=top align=left><td> 3) </td><td>
+    Next, the KERNAL initializes all INPUT/OUTPUT devices. The serial bus
+    is initialized. Both 6526 CIA chips are set to the proper values for
+    keyboard scanning, and the 60-Hz timer is activated. The SID chip is
+    cleared. The BASIC memory map is selected and the cassette motor is
+    switched off.
+</td></tr><tr valign=top align=left><td> 4) </td><td>
+    Next, the KERNAL performs a RAM test, setting the top and bottom of
+    memory pointers. Also, page zero is initialized, and the tape buffer
+    is set up.
+   <p>The RAM TEST routine is a nondestructive test starting at location
+    $0300 and working upward. Once the test has found the first non-RAM
+    location, the top of RAM has its pointer set. The bottom of memory is
+    always set to $0800, and the screen setup is always set at $0400.
+</td></tr><tr valign=top align=left><td> 5) </td><td>
+    Finally, the KERNAL performs these other activities. I/O vectors are
+    set to default values. The indirect jump table in low memory is estab-
+    lished. The screen is then cleared, and all screen editor variables
+    reset. Then the indirect at $A000 is used to start BASIC.
+</td></tr></table>
+
+<hr>
+<a href="page_268.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_270.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

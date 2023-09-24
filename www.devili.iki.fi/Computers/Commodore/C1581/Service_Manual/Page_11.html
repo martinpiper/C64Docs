@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: WD1770 Floppy Disk Controller (cont.)</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXTCOLOR="#000000">
+
+<A HREF="Page_10.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_12.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<H2 ALIGN=CENTER>WD1770 FLOPPY DISK CONTROLLER (CONTINUED)</H2>
+
+<P><B>Arithmetic/Logic Unit (ALU)</B> &nbsp;&#151;&nbsp; The ALU is a serial comparator, incrementator, and decrementator, and is used for register modification and comparisions with the disk recorded ID field.
+
+<P><B>Timing and Control</B> &nbsp;&#151;&nbsp; All computer and Floppy Disk interface controls are generated through this logic. The internal device timing is generated from an external crystal clock. The WD1770 has two different modes of operation according to the state of <IMG SRC="dden.gif" ALT="DDEN">. When <IMG SRC="dden.gif" ALT="DDEN">=0, double density (MFM) is enabled. When <IMG SRC="dden.gif" ALT="DDEN">=1, single density is enabled.
+
+<P><B>AM Detector</B> &nbsp;&#151;&nbsp; The address mark detector detects ID, data and index address marks during read and write operations.
+
+<P><B>Data Separator</B> &nbsp;&#151;&nbsp; A digital data separator, consisting of a right shift register and data window detection
+logic, provides read data and a recovery clock to the AM detector.
+
+<P><B>PROCESSOR INTERFACE</B>
+
+<P>The interface to the processor is accomplished through the eight Data Access Lines (DAL) and associated control signals. The DAL are used to transfer Data Status, and Control words out of, or into the WD1770. The DAL are three state buffers that are enabled as output drivers when Chip Select (<IMG SRC="cs.gif" ALT="CS">) and <IMG SRC="rw.gif" ALT="R/W">=1 are active or act as input receivers when <IMG SRC="cs.gif" ALT="CS"> and <IMG SRC="rw.gif" ALT="R/W">=0 are active.<BR>
+
+<P>When transfer of data with the Floppy Disk Controller is required by the host processor, the device address is decoded and <IMG SRC="cs.gif" ALT="CS"> is made low. The address bits A1 and A0, combined with the signal <IMG SRC="rw.gif" ALT="R/W">, during a Read operation or Write operation are interpreted as selecting the following registers:<BR>
+<BR>
+
+<CENTER>
+<TABLE BORDER=1 CELLPADDING=7>
+<TR>
+<TH>A1</TH>
+<TH>A0</TH>
+<TH ALIGN=LEFT>Read (<IMG SRC="rwb.gif" ALT="R/W">=1)</TH>
+<TH ALIGN=LEFT>Write (<IMG SRC="rwb.gif" ALT="R/W">=0)</TH>
+</TR>
+<TR>
+<TD align=center>0<BR>0<BR>1<BR>1</TD>
+<TD align=center>0<BR>1<BR>0<BR>1</TD>
+<TD>Status Register<BR>Track Register<BR>Sector Register<BR>Data Register</TD>
+<TD>Command Register<BR>Track Register<BR>Sector Register<BR>Data Register</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<P>During Direct Memory Access (DMA) types of data transfers between the Data Register of the WD1770 and the processor, the Data Request (DRQ) output is used in Data Transfer control. This signal also appears as status bit 1 during Read and Write operations.<BR>
+
+<P>On Disk Read operations, the Data Request is activated (set high) when an assembled serial input byte is transferred in parallel to the Data Register. This bit is cleared when the Data Register is read by the processor. If the Data Register is read after one or more characters are lost, by having new data transferred into the register prior to processor readout, the Lost Data bit is set in the Status Register. The Read operation continues until the end of sector is reached.<BR>
+
+<P>On Disk Write operations, the Data Request is activated when the Data Register transfers its contents to the Data Shift Register, and requires a new data byte. It is reset when the Data Register is loaded with new data by the processor. If new data is not loaded at the time the next serial byte is required by the Floppy Disk, a byte of zeroes is written on the diskette and the Lost Data is set in the Status Register.<BR>
+
+<P>At the completion of every command, an INTRQ is generated. INTRQ is reset by either reading the status register, or by loading the command register with a new command. In addition, INTRQ is generated if a Force Interrupt command condition is met.<BR>
+
+<P>The WD1770 has two modes of operation according to the state <IMG SRC="dden.gif" ALT="DDEN"> (Pin 26). When <IMG SRC="dden.gif" ALT="DDEN">=1, single density is selected. In either case, the CLK input (Pin 18) is at 8 MHZ.</P>
+
+<CENTER><IMG SRC="Page_11.gif" WIDTH="275" HEIGHT="271" ALT="WD1770 INTERFACING DIAGRAM">
+
+<BR>
+<BR>
+
+<HR>
+
+</CENTER>
+
+<A HREF="Page_10.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_12.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+</BODY>
+</HTML>

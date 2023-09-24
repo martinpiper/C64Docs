@@ -1,0 +1,110 @@
+<HTML>
+<head>
+<title>Commodore 1571 Service Manual: IC Pin Assignments (cont.)</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<a href="Page_09.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/Computers/Commodore/C1571/Service_Manual/Page_11.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<hr>
+
+<center><H2>6502 MICROPROCESSOR</h2><br>
+
+<a><img src="Page_10.gif"></a>
+
+<br><br>
+
+<table border width="96%">
+
+<tr><th nowrap align=left>PIN</th><th align=left>DESC</th><th align=left>FUNCTION</th></tr>
+
+<tr><td valign=top>1,21</td><td valign=top>Vss</td><td>Ground.
+
+<tr><td valign=top>2</td><td valign=top>RDY</td><td valign=top>Ready. TTL level
+input, used to DMA the 6502. The processor operates normally while RDY
+is high. When RDY makes a transition to the low state, the processor
+will finish the operation it is an, and any subsequent operation if it
+is a write cycle. On the next occurrence of read cycle the processor
+will halt, making it possible to tri-state the processor to gain
+complete access to the system bus.</td></tr>
+
+<tr><td valign=top>3</td><td valign=top>Phi1</td><td>Phase 1 clock output.</td></tr>
+
+<tr><td valign=top>4</td><td valign=top>IRQ</td><td>
+The Interrupt Request input is a request that the processor initiate an
+interrupt sequence. The processar will complete execution of the current
+instruction before recognizing the request. At that time, the interrupt
+mask in the Status Code Register will be examined. If the Interrupt Mask
+is not set, the processor will begin an interrupt sequence. The Program
+Counter and the Processor Status Register will be stored on the stack and
+the interrupt disable flag is set so that no other interrupts can occur.
+The processor will then load the Program Counter from the memory location
+$FFFE and $FFFF.</td</tr>
+
+<tr><td valign=top>6</td><td valign=top>NMI</td><td>The Non-Maskable
+Interrupt Request is a negative-edge sensitive request that the
+processor initiate an interrupt sequence. The processor will complete
+execution of the current instruction before recognizing the request.
+</td></tr>
+
+<tr><td valign=top>7</td><td valign=top>SYNC</td><td>The SYNC output is used in
+conjunction with RDY to allow single instruction execution.</td</tr>
+
+<tr><td valign=top>8</td><td valign=top>Vcc</td><td>+5VDC input.</td</tr>
+
+<tr><td valign=top>9-20,22-25</td><td valign=top>A0-A15</td><td>Address bus outputs.
+Unidirectional bus used to address memory and I/O devices.</td></tr>
+
+<tr><td valign=top>26-33</td><td valign=top>D0-D7</td><td valign=top>Bi-directional
+bus for transferring data to and from the device and the peripherals.
+</td></tr>
+
+<tr><td valign=top>34</td><td valign=top>R/W</td><td>The read/write line is a TTL
+level output from the processor to control the direction of data transfer
+between the processor and memory, peripherals, etc. This line is high for
+reading memory and low for writing.
+
+<tr><td valign=top>37</td><td valign=top>Phi0</td><td>Phase 0 clock input.
+
+<tr><td valign=top>38</td><td valign=top>S.O.</td><td>Set Overflow flag. A negative
+going edge sets the overflow bit in the status code register.</td></tr>
+
+<tr><td valign=top>39</td><td valign=top>Phi2</td><td>Phase 2 clock output.
+
+<tr><td valign=top>40</td><td valign=top>RES</td><td>The Reset input is used to reset
+or start the microprocessor from a power down condition. During the time
+that this line is held low, writing to or from the microprocessor is
+inhibited. When a positive edge is detected on the input, the microprocessor
+will immediately begin the reset sequence. After a system initialization
+time af 6 cycles, the mask interrupt flag will be set and the processor will
+load the program counter from the contents of the memory location $FFFC and
+$FFFD. This is the start location for program control. After V<SUB>cc</SUB> reaches
+4.75 volts in a power up routine, reset must be held low for at least 2
+cycles. At this time the R/W line will become valid.</td></tr>
+
+</table>
+</center>
+<br>
+
+<hr>
+<a href="Page_09.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/Computers/Commodore/C1571/Service_Manual/Page_11.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<br>
+
+<center>
+This page has been created by <a href="mailto:frank@kontr.uzhgorod.ua">Frank Kontros</a>.<br>
+Last updated May 17th, 1998.
+</center>
+
+</body>
+</HTML>

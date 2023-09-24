@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_132.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_134.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> needed to define a sprite. The 63 bytes are arranged in 21 rows of 3
+ bytes each. A sprite definition looks like this.
+
+<pre>
+                         BYTE 0  BYTE 1  BYTE 2
+                         BYTE 3  BYTE 4  BYTE 5
+                         BYTE 6  BYTE 7  BYTE 8
+                           ..      ..      ..
+                           ..      ..      ..
+                           ..      ..      ..
+                         BYTE 60 BYTE 61 BYTE 62
+</pre>
+
+<p> Another way to view how a sprite is created is to take a look at the
+ sprite definition block on the bit level. It would look something like
+ Figure 3-2.
+
+<p> In a standard (HI-RES) sprite, each bit set to I is displayed in that
+ sprite's foreground color. Each bit set to 0 is transparent and will
+ display whatever data is behind it. This is similar to a standard
+ character.
+
+<p> Multi-color sprites are similar to multi-color characters. Horizontal
+ resolution is traded for extra color resolution. The resolution of the
+ sprite becomes 12 horizontal dots by 21 vertical dots. Each dot in the
+ sprite becomes twice as wide, but the number of colors displayable in the
+ sprite is increased to 4.
+
+<h3><a name="Sprite">SPRITE POINTERS</a></h3>
+
+<p> Even though each sprite takes only 63 bytes to define, one more byte
+ is needed as a place holder at the end of each sprite. Each sprite, then,
+ takes up 64 bytes. This makes it easy to calculate where in memory your
+ sprite definition is, since 64 bytes is an even number and in binary it's
+ an even power.
+
+<p> Each of the 8 sprites has a byte associated with it called the SPRITE
+ POINTER. The sprite pointers control where each sprite definition is lo-
+ cated in memory. These 8 bytes are always located as the lost 8 bytes
+ of the 1K chunk of screen memory. Normally, on the Commodore 64, this
+ means they begin at location 2040 ($07F8 in HEX). However, if you move
+ the screen, the location of your sprite pointers will also move.
+
+<p> Each sprite pointer can hold a number from 0 to 255. This number points
+ to the definition for that sprite. Since each sprite definition takes
+ 64 bytes, that means that the pointer can "see" anywhere in the 16K
+ block of memory that the VIC-II chip can access (since 256*64=16K).
+
+<hr>
+<a href="page_132.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_134.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

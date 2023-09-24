@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Screen Editor</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_093.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_095.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   The keyboard is treated as a set of switches organized into a matrix
+ of 8 columns by 8 rows. The keyboard matrix is scanned for key switch-
+ closures by the KERNAL using the CIA #1 I/O chip (MOS 6526 Complex
+ Interface Adapter). Two CIA registers are used to perform the scan:
+ register #0 at location 56320 ($DC00) for keyboard columns and
+ register #l at location 56321 ($DC01) for keyboard rows.
+<p>   Bits 0-7 of memory location 56320 correspond to the columns 0-7. Bits
+ 0-7 of memory location 56321 correspond to rows 0-7. By writing column
+ values in sequence, then reading row values, the KERNAL decodes the
+ switch closures into the <a href="page_038.html#chr$">CHR$ (N)</a> value of the key pressed.
+<p>   Eight columns by eight rows yields 64 possible values. However, if you
+ first strike the <kbd>&lt;RVS ON&gt;</kbd>, <kbd>&lt;CTRL&gt;</kbd> or <kbd>&lt;C=&gt;</kbd> keys or hold down the <kbd>&lt;SHIFT&gt;</kbd>
+ key and type a second character, additional values are generated. This is
+ because the KERNAL decodes these keys separately and "remembers" when one
+ of the control keys was pressed. The result of the keyboard scan is then
+ placed in location 197.
+<p>   Characters can also be written directly to the keyboard buffer at locations
+ 631-640 using a <a href="page_069.html#poke">POKE</a> statement. These characters will be
+ processed when the <a href="page_069.html#poke">POKE</a> is used to set a character count into location
+ 198. These facts can be used to cause a series of direct-mode commands to
+ be executed automatically by printing the statements onto the screen,
+ putting carriage-returns into the buffer, and then setting the character
+ count. In the example below, the program will <a href="page_058.html#list">LIST</a> itself to the printer
+ and then resume execution.</p>
+<pre>
+   10 PRINT CHR$(147)"PRINT#1: CLOSE 1: GOTO 50"
+   20 POKE 631119: POKE 632,13: POKE 633,13: POKE 198,3
+   30 OPEN 114: CMD1: LIST
+   40 END
+   50 REM PROGRAM RE-STARTS HERE
+</pre>
+
+<h2><a name="Screen">SCREEN EDITOR</a></h2>
+
+<p>   The SCREEN EDITOR provides you with powerful and convenient facilities
+ for editing program text. Once a section of a program is listed to the
+ screen, the cursor keys and other special keys are used to move around
+ the screen so that you can make any appropriate changes. After making all
+ the changes you want to a specific line-number of text, hitting the
+ <kbd>&lt;RETURN&gt;</kbd> key anywhere on the line, causes the SCREEN EDITOR to read the
+ entire 80-character logical screen line.
+
+<hr>
+<a href="page_093.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_095.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

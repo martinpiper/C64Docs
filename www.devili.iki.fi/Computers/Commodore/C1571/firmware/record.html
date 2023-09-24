@@ -1,0 +1,190 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Relative files</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Relative files</h3>
+</center>
+
+<pre>
+        .page
+	.subttl 'record.src'          
+;*********************************
+;* record: position relative     *
+;*         pointers to given     *
+;*         record number or to   *
+;*         last record if out of *
+;*         range.                *
+;*********************************
+record           
+        jsr  cmdset     ; init tables, ptrs
+        lda  cmdbuf+1    
+        sta  sa          
+        jsr  fndrch      
+        bcc  r20        ; got channel's lindex
+
+        lda  #nochnl    ; no valid channel
+        jsr  cmderr      
+r20              
+        lda  #lrf+ovrflo         
+        jsr  clrflg      
+        jsr  typfil     ; get file type
+        beq  r30        ; it is relative file
+
+        lda  #mistyp    ; wrong type
+        jsr  cmderr      
+r30              
+        lda  filtyp,x    
+        and  #1          
+        sta  drvnum      
+        lda  cmdbuf+2    
+        sta  recl,x     ; get record #
+        lda  cmdbuf+3    
+        sta  rech,x      
+        ldx  lindx      ; clear chnrdy to rndrdy
+        lda  #rndrdy     
+        sta  chnrdy,x    
+
+        lda  cmdbuf+4   ; get offset
+        beq  r40         
+        sec      
+        sbc  #1          
+        beq  r40         
+        cmp  rs,x        
+        bcc  r35         
+
+        lda  #recovf     
+        sta  erword      
+        lda  #0          
+r35              
+r40              
+        sta  recptr     ; set offset
+        jsr  fndrel     ; calc ss stuff
+        jsr  sspos      ; set ss ptrs
+        bvc  r50         
+
+        lda  #lrf       ; beyond the end
+        jsr  setflg     ; set last rec flag
+        jmp  rd05        
+r50              
+        jsr  positn     ; position to record
+        lda  #lrf        
+        jsr  tstflg      
+        beq  r60         
+        jmp  rd05        
+r60              
+        jmp  endcmd     ; that's all
+
+;*********************************
+;* positn: position relative     *
+;*         data block into active*
+;*         buffer & next block   *
+;*         into inactive buffer. *
+;*********************************
+
+positn           
+        jsr  posbuf     ; position buffers
+        lda  relptr      
+        jsr  setpnt     ; set ptr from fndrel
+
+        ldx  lindx       
+        lda  rs,x        
+        sec     	; calc the offset
+        sbc  recptr      
+        bcs  p2          
+        jmp  break      ; should not be needed
+p2               
+        clc      
+        adc  relptr      
+        bcc  p30         
+        adc  #1          
+        sec      
+p30              
+        jsr  nxout      ; set nr
+        jmp  rd15        
+        lda  #recovf     
+        jsr  cmderr      
+;*
+;*********************************
+;* posbuf: position proper data  *
+;*         blocks into buffers   *
+;*********************************
+
+posbuf           
+        lda  dirbuf      
+        sta  r3          
+        lda  dirbuf+1    
+        sta  r4          
+        jsr  bhere      ; is buffer in?
+        bne  p10        ; yes!
+        rts      
+p10              
+        jsr  scrub      ; clean buffer
+        jsr  getlnk      
+        lda  track       
+        beq  p80         
+        jsr  bhere2      
+        bne  p75         
+        jsr  dblbuf      
+        jmp  freiac      
+p75              
+        jsr  freiac      
+
+p80              
+        ldy  #0         ; get proper block
+        lda  (r3),y      
+        sta  track       
+        iny      
+        lda  (r3),y      
+        sta  sector      
+        jmp  strdbl     ; get next block, too.
+bhere            
+        jsr  gethdr     ; get the header
+bhere2           
+        ldy  #0          
+        lda  (r3),y      
+        cmp  track       
+        beq  bh10       ; test sector, too.
+        rts      
+bh10             
+        iny      
+        lda  (r3),y      
+        cmp  sector     ; set .z
+        rts
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+              

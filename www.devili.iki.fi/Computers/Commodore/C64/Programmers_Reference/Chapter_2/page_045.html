@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_044.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_046.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p>   If an array referenced in a program was never DiMensioned, it is
+ automatically dimensioned to 11 elements in each dimension used in the
+ first reference.
+
+ </p><b class=blue>EXAMPLES of DIM Statement:</b>
+<pre>
+   10 DIM A(100)
+   20 DIM Z (5,7), Y(3,4,5)
+   30 DIM Y7%(Q)
+   40 DIM PH$(1000)
+   50 F(4)=9 : REM AUTOMATICALLY PERFORMS DIM F(10)
+</pre>
+ <b class=blue>EXAMPLE of FOOTBALL SCORE-KEEPING Using DIM:</b>
+<pre>
+   10 DIM S(1,5), T$(1)
+   20 INPUT"TEAM NAMES"; T$(0), T$(1)
+   30 FOR Q=1 TO 5: FOR T=0 TO 1
+   40 PRINT T$(T),"SCORE IN QUARTER" Q
+   50 INPUT S(T,Q): S(T,0)= S(T,0)+ S(T,Q)
+   60 NEXT T,Q
+   70 PRINT CHR$(147) "SCOREBOARD"
+   80 PRINT "QUARTER"
+   90 FOR Q= 1 TO 5
+  100 PRINT TAB(Q*2+9) Q;
+  110 NEXT: PRINT TAB(15) "TOTAL"
+  120 FOR T=0 TO 1: PRINT T$(T);
+  130 FOR Q= 1 TO 5
+  140 PRINT TAB(Q*2+9) S(T,Q);
+  150 NEXT: PRINT TAB(15) S(T,0)
+  160 NEXT
+</pre>
+<b class=blue>CALCULATING MEMORY USED BY DIM:</b><br>
+
+   5 bytes for the array name<br>
+   2 bytes for each dimension<br>
+   2 bytes/element for integer variables<br>
+   5 bytes/element for normal numeric variables<br>
+   3 bytes/element for string variables<br>
+   1 byte for each character in each string element<br>
+<br>
+<hr>
+<a href="page_044.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_046.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 08, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

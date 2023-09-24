@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - The Commodore 64 Keyboard and Features</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_092.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_094.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h2><a name="Commodore">THE COMMODORE 64 KEYBOARD AND FEATURES</a></h2>
+
+<p>   The Operating System has a ton-character keyboard "buffer" that is used
+ to hold incoming keystrokes until they can be processed. This buffer, or
+ queue, holds keystrokes in the order in which they occur so that the
+ first one put into the queue is the first one processed. For example, if
+ a second keystroke occurs before the first can be processed, the second
+ character Is stored in the buffer, while processing of the first
+ character continues. After the program has finished with the first
+ character, the keyboard buffer is examined for more data, and the second
+ keystroke processed. Without this buffer, rapid keyboard input would
+ occasionally drop characters.
+<p>   In other words, the keyboard buffer allows you to "type-ahead" of the
+ system, which means it can anticipate responses to <a href="page_054.html#input">INPUT</a> prompts or <a href="page_049.html#get">GET</a>
+ statements. As you type on the keys their character values are lined up,
+ single-file (queued) into the buffer to wait for processing in the order
+ the keys were struck. This type-ahead feature can give you an occasional
+ problem where an accidental keystroke causes a program to fetch an
+ incorrect character from the buffer.
+<p>   Normally, incorrect keystrokes present no problem, since they can be
+ corrected by the CuRSoR-Left <kbd>&lt;CRSR LEFT&gt;</kbd> or DELete <kbd>&lt;INST/DEL&gt;</kbd> keys and
+ then retyping the character, and the corrections will be processed before
+ a following carriage-return. However, if you press the <kbd>&lt;RETURN&gt;</kbd> key, no
+ corrective action is possible, since all characters in the buffer up to
+ and including the carriage-return will be processed before any corrections. This situation can be avoided by using a loop to empty the
+ keyboard buffer before reading an intended response:</p>
+<pre>
+   10 GET JUNK$: IF JUNK$ &lt;&gt;"" THEN 10: REM EMPTY THE KEYBOARD BUFFER
+</pre>
+<p>   In addition to <a href="page_049.html#get">GET</a> and <a href="page_054.html#input">INPUT</a>, the keyboard can also be read using
+ <a href="page_069.html#peek">PEEK</a> to fetch from memory location 197 ($00C5) the integer value of the
+ key currently being pressed. If no key Is being held when the <a href="page_069.html#peek">PEEK</a> is
+ executed, a value of 64 is returned, The numeric keyboard values,
+ keyboard symbols and character equivalents (<a href="page_038.html#chr$">CHR$</a>) are shown in Appendix C. The following example loops until a key is pressed then
+ converts the integer to a character value.</p>
+<pre>
+   10 AA=PEEK(197): IF AA=64 THEN 10
+   20 BB$=CHR$(AA)
+</pre>
+
+<hr>
+<a href="page_092.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_094.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

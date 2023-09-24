@@ -1,0 +1,194 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Relative Files</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Relative Files</h3>
+</center>
+
+<pre>
+        .page  
+	.subttl 'rel2.src'          
+;**********************************
+;*
+;* relput
+;*
+;*
+;**********************************
+;*
+;*
+relput  jsr  sdirty     ; write data to buffer
+        jsr  getact      
+        asl  a   
+        tax      
+        lda  data        
+        sta  (buftab,x)          
+
+        ldy  buftab,x   ; inc the pointer
+        iny      
+        bne  relp05      
+        ldy  lindx       
+        lda  nr,y        
+        beq  relp07      
+
+relp06           
+        ldy  #2          
+relp05           
+        tya      
+        ldy  lindx       
+
+        cmp  nr,y       ; test if nr=pointer
+        bne  relp10     ; no,set new pointer
+
+relp07  lda  #ovrflo    ; yes,set overflow
+        jmp  setflg      
+
+relp10          	; write back new pointer
+        inc  buftab,x    
+
+        bne  relp20     ; test if =0
+        jsr  nrbuf      ; prepare nxt buffer
+
+relp20  rts      
+;*
+;*
+;*
+;*********************************
+;*
+;*  wrtrel
+;*
+;*
+;*********************************
+;*
+;*
+wrtrel           
+        lda  #lrf+ovrflo ;check all flags
+        jsr  tstflg      
+        bne  wr50       ; some flag is set
+wr10             
+        lda  data       ; ready to put data
+        jsr  relput      
+wr20             
+        lda  eoiflg      
+        beq  wr40       ; eoi was sent
+        rts      
+wr30             
+        lda  #ovrflo     
+        jsr  tstflg      
+        beq  wr40       ; no rec overflow
+        lda  #recovf     
+        sta  erword     ; set error for end of print
+wr40             
+        jsr  clrec      ; clear rest of record
+        jsr  rd40        
+        lda  erword      
+        beq  wr45        
+        jmp  cmderr      
+wr45             
+        jmp  okerr       
+
+wr50             
+        and  #lrf        
+        bne  wr60       ; last rec, add
+        lda  eoiflg      
+        beq  wr30        
+wr51             
+        rts      
+wr60             
+        lda  data        
+        pha      
+        jsr  addrel     ; add to file
+        pla      
+        sta  data        
+        lda  #lrf        
+        jsr  clrflg      
+        jmp  wr10        
+;*
+;*
+;*
+;********************************
+;*
+;*   clrec
+;*
+;*********************************
+
+clrec   lda  #ovrflo    ; put 0's into rest of record
+        jsr  tstflg      
+        bne  clr10       
+
+        lda  #0          
+        sta  data        
+        jsr  relput      
+
+        jmp  clrec       
+
+clr10   rts      
+
+;*
+;*
+;*******************************
+;*
+;*   sdirty
+;*
+;*******************************
+;*
+
+sdirty  lda  #dyfile     
+        jsr  setflg      
+        jsr  gaflgs      
+        ora  #$40        
+        ldx  lbused      
+        sta  buf0,x      
+        rts      
+
+;*
+;*
+;*******************************
+;*
+;*   cdirty
+;*
+;*******************************
+;*
+
+cdirty  jsr  gaflgs      
+        and  #$bf        
+        ldx  lbused      
+        sta  buf0,x      
+        rts
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+              

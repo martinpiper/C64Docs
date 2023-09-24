@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - Output to Other Devices (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_340.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_342.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>Consider the statement <code>PRINT# 1, A$, B$, C$</code>. When used with the screen,
+ the commas between the variables provide enough blank space between items
+ to format them into columns ten characters wide. On cassette, anywhere
+ from 1 to 10 spaces will be added, depending on th length of the strings.
+ This wastes space on your tape.
+
+<p>Even worse is what happens when the <code>INPUT#</code> statement tries to read
+ these strings. The statement <code>INPUT# 1, A$, B$, C$</code> will discover no data
+ for <code>B$</code> and <code>C$</code>. <code>A$</code> will contain all three variables, plus the spaces between them. What happens? Here's a look at the tape file:
+<pre>
+   A$="DOG" B$="CAT" C$="TREE"
+   PRINT# 1, A$, B$, C$
+
+   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+   D O G                 C  A  T                       T  R  E  E  RETURN
+</pre>
+
+<p>The <code>INPUT#</code> statement works like the regular <code>INPUT</code> statement. When
+ typing data into the <code>INPUT</code> statement, the data items are separated,
+ either by hitting the <kbd>&lt;RETURN&gt;</kbd> key or using commas to separate them. The
+ <code>PRINT#</code> statement puts a <code>RETURN</code> at the end of a line just like the <code>PRINT</code>
+ statement. <code>A$</code> fills up with all three values because there's no separator
+ on the tape between them, only after all three.
+
+<p>A proper separator would be a comma (<code>,</code>) or a <code>RETURN</code> on the tape. The
+ <code>RETURN</code> code is automatically put at the end of a <code>PRINT</code> or <code>PRINT#</code>
+ statement. One way to put the <code>RETURN</code> code between each item is to us only
+ one item per <code>PRINT#</code> statement. A better way is to set a variable to the
+ <code>RETURN CHR$</code> code, which is <code>CHR$(13)</code>, or use a comma. The statement for
+ this is <code>R$=",":PRINT#1, A$ R$ B$ R$ C$</code>. Don't use commas or any other
+ punctuation between the variable names, since the Commodore 64 can tell
+ them apart and they'll only use up space in your program.
+
+<p>A proper tape file looks like this:
+<pre>
+   1 2 3 4 5 6 7 8 9 10 11 12 13
+
+   D O G , C A T , T  R  E  E  RETURN
+</pre>
+
+<p>The <code>GET#</code> statement will pick data from the tape one character at a
+ time. It will receive each character, including the <code>RETURN</code> code and other
+ punctuation. The <code>CHR$(0)</code> code is received as an empty string, not as a
+ one character string with a code of <code>0</code>. If you try to use the <code>ASC</code> function
+ on an empty string, you get the error message <strong>ILLEGAL QUANTITY ERROR</strong>.
+
+<hr>
+<a href="page_340.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_342.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 26, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

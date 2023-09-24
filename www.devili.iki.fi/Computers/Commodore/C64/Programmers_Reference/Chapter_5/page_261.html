@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - Memory Management on the Commodore 64 (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_260.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_262.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>This gives a value of 47 decimal. The Commodore 64 automatically sets
+ the data direction register to this value.
+<p>The control lines, in general, perform the function given in their descriptions. However, a combination of control lines are occasionally used
+ to get a particular memory configuration.
+<p><b class=blue>LORAM</b> (bit 0) can generally be thought of as a control line which banks
+ the 8K byte BASIC ROM in and out of the microprocessor address space.
+ Normally, this line is HIGH for BASIC operation. If this line is
+ programmed LOW, the BASIC ROM will disappear from the memory map and be
+ replaced by 8K bytes of RAM from $A000-$BFFF.
+<p><b class=blue>HIRAM</b> (bit 1) can generally be thought of as a control line which banks
+ the 8K byte KERNAL ROM in and out of the microprocessor address space.
+ Normally, this line is HIGH for BASIC operation. If this line is
+ programmed LOW, the KERNAL ROM will disappear from the memory map and be
+ replaced by 8K bytes of RAM from $E000-$FFFF.
+<p><b class=blue>CHAREN</b> (bit 2) is used only to bank the 4K byte character generator ROM
+ in or out of the microprocessor address space. From the processor point
+ of view, the character ROM occupies the same address space as the I/O
+ devices ($D000-$DFFF). When the CHAREN line is set to 1 (as is normal),
+ the I/O devices appear in the microprocessor address space, and the
+ character ROM is not accessable. When the CHAREN bit is cleared to 0, the
+ character ROM appears in the processor address space, and the I/O devices
+ are not accessable. (The microprocessor only needs to access the
+ character ROM when downloading the character set from ROM to RAM. Special
+ care is needed for this . . . see the section on PROGRAMMABLE CHARACTERS in
+ the GRAPHICS chapter). CHAREN can be overridden by other control lines in
+ certain memory configurations. CHAREN will have no effect on any memory
+ configuration without I/O devices. RAM will appear from $D000-$DFFF
+ instead.</p>
+
+<table border=1 align=center cellspacing=0 class=blue><tr><td>
+  <b class=blue>NOTE:</b>
+  In any memory map containing ROM, a WRITE (a <a href="../Chapter_2/page_069.html#poke">POKE</a>) to a ROM
+  location will store data in the RAM "under" the ROM. Writing to a ROM
+  location stores data in the "hidden" RAM. For example, this allows a
+  hi-resolution screen to be kept underneath a ROM, and be changed
+  without having to bank the screen back into the processor address
+  space. Of course a READ of a ROM location will return the contents of
+  the ROM, not the "hidden" RAM.
+</td></tr></table>
+
+<hr>
+<a href="page_260.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_262.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 15, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

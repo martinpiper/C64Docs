@@ -1,0 +1,155 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Techtopics, Issue 5, 1984: Computer 2 - Model C16 Troubleshooting Aides</title>
+    <meta name="description" content="Troubleshooting instructions for Commodore 16 computer.">
+    <link rel=stylesheet href="../techtopics2.css">
+    <link rev=made href="mailto:rtiainen@devili.iki.fi">
+<link rel=contents href="../index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+<body>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<div align=right><img src="../../images/techtopics_color.gif" alt="COMMODORE TECHTOPICS"></div>
+
+<p> Issue 5, 1984 : Computer 2 </p>
+<p> Model: C16
+
+	     <h2>Troubleshooting Aides</h2>
+
+<p> NOTE: Visual inspection is critical in this unit!
+    The upright position of many of the componenets used on the
+    board can create problems. It is possible for them to be
+    shorted to the shield or to each other. Make sure they are
+    evenly spaced and do not contact the shield.
+
+<ol><li>NO VIDEO - Absolutely no video on screen
+	<ol><li>Check for 5 volt, if not O.K.:
+		<ol><li>Check fuse
+		    <li>Check for twisted or bent caps ( 5 V. short to ground)
+		    <li>Check L1
+		    <li>Check if top shield shorts to + 9 V. (Blown fuse)
+		    <li>Check if top shield is shorting 5 V. to ground
+		</ol>
+	    <li>Check for oscillation at pin 14 of U1, if not O.K.:
+		<ol><li>Check for good connection at pin 14 of U1
+		    <li>Check for good connection at R1 thru R7
+		</ol>
+	    <li>Check for LUM signal at pin 23 of U1, at pin 4 of
+		the modulator, at pin 8 of the modulator, at EM3
+		and at pin 1 of CN6, if not O.K.:
+		<ol><li>Check for LUM signal shorted to ground
+		    <li>Check for open traces
+		    <li>Check modulator
+		</ol>
+	    <li>Check for reset
+	    <li>Check for control signals:
+
+<table align="center">
+	<tr><th>Signal</th><th>I.C.</th><th>Pin</th><th>&nbsp; &nbsp;</th><th>Signal</th><th>I.C.</th><th>Pin</th></tr>
+	<tr><td>AEC</td><td>U1</td><td>35</td><td>&nbsp;</td><td>R/W</td><td>U1</td><td>7</td></tr>
+	<tr><td>AEC</td><td>U2</td><td>4</td><td>&nbsp;</td><td>O</td><td>U1</td><td>12</td></tr>
+	<tr><td>CAS</td><td>U1</td><td>11</td><td>&nbsp;</td><td>MUX</td><td>U1</td><td>9</td></tr>
+	<tr><td>CS1</td><td>U1</td><td>6</td><td>&nbsp;</td><td>IRQ</td><td>U1</td><td>8</td></tr>
+	<tr><td>CS1</td><td>U14</td><td>15</td><td>&nbsp;</td><td>RDY</td><td>U2</td><td>2</td></tr>
+	<tr><td>CS0</td><td>U1</td><td>5</td><td>&nbsp;</td><td>BA</td><td>U1</td><td>34</td></tr>
+	<tr><td>CS0</td><td>U14</td><td>1</td><td>&nbsp;</td><td>RAS</td><td>U1</td><td>10</td></tr>
+</table>
+	</ol>
+
+    <li>BAD VIDEO - Scrolling lines on screen - Random blocks on screen - Blurred display
+	<ol><li>Check U1 for proper operation, if not O.K.:
+		<ol><li>Check socket for good solder
+		    <li>Check for bad U1
+		</ol>
+	    <li>Check U2 for proper operation, if not O.K.:
+		<ol><li>Check socket for good solder
+		    <li>Check for bad U2
+		</ol>
+	    <li>Check RAM data lines for correct amplitude, if not O.K.:
+		<ol><li>Check for hot surface of RAM
+		    <li>Jump out RAM to verify
+		</ol>
+	    <li>Check multiplexers U7, U8 - signalas at RP3
+		and RP4 should be similar in frequencey and amplitude, if not O.K.:
+		<ol><li>Suspect U7 or U8</ol>
+	    <li>Check ROM for chip select signal at pin 222 of U3 and U4, if not O.K.:
+		<ol><li>Check for signal generation at U14</ol>
+	    <li>Check that all ROM addresses are present and correct amplitude, if not O.K.:
+		<ol><li>Trace problem address A0-A15</ol>
+	    <li>Check U16, U3, U4 by replacement with known good
+	</ol>
+    <li>NO POWER
+	<ol><li>Verify voltage +5 and +9 volts
+		<ol><li>Check for shorts to ground
+		    <li>Check switch
+		    <li>Check power supply
+	       </ol>
+	</ol>
+    <li>BAD BASIC - Random characters on screen - Random colors - Power-up message is missing
+	<ol><li>Check Basic ROM U3
+	    <li>CHeck A thru G above (Bad Video)
+	</ol>
+    <li>NO COLOR or BAD COLOR
+	<ol><li>Check U1 pin 14 for 14.31818 MHz with frequency counter, if not O.K.:
+		<ol><li>Check solder joints of CT1 and adjust for frequency
+		    <li>Check crystal, Q1 and Q2
+		    <li>Check clock circuit for opens or shorts
+		</ol>
+	    <li>Check U1 pin 13 for COlor Out signal, if not O.K.:
+		<ol><li>Swap U1 w/known good</ol>
+	    <li>Check modulator M1 pin 5 for Color In signal and pin 6 for Color Out signal, if not O.K.:
+		<ol><li>Check M1 operation</ol>
+	    <li>Check EM4 and CN6 pin 6 to see if color signal is present
+		<ol><li>Check for shorts</ol>
+	</ol>
+    <li>NO SOUND or BAD SOUND
+	<ol><li>Check U1 pin 33 for SND signal, if not O.K.:
+		<ol><li>Check socket for open circuit
+		    <li>Swap U1 w/known good
+		</ol>
+	    <li>Check audio circuit for short to ground or loss of signal, if not O.K.:
+		<ol><li>Check Q3 - Be sure emitter and base are not shorted to 5 V.</ol>
+	    <li>Check modulator M1 pin 2 for SND signal
+		<ol><li>Adjust I.F. can (top right of modulator) for clean, loud volume
+		    <li>M1 pin 2 to ground should read approximately 480 ohms
+		    <li>Check M1 for component failure
+		</ol>
+	</ol>
+    <li>SERIAL FAILURES
+	<ol><li>Check FB14-19 for shorts to shield or each other (has caused serial port problems)
+	    <li>Check FB1-5 for shorts to shield or each other
+	    <li>Check U9, U2, CN7
+	</ol>
+</ol>
+<p>
+<hr>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 06, 2006.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

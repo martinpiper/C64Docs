@@ -1,0 +1,95 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - The Game Ports (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_344.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_346.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>A small machine code routine which accomplishes the same task is as
+ follows:
+
+<pre>
+1000 .PAGE (JOYSTICK.8/5)   JOYSTICK - BUTTON READ ROUTINE
+1010 ;
+1020 ; AUTHOR - BILL HINDORFF
+1030 ;
+1040 DX = $C110
+1050 DY = $C111
+1060 * = $C200
+1070 DJRR   LDA $DC00     ; GET INPUT FROM PORT A ONLY
+1080 DJRRB  LDY #0        ; THIS ROUTINE READS AND DECODES THE
+1090        LDX #0        ; JOYSTICK/FIREBUTTON INPUT DATA IN
+1100        LSR A         ; THE ACCUMULATOR. THIS LEAST SIGNIFICANT
+1110        BCS DJR0      ; 5 BITS CONTAIN THE SWITCH CLOSURE
+1120        DEY           ; INFORMATION. IF A SWITCH IS CLOSED THEN IT
+1130 DJR0   LSR A         ; PRODUCES A ZERO BIT. IF A SWITCH IS OPEN THEN
+1140        BCS DJR1      ; IT PRODUCES A ONE BIT. THE JOYSTICK DIR-
+1150        INY           ; ECTIONS ARE RIGHT, LEFT, FORWARD, BACKWARD
+1160 DJR1   LSR A         ; BIT3=RIGHT, BIT2=LEFT, BIT1=BACKWARD,
+1170        BCS DJR2      ; BIT0=FORWARD AND BIT4=FIRE BUTTON.
+1180        DEX           ; AT RTS TIME DX AND DY CONTAIN 2'S COMPLIMENT
+1190 DJR2   LSR A         ; DIRECTION NUMBERS I.E. $FF=-1, $00=0, $01=1.
+1200        BCS DJR3      ; DX=1 (MOVE RIGHT), DX=-1 (MOVE LEFT),
+1210        INX           ; DX=0 (NO X CHANGE). DY=-1 (MOVE UP SCREEN),
+1220 DJR3   LSR A         ; DY=0 (MOVE DOWN SCREEN), DY=0 (NO Y CHANGE).
+1230        STX DX        ; THE FORWARD JOYSTICK POSITION CORRESPONDS
+1240        STY DY        ; TO MOVE UP THE SCREEN AND THE BACKWARD
+1250        RTS           ; POSITION TO MOVE DOWN SCREEN.
+1260 ;
+1270 ; AT RTS TIME THE CARRY FLAG CONTAINS THE FIRE BUTTON STATE
+1280 ; IF C=1 THEN BUTTON NOT PRESSED. IF C=0 THEN PRESSED.
+1290 ;
+1300 .END
+</pre>
+
+<hr>
+<a href="page_344.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_346.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

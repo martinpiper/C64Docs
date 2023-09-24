@@ -1,0 +1,95 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page96.html"> 
+     <link rel=next href="page98.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page96.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page98.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p>    In BitPlane mode, the C4567R6 does not use the Video Bank select bits,
+    like the old VIC chip did. Instead, You can specify which 8k block (in 320
+    mode), or which 16k block (in 640 mode) of memory you want a bitplane to
+    come out of. Specify where you want the bitplanes to be fetched from, using
+    Bitplane Address registers 0 through 7. Note, however, that the least
+    significant bits of these registers are ignored in 640 pixel mode, and that
+    register 4 through 7 are never used in 640 pixel mode. Even numbered bitplanes
+    can only be fetched from memory bank 0 (addresses 0-FFFF hex), and odd
+    numbered bitplanes can only be fetched from memory bank 1 (addresses 10000-1FFFF
+    hex). So, the bitplane pointers define which section within the
+    confined bank that bitplane data will be fetched from.
+    
+<p>     In the Bitplane address registers, there are two bit-fields; One field
+    of bits is for the even vertical scan, and the other field of bits is for the
+    odd scan. The odd scan bits are not used unless both INT and V400 bits are
+    set in control register "B".
+    
+<p>     Attributes can be enabled in bitplane mode by setting the ATTR bit in
+    control register "B". If this is done, the most significant nybble of bytes
+    fetched for bitplane 3 will contain the attribute specification for each
+    8 by 8 pixel cell, exactly as is done in character modes. One exception is
+    that the "hilite" attribute will be disabled. The attributes are only applied
+    to bitplane 2, which is also the foreground/background plane for sprite
+    collisions and priority purposes.
+    
+<p>     To properly utilize this feature, bitplane 2 must be enabled to
+    provide attributed bitplane data, and bitplane 3 must be disabled, since it
+    will be providing attribute data. Data fetches for the attribute data will
+    occur, because bitplanes 2 and 3 are both fetched in the same memory cycle.
+    You may also enable any other bitplanes as needed. Bitplane 2, and any other
+    bitplane may be complemented, but complementing bitplane 3 will only cause its
+    bit weight to contribute a "1", and will not invert the attribute data.
+    
+<p>    Note:
+    
+<p>     Addresses 1F800-1FFFF hex are the Color and Attribute RAM used in
+    the old video modes. You can use this area for bitplane if you do not plan
+    on switching between old and new video modes and expect the data for both
+    modes to be there.
+    
+<p>
+<hr>
+  <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page96.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page98.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

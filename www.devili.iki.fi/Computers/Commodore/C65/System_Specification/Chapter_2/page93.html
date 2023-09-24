@@ -1,0 +1,85 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page92.html"> 
+     <link rel=next href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page94.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page92.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page94.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>Interlace, and 400 Line Vertical mode</h4>
+    
+<p>    The C4567R6 can interlace scan lines to give a true NTSC, 525 line screen
+    (625 lines on PAL versions), although the default, however, is a 262 line non-
+    interlaced screen (312 lines on PAL versions). Set the INT bit in control
+    register "B" to a "1" if you want interlacing.
+    
+<p>     The C4567R6 can also give a 400 line vertical resolution, which is useful,
+    in the new Bitplane mode. Set the V400 bit, and the INT bit in control
+    register "B" to a "1" to enable 400 line bitplanes. (see Bitplanes, below)
+    The V400 switch will have no effect if the display is not interlacing. Also,
+    although interlacing is permitted in all of the old video modes, the same
+    data will appear on both odd and even rasters, even if the V400 switch is on.
+    
+<h4>280 Horizontal Pixel mode</h4>
+    
+<p>    The C4567R6 supports ultra-high resolution graphics by permitting the
+    programmer to use 1280 pixel lines. This is enabled by setting the H1280
+    and H640 bits in control register "B" to a "1".
+    
+<p>    The 1280 pixels are acheived by time-multiplexing bitplane bits. This
+    is done by substituting the pixel clock for bitplane 7. This means that for
+    the first half of each pixel, the color palette will be fed the normal color
+    index. For the second half of the same pixel, it will fed the normal index,
+    plus 128. To utilize this feature, the user must program the color palette
+    to perform the multiplexing function.
+    
+<p>     The H1280 bit can also be set H640 off. This is a unique mode that
+    allows the use of 320 and 640 horizontal pixel bitplanes simultaneously.
+    
+<p>
+<hr>
+  <a href="page92.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page94.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

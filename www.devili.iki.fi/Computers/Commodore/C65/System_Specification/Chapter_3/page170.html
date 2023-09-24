@@ -1,0 +1,137 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page169.html"> 
+     <link rel=next href="page171.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page169.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page171.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>HEX$ - Hexadecimal value function</h4>
+
+<pre>
+    HEX$ (decimal_expression)
+</pre>
+    
+<p> This function returns a 4-character string that represents the
+    hexadecimal value of the numeric decimal expression. The expression
+    must be in the range (0-65535, $0000-$FFFF hex) or an 'ILLEGAL
+    QUANTITY' error is reported.
+    
+<pre>
+        PRINT HEX$(10)              The string "000A" is printed.
+        PRINT RIGHT$(HEX$(10),2)    The string "0A" is printed.
+</pre>
+
+<h4>HIGHLIGHT - Set the text highlight color of the display</h4>
+
+<pre>
+    HIGHLIGHT color
+</pre>
+    
+<p> Sets the highlight color to the given color index. The color value
+    must be in the range (0-15). See the Color Table. COLOR must be ON
+    (see the COLOR command). The highlight color is used in HELP messages
+    and FIND/CHANGE strings.
+
+<h4>IF/THEN/GOTO/ELSE - Conditional program execution</h4>
+
+<pre>
+    IF expression &lt;GOTO line | THEN then clause&gt; [:ELSE else clause]
+</pre>
+    
+<p> IF ... THEN lets the computer analyze a BASIC expression
+    preceded by IF and take one of two possible courses of action.
+    If the expression is true, the statement following THEN is
+    executed. This expression can be any BASIC statement. If the
+    expression is false, the program goes directly to the next
+    line, unless an ELSE clause is present. The ELSE clause, if
+    present, must be in the same line as the IF-THEN part. When an
+    ELSE clause is present, it is executed when the THEN clause
+    isn't executed. In other words, the ELSE clause executes when
+    the expression is FALSE. See BEGIN/BEND to spread the IF statement
+    out over several lines. An ELSE statement is matched to the
+    closest THEN statement in the case of nested IF/THEN statements.
+    The expression being evaluated may be a variable or formula, in
+    which case it is considered true if nonzero, and false if zero.
+    Usually expressions involve relational operators =, &lt;, &gt;, &lt;=, &gt;=, &lt;&gt;.
+
+<pre>
+    50 IF X>0 THEN PRINT 'X>0': ELSE PRINT 'X<=0'
+</pre>
+    
+<p> If X is greater than 0, the THEN clause is executed, and the ELSE
+    clause isn't. If X is less than or equal to 0, the ELSE clause is
+    executed and the THEN clause isn't.
+
+<h4>INPUT - Get input from the keyboard</h4>
+
+<pre>
+    [LINE] INPUT ["prompt"&lt;,j;&gt;] variable_list
+</pre>
+    
+<p> The INPUT statement pauses the BASIC program, prints the prompt
+    string if present, prints a question mark and a space, and waits for
+    data to be typed by the user, terminated by a return character. if
+    the prompt string ends with a comma instead of a semicolon, a question
+    mark and space is not printed.
+    
+<p> Input is gathered and assigned to variables in the variable list.
+    The type of variable must match the type of input typed or i 'TYPE
+    MISMATCH' error is reported. Separate data items typed by the user
+    must be separated with commas. String data with imbedded spaces or
+    commas must be surrounded with quotas. If insufficent data to
+    satisfy the variable_list is typed, two question marks are displayed
+    by the computer to prompt for additional data to be input. If the
+    computer does not understand the input (such as the user typing
+    cursor up or down keys) the computer responds with the message
+    'REDO FROM START?' and waits for acceptable data to be entered.
+    Input is limited to 160 characters (two screen lines in 80-column
+    mode), which is the size of the input buffer.
+
+<p>
+<hr>
+  <a href="page169.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page171.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 11, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

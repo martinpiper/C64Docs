@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page84.html"> 
+     <link rel=next href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page86.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page84.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page86.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>Contents of the Internal A and B Memory Address Busses Prior to Multiplexing</h4>
+
+<table border="1" cellspacing="0" cellpadding="0">
+<tr><th>Signal  </th><th>"VMF"  </th><th>"CDF"  </th><th>"BMF"  </th><th>"BPF"  </th><th>"RF"   </th><th>"SPF"  </th><th>"SDF"  </th><th>"DAT"  </th><th>"COL"  </th></tr>
+<tr><td>IA0  </td><td>VC0      </td><td>RC0  </td><td>RC0      </td><td>RC0       </td><td>RF0 </td><td>SF0   </td><td>SD0 </td><td>DT0       </td><td>A0  </td></tr>
+<tr><td>IA1  </td><td>VC1      </td><td>RC1  </td><td>RC1      </td><td>RC1       </td><td>RF1 </td><td>SF1   </td><td>SD1 </td><td>DT1       </td><td>A1  </td></tr>
+<tr><td>IA2  </td><td>VC2      </td><td>RC2  </td><td>RC2      </td><td>RC2       </td><td>RF2 </td><td>SF2   </td><td>SD2 </td><td>DT2       </td><td>A2  </td></tr>
+<tr><td>IA3  </td><td>VC3      </td><td>D0   </td><td>VC0      </td><td>VC0       </td><td>RF3 </td><td>1     </td><td>SD3 </td><td>DT3       </td><td>A3  </td></tr>
+<tr><td>IA4  </td><td>VC4      </td><td>D1   </td><td>VC1      </td><td>VC1       </td><td>RF4 </td><td>1     </td><td>SD4 </td><td>DT4       </td><td>A4  </td></tr>
+<tr><td>IA5  </td><td>VC5      </td><td>D2   </td><td>VC2      </td><td>VC2       </td><td>1   </td><td>1     </td><td>SD5 </td><td>DT5       </td><td>A5  </td></tr>
+<tr><td>IA6  </td><td>VC6      </td><td>D3   </td><td>VC3      </td><td>VC3       </td><td>1   </td><td>1     </td><td>D0  </td><td>DT6       </td><td>A6  </td></tr>
+<tr><td>IA7  </td><td>VC7      </td><td>D4   </td><td>VC4      </td><td>VC4       </td><td>1   </td><td>1     </td><td>D1  </td><td>DT7       </td><td>A7  </td></tr>
+<tr><td>IA8  </td><td>VC8      </td><td>D5   </td><td>VC5      </td><td>VC5       </td><td>1   </td><td>1     </td><td>D2  </td><td>DT8       </td><td>A8  </td></tr>
+<tr><td>IA9  </td><td>VC9      </td><td>D6   </td><td>VC6      </td><td>VC6       </td><td>1   </td><td>1     </td><td>D3  </td><td>DT9       </td><td>A9  </td></tr>
+<tr><td>IA10 </td><td>VMO/VC10 </td><td>D7   </td><td>VC7      </td><td>VC7       </td><td>RF5 </td><td>VM0/1 </td><td>D4  </td><td>DT10      </td><td>A10 </td></tr>
+<tr><td>IA11 </td><td>VM1      </td><td>CBO  </td><td>VC8      </td><td>VC8       </td><td>RF6 </td><td>VM1   </td><td>D5  </td><td>DT11      </td><td>1   </td></tr>
+<tr><td>IA12 </td><td>VM2      </td><td>CB1  </td><td>VC9      </td><td>VC9       </td><td>RF7 </td><td>VM2   </td><td>D6  </td><td>DT12      </td><td>1   </td></tr>
+<tr><td>IA13 </td><td>VM3      </td><td>CB2  </td><td>CB2/VC10 </td><td>BE13/VC10 </td><td>1   </td><td>VM3   </td><td>D7  </td><td>BE13/DT13 </td><td>1   </td></tr>
+<tr><td>IA14 </td><td>VBO      </td><td>VB0  </td><td>VB0      </td><td>BE14      </td><td>1   </td><td>VB0   </td><td>VB0 </td><td>BE14      </td><td>1   </td></tr>
+<tr><td>IA15 </td><td>VB1      </td><td>VB1  </td><td>VB1      </td><td>BE15      </td><td>1   </td><td>VB1   </td><td>VB1 </td><td>BE15      </td><td>1   </td></tr>
+<tr><td>IA16 </td><td>A16      </td><td>A16  </td><td>A16      </td><td>A16       </td><td>RF8 </td><td>A16   </td><td>A16 </td><td>DT16      </td><td>1   </td></tr>
+<tr><td colspan="10">&nbsp;</td></tr>
+<tr><td>IB10 </td><td>0/*      </td><td>*    </td><td>*        </td><td>*         </td><td>*   </td><td>*     </td><td>*   </td><td>*         </td><td>*   </td></tr>
+<tr><td>IB11 </td><td>1        </td><td>*    </td><td>*        </td><td>*         </td><td>*   </td><td>*     </td><td>*   </td><td>*         </td><td>1   </td></tr>
+<tr><td>IB12 </td><td>1        </td><td>*    </td><td>*        </td><td>*         </td><td>*   </td><td>*     </td><td>*   </td><td>*         </td><td>1   </td></tr>
+<tr><td>IB13 </td><td>1        </td><td>*    </td><td>*        </td><td>BO13/*    </td><td>*   </td><td>*     </td><td>*   </td><td>BO13/*    </td><td>1   </td></tr>
+<tr><td>IB14 </td><td>1        </td><td>*    </td><td>*        </td><td>BO14      </td><td>*   </td><td>*     </td><td>*   </td><td>BO14      </td><td>1   </td></tr>
+<tr><td>IB15 </td><td>1        </td><td>*    </td><td>*        </td><td>BO15      </td><td>*   </td><td>*     </td><td>*   </td><td>BO15      </td><td>1   </td></tr>
+<tr><td>DMA  </td><td>1        </td><td>1    </td><td> 1       </td><td>1         </td><td>1   </td><td>1     </td><td>1   </td><td>0         </td><td>0   </td></tr>
+</table>
+    
+<p><u>Legend :</u><br>
+VC = Video-Matrix Counter <br>
+RC = Row Counter <br>
+VM = Video Matrix Address <br>
+VB = Video Bank Address <br>
+CB = Character Generator Bank Address <br>
+RF = Refresh Counter <br>
+SF = Sprite Pointer Fetch Counter <br>
+SD = Sprite Data Fetch Counter <br>
+DT = Display Address Translator<br>
+BE = Bitplane Even Pointer <br>
+BO = Bitplane Odd Pointer <br>
+A = Address Out = Address in <br>
+D = Data fetched from previous fetch <br>
+* = "B" bus contents, same as "A" bus <br>
+xxx/yyy = contents for 320/640 pixel modes <br>
+
+<p>
+
+<p>
+<hr>
+  <a href="page84.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page86.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

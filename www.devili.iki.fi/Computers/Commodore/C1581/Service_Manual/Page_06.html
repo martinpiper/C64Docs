@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: 6502 Signal Description</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXTCOLOR="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Page_05.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_07.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<H2 ALIGN=CENTER>6502 SIGNAL DESCRIPTION</H2>
+
+<P><B>Clocks (<IMG SRC="phi1b.gif" ALT="PHI1">, <IMG SRC="phi2b.gif" ALT="PHI2">)</B> &nbsp;&#151;&nbsp; The 6502 requires a two phase non-overlapping clock that runs at the Vcc voltage level. The 6502 clocks are supplied with an internal clock generator. The frequency of these clocks is externally controlled.
+
+<P><B>Address Bus (A<SUB>0</SUB>-A<SUB>15</SUB>)</B> &nbsp;&#151;&nbsp; These outputs are TTL compatible, capable of driving one standard TTL load and 130 pf.
+
+<P><B>Data Bus (D<SUB>0</SUB>-D<SUB>7</SUB>)</B> &nbsp;&#151;&nbsp; Eight pins are used for the data bus. This is a bi-directional bus, transferring data to and from the device and peripherals. The outputs are tri-state buffers capable of driving one standard TTL load and 130 pf.
+
+<P><B>Ready (<IMG SRC="rdyb.gif" ALT="RDY">)</B> &nbsp;&#151;&nbsp; This input signal allows the used to single cycle the processor on all cycles except write cycles. A negative transition to the low state during, or coincident with, phase one (<IMG SRC="phi1.gif" ALT="PHI1">) and up to 100 ns after phase two (<IMG SRC="phi2.gif" ALT="PHI2">) will halt the microprocessor with the output address lines reflecting the current address being fetched. This condition will remain through a subsequent phase two (<IMG SRC="phi2.gif" ALT="PHI2">) in which the Ready (<IMG SRC="rdy.gif" ALT="RDY">) signal is low. This feature allows microprocessor interfacing with low speed PROMS as well as fast (max. 2 cycle) Direct Memory Access (DMA). If Ready (<IMG SRC="rdy.gif" ALT="RDY">) is low during a write cycle, it is ignored until the following read operation.
+
+<P><B>Interrupt Request (<IMG SRC="irqb.gif" ALT="IRQ">)</B> &nbsp;&#151;&nbsp; This TTL level input requests that an interrupt sequence begin within the microprocessor. The microprocessor will complete the current instruction being executed before recognizing the request. At that time, the interrupt mask bit in the Status Code Register will be examined. If the interrupt mask flag is not set, the microprocessor will begin an interrupt sequence. The Program Counter and Processor Status Register are stored in the stack. The microprocessor will then set the interrupt mask flag high so that no further interrupts may occur. At the end of this cycle, the program counter low will be loaded from address $FFFE, and program counter high from location $FFFF, therefore, transferring program control to the memory vector located at these addresses. The <IMG SRC="rdy.gif" ALT="RDY"> signal must be in high state for any interrupt to be recognized. A 3K<IMG SRC="omega.gif" ALT="Ohm"> external
+resistor should be used for proper wire-OR operation.
+
+<P><B>Non-Maskable Interrupt (<IMG SRC="nmib.gif" ALT="NMI">)</B> &nbsp;&#151;&nbsp; A negative going edge on this input requests that a non-maskable interrupt sequence be generated within the microprocessor. <IMG SRC="nmi.gif" ALT="NMI"> is an unconditional interrupt. Following completion of the current instruction, the sequence of operations defined for <IMG SRC="irq.gif" ALT="IRQ"> will be performed, regardless of the interrupt mask flag status. The vector address loaded into the program counter, low and high, are locations $FFFA and $FFFB respectively, thereby transferring program control to the memory vector located at these addreses. The instructions loaded at these locations cause the microprocessor branch to a non-maskable interrupt routine in memory. <IMG SRC="nmi.gif" ALT="NMI"> also requires an external 3K<IMG SRC="omega.gif" ALT="Ohm"> resistor to Vcc for proper wire-OR operations. Inputs <IMG SRC="irq.gif" ALT="IRQ"> and <IMG SRC="nmi.gif" ALT="NMI"> are hardware
+interrupt lines that are sampled during <IMG SRC="phi2.gif" ALT="PHI2"> (phase 2) and will begin the appropriate interrupt routine on the <IMG SRC="phi1.gif" ALT="PHI1"> (phase 1) following the completion of the current instruction.
+
+<P><B>Set Overflow Flag (S.O.)</B> &nbsp;&#151;&nbsp; A negative going edge on this input sets the overflow bit in the Status Code Register. This signal is sampled on the trailing edge of <IMG SRC="phi1.gif" ALT="PHI1">.
+
+<P><B>SYNC</B> &nbsp;&#151;&nbsp; This output line is provided to identify those cycles in which the microprocessor is doing an OP CODE fetch. The SYNC line goes high during <IMG SRC="phi1.gif" ALT="PHI1"> of an OP CODE fetch and stays high for the remainder of that cycle. If the <IMG SRC="rdy.gif" ALT="RDY"> line is pulled low during the <IMG SRC="phi1.gif" ALT="PHI1"> clock pulse in which SYNC went high, the processor will stop in its current state and will remain in the state until the <IMG SRC="rdy.gif" ALT="RDY"> line goes high. In this manner, the SYNC signal can be used to control <IMG SRC="rdy.gif" ALT="RDY"> to cause single instruction execution.
+
+<P><B>Reset (<IMG SRC="resb.gif" ALT="RES">)</B> &nbsp;&#151;&nbsp; This input is used to reset or start the microprocessor from a power down condition. During the time that this line is held low, writing to or from the microprocessor is inhibited. When a positive edge is detected on this input, the microprocessor will immediately begin the reset sequence. After a system initialization time of six clock cycles, the mask interrupt flag will be set and the microprocessor will load the program counter from the memory vector locations $FFFC and $FFFD. This is the start location for program control. After Vcc reaches 4.75 volts in a power up routine, reset must be held low for at least two clock cycles. At this time the <IMG SRC="rw.gif" ALT="R/W"> and SYNC signal will became valid. When the reset signal goes high following these two clock cycles, the microprocessor will proceed with the normal reset procedure detailed above.</P>
+
+<HR>
+
+<A HREF="Page_05.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_07.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page47.html"> 
+     <link rel=next href="page49.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page47.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page49.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h4><u>C65 Peripheral Control Utilization</u></h4>
+<pre>
+ 6526 cia complex interface adapter #1
+   keyboard / joystick / paddles / mouse / lightpen / fast serial
+    
+   pra0 : keybd output c0 / joystick #1 up      / mouse right button
+   pra1 : keybd output c1 / joystick #1 down
+   pra2 : keybd output c2 / joystick #1 left    / paddle "A" fire button
+   pra3 : keybd output c3 / joystick #1 right   / paddle "B" fire button
+   pra4 : keybd output c4 / joystick #1 fire    / mouse left. button
+   pra5 : keybd output c5
+   pra6 : keybd output c6                       / select port #1 paddles|mouse
+   pra7 : keybd output c7                       / select port #2 paddles|mouse
+    
+   prb0 : keybd input  r0 / joystick #2 up      / mouse right button
+   prb1 : keybd input  r1 / joystick #2 down    / paddle "A" fire button
+   prb2 : keybd input  r2 / joystick #2 left    / paddle "B" fire button
+   prb3 : keybd input  r3 / joystick #2 right
+   prb4 : keybd input  r4 / joystick #2 fire    / mouse left button
+   prb5 : keybd input  r5 /
+   prb6 : keybd input  r6 / timer b: toggle/pulse output
+   prb7 : keybd input  r7 / timer a: toggle/pulse output
+    
+   timer 1 & cra : fast serial
+   timer 2 & crb :
+    
+   tod    :
+   sdr    :
+   icr    :
+    
+ 6526 cia complex interface adapter #2
+     user port / rs232 / serial bus / V2C bank / NMI
+
+    praO : va14   VIC 16K bank select
+    pral : va15
+    pra2 : rs232  DATA output                     (C64 mode only)
+    pra3 : serial ATN output
+    pra4 : serial CLK output
+    pra5 : serial DATA output
+    pra6 : serial CLK input
+    pra7 : serial DATA input
+
+    prbO      user port / rs232 received data     (C64 mode only)
+    prbl      user port / rs232 request to send
+    prb2      user port / rs232data terminal ready
+    prb3      user port / rs232 ring indicator
+    prb4      user port / rs232 carrier detect
+    prb5      user port
+    prb6      user port / rs232 clear to send
+    prb7      user port / rs232 data set ready
+    
+    timer 1 & cra :       rs232 baud rate         (C64 mode only)
+    timer 2 & crb :       rs232 bit check         (C64 mode only)
+    
+    tod    :
+    sdr    :
+    icr    : nmi (/irq)
+    
+</pre>
+<p>
+<hr>
+  <a href="page47.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page49.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 09, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

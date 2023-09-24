@@ -1,0 +1,96 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_171.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_173.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><table border="0">
+<tr><th colspan="2" align="left">LINE 55:</th></tr>
+<tr><td> RX=INT(X/256) </td><td>
+                       RX is the integer of X/256 which means that RX is
+                       rounded off to 0 when X is less than 256, and RX
+                       becomes 1 when X reaches position 256. We will
+                       use RX in a moment to POKE V+16 with a 0 or 1
+                       to turn on the "RIGHT SIDE" of the screen.</td></tr>
+<tr><td> LX=X-RX*256 </td><td>
+                       When the sprite is at X position 0, the formula
+                       looks like this: LX = 0 - (0 times 256) or 0. When
+                       the sprite is at X position 1 the formula looks
+                       like this: LX = 1 - (0 times 256) or 1. When the
+                       sprite is at X position 256 the formula looks like
+                       this: LX = 256 - (1 times 256) or 0 which resets X
+                       back to 0 which must be done when you start over on
+                       the RIGHT SIDE of the screen (POKEV+16,1).</td></tr>
+<tr><th colspan="2" align="left">LINE 60:</th></tr>
+<tr><td> POKEV,LX </td><td>
+                       You POKE V by itself with a value to set the Horizontal
+                       (X) Position of sprite 0 on the screen. (See
+                       SPRITEMAKING CHART on Page 176). As shown above,
+                       the value of LX, which is the horizontal position
+                       of the sprite, changes from 0 to 255 and when it
+                       reaches 255 it automatically resets back to zero
+                       because of the LX equation set up in line 55.</td></tr>
+<tr><td> POKEV+16,RX </td><td>
+                       POKEV+16 always turns on the "right side" of the
+                       screen beyond position 256, and resets the
+                       horizontal positioning coordinates to zero. RX is
+                       either a 0 or a 1 based on the position of the
+                       sprite as determined by the RX formula in line 55.</td></tr>
+<tr><th colspan="2" align="left">LINE 70:</th></tr>
+<tr><td> IFP=192THEN GOSUB200 </td><td>
+                       If the sprite pointer is set to 192 (the first
+                       sprite shape) the waveform control for the first
+                       sound effect is set to 129 and 128 per line 200.</td></tr>
+</table>
+
+<hr>
+<a href="page_171.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_173.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

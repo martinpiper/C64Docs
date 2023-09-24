@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 8050/8250 Service Manual: Assembly identification</title>
+     <link rel=prev href="page_4.html"> 
+     <link rel=next href="page_6.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_4.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_6.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2 align=center>CARE AND MAINTENANCE</h2>
+
+<ul>
+    <li>DO NOT use MAGNETIZED tools when repairing or adjusting a disk drive.
+    <li>DO NOT place a disk drive near any device which generates "noise"
+        e.g., - motors, radios, televisions.
+    <li>DO NOT stack drives upon each other or in any way inhibit air flow
+        around the unit. HEAT BUILDUP can cause disk failures.
+    <li>Periodically CLEAN the read/write head with 90% isopropyl alcohol
+        and a cotton swab. CHECK load pad for excess wear. Clean or replace
+        as necessary.
+    <li>Take the following precautions when handling a diskette:
+    <ul>
+        <li>ALWAYS store a diskette in its jacket.
+        <li>Use ONLY felt-tip pens when writing on the label of a diskette.
+        <li>Do not bend or physically damage a diskette.
+        <li>Do not place a diskette in the area of a magnetic field.
+        <li>Do not attempt to clean a diskette.
+        <li>Do not touch the exposed area of a diskette.
+    </ul>
+</ul>
+
+<table border=1 class=note><tr><td>
+    DIAGNOSTIC and ADJUSTMENT procedures are outlined in the diagnostic
+    disk and manual package. Order Part #314052-01 Version 3.0 & 3.5
+    Diagnostic Package.
+</td></tr></table>
+
+<h2 align=center><a name="Flash">POWER UP DIAGNOSTIC FOR 8050/8250 FLASH CODE</a></h2>
+
+<p> On power up, the three LED's on the drive should blink. The drive LED's
+    go off and the center Tri-State LED remains green. The sytem has a built
+    in self diagnostic which can be read in the form of a flash code. In
+    the event of a failure, the 3 LED's will blink in a repetitive
+    sequence. The number of blinks between intervals will indicate the
+    possible location of a failure.
+<p><center>
+<table>
+<caption><strong>ERROR INDICATIONS</strong></caption>
+<tr valign=bottom align=left><th align=center>NUMBER OF<br>FLASHES </th><th>ERROR CAUSE </th><th>COMPONENT </th><th>LOCATION</th></tr>
+<tr valign=top><td align=center>     1 </td><td>Zero Page                </td><td>6532            </td><td>UC1,UE1       </td></tr>
+<tr valign=top><td align=center>     2 </td><td>ROM $E0000-$EFFFF        </td><td>2364            </td><td>UL1           </td></tr>
+<tr valign=top><td align=center>     3 </td><td>ROM $C000-$DFFFF         </td><td>2364            </td><td>UH1           </td></tr>
+<tr valign=top><td align=center>     4 </td><td>Unused                   </td></tr>
+<tr valign=top><td align=center>     5 </td><td>Zero Page                </td><td>6530<br>6502    </td><td>UK3<br>UH3    </td></tr>
+<tr valign=top><td align=center>     6 </td><td>Common RAM $1000-$13FF   </td><td>2114            </td><td>UC4,UC5       </td></tr>
+<tr valign=top><td align=center>     7 </td><td>Common RAM $2000-$23FF   </td><td>2114            </td><td>UD4,UD5       </td></tr>
+<tr valign=top><td align=center>     8 </td><td>Common RAM $3000-$33FF   </td><td>2114            </td><td>UE4,UE5       </td></tr>
+<tr valign=top><td align=center>     9 </td><td>Common RAM $4000-$43FF   </td><td>2114            </td><td>UF4,UF5       </td></tr>
+<tr valign=top><td align=center>    10 </td><td>Controller ROM           </td><td>6530<br>6502    </td><td>UK3<br>UH3    </td></tr>
+</table>
+</center>
+<p>If the LED's come on and stay on, the microprocessor UN1
+   is probably at fault.
+
+<p>
+<hr>
+  <a href="page_4.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_6.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 27, 1998.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Smooth scrolling</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_129.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_131.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> register is set to 0, the first line is covered, ready for new data. When
+ the Y scrolling register is set to 7 the last row is covered.
+
+<p> For scrolling in the X direction, the scroll register is located in
+ bits 2 to 0 of the VIC-II control register at location 53270 ($D016 in
+ HEX). As always, it is important to affect only those bits. The following
+ POKE does this:
+<pre>
+   POKE 53270,(PEEK(53270)AND 248)+X
+</pre>
+ where X is the X position of the screen from 0 to 7.
+
+<p> For scrolling in the Y direction, the scroll register is located in
+ bits 2 to 0 of the VIC-II control register at location 53265 ($D011 in
+ HEX). As always, it is important to affect only those bits. The following
+ POKE does this:
+<pre>
+   POKE 53265,(PEEK(53265)AND 248)+Y
+</pre>
+ where Y is the Y position of the screen from 0 to 7.
+
+<p> To scroll text onto the screen from the bottom, you would step the low-
+ order 3 bits of location 53265 from 0-7, put more data on the covered
+ line at the bottom of the screen, and then repeat the process. To scroll
+ characters onto the screen from left to right, you would step the low-
+ order 3 bits of location 53270 from 0 to 7, print or POKE another column
+ of new data into column 0 of the screen, then repeat the process.
+   
+<p> If you step the scroll bits by -1, your text will move in the opposite
+ direction.
+
+<p><b class="blue">EXAMPLE: Text scrolling onto the bottom of the screen:</b>
+
+<pre>
+ 10 POKE53265,PEEK(53265)AND247        :REM GO INTO 24 ROW MODE
+ 20 PRINTCHR$(147)                     :REM CLEAR THE SCREEN
+ 30 FORX=1TO24:PRINTCHR$(17);:NEXT     :REM MOVE THE CURSOR TO THE BOTTOM
+ 40 POKE53265,(PEEK(53265)AND248)+7:PRINT :REM POSITION FOR 1ST SCROLL
+ 50 PRINT"     HELLO";
+ 60 FORP=6TO0STEP-1
+ 70 POKE53265,(PEEK(53265)AND248)+P
+ 80 FORX=1TO50:NEXT                    :REM DELAY LOOP
+ 90 NEXT:GOTO40
+</pre>
+
+<hr>
+<a href="page_129.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_131.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

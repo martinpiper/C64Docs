@@ -1,0 +1,130 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Relative files</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Relative Files</h3>
+</center>
+
+<pre>
+        .page   
+	.subttl 'rel4.src'          
+;*
+;*
+;**********************************
+;*
+;*
+;*  setlst
+;*
+;*
+;**********************************
+;*
+;*
+setlst  ldx  lindx       
+        lda  nr,x        
+        sta  r1          
+        dec  r1          
+        cmp  #2          
+        bne  setl01      
+        lda  #$ff        
+        sta  r1          
+setl01           
+        lda  rs,x        
+        sta  r2          
+
+        jsr  getpnt      
+        ldx  lindx       
+        cmp  r1          
+        bcc  setl10      
+        beq  setl10      
+
+        jsr  dblbuf      
+        jsr  fndlst      
+        bcc  setl05      
+
+        ldx  lindx       
+        sta  lstchr,x    
+        jmp  dblbuf      
+
+setl05  jsr  dblbuf      
+        lda  #$ff        
+        sta  r1          
+
+setl10  jsr  fndlst      
+        bcs  setl40      
+
+        jsr  getpnt      
+
+setl40  ldx  lindx       
+        sta  lstchr,x    
+        rts      
+;*
+;*
+;*
+;*********************************
+;*
+;*
+;*  fndlst
+;*
+;*
+;*********************************
+;*
+;*
+fndlst           
+        jsr  set00       
+        ldy  r1         ; offset to start at
+
+fndl10  lda  (dirbuf),y          
+        bne  fndl20      
+
+        dey      
+        cpy  #2          
+        bcc  fndl30      
+
+        dec  r2         ; limit counter
+        bne  fndl10      
+
+fndl30  dec  r2          
+        clc     	;  not found here
+        rts      
+
+fndl20  tya     	; found the end char
+        sec      
+        rts
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+              

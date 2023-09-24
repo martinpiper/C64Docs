@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_177.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_179.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h4>SPRITE COLORS:</h4>
+
+<p> To make sprite 0 WHITE, type: POKE V+39,1 (use COLOR POKE SETTING shown
+ in chart, and INDIVIDUAL COLOR CODES shown below):
+
+<table border="0">
+<tr><td>   0-BLACK </td><td>    4-PURPLE </td><td>       8-ORANGE     </td><td>   12-MED. GREY </td></tr>
+<tr><td>   1-WHITE </td><td>    5-GREEN  </td><td>       9-BROWN      </td><td>   13-LT. GREEN </td></tr>
+<tr><td>   2-RED   </td><td>    6-BLUE   </td><td>       10-LT. RED   </td><td>   14-LT. BLUE  </td></tr>
+<tr><td>   3-CYAN  </td><td>    7-YELLOW </td><td>       11-DARK GREY </td><td>   15-LT. GREY  </td></tr>
+</table>
+
+<h4>MEMORY LOCATION:</h4>
+
+<p> You must "reserve" a separate 64-BYTE BLOCK of numbers in the
+ computer's memory for each sprite of which 63 BYTES will be used for
+ sprite data. The memory settings shown below are recommended for the
+ "sprite pointer" settings in the chart above. Each sprite will be unique
+ and you'll have to define it as you wish. To make all sprites exactly the
+ same, point the sprites you want to look the same to the same register
+ for sprites.
+
+<h4> DIFFERENT SPRITE POINTER SETTINGS: </h4>
+
+<p> These sprite pointer settings are RECOMMENDATIONS ONLY.
+<p> <b>Caution:</b> you can set your sprite pointers anywhere in RAM memory but if
+ you set them too "low" in memory a long BASIC program may overwrite your
+ sprite data, or vice versa. To protect an especially LONG BASIC PROGRAM
+ from overwriting sprite data, you may want to set the sprites at a higher
+ area of memory (for example, 2040,192 for sprite 0 at locations 12288 to
+ 12350... 2041,193 at locations 12352 to 12414 for sprite 1 and so on...
+ by adjusting the memory locations from which sprites get their "data,"
+ you can define as many as 64 different sprites plus a sizable BASIC
+ program. To do this, define several sprite "shapes" in your DATA
+ statements and then redefine a particular sprite by changing the
+ "pointer" so the sprite you are using is "pointed" at different areas of
+ memory containing different sprite picture data. See the "Dancing Mouse"
+ to see how this works. If you want two or more sprites to have THE SAME
+ SHAPE (you can still change position and color of each sprite), use the
+ same sprite pointer and memory location for the sprites you want to match
+ (for example, you can point sprites 0 and 1 to the same location by using
+ POKE 2040,192 and POKE 2041, 192).
+
+<hr>
+<a href="page_177.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_179.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 11, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

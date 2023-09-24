@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_164.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_166.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h4><a name="8">STEP 8:</a></h4>
+
+<p> CRUNCH YOUR PROGRAM INTO A SMALLER SPACE BY RUNNING TOGETHER ALL THE DATA
+ STATEMENTS, AS SHOWN IN THE SAMPLE PROGRAM BELOW. Note that we asked you
+ to write your sprite program on a piece of paper. We did this for a good
+ reason. The DATA STATEMENT LINES 100-120 in the program in STEP 1 are
+ only there to help you see which numbers relate to which groups of pixels
+ in your sprite. Your final program should be "crunched" like this:
+
+<pre>
+ 10 PRINT"{CLEAR}":POKE53280,5:POKE53281,6
+ 20 V=53248:POKEV+34,3
+ 30 POKE 53269,4:POKE2042,13
+ 40 FORN=0TO62:READQ:POKE832+N,Q:NEXT
+ 100 DATA255,255,255,128,0,1,128,0,1,128,0,1,144,0,1,144,0,1,144,0,1,144,0
+ 101 DATA1,144,0,1,144,0,1,144,0,1,144,0,1,144,0,1,144,0,1,128,0,1,128,0,1
+ 102 DATA128,0,1,128,0,1,128,0,1,128,0,1,255,255,255
+ 200 X=200:Y=100:POKE53252,X:POKE53253,Y
+</pre>
+
+<h3><a name="Moving">MOVING YOUR SPRITE ON THE SCREEN</a></h3>
+
+<p>Now that you've created your sprite, let's do some interesting things
+ with it. To move your sprite smoothly across the screen, add these two
+ lines to your program:
+<pre>
+   50 POKE V+5,100:FOR X=24TO255:POKE V+4,X:NEXT:POKE V+16,4
+   55 FOR X=0TO65:POKE V+4,X:NEXT X:POKE V+16,0:GOTO 50
+</pre>
+   
+<p><b class="blue">LINE 50</b> POKEs the Y POSITION at 100 (try 50 or 229 instead for
+ variety). Then it sets up a FOR... NEXT loop which POKEs the sprite into
+ X position 0 to X position 255, in order. When it reaches the 255th
+ position, it POKEs the RIGHT X POSITION (POKE V+16,4) which is required
+ to cross to the right side of the screen.
+
+<p><b class="blue">LINE 55</b> has a FOR... NEXT loop which continues to POKE the sprite in
+ the last 65 positions on the screen. Note that the X value was reset to
+ zero but because you used the RIGHT X setting (POKE V+16,2) X starts over
+ on the right side of the screen.
+
+<p> This line keeps going back to itself (GOTO 50). If you just want the
+ sprite to move ONCE across the screen and disappear, then take out
+ GOTO50.
+
+<hr>
+<a href="page_164.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_166.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

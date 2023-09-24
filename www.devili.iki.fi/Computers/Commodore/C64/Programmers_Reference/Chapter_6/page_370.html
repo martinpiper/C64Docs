@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - Z-80 Microprocessor Cartridge (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_369.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_371.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> At this point the 64K bytes of RAM in the Commodore 64 are accessible
+ by the built-in 6510 central processor, OR 48K bytes of RAM are available
+ for the Z-80 central processor. You can shift back and forth between
+ these two processors, but you can NOT use them at the same time in a
+ single program. This is possible because of your Commodore 64's
+ sophisticated timing mechanism.
+<p> Below is the memory address translation that is performed on the Z-80
+ cartridge. You should notice that by adding 4096 bytes to the memory
+ locations used in CP/M<small><sup>&reg;</sup></small> $1000 (hex) you equal the memory addresses of
+ the normal Commodore 64 operating system. The correspondence between Z-80
+ and 6510 memory addresses is as follows:</p>
+
+<table border=1 align=center cellspacing=0>
+<tr><th colspan=2>Z-80 ADDRESSES	</th><th colspan=2>6510 ADDRESSES	</th></tr>
+<tr><th>DECIMAL	</th><th>HEX		</th><th>DECIMAL	</th><th>HEX	</th></tr>
+<tr><td>     0000-4095    </td><td>    0000-0FFF  </td><td>      4096-8191      </td><td>  1000-1FFF    </td></tr>
+<tr><td>     4096-8191    </td><td>    1000-1FFF  </td><td>      8192-12287     </td><td>  2000-2FFF    </td></tr>
+<tr><td>     8192-12287   </td><td>    2000-2FFF  </td><td>     12288-16383     </td><td>  3000-3FFF    </td></tr>
+<tr><td>    12288-16383   </td><td>    3000-3FFF  </td><td>     16384-20479     </td><td>  4000-4FFF    </td></tr>
+<tr><td>    16384-20479   </td><td>    4000-4FFF  </td><td>     20480-24575     </td><td>  5000-5FFF    </td></tr>
+<tr><td>    20480-24575   </td><td>    5000-5FFF  </td><td>     24576-28671     </td><td>  6000-6FFF    </td></tr>
+<tr><td>    24576-28671   </td><td>    6000-6FFF  </td><td>     28672-32767     </td><td>  7000-7FFF    </td></tr>
+<tr><td>    28672-32767   </td><td>    7000-7FFF  </td><td>     32768-36863     </td><td>  8000-SFFF    </td></tr>
+<tr><td>    32768-36863   </td><td>    8000-8FFF  </td><td>     36864-40959     </td><td>  9000-9FFF    </td></tr>
+<tr><td>    36864-40959   </td><td>    9000-9FFF  </td><td>     40960-45055     </td><td>  A000-AFFF   </td></tr>
+<tr><td>    40960-45055   </td><td>    A000-AFFF  </td><td>     45056-49151     </td><td>  B000-BFFF   </td></tr> 
+<tr><td>    45056-49151   </td><td>    B000-BFFF  </td><td>     49152-53247     </td><td>  C000-CFFF   </td></tr> 
+<tr><td>    49152-53247   </td><td>    C000-CFFF  </td><td>     53248-57343     </td><td>  D000-DFFF   </td></tr> 
+<tr><td>    53248-57343   </td><td>    D000-DFFF  </td><td>     57344-61439     </td><td>  E000-EFFF   </td></tr> 
+<tr><td>    57344-61439   </td><td>    E000-EFFF  </td><td>     61440-65535     </td><td>  F000-FFFF   </td></tr> 
+<tr><td>    61440-65535   </td><td>    F000-FFFF  </td><td>      0000-4095      </td><td>  0000-0FFF   </td></tr> 
+</table>
+
+<hr>
+<a href="page_369.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_371.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 06, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

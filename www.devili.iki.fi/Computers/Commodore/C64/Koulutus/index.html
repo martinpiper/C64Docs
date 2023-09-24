@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>C-64 Koulutus</title>
+    <meta name="description" content="PCI Data / PET-Commodore Inc.: C-64:n pieni huoltokoulutusopas">
+    <link rel="stylesheet" href="koulutus.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#000080" alink="#0000C0">
+
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<div class="teksti">
+<h1><u>C-64 KOULUTUS</u></h1>
+
+<ol>
+        <li><a href="index.html#1">TEKNISET TIEDOT</a>
+        <li><a href="index.html#2">PIIRIEN TEHTÄVÄT</a>
+        <li><a href="index.html#3">YLEISIMMÄT VIAT JA NIIDEN HUOLTAMINEN</a>
+        <li>DIAGNOSTIIKAN KÄYTTÖ
+        <li>KÄYTÄNNÖN HARJOITUS
+</ol>
+
+<h2>1. <a name="1">TEKNISET TIEDOT LAITTEESTA</a></h2>
+
+<p>Muisti
+<ul>
+        <li>64 kt RAM
+        <li>n. 39 kt Basic-RAM
+        <li>20 kt ROM
+</ul>
+
+<p>Näppäimistö
+<ul>
+        <li>kirjoituskonenäppäimistö
+        <li>ASCII- standardin mukainen
+        <li>Commodoren graafiset merkit
+        <li>funktionäppäimet
+</ul>
+
+<p>Näyttö
+<ul>
+        <li>40 merkkiä / rivi
+        <li>25 riviä
+        <li>tarkkuusgrafiikka 320*200
+</ul>
+
+<p>Värit
+<ul>
+        <li>16 väriä merkkiä kohden
+        <li>16 näytön rajaukselle
+        <li>16 taustalle
+        <li>vastaväriteksti
+</ul>
+
+<p>Ääni
+<ul>
+        <li>3 äänigeneraattoria
+        <li>4 aaltomuotoa
+        <li>ADSR -ohjelmoitavuus
+        <li>suotimet
+</ul>
+
+<h2>2. <a name="2">PIIRIEN TEHTÄVÄT</a></h2>
+
+<p>U7 CPU 6510
+<br>ominaisuudet:
+<ul>
+        <li>8-bitin dataväylä, 16-bitin osoiteväylä
+        <li>kuusi kaksisuuntaista erikseen ohjelmoitavaa I/O-
+            porttia, joista käytetään kasettiaseman ohjaamiseen
+            ja muistin hallintaan.
+        <li>yksi käyttöjännite +5v
+        <li>sisäinen arkkitehtuuri sama kuin 6502
+        <li>56 käskyä
+        <li>kolmetoista osoitemuotoa
+        <li>väyläyhteensopiva M6800 väylän kanssa
+</ul>
+
+<p>U1,U2 CIA 6526 rinnakkaisliitäntäpiiri
+<br>ominaisuudet:
+<ul>
+        <li>16 erikseen ohjelmoitavaa I/O-linjaa
+        <li>kaksi erillistä, yhdistettävissä olevaa 16-bittistä
+            laskuria
+        <li>24-tunnin kello, missä ohjelmoitava herätys
+        <li>8-bitin siirtorekisteri sarja-I/O:ta varten
+</ul>
+tehtävät:
+<br>U1
+<ul>
+        <li>näppäimistön kytkentä
+        <li>levyaseman ja kasettiaseman kättely
+        <li>joystickin kytentä
+</ul>
+U2
+<ul>
+        <li>levyaseman kytkeminen
+        <li>liitäntäpiirinä USER-porttiin
+</ul>
+
+<p>U19 6569 VIC-II videopiiri
+<ul>
+        <li>47 rekisteriä
+        <li>videosignaalin muodostus
+        <li>kykenee käyttämään 16 kiloa muistia näyttöä varten
+        <li>merkkien muodostus
+        <li>standardi merkit
+        <li>spritet
+        <li>bit map mode 320*200 pistettä
+        <li>kuvan välkkyminen
+        <li>scrollaus
+        <li>valokynä
+        <li>RAM-muistin virkistys
+</ul>
+
+<p>U18 6581 SID äänipiiri
+<br>ominaisuuksia:
+<ul>
+        <li>29 rekisteriä
+        <li>3 oskillaattoria
+        <li>3 ADSR-generaattoria
+        <li>4 aaltomuotoa: kolmio,shahammas,muuttuva pulssi
+            ja kohina
+        <li>suodatus
+        <li>äänen voimakkuuden säätö
+        <li>ulkoinen audio sisääntulo, joka mahdollistaa
+            useiden SID-piirien kytkennän tai muun signaalin
+            summaamisen audiolähtöön
+        <li>2 A/D pot- liitäntä
+</ul>
+
+<p>U6 2114 väri-RAM
+<ul>
+        <li>staattinen RAM
+        <li>1024*4 bit
+        <li>pitää sisällään väri-informaation tulostettavasta
+            merkistä
+</ul>
+
+<p>U9-U12 4164-2 64k*1bit RAM
+<br>U21-U24
+<ul>
+        <li>dynaaminen RAM
+        <li>vastaavat tyypit 6665,4264,3764
+</ul>
+
+<p>U17 82S100 PLA
+<ul>
+        <li>vastaava 906114-01
+        <li>custom-piiri sisällöstä ei tietoa
+        <li>suorittaa osoitekoodauksen
+</ul>
+
+<h2>3. <a name="3">Yleisimmät viat ja niiden huoltaminen</a></h2>
+
+<h3>3.1. Laite täysin pimeä</h3>
+<ol>
+        <li>tarkista jännitteet
+        <ul>
+                <li>kaksi erillistä +5v:n jännitettä
+                <li>lisäksi +9v:n (kasettias.) ja +12v:n (äänipiiri)
+                    jännitteet
+        </ul>
+        <li>CPU:n toiminta
+        <ul>
+                <li>kello
+                <li>reset
+                <li>IRQ, NMI
+                <li>data- ja osoitelinjat (oltava "röpellystä")
+                <li>R/W ("röpellystä")
+        </ul>
+        <li>RAM- vian tarkistus
+        <ul>
+                <li>katso erillinen ohje
+        </ul>
+        <li>Videopiiri U19
+        <ul>
+                <li>tarkista onko lähtö 15 ok (tahdistus+"röpellys")
+                <li>kun ok tarkista modulaattorin toiminta
+                <li>vaihda piiri U19
+        </ul>
+        <li>Kernal-RON, U4, PLA U17
+</ol>
+
+<h3>3.2. Ääni viallinen</h3>
+<ul>
+        <li>kun ääni täysin puuttuu, vaihda piiri U18
+        <li>modulaattori säätö
+        <li>transistori Q8
+</ul>
+
+<h3>3.3. Näppäimistö</h3>
+<ul>
+        <li>testataan onko vika näppäimistössä vai koneessa
+        <li>näppäimistön puhdistus
+        <li>kontaktin vaihto
+        <li>liitin- ja kaapeliviat
+        <li>kun vika ei ole näppäimistössä vaihda piiri U1
+</ul>
+
+<h3>3.4. Levyasema ja kirjoitin</h3>
+<ul>
+        <li>piiri U2
+</ul>
+
+<h3>3.5. Kasettiasema</h3>
+<ul>
+        <li>piiri U7 CPU
+        <li>kun ei lataa, vaihda piiri U7
+        <li>transistorit Q1, Q2, Q3
+</ul>
+
+<h3>3.6. Joystick</h3>
+<ul>
+        <li>piiri U1
+</ul>
+
+<h3>3.7. Paddle</h3>
+<ul>
+        <li>jos painonappi ei toimi, vaihda U1
+        <li>jos säädin ei toimi, vahda U18, U28
+</ul>
+
+<h3>3.8. Väri</h3>
+<ul>
+        <li>piirin U19 nastassa 14 oltava "röpellystä"
+        <li>jos ei, vaihda U19
+        <li>jos on, säädä modulaattori
+</ul>
+
+<h3>3.9. RAM-vika</h3>
+<ul>
+        <li>kuva täysin pimeä
+        <li>vika todetaan käyttämällä Radar Rad Race -modulia.
+            Moduli kytettynä tulee sekava kuva.
+        <li>vialliset RAM-piirit havaitaan oskilloskoopilla.
+            Viallisen piirin lähtötaso on huomattavasti
+            alempana kuin ehjän piirin lähtö.
+        <li>jos useita RAM -piirejä kerralla rikki (>5)
+            vaihdetaan kaikki RAM -piirit. Erityisesti jos
+            kyseessä on µT -piirit.
+</ul>
+
+<h3>3.10. Muuntaja viat</h3>
+<ul>
+        <li>korjataan ainoastaan vaihtamalla
+</ul>
+
+<h3>3.11 Vaalea palkki kuvaruudussa</h3>
+<ul>
+        <li>lisätään kaksi kondensaattoria erillisen ohjeen
+            mukaisesti
+</ul>
+
+<br><p>&nbsp;
+
+<p align="right">PCI PET-Commodore Inc.</p>
+
+</div>
+<p>
+<hr>
+ <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 13, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

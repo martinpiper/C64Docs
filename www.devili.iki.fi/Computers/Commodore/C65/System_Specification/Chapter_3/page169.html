@@ -1,0 +1,131 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page168.html"> 
+     <link rel=next href="page170.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page168.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page170.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>GRAPHIC - select graphic mode</h4>
+
+<pre>
+    GRAPHIC CLR
+    GRAPHIC command#, [,args]
+</pre>
+    
+<p> Basically this is a modified C64-type SYS command, minus the address.
+    In the C64DX system, this will represent the ML interface, not the
+    BASIC 10.0 interface which is implemented in the development system.
+    
+<p align="center">[*** THIS COMMAND IS SUBJECT TO CHANGE ***]</p>
+    
+<p> GRAPHIC CLR initializes (warm-starts) the BASIC graphic system. It
+    clears any existing graphic,modes, screens~ etc. and allows a program
+    to.commence graphic operations from scratch.
+
+<h4>HEADER - Format a diskette</h4>
+
+<pre>
+    HEADER "diskname" [,Iid] [,Ddrive] [&lt;ON|,&gt;Udevice]
+</pre>
+    
+<p> The HEADER command prepares a new diskette for use, sometimes
+    called FORMATing a diskette. There are two types of "newing" a
+    diskette- a long form and a quick (or short) form. You must use the
+    long form when preparing a new diskette for its first use. Thereafter
+    you can use the quick form.
+    
+<p> WARNING: Formatting a diskette (long or short) will destroy all
+    existing data on the diskette! In direct mode, you are asked to
+    confirm what you are doing with 'ARE YOU SURE?'. Type 'Y' and press
+    return to proceed, or TYPE ANY OTHER CHARACTER AND PRESS RETURN TO
+    CANCEL the command. In program mode there is no confirmation prompt.
+    
+<p> The long HEADER form requires a diskname and an ID. The diskette will
+    be completely (re)sectored, zeros written to all blocks, and a new
+    system track (directory, BAM, etc.) will be created.
+
+<pre>
+        HEADER "newdisk",I01                prepares a new diskette
+</pre>
+
+<p> The short HEADER form is performed when the ID option is omitted. The
+    diskette is assumed to have been previously formatted, and only a new
+    system track (directory, BAM, etc.) is installed. This is roughly
+    equivalent to deleteing all the files, but much quicker.
+    
+<pre>
+        HEADER "makelikenew"                re-news an working diskette
+</pre>
+    
+<p> The diskname is limited to 16 characters and the ID string to two
+    characters. The same rules apply for the diskname as for a filename.
+    Some Disk Systems use the ID string to tell if you have swapped a
+    diskette in a drive, so it's recommended that the ID string be unique
+    for each of your diskettes. Some more examples:
+
+<pre>
+        HEADER "QUICK"
+        HEADER "MYDISK", 123
+        HEADER "RECS", I"FB", U9
+        HEADER (FILE$), I(ID$), U(UNIT)
+</pre>
+    
+<h4>HELP - Show the BASIC line that cause the last error</h4>
+
+<p> The HELP command is used after an error has been reported
+    in a program. When HELP is typed, the line where the error occurred
+    listed, with the portion containing the error highlighted. Print
+    ERR$(ER) for the error message, and print EN or EL for the error
+    number and error line, respectively. HELP can be used in direct mode
+    or in program mode. Note that, in the case of many I/O errors, there
+    is no associated BASIC error. Check ST or DS$ errors in these cases.
+
+<p>
+<hr>
+  <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_3/page168.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page170.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 11, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

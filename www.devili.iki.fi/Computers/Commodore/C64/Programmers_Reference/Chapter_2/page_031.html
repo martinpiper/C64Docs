@@ -1,0 +1,146 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Introduction (cont.) </title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_030.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_035.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p>   The type of argument needed is generally decided by the data type in
+ the result. Functions which return a string value as their result are
+ identified by having a dollar sign ($) as the last character of the
+ keyword. In some cases string functions contain one or more numeric
+ argument. Numeric functions will convert between integer and floating-point
+ format as needed. In the descriptions that follow, the data type of the
+ value returned is shown with each function name. The types of arguments
+ are also given with the statement format.
+
+
+<h3 align=center><a name="2-1">Table 2-1. COMMODORE 64 BASIC KEYWORDS</a></h3>
+<table border=1 align=center cellspacing=0>
+
+<tr><th>   COMMAND        </th><th>ABBREVIATION          </th><th>SCREEN        </th><th>FUNCTION TYPE</th></tr>
+<tr><td>     ABS         </td><td> <kbd> A &lt;SHIFT&gt; B  </kbd>  </td><td>  &nbsp;              </td><td>  NUMERIC </td></tr>
+<tr><td>     AND         </td><td> <kbd> A &lt;SHIFT&gt; N  </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     ASC         </td><td> <kbd> A &lt;SHIFT&gt; S  </kbd>  </td><td>  &nbsp;              </td><td>  NUMERIC </td></tr>
+<tr><td>     ATN         </td><td> <kbd> A &lt;SHIFT&gt; T  </kbd>  </td><td>  &nbsp;              </td><td>  NUMERIC </td></tr>
+<tr><td>     CHR$        </td><td> <kbd> C &lt;SHIFT&gt; H  </kbd>  </td><td>  &nbsp;              </td><td>  STRING  </td></tr>
+<tr><td>     CLOSE       </td><td> <kbd> CL &lt;SHIFT&gt; O </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     CLR         </td><td> <kbd> C &lt;SHIFT&gt; L  </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     CMD         </td><td> <kbd> C &lt;SHIFT&gt; M  </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     CONT        </td><td> <kbd> C &lt;SHIFT&gt; O  </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     COS         </td><td>          none                    </td><td>   COS          </td><td>  NUMERIC </td></tr>
+<tr><td>     DATA        </td><td> <kbd> D &lt;SHIFT&gt; A </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     DEF         </td><td> <kbd> D &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     DIM         </td><td> <kbd> D &lt;SHIFT&gt; I </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     END         </td><td> <kbd> E &lt;SHIFT&gt; N </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     EXP         </td><td> <kbd> E &lt;SHIFT&gt; X </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     FN          </td><td>          none                    </td><td>    FN          </td><td>       &nbsp;   </td></tr>
+<tr><td>     FOR         </td><td> <kbd> F &lt;SHIFT&gt; O </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     FRE         </td><td> <kbd> F &lt;SHIFT&gt; R </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     GET#        </td><td>          none                    </td><td>   GET#         </td><td>       &nbsp;   </td></tr>
+<tr><td>     GOSUB       </td><td> <kbd> GO &lt;SHIFT&gt; S </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     GOTO        </td><td> <kbd> G &lt;SHIFT&gt; O </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     IF          </td><td>          none                    </td><td>    IF          </td><td>       &nbsp;   </td></tr>
+<tr><td>     INPUT       </td><td>          none                    </td><td>  INPUT         </td><td>       &nbsp;   </td></tr>
+<tr><td>     INPUT#      </td><td> <kbd> I &lt;SHIFT&gt; N </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     INT         </td><td>          none                    </td><td>   INT          </td><td>  NUMERIC </td></tr>
+<tr><td>     LEFT$       </td><td> <kbd> LE &lt;SHIFT&gt; F </kbd>  </td><td>  &nbsp;              </td><td>  STRING  </td></tr>
+<tr><td>     LEN         </td><td>          none                    </td><td>   LEN          </td><td>  NUMERIC </td></tr>
+<tr><td>     LET         </td><td> <kbd> L &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     LIST        </td><td> <kbd> L &lt;SHIFT&gt; I </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     LOAD        </td><td> <kbd> L &lt;SHIFT&gt; O </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     LOG         </td><td>          none                   </td><td>   LOG          </td><td>  NUMERIC </td></tr>
+<tr><td>     MID$        </td><td> <kbd> M &lt;SHIFT&gt; I </kbd>  </td><td>   &nbsp;             </td><td>  STRING  </td></tr>
+<tr><td>     NEW         </td><td>          none                   </td><td>   NEW          </td><td>        &nbsp;  </td></tr>
+<tr><td>     NEXT        </td><td> <kbd> N &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     NOT         </td><td> <kbd> N &lt;SHIFT&gt; O </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     ON          </td><td>          none                   </td><td>    ON          </td><td>        &nbsp;  </td></tr>
+<tr><td>     OPEN        </td><td> <kbd> O &lt;SHIFT&gt; P </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     OR          </td><td>          none                   </td><td>    OR          </td><td>        &nbsp;  </td></tr>
+<tr><td>     PEEK        </td><td> <kbd> P &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     POKE        </td><td> <kbd> P &lt;SHIFT&gt; O </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     POS         </td><td>          none                   </td><td>   POS          </td><td>  NUMERIC </td></tr>
+<tr><td>     PRINT       </td><td> <kbd>      ?            </kbd>  </td><td>    ?           </td><td>        &nbsp;  </td></tr>
+<tr><td>     PRINT#      </td><td> <kbd> P &lt;SHIFT&gt; R </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     READ        </td><td> <kbd> R &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     REM         </td><td>          none                    </td><td>   REM          </td><td>       &nbsp;   </td></tr>
+<tr><td>     RESTORE     </td><td> <kbd> RE &lt;SHIFT&gt; S </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     RETURN      </td><td> <kbd> RE &lt;SHIFT&gt; T </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     RIGHT$      </td><td> <kbd> R &lt;SHIFT&gt; I </kbd>  </td><td>   &nbsp;             </td><td>  STRING  </td></tr>
+<tr><td>     RND         </td><td> <kbd> R &lt;SHIFT&gt; N </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     RUN         </td><td> <kbd> R &lt;SHIFT&gt; U </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     SAVE        </td><td> <kbd> S &lt;SHIFT&gt; A </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     SGN         </td><td> <kbd> S &lt;SHIFT&gt; G </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     SIN         </td><td> <kbd> S &lt;SHIFT&gt; I </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     SPC(        </td><td> <kbd> S &lt;SHIFT&gt; P </kbd>  </td><td>   &nbsp;             </td><td>  SPECIAL </td></tr>
+<tr><td>     SQR         </td><td> <kbd> S &lt;SHIFT&gt; Q </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     STATUS      </td><td> <kbd>      ST            </kbd>  </td><td>    ST          </td><td>  NUMERIC </td></tr>
+<tr><td>     STEP        </td><td> <kbd> ST &lt;SHIFT&gt; E </kbd>  </td><td>  &nbsp;              </td><td> &nbsp;         </td></tr>
+<tr><td>     STOP        </td><td> <kbd> S &lt;SHIFT&gt; T </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     STR$        </td><td> <kbd> ST &lt;SHIFT&gt; R </kbd>  </td><td>  &nbsp;              </td><td>  STRING  </td></tr>
+<tr><td>     SYS         </td><td> <kbd> S &lt;SHIFT&gt; Y </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     TAB(        </td><td> <kbd> T &lt;SHIFT&gt; A </kbd>  </td><td>   &nbsp;             </td><td>  SPECIAL </td></tr>
+<tr><td>     TAN         </td><td>          none                    </td><td>   TAN          </td><td>  NUMERIC </td></tr>
+<tr><td>     THEN        </td><td> <kbd> T &lt;SHIFT&gt; H </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     TIME        </td><td> <kbd>     TI             </kbd>  </td><td>    TI          </td><td>  NUMERIC </td></tr>
+<tr><td>     TIME$       </td><td> <kbd>     TI$            </kbd>  </td><td>   TI$          </td><td>  STRING  </td></tr>
+<tr><td>     TO          </td><td>          none                    </td><td>    TO          </td><td>       &nbsp;   </td></tr>
+<tr><td>     USR         </td><td> <kbd> U &lt;SHIFT&gt; S </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     VAL         </td><td> <kbd> V &lt;SHIFT&gt; A </kbd>  </td><td>   &nbsp;             </td><td>  NUMERIC </td></tr>
+<tr><td>     VERIFY      </td><td> <kbd> V &lt;SHIFT&gt; E </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+<tr><td>     WAIT        </td><td> <kbd> W &lt;SHIFT&gt; A </kbd>  </td><td>   &nbsp;             </td><td>  &nbsp;        </td></tr>
+</table>
+
+<hr>
+<a href="page_030.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_035.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 06, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

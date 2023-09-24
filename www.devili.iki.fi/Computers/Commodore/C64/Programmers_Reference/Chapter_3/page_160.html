@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_159.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_161.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>This POKE starts the X numbering over again from 0 at the 256th position
+ (<b>Example: POKE V+16,PEEK(V+16)OR 1 and POKE V,1</b> must be included to place
+ sprite 0 at the 257th pixel across the screen.) To get back to the left
+ side X positions you have to TURN OFF the control setting by typing
+ <b>POKE V+16,PEEK(V+16)AND 254</b>.
+
+<h3><a name="Positioning">POSITIONING MULTIPLE SPRITES ON THE SCREEN</a></h3>
+   
+<p>Here's a program which defines THREE DIFFERENT SPRITES (0, 1 and 2) in
+ different colors and places them in different positions on the screen:
+
+<pre>
+ 10 PRINT"{CLEAR}":V=53248:FORS=832TO895:POKES,255:NEXT
+ 20 FORM=2040TO2042:POKEM,13:NEXT
+ 30 POKEV+21,7
+ 40 POKEV+39,1:POKEV+40,7:POKEV+41,8
+ 50 POKEV,24:POKEV+1,50
+ 60 POKEV+2,12:POKEV+3,229
+ 70 POKEV+4,255:POKEV+5,50
+</pre>
+
+<p> For convenience, all 3 sprites have been defined as solid squares,
+ getting their data from the same place. The important lesson here is how
+ the 3 sprites are positioned. The white sprite 0 is at the top lefthand
+ corner. The yellow sprite 1 is at the bottom lefthand corner but HALF the
+ sprite is OFF THE SCREEN (remember, 24 is the leftmost X position in the
+ viewing area... an X position less than 24 puts all or part of the sprite
+ off the screen and we used an X position 12 here which put the sprite
+ halfway off the screen). Finally, the orange sprite 2 is at the RIGHT X
+ LIMIT (position 255)... but what if you want to display a sprite in the
+ area to the RIGHT of X position 255?
+
+<h3><a name="Displaying">DISPLAYING A SPRITE BEYOND THE 255TH X-POSITION</a></h3>
+
+<p>Displaying a sprite beyond the 255th X position requires a special POKE
+ which SETS the most significant bit of the X position and starts over at
+ the 256th pixel position across the screen. Here's how it works...
+
+<p>First, you POKE V+16 with the number for the sprite you're using (check
+ the "RIGHT X" row in the X-Y chart... we'll use sprite 0). Now we assign
+ an X position, keeping in mind that the X counter starts over from 0 at
+ the 256th position on the screen. Change line 50 to read as follows:
+<pre>
+   50 POKE V+16,1:POKE V,24:POKE V+1,75
+</pre>
+
+<hr>
+<a href="page_159.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_161.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

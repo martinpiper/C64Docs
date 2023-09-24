@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page143.html"> 
+     <link rel=next href="page145.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page143.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page145.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+<pre>
+    DLOAD           Token = F0          load BASIC program from disk
+    DMA             Token = FE,1F       define & execute DMA command
+    DMA             Token = FE,21       "
+    DMA             Token = FE,23       "
+    DMODE           Token = FE,35       set graphic draw mode
+    DO              Token = EB          start BASIC loop
+    DOPEN           Token = FE,0D       open channel to disk file
+    DPAT            Token = FE,36       set graphic draw pattern
+    DSAVE           Token = EF          save BASIC program to disk
+    DVERIFY         Token = FE,14       verify BASIC memory to file
+    ELLIPSE         Token = FE,30       draw graphic ellipse
+    ELSE            Token = D5          if/then/else clause
+    END             Token = 80          end of BASIC program
+    ENVELOPE        Token = FE,0A       define musical instrument
+    ERASE           Token = FE,2A       delete disk file
+    ERR$            Token = D3          BASIC error function
+    EXIT            Token = ED          exit BASIC loop
+    EXP             Token = BD          exponentiation function
+    FAST            Token = FE,25       set system speed to maximum
+    FILTER          Token = FE,03       set audio filter parameters
+    FIND            Token = FE,2B       hunt for string in BASIC program
+    FN              Token = A5          define user function
+    FOR             Token = 81          start BASIC for/next loop
+    FOREGROUND      Token = FE,39       set foreground color
+    FRE             Token = B8          available memory function
+    GCOPY           Token = FE,32       graphic copy
+    GENLOCK         Token = FE,38       set video sync mode
+    GET             Token = A1          receive a byte of input
+    GO              Token = CB          program branch
+    GOSUB           Token = 8D          program subroutine call
+    GOTO            Token = 89          program branch
+    GRAPHIC         Token = DE          set graphic mode
+    HEADER          Token = F1          format a diskette
+    HELP            Token = EA          display BASIC line causing error
+    HEX$            Token = D2          return hexidecimal string function
+    HIGHLIGHT       Token = FE,3D       set highlight color
+    IF              Token = 8B          if/then/else conditional
+    INPUT           Token = 85          recieve input data from keyboard
+    INPUT#          Token = 84          recieve input data from channel (file)
+    INSTR           Token = D4          locate a string within a string
+    INT             Token = B5          integer function
+    JOY             Token = CF          joystick position function
+    KEY             Token = F9          define or display function key
+    LEFT$           Token = C8          leftmost substring function
+    LEN             Token = C3          length of string function
+    LET             Token = 88          variable assignment
+    LINE            Token = E5          draw graphic line, input line
+    LIST            Token = 9B          list BASIC program
+    LOAD            Token = 93          load program from disk
+    LOCATE          Token = E6                  (currently unimplemented)
+    LOG             Token = BC          natural log function
+    LOOP            Token = EC          end of do/loop
+    LPEN            Token = CE,04       lightpen position function
+    MID$            Token = CA          substring function
+    MONITOR         Token = FA          enter ML Monitor mode
+    MOUSE           Token = FE,3E       set mouse parameters
+    MOVSPR          Token = FE,06       set sprite position and speed
+    NEW             Token = A2          clear BASIC program area
+</pre>
+<p>
+<hr>
+  <a href="page143.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page145.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

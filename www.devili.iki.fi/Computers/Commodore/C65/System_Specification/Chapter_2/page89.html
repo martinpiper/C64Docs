@@ -1,0 +1,111 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page88.html"> 
+     <link rel=next href="page90.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page88.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page90.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4>Vertical Timings</h4>
+    
+<p>    When the vertical position register VPOS is set to zero by the CPU,
+    it actually is storing a compare value of 128, since the MSB of VPOS is
+    inverted. This actually corresponds to raster count 256, since the vertical
+    event counter is counting half-lines. When the vertical event counter
+    matches the VPOS register, the vertical synccounter is reset to zero.
+    Multiply the desired line for each event by 2 and subtract the nominal VPOS
+    value of 256 to get the desired decode. If the result is negative add the
+    modulo of the vertical event counter, which is 525 for NTSC and 625 for PAL.
+    The "line" in these tables refer to raster lines, where line 50 is the first
+    displayed line in a 25 row display.
+
+<p>NTSC<br><pre>
+    Event         line  v count - vpos  decode
+    ------        ----  ------- ------  ------
+    VSYNC START   11    22      -234    291
+    VSYNC STOP    14    28      -228    297
+    VEQU START    8     16      -240    285
+    VEQU STOP     17    34      -222    303
+    VBLANK START  8     16      -240    285
+    VBLANK STOP   28    56      -200    325
+    EARLY START   64    128     -128    397
+    EARLY STOP    11    22      -234    291
+    LATE START    11    23      -233    292
+    LATE STOP     3     6       -250    275
+</pre>
+
+<p>PAL -- timings begin 25 lines before NTSC because of 50 extra lines<br><pre>
+    Event         line  v count - vpos  decode
+    -----         ----  ------- ------  ------
+    VSYNC START   -14  -29      -285    340
+    VSYNC STOP    -11  -24      -280    345
+    VEQU START    -17  -34      -290    335 *equ/sync is 15 half-lines
+    VEQU STOP     -9   -19      -275    350 *for pal
+    VBLANK START  -17  -34      -290    335
+    VBLANK STOP   3    6        -250    375
+    EARLY START   39   78       -176    447
+    EARLY STOP    -14  -29      -285    340
+    LATE START    -14  -28      -284    341
+    LATE STOP     -22  -44      -300    325
+</pre>
+
+    Note : EARLY-and LATE active concurrently indicate GROSS.
+    
+<p>Divide ratios (including external sync values)<br><pre>
+    
+    Counter         Normal Early    Late    Gross
+    -------         ------ ----     ----    -----
+    NTSC vertical   525     524     526     540
+    PAL vertical    625     624     626     640
+    NTSC horiz      910     908     912
+    PAL horiz       908     906     910
+    horiz counter   520     519     521
+</pre>
+
+<p>
+<hr>
+  <a href="https://www.devili.iki.fi/Computers/Commodore/C65/System_Specification/Chapter_2/page88.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page90.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

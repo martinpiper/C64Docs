@@ -1,0 +1,358 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Peripheral Ports</title>
+    <meta name="description" content="Article from COMPUTE!'s Gazette issue 21 (March 1985) -- An in-depth look at communication with your computer. For the 64, VIC, Plus/4 and 16.">
+    <meta name="keywords" content="Commodore 64, peripherals, hardware, connectors, Commodore VIC, VIC-20, Plus/4, Commodore 16, C16, Plus4, C64">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h1>Commodore Peripheral Ports</h1>
+    Ottis R. Cowper, Technical Editor
+</center>
+
+<p> Commodore computers provide their users with a variety of methods for
+    communicating with the outside world. The devices from which the
+    computer receives input or to which it sends output (or both) are
+    generically called peripherals, and the connectors where peripherals
+    are attached to the computer are referred to as ports. Each of the
+    several ports has distinctive characteristics that make it suitable for
+    particular applications. For some, the computer's operating system the
+    ROM which controls the machine's functions   provides routines that
+    handle much or all of the "dirty work" of communicating with devices
+    attached to those ports. To use other ports, you must program all the
+    necessary support routines yourself. That task can range from very easy
+    (for example, reading a joystick) to quite complex (interfacing with a
+    parallel printer through the user port, for example). Here's a rundown
+    of the features of all the ports:
+
+<h2>The Serial Port</h2>
+
+<p> For most users, the serial port is the major data
+    artery of the computer. As the connection point for disk drives and
+    printers, it's the port through which most information exchanges take
+    place. This is the one port that is the same on the VIC, 64, Plus/4,
+    and 16. Well, almost the same - there are some signal timing
+    differences. The VIC transfers data at a slightly faster rate than the
+    others, which is one of the reasons the VIC is listed as incompatible
+    with the 1526 printer, and why the original 1540 disk drive was only
+    for the VIC. Obviously, this port is bidirectional - data can flow both
+    in and out with equal ease.
+
+<p> The signal format used to exchange data over the six lines provided
+    through this port is unique to Commodore. The format should not be
+    confused with the more standard RS-232 serial communications format
+    used by numerous peripherals; RS-232 communication is handled through
+    the user port (see below). The serial port is essentially a stripped
+    down version of the parallel IEEE-488 port used for most data
+    communications in Commodore's earlier PET/CBM models. As the term
+    serial implies, data can be transferred only one bit at a time (and in
+    only one direction at a time, either in or out). Three of the other
+    lines control the direction of data flow, and whether the signals on
+    the data line are to be interpreted as data or as commands to the
+    peripheral device. The computer's RESET line is also present at this
+    port, which explains why the disk drive resets whenever the computer is
+    turned on or off.
+
+<p> The operating system fully supports communications through this port.
+    By addressing a peripheral attached to this port with a device number,
+    and using OPEN, CLOSE, PRINT#, INPUT# and related routines provided by
+    the operating system, you can avoid worrying with the details of
+    controlling the individual signal lines. Any peripheral addressed with
+    a device number between 4 and 31 (the highest device number allowed) is
+    assumed by the computer to be connected to this port.
+
+<p> Commodore has established several standards for device numbers:
+    Printers are usually device 4, although some can be changed to device
+    5, the 1520 Printer/Plotter is designed to be device 6, and device
+    numbers 8 and above usually refer to disk drives. Device 8 is the
+    default number for the disk drive, and almost all software assumes the
+    disk drive will have this device number; device 9 is the most common
+    choice for a second drive. Commodore 1541 drives allow you to select
+    any device number via software, or numbers 8 - 11 via hardware.
+
+<p> The use of a unique signal format for communication with the disk drive
+    is not unusual; almost all computer manufacturers use a proprietary
+    disk interface compatible only with their own products. What is unusual
+    is that this same nonstandard format is also used for communications
+    with printers. Since so much software assumes that printers will be
+    connected through the serial port (as device 4), most third-party
+    interfaces for non-Commodore printers also attach to this port. These
+    interfaces act as interpreters, reading the Commodore-format serial
+    signal from the port and converting it to the more standard parallel
+    (eight bits at a time) format used by most printers.
+
+<h2>The Memory Expansion Port</h2>
+
+<p> This is often referred to as the cartridge port, since ROM cartridges
+    are the peripherals most often attached through this connector. In
+    the VIC, this is also the port through which RAM memory expanders are
+    added. The lines available at this port include most of the address,
+    data, and control lines of the microprocessor chip that is the heart of
+    the computer. Thus, any peripheral which needs to be intimately tied to
+    the workings of the computer - for example, ROM that must be
+    addressed by the microprocessor - is connected through this port. The
+    operating system does not support any devices through this port; in
+    essence, anything attached here is no longer a peripheral, but part of
+    the computer itself.
+
+<p> This port is present on the VIC, 64, Plus/4, and 16. Many of the same
+    lines are available on corresponding pins of the expansion port
+    connectors used in the VIC and 64, but the connectors themselves are
+    different sizes, so cartridges designed for the 64 cannot be used on
+    the VIC, and vice versa. The Plus/4 and 16 have identical 50-pin
+    connectors for this port (as opposed to the 44-pin connectors used in
+    the VIC and 64), so presumably there will be some compatibility of
+    cartridges for these models, although no VIC or 64 cartridges or memory
+    port peripherals can be used.
+
+<p> Examples of other types of devices which attach through this port are
+    the CP/M cartridge for the 64, which contains a second microprocessor
+    that takes complete control of the 64's RAM and input/output chips, and
+    the Magic Voice speech module, which is attached through this port
+    because it contains additional ROM to allow the computer to support
+    voice output.
+
+<h2>The User Port</h2>
+
+<p> This port (sometimes called the RS-232 or modem port) was designed
+    with the experimenter in mind. Just as the memory expansion port
+    gives you access to a number of the microprocessor's control lines,
+    this port gives you access to many of the control lines of one of the
+    interface adapter chips (VIAs for the VIC or CIAs for the 64). Using
+    these lines, a wide variety of peripherals could be connected, since
+    both serial and eight-bit parallel communications are available.
+
+<p> Unfortunately, most of this flexibility goes unused since it isn't
+    supported by the operating system. Most home computer users today are
+    more interested in software than in tinkering with hardware projects,
+    so this port is most frequently used for its one function supported by
+    the operating system: RS-232 serial communications.
+
+<p> RS-232 is the name of the most common serial communications standard.
+    If you use the operating system to address device 2, data directed to
+    that device will be transferred through the user port in an
+    approximation of RS-232 format. Actually, the signal format is true
+    RS-232, but the voltage levels are different from those prescribed. The
+    standard calls for voltage levels of -12 to +12 volts, and the user
+    port only provides levels of 0 to +5 volts. Adapters are available -
+    from Commodore and other sources - to convert the signal voltage to the
+    proper levels. These adapters are not necessary if you're going to use
+    Commodore's modems, but are required to use any standard RS-232
+    equipment.
+
+<p> The 24 pins of this port have a similar configuration on both the VIC
+    and 64, so many devices designed to interface to this port can be used
+    on either computer, although the software to run the devices will
+    generally be different. The VICmodem and Automodem, for example, work
+    with either model. The Plus/4 appears to have the same 24-pin
+    connector, but the computer casing around the connector is smaller, so
+    neither the VICmodem nor Automodem can be plugged into the Plus/4.
+    (Commodore's new 1660 modem works with the VIC, 64, and Plus/4.) The
+    Commodore 16 has no user port, so it is as yet unclear if or how a
+    modem may be used with that computer.
+
+<p> Since eight-bit parallel data communications are available through this
+    port, it might seem surprising that it's not commonly used for
+    interfacing with printers. After all, it would appear on the surface
+    to be simpler to write a machine language program to simulate the
+    commonly used Centronics parallel format through this port, than to go
+    to all the trouble of designing the hardware interface to convert the
+    data from the serial port to the proper parallel format.
+
+<p> The reason this isn't often done is that almost all Commodore software
+    expects the printer to be device 4 on the serial port, and in the long
+    run it proves easier to seek a hardware solution to allow you to use
+    the built-in operating system routines as provided in ROM. That way,
+    you don't have to worry about having to load your printer handler
+    routine into memory before you can use it, finding a safe place in RAM
+    to store the handler routine, etc.
+
+<p> For more information on interfacing through the user port, see the
+    article "Using the User Port" in <em>COMPUTE!'s First Book of
+    Commodore 64</em>. VIC users might also be interested in two articles
+    which show how to use the user port to provide a second joystick port:
+    "Fighter Aces - Add A Second Joystick" (<em>COMPUTE!'s Second Book of
+    VIC</em>) and "Tankmania: Adding A Second Joystick To The VIC"
+    (COMPUTE!'s GAZETTE, April 1984).
+
+<h2>The Control Ports</h2>
+
+<p> These ports (or port, in the case of the VIC, which has only one) are
+    usually referred to as the joystick ports, since they are most commonly
+    used for joysticks. In fact, on the Plus/4 and 16, these ports are
+    labeled JOY1 and JOY2. The operating system ROM does not support any
+    devices through these ports, so BASIC must communicate using PEEKs and
+    POKEs.
+
+<p> In addition to joysticks, which are simple devices consisting of five
+    switches - one for each of the four principal directions, plus one for
+    the fire button - the ports can be used to read other devices that
+    behave like joysticks, such as trackballs. Although the computer
+    normally uses the five joystick lines strictly for input, it's possible
+    to program them for output as well. We've never seen any peripherals
+    for Commodore computers that attempt to output through this port, but
+    there are printer interfaces for the Atari which use Atari's nearly
+    identical joystick port. (Atari and Coleco joysticks are functionally
+    identical to Commodore joysticks for the VIC and 64, and can be used
+    interchangeably.)
+
+<p> A warning to those contemplating the purchase of a Plus/4 or Commodore
+    16: On those computers Commodore has abandoned the widely used DB-9
+    joystick connector in favor of a nonstandard connector, so existing
+    joysticks cannot be used. Apparently, this was done to reduce radio
+    frequency (RF) interference. The joystick mechanism is exactly the
+    same, it's just the plug on the end of the cable that's been changed.
+    And the new plug isn't one you'll be able to find easily, so - until
+    someone comes out with an adapter plug - you'll be limited to buying
+    only Commodore's joysticks. On the other hand, the improved BASIC in
+    the Plus/4 and 16 includes a JOY function to read the joysticks, so the
+    complicated PEEKs required to read joysticks on the VIC and 64 can be
+    avoided.
+
+<p> In addition to the joystick, this port in the VIC and 64 can be used to
+    read paddle controllers. (The Plus/4 and 16 have no circuitry for
+    reading paddles.) Paddle controllers, which always come in pairs, are
+    actually just variable resistors which provide variable voltage levels
+    to two lines on the port, Circuitry within the computers (in the VIC
+    chip in the VIC-20, and in the SID chip in the 64) calculates a digital
+    value corresponding to the voltage level. The value ranges from 0 to
+    255 as the voltage on the lines changes from 0 to 5 volts. Other
+    devices which operate like paddles - providing a varying voltage input
+    - can also be read through this port; graphics tablets are a good
+    example.
+
+<p> Each paddle usually also has a button, but instead of being read like
+    the joystick buttons, the paddle buttons are connected to the lines for
+    two of the joystick directional switches. One paddle button corresponds
+    to the joystick's right directional line, and the other to the line for
+    reading joystick left. By convention, the paddle that uses the right
+    directional line for its button is called the right paddle, and the one
+    that uses the joystick-left line is the left paddle.
+
+<p> Unlike Atari joysticks, Atari paddles are not completely
+    interchangeable with those made by Commodore. While Atari paddles can
+    be used with the VIC and 64, they have a higher resistance and thus are
+    less accurate for Commodore systems. (A half turn on Atari paddles
+    corresponds roughly to a full turn on Commodore paddles.)
+
+<p> One additional type of peripheral - the light pen - can also be
+    connected to this port. The pen contains a phototransistor that
+    switches when it detects the electron beam of the video display
+    sweeping past. A line is connected from the phototransistor through the
+    port to the chip that generates the video signal (the VIC chip in the
+    VIC, the VIC-II chip in the 64, and the TED chip in the Plus/4 and 16).
+
+<p> When the video chip receives the signal from the pen, it latches
+    (stores) the current position of the raster (electron beam) in a set of
+    registers (memory locations within the chip). The stored value can then
+    be read, and the position where the pen is touching the screen can be
+    calculated. (As with joysticks, Plus/4 and 16 owners will have to wait
+    until someone manufactures a light pen with the proper plug to fit the
+    unique socket used for this port by those computers.)
+
+<h2>The Audio/Video Port</h2>
+
+<p> This connector is not really a port, since data cannot be transferred
+    through it. Instead, it provides a connection point to the computer's
+    video and audio signals. With the exception of an audio input line on
+    the 64, all lines at this port are outputs only. Like the serial port,
+    this port is compatible on the VIC, 64, Plus/4, and 16, but compatible
+    doesn't mean identical. When attaching the computer to a video monitor,
+    you need a cable that brings out two signals which are available at the
+    same pins on all four models, a composite video signal and an audio
+    signal. Corresponding video and audio inputs are found on most black
+    and white or color monitors. The Commodore 1701/1702 color monitor also
+    provides for the input of a luminance signal via the rear connections.
+    Separating the luminance provides increased contrast, and drastically
+    reduces color smearing.
+
+<p> Television users can attach a thin wire between the composite and
+    luminance signals on the video port to improve television contrast, but
+    some TVs can't take the extra luminance and produce a distorted screen.
+    The more recent 64s use an eight-pin jack rather than the five pins
+    used on the VIC and 64, but a five-pin monitor plug will still work.
+    The eight-pin 64s have a purer color signal available for use with the
+    rear connections of the 1701/1702, so you may want to use an eight-pin
+    cable. The 64's audio input line attaches directly to the audio input
+    on the SID chip. Be careful to feed in only low-level (unamplified)
+    sound sources. There's no way to process the sound, but it can be mixed
+    with the sound of the SID chip, and the SID chip's filters can be used
+    as a programmable equalizer for the sound coming in.
+
+<h2>The Cassette Port</h2>
+
+<p> This port is designed for one particular peripheral, the Commodore
+    Datassette recorder. There are now two models of the Datassette, the
+    1530 (or equivalent C2N) for use with the VIC and 64, and the 1531, for
+    use with the Plus/4 and 16. As with joysticks, the only difference
+    between the two is the plug on the end of the connecting cable.
+    Commodore has used a new and incompatible type of connector for this
+    port on its new models.
+
+<p> Three of the six lines from this port are used for writing a signal to
+    the tape, reading a signal from the tape, and testing whether a button
+    is pushed. Note that since there is only one line (labeled Cassette
+    Sense) to test the buttons, it's only possible to check whether any
+    buttons are pressed, not which particular button or buttons are
+    pressed. Thus, if you're supposed to press PLAY and RECORD and
+    accidentally press only PLAY, the computer won't be able to detect the
+    mistake. Other lines supply power to the tape motor (9 volts) and for
+    the electronics in the Datassette (5 volts). Some other peripherals
+    for example, several brands of printer interfaces - also make use of
+    the 5 volt power source available here.
+
+<p> Communication through this port is
+    fully supported by the operating system, with the Datassette being
+    designated as device 1. Device 1 is the default storage device; unless
+    you specify otherwise, all your SAVEs and LOADs will be directed to
+    the Datassette. In addition to SAVE, VERIFY, and LOAD, the OPEN, CLOSE,
+    PRINT#, and INPUT# statements provide all the features necessary for
+    storing and retrieving data on tape, so programmers rarely need to
+    worry about the intimate details of interfacing to this port, such as
+    what sort of magnetic pattern is actually used to represent a byte of
+    data on tape. Nevertheless, it's possible to program several of the
+    individual lines of this port to achieve special effects; for an
+    example, refer to the "TurboTape" articles in the January and February
+    issues of COMPUTE!, the GAZETTE's sister magazine.
+
+<p><hr width="50%">
+
+<center>
+<p>Published in COMPUTE!'s Gazette, Issue 21, March 1985. Copyright &copy; 1985 COMPUTE! Publications, Inc.
+</center>
+
+<hr>
+ <a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+    

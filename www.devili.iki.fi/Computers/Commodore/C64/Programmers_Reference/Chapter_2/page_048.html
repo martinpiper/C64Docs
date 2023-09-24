@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_047.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_049.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p class=blue> Using the FOR statement, here is the same program:</p>
+<pre>
+   100 FOR L = 1 TO 10
+   110 PRINT L
+   120 NEXT L
+   130 END
+</pre>
+<p>   As you can see, the program is shorter and easier to understand using
+ the FOR statement.
+<p>   When the FOR statement is executed, several operations take place.
+ The &lt;start&gt; value is placed in the &lt;variable&gt; being used in the
+ counter. In the example above, a I is placed in L.
+<p>   When the NEXT statement is reached, the &lt;increment&gt; value is added to
+ the &lt;variable&gt;. If a STEP was not included, the &lt;increment&gt; is set to
+ + 1. The first time the program above hits line 120, 1 is added to L,
+ so the new value of L is 2.
+<p>   Now the value in the &lt;variable&gt; is compared to the &lt;limit&gt;. If the
+ &lt;limit&gt; has not been reached yet, the program <a href="page_052.html#goto">GOes TO</a> the line after
+ the original FOR statement. In this case, the value of 2 in L is less
+ than the limit of 10, so it <a href="page_052.html#goto">GOes TO</a> line 110.
+<p>   Eventually, the value of &lt;limit&gt; is exceeded by the &lt;variable&gt;. At
+ that time, the loop is concluded and the program continues with the line
+ following the NEXT statement. In our example, the value of L reaches
+ 11, which exceeds the limit of 10, and the program goes on with line
+ 130.
+<p>   When the value of &lt;increment&gt; is positive, the &lt;variable&gt; must
+ exceed the &lt;limit&gt;, and when it is negative it must become less than
+ the &lt;limit&gt;.</p>
+
+<table border=1 cellspacing=0 class=blue align=center><tr><td>
+ <b class=blue>NOTE:</b> A loop always executes at least once.
+</td></tr></table>
+
+<p><b class=blue>EXAMPLES of FOR...TO...STEP...Statement:</b>
+<pre>
+   100 FOR L = 100 TO 0 STEP -1
+   100 FOR L = PI TO 6* {pi} STEP .01
+   100 FOR AA = 3 TO 3
+</pre>
+<hr>
+<a href="page_047.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_049.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page27.html"> 
+     <link rel=next href="page29.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page27.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page29.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<p><table align=center>
+<tr valign=top><td>    PSYNC   </td><td>29      </td><td>OUT</td><td>
+    This output line is provided to identify those cycles
+    in which the microprocessor is doing an OP CODE fetch.
+    The ?SYNC line goes high during PH1 of an OP CODE fetch
+    and stays high for the remainder of that cycle. If ABC
+    or DMA/ is low during the rising edge of PH1,in which
+    pulse PSYNC went high, the processor will stop in its
+    current state and will remain in the state until either
+    AEC or DMA/ goes high. In this manner, the SYNC signal
+    can be used to control either the AEC or DMA/ line to
+    cause single instruction execution.</td></tr>
+<tr valign=top><td>    AEC     </td><td>30      </td><td>IN </td><td>
+    This input signal is the Address Enable Control line.
+    When high, the address bus, R/W are valid. When low,
+    the address bus, R/W and MAP/ are in a high-impedance
+    state except for A17, A18 and A19 each of which will
+    be connected to the A16 line.      </td></tr>
+<tr valign=top><td>    DMA/    </td><td>31      </td><td>IN </td><td>
+    This signal is connected to a 3K passive pullup.
+    When this signal is low the address bus and R/W will
+    be tri-stated. This will allow external DMA devices
+    to assume control of the system bus lines.</td></tr>
+<tr valign=top><td>    (READY) </td><td colspan=2>Internal Signal</td><td>
+    This signal is generated internally via the AEC and
+    DMA/ lines. The READY signal goes high when both AEC
+    and DMA/ are high. It goes low if either ABC or DMA/
+    goes low. The READY signal allows the user to single-cycle
+    the microprocessor on all cycles including write
+    cycles. A low state on either DMA/ or AEC during the
+    rising transition of phase one (PHI) will deassert the
+    READY line and halt the microprocessor with the output
+    address lines holding the current address. This feature
+    allows micro processor interfacing with low speed
+    memory as well as fast (max 2 cycle) Direct Memory
+    Access (DMA).</td></tr>
+<tr valign=top><td>    IO/     </td><td>32      </td><td>IN     </td><td>
+    This input signal is used to select the internal
+    registers of the device, provided memory is not being
+    mapped by the CPU.
+</td></tr>
+<tr valign=top><td>    MAP/    </td><td>33      </td><td>OUT    </td><td>
+    This signal is passively pulled-up (3 Kohm) whenever
+    DMA/ or AEC is pulled low. This output signal is used
+    to indicate whether or not-memory is being mapped by
+    the device. If the CPU is addressing a mapped memory
+    region the MAP/ line will go low and will inhibit the
+    10/ line from selecting an internal register If the
+    CPU is not mapping memory the MAP/ line will be high
+    and A16-A19 will be kept low.
+</td></tr></table>
+<p>
+<hr>
+  <a href="page27.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page29.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

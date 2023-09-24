@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_051.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_053.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p>   Each time the program executes a GOSUB, the line number and position
+ in the program line are saved in a special area called the "stack,"
+ which takes up 256 bytes of your memory. This limits the amount of data
+ that can be stored in the stack. Therefore, the number of subroutine
+ return addresses that can be stored is limited, and care should be taken
+ to make sure every GOSUB hits the corresponding <a href="page_079.html#return">RETURN</a>, or else you'll
+ run out of memory even though you have plenty of bytes free.
+
+<h3><a name="goto">GOTO</a></h3>
+
+ <big><b class=blue>TYPE: Statement<br>
+ FORMAT :GOTO &lt;line number&gt;
+  or GO TO &lt;line number&gt;
+
+   </b></big><p><b class=blue>Action:</b> This statement allows the BASIC program to execute lines out
+ of numerical order. The word GOTO followed by a number will make the
+ program jump to the line with that number. GOTO NOT followed by a number
+ equals GOTO 0. It must have the line number after the word GOTO.
+<p>   It is possible to create loops with GOTO that will never end. The
+ simplest example of this is a line that GOes TO itself, like 10 GOTO 10.
+ These loops can be stopped using the <kbd>&lt;RUN/STOP&gt;</kbd> key on the keyboard.
+
+ </p><b class=blue>EXAMPLES of GOTO Statement:</b>
+<pre>
+   GOTO 100
+   10 GO TO 50
+   20 GOTO 999
+</pre>
+
+<h3><a name="if">IF...THEN...</a></h3>
+
+ <big><b class=blue>TYPE: Statement<br>
+ FORMAT: IF &lt;expression&gt; THEN &lt;line number&gt;<br>
+ &nbsp; &nbsp; IF &lt;expression&gt; GOTO &lt;line number&gt;<br>
+ &nbsp; &nbsp; IF &lt;expression&gt; THEN &lt;statements&gt;
+
+   </b></big><p><b class=blue>Action:</b> This is the statement that gives BASIC most of its "intelligence," the ability to evaluate conditions and take different actions
+   depending on the outcome.
+<hr>
+<a href="page_051.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_053.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

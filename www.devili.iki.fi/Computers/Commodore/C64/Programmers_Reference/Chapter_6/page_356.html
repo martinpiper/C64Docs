@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - RS-323 Interface Description (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_355.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_357.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table border=1><tr><td>
+<b>NOTES:</b>
+<p> If the BIT=0, then no error has been detected.
+<p> The RS-232 status register can be read from BASIC using the variable ST.
+<p> If ST is read by BASIC or by using the KERNAL READST routine the
+    RS-232 status word is cleared when you exit. If multiple uses of the
+    STATUS word are necessary the ST should be assigned to another
+    variable. For example:
+<pre>
+  SR=ST: REM ASSIGNS ST TO SR
+</pre>
+<p> The RS-232 status is read (and cleared) only when the RS-232 channel
+  was the last external I/O used.
+</td></tr></table>
+
+<h3><a name="Sample">SAMPLE BASIC PROGRAMS</a></h3>
+
+<pre>
+ 10 REM THIS PROGRAM SENDS AND RECEIVES DATA TO/FROM A SILENT 700
+ 11 REM TERMINAL MODIFIED FOR PET ASCII
+ 20 REM TI SILENT 700 SET-UP: 300 BAUD, 7-BIT ASCII, MARK PARITY,
+ 21 REM FULL DUPLEX
+ 30 REM SAME SET-UP AT COMPUTER USING 3-LINE INTERFACE
+ 100 OPEN 2,2,3,CHR$(6+32)+CHR$(32+128):REM OPEN THE CHANNEL
+ 110 GET#2,A$:REM TURN ON THE RECEIVER CHANNEL (TOSS A NULL)
+ 200 REM MAIN LOOP
+ 210 GET B$:REM GET FROM COMPUTER KEYBOARD
+ 220 IF B$&LT;&GT;"" THEN PRINT#2,B$;:REM IF A KEY PRESSED, SEND TO TERMINAL
+ 230 GET#2,C$:REM GET A KEY FROM THE TERMINAL
+ 240 PRINT B$;C$;:REM PRINT ALL INPUTS TO COMPUTER SCREEN
+ 250 SR=ST: IF SR=0 OR SR=8 THEN 200: REM CHECK STATUS, IF GOOD THEN CONTINUE
+ 300 REM ERROR REPORTING
+ 310 PRINT "ERROR: ";
+ 320 IF SR AND 1 THEN PRINT "PARITY"
+ 330 IF SR AND 2 THEN PRINT "FRAME"
+ 340 IF SR AND 4 THEN PRINT "RECEIVER BUFFER FULL"
+ 350 IF SR AND 128 THEN PRINT "BREAK"
+ 360 IF (PEEK(673) AND 1) THEN 360:REM WAIT UNTIL ALL CHARS TRANSMITTED
+ 370 CLOSE 2: END
+</pre>
+
+<hr>
+<a href="page_355.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_357.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 25, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

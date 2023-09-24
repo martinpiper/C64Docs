@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_052.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_054.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<p>   The word IF is followed by an expression, which can include variables,
+ strings, numbers, comparisons, and logical operators. The word THEN
+ appears on the same line and is followed by either a line number or one
+ or more BASIC statements. When the expression is false, everything after
+ the word THEN on that line is ignored, and execution continues with the
+ next line number in the program. A true result makes the program either
+ branch to the line number after the word THEN or execute whatever other
+ BASIC statements are found on that line.
+
+ </p><b class=blue>EXAMPLE of IF...GOTO...Statement:</b>
+<pre>
+   100 INPUT "TYPE A NUMBER"; N
+   110 IF N &lt;= 0 GOTO 200
+   120 PRINT "SQUARE ROOT=" SQR(N)
+   130 GOTO 100
+   200 PRINT "NUMBER MUST BE &gt;0"
+   210 GOTO 100
+</pre>
+<p>   This program prints out the square root of any positive number. The IF
+ statement here is used to validate the result of the <a href="page_054.html#input">INPUT</a>. When the
+ result of N &lt;= 0 is true, the program skips to line 200, and when the
+ result is false the next line to be executed is 120. Note that THEN <a href="page_052.html#goto">GOTO</a>
+ is not needed with IF...THEN, as in line 110 where <a href="page_052.html#goto">GOTO 200</a> actually
+ means THEN <a href="page_052.html#goto">GOTO 200</a>.
+
+
+ </p><b class=blue>EXAMPLE OF IF...THEN...Statement:</b>
+<pre>
+   100 FOR L = 1 TO 100
+   110 IF RND(1) &lt; .5 THEN X=X+1: GOTO 130
+   120 Y=Y+1
+   130 NEXT L
+   140 PRINT "HEADS=" X
+   150 PRINT "TAILS= " Y
+</pre>
+<p> The IF in line 110 tests a random number to see if it is less than .5.
+ When the result is true, the whole series of statements following the
+ word THEN are executed: first X is incremented by 1, then the program
+ skips to line 130. When the result is false, the program drops to the
+ next statement, line 120.
+
+<hr>
+<a href="page_052.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_054.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

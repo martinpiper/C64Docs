@@ -1,0 +1,129 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page58.html"> 
+     <link rel=next href="page60.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page58.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page60.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h4><a name="2.3.7.3">2.3.7.3</a> <u>65CE02 Interrupts</u></h4>
+    
+    <p> There are four basic interrupt sources on the CSG 4502. These are
+    RES*, IRQ*, NMI*, and So, for Reset, Interrupt Request, Non-Maskable
+    Interrupt, and Set Overflow. The Reset is a hard non-recoverable interrupt
+    that stops everything. The IRQ is a "maskable" interrupt, in that its
+    occurance can be prevented. The NMI is "non-maskable", and if such an
+    event occurs, cannot be prevented. The SO, or Set Overflow, is not really
+    an interrupt, but causes an externally generated condition, which can be
+    used for control of program flow.
+    
+    <p> One important design feature, which must be remembered is that no
+    interrupt can occur immediately after a one-cycle opcode. This is very
+    important, because there are times when you want to temporarily prevent
+    interrupts from occurring. The best example of this is, when setting a
+    16-bit stack pointer, you do not want an interrupt to occur between the
+    times you set the low-order byte, and the high-order byte. If it could
+    happen, the interrupt would do stack writes using a pointer that was only
+    partially set, thus, writing to an unwanted area.
+    
+<p>IRQ*
+    
+    <p> The IRQ* (Interrupt ReQuest) input will cause an interrupt if it is
+    at a low logic level, and the I processor status flag is reset. The interrupt
+    sequence will begin with the first SYNC after a multiple-cycle opcode. The two
+    program counter bytes PCH and PCL, and the processor status register P, are
+    pushed onto the stack. (This causes the stack pointer SP to be decremented
+    by 3.) Then the program counter bytes PCL and PCH are loaded from memory
+    addresses FFFE and FFFF, respectively.
+    
+    <p> An interrupt caused by the IRQ* input, is similar to the BRK opcode,
+    but differs, as follows. The program counter value stored on the stack points
+    to the opcode that would have been executed, had the interrupt not occurred.
+    On return from interrupt, the processor will return to that opcode. Also, when
+    the P register is pushed onto the stack, the B or "break" flag pushed, is zero,
+    to indicate that the interrupt was not software generated.
+    
+<p>NMI*
+    
+    <p> The NMI* (Non-Maskable Interrupt) input will cause an interrupt after
+    receiving, a high to low transition The interrupt sequence will begin with the
+    first SYNC after a multiple-cycle opcode. NMI* inputs cannot be masked by
+    the processor status register I flag. The two program counter bytes PCH and
+    PCL, and the processor status register P, are pushed onto-the stack. (This
+    causes the stack pointer SP to be decremented by 3.) Then the program counter
+    bytes PCL and PCH are loaded from memory addresses FFFA and FFFB.
+    
+    <p> As with IRQ*, when the P register is pushed onto the stack, the B or
+    "break" flag pushed, is zero, to indicate that the interrupt was not software
+    generated.                          A
+    
+<p>RES*
+    
+    <p> The RES* (reset) input will cause a hard reset instantly as it is
+    brought to a low logic level. This effects the following conditions. The
+    currently executing opcode will be terminated. The B and Z registers will
+    be cleared. The stack pointer will be set to "byte" mode, with the stack
+    page set to page 1. The processor status bits E and I will be set.
+    
+    <p> The RES* input should be held low for at least 2 clock cycles. But
+    once brought high, the reset sequence begins on the CPU cycle. The first
+    four cycles of the.reset sequence do nothing. Then the program Counter
+    bytes PCL and PCH are loaded from memory addresses FFFC and FFFD, and
+    normal program execution begins.
+
+<p>SO
+    
+    <p> The SO (set overflow) input does, as its name implies, set the
+    overflow or V processor status flag. The effect is immediate as this active
+    low signal is brought or held at a low logic level. Care should be taken
+    if this signal is used, as some of the opcodes can set or reset the
+    overflow flag, as well. NOTE: The SO pin has been removed for C65.
+
+<p>
+<hr>
+  <a href="page58.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page60.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 06, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

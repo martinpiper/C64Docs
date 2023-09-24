@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_158.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_160.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>Let's see how this X-Y positioning works, using sprite 1. Type this
+ program:
+<pre>
+ 10 PRINT"{CLEAR}":V=53248:POKEV+21,2:POKE2041,13
+ 20 FORS=832TO895:POKES,255:NEXT:POKEV+40,7
+ 30 POKEV+2,24
+ 40 POKEV+3,50
+</pre>
+
+<p>This simple program establishes sprite 1 as a solid box and positions it
+ at the upper left corner of the screen. Now change line 40 to read:
+<pre>
+   40 POKE V+3,229
+</pre>
+ This moves the sprite to the bottom left corner of the screen. Now let's
+ test the RIGHT X LIMIT of the sprite. Change line 30 as shown:
+<pre>
+   30 POKE V+2,255
+</pre>
+<p> This moves the sprite to the RIGHT but reaches the RIGHT X LIMIT, which
+ is 255. At this point, the "most significant bit" in register 16 must be
+ SET. In other words, you must type POKE V+ 16 and the number shown in the
+ "RIGHT X" column in the X-Y POKE CHART above to RESTART the X position
+ counter at the 256th pixel/position on the screen. Change line 30 as
+ follows:
+<pre>
+   30 POKE V+16,PEEK(V+16)OR 2:POKE V+2,0
+</pre>
+ <b>POKE V+16,2</b> sets the most significant bit of the X position 
+ for sprite 1 and restarts it at the 256th pixel/position on the 
+ screen. <b>POKE V+2,0</b> displays the sprite at the NEW POSITION 
+ ZERO, which is now reset to the 256th pixel.
+
+<p> To get back to the left side of the screen, you must reset the most
+ significant bit of the X position counter to 0 by typing (for sprite 1):
+<pre>
+   POKE V+16, PEEK(V+16)AND 253
+</pre>
+   
+<p><b>TO SUMMARIZE</b> how the X positioning works... POKE the X POSITION for any
+ sprite with a number from 0 to 255. To access a position beyond the 255th
+ position/pixel across the screen, you must use an additional POKE (V+16)
+ which sets the most significant bit of the X position and start counting
+ from 0 again at the 256th pixel across the screen.
+
+<hr>
+<a href="page_158.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_160.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

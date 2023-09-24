@@ -1,0 +1,158 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Disk Tricks - example programs</title>
+    <meta name="description" content="Article from COMPUTE!'s Gazette issue 15 (September 1984) -- Included are programs which allow you to change a disk name, change a disk ID, unscratch, and scratch disk files.">
+    <meta name="keywords" content="Commodore 1541, Commodore 64, C64, C1541, 1541, computer, 8-bit, hardware, disk drive, Commodore 1540, C1540, 1540, VIC, VIC-20, VIC20, Commodore DOS, BASIC, BASIC V2, programming">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h1>Disk Tricks</h1>
+(Article on <a href="index.html">page 126</a>.)
+
+<center>
+<table border="1"><tr><td>
+<center><strong>BEFORE TYPING...</strong></center>
+
+<p><strong>
+    Before typing in programs, please refer to "How To Type COMPUTE!'s
+    Gazette Programs," "A Beginner's Guide To Typing In Programs," and "The
+    Automatic Proofreader" that appear before the Program Listings.
+    </strong>
+</td></tr></table>
+</center>
+
+<h2><a name="1">Program 1: <small>Change Disk Name</small></a></h2>
+
+<pre>
+999 REM END: REM PROGRAM 1: CHANGE DISK NAME                                                        :rem 249
+<a name="1000">1000</a> INPUT "{CLR}NEW DISK NAME";DN$                                              :rem 79
+1010 IF LEN(DN$)&lt;16 THEN DN$=DN$+CHR$(168 ):GOTO 1010:REM STRETCH TO 16 CHARS                       :rem 177
+1020 IF LEN(DN$) &gt; 16 THEN DN$=LEFT$(DN$, 16): REM SHORTEN NAME TO 16 CHARACTERS                    :rem 52
+1030 OPEN 15,8,15,"I": REM OPEN DISK COMMAND CHANNEL                                                :rem 126
+<a name="1040">1040</a> OPEN 8,8,8,"#": REM OPEN DIRECT ACCESS CHANNEL                              :rem 64
+<a name="1050">1050</a> PRINT#15, "U1:"8;0;18;0: REM READ TRACK 18, SECTOR 0 INTO CHANNEL 8 BUFFER  :rem 39
+<a name="1060">1060</a> PRINT#15, "B-P: "8; 144: REM MOVE BUFFER-POINTER TO FIRST BYTE OF DISK NAME :rem 239
+1070 PRINT#8, DN$;: REM PUT NEW NAME IN CHANNEL 8 BUFFER, REPLACING OLD NAME                        :rem 50
+<a name="1080">1080</a> PRINT#15,"U2:"8;0;18;0:REM WRITE BUFFER WITH NAME CHANGED                   :rem 108
+1090 CLOSE 8: REM CLOSE DIRECT ACCESS CHANNEL                                                       :rem 114
+1100 CL0SE15: REM CLOSE COMMAND CHANNEL                                                             :rem 42
+1110 REM GOTO 100: REM RESTART DISPLAY T&amp;S PROGRAM IF APPENDED                                      :rem 127
+</pre>
+
+<h2><a name="2">Program 2: <small>Change Disk ID</small></a></h2>
+
+<pre>
+1999 REM END: REM PROGRAM 2: CHANGE DISK{SPACE}ID                                   :rem 151
+2000 INPUT "{CLR}NEW DISK ID";ID$                                                   :rem 183
+2010 IF LEN(ID$) &lt;&gt; 2 THEN 2000: REM REJECT IMPROPER LENGTH ID                      :rem 104
+2020 OPEN 15,8,15,"I": REM OPEN DISK COMMAND CHANNEL                                :rem 126
+2030 OPEN 8,8,8,"#": REM OPEN DIRECT ACCESS CHANNEL                                 :rem 64
+2040 PRINT#15, "U1: "8;0;18;0: REM READ TRACK 18, SECTOR 8 INTO CHANNEL 8 BUFFER    :rem 39
+2050 PRINT#15, "B-P:"8;162: REM MOVE BUFFER-POINTER TO FIRST BYTE OF DISK ID        :rem 91
+2060 PRINT#8, ID$;: REM PUT NEW ID IN CHANNEL 8 BUFFER, REPLACING OLD ID            :rem 5
+2070 PRINT#15, "U2:"8;0;18;0: REM STORE BUFFER TO DISK                              :rem 245
+2080 CLOSE 8: REM CLOSE DIRECT ACCESS CHANNEL                                       :rem 114
+2090 CLOSE15: REN CLOSE COMMAND CHANNEL                                             :rem 51
+2100 REM GOTO 188: REM RESTART DISPLAY T&amp;S PROGRAM IF APPENDED                      :rem 127
+</pre>
+
+<h2><a name="3">Program 3: <small>Unscratch</small></a></h2>
+
+<pre>
+2999 REM END: REN PROGRAM 3, UNSCRATCH FILES :rem 75
+<a name="3000">3000</a> INPUT "{CLR}WHICH SECTOR";S$: S=VAL( S$): IF S<0 OR S>19 THEN 3000 :rem 178
+3010 PRINT "{2 DOWN}WHAT IS THE FIRST BYTE":PRINT"OF THE FILE YOU WISH"     :rem 253
+3020 PRINT"TO UNSCRATCH?" :rem 35
+3030 INPUT BP$: BP=VAL(BP$): REM INPUT FILE TARGET BYTE FOR UNSCRATCH :rem 89
+3030 BS=(BP=2)+(BP=34)+(BP=66)+(BP=98)+(BP=130)+(BP=162)+(BP=194)+(BP=226) :rem 168
+3035 IFBS&lt;&gt;-1THEN3828:REM REJECT INVALID{SPACE}INPUT :rem 45
+3040 PRINT "{2 DOWN}SELECT FILE TYPE:" :rem 22
+3050 PRINT "{DOWN}{2 SPACES}1. SEQUENTIAL":rem 4
+3060 PRINT "{2 SPACES}2. PROGRAM" :rem 18
+3070 PRINT "{2 SPACES}3. USER" :rem 59
+3080 PRINT "{2 SPACES}4. RELATIVE":rem 98
+3090 PRINT "{2 DOWN}WHICH ONE?" :rem 83
+3100 GET A$: IF A$="" THEN 3188 :rem 171
+3110 A=VAL(A$): IF A&lt;1 OR A&gt;4 THEN 3188: {SPACE}REM REJECT INVALID CHOICE:rem 39
+3120 B=A+128: REM SET INPUT BYTE. TO MATCH DOS FILE CODES :rem 158
+3130 OPEN 15,8,15,"I": REM OPEN COMMAND CHANNEL TO DISK : rem 36
+3140 OPEN8,8,8, "0": REM OPEN DIRECT ACCESS CHANNEL TO DISK : rem 17
+3150 PRINT#15, "U1: "8; 0; 18; S: REM LOAD SE CTOR CONTAINING FILE TO BE UNSCRATCHED : rem 98
+3160 PRINT#15, "B-P:"8;BP: REM SET BUFFER POINTER TO TARGET ADDRESS :rem 163
+3170 PRINT#8, CHR$(B);: REM CHANGE TARGET FILE CODE IN CHANNEL 8 BUFFER:rem 246
+3180 PRINT#15, "U2:"8;0;18;S: REM RETURN{SPACE}CHANGED CONTENTS TO TARGET SECTOR :rem 128
+3190 CLOSE 8: REM CLOSE DIRECT ACCESS CHANNEL :rem 117
+3200 CLOSE 15: REM CLOSE COMMAND CHANNEL:rem 45
+3210 REM GOTO 188: REM RESTART DISPLAY TR S PROGRAM WHEN FIRST REM REMOVED: rem 98
+</pre>
+
+<h2><a name="4">Program 4: <small>Scratch</small></a></h2>
+
+<pre>
+3999 REN END: REM PROGRAM 4, SCRATCH OR SCRATCH AND LEAVE ON DIRECTORY:rem 114
+4000 PRINT"{CLR}SELECT OPTION:" :rem 251
+4010 PRINT"{DOWN}1. COMPLETE SCRATCH":rem 183
+4020 PRINT"2. SCRATCH, BUT LEAVE":rem 131
+4021 PRINT"{3 SPACES}ON DIRECTORY":rem 234
+4030 PRINT"{2 DOWN}WHICH ONE?" :rem 78
+4040 GET A$: IF A$="" THEN 4848 :rem 179
+4050 A=VAL(A$): IF A&lt;1 OR A&gt;2 THEN 4040:{SPACE}REM REJECT INVALID INPUT:rem 18
+4060 IF A=1 THEN B=0: REM SET TO PERMANENTLY DELETE :rem 149
+4070 IF A=2 THEN B=128: REM SET TO LEAVE{SPACE}ON DIRECTORY :rem 191
+4080 INPUT"{2 DOWN}WHICH SECTOR";SS: S=VA L(S$): IF S<8 OR S>19 THEN 4080: rem 75
+4090 PRINT "{2 DOWN}WHAT IS THE FIRST BYTE":PRINT"OF THE FILE YOU WISH":rem 6
+4091 PRINT "TO SCRATCH?" :rem 137
+4100 INPUT BP$: BP=VAL(BP$): REM INPUT FILE TARGET BYTE FOR SCRATCH :rem 182
+4110 BS=(BP=2)+(BP=34)+(BP=66)+(BP=98)+(B P=138)+(BP=162)+(BP=194)+(BP=226): rem 168
+4120 IFBS&lt;&gt;-1THEN4188: REM REJECT INVALID{SPACE}INPUT :rem 41
+4130 OPEN 15,8,15,"I": REM OPEN COMMAND CHANNEL TO DISK : rem 37
+4140 OPEN8,8,8,"#": REM OPEN DIRECT ACCESS CHANNEL TO DISK :rem 18
+4150 PRINT#15, "U1: "8; 0; 18; S: REM LOAD SECTOR CONTAINING FILE TO BE SCRATCHED:rem 184
+4160 PRINT#15, "B-P:"8;BP: REM SET BUFFER POINTER TO TARGET ADDRESS :rem 164
+4170 PRINT#8, CHR$(B);: REM CHANGE TARGET FILE CODE IN CHANNEL 8 BUFFER: rem 247
+4180 PRINT#15, "U2: "8; 0; 18; S: REM RETURN CHANGED CONTENTS TO TARGET SECTOR:rem 121
+4190 CLOSE 8: REN CLOSE DIRECT ACCESS CHANNEL : rem 118
+4200 CLOSE 15: REM CLOSE COMMAND CHANNEL: rem 46
+4210 REM GOTO 188: REN RESTART DISPLAY T&amp;S PROGRAM WHEN FIRST REM REMOVED: rem 99
+</pre>
+
+<p><hr width="50%">
+
+<center>
+<p>Published in COMPUTE!'s Gazette, Issue 15, September 1984. Copyright &copy;
+1984 COMPUTE! Publications, Inc.
+</center>
+
+<hr>
+ <a href="../index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

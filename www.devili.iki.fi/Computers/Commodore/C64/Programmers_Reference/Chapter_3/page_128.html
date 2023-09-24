@@ -1,0 +1,95 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Smooth scrolling</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_127.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_129.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> Multi-color bit mapped mode is turned OFF by setting bit 5 of 53265
+ ($D011) and bit 4 at location 53270 ($D016) to a 0. The following POKE
+ does this:
+<pre>
+   POKE 53265,PEEK(53265)AND 223: POKE 53270,PEEK(53270)AND 239
+</pre>
+
+<p> As in standard (HI-RES) bit mapped mode, there is a one to one cor-
+ respondence between the 8K section of memory being used for the display,
+ and what is shown on the screen. However, the horizontal dots are two
+ bits wide. Each 2 bits in the display memory area form a dot, which can
+ have one of 4 colors.
+
+<p><table border="0" align="center">
+<tr><th>   BITS    </th><th>COLOR INFORMATION COMES FROM    </th></tr>
+<tr><th>    00     </th><td>Background color #0 (screen color)       </td></tr>
+<tr><th>    01     </th><td>Upper 4 bits of screen memory            </td></tr>
+<tr><th>    10     </th><td>Lower 4 bits of screen memory            </td></tr>
+<tr><th>    11     </th><td>Color nybble (nybble = 1/2 byte = 4 bits)</td></tr>
+</table>
+
+<h2><a name="Smooth">SMOOTH</a> SCROLLING</h2>
+
+<p>The VIC-II chip supports smooth scrolling in both the horizontal and
+ vertical directions. Smooth scrolling is a one pixel movement of the
+ entire screen in one direction. It can move either UP, or down, or left,
+ or right. It is used to move new information smoothly onto the screen,
+ while smoothly removing characters from the other side.
+
+<p>While the VIC-II chip does much of the task for you, the actual scroll-
+ ing must be done by a machine language program. The VIC-II chip features
+ the ability to place the video screen in any of 8 horizontal positions,
+ and 8 vertical positions. Positioning is controlled by the VIC-II
+ scrolling registers. The VIC-II chip also has a 38 column mode, and a 24
+ row mode. the smaller screen sizes are used to give you a place for your
+ new data to scroll on from.
+
+<p>The following are the steps for SMOOTH SCROLLING:
+<hr>
+<a href="page_127.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_129.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

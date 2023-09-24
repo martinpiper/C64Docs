@@ -1,0 +1,96 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Appendix K - Error Messages </title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="page_482.html">
+  <link rel="glossary" href="page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_393.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_482.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h2><small><a name="K">APPENDIX K</a></small></h2>
+
+<h2><a name="Error">ERROR MESSAGES</a></h2>
+
+<p>  This appendix contains a complete list of the error messages generated
+ by the Commodore-64, with a description of causes.
+
+<p><b><a name="bad_data">BAD DATA</a></b> String data was received from an open file, but the program was expecting numeric data.
+<p><b><a name="bad_subscript">       BAD SUBSCRIPT       </a></b>The program was trying to reference an element of an array whose number is outside of the range specified in the <a href="../Chapter_2/page_044.html#dim">DIM</a> statement.
+<p><b><a name="break">               BREAK               </a></b>Program execution was stopped because you hit the <kbd>&lt;STOP&gt;</kbd> key.
+<p><b><a name="can't_continue">      CAN'T CONTINUE      </a></b>The <a href="../Chapter_2/page_041.html#cont">CONT</a> command will not work, either because the program was never <a href="../Chapter_2/page_081.html#run">RUN</a>, there has been an error, or a line has been edited.
+<p><b><a name="device_not_present">  DEVICE NOT PRESENT  </a></b>The required I/O device was not available for an <a href="../Chapter_2/page_065.html#open">OPEN</a>, <a href="../Chapter_2/page_039.html#close">CLOSE</a>, <a href="../Chapter_2/page_040.html#cmd">CMD</a>, <a href="../Chapter_2/page_075.html#print">PRINT#</a>, <a href="../Chapter_2/page_055.html#input">INPUT#</a>, or <a href="../Chapter_2/page_050.html#get">GET#</a>.
+<p><b><a name="division_by_zero">    DIVISION BY ZERO    </a></b>Division by zero is a mathematical oddity and not allowed.
+<p><b><a name="extra_ignored">       EXTRA IGNORED       </a></b>Too many items of data were typed in response to an <a href="../Chapter_2/page_054.html#input">INPUT</a> statement. Only the first few items were accepted.
+<p><b><a name="file_not_found">      FILE NOT FOUND      </a></b>If you were looking for a file on tape, and END-OF-TAPE marker was found. If you were looking on disk, no file with that name exists.
+<p><b><a name="file_not_open">       FILE NOT OPEN       </a></b>The file specified in a <a href="../Chapter_2/page_039.html#close">CLOSE</a>, <a href="../Chapter_2/page_040.html#cmd">CMD</a>, <a href="../Chapter_2/page_075.html#print">PRINT#</a>, <a href="../Chapter_2/page_055.html#input">INPUT#</a>, or <a href="../Chapter_2/page_050.html#get">GET#</a>, must first be <a href="../Chapter_2/page_065.html#open">OPENed</a>.
+<p><b><a name="file_open">           FILE OPEN           </a></b>An attempt was made to open a file using the number of an already open file.
+<p><b><a name="formula_too_complex"> FORMULA TOO COMPLEX </a></b>The string expression being evaluated should be split into at least two parts for the system to work with, or a formula has too many parentheses.
+<p><b><a name="illegal_direct">      ILLEGAL DIRECT      </a></b>The <a href="../Chapter_2/page_054.html#input">INPUT</a> statement can only be used within a program, and not in direct mode.
+<p><b><a name="illegal_quantity">    ILLEGAL QUANTITY    </a></b>A number used as the argument of a function or statement is out of the allowable range.
+<p><b><a name="load">                LOAD                </a></b>There is a problem with the program on tape.
+<p><b><a name="next_without_for">    NEXT WITHOUT FOR    </a></b>This is caused by either incorrectly nesting loops or having a variable name in a <a href="../Chapter_2/page_062.html#next">NEXT</a> statement that doesn't correspond with one in a <a href="../Chapter_2/page_047.html#for">FOR</a> statement.
+<p><b><a name="not_input file">      NOT INPUT FILE      </a></b>An attempt was made to <a href="../Chapter_2/page_054.html#input">INPUT</a> or <a href="../Chapter_2/page_049.html#get">GET</a> data from a file which was specified to be for output only.
+<p><b><a name="not_output file">     NOT OUTPUT FILE     </a></b>An attempt was mode to <a href="../Chapter_2/page_070.html#print">PRINT</a> data to a file which was specified as input only.
+<p><b><a name="out_of_data">         OUT OF DATA         </a></b>A <a href="../Chapter_2/page_076.html#read">READ</a> statement was executed but there is no data left <a href="../Chapter_2/page_076.html#read">unREAD</a> in a <a href="../Chapter_2/page_042.html#def">DATA</a> statement.
+<p><b><a name="out_of_memory">       OUT OF MEMORY       </a></b>There is no more RAM available for program or variables. This may also occur when too many <a href="../Chapter_2/page_047.html#for">FOR</a> loops have been nested, or when there are too many <a href="../Chapter_2/page_051.html#gosub">GOSUBs</a> in effect.
+<p><b><a name="overflow">            OVERFLOW            </a></b>The result of a computation is larger than the largest number allowed, which is 1.70141884E+38.
+<p><b><a name="redim'd_array">       REDIM'D ARRAY       </a></b>An array may only be <a href="../Chapter_2/page_044.html#dim">DIMensioned</a> once. If an array variable is used before that array is DIM'D, an automatic DIM operation is performed on that array setting the number of elements to ten, and any subsequent <a href="../Chapter_2/page_044.html#dim">DIMs</a> will cause this error.
+<p><b><a name="redo_from_start">     REDO FROM START     </a></b>Character data was typed in during an <a href="../Chapter_2/page_054.html#input">INPUT</a> statement when numeric data was expected. Just re-type the entry so that it is correct, and the program will continue by itself.
+<p><b><a name="return_without_gosub">RETURN WITHOUT GOSUB</a></b>A <a href="../Chapter_2/page_079.html#return">RETURN</a> statement was encountered, and no <a href="../Chapter_2/page_051.html#gosub">GOSUB</a> command has been issued.
+<p><b><a name="string_too_long">     STRING TOO LONG     </a></b>A string can contain up to 255 characters.
+<p><b><a name="syntax_error">        ?SYNTAX ERROR       </a></b>A statement is unrecognizable by the Commodore 64. A missing or extra parenthesis, misspelled keywords, etc.
+<p><b><a name="type_mismatch">       TYPE MISMATCH       </a></b>This error occurs when a number is used in place of a string, or vice-versa.
+<p><b><a name="undef'd_function">    UNDEF'D FUNCTION    </a></b>A user defined function was referenced, but it has never been defined using the <a href="../Chapter_2/page_043.html#def">DEF FN</a> statement.
+<p><b><a name="undef'd_statement">   UNDEF'D STATEMENT   </a></b>An attempt was made to <a href="../Chapter_2/page_052.html#goto">GOTO</a> or <a href="../Chapter_2/page_051.html#gosub">GOSUB</a> or <a href="../Chapter_2/page_081.html#run">RUN</a> a line number that doesn't exist.
+<p><b><a name="verify">              VERIFY              </a></b>The program on tape or disk does not match the program currently in memory.
+
+<hr>
+<a href="page_393.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_482.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 27, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

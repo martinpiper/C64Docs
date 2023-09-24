@@ -1,0 +1,110 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+
+
+<head>
+    <title>Commodore Plus 4 Service Manual: PCB Schematic Diagrams (cont.)</title>
+     <link rel=prev href="page_07.html"> 
+     <link rel=next href="page_09.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, fix, instructions, documentation, Plus/4, Plus 4, electronics, maintenance, huolto-opas, huolto-ohje, +4">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_07.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_09.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+<center>
+<table>
+<tr align=center valign=top>
+    <td><table>
+        <tr align=center><td><strong>M<sub>1</sub> SCHEMATIC ON <a href="page_11.html">PAGE 11</a></strong></td></tr>
+        <tr align=center><th nowrap>PIN<br>CONFIGURATION</th></tr>
+        <tr align=center><td><a href="large/page_08a.gif"><img src="small/page_08a.gif" alt="[6551 pinout]"></a></td></tr>
+        <tr align=center><td nowrap><strong>U3-801895-02<br>ACIA</strong></td></tr>
+        <tr align=center><td><table border=1 cellspacing=0 cellpadding=5><tr><th>SYNERTEK</th><th>SYP6551A</th><th nowrap>2 MHz</th></tr></table></td></tr>
+        </table></td>
+    <td colspan=2><table>
+        <tr align=center><th>TRANSMIT/RECEIVE CHARACTERISTICS</th></tr>
+        <tr align=center><td><table border=1 cellspacing=0>
+                                <tr align=center valign=middle><td rowspan=2>CHARACTERISTICS</td><td rowspan=2>SYM</td><td colspan=2>-02<br>2 MHZ</td><td rowspan=2>UNIT</td></tr>
+                                <tr align=center valign=middle>                                                        <td>MIN</td><td>MAX</td></tr>
+                                <tr align=center valign=middle><td align=left>TRANSMIT/RECEIVE CLOCK RATE</td><td nowrap>t<sub>CCY</sub></td><td>*<br>400</td><td>-</td><td>ns</td></tr>
+                                <tr align=center valign=middle><td align=left>TRANSMIT/RECEIVE CLOCK HIGH TIME</td><td nowrap>t<sub>CH</sub></td><td>175</td><td>-</td><td>ns</td></tr>
+                                <tr align=center valign=middle><td align=left>TRANSMIT/RECEIVE CLOCK LOW TIME</td><td nowrap>t<sub>CL</sub></td><td>175</td><td>-</td><td>ns</td></tr>
+                                <tr align=center valign=middle><td align=left>XTL1 TO TXD PROPAGATION DELAY</td><td nowrap>t<sub>DD</sub></td><td>-</td><td>500</td><td>ns</td></tr>
+                                <tr align=center valign=middle><td align=left>RTS PROPAGATION DELAY</td><td nowrap>t<sub>DLY</sub></td><td>-</td><td>500</td><td>ns</td></tr>
+                                <tr align=center valign=middle><td align=left>IRQ PROPAGATION DELAY (CLEAR)</td><td nowrap>t<sub>IRQ</sub></td><td>-</td><td>500</td><td>ns</td></tr>
+                                </table></td></tr>
+        <tr align=right><td>(tr, tf = 10 to 30 ns)</td></tr>
+        <tr><td><small><sup>*</sup></small>The Baud Rate with External Clocking is:</td></tr>
+        <tr><td><table cellpadding=0 cellspacing=0><tr><td>BAUD RATE</td><td align=center>1</td></tr>
+                                                   <tr align=center><td>&nbsp;</td><td>--------------</td></tr>
+                                                   <tr align=center><td>&nbsp;</td><td>16 x T<sub>CCY</sub></td></tr>
+                                                   </table></td></tr>
+        </table></td>
+    </tr>
+<tr align=center valign=top>
+    <td rowspan=3><table>
+        <tr align=center><th nowrap>PIN<br>CONFIGURATION</th></tr>
+        <tr align=center><td><a href="large/page_08b.gif"><img src="small/page_08b.gif" alt="[PLA pinout]"></a></td></tr>
+        <tr align=center><td nowrap><strong>U19-251641-02<br>PLA</strong></td></tr>
+        </table>
+    </td>
+    <td><table>
+        <tr align=center><td nowrap><table border=1 cellspacing=0><tr align=center><th>CS</th><th>R/W</th><th>D0-D7</th></tr>
+                                                                  <tr align=center><td>L </td><td>L  </td><td>DATA BUS TO PORT</td></tr>
+                                                                  <tr align=center><td>L </td><td>H  </td><td>PORT TO DATA BUS</td></tr>
+                                                                  <tr align=center><td>H </td><td>X  </td><td>ISOLATION</td></tr>
+                                                                  </table>
+                                    L = LOW LEVEL<br>
+                                    H = HIGH LEVEL<br>
+                                    X = IRRELEVANT</td></tr>
+        </table></td>
+        <td><table><tr align=center><th nowrap>PIN<br>CONFIGURATION</th></tr>
+               <tr align=center><td><a href="large/page_08c.gif"><img src="small/page_08c.gif" alt="[6529 pinout]"></a></td></tr>
+               </table>
+        </td></tr>
+<tr align=center valign=top><td colspan=2><table border=1 cellspacing=0 cellpadding=10><tr><th>MOS</th><th>6529B</th><th nowrap>3 MHz</th></tr></table></td></tr>
+<tr align=center valign=top><td colspan=2 nowrap><strong>U5/U27-251640-03<br>SINGLE PORT<br>INTERFACE</strong></td></tr>
+
+</table>
+
+<table>
+<tr align=center><td><a href="large/page_08d.gif"><img src="small/page_08d.gif" alt="[Plus 4 schematic #310164 (2 of 4)]"></a></td></tr>
+<tr align=right> <td>Plus 4 Schematic #310164 (2 of 4)</td></tr>
+</table>
+</center>
+
+<p>
+<hr>
+  <a href="page_07.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_09.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 06, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

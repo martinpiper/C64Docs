@@ -1,0 +1,126 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Software - BASIC 10.0 (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page147.html"> 
+     <link rel=next href="page149.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page147.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page149.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p>    This function returns the angle whose tangent is the value of the
+    numeric expression, measured in radians. The result is in the range
+    of -PI/2 to PI/2 radians.
+<pre>
+                X = ATN (4 5)           Result is X=1.54050257
+</pre>
+    
+<p>    To get the arc tangent of an angle measured in degrees, multiply the-
+    numeric expression by pi/180.
+    
+<h4>AUTO - Enable or disable automatic line numbering</h4>
+    
+<pre>
+                              AUTO [increment]
+</pre>
+    
+<p>    Turns on the automatic line numbering feature which eases the job of
+    entering programs by typing the line numbers for the user. As each
+    program line is entered by pressing RETURN the next line number is
+    printed on the screen, with the cursor in position to begin typing that
+    line. The increment parameter refers to the increment between line
+    numbers. AUTO with no increment given turns off auto line numbering.
+    AUTO mode is also turned off automatically when a program is RUN. This
+    statement is executable only in direct mode.
+<pre>
+    AUTO 10     automatically numbers line in increments of ten.
+    AUTO 50     automatically numbers line in increments of fifty.
+    AUTO        turns off automatic line numbering.
+</pre>
+
+<h4>    BACKGROUND - Set the background color of the display</h4>
+    
+<pre>
+                              BACKGROUND color
+</pre>
+
+<p>    Sets the screen background color to the given color. The color
+    given must be in the range (1-15). See the Color Table.
+
+<h4>    BACKUP - Backup an entire disk from one drive to another</h4>
+    
+<pre>
+         BACKUP Dsource-drive TO Ddestination-drive [&lt;ON|,&gt;Udevice]
+</pre>
+    
+<p>    This command copies all the files on a diskette to another on a dual
+    drive system only. It cannot backup diskettes using CBM serial bus
+    type drives, for example. If the destination diskette is unformatted,
+    BACKUP will automatically format it. BACKUP copies every sector, so
+    any data already on the destination diskette will be overwritten. To
+    copy specific files from one drive to another, use the COPY command.
+    
+<p>    NOTE: This command can only be used with a dual disk drive, such as
+    the built-in C64DX drive and optional F016-type expansion drive. To
+    backup diskettes using different drives, such as the built-in drive
+    and a 1581-type serial bus drive, use a utility program.'
+<pre>
+    BACKUP DO to D1             Copies all files from the disk in
+                                drive 0 to the disk in drive 1.
+    
+    BACKUP DO TO D1, ON U9      Copies all files from drive 0 to
+                                drive 1 in disk drive unit 9.
+</pre>
+
+<h4>    BANK - Set the memory bank number for PEEK,POKE,SYS,WAIT,LOAD,SAVE</h4>
+
+<pre>
+                              BANK memory_bank
+
+                    [*** THIS COMMAND MIGHT CHANGE ***J
+</pre>
+<p>
+<hr>
+  <a href="page147.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page149.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

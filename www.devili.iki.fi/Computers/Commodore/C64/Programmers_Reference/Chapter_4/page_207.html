@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Synchronization and Ring Modulation</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_206.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_208.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Synchronization">SYNCHRONIZATION AND RING MODULATION</a></h2>
+
+<p>   The 6581 SID chip lets you create more complex harmonic structures
+ through synchronization or ring modulation of two voices.
+<p>   The process of synchronization is basically a logical ANDing of two
+ wave forms. When either is zero, the output is zero. The following
+ example uses this process to create an imitation of a mosquito:
+
+<p><b class="blue">EXAMPLE PROGRAM 9:</b>
+
+<pre>
+ 10 S=54272
+ 20 FORL=0TO24:POKES+L,0:NEXT
+ 30 POKES+1,100
+ 40 POKES+5,219
+ 50 POKES+15,28
+ 60 POKES+24,15
+ 70 POKES+4,19
+ 80 FORT=1TO5000:NEXT
+ 90 POKES+4,18
+ 100 FORT=1TO1000:NEXT:POKES+24,0
+</pre>
+
+<p><b class="blue">LINE-BY-LINE EXPLANATION OF EXAMPLE PROGRAM 9:</b>
+<table border="1" align="center" cellspacing="0">
+<tr><th>Line(s) </th><th>Description</th></tr>
+<tr><td>  10 </td><td> Set S to start of sound chip.</td></tr>
+<tr><td>  20 </td><td> Clear sound chip registers.  </td></tr>
+<tr><td>  30 </td><td> Set high frequency voice 1.  </td></tr>
+<tr><td>  40 </td><td> Set Attack/Decay for voice 1 (A=13, D=11).</td></tr>
+<tr><td>  50 </td><td> Set high frequency voice 3.               </td></tr>
+<tr><td>  60 </td><td> Set volume 15.                            </td></tr>
+<tr><td>  70 </td><td> Set start triangle, sync waveform control for voice 1.</td></tr>
+<tr><td>  80 </td><td> Timing loop.                                          </td></tr>
+<tr><td>  90 </td><td> Set stop triangle, sync waveform control for voice 1. </td></tr>
+<tr><td> 100 </td><td> Wait, then turn off volume.                           </td></tr>
+</table>
+<p>   The synchronization feature is enabled (turned on) in line 70, where
+ bits 0, 1, and 4 of register 4 are set. Bit 1 enables the syncing
+ function between voice 1 and voice 3. Bits 0 and 4 have their usual
+ functions of gating voice 1 and setting the triangular waveform.
+
+<hr>
+<a href="page_206.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_208.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

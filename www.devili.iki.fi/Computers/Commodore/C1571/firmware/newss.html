@@ -1,0 +1,151 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Generate a new SS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Generate a New SS</h3>
+</center>
+
+<pre>
+        .page
+	.subttl 'newss.src'
+;*********************************
+;* newss: generate new ss &amp; fix  *
+;*        old ss's to reflect it.*
+;*   vars:                       *
+;*   regs:                       *
+;*                               *
+;*********************************
+
+newss            
+        jsr  nxtts      ; get t&amp;s based on hdr
+        jsr  dblbuf     ; use inactive buffer
+        jsr  scrub       
+        jsr  getact      
+        pha      
+        jsr  clrbuf      
+        ldx  lindx       
+        lda  ss,x       ; set regs for transfer
+        tay      
+        pla      
+        tax      
+        lda  #ssioff    ; # of chars
+        jsr  b0tob0     ; transfer at buf(0)
+
+        lda  #0          
+        jsr  ssdir       
+        ldy  #2          
+        lda  (dirbuf),y ; get ss #
+        pha      
+        lda  #0          
+        jsr  setpnt      
+        pla      
+        clc      
+        adc  #1          
+        sta  (dirbuf),y ; put ss # in new ss
+        asl  a   
+        adc  #4          
+        sta  r3         ; save position
+        tay      
+        sec      
+        sbc  #2          
+        sta  r4          
+        lda  track       
+        sta  r1         ; save for ss update
+        sta  (dirbuf),y ; put track in ss
+        iny      
+        lda  sector      
+        sta  r2         ; save for ss update
+        sta  (dirbuf),y ; put sector in ss
+        ldy  #0          
+        tya      
+        sta  (dirbuf),y ; null link
+        iny      
+        lda  #ssioff+1  ; ptr to last byte
+        sta  (dirbuf),y          
+
+        lda  #ssioff     
+        jsr  setpnt      
+        jsr  wrtab       
+        jsr  watjob      
+
+ns20             
+        ldx  lindx       
+        lda  ss,x       ; get ss buffer #
+        pha      
+        jsr  gaflgs      
+        ldx  lindx       
+        sta  ss,x       ; swap act-buf &amp; ss
+        pla      
+        ldx  lbused      
+        sta  buf0,x      
+
+        lda  #0          
+        jsr  setpnt     ; set link to new ss
+        ldy  #0          
+        lda  track       
+        sta  (dirbuf),y          
+        iny      
+        lda  sector      
+        sta  (dirbuf),y          
+        jmp  ns50        
+ns40             
+        jsr  getact      
+        ldx  lindx       
+        jsr  ibrd       ; read next ss
+        lda  #0          
+        jsr  setpnt     ; ptr=0
+ns50             
+        dec  r4          
+        dec  r4          
+        ldy  r3         ; get new ss link ptr
+        lda  r1          
+        sta  (dirbuf),y ; put track in
+        iny      
+        lda  r2          
+        sta  (dirbuf),y ; put sector in
+
+        jsr  wrtout     ; write it back...
+        jsr  watjob     ; ...&amp; wait
+        ldy  r4          
+        cpy  #3          
+        bcs  ns40       ; more ss to update!
+
+        jmp  dblbuf     ; reset active buffer
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+        

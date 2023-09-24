@@ -1,0 +1,116 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page53.html"> 
+     <link rel=next href="page55.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page53.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page55.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p align="center">The BAUD RATE can be generated using the following formulas:
+
+<pre>
+		    URCLK			      URCLK
+    BaudRate = ----------------   or,	 COUNT = ---------------
+		16 ( COUNT+1 )			  16 x BaudRate
+
+    Where: COUNT = value loaded into BAUD RATE register
+	   URCLK = C7Mhz input, 7.15909 MHz NTSC
+				7.09375 MHz PAL
+</pre>
+
+<p> The following tables show some of the most common data rates.
+    Data rate errors of less than +/-1.5% are acceptable for most purposes.
+
+
+<table border="1" cellspacing="0" cellpadding="5" align="center">
+<caption align="top">A. NTSC &nbsp; URCLK = 7.15909 MHZ</caption>
+<tr><th>BR<br>#</th><th>BAUD RATE<br>REQUIRED</th><th>COUNT<br>(HEX)</th><th>BAUD RATE<br>OBTAINED</th><th>PERCENT<br>ERROR</th><td rowspan="16">&nbsp;</td></tr>
+<tr><td align="right">     1</td><td align="right">   50</td><td>   22F4</td><td align="right"> 49.999</td><td align="right">   .0015</td></tr>
+<tr><td align="right">     2</td><td align="right">   75</td><td>   174D</td><td align="right"> 74.999</td><td align="right">   .0015</td></tr>
+<tr><td align="right">     3</td><td align="right">  110</td><td>   0FE3</td><td align="right">109.991</td><td align="right">   .0080</td></tr>
+<tr><td align="right">     4</td><td align="right">134.5</td><td>   0CFE</td><td align="right">134.488</td><td align="right">   .0090</td></tr>
+<tr><td align="right">     5</td><td align="right">  150</td><td>   0BA6</td><td align="right">149.998</td><td align="right">   .0015</td></tr>
+<tr><td align="right">     6</td><td align="right">  300</td><td>   05D2</td><td align="right">299.895</td><td align="right">   .035 </td></tr>
+<tr><td align="right">     7</td><td align="right">  600</td><td>   02E9</td><td align="right"> 599.79</td><td align="right">   .035 </td></tr>
+<tr><td align="right">     8</td><td align="right"> 1200</td><td>   0174</td><td align="right">1199.58</td><td align="right">   .035 </td></tr>
+<tr><td align="right">     9</td><td align="right"> 1800</td><td>   00F8</td><td align="right">1796.96</td><td align="right">   .17  </td></tr>
+<tr><td align="right">    10</td><td align="right"> 2400</td><td>   00B9</td><td align="right">2392.74</td><td align="right">   .30  </td></tr>
+<tr><td align="right">    11</td><td align="right"> 3600</td><td>   007B</td><td align="right">3608.41</td><td align="right">   .23  </td></tr>
+<tr><td align="right">    12</td><td align="right"> 4800</td><td>   005C</td><td align="right">4811.22</td><td align="right">   .23  </td></tr>
+<tr><td align="right">    13</td><td align="right"> 7200</td><td>   003D</td><td align="right">7216.82</td><td align="right">   .23  </td></tr>
+<tr><td align="right">    14</td><td align="right"> 9600</td><td>   002E</td><td align="right">9520.07</td><td align="right">   .83  </td></tr>
+<tr><td align="right">    15</td><td align="right">19200</td><td>   0016</td><td align="right">19454.0</td><td align="right">  1.323 </td></tr>
+<tr><td align="right">    16</td><td align="right">31250</td><td>   000D</td><td align="right">31960.2</td><td align="right">  1.023 </td><td>(MIDI)</td></tr>
+<tr><td align="right">     0</td><td align="right">56000</td><td>   0007</td><td align="right">55930.4</td><td align="right">   .124 </td><td>&nbsp;</td></tr>
+</table>
+
+<p><table border="1" cellspacing="0" cellpadding="5" align="center">
+<caption align="top">B. PAL &nbsp; URCLK = 7.09375 MHZ</caption>
+<tr><th>BR<br>#</th><th>BAUD RATE<br>REQUIRED</th><th>COUNT<br>(HEX)</th><th>BAUD RATE<br>OBTAINED</th><th>PERCENT<br>ERROR</th><td rowspan="16">&nbsp;</td></tr>
+<tr><td align="right">     1</td><td align="right">   50</td><td>    22A2</td><td align="right">50.001 </td><td align="right">   .0020</td></tr>
+<tr><td align="right">     2</td><td align="right">   75</td><td>    1716</td><td align="right">75.005 </td><td align="right">   .0080</td></tr>
+<tr><td align="right">     3</td><td align="right">  110</td><td>    0FBE</td><td align="right">109.987</td><td align="right">   .010 </td></tr>
+<tr><td align="right">     4</td><td align="right">134.5</td><td>    OCDF</td><td align="right">134.514</td><td align="right">   .010 </td></tr>
+<tr><td align="right">     5</td><td align="right">  150</td><td>    OB8B</td><td align="right">149.986</td><td align="right">   .009 </td></tr>
+<tr><td align="right">     6</td><td align="right">  300</td><td>    05C5</td><td align="right">299.973</td><td align="right">   .009 </td></tr>
+<tr><td align="right">     7</td><td align="right">  600</td><td>    02E2</td><td align="right"> 599.75</td><td align="right">   .009 </td></tr>
+<tr><td align="right">     8</td><td align="right"> 1200</td><td>    0170</td><td align="right">1198.27</td><td align="right">   .144 </td></tr>
+<tr><td align="right">     9</td><td align="right"> 1800</td><td>    00F5</td><td align="right">1802.27</td><td align="right">   .126 </td></tr>
+<tr><td align="right">    10</td><td align="right"> 2400</td><td>    00B8</td><td align="right">2396.54</td><td align="right">   .144 </td></tr>
+<tr><td align="right">    11</td><td align="right"> 3600</td><td>    007A</td><td align="right">3604.55</td><td align="right">   .126 </td></tr>
+<tr><td align="right">    12</td><td align="right"> 4800</td><td>    005B</td><td align="right">4819.12</td><td align="right">   .398 </td></tr>
+<tr><td align="right">    13</td><td align="right"> 7200</td><td>    003D</td><td align="right">7150.96</td><td align="right">    .68 </td></tr>
+<tr><td align="right">    14</td><td align="right"> 9600</td><td>    002D</td><td align="right">9638.25</td><td align="right">    .40 </td></tr>
+<tr><td align="right">    15</td><td align="right">19200</td><td>    0016</td><td align="right">19276.5</td><td align="right">    .40 </td></tr>
+<tr><td align="right">    16</td><td align="right">31250</td><td>    000D</td><td align="right">31668.5</td><td align="right">   1.01 </td><td>(MIDI)</td></tr>
+<tr><td align="right">     0</td><td align="right">56000</td><td>    0007</td><td align="right">55419.9</td><td align="right">   1.04 </td><td>&nbsp;</td></tr>
+</table>
+
+<p>
+<hr>
+  <a href="page53.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page55.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 06, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Numbers and Variables (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_007.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_009.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>type declaration characters (%) and ($) can be used as the last
+ character of the name. The percent sign declares the variable to be an
+ integer and the dollar sign ($) declares a string variable. If no type
+ declaration character is used the Interpreter will assume that the
+ variable is a floating-point. Some examples of variable names, value
+ assignments and data types are:</p>
+
+<center><table>
+<tr><td>            A$="GROSS SALES"        </td><td>(string variable)          </td></tr>
+<tr><td>            MTH$="JAN"+A$           </td><td>(string variable)          </td></tr>
+<tr><td>            K%=5                    </td><td>(integer variable)         </td></tr>
+<tr><td>            CNT%=CNT%+1             </td><td>(integer variable)         </td></tr>
+<tr><td>            FP=12.5                 </td><td>(floating-point variable)  </td></tr>
+<tr><td>            SUM=FP*CNT%             </td><td>(floating-point variable)  </td></tr>
+</table></center>
+
+<h3><a name="Integer">INTEGER, FLOATING-POINT AND STRING ARRAYS</a></h3>
+
+   <p>An array is a table (or list) of associated data items referred to by
+ a single variable name. In other words, an array is a sequence of related
+ variables. A table of numbers can be seen as an array, for example.
+ The individual numbers within the table become "elements" of the array.
+   <p>Arrays are a useful shorthand way of describing a large number of
+ related variables. Take a table of numbers for instance. Let's say that
+ the table has 10 rows of numbers with 20 numbers in each row. That makes
+ total of 200 numbers in the table. Without a single array name to call
+ on you would have to assign a unique name to each value in the table. But
+ because you can use arrays you only need one name for the array and all
+ the elements in the array are identified by their individual locations
+ within the array.
+   <p>Array names can be integers, floating-points or string data types and
+ all elements in the array have the same data type as the array name.
+ Arrays can have a single dimension (as in a simple list) or they can have
+ multiple dimensions (imagine a grid marked in rows and columns or a
+ Rubik's Cube&reg;). Each element of an array is uniquely identified and referred to by a subscript (or index variable) following the array name,
+ enclosed within parentheses ( ).
+   <p>The maximum number of dimensions an array can have in theory is 255
+ and the number of elements in each dimension is limited to 32767. But
+ for practical purposes array sizes are limited by the memory space
+ available to hold their data and/or the 80 character logical screen line.
+ If an array has only one dimension and its subscript value will never
+
+<hr>
+<a href="page_007.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_009.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 13, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

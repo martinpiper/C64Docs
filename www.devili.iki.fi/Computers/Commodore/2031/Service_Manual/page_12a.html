@@ -1,0 +1,84 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 2031 Service Manual: 2031 HP Circuit Theory - IEEE Interface</title>
+     <link rel=prev href="page_11a.html"> 
+     <link rel=next href="page_13a.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_11a.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_13a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2 align=right>2031 HP CIRCUIT THEORY</h2>
+
+<p align=center><a href="large/page_28a.gif"><img src="small/page_28a.gif" alt="[IEEE Interface Pinout]"></a></p>
+
+<h3>IEEE Interface</h3>
+
+<p> All of the signals on the interface are controlled by the I/O device
+    U3H. Eight parallel bi-directional data lines, PA0-PA7, are used as the
+    parallel data bus for the interface. U1S is an octal bus transceiver
+    used to provide communication on the general purpose interface bus,
+    GPIB, between operating units of the system. The data transfer and
+    bus-management signals are communicated by U1A, thus completing the
+    16-line interface of the IEEE-488 bus.
+
+<center><table>
+<tr><td>    DAV     </td><td>Data Valid          </td><td>DAV low signifies data is valid on the data bus.  </td></tr>
+<tr><td>    EOI     </td><td>End or Identity     </td><td>CBM always sets EOI low while the last data byte is being transferred.</td></tr>
+<tr><td>    DAC     </td><td>Data Not Accepted   </td><td>DAC is low when data is being read and returned high after the last data byte is read.</td></tr>
+<tr><td>    RFD     </td><td>Not Ready For Data  </td><td>RFD is low until all receivers are ready to accept data, then the line will go high.  </td></tr>
+<tr><td>    SRQ     </td><td>Service Request     </td><td>Not implemented in BASIC but available to the CBM user.                               </td></tr>
+<tr><td>    ATN     </td><td>Attention           </td><td>The host sets the signal low while sending commands on the data bus.                  </td></tr>
+<tr><td>    REN     </td><td>Remote Enable       </td><td>REN is held low by the bus controller and the host has this pin permanently grounded. </td></tr>
+<tr><td>    IFC     </td><td>Interface Clear     </td><td>The host sends its internal reset signal as IFC low to initialize all devices.        </td></tr>
+</table></center>
+
+<h3>Reset Logic</h3>
+
+<p> The 2031 disk drive is automatically reset on power up by U3S, a 555
+    timer, when triggered by the 5V applied at pin 8. A reset can also be
+    set by the IFC line on the IEEE interface. The output pulse width is
+    determined by the values of R43 and C36. The pulse width = 1.1 x R43 x
+    C36 = 1 second. The output on pin 3 of U3S, is an active "high". It is
+    inverted by U3A to active "low". A low output at WA pin 2, resets the
+    unit and initializes all of the microprocessor logic.
+
+<p>
+<hr>
+  <a href="page_11a.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_13a.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

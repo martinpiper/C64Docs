@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Concerns</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page13.html"> 
+     <link rel=next href="page15.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page13.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page15.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<h2><a name="1.4">1.4</a> <u>System Concerns</u></h2>
+<h3><a name="1.4.1">1.4.1</a> <u>C64 Compatibility Issues</u></h3>
+<h4><a name="1.4.1.1">1.4.1.1</a> <u>Software</u></h4>
+    
+<p> C64 software compatibility is an important goal. To this end, when the system is in
+    "C64 mode" the processor will operate at average 1.02MHz speed and dummy "dead"
+    cycles are emulated by the processor. The C64 ROM is the same except for patches to
+    serial bus routines in the kernel (to interface built-in drive), the removal of
+    cassette code (there is no cassette port), and patches to the C64 initialization
+    routines to boot C65 mode if there is no reason (eg., cartridges) to stay in C64
+    mode.
+    
+<p> Compatibility with C64 software that uses previously unimplemented 6502 opcodes
+    (often associated with many copy-protection schemes) or that implements extremely
+    timing dependent "fast loaders" is iherently impossible. Because the VIC-III timing
+    is slightly different, programs that are extremely timing dependant may not work
+    properly. Also, because the VIC-III does not change display modes until the end of
+    a character line, programs that change displays based strictly upon the raster
+    position may not display things properly. The aspect ratio of the VIC-III display
+    is slightly different than the VIC-II. The use of a 1541-II disk drive (optional)
+    will improve compatibility. C64 BASIC 2.2 compatibility will be 100% (within
+    hardware constraints). C128 BASIC 10 compatibility will be moderate (graphic
+    commands are different, some command parameters different, and there are many new
+    commands).
+    
+<h4><a name="1.4.1.2">1.4.1.2</a>  <u>Hardware</u></h4>
+    
+<p> C64 hardware compatibility is limited. Serial bus and control port devices (mouse,
+    joysticks, etc.) are fully supported. Some user port devices are supported such
+    as the newer (4-DIP switch) 1670 modems, bu there's no 9VAC so devices which
+    require 9VAC won't function correctly. The expansion port has additional pins (50
+    total), and the pin spacing is closer than the C64 (it's like the PLUS/4). An
+    adaptor ("WIDGET") will be necessary to utilize C64 cartridges and expansion port
+    devices. Furthermore, timing differences between some C64 and C65 expansion port
+    signals will affect many C64 expansion devices (such as the 1764).
+    
+<h3><a name="1.4.2">1.4.2</a>          <u>DOS Compatibility</u></h3>
+    
+<p>    The built-in C65 DOS is a subset of Commodore 1581 DOS. There is no track cache,
+    index sensor, etc. To load and run existing 1541-based applications, the consumer
+    must add a 1541 drive to the system. Many commercial applications cannot be easily
+    ported from 1541/5.25" media to 1581/3.5" media, due to copy protection or "fast
+    loaders". Most C64 applications that directly address DOS memory, specific disk
+    track s or sectors, or rely on DOS job queues and timing characteristics will not
+    work with the built-in drive and new DOS.
+
+<p>
+<hr>
+  <a href="page13.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page15.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

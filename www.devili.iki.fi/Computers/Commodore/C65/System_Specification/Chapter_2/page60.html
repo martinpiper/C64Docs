@@ -1,0 +1,116 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page59.html"> 
+     <link rel=next href="page61.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page59.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page61.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h4><a name="2.3.7.4">2.3.7.4</a> <u>65CE02 Addressing Modes</u></h4>
+    
+    <p> It should be noted that all 8-bit addresses are referred to as "byte"
+    addresses, and all 16-bit addresses are referred to as "word" addresses. In
+    all word addresses, the low-order byte of the address is fetched from the lower
+    of two consecutive memory addresses, and the high-order byte.of'the address
+    is fet ched the higher of the two. So, in all operations, the low-order address
+    is fetched first.
+    
+<p>Implied <code>&nbsp; OPR</code>
+    
+    <p> The register or flag affected is identified entirely by the opcode
+    in this (usually) tingle cycle instruction. In this document, any implied
+    operation, where the implied register is not explicitly declared, implies
+    the accumulator. Example: INC with no arguments implies "increment the
+    accumulator".
+    
+<p>Immediate (byte, word) <code>&nbsp; OPR #xx</code>
+    
+    <p> The data used in the operation is taken from the byte or bytes
+    immediately following the opcode in the 2-byte or 3-byte instruction.
+    
+<p>Base Page <code>&nbsp; OPR bp &nbsp;</code> (formerly Zero Page)
+    
+    <p> The second byte of the two-byt e instruction contains the low-order
+    address byte, and the B register contains the high-order address byte of
+    the memory location to be used by the operation.
+    
+<p>Base Page, indexed by X <code>&nbsp; OPR bp,X &nbsp;</code> (formerly Zero Page,X)
+    
+    <p> The second byte of the two-byte instruction is added to the X index
+    register to form the low-order address byte, and the B register contains the
+    high-order address byte of the memory location to be used by the operation.
+    
+<p>Base Page, indexed by Y <code>&nbsp; OPR bp,Y &nbsp;</code> (formerly Zero Page,Y)
+    
+    <p>  The second byte of the two-byte instruction is added to the Y index
+    register to form the low-order address byte, and the B registpr contains the
+    high-order address byte of the memory location to be used by the operation.
+    
+<p>Absolute <code>&nbsp; OPR abs</code>
+    
+    <p> The second and third bytes of the three-byte instruction contain the
+    low-order and high-order address bytes, respectively, of the memory location
+    to be used by the operation.
+    
+<p>Absolute, indexed by X   <code>&nbsp; OPR abs,X</code>
+    
+    <p> The second and third bytes of the three-byte instruction are added to
+    the unsigned contents of the X index register to form the low-order and
+    high-order address bytes, respectively, of the memory location to be used
+    by the operation.
+    
+<p>Absolute, indexed by Y   <code>&nbsp; OPR abs,Y</code>
+    
+    <p> The second and third bytes of the three-byte instruction are added to
+    the unsigned contents of the Y index register to form the low-order and
+    high-order address bytes, respectively, of the memory location to be used
+    by the operation.
+
+<p>
+<hr>
+  <a href="page59.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page61.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 29, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

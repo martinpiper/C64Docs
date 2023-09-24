@@ -1,0 +1,107 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Null buffer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Null Buffer</h3>
+</center>
+
+<pre>
+        .page
+        .subttl 'nulbuf.src'          
+;*********************************
+;* nulbuf: set null records in   *
+;*         act-buf for extention *
+;*    vars:  nr,rs,lx,act-buf    *
+;*      in: nr= last record      *
+;*          position in previous *
+;*          buffer.              *
+;*     out: nr= last record      *
+;*          position in buffer   *
+;*          for next nulbuf or   *
+;*          to set lstchr.       *
+;*********************************
+
+nulbuf           
+        jsr  set00      ; set indirect ptr
+        ldy  #2          
+        lda  #0          
+nb10             
+        sta  (dirbuf),y ; clear buffer
+        iny      
+        bne  nb10        
+
+        jsr  addnr      ; advance nr
+nb20             
+        sta  nr,x        
+        tay      
+        lda  #$ff        
+        sta  (dirbuf),y ; init record cr
+        jsr  addnr       
+        bcc  nb20       ; not done
+
+        bne  nb30        
+        lda  #0          
+        sta  nr,x        
+nb30             
+        rts      
+
+; add rs & nr, leave in accum
+; c=1: cross buffer boundary
+
+addnr            
+        ldx  lindx       
+        lda  nr,x        
+        sec      
+        beq  an05        
+
+        clc      
+        adc  rs,x        
+        bcc  an10        
+        bne  an05        
+        lda  #2          
+        bit  er00        
+        rts      
+
+an05             
+        adc  #1         ; adjust for link
+        sec      
+an10             
+        rts
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+              

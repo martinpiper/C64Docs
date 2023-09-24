@@ -1,0 +1,105 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - User Callable KERNAL Routines</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_305.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_307.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><b class="blue">EXAMPLE:</b>
+<pre>
+   ;CHANGE THE INPUT ROUTINES TO NEW SYSTEM
+   LDX #&lt;USER
+   LDY #&gt;USER
+   SEC
+   JSR VECTOR      ;READ OLD VECTORS
+   LDA #&lt;MYINP     ;CHANGE INPUT
+   STA USER+10
+   LDA #&gt;MYINP
+   STA USER+11
+   LDX #&lt;USER
+   LDY #&gt;USER
+   CLC
+   JSR VECTOR      ;ALTER SYSTEM
+   ...
+   USER *=*+26
+</pre>
+
+<h2><a name="Error">ERROR CODES</a></h2>
+
+<p> The following is a list of error messages which can occur when using
+ the KERNAL routines. If an error occurs during a KERNAL routine , the
+ carry bit of the accumulator is set, and the number of the error message
+ is returned in the accumulator.
+
+<p><table border="1" cellspacing="0">
+<tr><td><b class="blue">NOTE:</b>
+    Some KERNAL I/O routines do not use these codes for error
+    messages. Instead, errors are identified using the KERNAL READST
+    routine.
+</td></tr></table>
+
+<p><table border="1" cellspacing="0">
+<tr><th>NUMBER</th><th>MEANING</th></tr>
+<tr><td>  0  </td><td> Routine terminated by the &lt;STOP&gt; key </td></tr>
+<tr><td>  1  </td><td> Too many open files </td></tr>
+<tr><td>  2  </td><td> File already open </td></tr>
+<tr><td>  3  </td><td> File not open </td></tr>
+<tr><td>  4  </td><td> File not found </td></tr>
+<tr><td>  5  </td><td> Device not present </td></tr>
+<tr><td>  6  </td><td> File is not an input file </td></tr>
+<tr><td>  7  </td><td> File is not an output file </td></tr>
+<tr><td>  8  </td><td> File name is missing </td></tr>
+<tr><td>  9  </td><td> Illegal device number </td></tr>
+<tr><td> 240 </td><td> Top-of-memory change RS-232 buffer allocation/deallocation </td></tr>
+</table>
+
+<hr>
+<a href="page_305.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_307.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 17, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

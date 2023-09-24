@@ -1,0 +1,100 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Synchronization and Ring Modulation (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_207.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Chapter_5/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> Ring modulation (accomplished for voice 1 by setting bit 3 of register
+ 4 in line 70 of the program below) replaces the triangular output of
+ oscillator I with a "ring modulated" combination of oscillators 1 and 3.
+ This produces non-harmonic overtone structures for use in mimicking bell
+ or gong sounds. This program produces a clock chime imitation:
+
+<p><b class="blue">EXAMPLE PROGRAM 10:</b>
+<pre>
+ 10 S=54272
+ 20 FORL=0TO24:POKES+L,0:NEXT
+ 30 POKES+1,130
+ 40 POKES+5,9
+ 50 POKES+15,30
+ 60 POKES+24,15
+ 70 FORL=1TO12:POKES+4,21
+ 80 FORT=1TO1000:NEXT:POKES+4,20
+ 90 FORT=1TO1000:NEXT:NEXT
+</pre>
+
+<p><b class="blue">LINE-BY-LINE EXPLANATION OF EXAMPLE PROGRAM 10:</b>
+<table align="center" cellspacing="0" border="1">
+<tr><th> Line(s) </th><th> Description </th></tr>
+<tr><td> 10 </td><td> Set S to start of sound chip.</td></tr>
+<tr><td> 20 </td><td> Clear sound chip registers.  </td></tr>
+<tr><td> 30 </td><td> Set high frequency for voice 1.</td></tr>
+<tr><td> 40 </td><td> Set Attack/Decay for voice 1 (A=0, D=9).</td></tr>
+<tr><td> 50 </td><td> Set high frequency for voice 3.         </td></tr>
+<tr><td> 60 </td><td> Set volume 15.                          </td></tr>
+<tr><td> 70 </td><td> Count number of clings, set start triangle, ring mod waveform control voice 1.</td></tr>
+<tr><td> 80 </td><td> Timing loop, set stop triangle, ring mod.                                     </td></tr>
+<tr><td> 90 </td><td> Timing loop, next ding.                                                       </td></tr>
+</table>
+
+<p>   The effects available through the use of the parameters of your
+ Commodore 64's SID chip are numerous and varied. Only through ex-
+ perimentation on your own will you fully appreciate the capabilities of
+ your machine. The examples in this section of the Programmer's Reference
+ Guide merely scratch the surface.
+<p>   Watch for the book MAKING MUSIC ON YOUR COMMODORE COMPUTER for
+ everything from simple fun and games to professional-type musical
+ instruction.
+
+<hr>
+<a href="page_207.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="../Chapter_5/index.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Disk duplication routines</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Disk duplication routines</h3>
+</center>
+
+<pre>
+    .page
+	.subttl 'duplct1.src'
+
+;  controller format disk
+
+jformat lda  #71	
+	sta  maxtrk	; double sided
+	lda  #3          
+        jsr  seth        
+        ldx  #3         ; job #3
+	lda  #0
+	sta  fmtsid	; side zero first
+        lda  #$f0       ; format cmd
+        sta  tsttrk     ; init speed var
+        sta  jobs,x     ; give job to controller
+        jsr  stbctl     ; wake him up
+        cmp  #2         ; error?
+        bcs  1$		; br, error
+
+;read track one sector zero
+
+	ldy  #3		; retries
+4$      lda  #1         ; track 1
+        sta  hdrs+6     ; *
+        lda  #0         ; sector 0
+        sta  hdrs+7     ; *
+        lda  #$80       ; read
+        sta  jobs,x     ; give job to controller
+        jsr  stbctl     ; wake him up
+        cmp  #2         ; error?
+        bcc  5$		; br, ok...
+	
+	dey
+	bpl  4$		; try 3 times
+	bcs  1$		; bra
+
+5$	lda  #1
+	sta  fmtsid	; side one second
+        lda  #$f0       ; format cmd
+        sta  tsttrk     ; init speed var
+        sta  jobs,x     ; give job to controller
+        jsr  stbctl     ; wake him up
+        cmp  #2         ; error?
+        bcs  1$		; br, error
+
+;read track thirty-six sector zero
+
+	ldy  #3		; retries
+6$      lda  #36        ; track 36
+        sta  hdrs+6     ; *
+        lda  #0         ; sector 0
+        sta  hdrs+7     ; *
+        lda  #$80       ; read
+        sta  jobs,x     ; give job to controller
+        jsr  stbctl     ; wake him up
+        cmp  #2         ; error?
+	bcs  3$		; br, bad
+
+	rts		; ok
+	
+3$	dey
+	bpl  6$		; keep trying
+
+1$      ldx  #0         ; set for offset for buffer to det. trk & sect.
+	bit  jobrtn	; return on error ?
+	stx  jobrtn	; clr
+	bpl  7$
+
+	rts		; back to caller
+7$	jmp  error
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

@@ -1,0 +1,115 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page40.html"> 
+     <link rel=next href="page42.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page40.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page42.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h4><a name="2.3.5.3">2.3.5.3</a> <u>Interval Timers (Timer A, Timer B, Timer C, Timer D)</u></h4>
+    
+<p>       Each interval timer consists of a 16-bit read-only Timer Counter and a
+    16-bit write-only Timer Latch (prescaler). Data written to the timer are
+    latched in the Timer Latch, while data read from the timer are the present
+    contents of the Timer Counter. The timers can be used independently or -
+    linked in pairs for extended operations (TIMER A may be linked with Timer B;
+    TIMER C may be linked with TIMER D). The various timer modes allow genera-
+    tion of long time delays, variable width pulses, pulse trains and variable
+    frequency waveforms. Utilizing the CNT inputs, the timers.can count ext6r-
+    nal pulses or measure frequency, pulse witdth and delay times of external
+    signals. Each timer has an associated control register, providing indepen-
+    dent control of the following functions (see bits functional description in
+    section 2.5.8 below):
+    
+<p>    Start/Stop
+    
+<p>       Each timer may be started or stopped by the microprocessor at any time
+    by writing to the START/STOP bit of the corresponding control register (CRA,
+    CRB, CRB or CRC).
+    
+<p>    PRB, PRD On/Off
+    
+<p>       Control bits allow any of the timer outputs to appear on a PORT 3 or
+    PORT D output line (PRB6 for TIMER A, PRB7 for TIMER B, PRD6 for TIMER C
+    and PRD7~for TIMER D). Note that this funtion overrides the DDRB control
+    bit and forces the appropriate PB or PC line to be an output.
+    
+<p>    Toggle/Pulse
+    
+<p>       Control bits select the outputs applied to PORT B and PORT D. On every
+    timer underflow the ouput can either toggle or generate a single positive
+    pulse of one cycle duration. The Toggle output is set high whenever the
+    appropiate timer is started and is set low by RESET/.
+
+<p>    One-Shot/Continuous
+    
+<p>       Control bits select either time= mode. In one-shot mode, the timer
+    will count down from the latched value to zero, generate an interrupt,
+    reload the latched value, then ston. in continuous mode, the timer will
+    count from the latched value to zero, generate an interrupt, reload the
+    latched value and repeat the procedure continuously.
+    
+<p>    Force Load
+    
+<p>       A strobe bit allows the timer latch to be loaded into the timer
+    counter at any time, whether the timer is running or not.
+    
+<p>    Input Mode
+    
+<p>       Control bits allow selection of the clock used to decrement the timer.
+    TIMER A or TIMER C can count CIMHZ clock pulses or external pulses applied
+    to the CNTA or CNTB, respectively. The ClMHZ clock is obtained after
+    internally dividing the C7MHZ by a factor of seven.
+    
+<p>       TIMER B can count ClMHZ clock pulsest external pulses applied to the
+    CNTA input, TIMER A underflow pulses or TIMER A underflow pulses while the
+    CNTA pin is held high.
+
+<p>
+<hr>
+  <a href="page40.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page42.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	August 10, 2001.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

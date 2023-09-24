@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_080.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_082.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+
+<h3><a name="run">RUN</a></h3>
+
+ <big><b class=blue>TYPE: Command<br>
+ FORMAT: RUN [&lt;line-number&gt;]
+
+   </b></big><p><b class=blue>Action:</b> The system command RUN is used to start the program currently
+ in memory. The RUN command causes an implied <a href="page_039.html#clr">CLR</a> operation to be
+ performed before starting the program. You can avoid the <a href="page_039.html#clr">CLeaRing</a>
+ operation by using <a href="page_041.html#cont">CONT</a> or <a href="page_052.html#goto">GOTO</a> to restart a program instead of RUN. If
+ a &lt;line-number&gt; is specified, your program will start on that line.
+ Otherwise, the RUN command starts at first line of the program. The RUN
+ command can also be used within a program. If the &lt;line-number&gt; you
+ specify doesn't exist, the BASIC error message <b><a href="../Appendices/page_400.html#undef'd_statement">UNDEF'D STATEMENT</a></b> occurs.
+<p>   A RUNning program stops and BASIC returns to direct mode when an <a href="page_046.html#end">END</a> or
+ <a href="page_086.html#stop">STOP</a> statement is reached, when the last line of the program is finished,
+ or when a BASIC error occurs during execution.
+
+ </p><b class=blue>EXAMPLES of RUN Command:</b>
+<pre>
+   RUN           (Starts at first line of program)
+
+   RUN 500       (Starts at line-number 500)
+   RUN X         (Starts at line X, or UNDEF'D STATEMENT ERROR
+                  if there is no line X)
+</pre>
+
+<h3><a name="save">SAVE</a></h3>
+
+ <big><b class=blue>TYPE: Command<br>
+ FORMAT: SAVE ["&lt;file-name&gt;"][,&lt;device-number&gt;][,&lt;address&gt;]
+
+   </b></big><p><b class=blue>Action:</b> The SAVE command is used to store the program that is cur-
+ rently in memory onto a tape or diskette file. The program being SAVEd
+ is only affected by the command while the SAVE is happening. The program
+ remains in the current computer memory even after the SAVE operation is
+ completed until you put something else there by using another command.
+ The file type will be "prg" (program). If the &lt;device-number&gt; is left
+ out, then the C64 will automatically assume that you want the program
+ saved on cassette, device number 1. If the &lt;device-number&gt; is an &lt;8&gt;,
+ then the program is written onto disk. The SAVE statement can be used
+<hr>
+<a href="page_080.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_082.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

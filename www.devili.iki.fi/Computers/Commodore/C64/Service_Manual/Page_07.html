@@ -1,0 +1,73 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 64 Service Manual: I/O, ROM, Expansion Port</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="Page_06.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_08.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2>C64 CIRCUIT THEORY</h2>
+<a href="large/Page_07.gif"><img src="small/Page_07.gif" alt="[I/O, ROM and expansion port schematic]"></a>
+
+<h5>I/O and ROM Address Decoding and Expansion Port.</h5>
+
+<h5>I/O Address Decoding Logic</h5>
+
+U17 is a Programmable logic array (PLA). The output F5 on pin 12 called I/o goes "low" when any
+of the I/O devices controlled by U15 are selected. The addresses are listed below for each device.
+
+<center><table>
+<tr><td>VIC IC</td><td>     $D000 - $D02E</td></tr>
+<tr><td>SID IC</td><td>     $D400 - $D7FF</td></tr>
+<tr><td>Color Ram</td><td>  $D800 - $DBFF</td></tr>
+<tr><td>CIA 1</td><td>      $DC00 - $DC0F</td></tr>
+<tr><td>CIA 2</td><td>      $DD00 - $DD0F</td></tr>
+<tr><td>I/O 1</td><td>      $DE00 - $DEFF</td></tr>
+<tr><td>I/O 2</td><td>      $DF00 - $DFFF</td></tr>
+</table></center>
+
+<h5>ROM Address Decoding.</h5>
+
+Basic ROM resides at locations $A000 - $BFFF. The output F1 pin 17 of the PLA U17 goes "low"
+when the BASIC ROM is selected. The KERNAL ROM resides at locations $E000 - $FFFF. The output
+F2 pin 16 of the PLA U17 goes "low" when the KERNAL ROM is selected. The CHARACTER
+GENERATOR ROM resides at locations $D000 - $DFFF. The output F3 pin 15 of the PLA U17 goes
+"low" when the Character Generator ROM is selected.
+
+<h5>The Expansion Port Connections.</h5>
+
+The expansion port is an extension of the microprocessor address, data, and control bus. ROML decodes
+addresses $8000 - $9FFF, and ROMH decodes addresses $E000 - $FFFF. These are outputs from
+the PLA used to select the catridge inserted in the expansion port. I/O 1 input from U15 decodes
+addresses $DE00 - $DEFF. I/O 2 output from U15 decodes addresses $DF00 - $DFFF.
+
+<hr>
+<a href="Page_06.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="Page_08.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

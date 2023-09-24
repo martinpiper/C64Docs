@@ -1,0 +1,113 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page49.html"> 
+     <link rel=next href="page51.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page49.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page51.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+
+<p><table align=center>
+<tr valign=top align=left><th>BIT</th><th nowrap>Bit Name</th><th>Function</th></tr>
+<tr valign=top align=left><td>6</td><td nowrap>RCVR EN </td><td>
+    0= Receiver is disabled.<p>
+
+    1= Receiver is Enabled. To provide noise immunity, the duration of a
+       bit interval is segmented into 16 subintervals. This is also used to
+       verify that a high to low transition (START bit) on the RXD line is
+       valid (stays low) at the half point of a bit duration; if not valid,
+       operation will not start.<br>
+
+       If after an idle period, a high to low transition is detected on the
+       RXD line and is verified to be low, the receiver will synchronized
+       itself to the incoming character for the duration of the character.
+       Received data is then sampled or latched in the center of a bit time
+       to determine the value of the remaining bits. The LSB of the data is
+       the leading bit received. Any unused high order register bits will
+       be set "high". The receiver expects the data to have only one parity
+       bit (when parity is enabled) and one stop bit.<br>
+
+       At the end of the character reception, the receiver will check
+       whether any errors have occured and will update the status register
+       (URSR) accordingly. In addition, if no errors were encountered the
+       receiver will load the contents of the shift register into the
+       Receiver Data Register, eliminating parity and stop bits.
+    
+       <p> In synchronous mode, the receiver will reconfigure its Data
+       Register and Shift Register so that only 8 data bits are always
+       accepted on the RXD line. This mode only works if an external clock
+       is applied on the PRC2 input line, which is used to shift the bits
+       into the Receiver Shift Register. Data on the RXD is latched at the
+       rising edge of the external clock applied in PRC2.
+</td></tr>
+<tr valign=top align=left><td>7</td><td nowrap>XMITR EN</td><td>
+        0= Transmitter is disabled.<p>
+
+        1= Transmitter is Enabled. Transmitter will start operation once
+           the microprocessor writes data to the transmitter data register
+           (DREG), after which the Transmitter Shift Register is loaded and
+           the start bit is placed on the TXD line. The LSB of the data is
+           the leading bit being transmitted. The Transmitter is "doubled
+           buffered" which means that the CPU can load a new character as
+           soon as the previous one starts transmission.<br>
+
+           This is indicated by the status register, bit 6 (URSR6-EMPTY
+           Data Register), which when set, it indicates that the data
+           register is ready to accept the next character. The character
+           data format is illustrated by figure 1.3.
+    
+           <p> In synchronous mode, the transmitter will reconfigure its
+           Data Register and Shift Register so that only 8 data bits are
+           always transmitted on the TXD line, eliminating all parity and
+           stop bits. The external clock output will be placed in the PRC2
+           line and will shift the data out of the transmitter shift
+           register. Data on the TXD line will change on the falling edge
+           of the PRC2 signal, the external clock.
+</td></tr></table>
+<p>
+<hr>
+  <a href="page49.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page51.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 28, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

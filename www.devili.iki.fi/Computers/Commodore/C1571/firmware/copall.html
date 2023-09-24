@@ -1,0 +1,149 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore 1571 firmware source code: Copy all routine</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<h3>Commodore 1571 firmware<br>
+    Copy all routin</h3>
+</center>
+
+<pre>
+    .page   
+	.subttl 'copall.src'
+
+; set up subroutine
+
+pups1   lda  #0          
+        sta  rec         
+        sta  drvcnt      
+        sta  filtrk      
+        sta  filtrk+1    
+        lda  fildrv+1   ; get drive number
+        and  #1         ; only
+        sta  drvnum      
+        ora  #1          
+        sta  delsec     ; nonzero
+        lda  filtbl+1   ; fn1=fn2
+        sta  filtbl      
+        rts      
+	.nlist
+;.end
+	.page   'copy  all'     
+;
+; copy disk to disk routines
+;
+;cpydtd  lda  filtbl+1   ; save in temp
+;        sta  temp        
+;        ldy  #40        ; 40 char buffer
+;        ldx  cmdsiz     ; prep to move
+;        sty  cmdsiz     ; end of filename2
+;movlp1  dey      
+;        dex      
+;        lda  cmdbuf,x   ; mov fn lifo
+;        sta  cmdbuf,y    
+;        cpx  temp       ; actual f2 val
+;        bne  movlp1      
+;        sty  filtbl+1   ; pointer to f2
+;movlp2  jsr  optsch      
+;        jsr  pups1      ; setup first pass
+;        jsr  ffst       ; first match
+;        bpl  fixit      ; entry found?
+;        bmi  endit      ; no
+;;
+;exlp0   pla     ; pull needed vars
+;        sta  dirsec      
+;        pla      
+;        sta  filtbl+1    
+;        pla      
+;        sta  lstbuf      
+;        pla      
+;        sta  filcnt      
+;        pla      
+;        sta  index       
+;        pla      
+;        sta  found       
+;        pla      
+;        sta  delind      
+;        pla      
+;        sta  drvflg      
+;;
+;exlp1   jsr  pups1      ; set up vars
+;        jsr  ffre       ; next match
+;        bpl  fixit      ; found one?
+;endit   jmp  endcmd     ; no! so bye
+;;
+;fixit   lda  drvflg     ; push needed vars
+;        pha      
+;        lda  delind      
+;        pha      
+;        lda  found       
+;        pha      
+;        lda  index       
+;        pha      
+;        lda  filcnt      
+;        pha      
+;        lda  lstbuf      
+;        pha      
+;        lda  filtbl+1    
+;        pha      
+;        lda  dirsec      
+;        pha      
+;;
+;exlp2   jsr  trfnme     ; transfer name
+;        lda  #1         ; fake out lookup
+;        sta  f1cnt       
+;        sta  f2cnt       
+;        jsr  lookup      
+;        lda  #1          
+;        sta  f1cnt       
+;        lda  #2         ; real
+;        sta  f2cnt       
+;        jsr  cy         ; copy it
+;        jmp  exlp0      ; next one folks
+;;
+;; transfer name (dirbuf) to cmdbuf
+;;
+;trfnme  ldy  #3         ; both indexes
+;        sty  filtbl     ; begining of filename1
+;trf0    lda  (dirbuf),y         ; move it
+;        sta  cmdbuf,y    
+;        iny      
+;        cpy  #19        ; all 16 chars passed?
+;        bne  trf0        
+;        rts      
+	.list
+</pre>
+
+<hr>
+ <a href="index.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	September 05, 2020.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>
+

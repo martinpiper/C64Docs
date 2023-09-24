@@ -1,0 +1,111 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: Introduction - System Overview (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page10.html"> 
+     <link rel=next href="page12.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="../Chapter_2/page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page10.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page12.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h2>1.2 <u>System Overview</u> (continued)</h2>
+<ul>
+    <li> Video -- Commodore CSG 4567 enhanced VIC chip
+    <ul>
+        <li> RGBA with sync on all colors or digital sync
+        <li> Composite NTSC or PAL video, separate chroma/luma
+        <li> Composite NTSC or PAL digital monochrome
+        <li> RF TV output via NTSC or PAL modulator
+        <li> Digital foreground/background control (genlock).
+        <li> All original C64 video modes:
+        <ul>
+            <li> 40x25 standard character mode
+            <li> Extended background color mode
+            <li> 320x200 bitmap mode
+            <li> Multi-color mode
+            <li> 16 colors
+            <li> 8 sprites, 24x21
+        </ul>
+        <li> 40 and 80 character columns by 25 rows:
+        <ul>
+            <li> Color, blink, bold, inverse video, underline attributes
+        </ul>
+        <li> True bitplane graphics:
+                <table>
+                     <tr><td align=right>   320 </td><td>x</td><td> 200 </td><td>x</td><td> 256   </td><td>(8-bitplane) </td><td>non-interlaced</td></tr>
+                     <tr><td align=right>   640 </td><td>x</td><td> 200 </td><td>x</td><td> 16*   </td><td>(4-bitplane) </td><td>non-interlaced</td></tr>
+                     <tr><td align=right>  1280 </td><td>x</td><td> 200 </td><td>x</td><td> 4*    </td><td>(2-bitplane) </td><td>non-interlaced</td></tr>
+                     <tr><td align=right>   320 </td><td>x</td><td> 400 </td><td>x</td><td> 256   </td><td>(8-bitplane) </td><td>interlaced    </td></tr>
+                     <tr><td align=right>   640 </td><td>x</td><td> 400 </td><td>x</td><td> 16*   </td><td>(4-bitplane) </td><td>interlaced    </td></tr>
+                     <tr><td align=right>  1280 </td><td>x</td><td> 400 </td><td>x</td><td> 4*    </td><td>(2-bitplane) </td><td>interlaced    </td></tr>
+                     <tr><td colspan=7 align=center>*plus sprite and border colors</td></tr>
+                </table>
+    
+        <li> Color palettes:
+        <ul>
+            <li> Standard 16-color C64 ROM palette
+            <li> Programmable 256-color RAM palette, with 16 intensity
+                 levels per primary color (yeilding 4096 colors)
+        </ul>
+        <li> Horizontal and vertical screen positioning verniers
+        <li> Display Address Translator (DAT) allows programmer to access
+             bitplanes easily and directly.
+        <li> Access to optional expansion RAM
+        <li> Operates at either clock speed without blanking
+    </ul>
+    <li> Audio -- Commodore CSG8580 SID chips
+    <ul>
+        <li>Stereo SID chips:
+        <ul>
+            <li> Total of 6 voices, 3 per channel
+            <li> Programmable ADSR envelope for each voice
+            <li> Filter, modulation, audio inputs, potentiometer
+            <li> Separate left/right volume, filter, modulation control
+        </ul>
+    </ul>
+</ul>
+<p>
+<hr>
+  <a href="page10.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page12.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 09, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Description of BASIC Keywords (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_036.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_038.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   When evaluating a number for truth or falsehood, the computer assumes
+ the number is true as long as its value isn't 0. When evaluating a
+ comparison, it assigns a value of -I if the result is true, while false
+ has a value of 0. In binary format, -1 is all 1's and 0 is all 0's.
+ Therefore, when ANDing true/false evaluations, the result will be true if
+ any bits in the result are true.
+
+ </p><b class=blue>EXAMPLES of Using AND with True/False Evaluations:</b>
+<pre>
+   50 IF X=7 AND W=3 THEN GOTO 10: REM ONLY TRUE IF BOTH X=7
+      AND W=3 ARE TRUE
+   60 IF A AND Q=7 THEN GOTO 10: REM TRUE IF A IS NON-ZERO
+      AND Q=7 IS TRUE
+</pre>
+
+<h3><a name="asc">ASC</a></h3>
+
+ <big><b class=blue>TYPE: Function-Numeric<br>
+ FORMAT: ASC(&lt;string&gt;)
+
+   </b></big><p><b class=blue>Action:</b> ASC will return a number from 0 to 255 which corresponds to
+ the Commodore ASCII value of the first character in the string. The table
+ of Commodore ASCII values is shown in Appendix C.
+
+ </p><b class=blue>EXAMPLES OF ASC Function:</b>
+<pre>
+   10 PRINT ASC("Z")
+   20 X = ASC("ZEBRA")
+   30 J = ASC(J$)
+</pre>
+<p>   If there are no characters in the string, an <b><a href="../Appendices/page_400.html#illegal_quantity">?ILLEGAL QUANTITY</a></b> error
+ results. In the third example above, if J$="", the ASC function will not
+ work. The <a href="page_049.html#get">GET</a> and <a href="page_050.html#get">GET#</a> statement read a <a href="page_038.html#chr$">CHR$(0)</a> as a null string. To
+ eliminate this problem, you should add a <a href="page_038.html#chr$">CHR$(0)</a> to the end of the
+ string as shown below.
+
+ </p><b class=blue>EXAMPLE of ASC Function Avoiding <a href="../Appendices/page_400.html#illegal_quantity">ILLEGAL QUANTITY ERROR</a>:</b>
+<pre>
+   30 J = ASC(J$ + CHR$(0))
+</pre>
+<hr>
+<a href="page_036.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_038.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 22, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

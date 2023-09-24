@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<TITLE>Commodore 1571 Service Manual: IC Pin Assignments (cont.)</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<a href="Page_15.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_17.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<HR>
+<BR>
+<H2 ALIGN=CENTER>COMMON I.C.'S<BR>
+PIN ASSIGNMENTS AND LOGIC</H2>
+<BR>
+<H3>74175<A><IMG SRC="Point.gif"></A>74LS175<A><IMG SRC="Point.gif"></A>74F175<BR>
+QUAD D-TYPE FLIP-FLOP</H3>
+
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="25%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_16a.gif"></TD>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="75%"><B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_16b.gif"></TD>
+</TR>
+</TABLE>
+<BR>
+
+<CENTER>
+<B>TRUTH TABLE</B><BR><BR>
+</CENTER>
+
+<TABLE WIDTH="100%">
+
+<TR>
+<TD ALIGN=RIGHT WIDTH="50%">
+
+<TABLE WIDTH="100%" BORDER=1>
+
+<TR>
+<TH WIDTH="34%" ALIGN=CENTER ROWSPAN=2>OPERATING MODE</TH>
+<TH WIDTH="33%" ALIGN=CENTER COLSPAN=3>INPUTS</TH>
+<TH WIDTH="33%" ALIGN=CENTER COLSPAN=2>OUTPUTS</TH>
+</TR>
+
+<TR>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="mrinv.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><FONT SIZE=-1>CP</FONT></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="dn.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="qn.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="qninv.gif"></TH>
+</TR>
+
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP> Reset (clear)<BR> Load "1"<BR> Load "0"</TD>
+<TD ALIGN=CENTER VALIGN=TOP>L<BR>H<BR>H</TD>
+<TD ALIGN=CENTER VALIGN=TOP>X<BR><A><IMG SRC="rise.gif"></A><BR><A><IMG SRC="rise.gif"></A></TD>
+<TD ALIGN=CENTER VALIGN=TOP>X<BR>h<BR>l</TD>
+<TD ALIGN=CENTER VALIGN=TOP>L<BR>H<BR>L</TD>
+<TD ALIGN=CENTER VALIGN=TOP>H<BR>L<BR>H</TD>
+</TR>
+
+</TABLE>
+
+</TD>
+
+<TD WIDTH="50%" ALIGN=LEFT><FONT SIZE=-1>
+H = HIGH voltage level steady state.<BR>
+h = HIGH voltage level one setup time prior to the LOW-to-HIGH clock transition.<BR>
+L = LOW voltage level steady state.<BR>
+l = LOW voltage level one setup time prior to the LOW-to-HIGH clock transition.<BR>
+<A><IMG SRC="rise.gif"></A> = LOW-to-HIGH clock transition.<BR>
+X = don't care.</FONT>
+</TD>
+</TR>
+</TABLE>
+
+</CENTER>
+<BR><BR>
+
+<H3>74LS241<A><IMG SRC="Point.gif"></A>74F241<BR>
+OCTAL BUFFER, TRI-STATE</H3>
+
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="33%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_16c.gif"></TD>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="33%"><B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_16d.gif"></TD>
+<TD ALIGN=LEFT VALIGN=TOP WIDTH="33%">
+<CENTER><B>TRUTH TABLE</B></CENTER><BR>
+
+<TABLE WIDTH="100%" BORDER=1>
+<TR>
+<TH ALIGN=CENTER WIDTH="73%" COLSPAN=4><FONT SIZE=-1>INPUTS</FONT></TH>
+<TH ALIGN=CENTER WIDTH="27%" COLSPAN=2><FONT SIZE=-1>OUTPUTS</FONT></TH>
+</TR>
+<TR>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="oea.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="ia.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="oeb.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><IMG SRC="ib.gif"></TH>
+<TH ALIGN=CENTER VALIGN=TOP><FONT SIZE=-1>Y<SUB>a</SUB></FONT></TH>
+<TH ALIGN=CENTER VALIGN=TOP><FONT SIZE=-1>Y<SUB>b</SUB></FONT></TH>
+</TR>
+<TR>
+<TD ALIGN=CENTER>L<BR>L<BR>H</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>X</TD>
+<TD ALIGN=CENTER>H<BR>H<BR>L</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>X</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>(Z)</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>(Z)</TD>
+</TR>
+</TABLE>
+<FONT SIZE=-1>
+H = HIGH voltage level<BR>
+L = LOW voltage level<BR>
+X = Don't care<BR>
+(Z) = HIGH impedance (off) state
+</FONT>
+</TR>
+</TABLE>
+</CENTER>
+<BR><BR>
+
+<H3>74LS266<BR>
+QUAD 2-INPUT EXCLUSIVE NOR GATE (OPEN COLLECTOR)</H3>
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="22%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_16e.gif"></TD>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="31%"><B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_16f.gif">
+<BR></TD>
+<TD VALIGN=TOP WIDTH="37%">
+<CENTER>
+<B>TRUTH TABLE</B><BR><BR>
+</CENTER>
+<TABLE WIDTH="100%" BORDER=1>
+<TR>
+<TH ALIGN=CENTER WIDTH="66%" COLSPAN=2>INPUTS</TH>
+<TH ALIGN=CENTER WIDTH="33%">OUTPUT</TH></TR>
+<TR>
+<TH ALIGN=CENTER>A</TH>
+<TH ALIGN=CENTER>B</TH>
+<TH ALIGN=CENTER>Y</TH>
+</TR>
+<TR>
+<TD ALIGN=CENTER>L<BR>L<BR>H<BR>H</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>L<BR>H</TD>
+<TD ALIGN=CENTER>H<BR>L<BR>L<BR>H</TD>
+</TR>
+</TABLE>
+H = HIGH voltage level<BR>
+L = LOW voltage level<BR>
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+<BR>
+
+<HR>
+
+<a href="Page_15.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_17.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>
+Last updated May 21th, 1998.
+</CENTER>
+
+</BODY>
+</HTML>

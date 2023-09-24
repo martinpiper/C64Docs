@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - RS-323 Interface Description (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_354.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_356.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center>
+<p><strong>Table 6-1. User-Port Lines</strong>
+
+<table border="1">
+<tr><th colspan="7">(6526 DEVICE #2 Loc. $DD00-$DD0F)</th></tr>
+<tr><th>PIN ID</th><th> 6526 ID</th><th>DESCRIPTION</th><th> EIA</th><th> ABV</th><th> IN/OUT </th><th>MODES</th></tr>
+<tr><td> C  </td><td>PB0  </td><td>RECEIVED DATA         </td><td>(BB)   </td><td>Sin    </td><td>IN        </td><td>1 2    </td></tr>
+<tr><td> D  </td><td>PB1  </td><td>REQUEST TO SEND       </td><td>(CA)   </td><td>RTS    </td><td>OUT       </td><td>1<small><sup>*</sup></small>2    </td></tr>
+<tr><td> E  </td><td>PB2  </td><td>DATA TERMINAL READY   </td><td>(CD)   </td><td>DTR    </td><td>OUT       </td><td>1<small><sup>*</sup></small>2    </td></tr>
+<tr><td> F  </td><td>PB3  </td><td>RING INDICATOR        </td><td>(CE)   </td><td>RI     </td><td>IN        </td><td>    3  </td></tr>
+<tr><td> H  </td><td>PB4  </td><td>RECEIVED LINE SIGNAL  </td><td>(CF)   </td><td>DCD    </td><td>IN        </td><td>  2    </td></tr>
+<tr><td> I  </td><td>PB5  </td><td>UNASSIGNED            </td><td>(  )   </td><td>XXX    </td><td>IN        </td><td>    3  </td></tr>
+<tr><td> K  </td><td>PB6  </td><td>CLEAR TO SEND         </td><td>(CB)   </td><td>CTS    </td><td>IN        </td><td>  2    </td></tr>
+<tr><td> L  </td><td>PB7  </td><td>DATA SET READY        </td><td>(CC)   </td><td>DSR    </td><td>IN        </td><td>  2    </td></tr>
+<tr><td colspan="7">                                                                                                                    </td></tr>
+<tr><td> B  </td><td>FLAG2</td><td> RECEIVED DATA        </td><td> (BB)  </td><td> Sin   </td><td> IN       </td><td> 1 2   </td></tr>
+<tr><td> M  </td><td>PA2  </td><td>TRANSMITTED DATA      </td><td>(BA)   </td><td>Sout   </td><td>OUT       </td><td>1 2    </td></tr>
+<tr><td colspan="7">                                                                                                                    </td></tr>
+<tr><td> A  </td><td>GND  </td><td>PROTECTIVE GROUND     </td><td>(AA)   </td><td>GND    </td><td>          </td><td>1 2    </td></tr>
+<tr><td> N  </td><td>GND  </td><td>SIGNAL GROUND         </td><td>(AB)   </td><td>GND    </td><td>          </td><td>1 2 3  </td></tr>
+<tr><td colspan="7">
+ <strong>MODES:</strong>
+ <ol>
+    <li> 3-LINE INTERFACE (Sin,Sout,GND)
+    <li> X-LINE INTERFACE
+    <li> USER AVAILABLE ONLY (Unused/unimplemented in code.)
+ </ol>
+ <small><sup>*</sup></small> These lines are held high during 3-LINE mode.
+</td></tr></table>
+<table border="1"><tr><td><pre>
+ [7] [6] [5] [4] [3] [2] [1] [0] (Machine Lang.-RSSTAT
+  |   |   |   |   |   |   |   +- PARITY ERROR BIT
+  |   |   |   |   |   |   +----- FRAMING ERROR BIT
+  |   |   |   |   |   +--------- RECEIVER BUFFER OVERRUN BIT
+  |   |   |   |   +------------- RECEIVER BUFFER-EMPTY
+  |   |   |   |                  (USE TO TEST AFTER A GET#)
+  |   |   |   +----------------- CTS SIGNAL MISSING BIT
+  |   |   +--------------------- UNUSED BIT
+  |   +------------------------- DSR SIGNAL MISSING BIT
+  +----------------------------- BREAK DETECTED BIT
+</pre></td></tr></table>
+<strong>Figure 6-3. RS-232 Status Register.</strong>
+</center>
+<hr>
+<a href="page_354.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_356.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 25, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

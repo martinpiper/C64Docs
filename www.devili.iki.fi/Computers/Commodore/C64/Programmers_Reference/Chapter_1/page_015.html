@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Expressions and Operations (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_014.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_016.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table>
+<tr><td><code>   IF A=100 OR B=100 THEN 20 </code></td><td>    (if A or B is 100 then the result is true)</td></tr>
+<tr><td><code>   A=64 OR 32: PRINT A       </code></td><td>    (A = 96)</td></tr>
+<tr><td><code>   IF NOT X&lt;Y THEN 30     </code></td><td>       (if X&gt;=Y the result is true)</td></tr>
+<tr><td><code>   X= NOT 96                 </code></td><td>    (result is -97 (two's complement))</td></tr>
+</table>
+
+<h3><a name="Hierarchy">HIERARCHY OF OPERATIONS</a></h3>
+
+   <p>All expressions perform the different types of operations according to
+ a fixed hierarchy. In other words, certain operations are performed be-
+ fore other operations. The normal order of operations can be modified
+ by enclosing two or more operands within parentheses ( ), creating a
+ "subexpression." The parts of an expression enclosed in parentheses will
+ be reduced to a single value before working on parts outside the parentheses.
+   <p>When you use parentheses in expressions, they must be paired so that
+ you always have an equal number of left and right parentheses. Otherwise,
+ the BASIC error message <b><a href="../Appendices/page_400.html#syntax_error">?SYNTAX ERROR</a></b> will appear.
+   <p>Expressions which have operands inside parentheses may themselves
+ be enclosed in parentheses, forming complex expressions of multiple
+ levels. This is called nesting. Parentheses can be nested in expressions
+ to a maximum depth of ten levels-ten matching sets of parentheses.
+ The inner-most expression has its operations performed first. Some
+ examples of expressions are:</p>
+
+<table align=center>
+<tr><td>                    A+B                         </td></tr>
+<tr><td>                    C^(D+E)/2                   </td></tr>
+<tr><td>                    ((X-C^(D+E)/2)*10)+1        </td></tr>
+<tr><td>                    GG$&gt;HH$                  </td></tr>
+<tr><td>                    JJ$+"MORE"                  </td></tr>
+<tr><td>                    K%=1 AND M&lt;&gt;X         </td></tr>
+<tr><td>                    K%=2 OR (A=B AND M&lt;X)    </td></tr>
+<tr><td>                    NOT (D=E)                   </td></tr>
+</table>
+<p>The BASIC Interpreter will normally perform operations on expressions
+ by performing arithmetic operations first, then relational operations,
+ and logical operations lost. Both arithmetic and logical operators have
+
+<hr>
+<a href="page_014.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_016.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 13, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

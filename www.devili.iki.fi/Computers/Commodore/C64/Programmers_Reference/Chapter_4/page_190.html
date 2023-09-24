@@ -1,0 +1,93 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Using Multiple Voices (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_189.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_191.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<table cellspacing=0 align="center" border="1">
+<tr><th>Line(s)</th><th>                       Description</th></tr>
+<tr><td> 510     </td><td> Set Attack/Decay for voice 2 (A=5, D=5).<br>Set Sustain/Release for voice 2 (S=8, R=5).  </td></tr>
+<tr><td> 520     </td><td> Set Attack/Decay for voice 3 (A=O, D=10).<br>Set Sustain/Release for voice 3 (S=12, R=5).</td></tr>
+<tr><td> 530     </td><td> Set volume 15, low-pass filtering.                                                       </td></tr>
+<tr><td> 540     </td><td> Start loop for every 1/16th of a measure.                                                </td></tr>
+<tr><td> 550     </td><td> <a href="../Chapter_2/page_069.html#poke">POKE</a> low frequency from activity array for all voices.                                   </td></tr>
+<tr><td> 560     </td><td> <a href="../Chapter_2/page_069.html#poke">POKE</a> high frequency from activity array for all voices.                                  </td></tr>
+<tr><td> 570     </td><td> <a href="../Chapter_2/page_069.html#poke">POKE</a> waveform control from activity array for all voices.                                </td></tr>
+<tr><td> 580     </td><td> Timing loop for 1/16th of a measure and back for next 1/16th measure.                    </td></tr>
+<tr><td> 590     </td><td> Pause, then turn off volume.                                                             </td></tr>
+<tr><td> 600-620 </td><td> Base frequency data.                                                                     </td></tr>
+<tr><td>1000-1999</td><td> Voice 1 data.</td></tr>
+<tr><td>2000-2999</td><td> Voice 2 data.</td></tr>
+<tr><td>3000-3999</td><td> Voice 3 data.</td></tr>
+</table>
+
+<p>   The values used in the data statements were found by using the note
+ table in Appendix E and the chart below:
+
+<p><table cellspacing=0 align="center" border="1">
+<tr><th>NOTE TYPE </th><th> DURATION </th></tr>
+<tr><td>        1/16     </td><td> 128</td></tr>
+<tr><td>        1/8      </td><td> 256</td></tr>
+<tr><td> DOTTED 1/8      </td><td> 384</td></tr>
+<tr><td>        1/4      </td><td> 512</td></tr>
+<tr><td>    1/4+1/16     </td><td> 640</td></tr>
+<tr><td> DOTTED 1/4      </td><td> 768</td></tr>
+<tr><td>        1/2      </td><td>1024</td></tr>
+<tr><td>    1/2+1/16     </td><td>1152</td></tr>
+<tr><td>    1/2+1/8      </td><td>1280</td></tr>
+<tr><td> DOTTED 1/2      </td><td>1536</td></tr>
+<tr><td>  WHOLE          </td><td>2048</td></tr>
+</table>
+
+<hr>
+<a href="page_189.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_191.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

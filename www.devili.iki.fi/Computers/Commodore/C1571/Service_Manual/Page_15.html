@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<title>Commodore 1571 Service Manual: IC Pin Assignments (cont.)</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<a href="https://www.devili.iki.fi/Computers/Commodore/C1571/Service_Manual/Page_14.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_16.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<HR>
+<BR>
+<H2 ALIGN=CENTER>COMMON I.C.'S<BR>
+PIN ASSIGNMENTS AND LOGIC</H2>
+
+<H3>7432<A><IMG SRC="Point.gif"></A>74S32<A><IMG SRC="Point.gif"></A>74LS32<A><IMG SRC="Point.gif"></A>74F32<BR>
+QUAD 2-INPUT OR GATE</H3>
+
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="30%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_15a.gif" HEIGHT=182 WIDTH=188></TD>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="30%"><B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_15b.gif" HEIGHT=182 WIDTH=188></TD>
+<TD VALIGN=TOP WIDTH="40%">
+<CENTER>
+<B>TRUTH TABLE</B><BR><BR>
+</CENTER>
+<TABLE WIDTH="100%" BORDER=1>
+<TR>
+<TH ALIGN=CENTER COLSPAN=2 WIDTH="66%" >INPUTS</TH>
+<TH ALIGN=CENTER WIDTH="33%">OUTPUT</TH></TR>
+<TR>
+<TH ALIGN=CENTER>A</TH>
+<TH ALIGN=CENTER>B</TH>
+<TH ALIGN=CENTER>Y</TH>
+</TR>
+<TR>
+<TD ALIGN=CENTER>L<BR>L<BR>H<BR>H</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>L<BR>H</TD>
+<TD ALIGN=CENTER>L<BR>H<BR>H<BR>H</TD>
+</TR>
+</TABLE>
+<FONT SIZE=-1>
+H = HIGH voltage level<BR>
+L = LOW voltage level
+</FONT>
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+<BR><BR>
+
+<H3>7474<A><IMG SRC="Point.gif"></A>74S74<A><IMG SRC="Point.gif"></A>74LS74<A><IMG SRC="Point.gif"></A>74F74<BR>
+DUAL D-TYPE FLIP-FLOP (POSITIVE EDGE TRIGGERED)</H3>
+
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="40%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_15c.gif"><BR><BR>
+<B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_15d.gif"></TD>
+
+<TD VALIGN=TOP WIDTH="60%">
+<CENTER>
+<B>TRUTH TABLE</B><BR><BR>
+<TABLE  WIDTH="100%" BORDER=1>
+<TR>
+<TH ALIGN=CENTER ROWSPAN=2 WIDTH="47%">
+<FONT SIZE=-1>OPERATING MODE</FONT></TH>
+<TH ALIGN=CENTER COLSPAN=4 WIDTH="36%"><FONT SIZE=-1>INPUTS</FONT></TH>
+<TH ALIGN=CENTER COLSPAN=2 WIDTH="17%"><FONT SIZE=-1>OUTPUTS</FONT></TH>
+</TR>
+<TR>
+<TH ALIGN=CENTER WIDTH="8%"><A><IMG SRC="sdinv.gif"></A></TH>
+<TH ALIGN=CENTER WIDTH="8%"><A><IMG SRC="rdinv.gif"></A></TH>
+<TH ALIGN=CENTER WIDTH="8%"><FONT SIZE=-1>CP</FONT></TH>
+<TH ALIGN=CENTER WIDTH="10%"><FONT SIZE=-1>D</FONT></TH>
+<TH ALIGN=CENTER WIDTH="9%"><A><IMG SRC="q2.gif"></A></TH>
+<TH ALIGN=CENTER WIDTH="8%"><A><IMG SRC="q2inv.gif"></A></TH>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP>
+Asyn. Set<BR>
+Asyn. Reset (Clear)<BR>
+Undetermined<A><IMG SRC="ar.gif"></A><BR>
+Load "1" (Set)<BR>
+Load "0" (Reset)
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+L<BR>H<BR>L<BR>H<BR>H<BR></TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+H<BR>L<BR>L<BR>H<BR>H<BR></TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+X<BR>X<BR>X<BR><IMG SRC="rise.gif"><BR><IMG SRC="rise.gif"><BR>
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+X<BR>X<BR>X<BR>h<BR>l<BR></TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+H<BR>L<BR>H<BR>H<BR>L<BR></TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+L<BR>H<BR>L<BR>L<BR>H<BR></TD>
+</TR>
+</TABLE>
+</CENTER>
+<FONT SIZE=-1>
+H = HIGH voltage level steady state.<BR>
+h = HIGH voltage level one setup time prior to the LOW-to-HIGH clock transition.<BR>
+L = LOW voltage level steady state.<BR>
+l = LOW voltage level one setup time prior to the LOW-to-HIGH clock transition.<BR>
+X = don't care.<BR>
+<IMG SRC="rise.gif"> = LOW-to-HIGH clock transition.<BR>
+<BR>NOTE<BR>
+<IMG SRC="ar.gif"></A>
+Both outputs will be HIGH while both <IMG SRC="sd2inv.gif"> and <IMG SRC="rd2inv.gif"> are LOW.<BR>
+But the output states are unpredictable if <IMG SRC="sd2inv.gif"> and <IMG SRC="rd2inv.gif"> go HIGH simultaneously.
+</FONT>
+</TR>
+</TABLE>
+</CENTER>
+<BR><BR>
+
+<H3>74123<A><IMG SRC="Point.gif"></A>74LS123<BR>
+DUAL RETRIGGERABLE MONOSTABLE MULTIVIBRATOR</H3>
+<CENTER>
+<TABLE WIDTH="100%">
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP WIDTH="50%"><B>PIN ASSIGNMENT</B><BR>
+<IMG SRC="Page_15e.gif">
+<BR><BR>
+<B>LOGIC DIAGRAM</B><BR>
+<IMG SRC="Page_15f.gif">
+</TD>
+<TD VALIGN=TOP WIDTH="50%">
+<CENTER>
+<B>TRUTH TABLE</B><BR><BR>
+<TABLE WIDTH="100%" BORDER=1>
+<TR>
+<TH ALIGN=CENTER COLSPAN=3>INPUTS</TH>
+<TH ALIGN=CENTER COLSPAN=2>OUTPUTS</TH>
+</TR>
+<TR>
+<TH ALIGN=CENTER><A><IMG SRC="rd3inv.gif"></TH>
+<TH ALIGN=CENTER><IMG SRC="ainv.gif"></TH>
+<TH ALIGN=CENTER><IMG SRC="b.gif"></TH>
+<TH ALIGN=CENTER>Q</TH><TH ALIGN=CENTER>
+<IMG SRC="qinv.gif"></TH></TR>
+<TR>
+<TD ALIGN=CENTER VALIGN=TOP>
+L<BR>X<BR>X<BR>H<BR>H<BR><IMG SRC="rise.gif">
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+X<BR>H<BR>X<BR>L<BR><IMG SRC="fall.gif"><BR>L
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+X<BR>X<BR>L<BR><IMG SRC="rise.gif"><BR>H<BR>H
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+L<BR>L<BR>L<BR><IMG SRC="hpulse.gif"><BR>
+<IMG SRC="hpulse.gif"><BR><IMG SRC="hpulse.gif">
+</TD>
+<TD ALIGN=CENTER VALIGN=TOP>
+H<BR>H<BR>H<BR><IMG SRC="lpulse.gif"><BR><IMG SRC="lpulse.gif"><BR>
+<IMG SRC="lpulse.gif"></TD>
+</TR>
+</TABLE>
+</CENTER>
+<FONT SIZE=-1>
+H = HIGH voltage level<BR>
+L = LOW voltage level<BR>
+X = Don't care<BR>
+<IMG SRC="rise.gif"> = LOW-to-HIGH transition<BR>
+<IMG SRC="fall.gif"> = HIGH-to-LOW transition<BR>
+<IMG SRC="hpulse.gif"> = One HIGH-level pulse<BR>
+<IMG SRC="lpulse.gif"> = One LOW-level pulse<BR>
+</FONT>
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+<BR>
+
+<HR>
+<a href="https://www.devili.iki.fi/Computers/Commodore/C1571/Service_Manual/Page_14.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_16.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>
+Last updated May 21th, 1998.
+</CENTER>
+
+</BODY>
+</HTML>

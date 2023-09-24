@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page34.html"> 
+     <link rel=next href="page36.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page34.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page36.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<p> The functional description of the memory mapper follows in section 2.3.4.<br>
+    The Fast Serial register is described in section 2.3.5
+    
+<h5><a name="2.3.3.3.1">2.3.3.3.1</a> <u>REGISTER BIT ALLOCATION</u></h5>
+
+<p>
+<table border="1" cellspacing="0" cellpadding="1" align="center">
+<caption align="bottom">REGISTER BIT ALLOCATION<br><u>TABLE 2</u></caption>
+<tr><th>R/W</th>    <th>REG</th>    <th colspan="2">NAME</th>   <th>D7</th>    <th>D6</th>     <th>D5</th>     <th>D4</th>     <th>D3</th>     <th>D2</th>     <th>D1</th>     <th>D0</th></tr>
+<tr><td>R/W</td>    <td>0X0</td>    <td colspan="2">PRA</td>    <td>PA7</td>   <td>PA6</td>    <td>PA5</td>    <td>PA4</td>    <td>PA3</td>    <td>PA2</td>    <td>PA1</td>    <td>PA0</td></tr>
+<tr><td>R/W</td>    <td>0X1</td>    <td colspan="2">PRB</td>    <td>PB7</td>   <td>PB6</td>    <td>PB5</td>    <td>PB4</td>    <td>PB3</td>    <td>PB2</td>    <td>PB1</td>    <td>PB0</td></tr>
+<tr><td>R/W</td>    <td>0X2</td>    <td colspan="2">DDRA</td>   <td>DPA7</td>  <td>DPA6</td>   <td>DPA5</td>   <td>DPA4</td>   <td>DPA3</td>   <td>DPA2</td>   <td>DPA1</td>   <td>DPA0</td></tr>
+<tr><td>R/W</td>    <td>0X3</td>    <td colspan="2">DDRB</td>   <td>DPB7</td>  <td>DPB6</td>   <td>DPB5</td>   <td>DPB4</td>   <td>DPB3</td>   <td>DPB2</td>   <td>DPB1</td>   <td>DPB0</td></tr>
+<tr><td>READ</td>   <td>0X4</td>    <td>TA LO</td><td rowspan="4">TIMER</td>
+                                                                <td>TAL7</td>  <td>TAL6</td>   <td>TAL5</td>   <td>TAL4</td>   <td>TAL3</td>   <td>TAL2</td>   <td>TAL1</td>   <td>TAL0</td></tr>
+<tr><td>READ</td>   <td>0X5</td>    <td>TA HI</td>              <td>TAH7</td>  <td>TAH6</td>   <td>TAH5</td>   <td>TAH4</td>   <td>TAH3</td>   <td>TAH2</td>   <td>TAH1</td>   <td>TAH0</td></tr>
+<tr><td>READ</td>   <td>0X6</td>    <td>TB LO</td>              <td>TBL7</td>  <td>TBL6</td>   <td>TBL5</td>   <td>TBL4</td>   <td>TBL3</td>   <td>TBL2</td>   <td>TBL1</td>   <td>TBL0</td></tr>
+<tr><td>READ</td>   <td>0X7</td>    <td>TB HI</td>              <td>TBH7</td>  <td>TBH6</td>   <td>TBH5</td>   <td>TBH4</td>   <td>TBH3</td>   <td>TBH2</td>   <td>TBH1</td>   <td>TBH0</td></tr>
+<tr><td>WRITE</td>  <td>0X4</td>    <td>TA LO</td><td rowspan="4">PRESCALER</td>
+                                                                <td>PAL7</td>  <td>PAL6</td>   <td>PAL5</td>   <td>PAL4</td>   <td>PAL3</td>   <td>PAL2</td>   <td>PAL1</td>   <td>PAL0</td></tr>
+<tr><td>WRITE</td>  <td>0X5</td>    <td>TA HI</td>              <td>PAH7</td>  <td>PAH6</td>   <td>PAH5</td>   <td>PAH4</td>   <td>PAH3</td>   <td>PAH2</td>   <td>PAH1</td>   <td>PAH0</td></tr>
+<tr><td>WRITE</td>  <td>0X6</td>    <td>TB LO</td>              <td>PBL7</td>  <td>PBL6</td>   <td>PBL5</td>   <td>PBL4</td>   <td>PBL3</td>   <td>PBL2</td>   <td>PBL1</td>   <td>PBL0</td></tr>
+<tr><td>WRITE</td>  <td>0X7</td>    <td>TB HI</td>              <td>PBH7</td>  <td>PBH6</td>   <td>PBH5</td>   <td>PBH4</td>   <td>PBH3</td>   <td>PBH2</td>   <td>PBH1</td>   <td>PBH0</td></tr>
+<tr><td>READ</td>   <td>0X8</td>    <td>TODATS</td><td rowspan="4">TOD TIMER</td>
+                                                                <td>0   </td>  <td>0   </td>   <td>0   </td>   <td>0   </td>   <td>TA8 </td>   <td>TA4 </td>   <td>TA2 </td>   <td>TA1 </td></tr>
+<tr><td>READ</td>   <td>0X9</td>    <td>TODAS</td>              <td>(*) 0</td> <td>SAH4</td>   <td>SAH2</td>   <td>SAH1</td>   <td>SAL8</td>   <td>SAL4</td>   <td>SAL2</td>   <td>SAL1</td></tr>
+<tr><td>READ</td>   <td>0XA</td>    <td>TODAM</td>              <td>(*) 0</td> <td>MAH4</td>   <td>MAH2</td>   <td>MAH1</td>   <td>MAL4</td>   <td>MAL4</td>   <td>MAL2</td>   <td>MAL1</td></tr>
+<tr><td>READ</td>   <td>0XB</td>    <td>TODAH</td>              <td>APM </td>  <td>0   </td>   <td>0   </td>   <td>HAH </td>   <td>HAL8</td>   <td>HAL4</td>   <td>HAL2</td>   <td>HAL1</td></tr>
+<tr><td colspan="4">&nbsp;</td>                                 <td colspan="8">(*) IN TEST MODE: WILL READ DIVIDER STAGE OUTPUTS</td></tr>
+<tr><td>WRITE</td>  <td>0X8</td>    <td>TODATS</td><td rowspan="4">TOD TIMER</td>
+                                                                <td>0   </td>  <td>0   </td>   <td>0   </td>   <td>0   </td>   <td>TA8 </td>   <td>TA4 </td>   <td>TA2 </td>   <td>TA1 </td></tr>
+<tr><td>WRITE</td>  <td>0X9</td>    <td>TODAS</td>              <td>0   </td> <td>SAH4</td>   <td>SAH2</td>   <td>SAH1</td>   <td>SAL8</td>   <td>SAL4</td>   <td>SAL2</td>   <td>SAL1</td></tr>
+<tr><td>WRITE</td>  <td>0XA</td>    <td>TODAM</td>              <td>0   </td> <td>MAH4</td>   <td>MAH2</td>   <td>MAH1</td>   <td>MAL4</td>   <td>MAL4</td>   <td>MAL2</td>   <td>MAL1</td></tr>
+<tr><td>WRITE</td>  <td>0XB</td>    <td>TODAH</td>              <td>APM </td>  <td>0   </td>   <td>0   </td>   <td>HAH </td>   <td>HAL8</td>   <td>HAL4</td>   <td>HAL2</td>   <td>HAL1</td></tr>
+<tr><td colspan="4">&nbsp;</td>                                 <td colspan="8">IF CRB ALARM BIT=1, ALARM REGISTER IS WRITTEN<br>
+                                                                                IF CRB ALARM BIT=0, TOD REGISTER IS WRITTEN</td></tr>
+</table>
+
+    <p>
+<hr>
+  <a href="page34.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page36.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 11, 2006.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

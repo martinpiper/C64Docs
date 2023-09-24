@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: C65 System Hardware - The CSG 4510 Microcontroller Chip (cont.)</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page45.html"> 
+     <link rel=next href="page47.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page45.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page47.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+    
+<h4><a name="2.3.5.8">2.3.5.8</a> <u>Control Registers (CRA, CRB, CRC, CRD)</u></h4>
+<p><table align=center>
+<tr valign=top align=left><th colspan=2>CRA (0XE):</th></tr>
+<tr valign=top align=left><th>    BIT        </th><th>Bit Name                   </th><th>Function</th></tr>
+<tr valign=top align=left><td>    0  </td><td>STARTA       </td><td>1=START TIMER A, 0=STOP TIMER A. This bit is
+                    automatically reset when TIMER A underflow occurs during
+                    one-shot mode.</td></tr>
+<tr valign=top align=left><td>    1  </td><td>PRB6 ON      </td><td>1=TIMER A output appears on PRB6, O=PRB6 normal port
+                    operation.    </td></tr>
+<tr valign=top align=left><td>    2  </td><td>OUT-A MODE   </td><td>1=TOGGLE output applied on port PRB6,
+                    0=PULSE output applied on port PRB6.</td></tr>
+<tr valign=top align=left><td>    3  </td><td>RUN-A MODE   </td><td>1=ONE-SHOT TIMER A operation,
+                    0=CONTINUOUS TIMER A operation.     </td></tr>
+<tr valign=top align=left><td>    4  </td><td>LOADA        </td><td>1=FORCE LOAD on TIMER A (this is a STROBE input, there
+                    is no data storage, bit 4 will always read back a zero
+                    and writing a zero has no effect).  </td></tr>
+<tr valign=top align=left><td>    5  </td><td>TMRA INMODE  </td><td>1=TIMER A counts positive CNTA transitions,
+                    0=TIMER A counts internal C1MHZ pulses.</td></tr>
+<tr valign=top align=left><td>    6  </td><td>SPA MODE     </td><td> 1=SERIAL A PORT output mode (CNTA sources shift clock),
+                    0=SERIAL A PORT input mode (external shift clock on CNTA)</td></tr>
+<tr valign=top align=left><td>    7  </td><td>TODA IN      </td><td> 1=50 Hz operation. C7MHZ divided down by 101339 to generate TODA input of 10 Hz.
+                    0=60 Hz operation. C7MHZ divided down by 102273 to generate TODA input of 10 Hz.</td></tr>
+</table>
+<table align=center>
+<tr valign=top align=left><th colspan=2>CRB (0XF):</th></tr>
+<tr valign=top align=left><th>    BIT        </th><th>Bit Name                   </th><th>Function</th></tr>
+<tr valign=top align=left><td>&nbsp;</td><td colspan=2>
+   (Bits 0-4 of the CRB register operate identically to bits 0-4 of the CRA
+    register, except that functions now apply to TIMER B and bit 1 control
+    the output of TIMER B on PRB7).</td></tr>
+<tr valign=top align=left><td>    5,6 </td><td>TIMERB  </td><td>Bits 5 and 6 select one of four input modes for TIMER B
+                INMODE  as follows:
+    <table>
+    <tr><th>CRB6 </th><th>CRBS  </th></tr>
+    <tr><td> 0 </td><td>0 </td><td>TIMER B counts ClMHz pulses.</td></tr>
+    <tr><td> 0 </td><td>1 </td><td>TIMER B counts positive CNTA transitions.</td></tr>
+    <tr><td> 1 </td><td>0 </td><td>TIMER B counts TIMERA underflow pulses.</td></tr>
+    <tr><td> 1 </td><td>1 </td><td>TIMER B counts TIMERA underflows while CNTA is high.</td></tr>
+    </table></td></tr>
+<tr valign=top align=left><td>    7 </td><td>ALARM TODA    </td><td>1=writing to TODA registers sets ALARM,
+                    0=writing to TODA registers sets TODA clock.</td></tr>
+</table>
+<p>
+<hr>
+  <a href="page45.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page47.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	July 28, 2002.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
+

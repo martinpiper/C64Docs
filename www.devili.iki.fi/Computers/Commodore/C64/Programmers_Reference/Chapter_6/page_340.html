@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - Output to Other Devices (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_339.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_341.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p><strong>EXAMPLE of OPEN Statement for Modem:</strong>
+<pre>
+   OPEN 1,2,0,CHR$(6): REM 300 BAUD
+   100 OPEN 2,2,0,CHR$(163) CHR$(112): REM 110 BAUD, ETC.
+</pre>
+
+<p>Most computers use the American Standard Code for Information Interchange, known as ASCII (pronounced ASK-KEY). This standard set of
+ character codes is somewhat different from the codes used in the Commodore 64. When communicating with other computers, the Commodore
+ character codes must be translated into their ASCII counterparts. A table
+ of standard ASCII codes is included in this book in Appendix C.
+
+<p>Output to the modem is a fairly uncomplicated task, aside from the need
+ for character translation. However, you must know the receiving device
+ fairly well, especially when writing programs where your computer "talks"
+ to another computer without human intervention. An example of this would
+ be a terminal program that automatically types in your account number and
+ secret password. To do this successfully, you must carefully count the
+ number of characters and RETURN characters. Otherwise, the computer
+ receiving the characters won't know what to do with them.
+
+<h3><a name="Working">WORKING WITH CASSETTE TAPE</a></h3>
+
+<p>Cassette tapes have an almost unlimited capacity for data. The longer
+ the tape, the more information it can store. However, tapes are limited
+ in time. The more data on the tape, the longer the time it takes to find
+ the information.
+
+<p>The programmer must try to minimize the time factor when working with
+ tape storage. One common practice is to read the entire cassette data
+ file into RAM, then process it, and then re-write all the data on the
+ tape. This allows you to sort, edit, and examine your data. However, this
+ limits the size of your files to the amount of available RAM.
+
+<p>If your data file is larger than the available RAM, it is probably time
+ to switch to using the floppy disk. The disk can read data at any
+ position on the disk, without needing to read through all the other data.
+ You can write data over old data without disturbing the rest of the file.
+ That's why the disk is used for all business applications like ledgers
+ and mailing lists.
+
+<p>The <code>PRINT#</code> statement formats data just like the <code>PRINT</code> statement does.
+ All punctuation works the same. But remember, you're not working with the
+ screen now. The formatting must be done with the <code>INPUT#</code> statement
+ constantly in mind.
+
+<hr>
+<a href="page_339.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_341.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 26, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

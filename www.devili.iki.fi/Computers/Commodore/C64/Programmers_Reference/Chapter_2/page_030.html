@@ -1,0 +1,98 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Language Vocabulary - Introduction </title>
+	 <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_029.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_031.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Introduction">INTRODUCTION</a></h2>
+
+<p> This chapter explains <i>CBM BASIC Language keywords</i>. First we give you an
+ easy to read list of keywords, their abbreviations and what each letter
+ looks like on the screen. Then we explain how the syntax and operation of
+ each keyword works in detail, and examples are shown to give you an idea
+ as to how to use them in your programs.
+<p>   As a convenience, Commodore 64 BASIC allows you to abbreviate most
+ keywords. Abbreviations are entered by typing enough letters of the
+ keyword to distinguish it from all other keywords, with the last letter
+ or graphics entered holding down the <kbd>&lt;SHIFT&gt;</kbd> key.
+<p>   Abbreviations do NOT save any memory when they're used in programs,
+ because all keywords are reduced to single-character "tokens" by the
+ BASIC Interpreter. When a program containing abbreviations is listed, all
+ keywords appear in their fully spelled form. You can use abbreviations to
+ put more statements onto a program line even if they won't fit onto the
+ 80-character logical screen line. The Screen Editor works on an 80-character line. This means that if you use abbreviations on any line that
+ goes over 80 characters, you will NOT be able to edit that line when
+ <a href="page_058.html#list">LISTed</a>. Instead, what you'll have to do is (1) retype the entire line
+ including all abbreviations, or (2) break the single line of code into
+ two lines, each with its own line number, etc.
+<p>   A complete list of keywords, abbreviations, and their appearance on the
+ screen is presented in <a href="page_031.html#2-1">Table 2-1</a>. They are followed by an alphabetical
+ description of all the statements, commands, and functions available on
+ your Commodore 64.
+<p>   This chapter also explains the BASIC functions built into the BASIC
+ Language Interpreter. Built-in functions can be used in direct mode
+ statements or in any program, without having to define the function
+ further. This is NOT the case with user-defined functions. The results of
+ built-in BASIC functions can be used as immediate output or they can be
+ assigned to a variable name of an appropriate type. There are two types
+ of BASIC functions:
+<ol>
+   <li> NUMERIC
+   <li> STRING
+</ol>
+   Arguments of built-in functions are always enclosed in parentheses ().
+ The parentheses always come directly after the function keyword and NO
+ SPACES between the last letter of the keyword and the left parenthesis (.
+
+<hr>
+<a href="page_029.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_031.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 14, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

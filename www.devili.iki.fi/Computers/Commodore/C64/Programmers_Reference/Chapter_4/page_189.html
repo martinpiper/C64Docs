@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Sound and Music on Your Commodore 64 - Using Multiple Voices (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_187.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_190.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p>   Here is a line-by-line explanation of Example Program 2. For now, we
+ are interested in how the three voices are controlled.
+
+<p><b class=blue>LINE-BY-LINE EXPLANATION OF EXAMPLE PROGRAM 2:</b>
+
+<p><table cellspacing=0 border=1 align=center>
+<tr><th>Line(s)</th><th>                       Description</th></tr>
+<tr><td>10      </td><td>Set S equal to start of sound chip and clear all sound chip registers.</td></tr>
+<tr><td>20      </td><td>Dimension arrays to contain activity of song, 1/16th of a measure per location.</td></tr>
+<tr><td>30      </td><td>Dimension array to contain base frequency for each note.                       </td></tr>
+<tr><td>40      </td><td>Store waveform control byte for each voice.                                    </td></tr>
+<tr><td>50      </td><td>Set high pulse width for voice 2. <br>Set high frequency for filter cutoff.  <br>Set resonance for filter and filter voice 3.</td></tr>
+<tr><td>60      </td><td>Read in base frequency for each note.</td></tr>
+<tr><td>100     </td><td>Begin decoding loop for each voice.</td></tr>
+<tr><td>110     </td><td>Initialize pointer to activity array.</td></tr>
+<tr><td>120     </td><td>Read coded note.</td></tr>
+<tr><td>130     </td><td>If coded note is zero, then next voice.</td></tr>
+<tr><td>140     </td><td>Set waveform controls to proper voice. <br> If silence, set waveform controls to 0.</td></tr>
+<tr><td>150     </td><td>Decode duration and octave.</td></tr>
+<tr><td>160     </td><td>Decode note.</td></tr>
+<tr><td>170     </td><td>Get base frequency for this note.</td></tr>
+<tr><td>180     </td><td>If highest octave, skip division loop.</td></tr>
+<tr><td>190     </td><td>Divide base frequency by 2 appropriate number of times.</td></tr>
+<tr><td>200     </td><td>Get high and low frequency bytes.</td></tr>
+<tr><td>210     </td><td>If sixteenth note, set activity array: high frequency, low frequency, and waveform control (voice on).</td></tr>
+<tr><td>220     </td><td>For all but last beat of note, set activity array: high frequency, low frequency, waveform control (voice on).</td></tr>
+<tr><td>230     </td><td>For last beat of note, set activity array: high frequency, low frequency, waveform control (voice off).</td></tr>
+<tr><td>240     </td><td>Increment pointer to activity array. Get next note.</td></tr>
+<tr><td>250     </td><td>If longer than before, reset number of activities.</td></tr>
+<tr><td>260     </td><td>Go back for next voice.</td></tr>
+<tr><td>500     </td><td>Set Attack/Decay for voice 1 (A=0, D=0). <br>Set Sustain/Release for voice 1 (S=15, R=0).</td></tr>
+</table>
+
+<hr>
+<a href="page_187.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_190.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	February 10, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

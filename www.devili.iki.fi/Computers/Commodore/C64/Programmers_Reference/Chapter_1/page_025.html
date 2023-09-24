@@ -1,0 +1,106 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Techniques (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_024.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_026.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> the question mark (?) which is the BASIC abbreviation for the <a href="../Chapter_2/page_070.html#print">PRINT</a>
+ command. However, if you <a href="../Chapter_2/page_058.html#list">LIST</a> a program that has abbreviations, the
+ Commodore 64 will automatically print out the listing with the full-length keywords. If any program line exceeds 80 characters (2 lines on
+ the screen) with the keywords unabbreviated, and you want to change it,
+ you will have to re-enter that line with the abbreviations before saving
+ the program. <a href="../Chapter_2/page_081.html#save">SAVEing</a> a program incorporates the keywords without
+ inflating any lines because BASIC keywords are tokenized by the Commodore
+ 64. Usually, abbreviations are added after a program is written and it
+ isn't going to be <a href="../Chapter_2/page_058.html#list">LISTed</a> any more before <a href="../Chapter_2/page_081.html#save">SAVEing</a>.
+
+<h3> SHORTENING PROGRAM LINE NUMBERS</h3>
+
+<p> Most programmers start their programs at line 100 and number each fine
+ at intervals of 10 (i.e., 100, 110, 120). This allows extra lines of
+ instruction to be added (111, 112, etc.) as the program is developed.
+ One means of crunching the program after it is completed is to change
+ the fine numbers to the lowest numbers possible (i.e., 1, 2, 3) because
+ longer line numbers take more memory than shorter numbers when referenced
+ by <a href="../Chapter_2/page_052.html#goto">GOTO</a> and <a href="../Chapter_2/page_051.html#gosub">GOSUB</a> statements. For instance, the number 100 uses 3 bytes
+ of memory (one for each number) while the number I uses only 1 byte.
+
+<h3> PUTTING MULTIPLE INSTRUCTIONS ON EACH LINE</h3>
+
+<p> You can put more than one instruction on each numbered line in your
+ program by separating them by a colon. The only limitation is that all
+ the instructions on each line, including colons, should not exceed the
+ standard 80-character line length. Here is an example of two programs,
+ before and after crunching:</p>
+
+<table align=center><tr><th>
+ BEFORE CRUNCHING:              </th><th>AFTER CRUNCHING:
+</th></tr><tr><td><pre>
+ 10 PRINT"HELLO...";            
+ 20 FOR T=1 TO 500: NEXT           
+ 30 PRINT"HELLO, AGAIN..."
+ 40 GOTO 10
+</pre></td><td><pre>
+10 PRINT "HELLO...";:FORT=1TO500:NEXT:
+PRINT"HELLO, AGAIN...":GOTO10
+</pre></td></tr></table>
+
+
+<h3> REMOVING REM STATEMENTS </h3>
+
+<p> <a href="../Chapter_2/page_077.html#rem">REM</a> statements are helpful in reminding yourself-or showing other
+ programmers - what a particular section of a program is doing. However,
+ when the program is completed and ready to use, you probably
+
+<hr>
+<a href="page_024.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_026.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 22, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

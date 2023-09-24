@@ -1,0 +1,99 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+    <title>System Specification for C65: System Hardware - The CSG 4567 System/Video Controller</title>
+    <link rel=first href="../page1.html">
+    <link rel=top href="../../../index.html">
+     <link rel=prev href="page83.html"> 
+     <link rel=next href="page85.html"> 
+    <link rel="contents" href="../page6.html">
+    <link rel="chapter" href="../Chapter_1/page9.html" title="Chapter 1 - Introduction">
+    <link rel="chapter" href="page21.html" title="Chapter 2 - System Hardware">
+    <link rel="chapter" href="../Chapter_3/page141.html" title="Chapter 3 - System Software">
+    <link rel="chapter" href="../Chapter_4/page326.html" title="Chapter 4 - C64DX Development Support">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page83.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page85.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+<table width="100%">
+  <tr><td align=left>System Specification for C65</td><td align=center>Fred Bowen</td><td align=right>March 1, 1991</td></tr>
+</table>
+<p>
+
+<center><h4>DMA and special CPU Accesses</h4></center>
+
+<dl>
+<dt>VMF -- Video Matrix Fetch</dt>
+<dd>The 4567 performs Video Matrix Fetches, during displayed video times,
+    in all of the original VIC-II modes (SCM, MCM, ECM, BMM) . This is true for
+    both 40 and 80 column (320 and 640 pixel) modes. During VMF, the 4567 reads
+    both banks (A & B) of memory over both data busses D0-D7 and E0-E7. The D0-D7
+    bus provides the video matrix data, E0-E3 provides color data, and E4-E7
+    provides character attribute data.</dd>
+<dt>CDF -- Character Data Fetch</dt>
+<dd>  The 4567 performs Character Data Fetches immediately after each Video
+    Matrix Fetch in the original VIC-II modes except bitmap mode. During this fetch
+    Character image data is fetched from ROM or RAM bank A over the D0-D7 bus.</dd>
+<dt>BMF -- BitMap Fetch</dt>
+<dd>   The 4567 performs Bitmap Data Fetches immediately after each video
+    Matrix Fetch, only in the bitmap mode. During this fetch, Bitmap image data
+    is fetched from RAM bank A over the D0-D7 bus.</dd>
+<dt>BPF -- Bitplane Fetch</dt>
+<dd>   The 4567 can perform Bitplane image fetches during displayed video
+    times, if the Bitplane mode (BPM) is enabled. The number and position of these
+    fetches is determined by which bitplanes are enabled. During bitplane fetches,
+    even numbered bitplane data is fetched over DO-D7 and odd numbered bitplane
+    data is fetched over E0-E7.</dd>
+<dt>RF -- RAM refresh</dt>
+<dd>   The 4567 performs six cycles of dynamic RAM refresh every scanned video
+    line. During this time no data is fetched and CASA* and CASB* are not activated.</dd>
+<dt>SPF -- Sprite Pointer Fetch</dt>
+<dd>   Up to eight Sprite Pointer Fetches can occur each scanned video line.
+    One SPF is generated for each sprite that is enabled and currently being
+    displayed. During an SPF, the pointer to the sprite image data is fetched
+    from the video matrix area of memory for the sprite in question over the
+    D0-D7 data bus.</dd>
+<dt>SDF -- Sprite Data Fetch</dt>
+<dd>   Three Sprite Data Fetches follow each Sprite Pointer Fetch. During
+    this time, sprite image data for the sprite in question is fetched over
+    the D0-D7 data bus.</dd>
+<dt>DAT -- Display Address Translation</dt>
+<dd>  Display Address Translation, or DAT fetches, are not actually DMA-type
+    accesses, but rather CPU address redirections to RAM. In this case, the
+    unmultiplexed address bus is totally separated from the multiplexed address bus.</dd>
+<dt>COL -- Color RAM accesses</dt>
+<dd>   Color RAM is also accessed by the CPU via an address translation. This
+    is because color RAM would otherwise be located in the I/O area.</dd>
+</dl>
+<p>
+<hr>
+  <a href="page83.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page85.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="../page6.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	March 24, 2003.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

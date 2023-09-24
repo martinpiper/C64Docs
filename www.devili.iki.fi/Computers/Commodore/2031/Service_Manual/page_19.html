@@ -1,0 +1,80 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 2031 Service Manual: LP Circuit Theory - Power Supply and Reset Logic</title>
+     <link rel=prev href="page_18.html"> 
+     <link rel=next href="page_20.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_18.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_20.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2 align=right>2031 LP CIRCUIT THEORY</h2>
+
+<p align=center><a href="large/page_19a.gif"><img src="small/page_19a.gif" alt="[Power supply schematic]"></a></p>
+
+<h3>The Power Supply</h3>
+
+<p> The input AC voltage is controlled by switch 1 (SW1). Disk circuit
+    protection is provided by fuse 1 (F1). If SW1 is closed, the AC voltage
+    input is applied to the primary winding of transformer one (T1 T1 steps
+    down the AC input voltage into two smaller AC voltages. The top
+    secondary AC output (approx. 16VRMS) is converted to DC by the Full
+    Wave Bridge Rectifier CR1. The DC output of CR1 is regulated at 12VDC
+    by VR1. The bottom secondary AC output of T1 (approx. 9VRMS) is
+    converted to DC by the Full Wave Bridge Rectifier CR3. The DC output of
+    CR3 is regulated at + 5VDC by VR2. High frequency filtering is provided
+    by C1 and C3 for the 12VDC supply, and C4, C60, C6-8, 10, 19-22, 31
+    etc. for the 5VDC supply. Low frequency filtering is provided by C51
+    and C2 for the 12VDC supply, and C52 and C5 for the 5VDC supply.
+
+<p align=center><a href="large/page_19b.gif"><img src="small/page_19b.gif" alt="[Reset logic schematic]"></a></p>
+
+<h3>Reset Logic</h3>
+
+<p> The 2031 disk drive is automatically reset on power up by UF1, a 555
+    timer, when triggered by the 5V applied at pin 8. A reset can also be
+    set by the IFC line on the IEEE Interface. The output pulse width is
+    determined by the values of R43 and C36. The pulse width = 1. 1 x R43 x
+    C36 = .5 seconds. The output on pin 3 of UF1 is an active "high". It is
+    inverted by UC1 to active "low". A low output at UC1 pin 10 resets the
+    unit and initializes all the microprocessor logic.
+
+<p>
+<hr>
+  <a href="page_18.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_20.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 02, 1998.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>

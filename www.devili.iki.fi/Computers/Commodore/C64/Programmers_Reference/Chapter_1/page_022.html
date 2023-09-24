@@ -1,0 +1,104 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC Programming Rules - Programming Techniques (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_021.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_023.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<p> Now let's say that you wanted a dollar sign ($) in front of the number
+ represented by variable C. The $ must be <a href="../Chapter_2/page_070.html#print">PRINTed</a> inside quotes and in
+ front of variable C. To add the $ to your program hit the <kbd>&lt;RUN/STOP&gt;</kbd>
+ and <kbd>&lt;RESTORE&gt;</kbd> keys. Now type in line 40 as follows:
+
+<pre>
+   40 PRINT"$" C
+</pre>
+
+<p> Now hit <kbd>&lt;RETURN&gt;</kbd>, type <a href="../Chapter_2/page_081.html#run">RUN</a> and hit <kbd>&lt;RETURN&gt;</kbd> again.
+ The dollar sign goes in quotes because the variable C only represents
+ a number and can't contain a $. If the number represented by C was
+ 100 then the Commodore 64 screen would display $ 100. But, if you
+ tried to PRINT $C without using the quotes, you would get a <b><a href="../Appendices/page_400.html#syntax_error">?SYNTAX ERROR</a></b> message.
+<p> One last tip about $$$: You can create a variable that represents a
+ dollar sign which you can then substitute for the $ when you want to use
+ it with numeric variables. For example:
+
+<pre>
+   10 Z$="$"
+</pre>
+
+<p>Now whenever you need a dollar sign you can use the string variable
+ Z$. Try this:
+
+<pre>
+   10 Z$="$": INPUT A
+   20 PRINT Z$A
+</pre>
+
+<p> Line 10 defines the $ as a string variable called Z$, and then <a href="../Chapter_2/page_054.html#input">INPUTs</a> a
+ number called A. Line 20 <a href="../Chapter_2/page_070.html#print">PRINTs</a> Z$ ($) next to A (number).
+<p>   You'll probably find that it's easier to assign certain characters,
+ like dollar signs, to a string variable than to type "$" every time you
+ want to calculate dollars or other items which require " " like %.
+
+
+<h3><a name="Using">USING THE GET STATEMENT</a></h3>
+
+<p> Most simple programs use the <a href="../Chapter_2/page_054.html#input">INPUT</a> statement to get data from the
+ person operating the computer. When you're dealing with more complex
+ needs, like protection from typing errors, the <a href="../Chapter_2/page_049.html#get">GET</a> statement gives you
+ more flexibility and your program more "intelligence." This section shows
+ you how to use the <a href="../Chapter_2/page_049.html#get">GET</a> statement to add some special screen editing
+ features to your programs.
+
+<hr>
+<a href="page_021.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_023.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 22, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>Commodore Techtopics: C128 ROM RELEASE (cont.)</title>
+    <meta name="description" content="Commodore 128 ROM upgrade release announcement, page 3 of 4">
+    <link rel=next href="page_02.html">
+    <link rel=stylesheet href="techtopics.css">
+    <link rev=made href="mailto:rtiainen@devili.iki.fi">
+<link rel=contents href="../index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+<body>
+<a href="page_02.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_04.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3>PART NUMBER 318020-05 --EDITOR, KERNEL, CP/M ($C000-$FFFF)</h3>
+<ol start="22">
+    <li>CAPS LOCK Q.  Previously an error in key matrix decode table caused
+        a lowercase 'Q' to be passed when the keyboard is in CAPS LOCK
+        mode. The table has been corrected by substituting the correct
+        value for upper-case 'Q'.
+
+    <li>FUNCTION KEYs.  Previously the function key handler, part of the
+        SCNKEY routine at CKIT2, failed to detect a function key string
+        pending. This has been corrected via patch routine, which will
+        ignore new function key depressions until the string in prograss
+        has been output (i.e., KYNDX = 0). Also, DOPFKEY now exits via
+        SCNRTS, instead of simply RTSing.
+
+    <li>IOINIT system initialization.  Previously the RS-232 pseudo-6551
+        registers were not initialized because these values are expected to
+        be given by the user whenever RS-232 channels are OPENed.
+        Apparently many C64 users have taken advantage of the fact the C64
+        'happened' to clear these locations an fail to specify critical
+        parameters. These RS-232 registers are now initialized to default
+        to: no parity, full duplex, 3-line, 1-stop bit, 8-bit words and 300
+        baud, via a patch subroutine.
+
+    <li>IOINIT PAL system initialization.  Adjustements have been made to
+        the 8563 initialization values fro PAL systems. The PAL horizontal
+        total (register 0) changes from $7E to $7F. The PAL vertical total
+        (register 4) changes from $27 to $26. These changes sift the cycle
+        time from 20.320us to 20.032us. The patch required a patch
+        subroutine as well as a change to VDCTBL.
+
+    <li>BASIN system call.  Previosly attempting input from a logical
+        channel to the screen (e.g., via INPUT#) resulted line too long
+        errors. This has been corrected utilizing a subroutine patch to
+        preserve bit-7 of CRSW, which serves as a flag to the Editor that a
+        (pseudo) end-of-line has been reached. Also, TBLX is copied to
+        LINTMP to correctly locate the current cursor line for the Editor.
+        Please note that switching between the 40 and 80-column text
+        screens, opening and closing windows, or clearing text screens can
+        confuse logical screen channels. The Editor variable LINTMP ($A30)
+        is a global, not local, variable as it should have been. Users can
+        POKE LINTMP with the logical screen line number before INPUT#'s as
+        a work-around.
+
+    <li>OPEN RS-232 system call.  Previously it was possible to receive a
+        carry-set status, normally indicating an error, when no error
+        existed after OPENing an RS-232 channel. This has been corrected
+        totally in-line by a modification to the code which checks for the
+        proper X-line hardware states.
+
+    <li>LOAD system call.  Previously the normal (a.k.a. SLOW) load
+        mechanism old not preserve the starting address of any LOADs, which
+        made the BASIC 'BOOT "file"' command form malfunction
+        unpredictably. This is apparent only when used with 1541 drives.
+        This has been corrected via a patch subroutine, which saves the
+        starting address of all LOADed files at SAL and SAH, the same place
+        the fast (a.k.a. BURST) load mechanism does.
+
+    <li>DMA system call.  Previosly the Kernel forced the I/O block into
+        the user's memory configuration at all times, which is no longer
+        necessary and, in fact, seriously limits the functionality of the
+        RAM expansion cartridge. This has been corrected by a ROM patch
+        routine, which affects all Kernel DMA system calls as well as the
+        BASIC FETCH, STASH, and SWAP commands. Also, previously it was
+        possible for an IRQ to occur between the 'arm DMA' and 'trigger
+        DMA' sequences, resulting in a DMA orperation with the system
+        configuration in context regardless of desired configuration. This
+        has been corrected by adding 'PHP/SEI...PLP' instructions around
+        the JSR to DMA RAM code at $3F0. Applications using the DMA RAM
+        code at $3F0 should do likewise. Finally, in this patch changes
+        were made to enable DMA operations to all RAM banks by correctly
+        using The VIC bank pointer found in the MMU RAM configuration
+        register ($D506, VA16=bit-6 and VA17=bit-7). Applications using the
+        Kernel routine at $FF50 will inherit these changes automatically.
+        Please note that NMI interrupts can screw-up DMA operations, as
+        they cannot be masked.
+</ol>
+
+<hr>
+<a href="page_02.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_04.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../index.html"><img src="../../../../images/blue_toc.gif" width=24 height=24 alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	April 06, 2006.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: BASIC to Machine Language - User Callable KERNAL Routines</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_293.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_295.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Save">B-24. Function Name: SAVE</a></h3>
+
+<p><b class="blue">Purpose:</b>                    Save memory to a device
+<br><b class="blue">Call address:</b>              $FFD8 (hex) 65496 (decimal)
+<br><b class="blue">Communication registers:</b>   A, X, Y
+<br><b class="blue">Preparatory routines:</b>      SETLFS, SETNAM
+<br><b class="blue">Error returns:</b>             5,8,9, READST
+<br><b class="blue">Stack requirements:</b>        None
+<br><b class="blue">Registers affected:</b>        A, X, Y
+
+<p><b class="blue">Description:</b> This routine saves a section of memory. Memory is saved
+ from an indirect address on page 0 specified by the accumulator to the
+ address stored in the X and Y registers. It is then sent to a logical
+ file on an input/output device. The SETLFS and SETNAM routines must be
+ used before calling this routine. However, a file name is not required to
+ SAVE to device 1 (the Datassette<sup><small>TM</small></sup> recorder). Any attempt to save to
+ other devices without using a file name results in an error.
+
+<table border="1" class="blue" cellspacing="0">
+<tr><td><b class="blue">NOTE:</b> Device 0 (the keyboard), device 2 (RS-232), and device 3 (the
+    screen) cannot be SAVEd to. If the attempt is made, an error occurs,
+    and the SAVE is stopped.</td></tr>
+</table>
+
+<p><b class="blue">How to Use:</b><br>
+<ol>
+ <li> Use the SETLFS routine and the SETNAM routine (unless a SAVE with no
+      file name is desired on "a save to the tape recorder"),
+ <li> Load two consecutive locations on page 0 with a pointer to the start
+      of your save (in standard 6502 low byte first, high byte next
+      format).
+ <li> Load the accumulator with the single byte page zero offset to the
+      pointer.
+ <li> Load the X and Y registers with the low byte and high byte respectively
+      of the location of the end of the save.
+ <li> Call this routine.
+
+<p><b class="blue">EXAMPLE:</b>
+<pre>
+   LDA #1              ;DEVICE = 1:CASSETTE
+   JSR SETLFS
+   LDA #0              ;NO FILE NAME
+   JSR SETNAM
+   LDA PROG            ;LOAD START ADDRESS OF SAVE
+   STA TXTTAB          ;(LOW BYTE)
+   LDA PROG+1
+   STA TXTTA B+1       ;(HIGH BYTE)
+   LDX VARTAB          ;LOAD X WITH LOW BYTE OF END OF SAVE
+   LDY VARTAB+1        ;LOAD Y WITH HIGH BYTE
+   LDA #&lt;TXTTAB        ;LOAD ACCUMULATOR WITH PAGE 0 OFFSET
+   JSR SAVE
+</pre>
+
+<hr>
+<a href="page_293.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_295.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	December 17, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

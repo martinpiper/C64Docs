@@ -1,0 +1,217 @@
+<HTML>
+<head>
+<title>Commodore 1571 Service Manual: IC Pin Assignments (cont.)</title><meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF">
+
+<a href="Page_08.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_10.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<hr>
+
+<h2><center> WD 1770/1772<br>
+FLOPPY DISK CONTROLLER/FORMATTER
+</center><br>
+</h2>
+
+<center>
+<a><img src="Page_09.gif"></a>
+
+<br><br>
+
+<table border width="96%">
+
+<tr>
+<th nowrap align=left>PIN</th>
+<th align=left>DESC</th>
+<th align=left>DESC</th><th align=left>FUNCTION</th>
+</tr>
+
+<tr>
+<td valign=top>1</td>
+<td valign=top>CS</td><td valign=top>CHIP SELECT</td>
+<td>A logic low on this input selects the chip and enable
+Host communication with the device.</td>
+</tr>
+
+<tr>
+<td valign=top>2</td>
+<td valign=top>R/W</td>
+<td valign=top>READ/WRITE</td>
+<td>A logic high on this input controls the placement of data
+on the D0-D7 lines from a selected register, while a logic
+low causes a write operation to a seleeted register.</td>
+</tr>
+
+<tr>
+<td valign=top>3,4</td>
+<td valign=top>A0,A1</td>
+<td valign=top>ADDRESS 0,1</td>
+<td>These two inputs select a register to Read/Write data:
+<PRE>   CS  A1  A0     R/W=1       R/W=0
+   0   0   0   Status Reg  Command Reg
+   0   0   1   Track Reg   Track Reg
+   0   1   0   Sector Reg  Sector Reg
+   0   1   1   Data Reg    Data Reg</PRE>
+</TR>
+
+<tr>
+<td valign=top>5-12</td>
+<td valign=top>DAL0-DAL7</td>
+<td valign=top>DATA ACCESS LINES 0 THRU 7</td>
+<td>Eight bit bidirectional bus used for transfer of data,
+control, or status. This bus is enabled by CS and R/W.
+Each line will drive one TTL load.</td>
+</tr>
+
+<tr>
+<td valign=top>13</td>
+<td valign=top>MR</td>
+<td valign=top>MASTER RESET</td>
+<td>A logic low pulse on this line resets the device
+and initializes the status register (internal pull-up).</td>
+</tr>
+
+<tr>
+<td valign=top>14</td>
+<td valign=top>GND</td>
+<td valign=top>GROUND</td><td>Ground.</td>
+</tr>
+
+<tr>
+<td valign=top>15</td>
+<td valign=top>Vcc</td>
+<td valign=top>POWER SUPPLY</td>
+<td>+5V <IMG SRC="pm.gif"> 5% power supply input.</td>
+</tr>
+
+<tr>
+<td valign=top>16</td>
+<td valign=top>STEP</td>
+<td valign=top>STEP</td>
+<td>The STEP output contains a pulse for each step of the
+drive's R/W head. The WD 1770 and WD1772 offer different
+step rates.</td>
+</tr>
+
+<tr>
+<td valign=top>17</td>
+<td valign=top>DIRC</td>
+<td valign=top>DIRECTION</td>
+<td valign=top>The DIRECTION output is high when stepping in
+towards the center of the diskette, and low when stepping out.</td>
+</tr>
+
+<tr>
+<td valign=top>18</td>
+<td valign=top>CLK</td>
+<td valign=top>CLOCK</td>
+<td>This input requires a free-running 50% duty cycle clock
+(for internal timing) at 8MHz <IMG SRC="pm.gif"> 1%.</td>
+</tr>
+
+<tr>
+<td valign=top>19</td>
+<td valign=top>RD</td>
+<td valign=top>READ DATA</td>
+<td>This active low input is the raw data line containing
+both clock and data pulses from the drive.</td>
+</tr>
+
+<tr>
+<td valign=top>20</td>
+<td valign=top>MO</td>
+<td valign=top>MOTOR ON</td>
+<td>Active high output used to enable the spindle motor prior
+to read, write or stepping operations.</td>
+</tr>
+
+<tr>
+<td valign=top>21</td>
+<td valign=top>WG</td>
+<td valign=top>WRITE GATE</td>
+<td>This output is made valid prior to writing on the diskette.</td>
+</tr>
+
+<tr>
+<td valign=top>22</td>
+<td valign=top>WD</td>
+<td valign=top>WRITE DATA</td>
+<td>FM or MFM clock and data pulses are placed
+on this line to be written on the diskette.</td>
+</tr>
+
+<tr>
+<td valign=top>23</td>
+<td valign=top>TR00</td>
+<td valign=top>TRACK00</td>
+<td>This active low input informs the WD1770 that the drive's
+R/W heads are positioned over Track Zero (internal pull-up).</td>
+</tr>
+
+<tr>
+<td valign=top>24</td>
+<td valign=top>IP</td>
+<td valign=top>INDEX PULSE</td>
+<td>This active low input informs the WD1770 when the physical Index
+Hole has been encountered on the diskette (internal pull-up).</td>
+</tr>
+
+<tr>
+<td valign=top>25</td>
+<td valign=top>WPRT</td>
+<td valign=top>WRITE PROTECT</td>
+<td>This input is sampled whenever a
+Write Command is received. A logic low on this line will prevent any Write Command from executing
+(internal pull-up).</td>
+</tr>
+
+<tr>
+<td valign=top>26</td>
+<td valign=top>DDEN</td>
+<td valign=top>DOUBLE DENSITY ENABLE</td>
+<td>This input pin selects either single (FM) or double
+(MFM) density. When DDEN = 0, double density is selected
+(internal pull-up).</td>
+</tr>
+
+<tr>
+<td valign=top>27</td>
+<td valign=top>DRQ</td>
+<td valign=top>DATA REQUEST</td>
+<td>This active high output indicates that the data register
+is full (on a READ) or empty (on a Write operation).
+</td></tr>
+
+<tr>
+<td valign=top>28</td>
+<td valign=top>INTRQ</td>
+<td valign=top>INTERRUPT REQUEST</td>
+<td>This active high output is set at the completion of any
+command or reset or read of the status register.</td>
+</tr>
+
+</table>
+</center>
+<br>
+
+<hr>
+<a href="Page_08.html"><img src="../../../../images/blue_prev.gif" alt="[Prev]" BORDER=0></a>
+<a href="Page_10.html"><img src="../../../../images/blue_next.gif" alt="[Next]" BORDER=0></a>
+<a href="Contents.html"><img src="../../../../images/blue_toc.gif" alt="[Contents]" BORDER=0></a>
+<a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" BORDER=0></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" BORDER=0></a>
+<br>
+
+<center>
+This page has been created by
+<a href="mailto:frank@kontr.uzhgorod.ua">Frank Kontros</a>.<br>
+Last updated May 17th, 1998.
+</center>
+
+</BODY>
+</HTML>

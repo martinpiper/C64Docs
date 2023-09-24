@@ -1,0 +1,119 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Input/Output Guide - The Game Ports (cont.)</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="../Chapter_3/index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+
+<body>
+<a href="page_345.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_347.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h3><a name="Paddles">PADDLES</a></h3>
+
+<p>A paddle is connected to both CIA #1 and the SID chip (MOS 6581 Sound
+   Interface Device) through a game port. The paddle value is read via the
+   SID registers <code>54297</code> (<code>$D419</code>) and
+   <code>54298</code> (<code>$D41A</code>). PADDLES ARE NOT RELIABLE WHEN
+   READ FROM BASIC ALONE!!!! The best way to use paddles, from BASIC or
+   machine code, is to use the following machine language routine...
+   (<code>SYS</code> to it from BASIC then <code>PEEK</code> the memory
+   locations used by the subroutine).
+
+<pre>
+1000 ;**************************************************
+1010 ;* FOUR PADDLE READ ROUTINE (CAN ALSO BE USED FOR TWO)
+1020 ;**************************************************
+1030 ;AUTHOR - BILL HINDORFF
+1040 PORTA=$DC00
+1050 CIDDRA=$DC02
+1060 SID=$D400
+1070 *=$C100
+1080 BUFFER  *=*+1
+1090 PDLX    *=*+2
+1100 PDLY    *=*+2
+1110 BTNA    *=*+1
+1120 BTNB    *=*+1
+1130 * = $C000
+1140 PDLRD
+1150    LDX #1        ; FOR FOUR PADDLES OR TWO ANALOG JOYSTICKS
+1160 PDLRD0           ; ENTRY POINT FOR ONE PAIR (CONDITION X 1ST)
+1170    SEI
+1180    LDA CIDDRA    ; GET CURRENT VALUE OF DDR
+1190    STA BUFFER    ; SAVE IT AWAY
+1200    LDA #$C0
+1210    STA CIDDRA    ; SET PORT A FOR INPUT
+1220    LDA #$80
+1230 PDLRD1
+1240    STA PORTA     ; ADDRESS A PAIR OF PADDLES
+1250    LDY #$80      ; WAIT A WHILE
+1260 PDLRD2
+1270    NOP
+1280    DEY
+1290    BPL PDLRD2
+1300    LDA SID+25    ; GET X VALUE
+1310    STA PDLX,X
+1320    LDA SID+26
+1330    STA PDLY,X    ; GET Y VALUE
+1340    LDA PORTA     ; TIME TO READ PADDLE FIRE BUTTONS
+1350    ORA #80       ; MAKE IT THE SAME AS OTHER PAIR
+1360    STA BTNA      ; BIT 2 IS PDL X, BIT 3 IS PDL Y
+1370    LDA #$40
+1380    DEX           ; ALL PAIRS DONE?
+1390    BPL PDLRD1    ; NO
+1400    LDA BUFFER
+1410    STA CIDDRA    ; RESTORE PREVIOUS VALUE OF DDR
+1420    LDA PORTA+1   ; FOR 2ND PAIR -
+1430    STA BTNB      ; BIT 2 IS PDL X, BIT 3 IS PDL Y
+1440    CLI
+1450    RTS
+1460 .END
+</pre>
+
+<hr>
+<a href="page_345.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_347.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 20, 1998.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>C= 1581 Service Manual: 8520A Complex Interface Adapter</TITLE><meta name="viewport" content="width=device-width, initial-scale=1">
+</HEAD>
+<BODY TEXTCOLOR="#000000" BGCOLOR="#FFFFFF">
+
+<A HREF="Page_06.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_08.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<HR>
+
+<CENTER>
+<H2>8520A COMPLEX INTERFACE ADAPTER</H2>
+
+<BR>
+<IMG SRC="Page_07.gif" WIDTH="212" HEIGHT="370" ALT="PIN ASSIGNMENT">
+</CENTER>
+<BR>
+
+<B>INTERFACE SIGNALS</B>
+
+<P><B>Clock (<IMG SRC="phi2b.gif" ALT="PHI2">)</B> &nbsp;&#151;&nbsp; The <IMG SRC="phi2.gif" ALT="PHI2"> clock is a TTL compatible input used for internal device operation and as a timing reference for communicating with the system data bus.
+
+<P><B>Chip Select (<IMG SRC="csb.gif" ALT="CS">)</B> &nbsp;&#151;&nbsp; The <IMG SRC="cs.gif" ALT="CS"> input controls the activity of the 8520. A low level on <IMG SRC="cs.gif" ALT="CS"> while <IMG SRC="phi2.gif" ALT="PHI2"> is high causes the device to respond to signals on the <IMG SRC="rw.gif" ALT="R/W"> and address (RS) lines. A high on <IMG SRC="cs.gif" ALT="CS"> prevents these lines from controlling the 8520. The <IMG SRC="cs.gif" ALT="CS"> line is normally activated (low) at <IMG SRC="phi2.gif" ALT="PHI2"> by the appropriate address combination.
+
+<P><B>Read/Write (<IMG SRC="rwb.gif" ALT="R/W">)</B> &nbsp;&#151;&nbsp; The <IMG SRC="rw.gif" ALT="R/W"> signal is normally supplied by the microprocessor and controls the direction of data transfers of the 8520. A high on <IMG SRC="rw.gif" ALT="R/W"> indicates a read (data transfer out of the 8520), while a low indicates a write (data transfer into the 8520).
+
+<P><B>Address Bus (RS3-RS0)</B> &nbsp;&#151;&nbsp; The address inputs select the internal registers as described by the Register Map.
+
+<P>
+<B>Data Bus (DB7-DB0)</B> &nbsp;&#151;&nbsp; The eight bit data bus transfers information between the 8520 and the system data bus. These pins are high impedance inputs unless <IMG SRC="cs.gif" ALT="CS"> is low and <IMG SRC="rw.gif" ALT="RW"> and <IMG SRC="phi2.gif" ALT="PHI2"> are high, to read the device. During this read, the data bus output buffers are enabled, driving the data from the selected register onto the system data bus.
+
+<P><B>Interrupt Request (<IMG SRC="irqb.gif" ALT="IRQ">)</B> &nbsp;&#151;&nbsp; <IMG SRC="irq.gif" ALT="IRQ"> is an open drain output normally connected to the processor interrupt input. An external pullup resistor holds the signal high, allowing multiple <IMG SRC="irq.gif" ALT="IRQ">-outputs to be connected together. The <IMG SRC="irq.gif" ALT="IRQ"> output is normally off (high impedance) and is activated low as indicated in the functional description.
+
+<P><B>Reset (<IMG SRC="resb.gif" ALT="RES">)</B> &nbsp;&#151;&nbsp; A low on the <IMG SRC="res.gif" ALT="RES"> pin resets all internal registers. The port pins are set as inputs and port registers to zero (although a read of the ports will return all highs because of passive pullups). The timer control registers are set to zero and the timer latches to all ones. All other registers are reset to zero.</P>
+
+<HR>
+
+<A HREF="Page_06.html">
+<IMG SRC="blue_prev.gif" ALT="[Prev]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Page_08.html">
+<IMG SRC="blue_next.gif" ALT="[Next]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="Contents.html">
+<IMG SRC="blue_toc.gif" ALT="[Contents]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<A HREF="../../index.html">
+<IMG SRC="blue_cbm.gif" ALT="[Commodore]" BORDER=0 HEIGHT=24 WIDTH=22></A>
+<A HREF="http://www.devili.iki.fi/general/new.html" title="New">
+<IMG SRC="blue_new.gif" ALT="[New]" BORDER=0 HEIGHT=24 WIDTH=27></A>
+<A HREF="https://www.devili.iki.fi/" title="Home">
+<IMG SRC="blue_home.gif" ALT="[Home]" BORDER=0 HEIGHT=24 WIDTH=24></A>
+<BR>
+
+<CENTER>
+This page has been created by <A HREF="mailto:frank@kontr.uzhgorod.ua">
+Frank Kontros</A>.<BR>Last updated May 14th, 1999.
+</CENTER>
+
+
+</BODY>
+</HTML>

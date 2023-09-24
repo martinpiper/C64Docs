@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+    <title>C64 Programmer's Reference Guide: Programming Graphics - Sprites, another look</title>
+     <link rel="stylesheet" href="../default.css">
+  <link rel="start" href="../../../index.html">
+  <link rel="up" href="../index.html">
+  <link rel="first" href="../front_cover.html">
+  <link rel="contents" href="../page_iii.html">
+  <link rel="chapter" title="Chapter 1 - BASIC Programming Rules" href="../Chapter_1/index.html">
+  <link rel="chapter" title="Chapter 2 - BASIC Language Vocabulary" href="../Chapter_2/index.html">
+  <link rel="chapter" title="Chapter 3 - Programming Graphics on the Commodore 64" href="index.html">
+  <link rel="chapter" title="Chapter 4 - Programming Sound and Music on Your Commodore 64" href="../Chapter_4/index.html">
+  <link rel="chapter" title="Chapter 5 - Basic to Machine Language" href="../Chapter_5/index.html">
+  <link rel="chapter" title="Chapter 6 - Input/Output Guide" href="../Chapter_6/index.html">
+  <link rel="appendix" title="Appendix F - Bibliography" href="../Appendices/page_388.html">
+  <link rel="appendix" title="Appendix G - VIC Chip Register Map" href="../Appendices/page_391.html">
+  <link rel="appendix" title="Appendix K - Error Messages" href="../Appendices/page_400.html">
+  <link rel="appendix" title="Appendix P - Glossary" href="../Appendices/page_482.html">
+  <link rel="glossary" href="../Appendices/page_482.html">
+  <link rel="index" href="../page_483.html">
+  <link rel="copyright" href="../page_ii.html">
+  <link rel="last" href="../back_cover.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+</head>
+<body>
+<a href="page_152.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_154.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<h2><a name="Programming">PROGRAMMING SPRITES - ANOTHER LOOK</a></h2>
+
+<p> For those of you having trouble with graphics, this section has been
+ designed as a more elementary tutorial approach to sprites.
+
+<h3><a name="Making">MAKING SPRITES IN BASIC - A SHORT PROGRAM</a></h3>
+
+<p>There are at least three different BASIC programming techniques which
+ let you create graphic images and cartoon animations on the Commodore 64.
+ You can use the computer's built-in graphics character set (see Page
+ 376). You can program your own characters (see Page 108) or... best of
+ all... you can use the computer's built-in "sprite graphics. To
+ illustrate how easy it is, here's one of the shortest spritemaking
+ programs you can write in BASIC:
+
+<pre>
+ 10 PRINT"{CLEAR}"
+ 20 POKE2040,13
+ 30 FORS=832TO832+62:POKES,255:NEXT
+ 40 V=53248
+ 50 POKEV+21,1
+ 60 POKEV+39,1
+ 70 POKEV,24
+ 80 POKEV+1,100
+</pre>
+
+<p>This program includes the key "ingredients" you need to create any
+ sprite. The POKE numbers come from the SPRITEMAKING CHART on Page 176.
+ This program defines the first sprite... sprite 0... as a solid white
+ square on the screen. Here's a line-by-line explanation of the program:
+
+<p><b class="blue">LINE 10</b> clears the screen.
+
+<p><b class="blue">LINE 20</b> sets the "sprite pointer" to where the 
+ Commodore 64 will read its sprite data from. Sprite 0 is set at 2040, 
+ sprite 1 at 2041, sprite 2 at 2042, and so on up to sprite 7 at 2047. 
+ You can set all 8 sprite pointers to 13 by using this line in place 
+ of line 20:
+<pre>
+   20 FOR SP=2040TO2047:POKE SP,13:NEXT SP
+</pre>
+
+<p><b class="blue">LINE 30</b> puts the first sprite (sprite 0) into 
+ 63 bytes of the Commodore 64's RAM memory starting at location 832 
+ (each sprite requires 63 bytes
+
+<hr>
+<a href="page_152.html"><img src="../../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> <a href="page_154.html"><img src="../../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> <a href="../page_iii.html"><img src="../../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a>
+<a href="../../../index.html"><img src="../../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a> <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	May 12, 2002.
+</small></td></tr>
+</table>
+
+
+</body>
+</html>

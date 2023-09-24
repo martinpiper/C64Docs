@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+
+
+
+<html>
+<head>
+    <title>Commodore 2031 Service Manual: Overview and Flash Code</title>
+     <link rel=prev href="page_2.html"> 
+     <link rel=next href="page_5.html"> 
+    <link rel=contents href="contents.html">
+    <link rel=stylesheet href="../../include/sm_main.css">
+    <meta name="keywords" content="repair, CBM, disk drive, fix, instructions, documentation, IEEE-488, PET, electronics, maintenance, peripheral">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+ <a href="page_2.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_5.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<hr>
+
+
+<center><h2>OVERVIEW</h2></center>
+
+<p> The drive itself an independent memory device. THe drive is composed of
+    a media clamp rotating mechanism, a head positioning mechanism and an
+    eject mechanism. All positioning operations, excluding insertion and
+    removal of diskettes, are controlled by the internal guide mechanism.
+    Closing the front door causes the media clamp mechanism to operate. Two
+    operations are performed in the following order:
+
+<ul>
+    <li>a) The diskette is centered.
+    <li>b) The diskette is clamped and retained between the spindle and the hub.
+</ul>
+
+<p> The spindle and hub rotates at 300 r.p.m. through a closed/loop control
+    circuit employing a D.C motor/tachometer. It is important that the
+    relationship between the head and the media is maintained correctly
+    during operation. For this purpose, a pressure pad is used to hold and
+    press down the media (about 12g) from the opposite side of the head.
+    This head assembly is coupled by a metal band to a four base stepping
+    motor which performs the track positioning. One step of the stepping
+    motor corresponds to a 1/2 track movement. The control circuit on the
+    logic board selects the direction and number of steps to the desired
+    track.
+
+<p> The Read/Write head uses a glass-bonded, ferrite/ceramic head.
+    Track-to-track erasing is accomplished by the straddle erase method.
+    The surface of the Read/Write head is mirror-ground to minimize wear of
+    the head and media. Also, the head is designed in such a way that the
+    maximum signal can be obtained from the media surface.
+
+<p> The spindle drive motor operates on 12 VDC and turns the spindle,
+    through a belt drive, at 300 revolutions per minute. The speed of the
+    drive motor is controlled by a feedback signal from a tachometer, which
+    is housed in the drive motor assembly. The feedback signal controls a
+    servo amp that supplies the 12 VDC drive current.
+
+<center><h2><a name="flash">FLASH CODE</a></h2></center>
+
+<p> The 2031, upon power-up, goes through its own internal diagnostic. If
+    an electronic problem is detected, it's indicated by flash code. The
+    led's will blink a number of times, pause, and then flash again until
+    the problem is corrected.
+
+<center><table border=1 cellspacing=0>
+<tr><th>Number of flashes</th><th>Possible failure</th></tr>
+<tr><td nowrap align=center>2</td><td nowrap align=center>Zero page</td></tr>
+<tr><td nowrap align=center>3,4</td><td nowrap align=center>DOS ROM's</td></tr>
+<tr><td nowrap align=center>5,6,7,8</td><td nowrap align=center>RAM</td></tr>
+</table></center>
+
+<p> Circuitry associated with these components can also cause the failure
+    code. Therefore, it should be suspected as the next possible defect.
+
+<p>
+<hr>
+  <a href="page_2.html"><img src="../../../../images/blue_prev.gif" width="24" height="24" alt="[Prev]"></a> 
+ <a href="page_5.html"><img src="../../../../images/blue_next.gif" width="24" height="24" alt="[Next]"></a> 
+<a href="contents.html"><img src="../../../../images/blue_toc.gif" width="24" height="24" alt="[Contents]"></a> <a href="../../index.html"><img src="../../../../images/blue_cbm.gif" alt="[Commodore]" width="22" height="24"></a>
+ <a href="https://www.devili.iki.fi/general/new.html" title="New"><img src="../../../../images/blue_new.gif" alt="[New]" height="24" width="27"></a>
+<a href="https://www.devili.iki.fi/search/" title="Search"><img src="../../../../images/blue_search.gif" alt="[Search]" height="24" width="24"></a>
+<a href="https://www.devili.iki.fi/" title="Home"><img src="../../../../images/blue_home.gif" alt="[Home]" width=24 height=24></a>
+<br>
+<table cellspacing="0" border="0" width="100%">
+<tr><td align="right" colspan="2"><small>
+	This page has been created by <a href="mailto:rtiainen@suespammers.org">
+	Sami Rautiainen</a>.
+</small></td></tr><tr><td align="left"><small>
+	Read the <a href="https://www.devili.iki.fi/general/copyright.html">small print</a>.
+</small></td><td align="right"><small>
+	Last updated 
+	November 16, 1998.
+</small></td></tr>
+</table>
+
+</body>
+
+</html>
