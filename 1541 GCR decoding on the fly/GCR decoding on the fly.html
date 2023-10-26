@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0063)https://www.linusakesson.net/programming/gcr-decoding/index.php -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="StyleSheet" href="./GCR decoding on the fly_files/style4.css" type="text/css"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.linusakesson.net/rssfeed.php"><link rel="shortcut icon" href="https://www.linusakesson.net/img/fav2.png" type="image/png"><link rel="icon" href="https://www.linusakesson.net/img/fav2.png" type="image/png"><script type="text/javascript">
+<!--
+function captchaenter(e) {
+var keynum;
+if(window.event) { keynum = e.keyCode; } else { keynum = e.which; }
+return keynum != 13;
+}
+function sitecfg() {
+document.getElementById("cfgform").submit();
+}
+//-->
+</script><title>GCR decoding on the fly</title></head><body><div class="outer"><div id="leftbar" class="leftbar"><div class="toc0" style="clear: both"><div style="display: block"><a href="https://www.linusakesson.net/index.php"><img style="display: inline; margin: .2em" src="./GCR decoding on the fly_files/linus1.png" alt="">
+</a></div><div style="display: block; margin-top: .1em; margin-bottom: .3em"><a href="https://www.linusakesson.net/index.php" style="font: bold 1em sans-serif; text-decoration: none">linusakesson.net</a></div></div><div class="tocalt" id="tocalt"><a href="https://www.linusakesson.net/programming/gcr-decoding/index.php#" onclick="document.getElementById(&#39;tocdiv&#39;).style.display = &#39;block&#39;; document.getElementById(&#39;tocalt&#39;).style.display = &#39;none&#39;;" style="font-size: .8em">(show&nbsp;navigation)</a></div><div class="tocdiv" id="tocdiv"><a href="https://www.linusakesson.net/programming/gcr-decoding/index.php#" onclick="document.getElementById(&#39;tocalt&#39;).style.display = &#39;block&#39;; document.getElementById(&#39;tocdiv&#39;).style.display = &#39;none&#39;;" style="font-size: .8em">(hide&nbsp;navigation)</a><form id="cfgform" method="post" action="https://www.linusakesson.net/programming/gcr-decoding/index.php"><div class="confbox"><input type="hidden" name="cmd" value="conf"><ul class="conf"><li><input onclick="sitecfg()" type="checkbox" name="confswe"> Swedish content</li></ul><noscript><div><input type="submit" value="Configure site" /></div></noscript></div></form><div class="tocgroup"><form method="get" action="https://www.linusakesson.net/search.php"><div class="toc2"><h5 style="margin: 8px 0 0 0;">Site search:</h5><input name="q" class="sitesearch"></div></form><table class="toc"><tbody><tr><th class="toc1">Navigation</th></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/">Home&nbsp;&amp;&nbsp;news</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/random.php?anticache=1697962925">Random&nbsp;page</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/archive.php">All&nbsp;pages</a></td></tr></tbody></table><table class="toc"><tbody><tr><th class="toc1">Databases</th></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/cookies/">Fortune&nbsp;cookies</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/themes/">SID&nbsp;themes</a></td></tr></tbody></table></div><div class="tocgroup"><table class="toc"><tbody><tr><th class="toc1">Page collections</th></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/blag/index.php">Blag</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/chipmusic.php">Chip&nbsp;music</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/chipophone/pages.php">Chipophone</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/games/index.php">Games</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/hardware/index.php">Hardware&nbsp;projects</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/downloads.php">Music&nbsp;downloads</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/obfuscation.php">Obfuscated&nbsp;programming</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/piano.php">Piano&nbsp;music</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/index.php">Sane&nbsp;programming</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/pages/scene.php">Scene&nbsp;productions</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/sidstuff/index.php">SID&nbsp;related&nbsp;pages</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/index.php">Software&nbsp;downloads</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/underhanded/index.php">Underhanded&nbsp;code</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/pages/video.php">Video&nbsp;clips</a></td></tr></tbody></table></div><div class="tocgroup"><table class="toc"><tbody><tr><th class="toc1">Featured pages</th></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/15-years-of-scene-spirit/index.php">15&nbsp;Years&nbsp;of&nbsp;Scene&nbsp;Spirit</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/dialog/aamachine/index.php">Å-machine</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/a-mind-is-born/index.php">A&nbsp;Mind&nbsp;Is&nbsp;Born</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/games/autosokoban/index.php">Autosokoban</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/blackbird/index.php">Blackbird</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/hardware/theremin/index.php">C64&nbsp;Theremin</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/chipophone/index.php">Chipophone</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/chopin-e-minor/index.php">Chopin&nbsp;vs&nbsp;Flappy&nbsp;Bird</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/chuck-rock/index.php">Chuck&nbsp;Rock</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/commodordion/index.php">Commodordion</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/craft/index.php">Craft</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/dialog/craverly/index.php">Craverly&nbsp;Heights&nbsp;in&nbsp;Dialog</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/hardware/datassettes/index.php">Datassettes</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/hardware/dial-a-sid/index.php">Dial-a-SID</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/dialog/index.php">Dialog</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/elements/index.php">Elements&nbsp;of&nbsp;Chip&nbsp;Music</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/underhanded/2015.php">Faking&nbsp;Fissile&nbsp;Material</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/fratres/index.php">Fratres</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/gcr-decoding/index.php">GCR&nbsp;decoding&nbsp;on&nbsp;the&nbsp;fly</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/glyptodont-live/index.php">Glyptodont&nbsp;Live</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/guitar-slinger/index.php">Guitar&nbsp;Slinger</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/sidstuff/hanlonfugue/index.php">Hanlon&nbsp;Fugue</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/games/hardsync/index.php">Hardsync</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/games/the-impossible-bottle/index.php">Impossible&nbsp;Bottle</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/kernighans-lever/index.php">Kernighan's&nbsp;lever</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/lunatico/index.php">Lunatico</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/machine-yearning/index.php">Machine&nbsp;Yearning</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/lunatico/misc.php">MISC</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/monti-on-the-bin/index.php">Monti&nbsp;On&nbsp;The&nbsp;'Bin</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/for-microcontrollers/index.php">Music&nbsp;For&nbsp;Microcontrollers</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/o-holy-night/index.php">O&nbsp;Holy&nbsp;Night</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/parallelogram/index.php">Parallelogram</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/partita-prelude/index.php">Partita&nbsp;Prelude</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/paulimba/index.php">Paulimba</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/perpetual-fragility/index.php">Perpetual&nbsp;Fragility</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/platform-hopping/index.php">Platform&nbsp;Hopping</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/poems-for-bugs/index.php">Poems&nbsp;for&nbsp;bugs</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/qwertuoso/index.php">Qwertuoso</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/reverberations/index.php">Reverberations</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/safevsp/index.php">Safe&nbsp;VSP</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/sidreloc/index.php">Sidreloc</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/sixtyforgan/index.php">Sixtyforgan</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/spindle/v3.php">Spindle&nbsp;v3</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/nocturne/index.php">Stein's&nbsp;Nocturne</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/blag/210416-streaming.php">Streaming</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/hardware/autostart/index.php">Stripboard&nbsp;Cart</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/three-pc-pieces/index.php">Three&nbsp;PC&nbsp;Pieces</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/art/three-petscii-pieces/index.php">Three&nbsp;PETSCII&nbsp;pieces</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/programming/tty/index.php">TTY&nbsp;demystified</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/po-2x/unity.php">Unity</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/variation18/index.php">Variation&nbsp;18</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/music/vocalise/index.php">Vocalise</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/scene/watchroom.php">Watch&nbsp;Room</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/art/nibbles/index.php">We&nbsp;learn&nbsp;the&nbsp;nibbles</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/cryptic/2/index.php">Wings&nbsp;I've&nbsp;lost&nbsp;in&nbsp;dreams</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/software/zeugma/index.php">Zeugma</a></td></tr></tbody></table></div><div class="tocgroup"><table class="toc"><tbody><tr><th class="toc1">Fund my projects</th></tr><tr><td class="toc2"><a href="https://patreon.com/linusakesson">Patreon</a></td></tr><tr><td class="toc2"><a href="https://steadyhq.com/linusakesson">Steady</a></td></tr></tbody></table><table class="toc"><tbody><tr><th class="toc1">Don't miss</th></tr><tr><td class="toc2" style="padding: 0px; text-align: left"><a href="https://www.linusakesson.net/scene/phasor/capture.php"><img src="./GCR decoding on the fly_files/79.png" alt="Page thumbnail" style="border: 1px solid #cccccc; margin: 1em"></a><br>
+<a style="margin-left: 1em" href="https://www.linusakesson.net/scene/phasor/capture.php">Phasor, high quality video</a></td></tr></tbody></table><table class="toc"><tbody><tr><th class="toc1">Forum</th></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/forum/register.php">Register</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/forum/login.php">Log&nbsp;in</a></td></tr><tr><td class="toc2"><a href="https://www.linusakesson.net/forum/chronological.php">Latest&nbsp;comments</a></td></tr></tbody></table><table class="toc"><tbody><tr><th class="toc1">Syndication</th></tr><tr><td class="toc2"><a type="application/rss+xml" href="http://www.linusakesson.net/rssfeed.php">RSS feed</a></td></tr></tbody></table><table class="toc"><tbody><tr><th class="toc1">Feedback</th></tr><tr><td class="toc2"><script type="text/javascript">
+<!--
+a = "@";a = a + "linusak";a = "linus" + a;a = a + "esson.net";document.write("<a href=\"mailto:");document.write(a);document.write("\">");document.write(a);document.write("</a>");//-->
+</script><a href="mailto:linus@linusakesson.net">linus@linusakesson.net</a></td></tr></tbody></table></div></div></div><div class="maindiv"><div class="maindiv2"><a href="https://www.linusakesson.net/pages/scene.php"><div class="idthumb"><img title="Scene productions" alt="Scene productions" src="./GCR decoding on the fly_files/scenethumb2.png"></div></a><div class="searchable">
+<div style="text-align: right; clear: right; padding-top: 1em">
+<p><i>1541 isn't fast enough to decode in realtime.</i></p>
+<p class="attribution">— MagerValp</p>
+</div>
+
+<h1>GCR decoding on the fly</h1>
+
+<p><span class="blurb">The little routine presented here is, with all due
+humbleness, hands down the best code I ever wrote. It is esoteric and might not
+appeal to the masses, and it certainly has no commercial value. But in terms of
+personal satisfaction at a job well done, this is about as good as it gets.
+Here's why:</span></p>
+
+<ul>
+
+<li>The code solves a real, practical problem that people have been struggling
+with for 30&nbsp;years.</li>
+
+<li>The key to the solution lies in looking at the problem from a novel
+angle.</li>
+
+<li>The implementation would not be possible without plenty of trickery and
+clever coding techniques. Several instructions do more than one thing.</li>
+
+<li>The routine is incredibly compact, and leaves very little room for
+variation; it is THE solution.</li>
+
+</ul>
+
+<p>Due to the strict timing requirements, there was no way of testing the
+routine before it was complete. In contrast with the prevalent fashion of
+trial-and-error software development, writing this code was an exercise of the
+mind, and my only tools were pen, paper and text editor.</p>
+
+<h2>Acknowledgements</h2>
+
+<p>I would like to thank <a href="http://csdb.dk/scener/?id=8104">Krill of
+Plush</a> for creating <a href="http://csdb.dk/release/?id=78348">an excellent
+loader</a>, documenting some of its inner workings and releasing the entire
+source code, and <a href="http://csdb.dk/scener/?id=786">Ninja of The
+Dreams</a> for his concise reference material <a href="http://unusedino.de/ec64/technical/aay/c1541/">All about your 1541</a>.
+
+</p><h2>The problem</h2>
+
+<div style="float: right; margin: 1em">
+<img src="./GCR decoding on the fly_files/floppy.png" alt="Floppy disk">
+</div>
+
+<p>Commodore compatible 5.25" floppy disks store data as magnetic polarity
+reversals along 35&nbsp;concentric tracks on the surface. The drive positions
+the read head (a coil and an amplifier) over a track, spins the disk, and reads
+off a stream of ones and zeroes. A switch in polarity indicates a one, whereas
+no switch in polarity for a predetermined amount of time indicates a zero. But
+because the spindle motors in different drives won't go at exactly the same
+speed, it is not permitted to store more than two consecutive zeroes on a track.
+Otherwise there's a risk that the floppy drive counts off too many or too few
+zeroes, and the data comes out all wrong.</p>
+
+<p>Hence the data is encoded using a scheme called <i>GCR</i> (Group Code
+Recording).  For every four bits of data (also known as a <i>nybble</i>), five
+bits are written to the disk surface, chosen from a table. Let's refer
+to them as a <i>quintuple</i>. The encoding is designed to ensure that, no
+matter how you order the quintuples, there won't ever be more than two zeroes
+in a row.</p>
+
+<div class="otherbg" style="float: left; border: 1px solid black; margin: 1em">
+<table>
+<tbody><tr><th style="padding-right: 1em">Nybble</th><th style="padding-right: 1em">Quintuple</th><th style="padding-right: 1em">Nybble</th><th style="padding-right: 1em">Quintuple</th></tr>
+<tr><td><tt>0000</tt></td><td><tt>01010</tt></td><td><tt>1000</tt></td><td><tt>01001</tt></td></tr>
+<tr><td><tt>0001</tt></td><td><tt>01011</tt></td><td><tt>1001</tt></td><td><tt>11001</tt></td></tr>
+<tr><td><tt>0010</tt></td><td><tt>10010</tt></td><td><tt>1010</tt></td><td><tt>11010</tt></td></tr>
+<tr><td><tt>0011</tt></td><td><tt>10011</tt></td><td><tt>1011</tt></td><td><tt>11011</tt></td></tr>
+<tr><td><tt>0100</tt></td><td><tt>01110</tt></td><td><tt>1100</tt></td><td><tt>01101</tt></td></tr>
+<tr><td><tt>0101</tt></td><td><tt>01111</tt></td><td><tt>1101</tt></td><td><tt>11101</tt></td></tr>
+<tr><td><tt>0110</tt></td><td><tt>10110</tt></td><td><tt>1110</tt></td><td><tt>11110</tt></td></tr>
+<tr><td><tt>0111</tt></td><td><tt>10111</tt></td><td><tt>1111</tt></td><td><tt>10101</tt></td></tr>
+</tbody></table>
+</div>
+
+<p>When reading a disk, the floppy drive must convert the incoming bit stream,
+five bits at a time, into the original nybbles. The bits are, however, lumped
+together eight at a time, and handed off as bytes to a 6502 CPU. To indicate
+that a new byte has arrived, the overflow flag in the processor status register
+is set by means of the <a href="http://en.wikipedia.org/wiki/MOS_Technology_6502#Detailed_behavior">SO&nbsp;pin</a>.
+It is then up to the CPU to extract the quintuples from the bytes, decode them
+according to the GCR scheme, and join the resulting nybbles into bytes. This is
+a realtime job, and the deadlines are very tight: On tracks with the highest
+storage density, a new byte of raw GCR-encoded data arrives every
+26&nbsp;microseconds.</p>
+
+<div class="otherbg">
+
+	<p><tt>11111222 22333334 44445555 56666677 77788888</tt></p>
+
+	<p>The quintuples are packed into bytes, so that each byte contains parts
+	of up to three different quintuples. The least common multiple of five
+	and eight is 40, so after 40&nbsp;bits we're back in phase. Thus, a
+	GCR decoder generally contains a loop that deals with five bytes in
+	each iteration.</p>
+
+</div>
+
+<h2>Commodore's approach</h2>
+
+<p>Some of the floppy drives produced by Commodore sported 2&nbsp;MHz
+processors and large ROM chips with lookup-tables to facilitate the GCR
+decoding. However, Commodore also made the <a href="http://en.wikipedia.org/wiki/Commodore_1541">1541</a>, a low-cost drive,
+which turned out to be immensely popular, and has earned its place in the
+standard setup used for C64 demo compos (an unexpanded C64 and a 1541 floppy
+drive). The 1541 contains a single 6502&nbsp;CPU clocked at 1&nbsp;MHz,
+2&nbsp;kB of RAM and 16&nbsp;kB of ROM.</p>
+
+<p>With such modest specifications, Commodore concluded that the 1541 was not
+capable of decoding the GCR data in realtime.  Instead, the raw data for a
+complete 256-byte sector is stashed away in a buffer (of 320 bytes, because of
+the 5:4 expansion). Only afterwards does the CPU revisit each byte in the
+buffer, use a series of shifting and masking operations to bring each quintuple
+into the lower part of an index register, and perform a lookup in a ROM table
+of 32 entries. Actually, there are two such ROM tables, one containing low
+nybbles and one containing high nybbles, to be joined into a byte using
+bitwise-or. During this non-realtime pass, the sector checksum is also computed
+and verified.</p>
+
+<div class="otherbg">
+
+<pre>loop
+        bvc     loop
+        clv
+        lda     $1c01
+        sta     ($30),y
+        iny
+        bne     loop
+</pre>
+
+	<p>The fetch loop in the 1541 ROM simply reads all the bytes and stores
+	them in a buffer. First it busy-waits until the overflow flag is set.
+	Then it clears the flag in anticipation of the next byte. Then, the
+	current byte is fetched from the hardware register (<tt>$1c01</tt>) and stored
+	into memory. This snippet only reads 256 bytes, but it is followed by a
+	similar loop that reads the remaining bytes.</p>
+
+	<p>The loop needs 19&nbsp;clock cycles to complete one iteration (assuming
+	the <tt>bvc</tt> instruction falls through immediately). This leaves several
+	cycles of slack, to account for differences in motor speed across
+	drives.</p>
+
+	<p>A loop with more than 26&nbsp;cycles would miss bytes, whereas a
+	25-cycle loop would work well in practice. At exactly 26&nbsp;cycles
+	you would be pushing your luck.</p>
+
+</div>
+
+<p>People were not happy with the performance of the original 1541 ROM
+routines, not only because of the slow GCR decoding, but also because of the
+dreadfully slow serial protocol used to transmit the decoded data to the
+computer. The one thing that Commodore got right in that protocol, though, is
+that they provided a way to upload code into the 1541, and thus to take over
+the floppy drive completely. The replacement code and any data buffers must fit
+in the 2&nbsp;kB of RAM, but this is enough if all you want to do is load data
+as quickly as possible from the disk and transmit it as quickly as possible to
+the computer. Such software is called a <i>fastloader</i>.</p>
+
+<h2>Krill's approach</h2>
+
+<p>As a shining example of a modern fastloader, let's have a look at how GCR
+decoding is performed in <a href="http://csdb.dk/release/?id=78348">Krill's&nbsp;loader</a>. As expected,
+there's a loop that receives five bytes of GCR encoded data, and performs as
+much partial decoding as possible in between receiving the bytes (i.e. while
+the sector is passing the read head). The goal is to minimise the execution
+time of the second, non-realtime decoding pass, without overstepping the
+maximum execution time of the fetch loop, 130&nbsp;cycles (26&nbsp;cycles times
+five). The partially decoded data is stored in two buffers (512 bytes in
+total), corresponding to the partially decoded high and low nybbles.</p>
+
+<p>But Krill also realised that there is no need to synchronise
+with the overflow flag for every byte.</p>
+
+<p>Each track has a statically assigned <i>bit&nbsp;rate</i>. As the disk spins
+at a constant angular velocity (300&nbsp;rpm), and the bit density of the
+medium is constant, it is possible to store more bits on the outermost tracks.
+Commodore defined four bit rates: A byte arrives every 26, 28, 30 or
+32&nbsp;cycles.</p>
+
+<p>After a synchronisation, the first, second and third byte of data are present
+in the hardware register according to the following schedule. Thus, if we make
+sure to read the register during the safe areas indicated on the last row, we
+can read up to three bytes after a <tt>bvc</tt> loop.</p>
+
+<div class="otherbg">
+<pre style="font-size: 10px">           cycle
+bit rate   0         10        20        30        40        50        60        70        80        90
+0          111111111111111111111111111111112222222222222222222222222222222233333333333333333333333333333333
+1          111111111111111111111111111111222222222222222222222222222222333333333333333333333333333333
+2          111111111111111111111111111122222222222222222222222222223333333333333333333333333333
+3          111111111111111111111111112222222222222222222222222233333333333333333333333333
+safe areas 111111111111111111111-----      ---222222222222-----            ---333333-----
+</pre>
+</div>
+
+<p>Because of slight variations in the timing (due to the three-cycle jitter
+introduced by the <tt>bvc</tt> loop, and the fact that the bit detection timer is reset
+after every one-bit), it is advisable to read the hardware register a couple of
+cycles into the safe area, but not much later.</p>
+
+<p>As the loop deals with five incoming bytes per iteration, it is sensible to
+synchronise twice: Once in anticipation of three bytes, and once in
+anticipation of two bytes.</p>
+
+<p>After a byte has been read, it is subjected to a number of shifting and masking
+operations, and the partially decoded quintuples are stored away. During the
+non-realtime pass, the decoding is completed and the checksum is verified.
+Interestingly, in Krill's loader, the nybbles are not joined together into
+bytes, but remain in separate buffers. This is because they are going to be
+transmitted serially anyway, and thus split up into even smaller parts.</p>
+
+<h2>The epiphany</h2>
+
+<p>As part of my efforts to learn C64 demo programming, I became interested in
+GCR decoding. One day, in a flash of inspiration, I started thinking about what
+would happen if all the shifting operations were removed.  Consider the second
+quintuple. It arrives partly in the first byte, partly in the second, and
+normally you'd try to right-justify it in an index register.  For the second
+quintuple, it's easiest to shift to the left, like so:</p>
+
+<div class="otherbg">
+<pre>        11111222 22333334
+        -----222 22------       mask
+        ---22222 --------       shift
+</pre>
+
+<p>(The digits represent data from the different GCR-encoded quintuples. The
+dashes are zero-bits.)</p>
+
+</div>
+
+<p>But what if you, instead of shifting, combined the masked parts into a single
+byte using bitwise-or?</p>
+
+<div class="otherbg">
+<pre>        11111222 22333334
+        -----222 22------       mask
+        22---222                bitwise-or
+</pre>
+</div>
+
+<p>That is to say, the three most significant bits remain in the low bits while
+the two least significant bits remain in the high bits. We could of course use
+this value as an index into a full-page lookup table, but it would be a sparse
+table. First, we've masked out three of the bits, so we can only reach 32
+out of the 256&nbsp;entries in the table. But actually, because these are GCR
+encoded values, we'll only access 16 out of those 32&nbsp;entries,
+corresponding to the valid quintuples.</p>
+
+<p>Suppose we do this with all eight quintuples, obtaining eight index values:</p>
+
+<div class="otherbg">
+<pre>        11111---
+        22---222
+        --33333-
+        4444---4
+        5---5555
+        -66666--
+        777---77
+        ---88888
+</pre>
+</div>
+
+<p>Now, if we were to allocate a full page of RAM for each of these sparse
+tables, we'd use up the entire 2&nbsp;kB. But here's the kicker: The whole
+point of GCR encoding is to ensure that there can never be a sequence of three
+consecutive zeroes in the bit stream. Since we're masking out three bits, we
+are introducing a sequence of three zeroes! So every index contains exactly one
+sequence of three or more zero-bits, and this can be regarded as a key that
+selects one out of eight sets of table entries. If these sets are
+non-overlapping, we can combine all eight tables into a single page of
+memory.</p>
+
+<p>Unfortunately the sets overlap, for the following reason: A GCR-encoded
+quintuple may begin and/or end with a single zero bit. If the index value
+contains a sequence of exactly three zeroes, we know that these are the key. If
+there is a sequence of five zeroes, we know that the middle bits are the key.
+But if the index value contains a sequence of four zeroes, then we don't know
+if it's the key followed by a GCR-bit, or a GCR-bit followed by the key.
+Example: Index <tt>00010110</tt> contains a sequence of four zero-bits (bits 0,
+7, 6 and 5, wrapping around from the right edge to the left edge). We don't
+know if this should be interpreted as <tt>--33333-</tt> (the quintuple would be
+<tt>01011</tt> which is decoded as <tt>0001</tt>) or <tt>---88888</tt> (the
+quintuple would be <tt>10110</tt> which is decoded as <tt>0110</tt>).</p>
+
+<p>However, if we use two pages of memory, one for the odd quintuples and one
+for the even quintuples, then there can be no collisions: If there are four
+consecutive zeroes in an index value, we know that the three that make up the
+key must begin at an odd or even bit position. Continuing the example from the
+previous paragraph, at index <tt>00010110</tt> we'd put the decoded nybble
+<tt>0001</tt> in the odd table and the decoded nybble <tt>0110</tt> in the even
+table.</p>
+
+<p>As a bonus, remember that the quintuples are alternating between the high
+and low nybbles of the decoded bytes. In the odd table, we can shift all the
+values into the high nybble. This way, to form the final byte out of the first
+two nybbles, all we have to do is compute the bitwise-or of
+<tt>odd_table[11111---]</tt> and <tt>even_table[22---222]</tt>.</p>
+
+<p>This is what the tables look like (entries marked "<tt>--</tt>" are not
+accessed):</p>
+
+<div class="otherbg" style="display: inline-block">
+
+<h3>Even quintuples</h3>
+
+<pre>-- -- -- -- -- -- -- -- -- 08 00 01 -- 0c 04 05 
+-- -- 02 03 -- 0f 06 07 -- 09 0a 0b -- 0d 0e -- 
+-- 02 -- -- 08 -- -- -- 00 -- -- -- 01 -- -- -- 
+-- 03 -- -- 0c -- -- -- 04 -- -- -- 05 -- -- -- 
+-- -- 08 0c -- 0f 09 0d 02 -- -- -- 03 -- -- -- 
+-- 0f -- -- 0f -- -- -- 06 -- -- -- 07 -- -- -- 
+-- 06 -- -- 09 -- -- -- 0a -- -- -- 0b -- -- -- 
+-- 07 -- -- 0d -- -- -- 0e -- -- -- -- -- -- -- 
+-- -- 00 04 02 06 0a 0e -- -- -- -- -- -- -- -- 
+08 09 -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+00 0a -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+01 0b -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+-- -- 01 05 03 07 0b -- -- -- -- -- -- -- -- -- 
+0c 0d -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+04 0e -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+05 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+</pre>
+
+</div>
+
+<div class="otherbg" style="display: inline-block">
+
+<h3>Odd quintuples</h3>
+
+<pre>-- -- -- -- -- 00 -- 40 -- 20 -- 60 -- a0 -- e0 
+-- -- 80 -- 00 -- 10 -- -- -- c0 -- 40 -- 50 -- 
+-- 80 -- 90 20 -- 30 -- -- -- f0 -- 60 -- 70 -- 
+-- -- 90 -- a0 -- b0 -- -- -- d0 -- e0 -- -- -- 
+-- 00 20 a0 -- -- -- -- 80 -- -- -- -- -- -- -- 
+00 -- -- -- -- -- -- -- 10 -- -- -- -- -- -- -- 
+-- 10 30 b0 -- -- -- -- c0 -- -- -- -- -- -- -- 
+40 -- -- -- -- -- -- -- 50 -- -- -- -- -- -- -- 
+-- -- -- -- 80 10 c0 50 -- 30 f0 70 90 b0 d0 -- 
+20 -- -- -- -- -- -- -- 30 -- -- -- -- -- -- -- 
+-- c0 f0 d0 -- -- -- -- f0 -- -- -- -- -- -- -- 
+60 -- -- -- -- -- -- -- 70 -- -- -- -- -- -- -- 
+-- 40 60 e0 -- -- -- -- 90 -- -- -- -- -- -- -- 
+a0 -- -- -- -- -- -- -- b0 -- -- -- -- -- -- -- 
+-- 50 70 -- -- -- -- -- d0 -- -- -- -- -- -- -- 
+e0 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+</pre>
+
+</div>
+
+<p>Beautiful, aren't they?</p>
+
+<p>Let's recap the algorithm:</p>
+
+<div class="otherbg" style="font-size: .8em">
+
+<p><b>Read five bytes.</b></p>
+
+<pre>        11111222 22333334 44445555 56666677 77788888
+</pre>
+
+<p><b>Extract twelve fragments using bitwise-and.</b></p>
+
+<pre>        11111--- -----222 --33333- -------4 ----5555 -66666-- ------77 ---88888
+                 22------          4444---- 5-------          777-----
+</pre>
+
+<p><b>Combine the fragments into eight bytes using bitwise-or.</b></p>
+
+<pre>        11111--- 22---222 --33333- 4444---4 5---5555 -66666-- 777---77 ---88888
+</pre>
+
+<p><b>Retrieve decoded nybbles from the tables.</b></p>
+
+<p>The digits represent decoded bits from now on.</p>
+
+<pre>        1111---- 3333---- 5555---- 7777----
+        ----2222 ----4444 ----6666 ----8888
+</pre>
+
+<p><b>Join them into bytes using bitwise-or.</b></p>
+
+<pre>        11112222 33334444 55556666 77778888
+</pre>
+
+<p><b>Store the four bytes in a buffer.</b></p>
+
+</div>
+
+<p>You might be thinking: This is a novel and quite interesting approach and all,
+but there's nothing to suggest that it would be faster than ordinary shifting.
+And, indeed, much work remains.</p>
+
+<h2>The tricks</h2>
+
+<p>We'll use plenty of self-modifying code. This is not really a trick, but an
+established technique on the 6502 processor. In order to shave off a cycle from
+every instruction that modifies another one, the entire loop will be placed in
+the zero-page.</p>
+
+<p>Rather than storing the decoded bytes using an indexed addressing mode (five
+cycles per byte, plus a few more to advance the index register), we'll push
+them on the stack (three cycles per byte, pointer automatically decremented,
+and both index registers are free for other purposes). The 6502 stack is
+restricted to one page, so a complete sector fits perfectly. The 257th byte
+(checksum) is handled as a special case after the loop. The downside of this
+method is of course that we cannot use the stack for anything else. In
+particular, we can't make any subroutine calls.</p>
+
+<p>For masking, we can use the <tt>and</tt> instruction, which puts the result
+in the accumulator. However, sometimes we'd rather preserve the contents of the
+accumulator. Using <i>unintended</i> (also known as "illegal") opcodes, there
+are a couple of ways to achieve this: The <tt>sax</tt> instruction is a mix of
+<tt>sta</tt> and <tt>stx</tt>; it tries to write the contents of both
+<tt>A</tt> and <tt>X</tt> to memory, and due to the NMOS process used to
+manufacture the 6502, zeroes are stronger than ones, so bus contentions resolve
+into bitwise-and operations. Thus, we can use <tt>sax</tt> to store a subset of
+the bits in <tt>A</tt> (or <tt>X</tt>) to memory without clobbering the rest of
+the register.  Furthermore, we can perform a bitwise-and operation using the
+<tt>sbx</tt> instruction (a mix of <tt>cpx</tt> and <tt>tax</tt>) with an
+operand of zero, which will leave the result in <tt>X</tt>.</p>
+
+<p>We can obtain two copies of each incoming byte: The unintended opcode
+<tt>lax</tt> is a mix of <tt>lda</tt> and <tt>ldx</tt>, and can be used to
+fetch an encoded byte into both <tt>A</tt> and
+<tt>X</tt>.</p>
+
+<p>To combine index parts, we can use a bitwise-or operation as described above,
+but of course addition would work equally well. Addition can be computed
+implicitly as part of an indexed memory access: Since the odd and even tables
+are page-aligned, we can store some of the index bits in the least significant
+byte of the instruction operand, and the remaining bits in an index register.</p>
+
+<p>Finally, consider quintuple number four: It arrives in two parts, one of
+which is simply the least significant bit of the second incoming byte. Rather
+than mask this bit and keep it in a register, we can use the <tt>lsr</tt>
+instruction (the only shifting operation in the entire GCR decoder) to place it
+in the carry flag. To combine it with the other part of the index, we simply
+<tt>adc</tt> (add-with-carry) a constant zero. This frees up a register, but
+that's not all: As a side effect, the addition operation will clear the
+overflow flag. By executing the <tt>adc</tt> at the right moment, we can get
+rid of one <tt>clv</tt> instruction, saving two cycles.</p>
+
+<p>Armed with these tools, we are faced with a magnificent puzzle of
+instructions, registers, bits and cycles. When taking on this challenge, I had
+no idea if it would be possible to find a solution. By the time I had only a
+few cycles left to optimise, I could hardly think of anything else for two
+days. But then everything clicked into place.</p>
+
+<h2>The code</h2>
+
+<p>The following loop decodes GCR on the fly. The checksum must still be
+verified in a separate pass.</p>
+
+<p>Start at the label <tt>begin_reading_here</tt>; that is the logical beginning
+of the loop. In practice, the first iteration is handled partly outside the
+loop, which is entered at <tt>zpc_entry</tt> ("zpc" is short for zero-page
+code).</p>
+
+<div class="otherbg">
+<pre style="font-size: 11px">zpc_loop
+                ; This nop is needed for the slowest bit rate, because it is
+                ; not safe to read the third byte already at cycle 65.
+
+                ; However, with the nop, the best case time for the entire loop
+                ; is 130 cycles, which leaves absolutely no slack for motor speed
+                ; variance at the highest bit rate.
+
+                ; Thus, we modify the bne instruction at the end of the loop to
+                ; either include or skip the nop depending on the current
+                ; bit rate.
+
+                nop
+
+                lax     $1c01              ; 62 63 64 65   44445555
+                and     #$f0               ; 66 67
+                adc     #0                 ; 68 69         A &lt;- C, also clears V
+                tay                        ; 70 71
+zpc_mod3        lda     oddtable           ; 72 73 74 75   lsb = --33333-
+                ora     eventable,y        ; 76 77 78 79   y = 4444---4, lsb = --------
+
+                ; in total, 80 cycles from zpc_b1
+
+zpc_b2          bvc     zpc_b2             ; 0 1
+
+                pha                        ; 2 3 4         second complete byte (nybbles 3, 4)
+zpc_entry
+                lda     #$0f               ; 5 6
+                sax     zpc_mod5+1         ; 7 8 9
+
+                lax     $1c01              ; 10 11 12 13   56666677
+                and     #$80               ; 14 15
+                tay                        ; 16 17
+                lda     #$03               ; 18 19
+                sax     zpc_mod7+1         ; 20 21 22
+                lda     #$7c               ; 23 24
+                sbx     #0                 ; 25 26
+
+zpc_mod5        lda     oddtable,y         ; 27 28 29 30   y = 5-------, lsb = ----5555
+                ora     eventable,x        ; 31 32 33 34   x = -66666--, lsb = --------
+                pha                        ; 35 36 37      third complete byte (nybbles 5, 6)
+
+                lax     $1c01              ; 38 39 40 41   77788888
+                clv                        ; 42 43
+                and     #$1f               ; 44 45
+                tay                        ; 46 47
+
+                ; in total, 48 cycles from b2
+
+zpc_b1          bvc     zpc_b1             ; 0 1
+
+                lda     #$e0               ; 2 3
+                sbx     #0                 ; 4 5
+zpc_mod7        lda     oddtable,x         ; 6 7 8 9       x = 777-----, lsb = ------77
+                ora     eventable,y        ; 10 11 12 13   y = ---88888, lsb = --------
+                pha                        ; 14 15 16      fourth complete byte (nybbles 7, 8)
+
+begin_reading_here
+                lda     $1c01              ; 17 18 19 20   11111222
+                ldx     #$f8               ; 21 22
+                sax     zpc_mod1+1         ; 23 24 25
+                and     #$07               ; 26 27
+                tay                        ; 28 29
+                ldx     #$c0               ; 30 31
+
+                lda     $1c01              ; 32 33 34 35   22333334
+                sax     zpc_mod2+1         ; 36 37 38
+                ldx     #$3e               ; 39 40
+                sax     zpc_mod3+1         ; 41 42 43
+                lsr                        ; 44 45         4 -&gt; C
+
+zpc_mod1        lda     oddtable           ; 46 47 48 49   lsb = 11111---
+zpc_mod2        ora     eventable,y        ; 50 51 52 53   lsb = 22------, y = -----222
+                pha                        ; 54 55 56      first complete byte (nybbles 1, 2)
+
+                tsx                        ; 57 58
+BNE_WITH_NOP    =       (zpc_loop - (* + 2)) &amp; $ff
+BNE_WITHOUT_NOP =       (zpc_loop + 1 - (* + 2)) &amp; $ff
+zpc_bne         .byt    $d0,BNE_WITH_NOP   ; 59 60 61      bne zpc_loop
+</pre>
+</div>
+
+<h2>Final remarks</h2>
+
+<p>Of course, once I had figured out the solution, I needed to write a
+fastloader around it to see whether it would really work. The loader grew into
+the <i>Spindle</i> trackmo toolchain, which I am saving for another article. To
+see the GCR decoder in action, have a look at my demo <a href="http://csdb.dk/release/?id=117358">Shards&nbsp;of&nbsp;Fancy</a>.</p>
+
+<div style="clear: both"><p class="edited">Posted Sunday 31-Mar-2013 14:40</p></div>
+<div style="width: 100%; word-wrap: break-word; clear: both">
+<h3 style="padding-top: 1em">Discuss this page</h3><p class="disclaimer">Disclaimer: I am not responsible for what people (other than myself) write in the forums. Please report any abuse, such as insults, slander, spam and illegal material, and I will take appropriate actions. Don't feed the trolls.</p><p class="disclaimer">Jag tar inget ansvar för det som skrivs i forumet, förutom mina egna inlägg. Vänligen rapportera alla inlägg som bryter mot reglerna, så ska jag se vad jag kan göra. Som regelbrott räknas till exempel förolämpningar, förtal, spam och olagligt material. Mata inte trålarna.</p><div class="forum0"><div class="forum1">Anonymous<br>Tue  2-Apr-2013 19:59</div><div class="forum2">Truly awesome work, I am more of a Z80 kinda guy, but I nontheless find this really interesting, particularly the use of "illegal" op-codes and the zero page to speed things up.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1670"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1670"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>llbit</b><br>Jesper Öqvist<br>Tue  2-Apr-2013 20:12</div><div class="forum2">Really impressive and interesting article. Good job!</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1671"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1671"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun  7-Apr-2013 01:01</div><div class="forum2">http://www.templeos.org/Wb/Kernel/Compress.html</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1678"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1678"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun  7-Apr-2013 16:19</div><div class="forum2">This mas is a true genius. Big respect to You<br><br>best regards - wegi</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1680"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1680"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue  9-Apr-2013 18:49</div><div class="forum2">Interesting read indeed - I wonder though wether some 1541 clone may use a 65c02 and break the code due to the used illegal ops.<br><br>Can't help it - don't see a relation to that compress link in the comments there :)</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1681"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1681"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 12-Apr-2013 04:17</div><div class="forum2">Modifying the bne depending on rate? Brilliant. Worthy even of Mel. http://mark.aufflick.com/blog/2003/11/24/the-one-true-mel</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1683"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1683"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 12-Apr-2013 04:21</div><div class="forum2">Since I'm mostly interested in the 6502 for Apple ][ I didn't quite know where to bookmark this link. So I made a new folder called "Awesome".</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1684"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1684"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 12-Apr-2013 13:03</div><div class="forum2">Impressive. Thank you for this detailed article.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1686"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1686"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Mon 15-Apr-2013 19:31</div><div class="forum2">Well done.<br>Since the values of the even table use only the low nybble and those of the odd use only the high nybble, you could overlay these into a single table. I guess there's no reason to do this, though, since it would require more masking and you were able to fit both tables into the 2 kB of RAM.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1688"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1688"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue 16-Apr-2013 21:11</div><div class="forum2">All nice, but I prefer MFM as it stores much more.<br>But in all honesty that might only have been possible on the Amiga ;-).<br>Built some efficient MFM loaders for that myself too.<br><br>@reumerd</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1691"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1691"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sat 29-Jun-2013 01:08</div><div class="forum2">Hi Linus,<br><br>I've just watched quite a detailed talk about the 6502, that I thought you'd sure like (https://www.youtube.com/watch?v=K5miMbqYB4E). More info is available at visual6502.org. They've analyzed and simulated the chip based on high-res photographs.<br><br>-- jn</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1727"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1727"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue  2-Jul-2013 20:40</div><div class="forum2">This is a great achievement! So, in your fast loader, did you finally succeed to load a complete track including decoding and checksum test within two revolutions?</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1730"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1730"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>lft</b><br>Linus Åkesson<br>Thu  4-Jul-2013 21:33</div><div class="forum2"><div class="forumquote">This is a great achievement! So, in your fast loader, did you finally succeed to load a complete track including decoding and checksum test within two revolutions?</div><br>Not including serial transfer, because my goal was to make an IRQ loader. This adds some overhead to the serial protocol, as it must be able to cope with arbitrary delays on the C64 side. I am however down to three revolutions for tracks 18-35 and four for tracks 1-17, as measured on a static display with 25 badlines and no sprites.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1731"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1731"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun  7-Jul-2013 21:13</div><div class="forum2">My hardware-speeder, S-JiffyDOS, can also decode from GCR to hexdec while reading from the disk. It also uses LAX and the the stack. It uses many ROM-tables (so it's 32 instead of 16kB) and it syncronices with BVC every 5th byte only. It's on www.nlq.de <br>Your short routine that fits into the 1541-RAM is fantastic.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1732"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1732"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>chesterbr</b><br>Carlos Duarte do Nascimento<br>Tue 14-Jan-2014 05:43</div><div class="forum2">Both the decoding table approach and the smart usage of undocumented opcodes are a great job, kudos. I've never thought of the "zero wins" as a side effect of NMOS, but once you said it, it all made sense to me, pretty much like understanding the Matrix! :-) Great article.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1811"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1811"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 25-Apr-2014 16:04</div><div class="forum2">Great work.  I think if you made receive loops timed for each of the 4 bitrates, you could read 5 bytes before resynching.  You could probably even do it with 2 loops (each covering 2 bitrates).<br>Take a look at the code from Epyx Winter Games if you haven't already.  Other than the directory track, the disk doesn't use GCR.  And I'm pretty sure (memory isn't perfect after almost 30yrs) it transferred 253 or 254 bytes at a time, pushing them on the stack on the c64 side in order to save a cycle vs sta.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1842"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1842"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed  5-Nov-2014 20:31</div><div class="forum2">Awesome work.<br><br>In interest of pure speed, I would love to see this used with a non-IRQ/no-display loader for 2 revolution track transfer. I've looked into it and don't think it's possible on highest density tracks unfortunately.<br><br>From the end of this processing until the sector header 2 away you have:<br>- current sector tail - 2 00s + 4 or more gap = 6+ bytes<br>- skipped sector header - 5 sync + 10 contents + 9 gap = 24 bytes<br>- skipped sector data - 5 sync + 325 data + 4 or more gap = 334+ bytes<br>- for total of 364+ bytes (note these are all in terms of encoded (GCR) not decoded bytes)<br><br>So 364 is the minimum number of disk bytes that may fly by in the time you need to transfer the sector just read. After that you need to go back to reading a sector header, etc.<br><br>At highest density setting, this is 26us per byte, or 26 * 364 = 9464us.<br><br>The fastest serial bit-bang transfer I think has ever been done is Vorpal V1 (like used in Winter Games). It transfers 3 bytes in a 113us loop, for 37.67us / byte.<br><br>We need to transfer 257 bytes (256+checksum) in 9464us. This means each byte must be transferred in 9464us / 257 = 36.82us.<br><br>So I'd expect Vorpal style serial transfer to allow you to squeeze by with 2 revolutions per track on lower-densities, but just miss the mark and still require 3 revolutions per track on highest density.<br><br><br>I would still love to tweak this code to be more density dependent to eliminate that BVC or two though. That should free enough cycles to replace PHA with STA $1801 and allow a (non-IRQ/no-display) 1 revolution parallel port track transfer :).<br><br>Aaron</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1911"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1911"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 27-Feb-2015 08:06</div><div class="forum2">I just had an idea, why bother with decoding GCR at all, how about you use the GCR raw bytes as an index to a 256 byte table to return a 6 bit result.  The original bits would have to be scrambled quite a bit resulting in a specially encoded file.  <br><br>Also, do all the bits occur in order to select some subset of the bits in the GCR?  For example, just mask every other bit and call that your decoded data.<br><br>Extend this bit mangling even further, make up a new encoding that gives even 2 decoded bits per byte that are stuffed directly to the output (in a 2bit transfer).  This is quite wasteful of space however and reduces the data rate quite a bit, but is trivially fast to send and decode.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1956"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1956"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>lft</b><br>Linus Åkesson<br>Fri 27-Feb-2015 12:03</div><div class="forum2">Those are nice ideas, especially the first one. It would slightly reduce the amount of information you can store in a block (6 * 320 / 8 = 240 bytes), so any benefits would have to be weighted against that. You'd also probably want to buffer the data as 320 bytes, either before or after the table lookup, and then transmit each byte as three bit pairs. It's not obvious that a good mapping function actually exists; it should fit into a single page, so the same mapping should work regardless of the alignment between gcr chunks and bytes, even if the encoding would be different for each alignment. I'll think some more about it.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="1957"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="1957"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun 23-Apr-2017 20:56</div><div class="forum2">Wow Linus, this is heavy.  I wrote a partial decoder that looks an awful lot alike Krill's code somewhen around 2000 (we actually compared our code at a breakpoint/revision).  And I remember that I also tried to mangle GCR into sparse tables to get rid of all the shifting, but I didn't succeed.  So this really is an awesome achievement!<br>Q: when do you actually check checksums?  I would do a transfer and calculate, and after sending a sector, signal if it was a good sector or not.<br><br>Cheers,<br>Stefan (St0fF/Neoplasia^theObsessedManiacs)</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2260"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2260"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun 23-Apr-2017 21:52</div><div class="forum2">P.S.: I think the missing pieces were the lack of thourough knowledge of all your tricks used.  I had not understood sax, nor sbx.  Also the idea of self-modifying the LSB of a lookup was new to me.  And abusing the stack was a no-go at that time.  But I see the point: the floopy only runs that one program, the loader - then the stack may not be necessary at all and may be "abused".</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2261"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2261"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun 30-Jul-2017 10:53</div><div class="forum2">There was a similar but not quite as exquisite epiphany that someone (not me unfortunately) had on the Apple ][ that allows GCR decoding on the fly and allowing zero interleave full track loading on the fly. It's a shame that no one AFAIK ever made a version of DOS using this system (it came very late like around the early nineties IIRC).   What held everyone back before then was the dogma that the disk had to be in a compatible arrangement of bits. Rearranging the bits allowed rearranging the code and suddenly you could do everything in the 32 cycles you needed!  Anyway GREAT JOB. I love this.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2322"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2322"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>DavidG</b><br>David Galloway<br>Sun 30-Jul-2017 10:58</div><div class="forum2">^ that was my comment about the Apple ][ GCR decoding on the fly.<br><br>I have to say that when I saw the code in a disassembly for the Apple I was both awed and disappointed that I never allowed myself to think outside the box.<br><br>I also worked on the C64 but not on the 1541... It's such an amazing system to have a second '6502' in charge of the disk drive and then a tiny straw to connect to the C64...</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2323"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2323"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>DavidG</b><br>David Galloway<br>Sun 30-Jul-2017 11:22</div><div class="forum2">OK, I just finished reading your article and especially your code. You really pull out all the stops. All the techniques synthesized into something that is the greater than the sum of its parts. Indeed your code is absolutely inspired.  I had to post one more time because I've been coding the 6502 since 1979 and worked on early Apple ][ and C64 games and disk code for the Apple ][ and so if anyone could appreciate what you've done it should at least be me and I should not stand silent. I applaud you! Good job sir. I enjoy this more than an art masterpiece. It is a masterpiece.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2324"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2324"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>fth</b><br>Frank Thomas<br>Sun 26-Nov-2017 15:35</div><div class="forum2">Well I'm the Frank Thomas that designed together with Klaus Roreger the ProfessionalDos software/hardware decoder for GCR. So I have thought a bit about decoding GCR streams. Well it's long ago and I forgot most of it. But this piece of code is unbelievable. Although I knew all the illegal-opcodes I never thought about using them in this context. The idea to remove the bvc loops is also veeery clever!!<br>And I can't actually believe that someone in 2013 thinks about improving software written &gt;30 years ago.<br>Great work!!! Big applause!!</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2354"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2354"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Mon 11-Dec-2017 08:33</div><div class="forum2">Also from my side my best congratulations!!! As a teenager I analysed all the fast loaders that were accessible to me at that time and I understood the tricks they were using on the GCR decoding and the serial transmission stuff. I even wrote a fast loader myself as a hobby (on paper, it never made it into a production state). So I want to say that I highly appreciate all the tricks you came up with - great, great stuff!!!</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2357"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2357"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed 13-Dec-2017 07:25</div><div class="forum2">Just wanted to add to my comment from 11-Dec-2017 some things I forgot to mention. One of the fasted data transmission routines I analyzed in my teenage years was the one from Heureka Sprint. Heureka Sprint was a program 'listing of the month' in the German magazine '64er'. Is was especially remarkable since it used a different GCR encoding, which was much faster but less efficient; as far as I remember it could only store 228 bytes per block (maybe it used 6 instead of 5 bits per nybble?). You had to use the program provided to store your applications in the different format on your disk. But boy, it really loaded extremely fast!!! Another trick I think I came across that I would like to mention was to load the sectors out of order, and just store them out of order in the correct memory place in the C64, just as they came across the reading head of the drive, to avoid having to reformat the sectors in a particular order. Might be interesting to mention...</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2359"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2359"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed  4-Jul-2018 14:22</div><div class="forum2">Thanks for putting this together. Great article.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2401"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2401"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed 15-Aug-2018 14:39</div><div class="forum2">Hi Linus and everybody,<br><br>thanks to this work, i've been inspired to come up with the next step.<br>Full on-the-fly GCR block read+decode+checksumming on a stock 1541: https://csdb.dk/release/?id=167152<br><br>I'd like to write a follow-up guest article about it at some point. :)<br><br>Regards,<br><br>Krill</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2412"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2412"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed  1-May-2019 01:47</div><div class="forum2"><div class="forumquote">Hi Linus and everybody,<br><br>thanks to this work, i've been inspired to come up with the next step.<br>Full on-the-fly GCR block read+decode+checksumming on a stock 1541: https://csdb.dk/release/?id=167152<br><br>I'd like to write a follow-up guest article about it at some point. :)<br><br>Regards,<br><br>Krill</div><br>Awesome work here I agree, and I just had a chance to look @ something you recently did some work on (Space Beer), and Fuck Me that is a fast loader.  I re-ran the demo 3 times to make sure I wasn't just high or something.  Which loader is that?</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2512"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2512"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Sun  9-Jun-2019 23:50</div><div class="forum2">I love it! Some great leaps / lateral thinking. Spectacular code Linus!</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2528"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2528"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed 19-Jun-2019 08:45</div><div class="forum2">Great article!  I have integrated the code into my disk utility and it allows me to scan the entire disk in 21 seconds using an interleave of 2 sectors!!  I only send the first 4B and an error byte from each sector back to the C64, so that's why I can hit interleave of 2.  I used the short checksum snipet from Shards of Fancy.  I also noticed in Shards of Fancy that you use the "nop" for density 0 and 1 (Tracks 25-35), not just the slowest ones (31-35).  <br><br>Now for some improvements!!<br>1) instead of storing $0100,$01FF-&gt;$0101, I store $01FF-&gt;$0100 so the data does not have a wrap.  This is accomplished by starting the stack at $FF instead of $00, and also changing the final few instructions in the zero-page from pha before tsx to tsx before pha.  This works because pha does not change the zero flag.<br>2) if the first byte of data is not $55, I give up after 3 tries and report error 04 for that sector and move on.  also, if parity fails, give up after 3 tries and report error 05.  This is because my project is a disk utility and not a loader :)  I cannot "hang" trying forever.<br>3) save/restore the last 8B of stack, and SP, just before/after this routine, so I can still jsr/rts everywhere else in the code.  <br>4) save/restore a portion of ZP before/after reading all the sectors I wanted, so I can return to KERNAL when done.  Returning to KERNAL is important for my utility project.  I am using $86-$E5 for the ZP code and only save/restore $99-$B4 -- the rest is just zero'd out.  <br><br>Cheers!</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2531"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2531"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Mon  1-Jul-2019 02:56</div><div class="forum2">Update:  Make that 17 seconds.  by decoding the sector HEADER on the fly as well, the "track-change" delay is reduced by accepting the first sector encountered after changing track.  <br><br>Also important:  The "first byte" and "last byte" decoding code is not shown on this blog, but it is visible in the Shards of Fancy demo.  I found that it is unnecessary to separately handle the first byte and enter the zero-page code in the middle.  You can start at the top if your "first byte" handling is as follows:<br><br>; assuming you already found the sector header of interest, and<br>; skipped the 'sync' that follows it, here is what you do next:<br><br>@byte0: bvc @byte0<br>        clv<br>        lda $1C01<br>        cmp #$55        ; "DATA" signature<br>        bne fail<br><br>        ldx #$FF<br>        txs             ; set SP = $1FF<br>        jmp decoder<br><br>fail:   rts  ; wait for another header, etc...<br><br>decoder:<br>        nop             ; required delay<br>@byte1: bvc @byte1       <br>        clv<br>        lda $1C01       <br>        tax             <br>        lsr A           ; set Carry Flag per first decode<br>        txa             <br>        and #$3E<br>        sta zaddr0+1    ; address of first "oddtable" access<br>        nop             ; required delay<br>@byte2: bvc @byte2<br>        jmp zpdecode+1  ; top of zero page code (skip the nop)<br><br>Good luck all!<br>--Paul Nelsen<br>--Oaktree Innovations</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2539"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2539"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>AlienTech</b><br>Joe Peter<br>Tue 12-Nov-2019 05:14</div><div class="forum2"><div class="forumquote">Update:<br>Good luck all!<br>--Paul Nelsen<br>--Oaktree Innovations</div><br>Paul are you Scott's brother? Were you at the star trek parties we attended? <br><br>I tried searching for you guy but I guess I spelled it Nelson :) and it has been almost 30 years.<br><br>While doing warpeed I was floored by vorpal and how it was possible but at the time was too busy to look further into it and only when I met Scott did I find out it was not regular GCR code.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2590"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2590"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>AlienTech</b><br>Joe Peter<br>Tue 12-Nov-2019 05:27</div><div class="forum2"><div class="forumquote">Hi Linus and everybody,<br><br>thanks to this work, i've been inspired to come up with the next step.<br>Full on-the-fly GCR block read+decode+checksumming on a stock 1541: https://csdb.dk/release/?id=167152<br><br>I'd like to write a follow-up guest article about it at some point. :)<br><br>Regards,<br><br>Krill</div><br>Actually did this for the copy protection system I wrote for ATG. It also used a kind of scatter loading where each sector had the address of where it should load at. The file did not load sequentially. It read the bits, decoded it and if the checksum was ok, transferred it immediately to computer memory. It did take 2 or more revolutions to transfer the track since the CPU was not fast enough to read and transfer data on the fly even if undecoded. Vorpal which did read, decode and transfer on the fly did not use standard GCR coding.. I thought Scott was the one who did it but maybe Paul can help.<br><br>Preference was for the protection than the speed. But also error correction was important since unlike normal data, the encrypted data would not decode properly with any bit errors. Hence it sometimes took 3 revs to load if it encountered any errors. Also the disk had to be able to be duplicated by standard duplicating machines. Even if standard drives error'ed out and stopped loading, older copy protection skipped over some bit errors and it usually was not noticeable since real code was only 5-10% of the data involved. This was done so people could still load their disk even if some bits got erased. But for a full wrapper this would not work because the bit errors would trash any future decoded data which depended on previously decoded values.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2591"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2591"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>AlienTech</b><br>Joe Peter<br>Tue 12-Nov-2019 05:40</div><div class="forum2"><div class="forumquote">Just wanted to add to my comment from 11-Dec-2017 some things I forgot to mention. One of the fasted data transmission routines I analyzed in my teenage years was the one from Heureka Sprint. Heureka Sprint was a program 'listing of the month' in the German magazine '64er'. Is was especially remarkable since it used a different GCR encoding, which was much faster but less efficient; as far as I remember it could only store 228 bytes per block (maybe it used 6 instead of 5 bits per nybble?). You had to use the program provided to store your applications in the different format on your disk. But boy, it really loaded extremely fast!!! Another trick I think I came across that I would like to mention was to load the sectors out of order, and just store them out of order in the correct memory place in the C64, just as they came across the reading head of the drive, to avoid having to reformat the sectors in a particular order. Might be interesting to mention...</div><br>Ah thanks :) after decades someone admits to going through my code... and cracking it too.. That was the protection system used for an automated process where the company sent us the files and we stuck a disk into the drive and a program took those files and protected it and wrote it out onto another disk which could be sent out to the duplicators.. <br><br>I did not know about Heureka Sprint until today or you might have seen a real time version of that protection scheme like what Vorpal did. Since 5 to 4 gave the most, Vorpal's 5 to 3 bits was not enticing for most companies as they needed the space more than the speed. But a 6 to 5 decoder would not lose so much space on the disk.. extra disks for most companies meant like $50,000 loss as the min run rate for a release.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2592"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2592"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed 15-Jan-2020 09:54</div><div class="forum2">"For every four bits of data (also known as a nybble), five bits are written to the disk surface, chosen from a table. Let's refer to them as a quintuple."<br><br>Or a Quibble.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2606"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2606"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue  4-Aug-2020 01:28</div><div class="forum2">" Then it clears the flag in anticipation of the next byte. "<br><br>This is a common misconception.<br>CLV resets the external shift register. The external shift register sets again SOE upon completition of 8 shifts since the CLV. It's not "anticipation" but exactly where it should be.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2651"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2651"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue  4-Aug-2020 01:44</div><div class="forum2"><div class="forumquote">Great article!  I have integrated the code into my disk utility and it allows me to scan the entire disk in 21 seconds using an interleave of 2 sectors!!  I only send the first 4B and an error byte from each sector back to the C64, so that's why I can hit interleave of 2.  I used the short checksum snipet from Shards of Fancy.  I also noticed in Shards of Fancy that you use the "nop" for density 0 and 1 (Tracks 25-35), not just the slowest ones (31-35).  <br><br>Now for some improvements!!<br>1) instead of storing $0100,$01FF-&gt;$0101, I store $01FF-&gt;$0100 so the data does not have a wrap.  This is accomplished by starting the stack at $FF instead of $00, and also changing the final few instructions in the zero-page from pha before tsx to tsx before pha.  This works because pha does not change the zero flag.<br>2) if the first byte of data is not $55, I give up after 3 tries and report error 04 for that sector and move on.  also, if parity fails, give up after 3 tries and report error 05.  This is because my project is a disk utility and not a loader :)  I cannot "hang" trying forever.<br>3) save/restore the last 8B of stack, and SP, just before/after this routine, so I can still jsr/rts everywhere else in the code.  <br>4) save/restore a portion of ZP before/after reading all the sectors I wanted, so I can return to KERNAL when done.  Returning to KERNAL is important for my utility project.  I am using $86-$E5 for the ZP code and only save/restore $99-$B4 -- the rest is just zero'd out.  <br><br>Cheers!</div><br>where can we find this disk utility?</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2652"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2652"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Thu  5-Nov-2020 19:57</div><div class="forum2">Masterpiece! perfectly described and inspiring.<br>Lunatico is my favorite demo - of course on a real floppy disk<br>keep doing demo!<br>8bit lives matter</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2685"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2685"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Tue 29-Dec-2020 05:35</div><div class="forum2">Hi - Great piece of work. Inspiring and so creative in its approach.<br><br>I just heard that Krill has now posted a x50 fastloader on a stock 1541:<br><br>https://csdb.dk/release/?id=197710<br><br>Regards,<br><br>George</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2706"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2706"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1"><b>lft</b><br>Linus Åkesson<br>Mon 11-Jan-2021 13:46</div><div class="forum2"><div class="forumquote">I just heard that Krill has now posted a x50 fastloader on a stock 1541</div><br>Thanks for the link! That is quite impressive and inspiring. I'm more into IRQ loaders myself, but some of the new techniques are applicable there too.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2709"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2709"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Wed 31-Mar-2021 07:20</div><div class="forum2">I thought my favorite assembly hack was one I did using the x86 direction flag to use the same code to perform AES sbox/isbox byte translation and byte reordering for encryption as for decryption (normally not possible; while it's easy to swap the translation table, the bytes reorder differently between encrypt/decrypt).<br><br>It turns out with a few instructions overhead the same code can do both reorders by an accident of the architecture and the right code structure that mixes string loads and stores (which change direction with the direction flag) with register swaps (which don't change direction).<br><br>That is, it was my favorite until I found this.  This is pretty badass and I've never even owned a C64.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2741"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2741"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<div class="forum0"><div class="forum1">Anonymous<br>Fri 14-Jan-2022 22:17</div><div class="forum2"><div class="forumquote">All nice, but I prefer MFM as it stores much more.<br>@reumerd</div>It doesn't. GCR encoding is more efficient than MFM. But an 80-track double-sided diskette format such as the Amiga will certainly hold more data than a 35-track single-sided C64 diskette, regardless of format.</div><div class="forumpostbuttons"><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/report.php" method="post"><div><input type="hidden" name="id" value="2846"><input type="hidden" name="swe" value="f"><input type="submit" class="fbutton" name="quote" value="Report abuse"></div></form></div><div class="forumpostbutton"><form action="https://www.linusakesson.net/forum/write.php" method="post"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="hidden" name="import" value="2846"><input type="submit" class="fbutton" name="quote" value="Quote &amp; reply"></div></form></div></div></div>
+<form method="get" action="https://www.linusakesson.net/forum/write.php"><div><input type="hidden" name="pk" value="1"><input type="hidden" name="pg" value="120"><input type="submit" class="button" value="Post a new comment"></div></form></div>
+</div></div></div></div></body></html>
