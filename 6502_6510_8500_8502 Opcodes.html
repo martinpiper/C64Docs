@@ -1,0 +1,1098 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0041)https://www.oxyron.de/html/opcodes02.html -->
+<html><!-- Mirrored from www.oxyron.de/html/opcodes02.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Mar 2024 13:08:34 GMT --><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="keywords" content="6502, 6510, 8500, 8502, opcodes, illegal opcodes, processor, mos, c64, c128, plus4, c16, c116, commodore, atari">
+<meta name="author" content="Graham">
+<title>6502/6510/8500/8502 Opcodes</title>
+</head>
+
+<body bgcolor="#FFFFFF" link="#4040FF">
+
+<p><font size="+3">6502/6510/8500/8502 Opcode matrix:</font></p>
+<font size="-1">
+imm = #$00<br>
+zp = $00<br>
+zpx = $00,X<br>
+zpy = $00,Y<br>
+izx = ($00,X)<br>
+izy = ($00),Y<br>
+abs = $0000<br>
+abx = $0000,X<br>
+aby = $0000,Y<br>
+ind = ($0000)<br>
+rel = $0000 (PC-relative)
+<br><br></font>
+
+<table border="1" cellspacing="0" cellpadding="2">
+<tbody><tr>
+<td>&nbsp;</td>
+<td width="36"><b><font size="+1">x0</font></b></td>
+<td width="36"><b><font size="+1">x1</font></b></td>
+<td width="36"><b><font size="+1">x2</font></b></td>
+<td width="36"><b><font size="+1">x3</font></b></td>
+<td width="36"><b><font size="+1">x4</font></b></td>
+<td width="36"><b><font size="+1">x5</font></b></td>
+<td width="36"><b><font size="+1">x6</font></b></td>
+<td width="36"><b><font size="+1">x7</font></b></td>
+<td width="36"><b><font size="+1">x8</font></b></td>
+<td width="36"><b><font size="+1">x9</font></b></td>
+<td width="36"><b><font size="+1">xA</font></b></td>
+<td width="36"><b><font size="+1">xB</font></b></td>
+<td width="36"><b><font size="+1">xC</font></b></td>
+<td width="36"><b><font size="+1">xD</font></b></td>
+<td width="36"><b><font size="+1">xE</font></b></td>
+<td width="36"><b><font size="+1">xF</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">0x</font></b></td>
+<td><b><font size="-1">BRK<br>7</font></b></td>
+<td><b><font size="-1">ORA<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>izx 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zp 3</font></b></td>
+<td><b><font size="-1">ORA<br>zp 3</font></b></td>
+<td><b><font size="-1">ASL<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>zp 5</font></b></td>
+<td><b><font size="-1">PHP<br>3</font></b></td>
+<td><b><font size="-1">ORA<br>imm 2</font></b></td>
+<td><b><font size="-1">ASL<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ANC<br>imm 2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abs 4</font></b></td>
+<td><b><font size="-1">ORA<br>abs 4</font></b></td>
+<td><b><font size="-1">ASL<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">1x</font></b></td>
+<td><b><font size="-1">BPL<br>rel 2*</font></b></td>
+<td><b><font size="-1">ORA<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">ORA<br>zpx 4</font></b></td>
+<td><b><font size="-1">ASL<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>zpx 6</font></b></td>
+<td><b><font size="-1">CLC<br>2</font></b></td>
+<td><b><font size="-1">ORA<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">ORA<br>abx 4*</font></b></td>
+<td><b><font size="-1">ASL<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SLO<br>abx 7</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">2x</font></b></td>
+<td><b><font size="-1">JSR<br>abs 6</font></b></td>
+<td><b><font size="-1">AND<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>izx 8</font></b></td>
+<td><b><font size="-1">BIT<br>zp 3</font></b></td>
+<td><b><font size="-1">AND<br>zp 3</font></b></td>
+<td><b><font size="-1">ROL<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>zp 5</font></b></td>
+<td><b><font size="-1">PLP<br>4</font></b></td>
+<td><b><font size="-1">AND<br>imm 2</font></b></td>
+<td><b><font size="-1">ROL<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ANC<br>imm 2</font></b></td>
+<td><b><font size="-1">BIT<br>abs 4</font></b></td>
+<td><b><font size="-1">AND<br>abs 4</font></b></td>
+<td><b><font size="-1">ROL<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">3x</font></b></td>
+<td><b><font size="-1">BMI<br>rel 2*</font></b></td>
+<td><b><font size="-1">AND<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">AND<br>zpx 4</font></b></td>
+<td><b><font size="-1">ROL<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>zpx 6</font></b></td>
+<td><b><font size="-1">SEC<br>2</font></b></td>
+<td><b><font size="-1">AND<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">AND<br>abx 4*</font></b></td>
+<td><b><font size="-1">ROL<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RLA<br>abx 7</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">4x</font></b></td>
+<td><b><font size="-1">RTI<br>6</font></b></td>
+<td><b><font size="-1">EOR<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>izx 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zp 3</font></b></td>
+<td><b><font size="-1">EOR<br>zp 3</font></b></td>
+<td><b><font size="-1">LSR<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>zp 5</font></b></td>
+<td><b><font size="-1">PHA<br>3</font></b></td>
+<td><b><font size="-1">EOR<br>imm 2</font></b></td>
+<td><b><font size="-1">LSR<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ALR<br>imm 2</font></b></td>
+<td><b><font size="-1">JMP<br>abs 3</font></b></td>
+<td><b><font size="-1">EOR<br>abs 4</font></b></td>
+<td><b><font size="-1">LSR<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">5x</font></b></td>
+<td><b><font size="-1">BVC<br>rel 2*</font></b></td>
+<td><b><font size="-1">EOR<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">EOR<br>zpx 4</font></b></td>
+<td><b><font size="-1">LSR<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>zpx 6</font></b></td>
+<td><b><font size="-1">CLI<br>2</font></b></td>
+<td><b><font size="-1">EOR<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">EOR<br>abx 4*</font></b></td>
+<td><b><font size="-1">LSR<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SRE<br>abx 7</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">6x</font></b></td>
+<td><b><font size="-1">RTS<br>6</font></b></td>
+<td><b><font size="-1">ADC<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>izx 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zp 3</font></b></td>
+<td><b><font size="-1">ADC<br>zp 3</font></b></td>
+<td><b><font size="-1">ROR<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>zp 5</font></b></td>
+<td><b><font size="-1">PLA<br>4</font></b></td>
+<td><b><font size="-1">ADC<br>imm 2</font></b></td>
+<td><b><font size="-1">ROR<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ARR<br>imm 2</font></b></td>
+<td><b><font size="-1">JMP<br>ind 5</font></b></td>
+<td><b><font size="-1">ADC<br>abs 4</font></b></td>
+<td><b><font size="-1">ROR<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">7x</font></b></td>
+<td><b><font size="-1">BVS<br>rel 2*</font></b></td>
+<td><b><font size="-1">ADC<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">ADC<br>zpx 4</font></b></td>
+<td><b><font size="-1">ROR<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>zpx 6</font></b></td>
+<td><b><font size="-1">SEI<br>2</font></b></td>
+<td><b><font size="-1">ADC<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">ADC<br>abx 4*</font></b></td>
+<td><b><font size="-1">ROR<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">RRA<br>abx 7</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">8x</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>imm 2</font></b></td>
+<td><b><font size="-1">STA<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>imm 2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SAX<br>izx 6</font></b></td>
+<td><b><font size="-1">STY<br>zp 3</font></b></td>
+<td><b><font size="-1">STA<br>zp 3</font></b></td>
+<td><b><font size="-1">STX<br>zp 3</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SAX<br>zp 3</font></b></td>
+<td><b><font size="-1">DEY<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>imm 2</font></b></td>
+<td><b><font size="-1">TXA<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#FF0000"><i>XAA<br>imm 2</i></font></b></td>
+<td><b><font size="-1">STY<br>abs 4</font></b></td>
+<td><b><font size="-1">STA<br>abs 4</font></b></td>
+<td><b><font size="-1">STX<br>abs 4</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SAX<br>abs 4</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">9x</font></b></td>
+<td><b><font size="-1">BCC<br>rel 2*</font></b></td>
+<td><b><font size="-1">STA<br>izy 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#0000FF"><i>AHX<br>izy 6</i></font></b></td>
+<td><b><font size="-1">STY<br>zpx 4</font></b></td>
+<td><b><font size="-1">STA<br>zpx 4</font></b></td>
+<td><b><font size="-1">STX<br>zpy 4</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SAX<br>zpy 4</font></b></td>
+<td><b><font size="-1">TYA<br>2</font></b></td>
+<td><b><font size="-1">STA<br>aby 5</font></b></td>
+<td><b><font size="-1">TXS<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#0000FF"><i>TAS<br>aby 5</i></font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#0000FF"><i>SHY<br>abx 5</i></font></b></td>
+<td><b><font size="-1">STA<br>abx 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#0000FF"><i>SHX<br>aby 5</i></font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#0000FF"><i>AHX<br>aby 5</i></font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Ax</font></b></td>
+<td><b><font size="-1">LDY<br>imm 2</font></b></td>
+<td><b><font size="-1">LDA<br>izx 6</font></b></td>
+<td><b><font size="-1">LDX<br>imm 2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>izx 6</font></b></td>
+<td><b><font size="-1">LDY<br>zp 3</font></b></td>
+<td><b><font size="-1">LDA<br>zp 3</font></b></td>
+<td><b><font size="-1">LDX<br>zp 3</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>zp 3</font></b></td>
+<td><b><font size="-1">TAY<br>2</font></b></td>
+<td><b><font size="-1">LDA<br>imm 2</font></b></td>
+<td><b><font size="-1">TAX<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1" color="#FF0000"><i>LAX<br>imm 2</i></font></b></td>
+<td><b><font size="-1">LDY<br>abs 4</font></b></td>
+<td><b><font size="-1">LDA<br>abs 4</font></b></td>
+<td><b><font size="-1">LDX<br>abs 4</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>abs 4</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Bx</font></b></td>
+<td><b><font size="-1">BCS<br>rel 2*</font></b></td>
+<td><b><font size="-1">LDA<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>izy 5*</font></b></td>
+<td><b><font size="-1">LDY<br>zpx 4</font></b></td>
+<td><b><font size="-1">LDA<br>zpx 4</font></b></td>
+<td><b><font size="-1">LDX<br>zpy 4</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>zpy 4</font></b></td>
+<td><b><font size="-1">CLV<br>2</font></b></td>
+<td><b><font size="-1">LDA<br>aby 4*</font></b></td>
+<td><b><font size="-1">TSX<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAS<br>aby 4*</font></b></td>
+<td><b><font size="-1">LDY<br>abx 4*</font></b></td>
+<td><b><font size="-1">LDA<br>abx 4*</font></b></td>
+<td><b><font size="-1">LDX<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">LAX<br>aby 4*</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Cx</font></b></td>
+<td><b><font size="-1">CPY<br>imm 2</font></b></td>
+<td><b><font size="-1">CMP<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>imm 2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>izx 8</font></b></td>
+<td><b><font size="-1">CPY<br>zp 3</font></b></td>
+<td><b><font size="-1">CMP<br>zp 3</font></b></td>
+<td><b><font size="-1">DEC<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>zp 5</font></b></td>
+<td><b><font size="-1">INY<br>2</font></b></td>
+<td><b><font size="-1">CMP<br>imm 2</font></b></td>
+<td><b><font size="-1">DEX<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">AXS<br>imm 2</font></b></td>
+<td><b><font size="-1">CPY<br>abs 4</font></b></td>
+<td><b><font size="-1">CMP<br>abs 4</font></b></td>
+<td><b><font size="-1">DEC<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Dx</font></b></td>
+<td><b><font size="-1">BNE<br>rel 2*</font></b></td>
+<td><b><font size="-1">CMP<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">CMP<br>zpx 4</font></b></td>
+<td><b><font size="-1">DEC<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>zpx 6</font></b></td>
+<td><b><font size="-1">CLD<br>2</font></b></td>
+<td><b><font size="-1">CMP<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">CMP<br>abx 4*</font></b></td>
+<td><b><font size="-1">DEC<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">DCP<br>abx 7</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Ex</font></b></td>
+<td><b><font size="-1">CPX<br>imm 2</font></b></td>
+<td><b><font size="-1">SBC<br>izx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>imm 2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>izx 8</font></b></td>
+<td><b><font size="-1">CPX<br>zp 3</font></b></td>
+<td><b><font size="-1">SBC<br>zp 3</font></b></td>
+<td><b><font size="-1">INC<br>zp 5</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>zp 5</font></b></td>
+<td><b><font size="-1">INX<br>2</font></b></td>
+<td><b><font size="-1">SBC<br>imm 2</font></b></td>
+<td><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">SBC<br>imm 2</font></b></td>
+<td><b><font size="-1">CPX<br>abs 4</font></b></td>
+<td><b><font size="-1">SBC<br>abs 4</font></b></td>
+<td><b><font size="-1">INC<br>abs 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>abs 6</font></b></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Fx</font></b></td>
+<td><b><font size="-1">BEQ<br>rel 2*</font></b></td>
+<td><b><font size="-1">SBC<br>izy 5*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">KIL</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>izy 8</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>zpx 4</font></b></td>
+<td><b><font size="-1">SBC<br>zpx 4</font></b></td>
+<td><b><font size="-1">INC<br>zpx 6</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>zpx 6</font></b></td>
+<td><b><font size="-1">SED<br>2</font></b></td>
+<td><b><font size="-1">SBC<br>aby 4*</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>2</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>aby 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">NOP<br>abx 4*</font></b></td>
+<td><b><font size="-1">SBC<br>abx 4*</font></b></td>
+<td><b><font size="-1">INC<br>abx 7</font></b></td>
+<td bgcolor="#E0E0E0"><b><font size="-1">ISC<br>abx 7</font></b></td>
+</tr>
+</tbody></table>
+
+<font size="-1"><br>
+"*" : add 1 cycle if page boundary is crossed.<br>
+add 1 cycle on branches if taken.<br>
+<br>
+<br></font>
+<font size="+3">Logical and arithmetic commands:</font>
+<table border="1" cellspacing="0" cellpadding="2">
+<tbody><tr>
+<td width="48"><font size="-1">Opcode</font></td><td width="28"><font size="-1">imp</font></td><td width="28"><font size="-1">imm</font></td><td width="28"><font size="-1">zp</font></td><td width="28"><font size="-1">zpx</font></td>
+<td width="28"><font size="-1">zpy</font></td><td width="28"><font size="-1">izx</font></td><td width="28"><font size="-1">izy</font></td><td width="28"><font size="-1">abs</font></td><td width="28"><font size="-1">abx</font></td>
+<td width="28"><font size="-1">aby</font></td><td width="28"><font size="-1">ind</font></td><td width="28"><font size="-1">rel</font></td><td width="176"><font size="-1">Function</font></td>
+<td width="9"><font size="-1">N</font></td><td width="9"><font size="-1">V</font></td><td width="9"><font size="-1">B</font></td><td width="9"><font size="-1">D</font></td><td width="9"><font size="-1">I</font></td><td width="9"><font size="-1">Z</font></td><td width="9"><font size="-1">C</font></td>
+</tr>
+<tr>
+<td><font size="-1">ORA</font></td><td>&nbsp;</td><td><font size="-1">$09</font></td><td><font size="-1">$05</font></td><td><font size="-1">$15</font></td>
+<td>&nbsp;</td><td><font size="-1">$01</font></td><td><font size="-1">$11</font></td><td><font size="-1">$0D</font></td><td><font size="-1">$1D</font></td>
+<td><font size="-1">$19</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A or {adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">AND</font></td><td>&nbsp;</td><td><font size="-1">$29</font></td><td><font size="-1">$25</font></td><td><font size="-1">$35</font></td>
+<td>&nbsp;</td><td><font size="-1">$21</font></td><td><font size="-1">$31</font></td><td><font size="-1">$2D</font></td><td><font size="-1">$3D</font></td>
+<td><font size="-1">$39</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A&amp;{adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">EOR</font></td><td>&nbsp;</td><td><font size="-1">$49</font></td><td><font size="-1">$45</font></td><td><font size="-1">$55</font></td>
+<td>&nbsp;</td><td><font size="-1">$41</font></td><td><font size="-1">$51</font></td><td><font size="-1">$4D</font></td><td><font size="-1">$5D</font></td>
+<td><font size="-1">$59</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A exor {adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">ADC</font></td><td>&nbsp;</td><td><font size="-1">$69</font></td><td><font size="-1">$65</font></td><td><font size="-1">$75</font></td>
+<td>&nbsp;</td><td><font size="-1">$61</font></td><td><font size="-1">$71</font></td><td><font size="-1">$6D</font></td><td><font size="-1">$7D</font></td>
+<td><font size="-1">$79</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A+{adr}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">SBC</font></td><td>&nbsp;</td><td><font size="-1">$E9</font></td><td><font size="-1">$E5</font></td><td><font size="-1">$F5</font></td>
+<td>&nbsp;</td><td><font size="-1">$E1</font></td><td><font size="-1">$F1</font></td><td><font size="-1">$ED</font></td><td><font size="-1">$FD</font></td>
+<td><font size="-1">$F9</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A-{adr}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">CMP</font></td><td>&nbsp;</td><td><font size="-1">$C9</font></td><td><font size="-1">$C5</font></td><td><font size="-1">$D5</font></td>
+<td>&nbsp;</td><td><font size="-1">$C1</font></td><td><font size="-1">$D1</font></td><td><font size="-1">$CD</font></td><td><font size="-1">$DD</font></td>
+<td><font size="-1">$D9</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A-{adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">CPX</font></td><td>&nbsp;</td><td><font size="-1">$E0</font></td><td><font size="-1">$E4</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$EC</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X-{adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">CPY</font></td><td>&nbsp;</td><td><font size="-1">$C0</font></td><td><font size="-1">$C4</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$CC</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">Y-{adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">DEC</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$C6</font></td><td><font size="-1">$D6</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$CE</font></td><td><font size="-1">$DE</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}-1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">DEX</font></td><td><font size="-1">$CA</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:=X-1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">DEY</font></td><td><font size="-1">$88</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">Y:=Y-1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">INC</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$E6</font></td><td><font size="-1">$F6</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$EE</font></td><td><font size="-1">$FE</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}+1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">INX</font></td><td><font size="-1">$E8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:=X+1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">INY</font></td><td><font size="-1">$C8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">Y:=Y+1</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">ASL</font></td><td><font size="-1">$0A</font></td><td>&nbsp;</td><td><font size="-1">$06</font></td><td><font size="-1">$16</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$0E</font></td><td><font size="-1">$1E</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}*2</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ROL</font></td><td><font size="-1">$2A</font></td><td>&nbsp;</td><td><font size="-1">$26</font></td><td><font size="-1">$36</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$2E</font></td><td><font size="-1">$3E</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}*2+C</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">LSR</font></td><td><font size="-1">$4A</font></td><td>&nbsp;</td><td><font size="-1">$46</font></td><td><font size="-1">$56</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$4E</font></td><td><font size="-1">$5E</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}/2</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ROR</font></td><td><font size="-1">$6A</font></td><td>&nbsp;</td><td><font size="-1">$66</font></td><td><font size="-1">$76</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$6E</font></td><td><font size="-1">$7E</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}/2+C*128</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+</tbody></table>
+
+<br><br>
+<font size="+3">Move commands:</font>
+<table border="1" cellspacing="0" cellpadding="2">
+<tbody><tr>
+<td width="48"><font size="-1">Opcode</font></td><td width="28"><font size="-1">imp</font></td><td width="28"><font size="-1">imm</font></td><td width="28"><font size="-1">zp</font></td><td width="28"><font size="-1">zpx</font></td>
+<td width="28"><font size="-1">zpy</font></td><td width="28"><font size="-1">izx</font></td><td width="28"><font size="-1">izy</font></td><td width="28"><font size="-1">abs</font></td><td width="28"><font size="-1">abx</font></td>
+<td width="28"><font size="-1">aby</font></td><td width="28"><font size="-1">ind</font></td><td width="28"><font size="-1">rel</font></td><td width="176"><font size="-1">Function</font></td>
+<td width="9"><font size="-1">N</font></td><td width="9"><font size="-1">V</font></td><td width="9"><font size="-1">B</font></td><td width="9"><font size="-1">D</font></td><td width="9"><font size="-1">I</font></td><td width="9"><font size="-1">Z</font></td><td width="9"><font size="-1">C</font></td>
+</tr>
+<tr>
+<td><font size="-1">LDA</font></td><td>&nbsp;</td><td><font size="-1">$A9</font></td><td><font size="-1">$A5</font></td><td><font size="-1">$B5</font></td>
+<td>&nbsp;</td><td><font size="-1">$A1</font></td><td><font size="-1">$B1</font></td><td><font size="-1">$AD</font></td><td><font size="-1">$BD</font></td>
+<td><font size="-1">$B9</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:={adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">STA</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$85</font></td><td><font size="-1">$95</font></td>
+<td>&nbsp;</td><td><font size="-1">$81</font></td><td><font size="-1">$91</font></td><td><font size="-1">$8D</font></td><td><font size="-1">$9D</font></td>
+<td><font size="-1">$99</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=A</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">LDX</font></td><td>&nbsp;</td><td><font size="-1">$A2</font></td><td><font size="-1">$A6</font></td><td>&nbsp;</td>
+<td><font size="-1">$B6</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$AE</font></td><td>&nbsp;</td>
+<td><font size="-1">$BE</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:={adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">STX</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$86</font></td><td>&nbsp;</td>
+<td><font size="-1">$96</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$8E</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=X</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">LDY</font></td><td>&nbsp;</td><td><font size="-1">$A0</font></td><td><font size="-1">$A4</font></td><td><font size="-1">$B4</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$AC</font></td><td><font size="-1">$BC</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">Y:={adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">STY</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$84</font></td><td><font size="-1">$94</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$8C</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=Y</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TAX</font></td><td><font size="-1">$AA</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:=A</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TXA</font></td><td><font size="-1">$8A</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=X</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TAY</font></td><td><font size="-1">$A8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">Y:=A</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TYA</font></td><td><font size="-1">$98</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=Y</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TSX</font></td><td><font size="-1">$BA</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:=S</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TXS</font></td><td><font size="-1">$9A</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">S:=X</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">PLA</font></td><td><font size="-1">$68</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=+(S)</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">PHA</font></td><td><font size="-1">$48</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">(S)-:=A</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">PLP</font></td><td><font size="-1">$28</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">P:=+(S)</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">PHP</font></td><td><font size="-1">$08</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">(S)-:=P</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br><br>
+<font size="+3">Jump/Flag commands:</font>
+<table border="1" cellspacing="0" cellpadding="2">
+<tbody><tr>
+<td width="48"><font size="-1">Opcode</font></td><td width="28"><font size="-1">imp</font></td><td width="28"><font size="-1">imm</font></td><td width="28"><font size="-1">zp</font></td><td width="28"><font size="-1">zpx</font></td>
+<td width="28"><font size="-1">zpy</font></td><td width="28"><font size="-1">izx</font></td><td width="28"><font size="-1">izy</font></td><td width="28"><font size="-1">abs</font></td><td width="28"><font size="-1">abx</font></td>
+<td width="28"><font size="-1">aby</font></td><td width="28"><font size="-1">ind</font></td><td width="28"><font size="-1">rel</font></td><td width="176"><font size="-1">Function</font></td>
+<td width="9"><font size="-1">N</font></td><td width="9"><font size="-1">V</font></td><td width="9"><font size="-1">B</font></td><td width="9"><font size="-1">D</font></td><td width="9"><font size="-1">I</font></td><td width="9"><font size="-1">Z</font></td><td width="9"><font size="-1">C</font></td>
+</tr>
+<tr>
+<td><font size="-1">BPL</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$10</font></td><td><font size="-1">branch on N=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BMI</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$30</font></td><td><font size="-1">branch on N=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BVC</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$50</font></td><td><font size="-1">branch on V=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BVS</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$70</font></td><td><font size="-1">branch on V=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BCC</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$90</font></td><td><font size="-1">branch on C=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BCS</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$B0</font></td><td><font size="-1">branch on C=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BNE</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$D0</font></td><td><font size="-1">branch on Z=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BEQ</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$F0</font></td><td><font size="-1">branch on Z=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BRK</font></td><td><font size="-1">$00</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">(S)-:=PC,P PC:=($FFFE)</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">1</font></td><td>&nbsp;</td><td><font size="-1">1</font></td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">RTI</font></td><td><font size="-1">$40</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">P,PC:=+(S)</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">JSR</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$20</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">(S)-:=PC PC:={adr}</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">RTS</font></td><td><font size="-1">$60</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">PC:=+(S)</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">JMP</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$4C</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td><font size="-1">$6C</font></td><td>&nbsp;</td><td><font size="-1">PC:={adr}</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">BIT</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$24</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$2C</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">N:=b7 V:=b6 Z:=A&amp;{adr}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">CLC</font></td><td><font size="-1">$18</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">C:=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">0</font></td>
+</tr>
+<tr>
+<td><font size="-1">SEC</font></td><td><font size="-1">$38</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">C:=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">1</font></td>
+</tr>
+<tr>
+<td><font size="-1">CLD</font></td><td><font size="-1">$D8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">D:=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">0</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">SED</font></td><td><font size="-1">$F8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">D:=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">1</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">CLI</font></td><td><font size="-1">$58</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">I:=0</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">0</font></td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">SEI</font></td><td><font size="-1">$78</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">I:=1</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">1</font></td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">CLV</font></td><td><font size="-1">$B8</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">V:=0</font></td>
+<td>&nbsp;</td><td><font size="-1">0</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">NOP</font></td><td><font size="-1">$EA</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br><br>
+<font size="+3">Flags of the status register:</font><br>
+<br>
+The processor status register has 8 bits, where 7 are used as flags:<br>
+<br>
+N = negative flag (1 when result is negative)<br>
+V = overflow flag (1 on signed overflow)<br>
+# = unused (always 1)<br>
+B = break flag (1 when interupt was caused by a BRK)<br>
+D = decimal flag (1 when CPU in BCD mode)<br>
+I = IRQ flag (when 1, no interupts will occur (exceptions are IRQs forced by BRK and NMIs))<br>
+Z = zero flag (1 when all bits of a result are 0)<br>
+C = carry flag (1 on unsigned overflow)<br>
+<br><br>
+<font size="+3">Hardware vectors:</font><br>
+<font size="-1"><br>
+$FFFA = NMI vector (NMI=not maskable interupts)<br>
+$FFFC = Reset vector<br>
+$FFFE = IRQ vector<br>
+<br><br></font>
+<font size="+3">Illegal opcodes:</font>
+<table border="1" cellspacing="0" cellpadding="2">
+<tbody><tr>
+<td width="48"><font size="-1">Opcode</font></td><td width="28"><font size="-1">imp</font></td><td width="28"><font size="-1">imm</font></td><td width="28"><font size="-1">zp</font></td><td width="28"><font size="-1">zpx</font></td>
+<td width="28"><font size="-1">zpy</font></td><td width="28"><font size="-1">izx</font></td><td width="28"><font size="-1">izy</font></td><td width="28"><font size="-1">abs</font></td><td width="28"><font size="-1">abx</font></td>
+<td width="28"><font size="-1">aby</font></td><td width="28"><font size="-1">ind</font></td><td width="28"><font size="-1">rel</font></td><td width="176"><font size="-1">Function</font></td>
+<td width="9"><font size="-1">N</font></td><td width="9"><font size="-1">V</font></td><td width="9"><font size="-1">B</font></td><td width="9"><font size="-1">D</font></td><td width="9"><font size="-1">I</font></td><td width="9"><font size="-1">Z</font></td><td width="9"><font size="-1">C</font></td>
+</tr>
+<tr>
+<td><font size="-1">SLO</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$07</font></td><td><font size="-1">$17</font></td>
+<td>&nbsp;</td><td><font size="-1">$03</font></td><td><font size="-1">$13</font></td><td><font size="-1">$0F</font></td><td><font size="-1">$1F</font></td>
+<td><font size="-1">$1B</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}*2 A:=A or {adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">RLA</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$27</font></td><td><font size="-1">$37</font></td>
+<td>&nbsp;</td><td><font size="-1">$23</font></td><td><font size="-1">$33</font></td><td><font size="-1">$2F</font></td><td><font size="-1">$3F</font></td>
+<td><font size="-1">$3B</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}rol A:=A and {adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">SRE</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$47</font></td><td><font size="-1">$57</font></td>
+<td>&nbsp;</td><td><font size="-1">$43</font></td><td><font size="-1">$53</font></td><td><font size="-1">$4F</font></td><td><font size="-1">$5F</font></td>
+<td><font size="-1">$5B</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}/2 A:=A exor {adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">RRA</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$67</font></td><td><font size="-1">$77</font></td>
+<td>&nbsp;</td><td><font size="-1">$63</font></td><td><font size="-1">$73</font></td><td><font size="-1">$6F</font></td><td><font size="-1">$7F</font></td>
+<td><font size="-1">$7B</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}ror A:=A adc {adr}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">SAX</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$87</font></td><td>&nbsp;</td>
+<td><font size="-1">$97</font></td><td><font size="-1">$83</font></td><td>&nbsp;</td><td><font size="-1">$8F</font></td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=A&amp;X</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">LAX</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$A7</font></td><td>&nbsp;</td>
+<td><font size="-1">$B7</font></td><td><font size="-1">$A3</font></td><td><font size="-1">$B3</font></td><td><font size="-1">$AF</font></td><td>&nbsp;</td>
+<td><font size="-1">$BF</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A,X:={adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">DCP</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$C7</font></td><td><font size="-1">$D7</font></td>
+<td>&nbsp;</td><td><font size="-1">$C3</font></td><td><font size="-1">$D3</font></td><td><font size="-1">$CF</font></td><td><font size="-1">$DF</font></td>
+<td><font size="-1">$DB</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}-1 A-{adr}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ISC</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$E7</font></td><td><font size="-1">$F7</font></td>
+<td>&nbsp;</td><td><font size="-1">$E3</font></td><td><font size="-1">$F3</font></td><td><font size="-1">$EF</font></td><td><font size="-1">$FF</font></td>
+<td><font size="-1">$FB</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:={adr}+1 A:=A-{adr}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ANC</font></td><td>&nbsp;</td><td><font size="-1">$0B</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A&amp;#{imm}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ANC</font></td><td>&nbsp;</td><td><font size="-1">$2B</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A&amp;#{imm}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ALR</font></td><td>&nbsp;</td><td><font size="-1">$4B</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=(A&amp;#{imm})/2</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">ARR</font></td><td>&nbsp;</td><td><font size="-1">$6B</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=(A&amp;#{imm})/2</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">XAA²</font></td><td>&nbsp;</td><td><font size="-1">$8B</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=X&amp;#{imm}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">LAX²</font></td><td>&nbsp;</td><td><font size="-1">$AB</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A,X:=#{imm}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">AXS</font></td><td>&nbsp;</td><td><font size="-1">$CB</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">X:=A&amp;X-#{imm}</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">SBC</font></td><td>&nbsp;</td><td><font size="-1">$EB</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A:=A-#{imm}</font></td>
+<td><font size="-1">*</font></td><td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td><font size="-1">*</font></td>
+</tr>
+<tr>
+<td><font size="-1">AHX¹</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$93</font></td><td>&nbsp;</td><td>&nbsp;</td>
+<td><font size="-1">$9F</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=A&amp;X&amp;H</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">SHY¹</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">$9C</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=Y&amp;H</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">SHX¹</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td><font size="-1">$9E</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">{adr}:=X&amp;H</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">TAS¹</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td><font size="-1">$9B</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">S:=A&amp;X {adr}:=S&amp;H</font></td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+<td><font size="-1">LAS</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+<td><font size="-1">$BB</font></td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">A,X,S:={adr}&amp;S</font></td>
+<td><font size="-1">*</font></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><font size="-1">*</font></td><td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<font size="-1"><br><br>
+<tt>¹ = unstable in certain matters<br>
+² = highly unstable (results are not predictable on some machines)<br>
+A = Akkumulator<br>
+X = X-Register<br>
+Y = Y-Register<br>
+S = Stack-Pointer<br>
+P = Status-Register<br>
++(S) = Stack-Pointer relative with pre-increment<br>
+(S)- = Stack-Pointer relative with post-decrement</tt><br>
+<br><br>
+Combinations of two operations with the same addressing mode:<br>
+<br>
+<tt>SLO {adr} = ASL {adr} + ORA {adr}<br>
+RLA {adr} = ROL {adr} + AND {adr}<br>
+SRE {adr} = LSR {adr} + EOR {adr}<br>
+RRA {adr} = ROR {adr} + ADC {adr}<br>
+SAX {adr} = store A&amp;X into {adr}<br>
+LAX {adr} = LDA {adr} + LDX {adr}<br>
+DCP {adr} = DEC {adr} + CMP {adr}<br>
+ISC {adr} = INC {adr} + SBC {adr}</tt><br>
+<br>
+note to SAX: the A&amp;X operation is a result of A and X put onto the bus at the same time.<br>
+<br><br>
+Combinations of an immediate and an implied command:<br>
+<br>
+<tt>ANC #{imm} = AND #{imm} + (ASL)<br>
+ANC #{imm} = AND #{imm} + (ROL)<br>
+ALR #{imm} = AND #{imm} + LSR<br>
+ARR #{imm} = AND #{imm} + ROR<br>
+XAA #{imm} = TXA + AND #{imm}<br>
+LAX #{imm} = LDA #{imm} + TAX<br>
+AXS #{imm} = A&amp;X minus #{imm} into X<br>
+SBC #{imm} = SBC #{imm} + NOP</tt><br>
+<br>
+note to ANC: this command performs an AND operation only, but bit 7 is put into the carry, as if the ASL/ROL would have been executed.<br>
+note to ARR: part of this command are some ADC mechanisms. following effects appear after AND but before ROR:
+the V-Flag is set according to (A and #{imm})+#{imm}, bit 0 does NOT go into carry, but bit 7 is exchanged with the carry.<br>
+note to XAA: DO NOT USE!!! Highly unstable!!!<br>
+note to LAX: DO NOT USE!!! On my C128, this opcode is stable, but on my C64-II it loses bits so that the operation
+looks like this: ORA #? AND #{imm} TAX.<br>
+note to AXS: performs CMP and DEX at the same time, so that the MINUS sets the flag like CMP, not SBC.<br>
+<br><br>
+Combinations of STA/STX/STY:<br>
+<br>
+<tt>AHX {adr} = stores A&amp;X&amp;H into {adr}<br>
+SHX {adr} = stores X&amp;H into {adr}<br>
+SHY {adr} = stores Y&amp;H into {adr}</tt><br>
+<br>
+note: sometimes the &amp;H drops off. Also page boundary crossing will not work as expected (the bank where the value is stored may be equal to the value stored).<br>
+<br><br>
+Combinations of STA/TXS and LDA/TSX:<br>
+<br>
+<tt>TAS {adr} = stores A&amp;X into S and A&amp;X&amp;H into {adr}<br>
+LAS {adr} = stores {adr}&amp;S into A, X and S</tt><br>
+<br>
+note to LAS: is called as "propably unreliable" in one source.<br>
+<br><br>
+Bit configuration does not allow any operation on these ones:<br>
+<br>
+<tt>NOP = has no effects<br>
+NOP #{imm} = fetches #{imm} but has no effects<br>
+NOP {adr} = fetches {adr} but has no effects<br>
+<br><br>
+KIL = halts the CPU. the data bus will be set to #$FF</tt><br>
+<br>
+<br>
+<font size="+1">Aliases used in other illegal opcode sources:</font><br>
+<br>
+SLO = ASO<br>
+SRE = LSE<br>
+ISC = ISB<br>
+ALR = ASR<br>
+SHX = A11 (A11 was a result of only having tested this one on adress $1000)<br>
+SHY = A11<br>
+LAS = LAR<br>
+KIL = JAM, HLT<br>
+<br>
+<br>
+<font size="+3">The 6502 bugs:</font><br>
+<br>
+<font size="+1">Zeropage index will not leave zeropage when page boundary is crossed:</font><br>
+<br>
+<tt>LDX #$01<br>
+LDA $FF,X</tt><br>
+<br>
+...will fetch from adress $0000 and not $0100 as indexed.<br>
+<br><br>
+<font size="+1">Indirect adressing modes are not able to fetch an adress which crosses the page boundary:</font><br>
+<br>
+Four examples to illustrate this:<br>
+<br>
+<tt>LDA ($FF),Y<br>
+<br>
+LDX #$00<br>
+LDA ($FF,X)<br>
+<br>
+LDX #$FF<br>
+LDA ($00,X)</tt><br>
+<br>
+... will all fetch the low-byte from $00FF and the high-byte from $0000<br>
+<br>
+<tt>JMP ($12FF)</tt><br>
+<br>
+... will fetch the low-byte from $12FF and the high-byte from $1200<br>
+<br><br>
+<font size="+1">The N, V and Z flags do not work correctly in BCD mode:</font><br>
+<br>
+N will always carry bit 7.<br>
+V will always be ((U eor N) nand (U eor V)) (while U is bit 7 of operand 1, V is bit 7 of operand 2 and N is the N flag after the ADC is performed).<br>
+please note that SBC is truly ADC with an inverted operand!<br>
+Z will be 0 when the non-BCD operation WOULD have resulted in $00, no matter what value the result of the BCD operation is.<br>
+<br>
+example to Z:<br>
+<br>
+<tt>SED<br>
+CLC<br>
+LDA #$80<br>
+ADC #$80</tt><br>
+<br>
+... results in A=$60, but the Z flag is 1.<br>
+<br><br>
+<font size="+1">BCD and non BCD values:</font><br>
+<br>
+Since only nibble values from 0 to 9 are valid in BCD, it's interesting to see what happens when using A to F:<br>
+<br>
+<tt>$00+$0F=$15 (an easy way to convert a hex-digit into BCD...)<br>
+$00+$1F=$25 (can be claimed as being "ok" since 10+$0F=25)<br>
+$10+$1F=$35 ("ok")<br>
+$05+$1F=$2A (a non-BCD result, still somewhat "ok" since 5+10+$0F=20+$0A)<br>
+$0F+$0A=$1F ("ok", since $0F+$0A=$0F+10)<br>
+$0F+$0B=$10 (now, this is plain bullshit!)</tt><br>
+<br><br>
+
+<font size="+3">Different versions of the 6502:</font><br>
+<br>
+In the C64/C128 series of computers, slightly modified versions of the 6502
+were used. The modifications did not affect the functional part of the processor
+itself. Only a so-called processor port was added.
+This port, in combination with an external PLA, was used to map ROM and I/O areas into the 64KB RAM of the C64.
+Also, some bits of the port were used for the legendary Datasette.<br>
+<br>
+The port can be accessed through memory adresses $0000 and $0001, while $0001
+is the port itself, and $0000 is the data direction register for it.<br>
+<br>
+Explanation for the bits of $0001:<br>
+<br>
+7 - unused (Flash 8: 0=8MHz/1=1MHz)<br>
+6 - unused (C128: ASCII/DIN sense/switch (1=ASCII/0=DIN))<br>
+5 - Cassette motor control (0 = motor on)<br>
+4 - Cassette switch sense (0 = PLAY pressed)<br>
+3 - Cassette write line<br>
+2 - CHAREN (0=Character ROM instead of I/O area)<br>
+1 - HIRAM ($E000-$FFFF)<br>
+0 - LORAM ($A000-$BFFF)<br>
+<br>
+If HIRAM or LORAM is set, the I/O area is mapped to $D000-$DFFF.<br>
+<br>
+$0000 should always be set to $2F (%00101111)<br>
+<br>
+Note to bit 6: This bit is used to select either the ASCII or the DIN
+character ROM of a C128. When data direction is set to INPUT, the charset
+is selected externally with the ASCII/DIN key.<br>
+<br>
+CPU versions:<br>
+<br>
+6502: NMOS, used in Commodore disk drives, PET, various other 8 bit computers<br>
+6502C: 6502 with additional HALT pin, used in Atari 8 bit computer range<br>
+6510: 6502 with additional processor port, used in C64<br>
+8500: CMOS version of the 6510, used in C64C and C64G<br>
+8502: 2 MHz version of the 8500, used in C128<br>
+7501: HMOS-1 version of the 6502, used in C16/C116/Plus4<br>
+8501: HMOS-2 version of the 6502, used in C16/C116/Plus4<br>
+<br>
+All of these processors are the same concerning the software-side.<br>
+<br>
+Some processors of the family which are not 100% compatible:<br>
+<br>
+65C02: Extension of the 6502.<br>
+65SC02: Small version of the 65C02 which lost a few opcodes again.<br>
+65CE02: Extension of the 65C02, used in the C65.<br>
+65816: Extended 6502 with new opcodes and 16 bit operation modes.<br>
+<br><br>
+<font size="+3">Zeropage/Stack:</font><br>
+<br>
+The first 256 bytes of adressable memory are called Zeropage. The 6502
+processor family offers a wide selection of adressing modes to work with
+this part of the memory, which generally results in shorter and (even more
+important) faster code.<br>
+<br>
+Following the Zeropage, the next 256 bytes (located at $0100-$01FF) are
+used as processor stack. The stack function of this part is defined as
+it is in most other CPU's: Writing to stack will automatically decrement
+the stack pointer, while reading from it will increment it.<br>
+<br><br></font>© 2002-2012 Graham. Last change on 03.11.2012.
+<br><br><a href="https://www.oxyron.de/html/opcodes.html">back</a>
+
+
+
+
+</body><!-- Mirrored from www.oxyron.de/html/opcodes02.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Mar 2024 13:08:34 GMT --></html>
