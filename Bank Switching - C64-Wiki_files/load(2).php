@@ -1,0 +1,1 @@
+.hiddenStructure{display:none;speak:none}pre{display:inline-block}

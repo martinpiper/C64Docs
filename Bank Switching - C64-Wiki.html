@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://www.c64-wiki.com/wiki/Bank_Switching#Memory_Configurations -->
+<html class="client-js ve-available" lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Bank Switching - C64-Wiki</title>
+<script>document.documentElement.className="client-js";RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"9ae9e75a419d35e288d650a4","wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Bank_Switching","wgTitle":"Bank Switching","wgCurRevisionId":38213,"wgRevisionId":38213,"wgArticleId":3915,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Basics","Hardware"],"wgPageViewLanguage":"en","wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Bank_Switching","wgRelevantArticleId":3915,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgCiteReferencePreviewsActive":true,"wgMFDisplayWikibaseDescriptions":{"search":false,"watchlist":false,"tagline":false},"wgEditSubmitButtonLabelPublish":false};
+RLSTATE={"site.styles":"ready","user.styles":"ready","user":"ready","user.options":"loading","skins.monobook.styles":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready"};RLPAGEMODULES=["site","mediawiki.page.ready","mediawiki.toc","skins.monobook.scripts","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.impl(function(){return["user.options@12s5i",function($,jQuery,require,module){mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+}];});});</script>
+<link rel="stylesheet" href="./Bank Switching - C64-Wiki_files/load.php">
+<script async="" src="./Bank Switching - C64-Wiki_files/load(1).php"></script>
+<style>
+.mw-editfont-monospace{font-family:monospace,monospace}.mw-editfont-sans-serif{font-family:sans-serif}.mw-editfont-serif{font-family:serif} .mw-editfont-monospace,.mw-editfont-sans-serif,.mw-editfont-serif{  font-size:13px; -moz-tab-size:4;tab-size:4; }.mw-editfont-monospace.oo-ui-textInputWidget,.mw-editfont-sans-serif.oo-ui-textInputWidget,.mw-editfont-serif.oo-ui-textInputWidget{font-size:inherit}.mw-editfont-monospace.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input{  font-size:13px}.mw-editfont-monospace.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input{min-height:32px}
+.oo-ui-icon-alert,.mw-ui-icon-alert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E alert %3C/title%3E%3Cpath d=%22M11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-alert,.mw-ui-icon-alert-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E alert %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-alert,.mw-ui-icon-alert-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E alert %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M11.53 2.3A1.85 1.85 0 0 0 10 1.21 1.85 1.85 0 0 0 8.48 2.3L.36 16.36C-.48 17.81.21 19 1.88 19h16.24c1.67 0 2.36-1.19 1.52-2.64zM11 16H9v-2h2zm0-4H9V6h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-bell,.mw-ui-icon-bell:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cpath d=%22M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-bell,.mw-ui-icon-bell-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-bell,.mw-ui-icon-bell-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-bellOutline,.mw-ui-icon-bellOutline:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cpath d=%22M11.5 2.19C14.09 2.86 16 5.2 16 8v6l2 2v1H2v-1l2-2V8c0-2.8 1.91-5.14 4.5-5.81V1.5C8.5.67 9.17 0 10 0s1.5.67 1.5 1.5zM10 4C7.79 4 6 5.79 6 8v7h8V8c0-2.21-1.79-4-4-4M8 18h4c0 1.1-.9 2-2 2s-2-.9-2-2%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-bellOutline,.mw-ui-icon-bellOutline-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M11.5 2.19C14.09 2.86 16 5.2 16 8v6l2 2v1H2v-1l2-2V8c0-2.8 1.91-5.14 4.5-5.81V1.5C8.5.67 9.17 0 10 0s1.5.67 1.5 1.5zM10 4C7.79 4 6 5.79 6 8v7h8V8c0-2.21-1.79-4-4-4M8 18h4c0 1.1-.9 2-2 2s-2-.9-2-2%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-bellOutline,.mw-ui-icon-bellOutline-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bell %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M11.5 2.19C14.09 2.86 16 5.2 16 8v6l2 2v1H2v-1l2-2V8c0-2.8 1.91-5.14 4.5-5.81V1.5C8.5.67 9.17 0 10 0s1.5.67 1.5 1.5zM10 4C7.79 4 6 5.79 6 8v7h8V8c0-2.21-1.79-4-4-4M8 18h4c0 1.1-.9 2-2 2s-2-.9-2-2%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-error,.mw-ui-icon-error:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E error %3C/title%3E%3Cpath d=%22M13.728 1H6.272L1 6.272v7.456L6.272 19h7.456L19 13.728V6.272zM11 15H9v-2h2zm0-4H9V5h2z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-error,.mw-ui-icon-error-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E error %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M13.728 1H6.272L1 6.272v7.456L6.272 19h7.456L19 13.728V6.272zM11 15H9v-2h2zm0-4H9V5h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-error,.mw-ui-icon-error-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E error %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M13.728 1H6.272L1 6.272v7.456L6.272 19h7.456L19 13.728V6.272zM11 15H9v-2h2zm0-4H9V5h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-message,.mw-ui-icon-message:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E message %3C/title%3E%3Cpath d=%22M0 8v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-10 4z%22/%3E%3Cpath d=%22M2 2a2 2 0 0 0-2 2v2l10 4 10-4V4a2 2 0 0 0-2-2z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-message,.mw-ui-icon-message-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E message %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M0 8v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-10 4z%22/%3E%3Cpath d=%22M2 2a2 2 0 0 0-2 2v2l10 4 10-4V4a2 2 0 0 0-2-2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-message,.mw-ui-icon-message-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E message %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M0 8v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-10 4z%22/%3E%3Cpath d=%22M2 2a2 2 0 0 0-2 2v2l10 4 10-4V4a2 2 0 0 0-2-2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-notice,.mw-ui-icon-notice:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E notice %3C/title%3E%3Cpath d=%22M10 0a10 10 0 1 0 10 10A10 10 0 0 0 10 0m1 16H9v-2h2zm0-4H9V4h2z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-notice,.mw-ui-icon-notice-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E notice %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M10 0a10 10 0 1 0 10 10A10 10 0 0 0 10 0m1 16H9v-2h2zm0-4H9V4h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-notice,.mw-ui-icon-notice-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E notice %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M10 0a10 10 0 1 0 10 10A10 10 0 0 0 10 0m1 16H9v-2h2zm0-4H9V4h2z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-speechBubble,.mw-ui-icon-speechBubble:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubble %3C/title%3E%3Cpath d=%22M6 14H0v6z%22/%3E%3Crect width=%2220%22 height=%2216%22 rx=%222%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-speechBubble,.mw-ui-icon-speechBubble-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubble %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M6 14H0v6z%22/%3E%3Crect width=%2220%22 height=%2216%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-speechBubble,.mw-ui-icon-speechBubble-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubble %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M6 14H0v6z%22/%3E%3Crect width=%2220%22 height=%2216%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-speechBubbleAdd,.mw-ui-icon-speechBubbleAdd:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E add speech bubble %3C/title%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 8h-4v4H9V9H5V7h4V3h2v4h4z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-speechBubbleAdd,.mw-ui-icon-speechBubbleAdd-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E add speech bubble %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 8h-4v4H9V9H5V7h4V3h2v4h4z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-speechBubbleAdd,.mw-ui-icon-speechBubbleAdd-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E add speech bubble %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 8h-4v4H9V9H5V7h4V3h2v4h4z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-speechBubbles,.mw-ui-icon-speechBubbles:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubbles %3C/title%3E%3Cpath d=%22M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z%22/%3E%3Crect width=%2216%22 height=%2212%22 rx=%222%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-speechBubbles,.mw-ui-icon-speechBubbles-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubbles %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z%22/%3E%3Crect width=%2216%22 height=%2212%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-speechBubbles,.mw-ui-icon-speechBubbles-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E speech bubbles %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z%22/%3E%3Crect width=%2216%22 height=%2212%22 rx=%222%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-success,.mw-ui-icon-success:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E success %3C/title%3E%3Cpath d=%22M10 20a10 10 0 0 1 0-20 10 10 0 1 1 0 20m-2-5 9-8.5L15.5 5 8 12 4.5 8.5 3 10z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-success,.mw-ui-icon-success-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E success %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M10 20a10 10 0 0 1 0-20 10 10 0 1 1 0 20m-2-5 9-8.5L15.5 5 8 12 4.5 8.5 3 10z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-success,.mw-ui-icon-success-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E success %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M10 20a10 10 0 0 1 0-20 10 10 0 1 1 0 20m-2-5 9-8.5L15.5 5 8 12 4.5 8.5 3 10z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-icon-tray,.mw-ui-icon-tray:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E tray %3C/title%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z%22/%3E%3C/svg%3E")}.oo-ui-image-invert.oo-ui-icon-tray,.mw-ui-icon-tray-invert:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E tray %3C/title%3E%3Cg fill=%22%23fff%22%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z%22/%3E%3C/g%3E%3C/svg%3E")}.oo-ui-image-progressive.oo-ui-icon-tray,.mw-ui-icon-tray-progressive:before{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E tray %3C/title%3E%3Cg fill=%22%2336c%22%3E%3Cpath d=%22M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z%22/%3E%3C/g%3E%3C/svg%3E")}
+.ve-init-mw-progressBarWidget{height:1em;overflow:hidden;margin:0 25%}.ve-init-mw-progressBarWidget-bar{height:1em;width:0} .ve-init-mw-progressBarWidget{border:1px solid #ccc;background:#fff;border-radius:0.25em;box-shadow:0 0.1em 0.5em rgba(0,0,0,0.15)}.ve-init-mw-progressBarWidget-bar{border-right:1px solid #ccc;background:#cde7f4;background-image:linear-gradient(to bottom,#eaf4fa 0%,#b0d9ee 100%)}
+@media screen {
+	.toctoggle{-webkit-user-select:none;-moz-user-select:none;user-select:none;font-size:94%}}
+#mw-teleport-target{position:absolute;z-index:450}#mw-teleport-target{font-size:1.28em; }</style><style>
+@media screen and (max-width:550px){body.skin--responsive{      }body.skin--responsive #p-search-mobilejs,body.skin--responsive #p-tb-mobilejs,body.skin--responsive #p-lang-mobilejs,body.skin--responsive #t-contributions{display:none}body.skin--responsive #sidebar #p-tb,body.skin--responsive #sidebar #p-lang,body.skin--responsive #sidebar #p-search{display:block}body.skin--responsive #p-cactions:not(.mobile-menu-active),body.skin--responsive #p-personal:not(.mobile-menu-active),body.skin--responsive #p-tb:not(.mobile-menu-active),body.skin--responsive #p-lang:not(.mobile-menu-active),body.skin--responsive #sidebar-mobilejs:not(.mobile-menu-active){display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}body.skin--responsive .mobile-menu-active{position:absolute;top:2em;left:0;z-index:10000;background:#fff;border:solid 1px #fabd23;border-left:0;padding:2em 2em 0 1.5em;font-size:125%}body.skin--responsive .mobile-menu-active *[id^='ca-nstab-'],body.skin--responsive .mobile-menu-active #ca-talk,body.skin--responsive .mobile-menu-active #ca-edit{display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}body.skin--responsive .mobile-menu-active ul{padding-top:1em}body.skin--responsive .mobile-menu-active li{white-space:nowrap}body.skin--responsive .mobile-menu-active a{display:block;padding:0.65em 0}body.skin--responsive .mobile-menu-active a.feedlink{padding-left:16px}body.skin--responsive .mobile-menu-active h3:first-child{margin-right:2em}body.skin--responsive .mobile-menu-active .mw-portlet > div,body.skin--responsive .mobile-menu-active .pBody{margin-bottom:2em}body.skin--responsive .mobile-menu-active .mobile-close-button{width:20px;height:20px;background-image:url(/skins/MonoBook/resources/images/icon-close.svg?09057);background-position:0 0;background-repeat:no-repeat;position:absolute;top:1em;right:0.75em;cursor:pointer}body.skin--responsive .menus-cover{display:none;top:0;left:0;width:100%;height:100%;z-index:9999}body.skin--responsive .menus-cover.visible{display:block}body.skin--responsive #menus-cover{position:fixed;opacity:0.45;background-color:#fff}body.skin--responsive #menus-cover-background{position:absolute;background-color:#f9f9f9;background-image:url(/skins/MonoBook/resources/images/headbg.svg?1797e);background-position:0 0;background-repeat:no-repeat;opacity:0.55}body.skin--responsive #p-cactions-mobile li#ca-edit-mobile a{background-image:url(/skins/MonoBook/resources/images/icon-edit.svg?fbba8)}body.skin--responsive #p-cactions-mobile li#t-contributions-mobile a{background-image:url(/skins/MonoBook/resources/images/icon-user.svg?e00d0)}body.skin--responsive .mobile-menu-active a.mw-echo-alert{padding-left:1em;padding-right:1em}body.skin--responsive #echo-hack-badges{list-style:none;margin:0;position:absolute;top:1px;left:1.5em;pointer-events:none}body.skin--responsive #echo-hack-badges li{white-space:nowrap}body.skin--responsive #echo-hack-badges #pt-notifications-alert .mw-echo-notifications-badge,body.skin--responsive #echo-hack-badges #pt-notifications-notice .mw-echo-notifications-badge{width:1.9em;overflow:hidden;height:16;top:0;color:transparent}body.skin--responsive #echo-hack-badges #pt-notifications-alert .mw-echo-notifications-badge::before,body.skin--responsive #echo-hack-badges #pt-notifications-notice .mw-echo-notifications-badge::before{display:none}body.skin--responsive #echo-hack-badges #pt-notifications-alert .mw-echo-notifications-badge::after,body.skin--responsive #echo-hack-badges #pt-notifications-notice .mw-echo-notifications-badge::after{left:0;top:0}}
+.ve-init-mw-tempWikitextEditorWidget{border:0;padding:0;color:inherit;line-height:1.5em;width:100%;-moz-tab-size:4;tab-size:4;  }.ve-init-mw-tempWikitextEditorWidget:focus{outline:0;padding:0}.ve-init-mw-tempWikitextEditorWidget::selection{background:rgba(109,169,247,0.5); }</style><style>
+.ve-active .ve-init-mw-desktopArticleTarget-targetContainer #siteNotice,.ve-active .mw-indicators,.ve-active #t-print,.ve-active #t-permalink,.ve-active #p-coll-print_export,.ve-active #t-cite,.ve-active .ve-init-mw-desktopArticleTarget-editableContent,.ve-active .ve-init-mw-tempWikitextEditorWidget{display:none}.ve-deactivating .ve-ui-surface{display:none}.ve-activating{ }.ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading .ve-init-mw-desktopArticleTarget-targetContainer > :not(.ve-init-mw-desktopArticleTarget-toolbarPlaceholder):not(.ve-init-mw-desktopArticleTarget),.ve-loading .ve-init-mw-desktopArticleTarget-originalContent,.ve-activated:not(.ve-loading) .ve-init-mw-desktopArticleTarget-uneditableContent{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated .ve-init-mw-desktopArticleTarget-targetContainer #firstHeading{ -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;pointer-events:auto;cursor:text}.ve-activated .ve-init-mw-desktopArticleTarget-targetContainer #firstHeading a{ pointer-events:none}.ve-activated .ve-init-mw-desktopArticleTarget-originalContent #catlinks{cursor:pointer}.ve-activated .ve-init-mw-desktopArticleTarget-originalContent #catlinks:hover{ background:#e9f2fd}.ve-activated .ve-init-mw-desktopArticleTarget-originalContent #catlinks a{opacity:1} .ve-init-mw-desktopArticleTarget-loading-overlay{z-index:2;position:absolute;width:100%;top:1em}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{overflow:hidden;transition:height 250ms ease;height:0;padding-bottom:2px; }.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-bar{transform:translateY(-100%);transition:transform 250ms ease}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open .ve-init-mw-desktopArticleTarget-toolbarPlaceholder-bar{transform:translateY(0)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-floating{transition:none}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-floating .ve-init-mw-desktopArticleTarget-toolbarPlaceholder-bar{position:fixed;top:0;z-index:1;background:#fff} .oo-ui-element-hidden{display:none !important; } .mw-editsection::before{content:'\200B'}.mw-editsection a{white-space:nowrap} .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{border-bottom:1px solid #ccc;box-shadow:0 2px 2px 0 rgba(0,0,0,0.1);background-color:#f8fbfd;background-image:linear-gradient(to bottom,#fff 0,#f1f7fb 100%)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-floating,.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open{height:44px} .ve-init-mw-desktopArticleTarget-loading-overlay{  top:14.656px}.ve-init-mw-desktopArticleTarget-toolbar,.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ font-size:1.00787401575em;  margin:-0.9921875em;margin-bottom:0.9921875em}</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="./Bank Switching - C64-Wiki_files/load(2).php">
+<meta name="generator" content="MediaWiki 1.43.1">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit">
+<link rel="search" type="application/opensearchdescription+xml" href="https://www.c64-wiki.com/rest.php/v1/search" title="C64-Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://www.c64-wiki.com/api.php?action=rsd">
+<link rel="license" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="C64-Wiki Atom feed" href="https://www.c64-wiki.com/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject mw-editable page-Bank_Switching rootpage-Bank_Switching skin-monobook action-view skin--responsive"><div id="globalWrapper">
+	<div id="column-content">
+		<div id="content" class="mw-body ve-init-mw-desktopArticleTarget-targetContainer" role="main">
+			<a id="top"></a>
+			<div id="siteNotice"></div>
+			<div class="mw-indicators">
+			</div>
+			<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Bank Switching</span></h1>
+			<div id="bodyContent" class="monobook-body">
+				<div id="siteSub">From C64-Wiki</div>
+				<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+				
+				<div id="jump-to-nav"></div><a href="https://www.c64-wiki.com/wiki/Bank_Switching#column-one" class="mw-jump-link">Jump to navigation</a><a href="https://www.c64-wiki.com/wiki/Bank_Switching#searchInput" class="mw-jump-link">Jump to search</a>
+				<!-- start content -->
+				<div id="mw-content-text" class="mw-body-content"><div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr"><p><b>Bank Switching</b> is a technique which configures the memory accessible by the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> at any given time.
+</p><p>As the <a href="https://www.c64-wiki.com/wiki/MOS_6510" class="mw-redirect" title="MOS 6510">MOS 6510</a> <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> can only access 2<sup>16</sup> = 65536 memory locations ($0000-$FFFF), banks of memory can be switched (which exposes or hides them from the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a>) in order to provide a greater overall capacity. In its original state the <a href="https://www.c64-wiki.com/wiki/C64" title="C64">C64</a> contains 64 kBytes of <a href="https://www.c64-wiki.com/wiki/RAM" title="RAM">RAM</a>, 20 kBytes of <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a>, and 512 bytes of <a href="https://www.c64-wiki.com/wiki/Color_RAM" title="Color RAM">Color RAM</a>. Through the <a href="https://www.c64-wiki.com/wiki/expansion_port" class="mw-redirect" title="expansion port">expansion port</a>, extensions such as additional <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> and/or <a href="https://www.c64-wiki.com/wiki/RAM" title="RAM">RAM</a> can be added. Bank switching allows the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> to access all of this memory (albeit non-contiguously) to execute a program, and is a common technique in 8-bit microcomputer systems. Unlike memory management by <a href="https://www.c64-wiki.com/index.php?title=paging&amp;action=edit&amp;redlink=1" class="new" title="paging (page does not exist)">paging</a>, data is not exchanged with a storage device but is loaded into memory and remains inaccessible to the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> until bank switching is initiated.
+</p>
+<div id="toc" class="toc" role="navigation" aria-labelledby="mw-toc-heading"><input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none" aria-label="Hide the table of contents"><div class="toctitle" lang="en" dir="ltr"><h2 id="mw-toc-heading">Contents</h2><span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Caution"><span class="tocnumber">1</span> <span class="toctext">Caution</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Control_bits"><span class="tocnumber">2</span> <span class="toctext">Control bits</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#CPU_Control_Lines"><span class="tocnumber">2.1</span> <span class="toctext">CPU Control Lines</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Expansion_Port"><span class="tocnumber">2.2</span> <span class="toctext">Expansion Port</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Memory_Configurations"><span class="tocnumber">3</span> <span class="toctext">Memory Configurations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Bank_Switching_Zones"><span class="tocnumber">3.1</span> <span class="toctext">Bank Switching Zones</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Mode_Table"><span class="tocnumber">3.2</span> <span class="toctext">Mode Table</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Mode_Table_Notes"><span class="tocnumber">3.3</span> <span class="toctext">Mode Table Notes</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Optimised_Mode_Table"><span class="tocnumber">3.4</span> <span class="toctext">Optimised Mode Table</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Optimised_Mode_Table_Notes"><span class="tocnumber">3.5</span> <span class="toctext">Optimised Mode Table Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#Links"><span class="tocnumber">4</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Caution">Caution</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=1" title="Edit section: Caution" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=1" title="Edit section&#39;s source code: Caution">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Caution should be taken when bank switching away from the default configuration. Because the standard <a href="https://www.c64-wiki.com/wiki/Interrupt" title="Interrupt">interrupt</a> handling routines in <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> access the <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> hardware (for example in order to scan the keyboard), normal <a href="https://www.c64-wiki.com/wiki/Interrupt" title="Interrupt">interrupt</a> operations should be disabled when the <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> hardware is banked out (not accessible by the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a>). Likewise care should be taken to avoid the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> trying to execute code expected from <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a>, when that <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> is banked out.
+</p>
+<h2><span class="mw-headline" id="Control_bits">Control bits</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=2" title="Edit section: Control bits" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=2" title="Edit section&#39;s source code: Control bits">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In order to achieve bank switching, the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> needs access to a latch.  For the <a href="https://www.c64-wiki.com/wiki/C64" title="C64">C64</a>, the <a href="https://www.c64-wiki.com/wiki/PLA_(C64_chip)" title="PLA (C64 chip)">Programmable Logic Array (PLA)</a> acts as a latch which enables memory configurations by setting or clearing latch bits.  The <a href="https://www.c64-wiki.com/wiki/PLA_(C64_chip)" title="PLA (C64 chip)">PLA</a> is connected to the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> control lines and the <a href="https://www.c64-wiki.com/wiki/expansion_port" class="mw-redirect" title="expansion port">expansion port</a> which, together, dictate which areas of memory are banked.
+</p>
+<h3><span class="mw-headline" id="CPU_Control_Lines">CPU Control Lines</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=3" title="Edit section: CPU Control Lines" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=3" title="Edit section&#39;s source code: CPU Control Lines">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The three least significant bits in the port register (address 1) correspond to the three control lines in the port used for bank switching. To use these control lines, they must be configured as outputs, i.e. the same three least significant bits in the port's directional data register (at address 0) must be set to 1. This is the default upon power-up, but a programmer may want to make certain of this before bank switching. The control lines, in general, perform the function given in their descriptions. However, a combination of control lines are occasionally used to set a particular memory configuration.
+</p>
+<ul><li>LORAM (bit 0, weight 1) is a control line which banks the 8 kByte <a href="https://www.c64-wiki.com/wiki/BASIC_ROM" title="BASIC ROM">BASIC ROM</a> in or out of the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> address space. Normally, this line is logically high (set to 1) for <a href="https://www.c64-wiki.com/wiki/BASIC" title="BASIC">BASIC</a> operation. If this line is logically low (cleared to 0), the <a href="https://www.c64-wiki.com/wiki/BASIC_ROM" title="BASIC ROM">BASIC ROM</a> will typically disappear from the <a href="https://www.c64-wiki.com/wiki/memory_map" class="mw-redirect" title="memory map">memory map</a> and be replaced by 8 kBytes of <a href="https://www.c64-wiki.com/wiki/RAM" title="RAM">RAM</a> from $A000-$BFFF. Some exceptions to this rule exist; see the table below for a full overview.</li></ul>
+<ul><li>HIRAM (bit 1, weight 2) is a control line which banks the 8 kByte <a href="https://www.c64-wiki.com/index.php?title=KERNAL_ROM&amp;action=edit&amp;redlink=1" class="new" title="KERNAL ROM (page does not exist)">KERNAL ROM</a> in or out of the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> address space. Normally, this line is logically high (set to 1) for <a href="https://www.c64-wiki.com/index.php?title=KERNAL_ROM&amp;action=edit&amp;redlink=1" class="new" title="KERNAL ROM (page does not exist)">KERNAL ROM</a> operation. If this line is logically low (cleared to 0), the <a href="https://www.c64-wiki.com/index.php?title=KERNAL_ROM&amp;action=edit&amp;redlink=1" class="new" title="KERNAL ROM (page does not exist)">KERNAL ROM</a> will typically disappear from the <a href="https://www.c64-wiki.com/wiki/memory_map" class="mw-redirect" title="memory map">memory map</a> and be replaced by 8 kBytes of RAM from $E000-$FFFF. Some exceptions to this rule exist; see the table below for a full overview.</li></ul>
+<ul><li>CHAREN (bit 2, weight 4) is a control line which banks the 4 kByte <a href="https://www.c64-wiki.com/index.php?title=character_generator_ROM&amp;action=edit&amp;redlink=1" class="new" title="character generator ROM (page does not exist)">character generator ROM</a> in or out of the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> address space. From the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> point of view, the <a href="https://www.c64-wiki.com/index.php?title=character_generator_ROM&amp;action=edit&amp;redlink=1" class="new" title="character generator ROM (page does not exist)">character generator ROM</a> occupies the same address space as the <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> devices ($D000-$DFFF). When the CHAREN line is set to 1 (as is normal), the <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> devices appear in the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> address space, and the <a href="https://www.c64-wiki.com/index.php?title=character_generator_ROM&amp;action=edit&amp;redlink=1" class="new" title="character generator ROM (page does not exist)">character generator ROM</a> is not accessible. When the CHAREN bit is cleared to 0, the <a href="https://www.c64-wiki.com/index.php?title=character_generator_ROM&amp;action=edit&amp;redlink=1" class="new" title="character generator ROM (page does not exist)">character generator ROM</a> appears in the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> address space, and the <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> devices are not accessible. The <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> only needs to access the <a href="https://www.c64-wiki.com/index.php?title=character_generator_ROM&amp;action=edit&amp;redlink=1" class="new" title="character generator ROM (page does not exist)">character generator ROM</a> when downloading the character set from <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> to <a href="https://www.c64-wiki.com/wiki/RAM" title="RAM">RAM</a>. CHAREN can be overridden by other control lines in certain memory configurations. CHAREN will have no effect on any memory configuration without <a href="https://www.c64-wiki.com/wiki/I/O" title="I/O">I/O</a> devices. <a href="https://www.c64-wiki.com/wiki/RAM" title="RAM">RAM</a> will appear from $D000-$DFFF instead.</li></ul>
+<h3><span class="mw-headline" id="Expansion_Port">Expansion Port</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=4" title="Edit section: Expansion Port" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=4" title="Edit section&#39;s source code: Expansion Port">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The bank switching technique in the <a href="https://www.c64-wiki.com/wiki/C64" title="C64">C64</a> also handles external ROM in the form of a <a href="https://www.c64-wiki.com/wiki/Cartridge" title="Cartridge">cartridge</a> plugged into the <a href="https://www.c64-wiki.com/wiki/Expansion_Port" title="Expansion Port">expansion port</a> and is linked to the <a href="https://www.c64-wiki.com/wiki/PLA_(C64_chip)" title="PLA (C64 chip)">PLA</a> by 2 lines: GAME and EXROM.  These lines have been designed to allow a <a href="https://www.c64-wiki.com/wiki/cartridge" class="mw-redirect" title="cartridge">cartridge</a> to map one or two 8 kByte banks of <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> into the system easily by wiring the ROM's enable pin to ROMH/ROML lines of the port. Extra logic on the cartridge can be used to implement more complex behaviour such as <a href="https://www.c64-wiki.com/index.php?title=Freezer&amp;action=edit&amp;redlink=1" class="new" title="Freezer (page does not exist)">Freezers</a> though.
+</p>
+<ul><li>GAME (pin 8) is pulled logically high (set to 1) through internal pull-up resistor RP4.  When a cartridge is attached and GAME is pulled logically low (cleared to 0), the interaction with the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> Control Lines can enable <a href="https://www.c64-wiki.com/wiki/cartridge" class="mw-redirect" title="cartridge">cartridge</a> <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> to be banked in between $8000-$BFFF and/or $E000-$EFFF.  GAME can also have the effect of completely banking out all memory between $1000-$7FFF and $A000-$CFFF (<a href="https://www.c64-wiki.com/wiki/Ultimax" title="Ultimax">Ultimax</a> mode).</li></ul>
+<ul><li>EXROM (pin 9) is pulled logically high (set to 1) through internal pull-up resistor RP4.  When a cartridge is attached and EXROM is pulled logically low (cleared to 0), the interaction with the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> Control Lines can enable <a href="https://www.c64-wiki.com/wiki/cartridge" class="mw-redirect" title="cartridge">cartridge</a> <a href="https://www.c64-wiki.com/wiki/ROM" title="ROM">ROM</a> to be banked in between $8000-$BFFF and/or $E000-$EFFF.</li></ul>
+<h2><span class="mw-headline" id="Memory_Configurations">Memory Configurations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=5" title="Edit section: Memory Configurations" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=5" title="Edit section&#39;s source code: Memory Configurations">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Because there are 5 latch bits (LORAM, HIRAM, CHAREN, GAME, EXROM) that control the memory configurations, there are 2<sup>5</sup> = 32 possible memory arrangements or modes.  However, in reality, there is duplication and so only 14 different modes actually exist. Each mode is a combination of various-sized memory banks (although are multiples of 4 kBytes or 16 pages).  Additionally, the banks are pegged to specific addresses and so their location when switched in or out of memory is fixed. Consequently, the 65536 addressable memory locations are essentially divided into 7 uneven <b>Bank Switching Zones</b> where memory banks can be manipulated.
+</p>
+<h3><span class="mw-headline" id="Bank_Switching_Zones">Bank Switching Zones</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=6" title="Edit section: Bank Switching Zones" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=6" title="Edit section&#39;s source code: Bank Switching Zones">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<table class="wikitable">
+<tbody><tr>
+<th><a onclick="tableSortClick(0);">Hex Address
+</a></th>
+<th><a onclick="tableSortClick(1);">Dec Address
+</a></th>
+<th><a onclick="tableSortClick(2);">Page
+</a></th>
+<th><a onclick="tableSortClick(3);">Size
+</a></th>
+<th><a onclick="tableSortClick(4);">Contents
+</a></th></tr>
+<tr>
+<td>$0000-$0FFF</td>
+<td>0-4095</td>
+<td>Page 0-15</td>
+<td>4 kBytes</td>
+<td>RAM (which the system requires and must appear in each mode)
+</td></tr>
+<tr>
+<td>$1000-$7FFF</td>
+<td>4096-32767</td>
+<td>Page 16-127</td>
+<td>28 kBytes</td>
+<td>RAM or is unmapped
+</td></tr>
+<tr>
+<td>$8000-$9FFF</td>
+<td>32768-40959</td>
+<td>Page 128-159</td>
+<td>8 kBytes</td>
+<td>RAM or cartridge ROM
+</td></tr>
+<tr>
+<td>$A000-$BFFF</td>
+<td>40960-49151</td>
+<td>Page 160-191</td>
+<td>8 kBytes</td>
+<td>RAM, BASIC interpretor ROM, cartridge ROM or is unmapped
+</td></tr>
+<tr>
+<td>$C000-$CFFF</td>
+<td>49152-53247</td>
+<td>Page 192-207</td>
+<td>4 kBytes</td>
+<td>RAM or is unmapped
+</td></tr>
+<tr>
+<td>$D000-$DFFF</td>
+<td>53248-57343</td>
+<td>Page 208-223</td>
+<td>4 kBytes</td>
+<td>RAM, Character generator ROM, or I/O registers and Color RAM
+</td></tr>
+<tr>
+<td>$E000-$FFFF</td>
+<td>57344-65535</td>
+<td>Page 224-255</td>
+<td>8 kBytes</td>
+<td>RAM, KERNAL ROM or cartridge ROM
+</td></tr>
+</tbody></table>
+<h3><span class="mw-headline" id="Mode_Table">Mode Table</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=7" title="Edit section: Mode Table" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=7" title="Edit section&#39;s source code: Mode Table">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>This table displays the 32 modes of bank switching.
+</p>
+<table class="wikitable">
+
+<tbody><tr align="center">
+<th rowspan="3"><a onclick="tableSortClick(5);">Mode
+</a></th>
+<th colspan="5">PLA Latch Bit States
+</th>
+<th colspan="16">Memory Configuration
+</th></tr>
+<tr>
+<th colspan="2">Expansion Port</th>
+<th colspan="3">CPU Control Lines
+</th>
+<th><a onclick="tableSortClick(10);">Page 0-15</a></th>
+<th><a onclick="tableSortClick(11);">Page 16-127</a></th>
+<th><a onclick="tableSortClick(12);">Page 128-159</a></th>
+<th><a onclick="tableSortClick(13);">Page 160-191</a></th>
+<th><a onclick="tableSortClick(14);">Page 192-207</a></th>
+<th><a onclick="tableSortClick(15);">Page 208-223</a></th>
+<th><a onclick="tableSortClick(16);">Page 224-255
+</a></th></tr>
+<tr>
+<th><a onclick="tableSortClick(17);">_EXROM</a></th>
+<th><a onclick="tableSortClick(18);">_GAME</a></th>
+<th><a onclick="tableSortClick(19);">CHAREN</a></th>
+<th><a onclick="tableSortClick(20);">HIRAM</a></th>
+<th><a onclick="tableSortClick(21);">LORAM
+</a></th>
+<th><a onclick="tableSortClick(22);">$0000-$0FFF</a></th>
+<th><a onclick="tableSortClick(23);">$1000-$7FFF</a></th>
+<th><a onclick="tableSortClick(24);">$8000-$9FFF</a></th>
+<th><a onclick="tableSortClick(25);">$A000-$BFFF</a></th>
+<th><a onclick="tableSortClick(26);">C000-$CFFF</a></th>
+<th><a onclick="tableSortClick(27);">$D000-$DFFF</a></th>
+<th><a onclick="tableSortClick(28);">$E000-$FFFF
+</a></th></tr>
+<tr align="center">
+<td>31</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>30</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>29</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>28</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>27</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>26</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>25</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>24</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>23</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>22</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>21</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>20</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>19</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>18</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>17</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>16</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>15</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>14</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>13</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>12</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>11</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>10</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>9</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>8</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Mode_Table_Notes">Mode Table Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=8" title="Edit section: Mode Table Notes" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=8" title="Edit section&#39;s source code: Mode Table Notes">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul><li>The default is mode 31 (no <a href="https://www.c64-wiki.com/wiki/cartridge" class="mw-redirect" title="cartridge">cartridge</a>) as all latch bits are logically high (set to 1).</li>
+<li>Modes 16-23 are <a href="https://www.c64-wiki.com/wiki/Ultimax" title="Ultimax">Ultimax</a> compatibility modes.</li>
+<li>"-" means "open" or "unmapped": No (internal) chip of the C64 is enabled, and the data bus can be written to by the cartridge, just like in the "CART ROM" states.</li>
+<li>"I/O" includes Color RAM as well ($D800-$DBFF)</li>
+<li>$DE00-$DFFF is special and reserved for I/O with chips on the expansion port (by wiring the IOx lines of the port to the enable pins of the chips)</li>
+<li>A <a href="https://www.c64-wiki.com/wiki/cartridge" class="mw-redirect" title="cartridge">cartridge</a> may configure the system to one of the modes 0-23 as one or both of the <a href="https://www.c64-wiki.com/wiki/expansion_port" class="mw-redirect" title="expansion port">expansion port</a> latch bits will be logically low (cleared to 0) by grounding the EXROM/GAME lines.</li>
+<li>For cartridges that statically ground EXROM/GAME, manipulation during run-time is limited to the <a href="https://www.c64-wiki.com/wiki/CPU" title="CPU">CPU</a> control lines.
+<ul><li>This means that bank switching is confined within a group of modes (within modes 0-7, 8-15, 16-23 or 24-31).</li>
+<li>For example, from mode 31 the system can bank switch to mode 27 but not to mode 12.</li>
+<li>For example, from mode 2 the system can bank switch to mode 7 but not to mode 19.</li></ul></li>
+<li>For cartridges that include own logic, more complex behaviour can be implemented.
+<ul><li>Modes 16-23 and additional cartridge logic allow arbitrary chips (be it ROMs, RAMs, or even other chips such as additional CIAs) to be visible to the CPU at $1000-$CFFF/$DE00-$FFFF.</li></ul></li></ul>
+<h3><span class="mw-headline" id="Optimised_Mode_Table">Optimised Mode Table</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=9" title="Edit section: Optimised Mode Table" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=9" title="Edit section&#39;s source code: Optimised Mode Table">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Although the results are the same as the <b>Mode Table</b>, this table is condensed for ease of reference.
+</p>
+<table class="wikitable">
+
+<tbody><tr align="center">
+<th rowspan="3"><a onclick="tableSortClick(29);">Modes
+</a></th>
+<th colspan="5">PLA Latch Bit States
+</th>
+<th colspan="16">Memory Configuration
+</th></tr>
+<tr>
+<th colspan="2">Expansion Port</th>
+<th colspan="3">CPU Lines
+</th>
+<th><a onclick="tableSortClick(34);">Page 0-15</a></th>
+<th><a onclick="tableSortClick(35);">Page 16-127</a></th>
+<th><a onclick="tableSortClick(36);">Page 128-159</a></th>
+<th><a onclick="tableSortClick(37);">Page 160-191</a></th>
+<th><a onclick="tableSortClick(38);">Page 192-207</a></th>
+<th><a onclick="tableSortClick(39);">Page 208-223</a></th>
+<th><a onclick="tableSortClick(40);">Page 224-255
+</a></th></tr>
+<tr>
+<th><a onclick="tableSortClick(41);">EXROM</a></th>
+<th><a onclick="tableSortClick(42);">GAME</a></th>
+<th><a onclick="tableSortClick(43);">CHAREN</a></th>
+<th><a onclick="tableSortClick(44);">HIRAM</a></th>
+<th><a onclick="tableSortClick(45);">LORAM
+</a></th>
+<th><a onclick="tableSortClick(46);">$0000-$0FFF</a></th>
+<th><a onclick="tableSortClick(47);">$1000-$7FFF</a></th>
+<th><a onclick="tableSortClick(48);">$8000-$9FFF</a></th>
+<th><a onclick="tableSortClick(49);">$A000-$BFFF</a></th>
+<th><a onclick="tableSortClick(50);">C000-$CFFF</a></th>
+<th><a onclick="tableSortClick(51);">$D000-$DFFF</a></th>
+<th><a onclick="tableSortClick(52);">$E000-$FFFF
+</a></th></tr>
+<tr align="center">
+<td>31</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>30, 14</td>
+<td>X</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>29, 13</td>
+<td>X</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>28, 24</td>
+<td>1</td>
+<td>1</td>
+<td>X</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>27</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>26, 10</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>25, 9</td>
+<td>X</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>23, 22, 21, 20, 19, 18, 17, 16</td>
+<td>1</td>
+<td>0</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>RAM</td>
+<td>-</td>
+<td>CART ROM LO</td>
+<td>-</td>
+<td>-</td>
+<td>I/O</td>
+<td>CART ROM HI
+</td></tr>
+<tr align="center">
+<td>15</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL
+</td></tr>
+<tr align="center">
+<td>12, 8, 4, 0</td>
+<td>0</td>
+<td>X</td>
+<td>X</td>
+<td>0</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>11</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>BASIC ROM</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>I/O</td>
+<td>RAM
+</td></tr>
+<tr align="center">
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM LO</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>CART ROM HI</td>
+<td>RAM</td>
+<td>CHAR ROM</td>
+<td>KERNAL ROM
+</td></tr>
+<tr align="center">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM</td>
+<td>RAM
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Optimised_Mode_Table_Notes">Optimised Mode Table Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=10" title="Edit section: Optimised Mode Table Notes" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=10" title="Edit section&#39;s source code: Optimised Mode Table Notes">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul><li>Although there are 17 lines in the table, there remain 14 different modes.</li>
+<li>The "X" state of the latch bit is irrelevant, as the mode will be chosen regardless of being logically high (set to 1) or low (cleared to 0).</li>
+<li>All <b>Mode Table Notes</b> remain valid.</li></ul>
+<p><br>
+</p><p><br>
+</p>
+<h2><span class="mw-headline" id="Links">Links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit&amp;section=11" title="Edit section: Links" class="mw-editsection-visualeditor">edit</a><span class="mw-editsection-divider"> | </span><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit&amp;section=11" title="Edit section&#39;s source code: Links">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><i>FIXME:</i> Include info from <a rel="nofollow" class="external text" href="http://zimmers.net/anonftp/pub/cbm/magazines/transactor/v6i5/p055.jpg">The Transactor Volume 6, Issue 05, page 55</a> - R(BA) vs. R(~BA); what memory does the VIC see?  <b>This will be added to the VIC page shortly.</b>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20250530090527
+Cache expiry: 86400
+Reduced expiry: false
+Complications: [show‐toc]
+CPU time usage: 0.030 seconds
+Real time usage: 0.031 seconds
+Preprocessor visited node count: 109/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/100
+Expensive parser function count: 0/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+
+<!-- Saved in parser cache with key c64?hwiki?hen-wiki_:pcache:idhash:3915-0!canonical!svUser=0!asDate=20250530 and timestamp 20250530090527 and revision id 38213. Rendering was triggered because: page-view
+ -->
+</div>
+<div class="printfooter" data-nosnippet="">Retrieved from "<a dir="ltr" href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;oldid=38213">https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;oldid=38213</a>"</div></div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://www.c64-wiki.com/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://www.c64-wiki.com/wiki/Category:Basics" title="Category:Basics">Basics</a></li><li><a href="https://www.c64-wiki.com/wiki/Category:Hardware" title="Category:Hardware">Hardware</a></li></ul></div></div>
+				<!-- end content -->
+				<div class="visualClear"></div>
+			</div>
+		</div>
+		<div class="visualClear"></div>
+	</div>
+	<div id="column-one">
+		<h2>Navigation menu</h2>
+		<div role="navigation" class="portlet" id="p-cactions" aria-labelledby="p-cactions-label">
+			<h3 id="p-cactions-label">Page actions</h3>
+			<div class="pBody">
+				<ul>
+				<li id="ca-nstab-main" class="selected mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li><li id="ca-talk" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Talk:Bank_Switching" rel="discussion" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li><li id="ca-view" class="selected mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching">Read</a></li><li id="ca-ve-edit" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;veaction=edit" title="Edit this page [alt-shift-v]" accesskey="v">Edit</a></li><li id="ca-edit" class="collapsible mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=edit" title="Edit the source code of this page [alt-shift-e]" accesskey="e">Edit source</a></li><li id="ca-history" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+				
+				</ul>
+			</div>
+		</div>
+		
+<div role="navigation" class="portlet mw-portlet mw-portlet-cactions-mobile" id="p-cactions-mobile" aria-labelledby="p-cactions-mobile-label">
+	<h3 id="p-cactions-mobile-label">Page actions</h3>
+	<div class="pBody">
+		<ul><li id="main-mobile" class="selected mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching" title="Page">Page</a></li><li id="talk-mobile" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Talk:Bank_Switching" title="Discussion">Discussion</a></li><li id="ca-more" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#p-cactions">More</a></li><li id="ca-tools" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#p-tb" title="Tools">Tools</a></li><li id="ca-languages" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Bank_Switching#p-lang" title="In other languages">In other languages</a></li></ul>
+		
+	</div>
+</div>
+
+		<div role="navigation" class="portlet" id="p-personal" aria-labelledby="p-personal-label">
+			<h3 id="p-personal-label">Personal tools</h3>
+			<div class="pBody">
+				<ul>
+				<li id="pt-anonuserpage" class="mw-list-item">Not logged in</li><li id="pt-anontalk" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:MyTalk" title="Discussion about edits from this IP address [alt-shift-n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:MyContributions" title="A list of edits made from this IP address [alt-shift-y]" accesskey="y">Contributions</a></li><li id="pt-createaccount" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Special:CreateAccount&amp;returnto=Bank+Switching" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Special:UserLogin&amp;returnto=Bank+Switching" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="portlet" id="p-logo" role="banner">
+			<a href="https://www.c64-wiki.com/wiki/Main_Page" class="mw-wiki-logo"></a>
+		</div>
+		<div id="sidebar">
+		
+<div role="navigation" class="portlet mw-portlet mw-portlet-Navigation" id="p-Navigation" aria-labelledby="p-Navigation-label">
+	<h3 id="p-Navigation-label">Navigation</h3>
+	<div class="pBody">
+		<ul><li id="n-recentchanges" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li><li id="n-Links" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Links">Links</a></li><li id="n-Random-Page" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:Random">Random Page</a></li><li id="n-Visual-Cat-Search" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:VCS">Visual Cat Search</a></li></ul>
+		
+	</div>
+</div>
+
+		<div role="search" class="portlet" id="p-search">
+			<h3 id="p-search-label"><label for="searchInput">Search</label></h3>
+			<div class="pBody" id="searchBody">
+				<form action="https://www.c64-wiki.com/index.php" id="searchform"><input type="hidden" value="Special:Search" name="title"><input type="search" name="search" placeholder="Search C64-Wiki" aria-label="Search C64-Wiki" autocapitalize="none" title="Search C64-Wiki [alt-shift-f]" accesskey="f" id="searchInput"><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" class="searchButton" id="searchButton"> <input type="submit" name="fulltext" value="Search" title="Search the pages for this text" class="searchButton mw-fallbackSearchButton" id="mw-searchButton"></form>
+			</div>
+		</div>
+		
+<div role="navigation" class="portlet mw-portlet mw-portlet-Help_and_Feedback" id="p-Help_and_Feedback" aria-labelledby="p-Help_and_Feedback-label">
+	<h3 id="p-Help_and_Feedback-label">Help and Feedback</h3>
+	<div class="pBody">
+		<ul><li id="n-FAQ" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/faqpage">FAQ</a></li><li id="n-Forum" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Forum">Forum</a></li><li id="n-Administrators" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Administrators">Administrators</a></li><li id="n-Guestbook" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Guestbook">Guestbook</a></li><li id="n-Templates" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Category:Template">Templates</a></li></ul>
+		
+	</div>
+</div>
+
+<div role="navigation" class="portlet mw-portlet mw-portlet-C64-Games" id="p-C64-Games" aria-labelledby="p-C64-Games-label">
+	<h3 id="p-C64-Games-label">C64-Games</h3>
+	<div class="pBody">
+		<ul><li id="n-Games" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Games">Games</a></li><li id="n-Golden-Games" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Golden_Games">Golden Games</a></li><li id="n-Highscore-Gallery" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Highscore_Gallery">Highscore Gallery</a></li></ul>
+		
+	</div>
+</div>
+
+<div role="navigation" class="portlet mw-portlet mw-portlet-Portals" id="p-Portals" aria-labelledby="p-Portals-label">
+	<h3 id="p-Portals-label">Portals</h3>
+	<div class="pBody">
+		<ul><li id="n-Main-Portal" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Portal">Main Portal</a></li><li id="n-Applications" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Applications">Applications</a></li><li id="n-Coding" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Coding_languages">Coding</a></li><li id="n-Companies-&amp;-Persons" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Persons">Companies &amp; Persons</a></li><li id="n-Emulators" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Emulators">Emulators</a></li><li id="n-Glossary" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Glossary">Glossary</a></li><li id="n-Hardware" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Hardware">Hardware</a></li><li id="n-Graphics-&amp;-Music" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Music">Graphics &amp; Music</a></li><li id="n-Literature-&amp;-Medias" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Media">Literature &amp; Medias</a></li><li id="n-Miscellaneous" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Portal:Miscellaneous">Miscellaneous</a></li></ul>
+		
+	</div>
+</div>
+
+<div role="navigation" class="portlet mw-portlet mw-portlet-tb" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label">Tools</h3>
+	<div class="pBody">
+		<ul><li id="t-whatlinkshere" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:WhatLinksHere/Bank_Switching" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:RecentChangesLinked/Bank_Switching" rel="nofollow" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li><li id="t-upload" class="mw-list-item"><a href="https://www.c64-wiki.de/wiki/Spezial:Hochladen" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li><li id="t-specialpages" class="mw-list-item"><a href="https://www.c64-wiki.com/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li><li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li><li id="t-permalink" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;oldid=38213#Memory_Configurations" title="Permanent link to this revision of this page">Permanent link</a></li><li id="t-info" class="mw-list-item"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;action=info" title="More information about this page">Page information</a></li></ul>
+		
+	</div>
+</div>
+
+		
+<div role="navigation" class="portlet mw-portlet mw-portlet-lang" id="p-lang" aria-labelledby="p-lang-label">
+	<h3 id="p-lang-label">In other languages</h3>
+	<div class="pBody">
+		<ul><li class="interlanguage-link interwiki-de mw-list-item"><a href="https://www.c64-wiki.de/wiki/Bankswitching" title="Bankswitching – Deutsch" lang="de" hreflang="de" data-title="Bankswitching" data-language-autonym="Deutsch" data-language-local-name="Deutsch" class="interlanguage-link-target">Deutsch</a></li></ul>
+		
+	</div>
+</div>
+
+		</div>
+		<a href="https://www.c64-wiki.com/wiki/Bank_Switching#sidebar" title="Jump to navigation" class="menu-toggle" id="sidebar-toggle"></a>
+		<a href="https://www.c64-wiki.com/wiki/Bank_Switching#p-personal" title="user tools" class="menu-toggle" id="p-personal-toggle"></a>
+		<a href="https://www.c64-wiki.com/wiki/Bank_Switching#globalWrapper" title="back to top" class="menu-toggle" id="globalWrapper-toggle"></a>
+	</div>
+	<!-- end of the left (by default at least) column -->
+	<div class="visualClear"></div>
+	<div id="footer" class="mw-footer" role="contentinfo">
+		<div id="f-copyrightico" class="footer-icons">
+			<a href="http://www.gnu.org/copyleft/fdl.html" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="https://www.c64-wiki.com/wiki/Bank_Switching" alt="GFDL" width="88" height="31" loading="lazy"></a>
+		</div>
+		<div id="f-poweredbyico" class="footer-icons">
+			<a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="./Bank Switching - C64-Wiki_files/poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a>
+		</div>
+		<ul id="f-list">
+			<li id="lastmod"> This page was last edited on 4 January 2022, at 22:31.</li><li id="copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> unless otherwise noted.</li><li id="viewcount">This page has been accessed 58,835 times.</li>
+			<li id="privacy"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:Privacy_policy">Privacy policy</a></li><li id="about"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:About">About C64-Wiki</a></li><li id="disclaimers"><a href="https://www.c64-wiki.com/wiki/C64-Wiki:General_disclaimer">Disclaimers</a></li><li id="mobileview"><a href="https://www.c64-wiki.com/index.php?title=Bank_Switching&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+		</ul>
+	</div>
+</div>
+<script>
+currentTableSort = new Array();
+
+function initTableSort() {
+	var allTH = document.getElementsByTagName('th');
+	for (var i = 0; i <= allTH.length; i++) {
+		if (allTH[i]) {
+			if (allTH[i].getAttribute('colspan') <= 1) {
+				allTH[i].innerHTML = '<a onclick="tableSortClick(' + i + ');">' + allTH[i].innerHTML + '</a>';
+			}
+			currentTableSort[i] = 0;
+		}
+	}
+}
+function fnrowsort(a, b) {
+	return (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : a[2] - b[2]);
+}
+function tableSortClick(idx) {
+	var oldStatus = window.status;
+	window.status = 'Sorting...';
+	currentTableSort[idx] = 1 - currentTableSort[idx];
+	var th = document.getElementsByTagName('th')[idx];
+	var tr;
+	for (tr = th; tr.tagName != 'TR'; tr = tr.parentNode);
+//	var table;
+//	for (table = tr; table.tagName != 'TABLE'; table = table.parentNode);
+	var sn = tr.childNodes;
+	var col = 0;
+	for (var i = 0; i < sn.length; i++) {
+		if (sn[i] == th) col = i;
+	}
+	var container = tr.parentNode;
+	var isNum = 1;
+	for (i = 1; i < container.childNodes.length; i++) {
+		if (container.childNodes[i].tagName == 'TR') {
+			if (isNaN(Number(container.childNodes[i].childNodes[col].innerHTML.replace(/,/, '.')))) {
+				if ((container.childNodes[i].childNodes[col].innerHTML != '-') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != '') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != ' ') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != 'X') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != '/') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != '&nbsp;') &&
+				    (container.childNodes[i].childNodes[col].innerHTML != '?')) {
+				  //alert(container.childNodes[i].childNodes[col].innerHTML);
+					isNum = 0;
+					i = container.childNodes.length;
+				}
+			}
+		}
+	}
+	var sortRows = new Array();
+	for (i = 1; i < container.childNodes.length; i++) {
+		if (container.childNodes[i].tagName == 'TR') {
+			var data = container.childNodes[i].childNodes[col].innerHTML;
+			if (isNum) {
+				data = Number(data.replace(/,/, '.'));
+				if (isNaN(data)) data = 0;
+			}
+			sortRows[sortRows.length] = new Array(data, container.childNodes[i], i);
+		}
+	}
+	sortRows.sort(fnrowsort);
+	if (currentTableSort[idx] != 1) sortRows.reverse();
+	for (i = 1; i < sortRows.length; i++) {
+		container.appendChild(sortRows[i][1]);
+	}
+	window.status = oldStatus;
+}
+window.onload = initTableSort;
+</script>
+
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":74,"wgPageParseReport":{"limitreport":{"cputime":"0.030","walltime":"0.031","ppvisitednodes":{"value":109,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":100},"expensivefunctioncount":{"value":0,"limit":100},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":0,"limit":5000000},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20250530090527","ttl":86400,"transientcontent":false}}});});</script>
+
+
+<div id="mw-teleport-target"></div></body><!-- Cached 20250530104554 --></html>
